@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    @apply mt-0;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    letter-spacing: 0;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+@layer components {
+  .resize-handle-col {
+    @apply absolute right-0 top-0 h-full w-3 cursor-col-resize hover:bg-primary/20 md:w-2;
+  }
+
+  .resize-handle-row {
+    @apply absolute bottom-0 left-0 h-3 w-full cursor-row-resize hover:bg-primary/20 md:h-2;
+  }
+}

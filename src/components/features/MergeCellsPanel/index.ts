@@ -1,0 +1,1 @@
+export { MergeCellsPanel } from './MergeCellsPanel'
