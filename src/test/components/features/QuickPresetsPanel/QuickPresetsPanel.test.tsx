@@ -16,9 +16,9 @@ describe('QuickPresetsPanel', () => {
 
   it('renders all preset buttons', () => {
     render(<QuickPresetsPanel />, { wrapper: Wrapper })
-    expect(screen.getByRole('button', { name: /schedule/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /checklist/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /pricing/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /inventory/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /research notes/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /feature matrix/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /content tracker/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /budget summary/i })).toBeInTheDocument()
   })
 })

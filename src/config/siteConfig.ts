@@ -24,6 +24,8 @@ export const siteConfig = {
     { value: 'currency', label: 'Currency' },
     { value: 'percentage', label: 'Percentage' },
     { value: 'date', label: 'Date' },
+    { value: 'sum', label: 'Sum' },
+    { value: 'auto-number', label: '#' },
   ],
   routes: {
     home: '/',
@@ -63,6 +65,17 @@ export const siteConfig = {
     header: 'Header',
     content: 'Content',
     mergeInstructions: 'Click a cell, then Shift-click another cell to select a merge range.',
+    borderStyle: 'Border Style',
+    borderColor: 'Border Color',
+    rowColor: 'Row Color',
+    removeRowColor: 'Remove row color',
+    borderStyles: [
+      { value: 'none', label: 'None' },
+      { value: 'solid', label: 'Solid' },
+      { value: 'dotted', label: 'Dotted' },
+      { value: 'dashed', label: 'Dashed' },
+      { value: 'double', label: 'Double' },
+    ] as const,
 
     // Toolbar
     addRow: 'Add Row',
@@ -89,6 +102,26 @@ export const siteConfig = {
 
     // Loading
     loading: 'Loading\u2026',
+
+    // Context menu
+    contextAutoFit: 'Auto-fit column',
+    contextColumnBackground: 'Column background',
+    contextCellBackground: 'Cell background',
+    contextColumnType: 'Column type',
+    contextTextAlign: 'Text alignment',
+    contextPaste: 'Paste',
+    contextRemoveColor: 'Remove color',
+    textAlignOptions: [
+      { value: 'left', label: 'Left' },
+      { value: 'center', label: 'Center' },
+      { value: 'right', label: 'Right' },
+    ] as const,
+
+    // Copy
+    copyTable: 'Copy Table',
+    copyAsCsv: 'Copy as CSV',
+    copyAsMarkdown: 'Copy as Markdown',
+    copyAsImage: 'Copy as Image',
 
     // Nav
   },

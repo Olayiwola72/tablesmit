@@ -3,9 +3,11 @@ import type { ColumnFormat } from '../types/table.types'
 
 const { locale } = siteConfig
 
-export function formatCellValue(value: string, format: ColumnFormat): string {
+export function formatCellValue(value: string, format: ColumnFormat, rowIndex?: number): string {
+  if (format === 'auto-number') return String((rowIndex ?? 0) + 1)
+
   const trimmed = value.trim()
-  if (!trimmed || format === 'text') return value
+  if (!trimmed || format === 'text' || format === 'sum') return value
 
   if (format === 'date') {
     const timestamp = Date.parse(trimmed)
@@ -26,6 +28,15 @@ export function formatCellValue(value: string, format: ColumnFormat): string {
   }
 
   return new Intl.NumberFormat(locale.number, { maximumFractionDigits: 6 }).format(number)
+}
+
+export function computeColumnSum(cells: { value: string }[]): number {
+  let total = 0
+  for (const cell of cells) {
+    const num = Number(cell.value.replace(/[$,%\s,]/g, ''))
+    if (!Number.isNaN(num)) total += num
+  }
+  return total
 }
 
 export function getContrastText(hex: string): string {

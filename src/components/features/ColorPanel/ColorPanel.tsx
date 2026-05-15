@@ -23,7 +23,7 @@ export function ColorPanel(): ReactNode {
           ))}
         </div>
         <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
-          {siteConfig.labels.content}
+          {siteConfig.labels.content} text
           <input type="color" value={table.contentColor} onChange={(event) => table.setContentColor(event.target.value)} />
         </label>
         <div className="flex flex-wrap gap-2" aria-label="Content color presets">
@@ -31,6 +31,19 @@ export function ColorPanel(): ReactNode {
             <ColorSwatch key={swatch.value} {...swatch} selected={table.contentColor === swatch.value} onClick={() => table.setContentColor(swatch.value)} />
           ))}
         </div>
+        <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
+          Row background
+          <input type="color" value={table.contentBgColor || '#ffffff'} onChange={(event) => table.setContentBgColor(event.target.value)} />
+        </label>
+        {table.contentBgColor ? (
+          <button
+            type="button"
+            className="w-full rounded-sm px-2 py-1.5 text-xs text-text-secondary hover:bg-danger hover:text-white transition-colors"
+            onClick={() => table.setContentBgColor('')}
+          >
+            Remove row background
+          </button>
+        ) : null}
       </div>
     </section>
   )

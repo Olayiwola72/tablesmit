@@ -11,3 +11,5 @@ export const DEFAULT_ROW_HEIGHT = 44
 export const AUTOFIT_PADDING = 16
 export const MAX_IMPORT_FILE_SIZE = 5 * 1024 * 1024
 export const MAX_HISTORY = 50
+export const DEFAULT_BORDER_STYLE = 'solid' as const
+export const DEFAULT_BORDER_COLOR = '#000000'

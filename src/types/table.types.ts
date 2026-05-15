@@ -24,7 +24,9 @@ export interface SelectionRange {
 }
 
 export type HeaderStyle = 'none' | 'first-row' | 'first-column' | 'both'
-export type ColumnFormat = 'text' | 'number' | 'currency' | 'percentage' | 'date'
+export type ColumnFormat = 'text' | 'number' | 'currency' | 'percentage' | 'date' | 'sum' | 'auto-number'
+export type BorderStyle = 'none' | 'solid' | 'dotted' | 'dashed' | 'double'
+export type TextAlign = 'left' | 'center' | 'right'
 
 export interface TableState {
   cells: CellData[][]
@@ -34,6 +36,14 @@ export interface TableState {
   headerStyle: HeaderStyle
   headerColor: string
   contentColor: string
+  borderStyle: BorderStyle
+  borderColor: string
+  contentBgColor: string
+  rowColors: string[]
+  columnColors: string[]
+  columnTextAlign: TextAlign[]
+  cellColors: Record<string, string>
+  cellTextAlign: Record<string, string>
   selectedRange: SelectionRange | null
   rows: number
   cols: number

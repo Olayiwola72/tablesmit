@@ -27,14 +27,24 @@ describe('TableCell', () => {
               headerColor="#1E40AF"
               headerTextColor="#ffffff"
               contentColor="#111827"
+              contentBgColor=""
               rowHeight={44}
               selectedRange={null}
               onSelect={vi.fn()}
-              onChange={vi.fn()}
               onBlur={vi.fn()}
               onRowResizeStart={vi.fn()}
               onAutoFitRow={vi.fn()}
+              onColumnResizeStart={vi.fn()}
+              onAutoFitColumn={vi.fn()}
+              columnWidth={120}
               onKeyDown={vi.fn()}
+              onContextMenu={vi.fn()}
+              borderStyle="solid"
+              borderColor="#000000"
+              rowColor=""
+              columnColor=""
+              cellColor=""
+              textAlign="left"
             />
           </tr>
         </tbody>
@@ -55,14 +65,24 @@ describe('TableCell', () => {
               headerColor="#1E40AF"
               headerTextColor="#ffffff"
               contentColor="#111827"
+              contentBgColor=""
               rowHeight={44}
               selectedRange={null}
               onSelect={vi.fn()}
-              onChange={vi.fn()}
               onBlur={vi.fn()}
               onRowResizeStart={vi.fn()}
               onAutoFitRow={vi.fn()}
+              onColumnResizeStart={vi.fn()}
+              onAutoFitColumn={vi.fn()}
+              columnWidth={120}
               onKeyDown={vi.fn()}
+              onContextMenu={vi.fn()}
+              borderStyle="solid"
+              borderColor="#000000"
+              rowColor=""
+              columnColor=""
+              cellColor=""
+              textAlign="left"
             />
           </tr>
         </tbody>
@@ -85,14 +105,24 @@ describe('TableCell', () => {
               headerColor="#1E40AF"
               headerTextColor="#ffffff"
               contentColor="#111827"
+              contentBgColor=""
               rowHeight={44}
               selectedRange={null}
               onSelect={onSelect}
-              onChange={vi.fn()}
               onBlur={vi.fn()}
               onRowResizeStart={vi.fn()}
               onAutoFitRow={vi.fn()}
+              onColumnResizeStart={vi.fn()}
+              onAutoFitColumn={vi.fn()}
+              columnWidth={120}
               onKeyDown={vi.fn()}
+              onContextMenu={vi.fn()}
+              borderStyle="solid"
+              borderColor="#000000"
+              rowColor=""
+              columnColor=""
+              cellColor=""
+              textAlign="left"
             />
           </tr>
         </tbody>

@@ -12,6 +12,7 @@ import { TableToolbar } from '../../components/features/TableToolbar'
 import { DimensionsPanel } from '../../components/features/DimensionsPanel'
 import { HeaderOptionsPanel } from '../../components/features/HeaderOptionsPanel'
 import { ColorPanel } from '../../components/features/ColorPanel'
+import { BorderPanel } from '../../components/features/BorderPanel'
 import { MergeCellsPanel } from '../../components/features/MergeCellsPanel'
 import type { ExportFormat } from '../../types/export.types'
 
@@ -65,12 +66,13 @@ function TableMakerContent(): ReactNode {
           </span>
         </div>
       </section>
-      <TableToolbar />
+      <TableToolbar tableRef={tableRef} onExport={handleExport} />
       <div className="flex flex-1 overflow-hidden">
         <aside className="hidden w-sidebar-left flex-none flex-col gap-8 overflow-y-auto border-r border-border bg-surface p-6 md:flex">
           <DimensionsPanel />
           <HeaderOptionsPanel />
           <ColorPanel />
+          <BorderPanel />
         </aside>
 
         <section className="flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace">
@@ -118,6 +120,7 @@ function TableMakerContent(): ReactNode {
             <DimensionsPanel />
             <HeaderOptionsPanel />
             <ColorPanel />
+            <BorderPanel />
           </div>
         ) : (
           <div className="space-y-8">

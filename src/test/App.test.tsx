@@ -12,7 +12,7 @@ describe('App', () => {
     render(<App />)
 
     expect(screen.getAllByRole('img', { name: 'Structra' }).length).toBeGreaterThan(0)
-    expect(screen.getByRole('link', { name: 'Start Building' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Structra home' })).toBeInTheDocument()
   })
 
   it('renders export options and templates headings on the table maker page', async () => {
