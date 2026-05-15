@@ -21,13 +21,13 @@ describe('App', () => {
 
     const sidebar = await screen.findByLabelText('Table editing controls')
     await within(sidebar).findByRole('heading', { name: 'Export Options' })
-    await within(sidebar).findByRole('heading', { name: 'Quick Presets' })
+    await within(sidebar).findByRole('heading', { name: 'Templates' })
     const headings = within(sidebar)
       .getAllByRole('heading')
       .map((heading) => heading.textContent)
 
     expect(headings.indexOf('Export Options')).toBeLessThan(
-      headings.indexOf('Quick Presets'),
+      headings.indexOf('Templates'),
     )
   })
 

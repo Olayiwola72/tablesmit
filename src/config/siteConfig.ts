@@ -24,10 +24,17 @@ export const siteConfig = {
     { value: 'percentage', label: 'Percentage' },
     { value: 'date', label: 'Date' },
   ],
+  routes: {
+    home: '/',
+    app: '/app',
+    about: '/about',
+    contact: '/contact',
+    openSource: '/open-source',
+  },
   nav: [
-    { label: 'Home', href: '/' },
-    { label: 'Features', href: '/#features' },
-    { label: 'Open Source', href: '/#open-source' },
-    { label: 'About', href: '/about' },
+    { label: 'Home', route: 'home' },
+    { label: 'Open Source', route: 'openSource' },
+    { label: 'About', route: 'about' },
+    { label: 'Contact', route: 'contact' },
   ],
 } as const

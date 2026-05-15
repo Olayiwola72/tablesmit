@@ -48,6 +48,20 @@ class ImageExporter implements ExportStrategy {
   }
 }
 
+class CSVExporter implements ExportStrategy {
+  async export(_element: HTMLElement, options: ExportOptions): Promise<void> {
+    const payload = options as ExportOptions & {
+      cells?: CellData[][]
+      headerStyle?: HeaderStyle
+    }
+    const { unparse } = await import('papaparse')
+    const values = (payload.cells ?? []).map((row) => row.map((cell) => cell.value))
+    const csv = unparse(values)
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    downloadUrl(URL.createObjectURL(blob), `${options.filename ?? siteConfig.exportFileBaseName}.csv`)
+  }
+}
+
 class ExcelExporter implements ExportStrategy {
   async export(_element: HTMLElement, options: ExportOptions): Promise<void> {
     const payload = options as ExportOptions & {
@@ -87,6 +101,7 @@ const strategies: Record<ExportFormat, ExportStrategy> = {
   png: new ImageExporter('image/png'),
   jpeg: new ImageExporter('image/jpeg'),
   excel: new ExcelExporter(),
+  csv: new CSVExporter(),
 }
 
 export async function exportTable(element: HTMLElement, options: ExportOptions): Promise<void> {

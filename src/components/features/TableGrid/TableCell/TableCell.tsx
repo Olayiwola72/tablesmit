@@ -21,6 +21,7 @@ export interface TableCellProps {
   onChange: (cellId: string, value: string) => void
   onBlur: (cellId: string, value: string, col: number) => void
   onRowResizeStart: (event: React.MouseEvent, row: number, currentHeight: number) => void
+  onAutoFitRow: (row: number) => void
 }
 
 export function TableCell({
@@ -38,6 +39,7 @@ export function TableCell({
   onChange,
   onBlur,
   onRowResizeStart,
+  onAutoFitRow,
 }: TableCellProps): ReactNode {
   const CellTag = isHeaderCell(headerStyle, row, col) ? 'th' : 'td'
   const selected = selectedRange ? isCellInMergeRange(cell.id, { ...normalizeSelection(selectedRange) }) : false
@@ -76,8 +78,9 @@ export function TableCell({
       </span>
       <ResizeHandle
         axis="row"
-        label="Resize row"
+        label="Double-click to AutoFit row height"
         onMouseDown={(event) => onRowResizeStart(event, row, rowHeight)}
+        onDoubleClick={() => onAutoFitRow(row)}
       />
     </CellTag>
   )

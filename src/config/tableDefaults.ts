@@ -10,3 +10,4 @@ export const MAX_ROW_HEIGHT = 300
 export const DEFAULT_ROW_HEIGHT = 44
 export const AUTOFIT_PADDING = 16
 export const MAX_IMPORT_FILE_SIZE = 5 * 1024 * 1024
+export const MAX_HISTORY = 50

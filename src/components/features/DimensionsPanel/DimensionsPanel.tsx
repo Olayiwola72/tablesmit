@@ -12,7 +12,7 @@ export function DimensionsPanel(): ReactNode {
 
   return (
     <section>
-      <SectionLabel>Table Dimensions</SectionLabel>
+      <SectionLabel>Grid Size</SectionLabel>
       <div className="grid grid-cols-2 gap-3">
         <label className="space-y-1 text-sm font-medium text-text-primary">
           Rows
@@ -24,7 +24,7 @@ export function DimensionsPanel(): ReactNode {
         </label>
       </div>
       <Button className="mt-4 w-full" variant="accent" onClick={() => table.generateTable(rows, cols)}>
-        <Sparkles size={16} aria-hidden="true" /> Generate Table
+        <Sparkles size={16} aria-hidden="true" /> Create Table
       </Button>
       <p className="mt-3 flex items-center gap-2 text-xs text-text-muted">
         <Grid2X2 size={14} aria-hidden="true" /> Limit: {MAX_ROWS} rows x {MAX_COLS} columns

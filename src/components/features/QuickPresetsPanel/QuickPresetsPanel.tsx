@@ -8,7 +8,7 @@ export function QuickPresetsPanel(): ReactNode {
   const { applyPreset } = useTableContext()
   return (
     <section>
-      <SectionLabel>Quick Presets</SectionLabel>
+      <SectionLabel>Templates</SectionLabel>
       <div className="grid gap-2">
         {presets.map((preset) => (
           <Button key={preset.id} variant="secondary" size="sm" onClick={() => applyPreset(preset)}>

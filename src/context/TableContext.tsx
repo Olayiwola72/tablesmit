@@ -2,8 +2,10 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
+  useRef,
   type ReactNode,
 } from 'react'
 import {
@@ -17,6 +19,7 @@ import {
 import { siteConfig } from '../config/siteConfig'
 import type { CellData, ColumnFormat, HeaderStyle, MergeRange, SelectionRange, TableState } from '../types/table.types'
 import type { PresetDefinition } from '../types/ui.types'
+import { useTableHistory } from '../hooks/useTableHistory'
 import { formatCellValue } from '../utils/formatUtils'
 import { rangeFromSelection, isSingleCellRange, normalizeSelection } from '../utils/mergeUtils'
 import {
@@ -49,6 +52,7 @@ type TableAction =
   | { type: 'setRowHeight'; row: number; height: number }
   | { type: 'setColumnFormat'; col: number; format: ColumnFormat }
   | { type: 'applyPreset'; preset: PresetDefinition }
+  | { type: 'UNDO'; state: TableState }
 
 interface TableContextValue extends TableState {
   generateTable: (rows: number, cols: number) => void
@@ -69,6 +73,8 @@ interface TableContextValue extends TableState {
   setRowHeight: (row: number, height: number) => void
   setColumnFormat: (col: number, format: ColumnFormat) => void
   applyPreset: (preset: PresetDefinition) => void
+  undo: () => void
+  canUndo: boolean
 }
 
 const TableContext = createContext<TableContextValue | null>(null)
@@ -239,6 +245,8 @@ function reducer(state: TableState, action: TableAction): TableState {
         selectedRange: null,
       }
     }
+    case 'UNDO':
+      return action.state
     default:
       return state
   }
@@ -253,30 +261,55 @@ export function isHeaderCell(headerStyle: HeaderStyle, row: number, col: number)
 
 export function TableProvider({ children }: { children: ReactNode }): ReactNode {
   const [state, dispatch] = useReducer(reducer, initialState)
+  const stateRef = useRef(state)
+  const { recordSnapshot, undo: popHistory, canUndo } = useTableHistory()
+
+  useEffect(() => { stateRef.current = state }, [state])
+
+  const undo = useMemo(
+    () => (): void => {
+      const prev = popHistory()
+      if (prev) dispatch({ type: 'UNDO', state: prev })
+    },
+    [popHistory],
+  )
+
+  const dispatchWithHistory = useMemo(
+    () =>
+      (action: TableAction): void => {
+        if (action.type !== 'selectRange' && action.type !== 'UNDO') {
+          recordSnapshot(stateRef.current)
+        }
+        dispatch(action)
+      },
+    [recordSnapshot],
+  )
 
   const value = useMemo<TableContextValue>(
     () => ({
       ...state,
-      generateTable: (rows, cols) => dispatch({ type: 'generate', rows, cols }),
-      setCells: (cells) => dispatch({ type: 'setCells', cells }),
-      updateCell: (cellId, value) => dispatch({ type: 'updateCell', cellId, value }),
-      addRow: () => dispatch({ type: 'addRow' }),
-      removeRow: () => dispatch({ type: 'removeRow' }),
-      addColumn: () => dispatch({ type: 'addColumn' }),
-      removeColumn: () => dispatch({ type: 'removeColumn' }),
-      clearAll: () => dispatch({ type: 'clearAll' }),
-      setHeaderStyle: (headerStyle) => dispatch({ type: 'setHeaderStyle', headerStyle }),
-      setHeaderColor: (color) => dispatch({ type: 'setHeaderColor', color }),
-      setContentColor: (color) => dispatch({ type: 'setContentColor', color }),
+      generateTable: (rows, cols) => dispatchWithHistory({ type: 'generate', rows, cols }),
+      setCells: (cells) => dispatchWithHistory({ type: 'setCells', cells }),
+      updateCell: (cellId, value) => dispatchWithHistory({ type: 'updateCell', cellId, value }),
+      addRow: () => dispatchWithHistory({ type: 'addRow' }),
+      removeRow: () => dispatchWithHistory({ type: 'removeRow' }),
+      addColumn: () => dispatchWithHistory({ type: 'addColumn' }),
+      removeColumn: () => dispatchWithHistory({ type: 'removeColumn' }),
+      clearAll: () => dispatchWithHistory({ type: 'clearAll' }),
+      setHeaderStyle: (headerStyle) => dispatchWithHistory({ type: 'setHeaderStyle', headerStyle }),
+      setHeaderColor: (color) => dispatchWithHistory({ type: 'setHeaderColor', color }),
+      setContentColor: (color) => dispatchWithHistory({ type: 'setContentColor', color }),
       selectRange: (range) => dispatch({ type: 'selectRange', range }),
-      mergeSelection: () => dispatch({ type: 'mergeSelection' }),
-      unmergeSelection: () => dispatch({ type: 'unmergeSelection' }),
-      setColumnWidth: (col, width) => dispatch({ type: 'setColumnWidth', col, width }),
-      setRowHeight: (row, height) => dispatch({ type: 'setRowHeight', row, height }),
-      setColumnFormat: (col, format) => dispatch({ type: 'setColumnFormat', col, format }),
-      applyPreset: (preset) => dispatch({ type: 'applyPreset', preset }),
+      mergeSelection: () => dispatchWithHistory({ type: 'mergeSelection' }),
+      unmergeSelection: () => dispatchWithHistory({ type: 'unmergeSelection' }),
+      setColumnWidth: (col, width) => dispatchWithHistory({ type: 'setColumnWidth', col, width }),
+      setRowHeight: (row, height) => dispatchWithHistory({ type: 'setRowHeight', row, height }),
+      setColumnFormat: (col, format) => dispatchWithHistory({ type: 'setColumnFormat', col, format }),
+      applyPreset: (preset) => dispatchWithHistory({ type: 'applyPreset', preset }),
+      undo,
+      canUndo,
     }),
-    [state],
+    [state, undo, canUndo, dispatchWithHistory],
   )
 
   return <TableContext.Provider value={value}>{children}</TableContext.Provider>

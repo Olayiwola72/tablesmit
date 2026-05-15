@@ -1,79 +1,80 @@
 # Structra
 
-Structra is a minimalist table builder for analytical writing.
+**Tables, your way.**
 
-It is built for writers, analysts, researchers, and technical thinkers who need clean structured tables with control over headers, formatting, merging, resizing, and export without the noise of a spreadsheet.
+A minimalist table builder for analytical writing — with full control over headers, formatting, and export.
+
+Built for writers, analysts, researchers, and technical thinkers who need clean structured tables without the noise of a spreadsheet.
 
 ## Features
 
-- Generate custom tables up to the configured row and column limits.
-- Edit cells directly in the table surface.
-- Apply top, left, both, or no-header layouts.
-- Pick header and content colors from configurable palettes.
-- Use presets for schedules, checklists, pricing tables, contacts, and inventory.
-- Merge and unmerge selected cell ranges.
-- Set per-column types directly above the table.
-- Apply column formatting for text, dates, numbers, currency, and amounts.
-- AutoFit a column by double-clicking the right edge of a header cell.
+- Customizable table dimensions up to configured limits.
+- Inline cell editing.
+- Multiple header layouts: top, left, both, or none.
+- Header and content color palettes.
+- Preset templates for schedules, checklists, pricing, contacts, and inventory.
+- Merge and unmerge cell ranges.
+- Per-column type formatting (text, number, currency, percentage, date).
+- AutoFit columns by double-clicking resize handles.
+- Drag-to-resize columns and rows with smooth ghost indicators.
 - Export to PDF, PNG, JPEG, and Excel.
-- Switch between light and dark mode.
-- Switch supported interface languages.
+- Import from CSV and Excel.
+- Dark mode support.
 
 ## Tech Stack
 
-- React
-- TypeScript
-- Vite
-- SCSS
-- `html2canvas` and `jspdf`, lazy-loaded only when image/PDF export is used
-- `lucide-react` for icons
+| Layer       | Technology                                           |
+|-------------|------------------------------------------------------|
+| Framework   | React 18 + Vite                                      |
+| Language    | TypeScript (`strict: true`)                          |
+| Styling     | Tailwind CSS v3                                      |
+| Components  | shadcn/ui (Radix primitives)                         |
+| Icons       | Lucide React                                         |
+| Drag/Resize | @dnd-kit                                             |
+| Export      | jsPDF, html2canvas, SheetJS                          |
+| Import      | PapaParse (CSV), SheetJS (Excel)                     |
+| Testing     | Vitest + React Testing Library                       |
+| Routing     | React Router v6                                      |
 
-## Configuration
-
-Product decisions live in [src/config.ts](src/config.ts):
-
-- Brand name and tagline
-- Export file base name
-- Supported export formats
-- Supported language metadata
-- Table limits and sizing rules
-- Column format options
-- Header and content color palettes
-- Presets
-- Marketing/site copy
-- Footer links
-
-Start there before changing component logic.
-
-## Development
-
-Install dependencies:
+## Getting Started
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Build for production:
+## Scripts
 
-```bash
-npm run build
-```
+| Command           | Description                    |
+|-------------------|--------------------------------|
+| `npm run dev`     | Start development server       |
+| `npm run build`   | Type-check and build for prod  |
+| `npm run preview` | Preview production build       |
+| `npm test`        | Run tests                      |
+| `npm run lint`    | Run ESLint                     |
 
-Run lint checks:
+## Configuration
 
-```bash
-npm run lint
-```
+Product decisions live in `src/config/siteConfig.ts`:
 
-## Notes
+- Brand name, tagline, GitHub URL
+- Route paths
+- Export formats
+- Column format options
+- Color palettes
+- Presets
+- Navigation links
 
-- Export libraries are split into lazy chunks for better initial load performance.
-- Excel export escapes cell content and neutralizes formula-like values to reduce spreadsheet injection risk.
-- Table content is edited locally in the browser; the app does not upload cell data.
-- Lower content sections use browser lazy rendering via `content-visibility`.
+Start there before changing component logic.
+
+## Architecture
+
+- Every page is lazy-loaded via `React.lazy()`.
+- Heavy feature panels (Export, Presets, Column Formatting) are lazy-loaded inside the table maker.
+- State lives in `TableContext` — no external state library.
+- Export uses a strategy pattern: adding a new format means adding a new class.
+- Utility functions are pure — zero React dependencies.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

@@ -20,7 +20,7 @@ export function TableHeaderCell({
   onAutoFit: (index: number) => void
 }): ReactNode {
   return (
-    <div className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface px-2 py-1">
+    <div className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface pl-2 pr-3 py-1 md:pr-2">
       <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
         C{index + 1}
         <select

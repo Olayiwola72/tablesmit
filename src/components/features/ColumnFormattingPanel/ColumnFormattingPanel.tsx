@@ -8,7 +8,7 @@ export function ColumnFormattingPanel(): ReactNode {
   const { cols, cells, setColumnFormat } = useTableContext()
   return (
     <section>
-      <SectionLabel>Column Formatting</SectionLabel>
+      <SectionLabel>Column Type</SectionLabel>
       <div className="space-y-2">
         {Array.from({ length: cols }, (_, index) => (
           <label key={index} className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">

@@ -1,5 +1,5 @@
 import { useMemo, useRef, type ReactNode, type RefObject } from 'react'
-import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MIN_COLUMN_WIDTH } from '../../../config/tableDefaults'
+import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/tableDefaults'
 import { isHeaderCell, useTableContext } from '../../../context/TableContext'
 import { useColumnResize } from '../../../hooks/useColumnResize'
 import { useRowResize } from '../../../hooks/useRowResize'
@@ -48,6 +48,37 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
       MAX_COLUMN_WIDTH,
     )
     setColumnWidth(columnIndex, nextWidth)
+  }
+
+  const autoFitRow = (rowIndex: number): void => {
+    const table = gridRef.current
+    if (!table) return
+
+    const row = table.rows.item(rowIndex)
+    if (!row || getComputedStyle(row).display === 'none') return
+
+    const heights = Array.from(row.cells).flatMap((cell) => {
+      if (getComputedStyle(cell).display === 'none') return []
+      const content = cell.querySelector<HTMLElement>('.cell-measure')
+      if (!content) return []
+
+      const measure = content.cloneNode(true) as HTMLElement
+      measure.style.position = 'absolute'
+      measure.style.visibility = 'hidden'
+      measure.style.whiteSpace = 'pre-wrap'
+      measure.style.width = `${cell.getBoundingClientRect().width}px`
+      measure.style.height = 'auto'
+      document.body.appendChild(measure)
+      const h = measure.scrollHeight
+      document.body.removeChild(measure)
+      return [h]
+    })
+
+    const nextHeight = Math.min(
+      Math.max(Math.max(MIN_ROW_HEIGHT, ...heights) + AUTOFIT_PADDING, MIN_ROW_HEIGHT),
+      MAX_ROW_HEIGHT,
+    )
+    setRowHeight(rowIndex, nextHeight)
   }
 
   const getMergeForCell = (cellId: string) =>
@@ -110,6 +141,7 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
                         }
                       }}
                       onRowResizeStart={onRowResizeStart}
+                      onAutoFitRow={autoFitRow}
                     />
                   )
                 })}

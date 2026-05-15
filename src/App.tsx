@@ -4,24 +4,27 @@ import { Footer } from './components/layout/Footer'
 import { Navbar } from './components/layout/Navbar'
 import { PageLoader } from './components/ui/PageLoader'
 import { TooltipProvider } from './components/ui/Tooltip'
+import { siteConfig } from './config/siteConfig'
 
 const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage'))
 const TableMakerPage = lazy(() => import('./pages/TableMakerPage/TableMakerPage'))
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage/ContactPage'))
+const OpenSourcePage = lazy(() => import('./pages/OpenSourcePage/OpenSourcePage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'))
 
 export default function App(): ReactNode {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <TooltipProvider delayDuration={250}>
         <Navbar />
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/app" element={<TableMakerPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path={siteConfig.routes.home} element={<TableMakerPage />} />
+            <Route path={siteConfig.routes.about} element={<LandingPage />} />
+            <Route path={siteConfig.routes.app} element={<TableMakerPage />} />
+            <Route path={siteConfig.routes.openSource} element={<OpenSourcePage />} />
+            <Route path={siteConfig.routes.contact} element={<ContactPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </Suspense>

@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
 import { cn } from '../../../lib/utils'
 
 export const buttonVariants = cva(
@@ -34,7 +34,7 @@ export interface ButtonProps
   children: ReactNode
 }
 
-export function Button({
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button({
   asChild = false,
   className,
   variant,
@@ -44,10 +44,11 @@ export function Button({
   disabled,
   children,
   ...props
-}: ButtonProps): ReactNode {
+}, ref): ReactNode {
   const Comp = asChild ? Slot : 'button'
   return (
     <Comp
+      ref={ref}
       className={cn(buttonVariants({ variant, size }), className)}
       disabled={!asChild ? disabled || isDisabled || isLoading : undefined}
       aria-busy={isLoading ? 'true' : undefined}
@@ -56,4 +57,4 @@ export function Button({
       {children}
     </Comp>
   )
-}
+})

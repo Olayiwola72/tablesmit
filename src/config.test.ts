@@ -13,6 +13,7 @@ describe('appConfig', () => {
       'png',
       'jpeg',
       'xls',
+      'csv',
     ])
   })
 

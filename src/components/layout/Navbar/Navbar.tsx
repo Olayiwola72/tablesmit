@@ -21,7 +21,7 @@ export function Navbar(): ReactNode {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white">
       <div className="mx-auto flex h-14 max-w-content items-center justify-between px-4 sm:px-6 md:h-nav lg:px-8">
-        <Link to="/" aria-label="Structra home" className="flex items-center">
+        <Link to={siteConfig.routes.home} aria-label="Structra home" className="flex items-center">
           <img src="/favicon.svg" alt="" className="h-8 w-8 md:hidden" />
           <img src={logoUrl} alt="Structra" className="hidden h-9 w-[165px] md:block" />
         </Link>
@@ -30,7 +30,7 @@ export function Navbar(): ReactNode {
           {siteConfig.nav.map((item) => (
             <Link
               key={item.label}
-              to={item.href}
+              to={siteConfig.routes[item.route]}
               className="text-sm font-medium text-text-secondary transition-colors hover:text-primary"
             >
               {item.label}
@@ -40,7 +40,7 @@ export function Navbar(): ReactNode {
 
         <div className="hidden items-center gap-2 md:flex">
           <Button asChild size="md">
-            <Link to="/app">Start Building</Link>
+            <Link to={siteConfig.routes.home}>Start Building</Link>
           </Button>
           <Button asChild variant="ghost" size="sm">
             <a href={siteConfig.brand.githubUrl} target="_blank" rel="noreferrer">
@@ -78,7 +78,7 @@ export function Navbar(): ReactNode {
               {siteConfig.nav.map((item) => (
                 <Link
                   key={item.label}
-                  to={item.href}
+                  to={siteConfig.routes[item.route]}
                   className="text-base font-medium text-text-primary"
                   onClick={() => setIsOpen(false)}
                 >
@@ -86,7 +86,7 @@ export function Navbar(): ReactNode {
                 </Link>
               ))}
               <Button asChild className="mt-4">
-                <Link to="/app" onClick={() => setIsOpen(false)}>
+                <Link to={siteConfig.routes.home} onClick={() => setIsOpen(false)}>
                   Start Building
                 </Link>
               </Button>

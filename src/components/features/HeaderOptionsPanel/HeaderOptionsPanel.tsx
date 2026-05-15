@@ -14,7 +14,7 @@ export function HeaderOptionsPanel(): ReactNode {
   const { headerStyle, setHeaderStyle } = useTableContext()
   return (
     <section>
-      <SectionLabel>Header Options</SectionLabel>
+      <SectionLabel>Header Definitions</SectionLabel>
       <label className="space-y-1 text-sm font-medium text-text-primary">
         Header Style
         <select className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" value={headerStyle} onChange={(event) => setHeaderStyle(event.target.value as HeaderStyle)}>

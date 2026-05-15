@@ -1,4 +1,4 @@
-import { ChevronDown, FileDown, FileSpreadsheet, Merge, Minus, Plus, RotateCcw, Trash2, Upload } from 'lucide-react'
+import { ChevronDown, FileDown, FileSpreadsheet, Merge, Minus, Plus, Trash2, Undo2, Upload } from 'lucide-react'
 import { useRef, type ReactNode } from 'react'
 import { siteConfig } from '../../../config/siteConfig'
 import { MAX_COLS, MAX_ROWS } from '../../../config/tableDefaults'
@@ -82,8 +82,8 @@ export function TableToolbar({
         <Button variant="danger" size="sm" onClick={table.clearAll}>
           <Trash2 size={14} aria-hidden="true" /> Clear All
         </Button>
-        <Button variant="ghost" size="sm" onClick={() => table.generateTable(table.rows, table.cols)}>
-          <RotateCcw size={14} aria-hidden="true" /> Reset
+        <Button variant="ghost" size="sm" onClick={table.undo} disabled={!table.canUndo}>
+          <Undo2 size={14} aria-hidden="true" /> Undo
         </Button>
       </div>
 

@@ -3,16 +3,18 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import logoUrl from '../../../assets/logo.svg'
 import { siteConfig } from '../../../config/siteConfig'
+import { getCurrentYear } from '../../../utils/dateUtils'
+
+const { routes } = siteConfig
 
 const productLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Features', href: '/#features' },
-  { label: 'Open Source', href: '/#open-source' },
+  { label: 'Home', href: routes.home },
+  { label: 'Open Source', href: routes.openSource },
 ]
 
 const companyLinks = [
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'About', href: routes.about },
+  { label: 'Contact', href: routes.contact },
 ]
 
 export function Footer(): ReactNode {
@@ -22,7 +24,7 @@ export function Footer(): ReactNode {
         <div className="space-y-3 sm:col-span-2">
           <img src={logoUrl} alt="Structra" className="h-9 w-[165px]" />
           <p className="text-sm text-text-secondary">{siteConfig.brand.tagline}</p>
-          <p className="text-xs text-text-muted">© 2025 Structra. Open source under MIT license.</p>
+          <p className="text-xs text-text-muted">© {getCurrentYear()} Structra. Open source under MIT license.</p>
         </div>
         <FooterGroup title="Product" links={productLinks} />
         <div>

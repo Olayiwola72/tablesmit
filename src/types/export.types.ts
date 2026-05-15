@@ -1,4 +1,4 @@
-export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel'
+export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv'
 
 export interface ExportOptions {
   format: ExportFormat
