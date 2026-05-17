@@ -16,7 +16,7 @@ dist-ssr
 coverage
 
 # Generated export files from tests
-structra-table.*
+tablesmit-table.*
 
 # Editor directories and files
 .vscode/*

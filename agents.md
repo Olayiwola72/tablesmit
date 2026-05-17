@@ -1,13 +1,13 @@
-# Structra — Brand Identity & Engineering Implementation Guide
+# Tablesmit — Brand Identity & Engineering Implementation Guide
 > For AI Coding Agents (Codex, Claude Code, etc.)
-> Version 5.0 | Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
+> Version 6.0 | Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
 > Status: Authoritative. Do not deviate without explicit instruction.
 
 ---
 
 ## 0. The North Star
 
-**Structra** is a minimalist table builder for analytical writing.
+**Tablesmit** is a minimalist table builder for analytical writing.
 
 It exists for writers, analysts, researchers, and technical thinkers who need clean
 structured tables with full control over headers, formatting, and export —
@@ -16,28 +16,28 @@ aesthetic overwhelm of a design tool.
 
 > **Tagline:** *Tables, your way.*
 > **Subtext (hero):** *A minimalist table builder for analytical writing — with full control over headers, formatting, and export.*
-> **About line:** *Structra was created by a writer who needed more control than basic table generators provided. Built for people who think in structure and publish with precision.*
+> **About line:** *Tablesmit was created by a writer who needed more control than basic table generators provided. Built for people who think in structure and publish with precision.*
 
 ### Positioning Statement
 ```
 For:     Writers, analysts, researchers, and technical thinkers
 Who:     Need clean, structured tables with customization control
-Structra is: A minimalist table builder for analytical writing
+Tablesmit is: A minimalist table builder for analytical writing
 That:    Gives full control over headers, formatting, and export
 Unlike:  Generic table tools that are either too rigid or too complex
 ```
 
-### What Structra Is Not
+### What Tablesmit Is Not
 ```
 Not a spreadsheet.
 Not a database.
 Not a Notion competitor.
 Not a design-heavy tool.
 
-Structra is a structured writing tool.
+Tablesmit is a structured writing tool.
 ```
 Every product decision must be filtered through this. If a feature makes
-Structra feel like any of the above — reconsider it.
+Tablesmit feel like any of the above — reconsider it.
 
 ### Tone of Voice
 | Dimension   | Direction                                                        |
@@ -60,15 +60,17 @@ remove it. When in doubt: simplify.
 
 ## 1. Brand Name & Identity
 
-| Field          | Value                                                                    |
-|----------------|--------------------------------------------------------------------------|
-| Product Name   | **Structra**                                                             |
-| Domain hint    | structra.app / usestructra.com / structra.io (check availability)        |
-| Origin         | Structure + suffix "-a" — precision, form, control                       |
-| Pronunciation  | STRUK-truh                                                               |
-| Personality    | Calm. Competent. Minimal. Friendly but never chatty.                     |
-| Open Source    | Yes — GitHub link in secondary CTA                                       |
-| What it is NOT | Loud, cluttered, feature-heavy, or visually expressive.                  |
+| Field          | Value                                                                              |
+|----------------|------------------------------------------------------------------------------------|
+| Product Name   | **Tablesmit**                                                                      |
+| Domain         | tablesmit.com (confirmed, ~$11/year)                                               |
+| Origin         | Table + Smith. A smith crafts with precision — wordsmith, goldsmith, tablesmith.   |
+|                | The missing "h" is intentional — own it as the brand spelling (cf. Tumblr, Flickr)|
+| Pronunciation  | TAY-bul-smit                                                                       |
+| SEO note       | Cover "tablesmith" in meta description and GitHub — users will search both spellings|
+| Personality    | Calm. Competent. Minimal. Friendly but never chatty.                               |
+| Open Source    | Yes — GitHub link in secondary CTA + Sponsor button                                |
+| What it is NOT | Loud, cluttered, feature-heavy, or visually expressive.                            |
 
 ---
 
@@ -90,7 +92,7 @@ remove it. When in doubt: simplify.
   <text x="52" y="30"
         font-family="Inter, -apple-system, sans-serif"
         font-size="22" font-weight="600" letter-spacing="-0.5"
-        fill="#1E293B">Structra</text>
+        fill="#1E293B">Tablesmit</text>
 </svg>
 ```
 
@@ -113,6 +115,132 @@ remove it. When in doubt: simplify.
 - On white: full color as above
 - On dark: swap `#1E293B` → `#FFFFFF`
 - Never: stretch, rotate, recolor, add shadows, or animate
+
+---
+
+### 2D. Logo 2 — T-form (Alternate · Ready to Switch)
+
+Status: **approved, not yet active**. Logo 1 remains current until explicitly switched.
+To activate: replace all Logo 1 SVG references with Logo 2 SVGs below. One find-and-replace.
+
+#### Concept
+
+Three rectangles. No outlines, no strokes. Full opacity on top (the header row),
+fading opacity below (two data columns). Reads as a table with a header from 16px up.
+The decreasing opacity from left column to right subtly implies "more data beyond the fold."
+The shape is also a T — a quiet reference to the brand name.
+
+#### Logo 2A — Full Logo (icon + wordmark)
+
+```svg
+<!-- Tablesmit Logo 2 — Full — Light background -->
+<svg width="220" height="48" viewBox="0 0 220 48" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Icon mark: T-form (header row + two column cells) -->
+  <g transform="translate(4,8)">
+    <!-- Header row — full width, solid primary blue -->
+    <rect x="0" y="0" width="30" height="10" rx="4" fill="#1E40AF"/>
+    <!-- Left column cell — 28% opacity -->
+    <rect x="0" y="13" width="13" height="15" rx="3" fill="#1E40AF" opacity="0.28"/>
+    <!-- Right column cell — 14% opacity -->
+    <rect x="17" y="13" width="13" height="15" rx="3" fill="#1E40AF" opacity="0.14"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="46" y="30"
+        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        font-size="22"
+        font-weight="600"
+        letter-spacing="-0.5"
+        fill="#1E293B">Tablesmit</text>
+
+</svg>
+```
+
+```svg
+<!-- Tablesmit Logo 2 — Full — Dark background -->
+<svg width="220" height="48" viewBox="0 0 220 48" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+
+  <g transform="translate(4,8)">
+    <!-- Header row — lighter blue for dark backgrounds -->
+    <rect x="0" y="0" width="30" height="10" rx="4" fill="#60A5FA"/>
+    <rect x="0" y="13" width="13" height="15" rx="3" fill="#60A5FA" opacity="0.35"/>
+    <rect x="17" y="13" width="13" height="15" rx="3" fill="#60A5FA" opacity="0.18"/>
+  </g>
+
+  <text x="46" y="30"
+        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+        font-size="22"
+        font-weight="600"
+        letter-spacing="-0.5"
+        fill="#FFFFFF">Tablesmit</text>
+
+</svg>
+```
+
+#### Logo 2B — Icon Mark Only (Favicon / App Icon)
+
+```svg
+<!-- Tablesmit Logo 2 — Icon mark — Light -->
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+  <!-- Header row -->
+  <rect x="2" y="2" width="28" height="10" rx="4" fill="#1E40AF"/>
+  <!-- Left column cell -->
+  <rect x="2" y="15" width="12" height="15" rx="3" fill="#1E40AF" opacity="0.28"/>
+  <!-- Right column cell -->
+  <rect x="18" y="15" width="12" height="15" rx="3" fill="#1E40AF" opacity="0.14"/>
+</svg>
+```
+
+```svg
+<!-- Tablesmit Logo 2 — Icon mark — Dark -->
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none"
+     xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="2" width="28" height="10" rx="4" fill="#60A5FA"/>
+  <rect x="2" y="15" width="12" height="15" rx="3" fill="#60A5FA" opacity="0.4"/>
+  <rect x="18" y="15" width="12" height="15" rx="3" fill="#60A5FA" opacity="0.2"/>
+</svg>
+```
+
+#### Logo 2 — Anatomy & Rules
+
+```
+Header bar:     x=2, y=2, width=28, height=10, rx=4
+                fill: #1E40AF (light) · #60A5FA (dark)
+                Represents: the header row — the product's signature feature
+
+Left cell:      x=2, y=15, width=12, height=15, rx=3
+                opacity: 0.28 (light) · 0.40 (dark)
+                Gap from header: 3px
+
+Right cell:     x=18, y=15, width=12, height=15, rx=3
+                opacity: 0.14 (light) · 0.20 (dark)
+                Gap from left cell: 6px
+
+Key decisions:
+  - No outlines, no strokes — pure filled shapes only
+  - Opacity fade (left → right) implies "more columns beyond"
+  - 3px gap between header and body = visual table separation
+  - All rx values ≤ 4px — consistent with UI rounded corner rules
+  - Minimum render size: 16px (favicon) — all three shapes remain distinct
+
+Color rules:
+  - Light backgrounds: #1E40AF header + opacity fades
+  - Dark backgrounds: #60A5FA (blue-400) header + opacity fades
+  - Never recolor the header bar to anything other than these two values
+  - Never remove the opacity difference between left and right cells
+  - Never add outlines or strokes
+
+Switch checklist (when activating Logo 2):
+  [ ] Replace Logo 1A SVG in Navbar component
+  [ ] Replace Logo 1B SVG in public/favicon.svg
+  [ ] Replace Logo 1B SVG in PageLoader component
+  [ ] Update og-image.png to use new mark
+  [ ] Verify dark background variant renders correctly in any dark UI panels
+```
 
 ---
 
@@ -524,7 +652,7 @@ Row height:   min 32px · max 300px
 
 ### Navigation
 ```
-Left:   [Structra SVG Logo]
+Left:   [Tablesmit SVG Logo]
 Center: Home  |  Open Source  |  About  |  Contact
 Right:  [Start Building]   (primary button, md size)
         [GitHub ↗]         (ghost button with ExternalLink icon)
@@ -557,7 +685,7 @@ Clean white space speaks for itself.
 
 ---
 
-> **Note:** The Features section was removed from the LandingPage. The table maker page (`/`) now serves as the primary entry point. The About page (`/about`) contains the brand story and "What Structra Is Not" list.
+> **Note:** The Features section was removed from the LandingPage. The table maker page (`/`) now serves as the primary entry point. The About page (`/about`) contains the brand story and "What Tablesmit Is Not" list.
 
 ---
 
@@ -570,7 +698,7 @@ HEADING (text-2xl font-bold text-text-primary):
   Built in the open.
 
 BODY (text-base text-text-secondary max-w-narrow mx-auto text-center):
-  Structra is free and open source. The code is on GitHub — read it,
+  Tablesmit is free and open source. The code is on GitHub — read it,
   fork it, improve it, or adapt it for your own needs.
   We believe tools for writing and thinking should be transparent.
 
@@ -592,14 +720,14 @@ HEADING (text-2xl sm:text-3xl font-bold text-text-primary):
   Built for structured thinkers.
 
 BODY (text-base text-text-secondary leading-relaxed):
-  Structra was created by a writer who needed more control than
+  Tablesmit was created by a writer who needed more control than
   basic table generators provided.
 
   Most tools gave too little — no header customization, no column
   formatting, no clean export. Others gave too much — the full weight
   of a spreadsheet for something that just needed to be a table.
 
-  Structra is the middle ground. Built for people who think in
+  Tablesmit is the middle ground. Built for people who think in
   structure and publish with precision.
 
 WHAT WE ARE NOT (rendered as a quiet list, text-sm text-text-muted):
@@ -620,9 +748,9 @@ WHAT WE ARE NOT (rendered as a quiet list, text-sm text-text-muted):
 
 ```
 LEFT:
-  [Structra icon mark]  Structra
+  [Tablesmit icon mark]  Tablesmit
   Tables, your way.
-  © {getCurrentYear()} Structra. Open source under MIT license.
+  © {getCurrentYear()} Tablesmit. Open source under MIT license.
 
 RIGHT (flex gap-8 text-sm text-text-secondary):
   Product:    Home · Open Source
@@ -698,7 +826,7 @@ Component location: `src/components/ui/NotFoundAnimation/NotFoundAnimation.tsx`
 ## 7. Page Meta / SEO
 
 ```html
-<title>Structra — Tables, Your Way</title>
+<title>Tablesmit — Tables, Your Way</title>
 <meta name="description" content="The web table maker with true spreadsheet
 control. Resize rows and columns, merge cells, set custom colors, and export
 to PDF, Excel, PNG, or JPEG — free, no account required.">
@@ -745,7 +873,7 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
 ### Folder Structure
 
 ```
-structra/
+tablesmit/
 ├── public/
 │   ├── favicon.svg                     ← icon-mark SVG (Section 2B)
 │   └── og-image.png
@@ -1204,7 +1332,7 @@ Don't add state management libraries (Zustand, Redux) unless
 
 ### 10D. GRASP
 
-| Principle         | Application in Structra                                              |
+| Principle         | Application in Tablesmit                                              |
 |-------------------|----------------------------------------------------------------------|
 | Information Expert| `useMergeCells` owns merge ranges → calculates mergeability          |
 | Creator           | `TableContext` creates `TableState`; `useExport` creates strategies  |
@@ -1592,7 +1720,7 @@ contaminates other tests.
 ✅ No file-writing side effects
   Export services that write files (SheetJS XLSX) must be mocked or
   the triggering test must be excluded from CI runs.
-  structra-table.* added to .gitignore as a safety net.
+  tablesmit-table.* added to .gitignore as a safety net.
 
 ✅ No co-located test files
   All tests live in src/test/ mirroring source structure:
@@ -1658,7 +1786,7 @@ Run: `npx vitest run --coverage`
 
 ## 16. Responsive Design
 
-Structra must be fully functional and visually correct on every screen size.
+Tablesmit must be fully functional and visually correct on every screen size.
 Use a **mobile-first** approach — write base styles for mobile, then override
 upward with `sm:`, `md:`, `lg:`, `xl:` prefixes.
 
@@ -1884,7 +2012,7 @@ Desktop:
     ...
   </div>
   <p className="text-xs text-text-muted text-center mt-8">
-    © 2025 Structra. All rights reserved.
+    © 2025 Tablesmit. All rights reserved.
   </p>
 </footer>
 ```
@@ -1986,10 +2114,10 @@ Apply as: `text-3xl sm:text-4xl lg:text-5xl` — never hard-code one size for al
 - ❌ No desktop-only layout assumptions — every view must be designed mobile-first
 - ❌ No em dashes in UI copy — use periods or colons instead
 - ❌ No `Github` icon from lucide-react — does not exist; use `GitFork` or `ExternalLink`
-- ❌ No `coverage/` or `structra-table.*` in repository — always gitignored
+- ❌ No `coverage/` or `tablesmit-table.*` in repository — always gitignored
 - ❌ No hardcoded hrefs in navigation — always reference `siteConfig.routes.*` by key
 - ❌ No co-located `.test.tsx` files with source — all tests in `src/test/` mirroring source structure
-- ❌ No presets copied from other table generators (tabley.online, etc.) — `src/config/presets.ts` must contain only original Structra templates: Research Notes, Feature Matrix, Content Tracker, Budget Summary
+- ❌ No presets copied from other table generators (tabley.online, etc.) — `src/config/presets.ts` must contain only original Tablesmit templates: Research Notes, Feature Matrix, Content Tracker, Budget Summary
 
 ---
 
@@ -1999,8 +2127,8 @@ Run in this exact order:
 
 ```bash
 # 1. Create Vite project
-npm create vite@latest structra -- --template react-ts
-cd structra
+npm create vite@latest tablesmit -- --template react-ts
+cd tablesmit
 
 # 2. Core dependencies
 npm install react-router-dom lucide-react class-variance-authority clsx
@@ -2039,7 +2167,7 @@ Use this section to track progress. Check items when they are complete.
 Last updated: 2026-05-15 — 140 tests passing, all layers meeting coverage targets.
 
 ### Brand & Positioning
-- [x] Rename all "Tabley" occurrences to "Structra" across all files and strings
+- [x] Rename all "Tabley" occurrences to "Tablesmit" across all files and strings
 - [x] Implement full logo SVG (Section 2A) in Navbar — icon-only variant for mobile
 - [x] Implement icon-mark SVG (Section 2B) as `public/favicon.svg`
 - [x] Configure Tailwind tokens from Section 3 in `tailwind.config.ts`
@@ -2047,7 +2175,7 @@ Last updated: 2026-05-15 — 140 tests passing, all layers meeting coverage targ
 - [x] Nav updated: Home · Features · Open Source · About + GitHub ghost button
 - [x] Hero matches Section 6 exactly — no eyebrow badge, no trust line, minimal
 - [x] Open Source section implemented with MIT license note
-- [x] About section includes "What Structra Is Not" quiet list
+- [x] About section includes "What Tablesmit Is Not" quiet list
 - [x] 404 page built with back-to-home CTA
 
 ### Copy & Content Updates
@@ -2200,7 +2328,7 @@ Last updated: 2026-05-15 — 140 tests passing, all layers meeting coverage targ
 - [x] `useColumnResize` tests: full mousedown→mousemove→mouseup cycle · min/max clamping
 - [x] `useRowResize` tests: full mousedown→mousemove→mouseup cycle · min/max clamping
 - [x] `afterEach` cleanup in all resize tests: removes DOM listeners, restores cursor/userSelect, restores real timers
-- [x] No file-writing side effects in tests — SheetJS `writeFile` test excluded, `structra-table.*` in .gitignore
+- [x] No file-writing side effects in tests — SheetJS `writeFile` test excluded, `tablesmit-table.*` in .gitignore
 - [x] All tests pass before any feature is marked complete
 
 ### Engineering Principles
@@ -2292,5 +2420,3190 @@ If the risk profile changes, migrate to a maintained fork (`@sheetjs/sheetjs` or
 
 ---
 
-*End of Brand Identity & Engineering Implementation Guide — Structra v5.0*
+
+---
+
+## 21. Release Notes
+
+### v5.0 — Completed (do not re-implement)
+
+The following were fully implemented and tested in v5.0.
+Treat these as locked. Do not modify without explicit instruction.
+
+```
+[x] SOLID, DRY, KISS principles verified across codebase
+[x] AutoFit column width + row height (Section 22)
+[x] Undo stack — replaced Reset with Undo (Section 23)
+[x] Border styles — Word-like border picker (Section 24)
+[x] Right-click context menu on cells and columns (Section 25)
+[x] Smart clipboard paste from Excel / Word / CSV (Section 26)
+[x] Copy Table button with dropdown — Copy as Image / Copy as Excel (Section 27)
+[x] Auto-sum + auto-numbering column types (Section 28)
+```
+
+---
+
+### v6.0 — Expected (this release)
+
+The following must be implemented, tested, and checked off before v6.0 ships.
+Each item references its full spec section below.
+
+```
+[ ] Brand rename: Structra → Tablesmit (update ALL strings, meta, README, package.json)
+[ ] Understand the codebase — significant changes since last session, read all sections before touching code
+[ ] Column sorting (Section 29)
+[ ] Performance: memoization, useCallback, useEffect discipline (Section 30)
+[ ] 404 page SVG animation (Section 31)
+[ ] Open Source / Sponsor page (Section 32)
+[ ] README.md (Section 33)
+[ ] CONTRIBUTION.md (Section 34)
+[ ] Fix npm run lint — zero lint errors before merge
+[ ] Test coverage audit — features have been written without tests, identify gaps and fill them
+[ ] Testing baseline — 28 files, 140 tests last confirmed; audit all layers and implement missing coverage
+[ ] Em-dash audit — remove all em-dash abuse from UI copy (Section 35)
+[ ] AI Features scaffolding — placeholder UI only, no backend implementation (Section 36)
+[ ] Deviation audit — check every item in agents.md against actual codebase; log and fix gaps
+[ ] Security audit — implement all recommendations from Section 20; verify nothing was skipped
+```
+
+---
+
+## 22. AutoFit Column Width and Row Height
+
+Trigger: **Double-click** on a column resize handle (right edge of column header)
+or a row resize handle (bottom edge of row header).
+
+This mirrors Excel's AutoFit behavior exactly.
+
+### How It Works
+
+```
+1. On double-click of a column resize handle:
+   a. Measure the bounding box of every rendered cell in that column
+      using getBoundingClientRect() on each contentEditable div
+   b. Find the maximum measured content width (naturalWidth)
+   c. Add horizontal padding (16px each side = 32px total)
+   d. Clamp: max(60, min(naturalWidth + 32, 600))
+   e. Set columnWidths[colIndex] = clampedWidth in a single setState call
+
+2. On double-click of a row resize handle:
+   a. Measure the bounding box height of every rendered cell in that row
+   b. Find the maximum measured content height
+   c. Add vertical padding (8px each side = 16px total)
+   d. Clamp: max(32, min(naturalHeight + 16, 300))
+   e. Set rowHeights[rowIndex] = clampedHeight in a single setState call
+```
+
+### Implementation — `useColumnResize` hook addition
+
+```ts
+const autoFitColumn = useCallback((colIndex: number) => {
+  const tableEl = tableRef.current;
+  if (!tableEl) return;
+
+  // Read all cell widths for this column in one pass (no layout thrashing)
+  const cells = tableEl.querySelectorAll<HTMLElement>(
+    `[data-col="${colIndex}"] .cell-content`
+  );
+
+  let maxWidth = 60;
+  cells.forEach(cell => {
+    // scrollWidth gives natural content width without overflow clipping
+    maxWidth = Math.max(maxWidth, cell.scrollWidth);
+  });
+
+  const paddedWidth = Math.min(maxWidth + 32, 600);
+
+  setColumnWidths(prev => {
+    const next = [...prev];
+    next[colIndex] = paddedWidth;
+    return next;
+  });
+}, [tableRef, setColumnWidths]);
+```
+
+### UI Trigger
+
+```tsx
+// On the column resize handle (ResizeHandle component):
+<div
+  className="resize-handle-col"
+  onMouseDown={e => onMouseDown(e, colIndex, columnWidths[colIndex])}
+  onDoubleClick={() => autoFitColumn(colIndex)}
+  aria-label={`Resize column ${colIndex + 1}. Double-click to auto-fit.`}
+/>
+```
+
+### Context Menu Entry
+
+"Auto-fit column width" in the right-click context menu (Section 25)
+calls the same `autoFitColumn(colIndex)` function.
+
+### Tests Required
+
+```ts
+describe('autoFitColumn', () => {
+  it('sets column width to scrollWidth + 32px padding')
+  it('clamps to minimum 60px when content is very short')
+  it('clamps to maximum 600px when content is very long')
+  it('handles columns with no content — falls back to 60px')
+  it('does not mutate other column widths')
+})
+```
+
+---
+
+## 23. Undo Stack (Replace Reset with Undo)
+
+### Change
+
+Remove the **Reset** button from the toolbar.
+Replace it with an **Undo** button (Lucide icon: `Undo2`).
+
+Rationale: "Reset" clears everything — destructive and irreversible.
+"Undo" respects the user's work and gives them confidence to experiment.
+
+### Implementation — `useTableHistory` hook
+
+```ts
+// src/hooks/useTableHistory.ts
+// Manages a stack of TableState snapshots. Max 50 entries (configurable).
+
+const MAX_HISTORY = 50;
+
+export function useTableHistory() {
+  const [history, setHistory]   = useState<TableState[]>([]);
+  const [pointer, setPointer]   = useState(-1);           // current position in stack
+
+  const push = useCallback((state: TableState) => {
+    setHistory(prev => {
+      // Discard any "future" entries above the current pointer
+      const trimmed = prev.slice(0, pointer + 1);
+      const next = [...trimmed, structuredClone(state)];
+      // Enforce max
+      return next.length > MAX_HISTORY ? next.slice(1) : next;
+    });
+    setPointer(prev => Math.min(prev + 1, MAX_HISTORY - 1));
+  }, [pointer]);
+
+  const undo = useCallback(() => {
+    if (pointer <= 0) return null;          // nothing to undo
+    const prevState = history[pointer - 1];
+    setPointer(p => p - 1);
+    return prevState;
+  }, [history, pointer]);
+
+  const canUndo = pointer > 0;
+
+  return { push, undo, canUndo };
+}
+```
+
+### Wiring into TableContext
+
+```ts
+// Every state-mutating action (updateCell, addRow, mergeCells, etc.)
+// calls history.push(currentState) BEFORE applying the change.
+// On undo(), the returned snapshot is dispatched as the new state.
+
+dispatch({ type: 'RESTORE_STATE', payload: previousSnapshot });
+```
+
+### Toolbar Change
+
+```
+BEFORE: [...] | Clear All · Reset |
+AFTER:  [...] | Clear All · Undo  |
+
+Undo button:
+  - Icon: Undo2 (Lucide)
+  - Disabled state: when canUndo === false (opacity-50, pointer-events-none)
+  - Tooltip: "Undo last action (Ctrl+Z)"
+  - Keyboard: Ctrl+Z / Cmd+Z globally — add keydown listener in TableMakerPage
+```
+
+### Tests Required
+
+```ts
+describe('useTableHistory', () => {
+  it('push() adds state to history')
+  it('undo() returns the previous state')
+  it('undo() returns null when nothing to undo')
+  it('canUndo is false at initial state')
+  it('canUndo is true after at least one push')
+  it('does not exceed MAX_HISTORY entries')
+  it('push() after undo discards future history')
+  it('Ctrl+Z keyboard shortcut triggers undo')
+})
+```
+
+---
+
+## 24. Border Styles
+
+Provide a border style picker that covers all common Microsoft Word table border options.
+
+### Border Types to Support
+
+```
+No Border          — removes all borders from selected cells / table
+All Borders        — applies border to every cell edge
+Outside Borders    — border on table outer edge only
+Inside Borders     — border between cells only (no outer edge)
+Inside Horizontal  — horizontal dividers between rows only
+Inside Vertical    — vertical dividers between columns only
+Top Border         — top edge of selection only
+Bottom Border      — bottom edge of selection only
+Left Border        — left edge of selection only
+Right Border       — right edge of selection only
+Thick Box Border   — heavier weight outer border
+Double Border      — double-line outer border
+Dashed Border      — dashed stroke
+Dotted Border      — dotted stroke
+```
+
+### Data Model Addition
+
+```ts
+// src/types/table.types.ts — add to CellData
+export type BorderStyle =
+  | 'none' | 'solid' | 'dashed' | 'dotted' | 'double';
+
+export type BorderWeight = 'thin' | 'medium' | 'thick';
+
+export interface CellBorders {
+  top:    { style: BorderStyle; weight: BorderWeight; color: string } | null;
+  right:  { style: BorderStyle; weight: BorderWeight; color: string } | null;
+  bottom: { style: BorderStyle; weight: BorderWeight; color: string } | null;
+  left:   { style: BorderStyle; weight: BorderWeight; color: string } | null;
+}
+
+// Add to CellData:
+borders?: CellBorders;
+```
+
+### UI — Border Picker Panel
+
+Location: Right sidebar, below Column Type panel.
+Component: `BorderStylePanel` in `src/components/features/BorderStylePanel/`
+
+```
+Layout: 2×7 grid of icon buttons, each showing a border pattern preview
+Uses: Lucide border icons where available; custom inline SVG for Word-specific patterns
+Apply to: current cell selection (selectedRange from TableContext)
+```
+
+### CSS Application
+
+```ts
+// Utility in src/utils/borderUtils.ts
+export function getBorderStyles(borders: CellBorders): React.CSSProperties {
+  const toCSS = (b: CellBorders['top']) =>
+    b ? `${b.weight === 'thin' ? 1 : b.weight === 'medium' ? 2 : 3}px ${b.style} ${b.color}` : 'none';
+  return {
+    borderTop:    toCSS(borders.top),
+    borderRight:  toCSS(borders.right),
+    borderBottom: toCSS(borders.bottom),
+    borderLeft:   toCSS(borders.left),
+  };
+}
+```
+
+### Tests Required
+
+```ts
+describe('borderUtils', () => {
+  it('getBorderStyles returns correct CSS for solid thin border')
+  it('getBorderStyles returns "none" for null border')
+  it('applyBorderPreset("all") sets all four edges on every cell in range')
+  it('applyBorderPreset("none") clears all borders in range')
+  it('applyBorderPreset("outside") only affects outer edges of selection')
+})
+```
+
+---
+
+## 25. Right-Click Context Menu
+
+On right-click of any **cell** or **column header**, show a context menu with
+contextually relevant actions.
+
+### Library
+
+Use shadcn/ui `ContextMenu` (wraps Radix UI `ContextMenu`) — do not build custom.
+
+```bash
+npx shadcn@latest add context-menu
+```
+
+### Menu Items
+
+#### On Cell Right-Click
+
+```
+Auto-fit column width          → autoFitColumn(colIndex)
+Auto-fit row height            → autoFitRow(rowIndex)
+─────────────────────────────
+Change cell background color   → opens ColorPicker popover
+Change text color              → opens ColorPicker popover
+─────────────────────────────
+Change column type             → opens inline Select (Text/Number/Currency/etc.)
+─────────────────────────────
+Insert row above               → insertRow(rowIndex)
+Insert row below               → insertRow(rowIndex + 1)
+Insert column left             → insertCol(colIndex)
+Insert column right            → insertCol(colIndex + 1)
+─────────────────────────────
+Cut                            → window.document.execCommand('cut')  [or Clipboard API]
+Copy                           → window.document.execCommand('copy')
+Paste                          → triggers smart paste (Section 26)
+─────────────────────────────
+Clear cell                     → updateCell(cellId, '')
+Delete row                     → removeRow(rowIndex)
+Delete column                  → removeColumn(colIndex)
+```
+
+#### On Column Header Right-Click
+
+```
+Auto-fit column width          → autoFitColumn(colIndex)
+Sort ascending                 → sortColumn(colIndex, 'asc')
+Sort descending                → sortColumn(colIndex, 'desc')
+─────────────────────────────
+Change column type             → inline Select
+Change background color        → ColorPicker popover (applies to entire column)
+─────────────────────────────
+Insert column left             → insertCol(colIndex)
+Insert column right            → insertCol(colIndex + 1)
+Delete column                  → removeColumn(colIndex)
+```
+
+### Implementation
+
+```tsx
+// Wrap TableCell and TableHeaderCell with ContextMenu
+import { ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuSeparator } from '@/components/ui/context-menu';
+
+<ContextMenu>
+  <ContextMenuTrigger asChild>
+    <td ...>...</td>
+  </ContextMenuTrigger>
+  <ContextMenuContent className="w-56">
+    <ContextMenuItem onClick={() => autoFitColumn(colIndex)}>
+      Auto-fit column width
+    </ContextMenuItem>
+    <ContextMenuSeparator />
+    {/* ... */}
+  </ContextMenuContent>
+</ContextMenu>
+```
+
+### Tests Required
+
+```ts
+describe('ContextMenu', () => {
+  it('opens on right-click of a cell')
+  it('shows "Auto-fit column width" option')
+  it('calls autoFitColumn on menu item click')
+  it('shows "Sort ascending" on column header right-click')
+  it('does not appear when table has no data')
+})
+```
+
+---
+
+## 26. Smart Clipboard Paste
+
+When the user pastes (Ctrl+V / Cmd+V) into the table — or into an empty state —
+detect if the clipboard contains a structured table (from Excel, Word, or CSV)
+and automatically generate or populate the table.
+
+### Detection Logic
+
+```ts
+// src/hooks/useClipboardPaste.ts
+// Listen for paste events on document (captured at app root level)
+
+document.addEventListener('paste', async (e) => {
+  const clipData = e.clipboardData;
+  if (!clipData) return;
+
+  // Priority order:
+  // 1. HTML table (from Excel/Word — richest data)
+  const html  = clipData.getData('text/html');
+  if (html && containsTable(html)) {
+    return handleHtmlTablePaste(html);
+  }
+
+  // 2. TSV (tab-separated — Excel default plain text format)
+  const text = clipData.getData('text/plain');
+  if (text && text.includes('\t')) {
+    return handleTsvPaste(text);
+  }
+
+  // 3. CSV (comma-separated plain text)
+  if (text && text.includes(',')) {
+    return handleCsvPaste(text);
+  }
+
+  // 4. Plain text — paste into focused cell only (default browser behavior)
+});
+```
+
+### HTML Table Parsing
+
+```ts
+// Parse <table> from clipboard HTML using DOMParser — no regex
+function parseHtmlTable(html: string): string[][] {
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  const rows = Array.from(doc.querySelectorAll('tr'));
+  return rows.map(row =>
+    Array.from(row.querySelectorAll('td, th')).map(cell =>
+      (cell as HTMLElement).innerText.trim()
+    )
+  );
+}
+```
+
+### UX
+
+```
+If table currently has no data (empty state):
+  → Generate new table from clipboard dimensions + content
+
+If table has existing data and user right-click-pastes into a cell:
+  → Insert clipboard content starting from that cell (Excel paste behavior)
+  → Expand table if clipboard content exceeds current dimensions
+
+Show a non-blocking toast on success:
+  "Table pasted from clipboard. 5 rows, 3 columns."
+
+Show toast on failure:
+  "Could not read clipboard data. Try importing a file instead."
+```
+
+### Tests Required
+
+```ts
+describe('useClipboardPaste', () => {
+  it('detects HTML table in clipboard and calls handleHtmlTablePaste')
+  it('detects TSV content and calls handleTsvPaste')
+  it('detects CSV content and calls handleCsvPaste')
+  it('parses an HTML table to a 2D string array correctly')
+  it('handles merged cells in HTML table gracefully')
+  it('clamps pasted content to MAX_ROWS/MAX_COLS')
+  it('shows success toast with correct row/col count')
+  it('falls back to plain text paste when no table detected')
+})
+```
+
+---
+
+## 27. Copy Table Button
+
+A **Copy** button in the toolbar with a dropdown arrow revealing two modes.
+
+### UI
+
+```
+Toolbar right side (before export group):
+
+[Copy ▾]    ← secondary button with ChevronDown icon
+
+Dropdown:
+  Copy as Image          → renders table to canvas via html2canvas, copies to clipboard
+  Copy Excel Data        → copies TSV string to clipboard (pastes into Excel as table)
+```
+
+### Implementation
+
+```ts
+// Copy as Image
+const copyAsImage = async (tableRef: HTMLElement) => {
+  const canvas = await html2canvas(tableRef, { scale: 2, useCORS: true });
+  canvas.toBlob(blob => {
+    if (!blob) return;
+    navigator.clipboard.write([
+      new ClipboardItem({ 'image/png': blob })
+    ]);
+  }, 'image/png');
+  toast('Table copied as image.');
+};
+
+// Copy Excel Data (TSV)
+const copyAsExcelData = (cells: CellData[][]) => {
+  const tsv = cells
+    .map(row => row.filter(c => !c.isHidden).map(c => c.value).join('\t'))
+    .join('\n');
+  navigator.clipboard.writeText(tsv);
+  toast('Table data copied. Paste into Excel or Google Sheets.');
+};
+```
+
+### Tests Required
+
+```ts
+describe('copyTable', () => {
+  it('copyAsExcelData produces correct TSV string')
+  it('copyAsExcelData skips hidden (merged) cells')
+  it('copyAsImage calls html2canvas and navigator.clipboard.write')
+  it('shows correct toast message on success')
+  it('shows error toast if clipboard write fails')
+})
+```
+
+---
+
+## 28. Auto-Sum and Auto-Numbering
+
+### Auto-Sum
+
+For columns with type **Number**, **Currency**, or **Percentage**:
+add a toggle "Show sum row" in Column Type panel.
+
+When enabled:
+```
+- A non-editable footer row is appended below the table
+- The footer cell for that column displays the sum of all non-empty numeric cells
+- Footer row styled: bg-surface, text-text-secondary, text-sm font-semibold
+- Other columns in the footer row are empty
+- Footer row is excluded from exports (or optionally included — user choice)
+```
+
+```ts
+// src/utils/tableUtils.ts
+export function sumColumn(cells: CellData[][], colIndex: number): number {
+  return cells.reduce((sum, row) => {
+    const val = parseFloat(row[colIndex]?.value ?? '');
+    return isNaN(val) ? sum : sum + val;
+  }, 0);
+}
+```
+
+### Auto-Numbering
+
+For columns with type **Number** and a toggle "Auto-number":
+```
+- Column cells are filled with sequential integers: 1, 2, 3...
+- Numbers are read-only while auto-number is active
+- Inserting a row re-sequences all auto-number columns
+- Visible in UI as a lock icon on the cell
+```
+
+### Tests Required
+
+```ts
+describe('sumColumn', () => {
+  it('returns correct sum for numeric column')
+  it('ignores non-numeric (NaN) cell values')
+  it('returns 0 for empty column')
+  it('handles negative numbers correctly')
+  it('handles currency-formatted strings stripped of symbols')
+})
+
+describe('autoNumbering', () => {
+  it('fills column with sequential integers starting at 1')
+  it('re-sequences after row insertion')
+  it('re-sequences after row deletion')
+})
+```
+
+---
+
+## 29. Column Sorting
+
+### UI
+
+```
+Sort controls appear:
+  1. In the column header (small asc/desc toggle icon — Lucide ArrowUpDown)
+  2. In the right-click context menu (Section 25)
+
+Visual state:
+  Active sort: column header shows ArrowUp (asc) or ArrowDown (desc) in primary color
+  No sort: shows ArrowUpDown in text-muted
+```
+
+### Sort Behavior
+
+```
+- Sort is non-destructive — it reorders rows in the view only
+- A "sort key" is stored in TableContext: { colIndex, direction }
+- Clearing sort restores original row order (original order always preserved in state)
+- Numeric columns sort numerically (parseFloat), not lexicographically
+- Empty cells always sort to the bottom regardless of direction
+- Merged cells: sorting is disabled when any merged range exists —
+  show tooltip "Clear merged cells to enable sorting"
+```
+
+### Implementation
+
+```ts
+// src/utils/tableUtils.ts
+export function sortRows(
+  rows: CellData[][],
+  colIndex: number,
+  direction: 'asc' | 'desc'
+): CellData[][] {
+  return [...rows].sort((a, b) => {
+    const aVal = a[colIndex]?.value ?? '';
+    const bVal = b[colIndex]?.value ?? '';
+    if (aVal === '') return 1;   // empty to bottom
+    if (bVal === '') return -1;
+
+    const aNum = parseFloat(aVal);
+    const bNum = parseFloat(bVal);
+    const isNumeric = !isNaN(aNum) && !isNaN(bNum);
+
+    const compared = isNumeric ? aNum - bNum : aVal.localeCompare(bVal);
+    return direction === 'asc' ? compared : -compared;
+  });
+}
+```
+
+### Tests Required
+
+```ts
+describe('sortRows', () => {
+  it('sorts string column ascending alphabetically')
+  it('sorts string column descending alphabetically')
+  it('sorts numeric column numerically, not lexicographically')
+  it('always places empty cells at the bottom regardless of direction')
+  it('does not mutate the original rows array')
+  it('handles mixed numeric and string values gracefully')
+})
+```
+
+---
+
+## 30. Performance: Memoization Strategy
+
+All components that re-render unnecessarily must be wrapped or optimized.
+This is a **mandatory** refactor — not optional.
+
+### Rules
+
+```
+React.memo()    → wrap every feature component that receives non-primitive props
+                  (TableCell, TableHeaderCell, ResizeHandle, SidebarPanel, etc.)
+
+useMemo()       → for expensive derived values computed from state
+                  (sorted rows, summed columns, visible cell count)
+
+useCallback()   → for ALL function props passed to child components
+                  (onSelect, onChange, onResize, onMerge, etc.)
+                  If a function is defined inside a component and passed as a prop,
+                  it MUST be wrapped in useCallback.
+
+useEffect()     → strict discipline:
+                  - Every effect must have a complete dependency array
+                  - Never use [] (empty deps) unless the effect truly runs once
+                  - Never fetch data in useEffect — use event handlers
+                  - Every effect that adds an event listener must remove it in cleanup
+                  - Avoid effects that just sync state to state — use derived values
+```
+
+### Priority Targets for Memoization
+
+```
+TableCell        → React.memo (renders for every cell — highest impact)
+TableHeaderCell  → React.memo
+ResizeHandle     → React.memo
+FeatureCard      → React.memo (landing page)
+SectionLabel     → React.memo (renders many times in sidebars)
+
+sortRows()       → useMemo([cells, sortKey])
+sumColumn()      → useMemo([cells, colIndex])
+mergedRanges     → useMemo([cells]) — derived, not stored state
+
+onSelect         → useCallback([dispatch])
+onChange         → useCallback([dispatch])
+onResize         → useCallback([setColumnWidths])
+autoFitColumn    → useCallback([tableRef, setColumnWidths])
+exportAs         → useCallback([exportService])
+```
+
+### useEffect Anti-Patterns to Fix
+
+```ts
+// ❌ Effect that syncs state to state — remove the effect
+useEffect(() => {
+  setFilteredRows(sortRows(cells, sortKey));
+}, [cells, sortKey]);
+// ✅ Replace with useMemo
+const filteredRows = useMemo(() => sortRows(cells, sortKey), [cells, sortKey]);
+
+// ❌ Missing cleanup for event listener
+useEffect(() => {
+  document.addEventListener('keydown', handler);
+}, []); // leak!
+// ✅ Always clean up
+useEffect(() => {
+  document.addEventListener('keydown', handler);
+  return () => document.removeEventListener('keydown', handler);
+}, [handler]);
+
+// ❌ Fetching in useEffect
+useEffect(() => { fetchData().then(setData); }, []);
+// ✅ Move to event handler or use a library (SWR, TanStack Query) when needed
+```
+
+### Profiling Requirement
+
+Before marking performance work done:
+1. Open React DevTools Profiler
+2. Record a 5-second session of normal table editing
+3. Confirm: no component re-renders more than once per user action
+4. Confirm: TableCell does not re-render when an unrelated cell is edited
+
+---
+
+## 31. 404 Page SVG Animation
+
+Replace the static 404 page with an animated SVG illustration.
+
+### Concept
+
+A table grid slowly assembles itself — columns slide in from the left,
+rows drop in from the top — then one cell shows a "?" and the whole grid
+gently pulses. Calm. On-brand. Not distracting.
+
+### Implementation
+
+```tsx
+// src/pages/NotFoundPage/NotFoundPage.tsx
+
+export const NotFoundPage: React.FC = () => (
+  <div className="flex flex-col items-center justify-center min-h-screen bg-white gap-8 px-4">
+
+    {/* Animated SVG */}
+    <svg width="240" height="180" viewBox="0 0 240 180"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <style>{`
+        .grid-line {
+          stroke: #E5E7EB;
+          stroke-width: 1.5;
+          stroke-linecap: round;
+        }
+        .col { animation: slideInLeft 0.4s ease-out both; }
+        .col:nth-child(2) { animation-delay: 0.1s; }
+        .col:nth-child(3) { animation-delay: 0.2s; }
+        .row { animation: dropIn 0.4s ease-out both; }
+        .row:nth-child(2) { animation-delay: 0.15s; }
+        .row:nth-child(3) { animation-delay: 0.25s; }
+        .row:nth-child(4) { animation-delay: 0.35s; }
+        .question-mark {
+          animation: fadeIn 0.3s ease-out 0.6s both, pulse 2s ease-in-out 1s infinite;
+        }
+        @keyframes slideInLeft {
+          from { opacity: 0; transform: translateX(-12px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes dropIn {
+          from { opacity: 0; transform: translateY(-10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; } to { opacity: 1; }
+        }
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0.4; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .col, .row, .question-mark { animation: none; opacity: 1; }
+        }
+      `}</style>
+
+      {/* Table outline */}
+      <rect x="20" y="20" width="200" height="140" rx="6"
+            stroke="#E5E7EB" strokeWidth="1.5" fill="none"/>
+      {/* Column lines */}
+      <g className="col"><line x1="87" y1="20" x2="87" y2="160" className="grid-line"/></g>
+      <g className="col"><line x1="153" y1="20" x2="153" y2="160" className="grid-line"/></g>
+      {/* Row lines */}
+      <g className="row"><line x1="20" y1="55" x2="220" y2="55" className="grid-line"/></g>
+      <g className="row"><line x1="20" y1="90" x2="220" y2="90" className="grid-line"/></g>
+      <g className="row"><line x1="20" y1="125" x2="220" y2="125" className="grid-line"/></g>
+      {/* Header fill */}
+      <rect x="21" y="21" width="198" height="33" rx="4" fill="#EFF6FF" opacity="0.8"/>
+      {/* Question mark in center cell */}
+      <text x="120" y="115" textAnchor="middle"
+            fontFamily="Inter, sans-serif" fontSize="28" fontWeight="700"
+            fill="#9CA3AF" className="question-mark">?</text>
+    </svg>
+
+    <div className="text-center space-y-3">
+      <h1 className="text-2xl font-bold text-text-primary">Page not found.</h1>
+      <p className="text-base text-text-secondary max-w-sm">
+        That URL does not exist. Let us get you back to building.
+      </p>
+    </div>
+    <Button variant="primary" onClick={() => navigate('/')}>
+      Back to Home
+    </Button>
+  </div>
+);
+```
+
+---
+
+## 32. Open Source and Sponsor Page
+
+### Route: `/open-source`
+
+### Page Structure
+
+```
+HEADING:   Built in the open. Sustained by the community.
+
+BODY:
+  Tablesmit is free, open source, and MIT licensed.
+  The code is on GitHub — read it, fork it, or build on top of it.
+
+  Open source tools survive because people invest in them.
+  If Tablesmit saves you time, consider supporting its development.
+
+SPONSOR SECTION:
+
+  HEADING:   Support this project
+
+  OPTIONS (rendered as clean cards, border border-border rounded-md p-6):
+
+    [GitHub Sponsors]     "Sponsor monthly on GitHub"   → github.com/sponsors/[handle]
+    [Buy Me a Coffee]     "One-time contribution"       → buymeacoffee.com/[handle]
+    [Open Collective]     "For teams and organizations" → opencollective.com/tablesmit
+
+  Each card: icon + platform name + one-line description + CTA button (secondary)
+
+CONTRIBUTORS SECTION:
+
+  HEADING:   Contributors
+  BODY:      "Tablesmit exists because of open source contributors.
+              Every bug report, pull request, and suggestion matters."
+  CTA:       [View Contributors on GitHub ↗]
+
+CONTRIBUTE SECTION:
+
+  HEADING:   How to contribute
+  BODY:      "Read CONTRIBUTION.md in the repository for guidelines on
+              reporting bugs, suggesting features, and submitting pull requests."
+  CTA:       [Read CONTRIBUTION.md ↗]
+
+FOOTER NOTE (text-xs text-text-muted text-center):
+  "MIT licensed. No warranties. Built with care."
+```
+
+---
+
+## 33. README.md Specification
+
+The README is the product's front door on GitHub. It must be clear,
+minimal, and make someone want to use or contribute within 30 seconds.
+
+```markdown
+# Tablesmit
+
+> A minimalist table builder for analytical writing.
+
+Build clean, structured tables with full control over headers, formatting,
+and export. No bloat. No account required. Free and open source.
+
+**[→ Open Tablesmit](https://tablesmit.com)**
+
+---
+
+## Features
+
+- Drag-to-resize columns and rows
+- Merge and unmerge cells
+- Custom header colors and styles
+- Word-style border controls
+- Column types: Text, Number, Currency, Percentage, Date
+- Auto-sum for numeric columns
+- Column sorting
+- Smart clipboard paste from Excel, Word, or CSV
+- Export: PDF, PNG, JPEG, Excel, CSV
+- Import: CSV, Excel
+- Keyboard navigation
+
+## Getting Started
+
+\`\`\`bash
+git clone https://github.com/[handle]/tablesmit.git
+cd tablesmit
+npm install
+npm run dev
+\`\`\`
+
+Open [http://localhost:5173](http://localhost:5173)
+
+## Tech Stack
+
+React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Vitest
+
+## Contributing
+
+See [CONTRIBUTION.md](./CONTRIBUTION.md) for guidelines.
+
+## License
+
+MIT — see [LICENSE](./LICENSE)
+
+---
+
+Built with care. Sponsored by the community.
+[Support this project →](https://tablesmit.com/open-source)
+```
+
+---
+
+## 34. CONTRIBUTION.md Specification
+
+```markdown
+# Contributing to Tablesmit
+
+Thank you for your interest in contributing.
+This document explains how to report bugs, suggest features, and submit code.
+
+---
+
+## Before You Start
+
+- Check [existing issues](https://github.com/[handle]/tablesmit/issues)
+  to avoid duplicates.
+- For large changes, open an issue first to discuss the approach.
+- All contributions must follow the engineering principles in `agents.md`.
+
+---
+
+## Reporting Bugs
+
+Use the GitHub issue tracker.
+Include:
+- Steps to reproduce (be specific)
+- Expected behavior
+- Actual behavior
+- Browser + OS version
+- A screenshot or screen recording if relevant
+
+---
+
+## Suggesting Features
+
+Open a GitHub Discussion, not an issue.
+Explain:
+- What you are trying to do
+- Why the current tool does not meet your need
+- What the feature would look like from a user's perspective
+
+---
+
+## Submitting a Pull Request
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feat/your-feature-name`
+3. Make your changes
+4. Write tests — no PR without tests will be reviewed
+5. Run the full suite: `npm run test` — all must pass
+6. Run lint: `npm run lint` — zero errors
+7. Open a PR against `main` with a clear description
+
+### PR Description Template
+
+\`\`\`
+## What does this PR do?
+[Short description]
+
+## Why?
+[Context / motivation]
+
+## Testing
+[What tests were added or changed]
+
+## Screenshots (if UI change)
+\`\`\`
+
+---
+
+## Code Standards
+
+- Follow SOLID, DRY, KISS as defined in agents.md
+- No `any` types without a comment explaining why
+- No hardcoded hex colors — use Tailwind tokens
+- No component receives props it does not use
+- All new hooks must have test coverage
+
+---
+
+## Commit Message Format
+
+\`\`\`
+feat: add column sorting
+fix: correct autoFit clamp on empty column
+docs: update CONTRIBUTION.md
+test: add sortRows edge case for empty cells
+refactor: extract borderUtils from TableGrid
+\`\`\`
+
+---
+
+## Code of Conduct
+
+Be respectful. Be specific. Be patient.
+We are all building something we care about.
+```
+
+---
+
+## 35. Em-Dash and Punctuation Rules for UI Copy
+
+### The Rule
+
+Em-dashes (—) are a **writing tool**, not a **UI decoration**.
+In product copy they create cognitive load — they interrupt the reading flow
+and force the eye to pause at an unexpected beat.
+
+```
+❌ Never use em-dashes in:
+   - Button labels
+   - Tooltip text
+   - Toast messages
+   - Error messages
+   - Form labels or placeholders
+   - Navigation items
+   - Feature card headings
+
+✅ Em-dashes are only acceptable in:
+   - Long-form About page body copy (max one per paragraph)
+   - README.md or CONTRIBUTION.md documentation
+   - This agents.md file (it is a specification document, not UI)
+```
+
+### Replacements
+
+| Instead of                                      | Write                                        |
+|-------------------------------------------------|----------------------------------------------|
+| "Export — PDF, PNG, JPEG"                       | "Export to PDF, PNG, or JPEG"                |
+| "Tables, your way — built for writers"          | "Tables, your way. Built for writers."       |
+| "Resize columns — like Excel"                   | "Resize columns like Excel."                 |
+| "No account — no paywall — no nonsense"         | "No account. No paywall. No nonsense."       |
+
+### Audit Required
+
+Before v6.0 ships, run a search for ` — ` (space em-dash space) across:
+- All `.tsx` files in `src/`
+- `index.html`
+- `public/`
+
+Replace every instance with the correct alternative per the table above.
+
+---
+
+## 36. AI Features (Future Roadmap — No Implementation in v6.0)
+
+These features are **scaffolded in v6.0 UI only** — no backend, no API calls.
+The purpose is to validate UX placement before building the actual AI layer.
+
+### Features
+
+```
+"Generate table from text"
+  → User pastes a paragraph. AI structures it as a table.
+  → v6.0: UI only — a textarea + disabled "Generate" button with "Coming soon" badge
+
+"Summarize this table"
+  → AI reads the table and produces a 2-3 sentence plain-English summary.
+  → v6.0: UI only — a "Summarize" button in the toolbar (disabled, "Coming soon")
+
+"Clean messy data"
+  → AI normalises inconsistent formatting, trims whitespace, standardises dates.
+  → v6.0: UI only — a "Clean" option in the Import dropdown (disabled, "Coming soon")
+
+"Convert paragraph to structured table"
+  → Identical to "Generate from text" but triggered from clipboard paste flow.
+  → v6.0: No UI — purely a future note for the paste handler
+```
+
+### Placement
+
+```
+Toolbar (right side, before Copy button):
+  [AI ✦]  ← ghost button with Sparkles icon, opens a panel
+
+AI Panel (right sidebar bottom section):
+  HEADING: AI Features (Beta)
+  BADGE:   "Coming soon"
+  LIST:    Generate from text · Summarize · Clean data
+  NOTE:    "AI features are in development. Join the waitlist."
+  CTA:     [Join Waitlist] → opens mailto or external form
+```
+
+### Technical Note for When AI Is Implemented
+
+```
+Model:      claude-sonnet (Anthropic API) or GPT-4o (OpenAI)
+Transport:  HTTPS POST to a serverless function (Vercel/Netlify edge function)
+            — never call AI APIs directly from the browser (exposes keys)
+Input:      Serialised CellData[][] as JSON
+Output:     Structured JSON matching CellData[][] schema
+Rate limit: 10 AI requests/user/hour (implemented server-side)
+Auth:       Required before AI features are enabled — use GitHub OAuth
+```
+
+---
+
+
+
+---
+
+## 37. State Management Architecture
+
+### Verdict: No External Library
+
+Do not install Redux, Zustand, Jotai, or any state management library.
+React Context + hooks is sufficient for this application's scope and complexity.
+The goal is correct architecture, not more dependencies.
+
+### The Problem to Solve
+
+A naive single Context holding all table state causes cascade re-renders:
+when one cell value changes, all 1,000 cells re-render because all are consumers
+of the same context value. `React.memo` helps only if props references are stable.
+
+### Solution: Three Contexts, Strict Selectors
+
+Split state into three isolated contexts. Components subscribe only to
+what they need. Unrelated state changes do not trigger re-renders.
+
+```
+┌─────────────────────────────────────────────────────────┐
+│  TableDataContext                                        │
+│  cells[][], columnWidths[], rowHeights[], mergedRanges[] │
+│  Changes: when table content or structure changes        │
+│  Consumers: TableCell (own cell only), ExportPanel       │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│  TableSelectionContext                                   │
+│  selectedRange, hoveredCell, isDragging, activeResizeCol │
+│  Changes: on every mouse move / click                   │
+│  Consumers: TableCell (selection highlight only)         │
+│  WHY SEPARATE: mouse moves must NOT re-render cell data  │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│  TableUIContext                                          │
+│  headerStyle, headerColor, sortKey, borderDefaults       │
+│  activePreset, columnTypes[], showSumRow                 │
+│  Changes: when user changes sidebar controls             │
+│  Consumers: sidebar panels, TableHeaderCell              │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Selector Hook Pattern
+
+Each `TableCell` gets only its own data — not the full cells array:
+
+```ts
+// src/hooks/useTableCell.ts
+// Returns only the data for one specific cell — memoised
+export function useTableCell(cellId: string): CellData {
+  const { cells } = useContext(TableDataContext);
+  const [row, col] = parseCellId(cellId);
+  // useMemo ensures referential stability — only changes when THIS cell changes
+  return useMemo(() => cells[row][col], [cells, row, col]);
+}
+
+// src/hooks/useIsSelected.ts
+export function useIsSelected(cellId: string): boolean {
+  const { selectedRange } = useContext(TableSelectionContext);
+  if (!selectedRange) return false;
+  const { row, col } = parseCellId(cellId);
+  return (
+    row >= selectedRange.startRow && row <= selectedRange.endRow &&
+    col >= selectedRange.startCol && col <= selectedRange.endCol
+  );
+}
+```
+
+### TableCell — Correctly Memoised
+
+```tsx
+// src/components/features/TableGrid/TableCell/TableCell.tsx
+export const TableCell = React.memo(
+  ({ cellId, onSelect, onChange }: TableCellProps) => {
+    const cell       = useTableCell(cellId);       // TableDataContext
+    const isSelected = useIsSelected(cellId);      // TableSelectionContext
+    // ...
+  },
+  // Custom comparator — only re-render if cellId changes (it never does)
+  (prev, next) => prev.cellId === next.cellId
+);
+```
+
+This means: typing in `R0C0` re-renders ONLY `R0C0`. All other 999 cells stay frozen.
+
+### Context File Structure
+
+```
+src/context/
+  TableDataContext.tsx       — cells, columnWidths, rowHeights, mergedRanges
+  TableSelectionContext.tsx  — selectedRange, hoveredCell, isDragging
+  TableUIContext.tsx          — headerStyle, colors, sortKey, columnTypes
+  index.ts                   — re-exports all contexts and hooks
+```
+
+### Upgrade Path (if profiling reveals a genuine bottleneck)
+
+If React DevTools Profiler shows cascade re-renders after the split:
+migrate `cells[][]` to **Zustand** only (not the whole state).
+Zustand's store allows `useStore(state => state.cells[row][col])` subscriptions
+that update only the affected cell. This is a 1-day migration.
+
+Trigger for migration: any cell re-renders more than once per user keystroke
+after full memoisation is applied and contexts are split.
+
+Do not migrate preemptively.
+
+### When to Reconsider
+
+```
+Consider Zustand if:
+  [ ] 50-row × 20-col table lags on input after split + memo
+  [ ] React Profiler shows >3 unexpected re-renders per keystroke
+  [ ] History (undo) snapshots cause noticeable freeze on large tables
+
+Do NOT add a library because:
+  [ ] "It would be cleaner"
+  [ ] "Everyone uses it"
+  [ ] The architecture feels complex (fix the architecture, not the dependency list)
+```
+
+---
+
+## 38. SEO Strategy
+
+### Target: First Page on Google
+
+Your competition (Tabley, TableConvert, Tables Generator) has weak Core Web Vitals,
+thin content, and zero link-building strategy. A fast, open-source tool with a
+structured content plan can outrank them within 3 to 6 months.
+
+---
+
+### 38A. Keyword Strategy
+
+#### Primary Keywords (high intent, reachable)
+These are what people type when they need exactly what Tablesmit does.
+
+| Keyword                         | Monthly Volume | Difficulty | Priority |
+|---------------------------------|---------------|------------|----------|
+| web table maker                 | ~2,400        | Low        | P1       |
+| online table generator          | ~8,100        | Medium     | P1       |
+| table maker free                | ~6,600        | Medium     | P1       |
+| table builder online            | ~3,600        | Low        | P1       |
+| html table generator            | ~4,400        | Medium     | P2       |
+| markdown table generator        | ~2,900        | Low        | P1       |
+| csv to table                    | ~1,600        | Low        | P1       |
+| copy table from excel to word   | ~1,200        | Low        | P1       |
+| table maker export pdf          | ~880          | Low        | P1       |
+| table generator for writers     | ~390          | Very Low   | P1       |
+
+#### Long-Tail Keywords (easy wins, high conversion)
+
+```
+"free online table maker no signup"        — zero friction, matches product
+"table maker export to excel free"         — feature-specific
+"copy excel table to web"                  — clipboard paste feature
+"merge cells online table"                 — specific feature keyword
+"how to make a table in markdown"          — informational, high volume
+"best table generator for researchers"     — audience-specific
+"tablesmit"                               — brand (own this fast)
+"tablesmith online"                        — brand misspelling coverage
+"tablesmit table maker"                    — brand + category
+```
+
+#### Brand SEO (cover the spelling gap)
+
+```html
+<!-- In <head> of every page -->
+<meta name="description"
+  content="Tablesmit (also searched as Tablesmith) — a free, minimalist
+  table maker for writers and analysts. Build clean tables with full control
+  over headers, formatting, and export. No signup required.">
+
+<!-- In the About page body copy (natural language): -->
+"Tablesmit — sometimes spelled Tablesmith — is a minimalist table builder..."
+```
+
+This single technique captures both spellings in Google's index.
+
+---
+
+### 38B. Technical SEO — Implementation
+
+Every item below must be implemented before launch. These are table stakes.
+
+#### `index.html` — Meta Tags
+
+```html
+<head>
+  <!-- Primary -->
+  <title>Tablesmit — Free Online Table Maker for Writers and Analysts</title>
+  <meta name="description"
+    content="Build clean, structured tables with full control over headers,
+    formatting, and export. Free. No signup. Export to PDF, Excel, CSV, or PNG.">
+  <link rel="canonical" href="https://tablesmit.com/">
+
+  <!-- Open Graph (Facebook, LinkedIn previews) -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://tablesmit.com/">
+  <meta property="og:title"       content="Tablesmit — Free Table Maker for Analytical Writing">
+  <meta property="og:description" content="Build clean tables with drag-to-resize,
+    merge cells, custom headers, and export to PDF, Excel, or CSV. Free and open source.">
+  <meta property="og:image"       content="https://tablesmit.com/og-image.png">
+  <meta property="og:image:width"  content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Tablesmit — Free Table Maker">
+  <meta name="twitter:description" content="Minimalist table builder for writers
+    and analysts. Drag-to-resize, merge cells, export anywhere. Free.">
+  <meta name="twitter:image"       content="https://tablesmit.com/og-image.png">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tablesmit",
+    "alternateName": "Tablesmith",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web",
+    "url": "https://tablesmit.com",
+    "description": "A free, minimalist table builder for analytical writing.
+      Build clean structured tables with full control over headers, formatting,
+      and export. No signup required.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Drag-to-resize columns and rows",
+      "Merge and unmerge cells",
+      "Custom header styles",
+      "Export to PDF, Excel, PNG, CSV",
+      "Import from CSV and Excel",
+      "Smart clipboard paste from Excel"
+    ],
+    "screenshot": "https://tablesmit.com/screenshot.png",
+    "softwareVersion": "1.0.0",
+    "author": {
+      "@type": "Organization",
+      "name": "Tablesmit"
+    }
+  }
+  </script>
+</head>
+```
+
+#### OG Image Specification
+
+File: `public/og-image.png` — 1200×630px
+
+```
+Content:
+  Left 60%: Screenshot of Tablesmit with a clean, populated table
+  Right 40%: White background
+    - Tablesmit logo (icon + wordmark)
+    - Tagline: "Tables, your way."
+    - Three feature bullets in text-sm:
+        ✓ Free. No signup.
+        ✓ Export to PDF, Excel, CSV
+        ✓ Open source
+
+Background: white (#FFFFFF)
+Font: Inter Bold for headline, Inter Regular for bullets
+This image appears in every link preview — it is your first impression.
+```
+
+#### `public/sitemap.xml`
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tablesmit.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/app</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/open-source</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
+```
+
+#### `public/robots.txt`
+
+```
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://tablesmit.com/sitemap.xml
+```
+
+---
+
+### 38C. Core Web Vitals Targets
+
+Google uses Core Web Vitals as a direct ranking factor. These are non-negotiable.
+
+| Metric                              | Target      | What it measures                      |
+|-------------------------------------|-------------|---------------------------------------|
+| LCP (Largest Contentful Paint)      | < 2.5s      | How fast the main content loads       |
+| INP (Interaction to Next Paint)     | < 200ms     | How fast the app responds to input    |
+| CLS (Cumulative Layout Shift)       | < 0.1       | Whether layout jumps during load      |
+| FCP (First Contentful Paint)        | < 1.8s      | How fast anything appears             |
+| TTFB (Time to First Byte)           | < 600ms     | How fast the server responds          |
+
+#### How to Hit These Targets
+
+```
+LCP:
+  - Preload hero image/screenshot: <link rel="preload" as="image" href="/screenshot.webp">
+  - Convert all images to WebP
+  - Self-host fonts (already done via @fontsource) — eliminates CDN round trip
+  - Use Vite's manualChunks to keep initial bundle under 150KB gzipped
+
+INP (most critical for a table editor):
+  - The rAF resize pattern (already implemented) is critical
+  - React.memo on TableCell eliminates cascade re-renders
+  - Split contexts (Section 37) prevents selection from re-rendering data
+  - useCallback on all handlers — stable references prevent re-renders
+
+CLS:
+  - Define explicit width/height on all images and the logo SVG
+  - Reserve space for the table grid before it renders (skeleton placeholder)
+  - Avoid injecting DOM elements that push layout down
+
+Bundle Size Targets:
+  vendor-react:   < 50KB gzipped
+  vendor-ui:      < 40KB gzipped
+  vendor-export:  < 80KB gzipped (jsPDF + html2canvas are heavy — lazy load them)
+  app code:       < 60KB gzipped
+  Total initial:  < 150KB gzipped
+```
+
+#### Lazy-load export libraries
+
+```ts
+// exportService.ts — defer heavy libraries until first export click
+const exportToPDF = async (element: HTMLElement) => {
+  const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
+    import('jspdf'),
+    import('html2canvas'),
+  ]);
+  // ...
+};
+```
+
+This keeps the initial bundle lean and only loads jsPDF when the user
+actually clicks an export button.
+
+---
+
+### 38D. Content Strategy (Ranks You Without Paid Ads)
+
+Content is what gets you to page 1 organically. Tools that publish useful
+content rank above tools that don't — even when the tool is worse.
+
+#### Blog Section: `/blog`
+
+Create a `/blog` route. Publish one article per week for the first 3 months.
+Each article targets one long-tail keyword.
+
+**Priority articles:**
+
+```
+1. "How to make a table in Markdown"
+   → Target: "markdown table generator" (2,900/mo)
+   → Content: Tutorial + embed Tablesmit for live generation
+   → Word count: 800
+
+2. "How to copy a table from Excel to the web"
+   → Target: "copy excel table to web" (1,200/mo)
+   → Content: Problem statement + Tablesmit clipboard paste walkthrough
+   → Word count: 600
+
+3. "5 free online table makers compared"
+   → Target: "free table maker online" (6,600/mo)
+   → Content: Honest comparison including competitors
+   → Note: Tablesmit listed last — let the comparison speak for itself
+   → Word count: 1,200
+
+4. "How to export a table to PDF from your browser"
+   → Target: "table maker export pdf" (880/mo)
+   → Content: Tutorial + Tablesmit PDF export walkthrough
+   → Word count: 500
+
+5. "The best table tool for researchers and analysts"
+   → Target: "table generator for researchers" (390/mo)
+   → Content: Audience-specific pain points + Tablesmit solution
+   → Word count: 900
+
+6. "How to merge cells in an online table"
+   → Target: "merge cells online table" (specific feature)
+   → Content: Short tutorial with Tablesmit embedded
+   → Word count: 400
+```
+
+**Blog post template rules:**
+```
+- H1: exact keyword phrase
+- First 100 words: answer the question directly (Google reads this for featured snippets)
+- One embedded live Tablesmit demo or screenshot per article
+- Internal link to /app from every article CTA
+- External links to 2-3 credible sources (signals topical authority)
+- No keyword stuffing — write for humans, Google follows
+- Publish date visible — Google favors fresh content
+```
+
+#### Feature Landing Pages
+
+Create individual pages for high-intent feature keywords:
+
+```
+/features/excel-export          → "export table to excel online"
+/features/pdf-export            → "export table to pdf free"
+/features/csv-import            → "csv to table online"
+/features/merge-cells           → "merge cells table online"
+/features/markdown-table        → "markdown table generator"
+/features/column-resize         → "resize table columns online"
+```
+
+Each page: 400-600 words explaining the feature, one screenshot, one CTA to /app.
+These are thin pages that rank for specific queries without competing with your homepage.
+
+---
+
+### 38E. Link Building Strategy
+
+Links from other websites are the single biggest ranking signal.
+You need links from credible, relevant sources.
+
+#### High-Priority (do these at launch)
+
+```
+1. GitHub Repository
+   → Link from README back to tablesmit.com
+   → A popular GitHub repo is itself a high-DA link source
+   → Star count matters for credibility signals
+
+2. Product Hunt Launch
+   → Submit on a Tuesday or Wednesday (highest traffic days)
+   → Prepare: 60-word description, 3 screenshots, demo GIF
+   → A top-5 product of the day = hundreds of backlinks from coverage
+   → Link: producthunt.com → tablesmit.com
+
+3. Hacker News "Show HN"
+   → Title: "Show HN: Tablesmit — open source table maker for analytical writing"
+   → Post between 9-11am ET on a weekday
+   → Link to the app, not the homepage
+   → Respond to every comment within the first 2 hours
+
+4. DEV.to / Hashnode article
+   → "I built a free open-source table maker — here is what I learned"
+   → Honest build log, not a product pitch
+   → Link naturally to tablesmit.com in context
+
+5. Reddit
+   → r/webdev, r/sideprojects, r/opensource, r/writing, r/analytics
+   → Soft launch in relevant threads — answer questions, mention the tool
+   → Never post "check out my product" — add value first
+```
+
+#### Medium-Priority (weeks 2-8)
+
+```
+6. Alternatives.to listing
+   → Free submission
+   → tablesmit.com listed as alternative to Tabley, Tables Generator, etc.
+   → Users searching competitors find you
+
+7. Open Source directories
+   → opensourcealternative.to
+   → alternativeto.net
+   → toolify.ai
+   → free submissions, credible backlinks
+
+8. Twitter/X thread
+   → "I built a table tool because I kept hitting walls with existing ones.
+      Here is what it does differently: [thread]"
+   → Show the product, don't pitch it
+   → End with link
+
+9. Reach out to 5 writers/analysts with newsletters
+   → "I built this for people like your readers — would you try it?"
+   → One genuine newsletter mention = hundreds of targeted visitors
+```
+
+---
+
+### 38F. On-Page SEO Rules (Enforced in Code)
+
+These must be implemented in the React app, not added later.
+
+```tsx
+// src/pages/LandingPage/LandingPage.tsx
+// Use react-helmet-async or @vite/plugin-html for dynamic meta
+
+// H1 — one per page, contains primary keyword
+<h1>Free Online Table Maker for Writers and Analysts</h1>
+
+// H2 — section headings, contain secondary keywords naturally
+<h2>What makes Tablesmit different</h2>
+<h2>Export your table anywhere</h2>
+
+// Alt text on every image — describes content, not "image of..."
+<img src="/screenshot.webp" alt="Tablesmit table editor showing merged cells
+  and custom header colors" width="1200" height="800" />
+
+// Internal linking — every page links to /app
+<a href="/app">Open Tablesmit</a>  // on landing, about, blog, feature pages
+
+// URL structure — clean, keyword-rich, no query strings
+/app                     ✅
+/about                   ✅
+/open-source             ✅
+/blog/markdown-table-generator  ✅
+/features/pdf-export     ✅
+/?tool=table&v=2         ❌
+
+// Page load speed — the #1 silent ranking factor
+// Every page must score 90+ on PageSpeed Insights before deployment
+```
+
+---
+
+### 38G. SEO Monitoring
+
+Set these up at launch and check weekly:
+
+```
+Google Search Console (free)
+  → Submit sitemap.xml
+  → Monitor which queries you rank for
+  → Track click-through rate per query
+  → Watch for crawl errors
+
+Google Analytics 4 (free)
+  → Track /app conversions (users who reach the table builder)
+  → Track which landing pages drive app opens
+  → Set up event: "Table exported" as a conversion
+
+Ahrefs Webmaster Tools (free tier)
+  → Monitor backlink acquisition
+  → Track keyword position changes weekly
+
+Uptime monitor (UptimeRobot, free)
+  → Google deranks sites with downtime history
+  → Set up email alert for any downtime > 1 minute
+```
+
+---
+
+### 38H. Realistic Timeline
+
+```
+Month 1 (launch):
+  Week 1:  Technical SEO complete (meta, OG, structured data, sitemap, robots)
+  Week 2:  Product Hunt + Hacker News launch
+  Week 3:  First 3 blog posts published
+  Week 4:  DEV.to article + Reddit soft launch
+  Result:  Indexed, brand keywords ranking, early long-tail traction
+
+Month 2-3:
+  Weekly blog posts on target keywords
+  Alternatives.to + OSS directory listings
+  5 long-tail keywords on page 1 or 2
+  Result: 200-500 organic visitors/month
+
+Month 3-6:
+  Feature pages live
+  2-3 newsletter mentions from outreach
+  GitHub stars creating organic link signal
+  Milestone: 20 stars → submit to Made in Nigeria OSS (see below)
+  Result: Primary keywords ("table maker free") reaching page 1-2
+  Target: 1,000-3,000 organic visitors/month
+
+Month 6+:
+  If Product Hunt or HN launch lands well: spike of 5,000+ visitors,
+  dozens of backlinks, domain authority boost that compounds for all keywords.
+```
+
+---
+
+### 38I. Made in Nigeria OSS Listing
+
+**Source:** [https://x.com/MadeinNGOSS](https://x.com/MadeinNGOSS)
+
+This is a curated directory of open source projects built by Nigerian developers
+for global use. A listing here is a credible backlink, a community signal, and
+a statement of identity. Submit when the repo crosses **20 GitHub stars**.
+
+#### Eligibility Checklist (verify before submitting PR)
+
+```
+[ ] Repo is public on GitHub
+[ ] Star count ≥ 20
+[ ] Tablesmit solves a general problem — not Nigeria-specific ✅
+[ ] Source code is open source (MIT licensed) ✅
+[ ] Author is Nigerian ✅
+[ ] Has a social/personal link outside GitHub (Twitter/X preferred)
+[ ] Repo has not been archived or deprecated
+```
+
+#### How to Submit
+
+```
+1. Fork the Made in Nigeria OSS repository
+   → github.com/MadeinNGOSS (find the repo from the X account)
+
+2. Open:  data/projects.json
+
+3. Add the entry below anywhere in the array
+   (it will be sorted alphabetically on merge — position does not matter)
+
+4. Run:  npm run build
+   → Check for errors before opening the PR
+
+5. Open a Pull Request
+   → Make the PR description clear and specific (see template below)
+   → Remove all console.log statements from any code touched
+   → For UI changes: include screenshot or short recording
+```
+
+#### Pre-filled JSON Entry (copy exactly — update placeholders only)
+
+```json
+{
+  "name": "Tablesmit",
+  "repoUrl": "https://github.com/YOUR_GITHUB_HANDLE/tablesmit",
+  "description": "A minimalist, open source table builder for analytical writing. Build clean structured tables with full control over headers, column types, and formatting. Supports drag-to-resize, merge cells, smart clipboard paste from Excel, and export to PDF, Excel, CSV, and PNG. No signup required.",
+  "authors": [
+    {
+      "name": "@YOUR_TWITTER_HANDLE",
+      "link": "https://x.com/YOUR_TWITTER_HANDLE"
+    }
+  ]
+}
+```
+
+**Placeholders to replace:**
+
+| Placeholder              | Replace with                                      |
+|--------------------------|---------------------------------------------------|
+| `YOUR_GITHUB_HANDLE`     | Your actual GitHub username                       |
+| `YOUR_TWITTER_HANDLE`    | Your actual Twitter/X handle (preferred over GitHub for author link) |
+
+**Do not change:**
+- The `name` field — "Tablesmit" is the brand name, exact spelling
+- The `description` — already written to max character guidance and covers key features
+- The structure of the JSON — any deviation will fail the automated validator
+
+#### PR Description Template (paste into GitHub PR body)
+
+```markdown
+## Adding Tablesmit to Made in Nigeria OSS
+
+**Project:** Tablesmit
+**Repo:** https://github.com/YOUR_GITHUB_HANDLE/tablesmit
+**Live URL:** https://tablesmit.com
+
+**What it does:**
+Tablesmit is a minimalist, open source table builder for analytical writing.
+It lets writers, analysts, and researchers build clean structured tables with
+full control over headers, column formatting, and export — all in the browser,
+no signup required.
+
+**Why it qualifies:**
+- Built and maintained by a Nigerian developer
+- MIT licensed, fully open source
+- Solves a general problem for a global audience (not Nigeria-specific)
+- ★ [INSERT STAR COUNT] GitHub stars at time of submission
+
+**Checklist:**
+- [x] Entry added to data/projects.json
+- [x] npm run build passes with no errors
+- [x] No console.log statements
+- [x] Social link provided (Twitter/X — outside GitHub)
+```
+
+#### After the PR Merges
+
+```
+The automated pipeline will:
+  1. Validate the entry format
+  2. Fetch live GitHub data on the next weekly Monday run:
+     - Star count
+     - Last push date
+     - Primary language (TypeScript)
+  3. Regenerate README.MD automatically
+
+Status will be computed automatically:
+  Active push in last 6 months → "active"
+  No action needed on your part after merge.
+
+Follow @MadeinNGOSS on X for confirmation of listing.
+```
+
+#### Why This Matters for SEO
+
+```
+Domain authority of the Made in Nigeria OSS site → passes link equity to tablesmit.com
+Nigerian developer community → organic shares, stars, word of mouth
+Backlink from a curated OSS directory → trusted source in Google's eyes
+Story angle: "Nigerian-built open source tool for global writers" →
+  press coverage opportunity (TechCabal, Techpoint.Africa, DEV.to Nigeria)
+```
+
+---
+
+
+---
+
+## 39. Privacy Policy and Terms of Use
+
+### Routes
+```
+/privacy    — Privacy Policy
+/terms      — Terms of Use
+```
+
+Both pages are required before launch. GA4 analytics, clipboard API access,
+and file imports all constitute data handling that requires disclosure.
+
+---
+
+### 39A. Privacy Policy — Full Copy
+
+```
+HEADING: Privacy Policy
+LAST UPDATED: [Date of first publish]
+
+BODY:
+
+Tablesmit is a browser-based tool. We do not require an account,
+and we do not store your table data on any server.
+
+What we collect
+  We use Google Analytics 4 (GA4) to understand how people use Tablesmit.
+  GA4 collects anonymised usage data including pages visited, time on page,
+  and general geographic region (country level). We do not collect names,
+  email addresses, or any personally identifiable information.
+
+  We use cookies only to support analytics. No advertising cookies are used.
+
+What we do not collect
+  Your table content never leaves your browser.
+  We do not transmit, store, or process your table data.
+  We do not sell data to third parties.
+
+File imports
+  When you import a CSV or Excel file, it is read locally in your browser.
+  The file is never uploaded to any server.
+
+Clipboard access
+  When you paste content from your clipboard, it is read locally.
+  We do not transmit clipboard data.
+
+Third-party services
+  Google Analytics 4 — analytics.google.com/about/privacy
+  GitHub (for open source contributions) — docs.github.com/en/site-policy
+
+Your rights
+  If you are in the EU or UK, you have rights under GDPR/UK GDPR including
+  the right to access, correct, or delete data held about you.
+  Contact: [your email address]
+
+Changes to this policy
+  We will update this page when our practices change.
+  The "last updated" date at the top reflects the most recent revision.
+```
+
+---
+
+### 39B. Terms of Use — Full Copy
+
+```
+HEADING: Terms of Use
+LAST UPDATED: [Date of first publish]
+
+BODY:
+
+By using Tablesmit you agree to these terms.
+
+The service
+  Tablesmit is provided free of charge, as-is, with no guarantees of uptime,
+  accuracy, or fitness for any particular purpose.
+
+Your content
+  You retain full ownership of any content you create with Tablesmit.
+  We claim no rights over your tables, data, or exports.
+
+Open source
+  Tablesmit's source code is available under the MIT license.
+  You are free to fork, modify, and distribute it under those terms.
+
+Acceptable use
+  You may not use Tablesmit to create, store, or distribute content that is
+  illegal, harmful, or violates the rights of others.
+
+Limitation of liability
+  Tablesmit is provided without warranty. We are not liable for data loss,
+  inaccurate exports, or any damage arising from use of the tool.
+
+Contact
+  [your email address]
+```
+
+---
+
+### 39C. Implementation
+
+```tsx
+// src/pages/PrivacyPage/PrivacyPage.tsx
+// src/pages/TermsPage/TermsPage.tsx
+
+// Both pages: simple prose layout, max-w-narrow mx-auto, py-16 px-4
+// No sidebar, no table editor — just clean readable text
+// Typography: text-base leading-relaxed text-text-secondary
+// Headings: text-xl font-semibold text-text-primary mb-3 mt-8
+
+// Add routes in App.tsx:
+<Route path="/privacy" element={<PrivacyPage />} />
+<Route path="/terms"   element={<TermsPage />} />
+
+// Footer links already reference /privacy and /terms — no footer change needed
+```
+
+---
+
+## 40. Error Boundaries
+
+Every major UI region must be wrapped in an Error Boundary.
+A single component crash must never take down the entire application.
+
+### Which regions need boundaries
+
+```
+AppErrorBoundary       — wraps the entire app (catches routing-level errors)
+TableErrorBoundary     — wraps TableGrid (most complex component, highest risk)
+SidebarErrorBoundary   — wraps left and right sidebars
+PageErrorBoundary      — wraps each lazy-loaded page inside Suspense
+```
+
+### Implementation
+
+```tsx
+// src/components/ui/ErrorBoundary/ErrorBoundary.tsx
+// React Error Boundaries must be class components — no hook equivalent exists.
+
+import { Component, ErrorInfo, ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+  fallback?: ReactNode;        // optional custom fallback UI
+  onError?: (error: Error, info: ErrorInfo) => void;  // optional error callback
+}
+
+interface State {
+  hasError: boolean;
+  error: Error | null;
+}
+
+export class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false, error: null };
+
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    // Forward to error monitoring (Sentry) when integrated
+    this.props.onError?.(error, info);
+    console.error('[ErrorBoundary]', error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback ?? <DefaultErrorFallback error={this.state.error} />;
+    }
+    return this.props.children;
+  }
+}
+
+// Default fallback — minimal, calm, on-brand
+const DefaultErrorFallback = ({ error }: { error: Error | null }) => (
+  <div className="flex flex-col items-center justify-center p-12 text-center gap-4">
+    <svg width="40" height="40" viewBox="0 0 32 32" fill="none">
+      <rect x="2" y="2" width="28" height="10" rx="4" fill="#DC2626" opacity="0.15"/>
+      <rect x="2" y="15" width="12" height="15" rx="3" fill="#DC2626" opacity="0.1"/>
+      <rect x="18" y="15" width="12" height="15" rx="3" fill="#DC2626" opacity="0.06"/>
+    </svg>
+    <p className="text-base font-semibold text-text-primary">Something went wrong.</p>
+    <p className="text-sm text-text-secondary max-w-xs">
+      {error?.message ?? 'An unexpected error occurred.'}
+    </p>
+    <button
+      className="text-sm text-primary underline underline-offset-2"
+      onClick={() => window.location.reload()}
+    >
+      Reload the page
+    </button>
+  </div>
+);
+```
+
+### Usage in App.tsx
+
+```tsx
+// Wrap each major region:
+<AppErrorBoundary>
+  <Suspense fallback={<PageLoader />}>
+    <Routes>
+      <Route path="/app" element={
+        <TableErrorBoundary>
+          <TableMakerPage />
+        </TableErrorBoundary>
+      } />
+    </Routes>
+  </Suspense>
+</AppErrorBoundary>
+```
+
+### Tests Required
+
+```ts
+describe('ErrorBoundary', () => {
+  it('renders children when no error occurs')
+  it('renders fallback UI when a child throws')
+  it('calls onError callback with the error and component stack')
+  it('shows the default fallback when no custom fallback is provided')
+  it('reload button triggers window.location.reload')
+})
+```
+
+---
+
+## 41. Toast Notification System
+
+**Library: Sonner**
+Install: `npm install sonner`
+
+Sonner is the current standard for Vite + React projects.
+Accessible, animated, lightweight (~3KB), zero configuration.
+
+### Setup
+
+```tsx
+// src/main.tsx — add Toaster once at app root
+import { Toaster } from 'sonner';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+    <Toaster
+      position="bottom-right"
+      toastOptions={{
+        duration: 3000,
+        classNames: {
+          toast:   'font-sans text-sm',
+          success: 'border-l-4 border-success',
+          error:   'border-l-4 border-danger',
+        },
+      }}
+    />
+  </StrictMode>
+);
+```
+
+### Usage — standardised toast calls
+
+```ts
+// src/utils/toast.ts
+// Thin wrapper — ensures consistent messages across the app.
+// Import from here, never directly from 'sonner', so messages stay in one place.
+
+import { toast as sonnerToast } from 'sonner';
+
+export const toast = {
+  success: (msg: string) => sonnerToast.success(msg),
+  error:   (msg: string) => sonnerToast.error(msg),
+  info:    (msg: string) => sonnerToast(msg),
+};
+
+// Export messages as constants — no magic strings in components
+export const TOAST = {
+  EXPORT_SUCCESS:   (fmt: string) => `Table exported as ${fmt}.`,
+  EXPORT_ERROR:     'Export failed. Try reducing the table size.',
+  IMPORT_SUCCESS:   (rows: number, cols: number) => `Table imported. ${rows} rows, ${cols} columns.`,
+  IMPORT_ERROR:     'Could not read file. Check the format and try again.',
+  IMPORT_TOO_LARGE: 'File too large. Maximum size is 5MB.',
+  COPY_IMAGE:       'Table copied as image.',
+  COPY_DATA:        'Table data copied. Paste into Excel or Google Sheets.',
+  PASTE_SUCCESS:    (rows: number, cols: number) => `Table pasted. ${rows} rows, ${cols} columns.`,
+  PASTE_ERROR:      'Could not read clipboard. Try importing a file instead.',
+  UNDO_EMPTY:       'Nothing left to undo.',
+  CELL_CLEARED:     'Table cleared.',
+} as const;
+```
+
+### Rules
+```
+- All toasts use the wrapper above — never call sonnerToast directly in components
+- Success: 3 seconds (default)
+- Error: 5 seconds (user needs more time to read and act)
+- No toast for actions the user explicitly triggered with immediate visual feedback
+  (e.g. adding a row — the table visually updates, no toast needed)
+- Toast copy follows Section 13 (micro-copy rules): confirm the action, not the system state
+```
+
+---
+
+## 42. Husky + Lint-Staged
+
+Pre-commit hooks prevent bad code from entering the repo.
+Lint errors and failing tests are caught before they become history.
+
+### Installation
+
+```bash
+npm install -D husky lint-staged
+npx husky init
+```
+
+### `.husky/pre-commit`
+
+```sh
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+npx lint-staged
+```
+
+### `package.json` additions
+
+```json
+{
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint --fix --max-warnings=0",
+      "prettier --write"
+    ],
+    "src/**/*.{css,scss}": [
+      "prettier --write"
+    ]
+  },
+  "scripts": {
+    "prepare": "husky"
+  }
+}
+```
+
+### What this enforces on every commit
+
+```
+1. ESLint runs on all staged .ts/.tsx files
+   → --max-warnings=0 means zero tolerance — warnings are errors
+   → --fix auto-corrects fixable issues (imports, formatting)
+
+2. Prettier formats all staged files
+   → No more "fix formatting" commits
+
+3. If lint fails: commit is aborted, errors shown in terminal
+   → Developer fixes before committing — not after pushing
+```
+
+### `.eslintrc` baseline rules to add (if not already present)
+
+```json
+{
+  "rules": {
+    "no-console": "error",
+    "no-debugger": "error",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-unused-vars": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react-hooks/rules-of-hooks": "error"
+  }
+}
+```
+
+---
+
+## 43. Dark Mode
+
+### Design Decisions
+
+```
+Toggle location:  Navbar — far right, before any CTA button
+Icon:             Sun (light mode active) / Moon (dark mode active) — Lucide icons
+Persistence:      localStorage key: "tablesmit-theme"
+Default:          System preference via prefers-color-scheme media query
+Scope:            class="dark" on <html> element — Tailwind dark mode class strategy
+```
+
+### Tailwind Config Update
+
+```ts
+// tailwind.config.ts — add darkMode
+const config: Config = {
+  darkMode: 'class',   // ← add this line
+  // ...rest of config
+};
+```
+
+### Dark Colour Palette
+
+```css
+/* src/styles/globals.css — add dark mode overrides */
+@layer base {
+  .dark {
+    --color-background:     #0F172A;   /* page background      */
+    --color-surface:        #1E293B;   /* sidebar, toolbar     */
+    --color-surface-hover:  #334155;
+    --color-border:         #334155;
+    --color-border-focus:   #60A5FA;
+    --color-text-primary:   #F1F5F9;
+    --color-text-secondary: #94A3B8;
+    --color-text-muted:     #64748B;
+    --color-primary:        #3B82F6;   /* slightly lighter in dark */
+    --color-primary-hover:  #60A5FA;
+    --color-primary-light:  #1E3A5F;
+    --color-accent:         #F59E0B;   /* unchanged — amber works on dark */
+    --color-accent-hover:   #D97706;
+  }
+}
+```
+
+### `useTheme` Hook
+
+```ts
+// src/hooks/useTheme.ts
+export function useTheme() {
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    const stored = localStorage.getItem('tablesmit-theme');
+    if (stored === 'dark' || stored === 'light') return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark' : 'light';
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('tablesmit-theme', theme);
+  }, [theme]);
+
+  const toggle = useCallback(
+    () => setTheme(t => t === 'light' ? 'dark' : 'light'),
+    []
+  );
+
+  return { theme, toggle };
+}
+```
+
+### Navbar Toggle Button
+
+```tsx
+// In Navbar.tsx
+const { theme, toggle } = useTheme();
+
+<IconButton onClick={toggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+  {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+</IconButton>
+```
+
+### Logo — Dark Mode
+
+Use Logo 2B dark variant (Section 2D) when `theme === 'dark'`.
+
+```tsx
+<img
+  src={theme === 'dark' ? '/logo-dark.svg' : '/logo.svg'}
+  alt="Tablesmit"
+  width="160"
+  height="32"
+/>
+```
+
+### Dark Mode Rules
+
+```
+- Every new component must be verified in dark mode before marking done
+- Never use hardcoded hex colours in JSX — use Tailwind tokens only
+- Table cell content: bg-white → dark:bg-surface
+- Modals and sheets: bg-white border-border → dark:bg-surface dark:border-border
+- Merged cell highlight: bg-primary-light → dark:bg-primary-light (token handles it)
+- Export functions (html2canvas): set backgroundColor option to match current theme
+```
+
+### Tests Required
+
+```ts
+describe('useTheme', () => {
+  it('defaults to system preference when no stored value')
+  it('defaults to stored value over system preference')
+  it('toggle() switches from light to dark')
+  it('toggle() switches from dark to light')
+  it('persists theme to localStorage on change')
+  it('adds .dark class to <html> when theme is dark')
+  it('removes .dark class from <html> when theme is light')
+})
+```
+
+---
+
+## 44. ARIA Grid Pattern (Table Accessibility)
+
+The table editor must implement the WAI-ARIA grid pattern so screen readers
+can navigate it correctly. Without this, the table is unstructured noise.
+
+### Required ARIA Roles
+
+```tsx
+// TableGrid.tsx — role="grid" on the <table> element
+<table
+  role="grid"
+  aria-label="Table editor"
+  aria-rowcount={cells.length}
+  aria-colcount={cells[0]?.length ?? 0}
+>
+
+// TableHeaderCell — role="columnheader"
+<th
+  role="columnheader"
+  aria-colindex={colIndex + 1}
+  scope="col"
+>
+
+// Each row — role="row"
+<tr role="row" aria-rowindex={rowIndex + 1}>
+
+// Each cell — role="gridcell"
+<td
+  role="gridcell"
+  aria-colindex={colIndex + 1}
+  aria-selected={isSelected}
+  aria-readonly={isAutoNumber}
+  tabIndex={isFocused ? 0 : -1}
+>
+
+// Merged cell — add aria-colspan and aria-rowspan
+<td
+  role="gridcell"
+  aria-colspan={colSpan}
+  aria-rowspan={rowSpan}
+  colSpan={colSpan}
+  rowSpan={rowSpan}
+>
+```
+
+### Keyboard Navigation Inside the Grid
+
+```ts
+// Arrow keys must navigate between cells — not scroll the page
+// Implement onKeyDown on the grid container:
+
+const handleGridKeyDown = (e: KeyboardEvent) => {
+  const moves: Record<string, [number, number]> = {
+    ArrowUp:    [-1,  0],
+    ArrowDown:  [ 1,  0],
+    ArrowLeft:  [ 0, -1],
+    ArrowRight: [ 0,  1],
+  };
+
+  if (e.key in moves && !e.target.isContentEditable) {
+    e.preventDefault();          // prevent page scroll
+    const [dr, dc] = moves[e.key];
+    moveFocus(activeRow + dr, activeCol + dc);
+  }
+
+  // Tab / Shift+Tab — move to next/prev cell (already implemented, verify)
+  // Enter — enter edit mode on focused cell
+  // Escape — exit edit mode, return focus to cell
+};
+```
+
+### Screen Reader Announcements
+
+```tsx
+// Live region for cell value changes and structural announcements
+<div
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+  className="sr-only"
+>
+  {announcement}  {/* "Row added. 6 rows total." / "Cells merged." */}
+</div>
+```
+
+### Announcement Messages
+
+```ts
+// src/utils/announcements.ts
+export const ANNOUNCE = {
+  ROW_ADDED:     (total: number) => `Row added. ${total} rows total.`,
+  ROW_REMOVED:   (total: number) => `Row removed. ${total} rows total.`,
+  COL_ADDED:     (total: number) => `Column added. ${total} columns total.`,
+  COL_REMOVED:   (total: number) => `Column removed. ${total} columns total.`,
+  CELLS_MERGED:  'Cells merged.',
+  CELLS_UNMERGED:'Cells unmerged.',
+  TABLE_CLEARED: 'Table cleared.',
+  SORT_APPLIED:  (col: string, dir: string) => `Column ${col} sorted ${dir}.`,
+};
+```
+
+---
+
+## 45. Print Styles
+
+Research users and writers print tables. Without print CSS,
+the browser prints the full app chrome (navbar, sidebars, toolbar).
+
+### Implementation
+
+```css
+/* src/styles/globals.css — add to existing file */
+
+@media print {
+  /* Hide everything except the table */
+  nav, header, footer,
+  [data-toolbar], [data-sidebar-left], [data-sidebar-right],
+  .floating-action-buttons, .mobile-sheet-overlay {
+    display: none !important;
+  }
+
+  /* Table container fills the page */
+  [data-table-container] {
+    overflow: visible !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Table itself */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11pt;
+    font-family: 'Inter', Georgia, serif;
+  }
+
+  /* Preserve cell borders in print */
+  td, th {
+    border: 1px solid #E5E7EB !important;
+    padding: 6pt 8pt !important;
+  }
+
+  /* Header row prints in light grey (saves ink vs full blue) */
+  th, [data-header-row] td {
+    background-color: #F1F5F9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Avoid page breaks inside rows */
+  tr {
+    break-inside: avoid;
+  }
+
+  /* Table caption */
+  [data-table-caption] {
+    font-size: 10pt;
+    font-style: italic;
+    color: #6B7280;
+    margin-bottom: 6pt;
+  }
+
+  /* Page setup */
+  @page {
+    margin: 2cm;
+    size: A4 landscape;   /* landscape is better for wide tables */
+  }
+}
+```
+
+### Data Attributes Required
+
+Add `data-*` attributes to layout elements so print CSS can target them
+without coupling to Tailwind class names (which may change):
+
+```tsx
+<div data-toolbar>          {/* TableToolbar wrapper */}
+<aside data-sidebar-left>   {/* Left sidebar */}
+<aside data-sidebar-right>  {/* Right sidebar */}
+<main data-table-container> {/* Table scroll container */}
+<p data-table-caption>      {/* Caption element — Section 48 */}
+```
+
+### Print Preview Button (optional, v7+)
+
+A "Print" option in the export dropdown that calls `window.print()` —
+simpler than PDF export and instant. Add to export group in toolbar.
+
+---
+
+## 46. Error Monitoring (Sentry)
+
+**Free tier:** 5,000 errors/month — sufficient for launch and early growth.
+
+### Installation
+
+```bash
+npm install @sentry/react
+```
+
+### Setup
+
+```tsx
+// src/main.tsx
+import * as Sentry from '@sentry/react';
+
+Sentry.init({
+  dsn: import.meta.env.VITE_SENTRY_DSN,   // from .env
+  environment: import.meta.env.MODE,       // 'development' | 'production'
+  enabled: import.meta.env.PROD,           // only capture in production
+  tracesSampleRate: 0.1,                   // 10% of sessions — adjust after launch
+  integrations: [
+    Sentry.browserTracingIntegration(),
+  ],
+  // Scrub personal data before sending
+  beforeSend(event) {
+    // Table content must never reach Sentry
+    if (event.extra) delete event.extra.cells;
+    return event;
+  },
+});
+```
+
+### Wire to Error Boundary
+
+```tsx
+// src/components/ui/ErrorBoundary/ErrorBoundary.tsx
+componentDidCatch(error: Error, info: ErrorInfo) {
+  Sentry.captureException(error, {
+    contexts: { react: { componentStack: info.componentStack } },
+  });
+  this.props.onError?.(error, info);
+}
+```
+
+### Privacy Rule (critical)
+
+```
+NEVER send table cell content to Sentry.
+The beforeSend hook above deletes `cells` from event.extra.
+Extend this to scrub any state that may contain user-entered data.
+This is a data privacy requirement — not optional.
+```
+
+### Environment Variable
+
+```
+VITE_SENTRY_DSN=https://[key]@o[org].ingest.sentry.io/[project]
+```
+
+Add to `.env.example` (Section 53).
+
+---
+
+## 47. Changelog Page
+
+### Route: `/changelog`
+
+A changelog builds trust. It tells users and contributors the project is alive.
+Keep it simple — version number, date, bullet list of changes.
+
+### Format
+
+```tsx
+// src/pages/ChangelogPage/ChangelogPage.tsx
+// Data-driven: read from a static array, newest first.
+// No CMS, no database — just a typed array in src/config/changelog.ts
+
+export interface ChangelogEntry {
+  version: string;       // "1.2.0"
+  date:    string;       // "2025-09-01"
+  changes: {
+    type:        'added' | 'fixed' | 'improved' | 'removed';
+    description: string;
+  }[];
+}
+```
+
+### `src/config/changelog.ts` — starter entries
+
+```ts
+export const CHANGELOG: ChangelogEntry[] = [
+  {
+    version: '1.1.0',
+    date:    '2025-[month]-[day]',
+    changes: [
+      { type: 'added',    description: 'Dark mode with system preference detection' },
+      { type: 'added',    description: 'Table caption and title field' },
+      { type: 'added',    description: 'Word-style border picker' },
+      { type: 'added',    description: 'Right-click context menu on cells and columns' },
+      { type: 'added',    description: 'Smart clipboard paste from Excel, Word, and CSV' },
+      { type: 'added',    description: 'Copy table as image or Excel data' },
+      { type: 'added',    description: 'Auto-sum and auto-numbering column types' },
+      { type: 'added',    description: 'AutoFit column width and row height on double-click' },
+      { type: 'added',    description: 'Undo stack (Ctrl+Z)' },
+      { type: 'improved', description: 'Smooth drag-to-resize using requestAnimationFrame' },
+    ],
+  },
+  {
+    version: '1.0.0',
+    date:    '2025-[month]-[day]',
+    changes: [
+      { type: 'added', description: 'Initial release' },
+      { type: 'added', description: 'CSV and Excel import and export' },
+      { type: 'added', description: 'Merge and unmerge cells' },
+      { type: 'added', description: 'Custom header styles and colors' },
+      { type: 'added', description: 'Responsive design — works on all screen sizes' },
+    ],
+  },
+];
+```
+
+### Visual Style
+
+```
+Each version block:
+  Version number:  text-lg font-semibold text-text-primary
+  Date:            text-sm text-text-muted ml-3
+  Change type tag: small pill badge — Added (green) / Fixed (blue) / Improved (amber) / Removed (red)
+  Description:     text-sm text-text-secondary
+
+Layout: stacked vertically, newest at top
+Separator: border-b border-border between versions
+Max width: max-w-narrow mx-auto (readable prose width)
+```
+
+---
+
+## 48. Table Caption and Title Field
+
+Your core audience (researchers, analysts, writers) publishes tables in documents
+and reports where a caption is expected. No competitor offers this.
+
+### UI
+
+```
+Location: above the table, below the toolbar
+Component: src/components/features/TableCaption/TableCaption.tsx
+
+Default state:
+  A subtle placeholder: "Add a table title or caption (optional)"
+  Styled as: text-sm text-text-muted italic
+  Click to edit: becomes a plain text input, no border, no box
+
+Active (editing) state:
+  Borderless input, font: text-sm font-medium text-text-primary
+  Placeholder disappears
+  Press Enter or click away to confirm
+
+Rendered (has content):
+  text-sm font-medium text-text-primary
+  Sits flush above the table — no extra padding
+```
+
+### Data Model Addition
+
+```ts
+// src/types/table.types.ts — add to TableState
+export interface TableState {
+  // ...existing fields
+  caption: string;   // "" when empty
+}
+```
+
+### Export Behaviour
+
+```
+PDF export:    Caption renders as italic text above the table
+Excel export:  Caption goes in row 1, merged across all columns, italic
+PNG export:    Caption renders visually above the table in the canvas
+CSV export:    Caption goes in the first row as a comment: # [caption]
+               (PapaParse handles # as a comment prefix)
+Print:         Renders via [data-table-caption] — print CSS already handles it
+```
+
+### Tests Required
+
+```ts
+describe('TableCaption', () => {
+  it('renders placeholder when caption is empty')
+  it('enters edit mode on click')
+  it('confirms on Enter key')
+  it('confirms on blur')
+  it('updates TableState.caption via context dispatch')
+  it('renders nothing in the DOM when caption is empty and not focused')
+})
+```
+
+---
+
+## 49. Freeze / Pin First Row and Column
+
+For tables with more than 10 rows, the header scrolls out of view.
+This is the single most common complaint about web table editors.
+
+### Behaviour
+
+```
+Toggle: "Freeze header row" checkbox in Header Definitions panel (left sidebar)
+        "Freeze first column" checkbox in Header Definitions panel
+
+When frozen:
+  - First row / first column stays visible during scroll
+  - Rest of table scrolls normally beneath / beside it
+  - Frozen area has a subtle border-right / border-bottom in primary color
+    to indicate the freeze boundary (matches Excel visual convention)
+
+When not frozen (default):
+  - Table scrolls normally — no change to current behaviour
+```
+
+### Implementation
+
+```tsx
+// CSS approach — position: sticky on th/td elements
+// This is pure CSS — no JS required for the sticky behaviour itself.
+
+// Freeze header row:
+// Apply to all <th> elements in the first row:
+<th
+  className={cn(
+    'bg-surface',   // must have a background — sticky without bg shows content beneath
+    freezeRow && 'sticky top-0 z-10'
+  )}
+>
+
+// Freeze first column:
+// Apply to first <td> and <th> of every row:
+<td
+  className={cn(
+    'bg-white dark:bg-surface',
+    freezeCol && 'sticky left-0 z-10'
+  )}
+>
+
+// Both frozen (top-left cell needs highest z-index):
+<th
+  className={cn(
+    'bg-surface',
+    freezeRow && freezeCol && colIndex === 0 && 'sticky top-0 left-0 z-20'
+  )}
+>
+```
+
+### Data Model Addition
+
+```ts
+// src/types/table.types.ts — add to TableState
+export interface TableState {
+  // ...existing fields
+  freezeRow: boolean;   // default: false
+  freezeCol: boolean;   // default: false
+}
+```
+
+### Visual Freeze Indicator
+
+```tsx
+// Frozen boundary line — right edge of frozen column, bottom edge of frozen row
+// Applied via Tailwind:
+freezeRow && 'border-b-2 border-primary'   // on frozen <th> row
+freezeCol && 'border-r-2 border-primary'   // on frozen first column cells
+```
+
+### Tests Required
+
+```ts
+describe('freeze pane', () => {
+  it('applies sticky top-0 to header row when freezeRow is true')
+  it('does not apply sticky when freezeRow is false')
+  it('applies sticky left-0 to first column when freezeCol is true')
+  it('top-left cell gets z-20 when both freezeRow and freezeCol are true')
+  it('toggling freezeRow updates TableState correctly')
+})
+```
+
+---
+
+## 50. Find and Replace
+
+`Ctrl+F` in most browsers opens the browser's native find bar.
+For a table editor, this is useless — it cannot navigate between cells.
+Intercept it and provide a table-aware find and replace.
+
+### UI
+
+```
+Trigger:     Ctrl+F (find only) or Ctrl+H (find + replace)
+Location:    Floating panel — top-right of table area, not a modal
+             (user needs to see the table while searching)
+Component:   src/components/features/FindReplace/FindReplace.tsx
+Dismiss:     Escape key or X button
+
+Find panel layout:
+  [Search input         ] [▲ prev] [▽ next] [X]
+  "3 of 12 matches"
+
+Replace panel (Ctrl+H):
+  [Search input         ]
+  [Replace input        ] [Replace] [Replace all]
+  "3 of 12 matches"
+```
+
+### Behaviour
+
+```
+- Search is case-insensitive by default; toggle for case-sensitive
+- Matches highlighted: bg-accent-light on matching cells
+- Active match: ring-2 ring-accent on the currently focused match
+- Replace: updates cell value via updateCell() dispatch
+- Replace all: batch-updates all matching cells in one dispatch
+- Searching across: cell values only (not column types, header colors, etc.)
+```
+
+### Implementation
+
+```ts
+// src/hooks/useFindReplace.ts
+export function useFindReplace(cells: CellData[][]) {
+  const [query, setQuery]       = useState('');
+  const [isOpen, setIsOpen]     = useState(false);
+  const [matchIndex, setMatchIndex] = useState(0);
+
+  const matches = useMemo(() => {
+    if (!query.trim()) return [];
+    const q = query.toLowerCase();
+    const found: Array<{ row: number; col: number }> = [];
+    cells.forEach((row, r) =>
+      row.forEach((cell, c) => {
+        if (cell.value.toLowerCase().includes(q)) found.push({ row: r, col: c });
+      })
+    );
+    return found;
+  }, [cells, query]);
+
+  const currentMatch = matches[matchIndex] ?? null;
+
+  const next = useCallback(() =>
+    setMatchIndex(i => (i + 1) % matches.length), [matches.length]);
+
+  const prev = useCallback(() =>
+    setMatchIndex(i => (i - 1 + matches.length) % matches.length), [matches.length]);
+
+  // Listen for Ctrl+F / Ctrl+H globally
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'f' || e.key === 'h')) {
+        e.preventDefault();
+        setIsOpen(true);
+      }
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, []);
+
+  return { query, setQuery, matches, currentMatch, matchIndex, next, prev, isOpen, setIsOpen };
+}
+```
+
+### Tests Required
+
+```ts
+describe('useFindReplace', () => {
+  it('finds all cells matching the query (case-insensitive)')
+  it('returns empty array when query is empty')
+  it('next() advances to the next match, wrapping at end')
+  it('prev() goes to previous match, wrapping at start')
+  it('match count updates when cells change')
+  it('Ctrl+F opens the panel')
+  it('Escape closes the panel')
+  it('Replace all updates all matching cells in one dispatch')
+})
+```
+
+---
+
+## 51. Table Themes
+
+A small set of named visual themes applied in one click.
+Eliminates the per-cell colour decisions that slow users down.
+
+### Available Themes
+
+```
+Default     — white cells, primary blue header, standard border
+Minimal     — no header colour, hairline borders, clean for embedding
+Dark Header — deep navy header (#1E293B), white text, light grey rows
+Striped     — alternating row background (#F9FAFB / white), subtle header
+Academic    — grey header, double top border, no inner vertical borders
+Monochrome  — greyscale only, no colour accents — for print-first tables
+```
+
+### Data Model Addition
+
+```ts
+// src/types/table.types.ts — add to TableState
+export type TableTheme =
+  | 'default' | 'minimal' | 'dark-header'
+  | 'striped' | 'academic' | 'monochrome';
+
+export interface TableState {
+  // ...existing fields
+  theme: TableTheme;   // default: 'default'
+}
+```
+
+### Theme Definitions
+
+```ts
+// src/config/tableThemes.ts
+export interface ThemeDefinition {
+  id:          TableTheme;
+  label:       string;
+  headerBg:    string;
+  headerText:  string;
+  rowBg:       string;
+  altRowBg:    string;   // for striped
+  borderStyle: string;
+  borderColor: string;
+}
+
+export const TABLE_THEMES: ThemeDefinition[] = [
+  {
+    id: 'default', label: 'Default',
+    headerBg: '#1E40AF', headerText: '#FFFFFF',
+    rowBg: '#FFFFFF', altRowBg: '#FFFFFF',
+    borderStyle: 'solid', borderColor: '#E5E7EB',
+  },
+  {
+    id: 'minimal', label: 'Minimal',
+    headerBg: '#FFFFFF', headerText: '#111827',
+    rowBg: '#FFFFFF', altRowBg: '#FFFFFF',
+    borderStyle: 'solid', borderColor: '#F3F4F6',
+  },
+  {
+    id: 'dark-header', label: 'Dark header',
+    headerBg: '#1E293B', headerText: '#FFFFFF',
+    rowBg: '#FFFFFF', altRowBg: '#F9FAFB',
+    borderStyle: 'solid', borderColor: '#E5E7EB',
+  },
+  {
+    id: 'striped', label: 'Striped',
+    headerBg: '#1E40AF', headerText: '#FFFFFF',
+    rowBg: '#FFFFFF', altRowBg: '#F9FAFB',
+    borderStyle: 'solid', borderColor: '#E5E7EB',
+  },
+  {
+    id: 'academic', label: 'Academic',
+    headerBg: '#F3F4F6', headerText: '#111827',
+    rowBg: '#FFFFFF', altRowBg: '#FFFFFF',
+    borderStyle: 'solid', borderColor: '#D1D5DB',
+  },
+  {
+    id: 'monochrome', label: 'Monochrome',
+    headerBg: '#374151', headerText: '#FFFFFF',
+    rowBg: '#FFFFFF', altRowBg: '#F9FAFB',
+    borderStyle: 'solid', borderColor: '#9CA3AF',
+  },
+];
+```
+
+### UI — Theme Picker
+
+```
+Location: Templates panel (right sidebar) — below preset templates
+Component: src/components/features/ThemePicker/ThemePicker.tsx
+
+Render: 6 small thumbnail cards in a 3×2 grid
+Each card: a tiny SVG preview of the theme (3 rows, coloured header)
+Selected: ring-2 ring-primary on the card
+Click: dispatches SET_THEME action to TableContext
+```
+
+### Tests Required
+
+```ts
+describe('tableThemes', () => {
+  it('applyTheme sets headerBg on all header cells')
+  it('applyTheme(striped) alternates row backgrounds correctly')
+  it('applyTheme does not affect merged cell content')
+  it('theme persists across undo operations')
+  it('switching theme is undoable')
+})
+```
+
+---
+
+## 52. Undo History Indicator
+
+The user cannot currently tell how deep the undo stack is or when it runs out.
+A subtle indicator closes this UX gap.
+
+### Implementation
+
+```tsx
+// In TableToolbar.tsx — update the Undo button
+
+const { canUndo, historyDepth } = useTableHistory();
+
+<Tooltip content={canUndo ? `Undo (${historyDepth} action${historyDepth === 1 ? '' : 's'})` : 'Nothing to undo'}>
+  <IconButton
+    aria-label={`Undo. ${historyDepth} actions available.`}
+    onClick={undo}
+    isDisabled={!canUndo}
+  >
+    <Undo2 size={16} />
+  </IconButton>
+</Tooltip>
+```
+
+### `useTableHistory` — add `historyDepth`
+
+```ts
+// src/hooks/useTableHistory.ts — add this to the return value
+const historyDepth = pointer;   // number of undoable actions available
+
+return { push, undo, canUndo, historyDepth };
+```
+
+### Visual Rules
+
+```
+canUndo === false:
+  Button: opacity-50, cursor-not-allowed
+  Tooltip: "Nothing to undo"
+
+canUndo === true:
+  Button: fully visible, normal cursor
+  Tooltip: "Undo (3 actions)" — count shown only in tooltip, not on button
+           Keeps the toolbar clean — count is discoverable on hover, not always visible
+
+At MAX_HISTORY (50):
+  No special UI — the oldest entry is silently dropped
+  No toast — it would be disruptive during rapid editing
+```
+
+### Tests Required
+
+```ts
+describe('undo indicator', () => {
+  it('historyDepth is 0 at initial state')
+  it('historyDepth increments with each push')
+  it('historyDepth decrements after undo')
+  it('undo button is disabled when canUndo is false')
+  it('tooltip shows correct action count')
+  it('historyDepth never exceeds MAX_HISTORY')
+})
+```
+
+---
+
+## 53. Environment Variables (.env.example)
+
+A committed `.env.example` documents every environment variable the project
+uses, with placeholder values. It is the contract between the codebase and anyone
+who clones it.
+
+### `/.env.example` — committed to the repo
+
+```bash
+# Tablesmit — Environment Variables
+# Copy this file to .env and fill in the values.
+# Never commit .env — it is in .gitignore.
+
+# ─── Analytics ───────────────────────────────────────────
+# Google Analytics 4 measurement ID
+# Get from: analytics.google.com → Admin → Data Streams
+VITE_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+
+# ─── Error Monitoring ────────────────────────────────────
+# Sentry DSN for error tracking (production only)
+# Get from: sentry.io → Project → Settings → Client Keys
+VITE_SENTRY_DSN=https://xxxxx@o000000.ingest.sentry.io/0000000
+
+# ─── App ─────────────────────────────────────────────────
+# Public URL — used for sitemap and og:url generation
+VITE_APP_URL=https://tablesmit.com
+
+# ─── Future: AI Features ─────────────────────────────────
+# Uncomment when AI features are implemented (Section 36)
+# Never set this in the browser — use a serverless function
+# VITE_AI_ENDPOINT=https://your-edge-function.vercel.app/api/ai
+```
+
+### `/.gitignore` — verify these lines exist
+
+```
+.env
+.env.local
+.env.*.local
+```
+
+### `/.env` — local development (not committed)
+
+```bash
+VITE_GA4_MEASUREMENT_ID=   # leave blank in dev — no analytics locally
+VITE_SENTRY_DSN=           # leave blank in dev — errors go to console only
+VITE_APP_URL=http://localhost:5173
+```
+
+### GA4 Integration
+
+```ts
+// src/utils/analytics.ts
+const GA_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID;
+
+export function trackEvent(name: string, params?: Record<string, unknown>) {
+  if (!GA_ID || import.meta.env.DEV) return;   // no-op in dev
+  window.gtag?.('event', name, params);
+}
+
+// Usage throughout the app:
+trackEvent('table_exported', { format: 'pdf' });
+trackEvent('table_imported', { source: 'csv', rows: 10 });
+trackEvent('theme_applied',  { theme: 'striped' });
+```
+
+---
+
+*End of Brand Identity & Engineering Implementation Guide — Tablesmit v6.0*
 *Single source of truth. Any deviation requires explicit sign-off.*
