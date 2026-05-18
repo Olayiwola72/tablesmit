@@ -8,6 +8,9 @@ import {
   useRef,
   type ReactNode,
 } from 'react'
+import { TableCellsContext, useTableData, type TableCellsValue } from './TableDataContext'
+import { TableSelectionCtx, useSelectedRange } from './TableSelectionContext'
+export { useTableData, useSelectedRange }
 import {
   DEFAULT_BORDER_COLOR,
   DEFAULT_BORDER_STYLE,
@@ -135,15 +138,9 @@ interface TableStateFields {
   freezeCol: boolean
 }
 
-interface TableCellsValue {
-  cells: CellData[][]
-}
-
 type TableContextValue = TableStateFields & TableActions
 
 const TableContext = createContext<TableContextValue | null>(null)
-const TableCellsContext = createContext<TableCellsValue | null>(null)
-const TableSelectionCtx = createContext<SelectionRange | null>(null)
 
 const STORAGE_KEY = 'tablesmit-state'
 const SESSION_KEY = 'tablesmit-session'
@@ -638,16 +635,4 @@ export function useTableContext(): TableContextValue {
     throw new Error('useTableContext must be used inside TableProvider')
   }
   return context
-}
-
-export function useTableData(): TableCellsValue {
-  const context = useContext(TableCellsContext)
-  if (!context) {
-    throw new Error('useTableData must be used inside TableProvider')
-  }
-  return context
-}
-
-export function useSelectedRange(): SelectionRange | null {
-  return useContext(TableSelectionCtx)
 }

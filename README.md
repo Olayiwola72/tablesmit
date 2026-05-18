@@ -4,7 +4,7 @@
 
 Build clean, structured tables with full control over headers, formatting, and export. No bloat. No account required. Free and open source.
 
-**[Open Tablesmit](https://tablesmit.com)**
+**[→ Open Tablesmit](https://tablesmit.com)**
 
 ---
 
@@ -16,10 +16,19 @@ Build clean, structured tables with full control over headers, formatting, and e
 - Word-style border controls
 - Column types: Text, Number, Currency, Percentage, Date
 - Auto-sum and auto-numbering column types
+- Column sorting
 - Smart clipboard paste from Excel, Word, or CSV
+- Copy as image or Excel data (TSV/CSV)
+- Find and replace across all cells
+- Table themes: Default, Minimal, Dark Header, Striped, Academic, Monochrome
+- Freeze first row/column
+- Right-click context menu on cells and columns
 - Export: PDF, PNG, JPEG, Excel, CSV
 - Import: CSV, Excel
+- Table caption / title
+- Dark mode
 - Keyboard navigation
+- Undo / redo (Ctrl+Z)
 
 ## Getting Started
 
@@ -46,25 +55,30 @@ src/config/siteConfig.ts
 
 Check there before changing component logic.
 
+## Status
+
+**Tests:** 206 passing (37 test files), lint zero-warnings, TypeScript strict.
+
 ---
 
 ## Writing a Blog Post
 
 The blog is JSON-driven. Adding a new post requires **one action only:**
-create a JSON file in `src/content/blog/`.
+create a JSON or TypeScript file in `src/content/blog/`.
 
 No code change. No registry to update. The post appears automatically.
 
 ### 1. Create the file
 
 Name the file using the post's target keyword in kebab-case.
+Both `.json` and `.ts` extensions are supported.
 The filename becomes the URL slug.
 
 ```
 src/content/blog/how-to-make-a-table-in-markdown.json
 ```
 
-Published at: `https://tablesmit.com/blog/how-to-make-a-table-in-markdown`
+→ Published at: `https://tablesmit.com/blog/how-to-make-a-table-in-markdown`
 
 ### 2. Fill in the JSON
 
@@ -107,7 +121,7 @@ The post is live within minutes of merging.
 
 - Write content as standard Markdown
 - Start with `## Heading 2` for sections (the post title is the H1)
-- Link to `/app` at least once per post for internal SEO
+- Link to `/` at least once per post for internal SEO
 - Target one primary keyword per post
 - Update `public/sitemap.xml` after publishing a post
 
@@ -123,4 +137,5 @@ MIT — see [LICENSE](LICENSE)
 
 ---
 
-Built with care. [Support this project →](https://tablesmit.com/open-source)
+Built with care. Sponsored by the community.
+[Support this project →](https://tablesmit.com/open-source)
