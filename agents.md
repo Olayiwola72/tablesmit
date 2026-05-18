@@ -2449,21 +2449,35 @@ The following must be implemented, tested, and checked off before v6.0 ships.
 Each item references its full spec section below.
 
 ```
-[ ] Brand rename: Structra → Tablesmit (update ALL strings, meta, README, package.json)
-[ ] Understand the codebase — significant changes since last session, read all sections before touching code
+CRITICAL — visible publicly right now, fix these first:
+[ ] README.md still says "Structra" — rename to "Tablesmit" immediately (live on GitHub)
+[ ] GitHub repo has no description, website URL, or topics set (Section 54)
+
+Brand & config:
+[ ] Complete brand rename — all remaining "Structra" strings in code, meta, package.json
+[ ] siteConfig.ts audit — verify every brand string, URL, and route matches agents.md
+
+Architecture & quality:
+[ ] Understand the codebase — significant changes since last session; read all sections before touching code
 [ ] Column sorting (Section 29)
 [ ] Performance: memoization, useCallback, useEffect discipline (Section 30)
+[ ] Fix npm run lint — zero lint errors before merge
+[ ] Test coverage audit — new features written without tests; identify gaps and fill them
+[ ] Testing baseline — 28 files, 140 tests last confirmed; audit all layers
+[ ] Deviation audit — check every item in agents.md against codebase; log and fix gaps
+[ ] Security audit — verify all Section 20 recommendations are implemented
+
+New features:
 [ ] 404 page SVG animation (Section 31)
 [ ] Open Source / Sponsor page (Section 32)
-[ ] README.md (Section 33)
-[ ] CONTRIBUTION.md (Section 34)
-[ ] Fix npm run lint — zero lint errors before merge
-[ ] Test coverage audit — features have been written without tests, identify gaps and fill them
-[ ] Testing baseline — 28 files, 140 tests last confirmed; audit all layers and implement missing coverage
 [ ] Em-dash audit — remove all em-dash abuse from UI copy (Section 35)
-[ ] AI Features scaffolding — placeholder UI only, no backend implementation (Section 36)
-[ ] Deviation audit — check every item in agents.md against actual codebase; log and fix gaps
-[ ] Security audit — implement all recommendations from Section 20; verify nothing was skipped
+[ ] AI Features scaffolding — placeholder UI only, no backend (Section 36)
+
+Completed outside this document (do not re-implement):
+[x] CI/CD — GitHub Actions to Netlify (implemented and verified)
+[x] CONTRIBUTING.md — present in repo root
+[x] README.md — present (update brand name only)
+[x] LICENSE — MIT, present in repo root
 ```
 
 ---
@@ -3270,8 +3284,8 @@ SPONSOR SECTION:
 
   OPTIONS (rendered as clean cards, border border-border rounded-md p-6):
 
-    [GitHub Sponsors]     "Sponsor monthly on GitHub"   → github.com/sponsors/[handle]
-    [Buy Me a Coffee]     "One-time contribution"       → buymeacoffee.com/[handle]
+    [GitHub Sponsors]     "Sponsor monthly on GitHub"   → github.com/sponsors/Olayiwola72
+    [Buy Me a Coffee]     "One-time contribution"       → buymeacoffee.com/Olayiwola72
     [Open Collective]     "For teams and organizations" → opencollective.com/tablesmit
 
   Each card: icon + platform name + one-line description + CTA button (secondary)
@@ -3325,12 +3339,13 @@ and export. No bloat. No account required. Free and open source.
 - Smart clipboard paste from Excel, Word, or CSV
 - Export: PDF, PNG, JPEG, Excel, CSV
 - Import: CSV, Excel
+- Dark mode
 - Keyboard navigation
 
 ## Getting Started
 
 \`\`\`bash
-git clone https://github.com/[handle]/tablesmit.git
+git clone https://github.com/Olayiwola72/tablesmit.git
 cd tablesmit
 npm install
 npm run dev
@@ -3341,6 +3356,98 @@ Open [http://localhost:5173](http://localhost:5173)
 ## Tech Stack
 
 React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Vitest
+
+## Configuration
+
+Product decisions — brand name, routes, nav links, export formats, color palettes,
+and presets — live in one file:
+
+\`\`\`
+src/config/siteConfig.ts
+\`\`\`
+
+Check there before changing component logic.
+
+---
+
+## Writing a Blog Post
+
+The blog is JSON-driven. Adding a new post requires **one action only:**
+create a JSON file in `src/content/blog/`.
+
+No code change. No registry to update. The post appears automatically.
+
+### 1. Create the file
+
+Name the file using the post's target keyword in kebab-case.
+The filename becomes the URL slug.
+
+\`\`\`
+src/content/blog/how-to-make-a-table-in-markdown.json
+\`\`\`
+
+→ Published at: `https://tablesmit.com/blog/how-to-make-a-table-in-markdown`
+
+### 2. Fill in the JSON
+
+\`\`\`json
+{
+  "title":       "How to Make a Table in Markdown",
+  "date":        "2025-09-15",
+  "description": "A practical guide to Markdown tables — with examples you can build in Tablesmit and paste anywhere.",
+  "author":      "Olayiwola Akin",
+  "tags":        ["markdown", "tutorial", "tables"],
+  "readTime":    4,
+  "featured":    false,
+  "content":     "## Introduction\n\nMarkdown tables look complex but follow a simple pattern..."
+}
+\`\`\`
+
+### Fields
+
+| Field         | Required | Notes                                          |
+|---------------|----------|------------------------------------------------|
+| `title`       | Yes      | H1 of the post. Max 60 chars.                  |
+| `date`        | Yes      | `YYYY-MM-DD` format.                           |
+| `description` | Yes      | Summary shown on cards and in meta. Max 160 chars. |
+| `author`      | Yes      | Author display name.                           |
+| `tags`        | Yes      | 1–4 tags, lowercase.                           |
+| `readTime`    | Yes      | Estimated minutes to read.                     |
+| `featured`    | No       | `true` pins post to top. Default: `false`.     |
+| `content`     | Yes      | Full post body in Markdown. Use `\n` for newlines. |
+
+### 3. Using the helper script (optional)
+
+Write the post in a `.md` file, then convert it:
+
+\`\`\`bash
+npm run new-post my-draft.md
+\`\`\`
+
+This creates `src/content/blog/my-draft.json` with the content pre-filled.
+Edit the JSON to add `title`, `description`, and `tags`.
+
+### 4. Commit and push
+
+\`\`\`bash
+git add src/content/blog/your-post.json
+git commit -m "content: add blog post — your post title"
+git push
+\`\`\`
+
+GitHub Actions will lint, test, build, and deploy to Netlify automatically.
+The post is live within minutes of merging.
+
+### Content tips
+
+- Write content as standard Markdown — headings, lists, code blocks, tables all work
+- Avoid `# Heading 1` in content — the post title is already the H1
+- Start with `## Heading 2` for sections
+- Link to `/app` at least once per post — internal links improve SEO
+- Target one primary keyword per post — use it in the title, description, and naturally in the content
+- Update `public/sitemap.xml` after publishing a post
+
+---
 
 ## Contributing
 
@@ -3370,7 +3477,7 @@ This document explains how to report bugs, suggest features, and submit code.
 
 ## Before You Start
 
-- Check [existing issues](https://github.com/[handle]/tablesmit/issues)
+- Check [existing issues](https://github.com/Olayiwola72/tablesmit/issues)
   to avoid duplicates.
 - For large changes, open an issue first to discuss the approach.
 - All contributions must follow the engineering principles in `agents.md`.
@@ -4209,12 +4316,12 @@ a statement of identity. Submit when the repo crosses **20 GitHub stars**.
 ```json
 {
   "name": "Tablesmit",
-  "repoUrl": "https://github.com/YOUR_GITHUB_HANDLE/tablesmit",
+  "repoUrl": "https://github.com/Olayiwola72/tablesmit",
   "description": "A minimalist, open source table builder for analytical writing. Build clean structured tables with full control over headers, column types, and formatting. Supports drag-to-resize, merge cells, smart clipboard paste from Excel, and export to PDF, Excel, CSV, and PNG. No signup required.",
   "authors": [
     {
-      "name": "@YOUR_TWITTER_HANDLE",
-      "link": "https://x.com/YOUR_TWITTER_HANDLE"
+      "name": "@OlayiwolaAkinn1",
+      "link": "https://x.com/OlayiwolaAkinn1"
     }
   ]
 }
@@ -4224,8 +4331,8 @@ a statement of identity. Submit when the repo crosses **20 GitHub stars**.
 
 | Placeholder              | Replace with                                      |
 |--------------------------|---------------------------------------------------|
-| `YOUR_GITHUB_HANDLE`     | Your actual GitHub username                       |
-| `YOUR_TWITTER_HANDLE`    | Your actual Twitter/X handle (preferred over GitHub for author link) |
+| `Olayiwola72`     | Your actual GitHub username                       |
+| `OlayiwolaAkinn1`    | Your actual Twitter/X handle (preferred over GitHub for author link) |
 
 **Do not change:**
 - The `name` field — "Tablesmit" is the brand name, exact spelling
@@ -4238,7 +4345,7 @@ a statement of identity. Submit when the repo crosses **20 GitHub stars**.
 ## Adding Tablesmit to Made in Nigeria OSS
 
 **Project:** Tablesmit
-**Repo:** https://github.com/YOUR_GITHUB_HANDLE/tablesmit
+**Repo:** https://github.com/Olayiwola72/tablesmit
 **Live URL:** https://tablesmit.com
 
 **What it does:**
@@ -5601,6 +5708,705 @@ export function trackEvent(name: string, params?: Record<string, unknown>) {
 trackEvent('table_exported', { format: 'pdf' });
 trackEvent('table_imported', { source: 'csv', rows: 10 });
 trackEvent('theme_applied',  { theme: 'striped' });
+```
+
+---
+
+
+---
+
+## 54. GitHub Repository Hygiene
+
+The repo at https://github.com/Olayiwola72/tablesmit is currently missing
+description, website URL, and topics. These are indexed by GitHub search,
+Google, and OSS directories. Fix them in **Settings → General** on GitHub.
+
+### Required Settings (update immediately)
+
+```
+Description:  A minimalist, open source table builder for analytical writing.
+              Build clean structured tables with full header control,
+              formatting, and export. Free. No signup.
+
+Website:      https://tablesmit.com
+
+Topics (add all of these — one click each):
+  table-maker
+  table-generator
+  open-source
+  typescript
+  react
+  vite
+  tailwindcss
+  analytical-writing
+  csv-export
+  excel-export
+  made-in-nigeria
+```
+
+Topics make the repo discoverable in GitHub search and OSS directories.
+"made-in-nigeria" specifically helps with the MadeinNGOSS listing and
+community discovery within the Nigerian developer ecosystem.
+
+---
+
+### Social Preview Image
+
+GitHub shows an og-image when the repo is shared on social media.
+Go to **Settings → Social preview → Upload an image**.
+
+Use the same `og-image.png` from `public/` (1200×630px).
+This ensures consistent branding whether someone shares the website
+or the GitHub repo.
+
+---
+
+### siteConfig.ts — Central Config Reference
+
+The codebase uses `src/config/siteConfig.ts` as the single source of truth
+for all brand strings, URLs, routes, and feature config.
+
+**Any agent reading this document must check `siteConfig.ts` first
+before searching for brand references in components.**
+
+```ts
+// src/config/siteConfig.ts — key fields to verify/update
+
+export const SITE_CONFIG = {
+  // Brand
+  name:        'Tablesmit',       // was "Structra" — verify this is updated
+  tagline:     'Tables, your way.',
+  description: 'A minimalist table builder for analytical writing.',
+  url:         'https://tablesmit.com',
+
+  // Repository
+  githubUrl:   'https://github.com/Olayiwola72/tablesmit',
+  authorTwitter: 'https://x.com/OlayiwolaAkinn1',
+
+  // Routes
+  routes: {
+    home:        '/',
+    app:         '/app',
+    about:       '/about',
+    openSource:  '/open-source',
+    changelog:   '/changelog',
+    privacy:     '/privacy',
+    terms:       '/terms',
+    notFound:    '*',
+  },
+} as const;
+```
+
+**Rule:** Any string that identifies the product by name, URL, or social link
+must live in `siteConfig.ts`. Components import from there.
+No brand strings hardcoded in JSX, meta tags, or copy files.
+
+---
+
+### GitHub Actions CI/CD — Already Implemented
+
+CI/CD pipeline via GitHub Actions → Netlify is confirmed live.
+The `.github/workflows/` directory is present in the repo.
+
+Verify the workflow file does the following on every push to `main`:
+```yaml
+# .github/workflows/deploy.yml — confirm these steps exist:
+steps:
+  - name: Install dependencies
+    run: npm ci
+
+  - name: Run lint
+    run: npm run lint                  # must pass — zero warnings
+
+  - name: Run tests
+    run: npm test -- --run             # all tests must pass
+
+  - name: Build
+    run: npm run build                 # must succeed
+
+  - name: Deploy to Netlify
+    # ... netlify deploy step
+```
+
+If lint or tests fail, the deploy must not proceed.
+This is the automated quality gate that replaces manual enforcement.
+
+---
+
+### Made in Nigeria OSS — Pre-filled PR (ready when stars ≥ 20)
+
+Current star count: **0** — need 20 before submitting.
+The JSON below is ready. Replace nothing — handles are already filled in.
+
+```json
+{
+  "name": "Tablesmit",
+  "repoUrl": "https://github.com/Olayiwola72/tablesmit",
+  "description": "A minimalist, open source table builder for analytical writing. Build clean structured tables with full control over headers, column types, and formatting. Supports drag-to-resize, merge cells, smart clipboard paste from Excel, and export to PDF, Excel, CSV, and PNG. No signup required.",
+  "authors": [
+    {
+      "name": "@OlayiwolaAkinn1",
+      "link": "https://x.com/OlayiwolaAkinn1"
+    }
+  ]
+}
+```
+
+Submit to: https://github.com/MadeinNGOSS (find repo from https://x.com/MadeinNGOSS)
+File to edit: `data/projects.json`
+Full PR instructions: Section 38I
+
+---
+
+
+---
+
+## 55. Blog System — JSON-Driven
+
+### Design Principle
+
+Creating a new blog post requires exactly one action:
+**drop a JSON file into `src/content/blog/`.**
+
+No registry to update. No index file to maintain. No code change.
+Vite's `import.meta.glob` discovers every file in that directory automatically.
+The post appears on the blog list and gets its own URL on the next build.
+
+---
+
+### Directory Structure
+
+```
+src/
+  content/
+    blog/
+      how-to-make-a-table-in-markdown.json
+      copy-excel-table-to-web.json
+      5-free-online-table-makers-compared.json
+      how-to-export-a-table-to-pdf.json
+      ...
+```
+
+The filename (without `.json`) becomes the URL slug:
+`how-to-make-a-table-in-markdown.json` → `/blog/how-to-make-a-table-in-markdown`
+
+**Filename rules:**
+```
+- Lowercase only
+- Hyphens between words (kebab-case)
+- No spaces, underscores, or special characters
+- Match the primary keyword for SEO (the URL IS the slug)
+- Max 60 characters
+```
+
+---
+
+### JSON Post Schema
+
+```jsonc
+// src/content/blog/how-to-make-a-table-in-markdown.json
+{
+  "title":       "How to Make a Table in Markdown",
+  "date":        "2025-09-15",
+  "description": "A practical guide to creating clean tables in Markdown — with examples you can generate in Tablesmit and paste directly.",
+  "author":      "Olayiwola Akin",
+  "tags":        ["markdown", "tutorial", "tables"],
+  "readTime":    4,
+  "featured":    false,
+  "content":     "## Introduction
+
+Markdown tables are simpler than they look..."
+}
+```
+
+**Field reference:**
+
+| Field         | Type       | Required | Notes                                                       |
+|---------------|------------|----------|-------------------------------------------------------------|
+| `title`       | string     | Yes      | H1 of the post and `<title>` tag. Max 60 chars for SEO.    |
+| `date`        | string     | Yes      | ISO 8601 format: `YYYY-MM-DD`. Used for sorting and display.|
+| `description` | string     | Yes      | Meta description. Max 160 chars. Used for SEO and card text.|
+| `author`      | string     | Yes      | Display name. Use "Olayiwola Akin" for posts by the author. |
+| `tags`        | string[]   | Yes      | 1-4 tags. Lowercase. Used for filtering and related posts.  |
+| `readTime`    | number     | Yes      | Estimated minutes to read. Rough guide: 200 words/minute.   |
+| `featured`    | boolean    | No       | `true` pins the post to the top of the blog list. Default: `false`. |
+| `content`     | string     | Yes      | Full post body in Markdown. Use `\n` for newlines in JSON. |
+
+---
+
+### Content — Markdown in JSON
+
+Content is written as a Markdown string inside the JSON `content` field.
+
+**Supported Markdown:**
+```markdown
+# Heading 1 (avoid — H1 is the post title)
+## Heading 2
+### Heading 3
+
+Regular paragraph text.
+
+**Bold**, *italic*, `inline code`
+
+- Bullet list
+- Item two
+
+1. Numbered list
+2. Item two
+
+[Link text](https://tablesmit.com)
+
+\`\`\`ts
+// Code block with syntax highlighting
+const table = generateEmptyTable(3, 4);
+\`\`\`
+
+| Column 1 | Column 2 | Column 3 |
+|----------|----------|----------|
+| Cell     | Cell     | Cell     |
+
+> Blockquote for callouts or quotes
+
+---   (horizontal rule / section break)
+```
+
+**In JSON, escape newlines as `\n`:**
+```json
+"content": "## Introduction\n\nThis is a paragraph.\n\n## Next Section\n\nAnother paragraph."
+```
+
+**Tip:** Write the Markdown in a separate `.md` file first, then convert newlines.
+A helper script in `scripts/` can automate this — see Section 55F.
+
+---
+
+### 55A. Type Definition
+
+```ts
+// src/types/blog.types.ts
+
+export interface BlogPost {
+  slug:        string;       // derived from filename — not in the JSON itself
+  title:       string;
+  date:        string;       // "YYYY-MM-DD"
+  description: string;
+  author:      string;
+  tags:        string[];
+  readTime:    number;
+  featured:    boolean;
+  content:     string;       // Markdown string
+}
+```
+
+---
+
+### 55B. Blog Service — Auto-Discovery via import.meta.glob
+
+```ts
+// src/services/blogService.ts
+// Discovers and loads all blog posts from src/content/blog/*.json
+// Zero config — adding a JSON file is all that is needed.
+
+import type { BlogPost } from '@/types/blog.types';
+
+// Vite glob import — eager: true loads all modules at build time
+const postModules = import.meta.glob<Record<string, unknown>>(
+  '../content/blog/*.json',
+  { eager: true }
+);
+
+function slugFromPath(path: string): string {
+  // '../content/blog/how-to-make-a-table-in-markdown.json' → 'how-to-make-a-table-in-markdown'
+  return path.split('/').pop()!.replace('.json', '');
+}
+
+function parsePost(path: string, raw: Record<string, unknown>): BlogPost {
+  return {
+    slug:        slugFromPath(path),
+    title:       String(raw.title       ?? ''),
+    date:        String(raw.date        ?? ''),
+    description: String(raw.description ?? ''),
+    author:      String(raw.author      ?? ''),
+    tags:        Array.isArray(raw.tags) ? raw.tags.map(String) : [],
+    readTime:    Number(raw.readTime    ?? 1),
+    featured:    Boolean(raw.featured   ?? false),
+    content:     String(raw.content     ?? ''),
+  };
+}
+
+// All posts — sorted newest first, featured posts at top
+export const allPosts: BlogPost[] = Object.entries(postModules)
+  .map(([path, raw]) => parsePost(path, raw as Record<string, unknown>))
+  .sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return  1;
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
+// Get a single post by slug
+export function getPostBySlug(slug: string): BlogPost | undefined {
+  return allPosts.find(p => p.slug === slug);
+}
+
+// Get all unique tags across all posts
+export function getAllTags(): string[] {
+  return [...new Set(allPosts.flatMap(p => p.tags))].sort();
+}
+```
+
+---
+
+### 55C. Pages and Components
+
+#### Routes (add to App.tsx)
+
+```tsx
+const BlogListPage = lazy(() => import('@/pages/BlogListPage'));
+const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
+
+<Route path="/blog"        element={<BlogListPage />} />
+<Route path="/blog/:slug"  element={<BlogPostPage />} />
+```
+
+#### BlogListPage (`src/pages/BlogListPage/BlogListPage.tsx`)
+
+```tsx
+import { allPosts, getAllTags } from '@/services/blogService';
+
+// Layout:
+// - Page heading: "Writing about tables, structure, and analytical thinking."
+// - Tag filter bar (optional v1: show all tags as clickable pills)
+// - Post cards grid: 1 col mobile, 2 col lg
+// - Each card: title, date, description, tags, read time, author
+
+// Post card:
+<article className="border border-border rounded-md p-6 hover:border-primary transition-colors duration-150">
+  {post.featured && (
+    <span className="text-xs font-semibold text-accent uppercase tracking-widest">Featured</span>
+  )}
+  <time className="text-xs text-text-muted">{formatDate(post.date)}</time>
+  <h2 className="text-xl font-semibold text-text-primary mt-2 mb-2">
+    <Link to={`/blog/${post.slug}`} className="hover:text-primary">
+      {post.title}
+    </Link>
+  </h2>
+  <p className="text-sm text-text-secondary leading-relaxed mb-4">{post.description}</p>
+  <div className="flex items-center gap-3 text-xs text-text-muted">
+    <span>{post.readTime} min read</span>
+    <span>·</span>
+    <span>{post.author}</span>
+    <span>·</span>
+    {post.tags.map(tag => (
+      <span key={tag} className="bg-surface px-2 py-0.5 rounded-sm">{tag}</span>
+    ))}
+  </div>
+</article>
+```
+
+#### BlogPostPage (`src/pages/BlogPostPage/BlogPostPage.tsx`)
+
+```tsx
+import { useParams, Navigate } from 'react-router-dom';
+import { getPostBySlug } from '@/services/blogService';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { Helmet } from 'react-helmet-async';
+
+export const BlogPostPage: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  const post = getPostBySlug(slug ?? '');
+
+  if (!post) return <Navigate to="/blog" replace />;
+
+  return (
+    <>
+      <Helmet>
+        <title>{post.title} — Tablesmit</title>
+        <meta name="description" content={post.description} />
+        <meta property="og:title"       content={post.title} />
+        <meta property="og:description" content={post.description} />
+        <meta property="og:url"         content={`https://tablesmit.com/blog/${post.slug}`} />
+        <link rel="canonical"           href={`https://tablesmit.com/blog/${post.slug}`} />
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          "headline": post.title,
+          "description": post.description,
+          "datePublished": post.date,
+          "author": { "@type": "Person", "name": post.author },
+          "url": `https://tablesmit.com/blog/${post.slug}`,
+        })}</script>
+      </Helmet>
+
+      <article className="max-w-narrow mx-auto px-4 py-16">
+        {/* Header */}
+        <header className="mb-10">
+          <div className="flex items-center gap-2 text-xs text-text-muted mb-4">
+            <time>{formatDate(post.date)}</time>
+            <span>·</span>
+            <span>{post.readTime} min read</span>
+            <span>·</span>
+            <span>{post.author}</span>
+          </div>
+          <h1 className="text-4xl font-bold text-text-primary leading-tight mb-4">
+            {post.title}
+          </h1>
+          <p className="text-lg text-text-secondary leading-relaxed">
+            {post.description}
+          </p>
+          <div className="flex gap-2 mt-4">
+            {post.tags.map(tag => (
+              <span key={tag} className="text-xs bg-surface border border-border
+                                        px-2 py-1 rounded-sm text-text-muted">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </header>
+
+        {/* Divider */}
+        <hr className="border-border mb-10" />
+
+        {/* Content */}
+        <div className="prose prose-slate max-w-none">
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {post.content}
+          </ReactMarkdown>
+        </div>
+
+        {/* Footer CTA */}
+        <div className="mt-16 p-6 bg-surface border border-border rounded-md text-center">
+          <p className="text-sm text-text-secondary mb-3">
+            Try Tablesmit for yourself — free, no signup required.
+          </p>
+          <Link to="/app" className="text-sm font-semibold text-primary hover:underline">
+            Open Tablesmit
+          </Link>
+        </div>
+      </article>
+    </>
+  );
+};
+```
+
+#### Prose Styles (Tailwind Typography Plugin)
+
+```bash
+npm install -D @tailwindcss/typography
+```
+
+```ts
+// tailwind.config.ts — add to plugins
+plugins: [
+  require('@tailwindcss/typography'),
+],
+```
+
+```css
+/* The prose class handles all Markdown rendering styles:
+   headings, paragraphs, lists, code blocks, blockquotes, tables.
+   Use prose-slate for the dark neutral tone that matches the brand. */
+
+/* Override table styles inside prose to match Tablesmit's table aesthetic */
+.prose table { @apply border-collapse text-sm; }
+.prose th    { @apply bg-primary text-white font-semibold px-3 py-2 text-left; }
+.prose td    { @apply border border-border px-3 py-2; }
+.prose tr:nth-child(even) td { @apply bg-surface; }
+```
+
+---
+
+### 55D. Utility — Date Formatting
+
+```ts
+// src/utils/formatDate.ts
+export function formatDate(iso: string): string {
+  return new Intl.DateTimeFormat('en-GB', {
+    day:   'numeric',
+    month: 'long',
+    year:  'numeric',
+  }).format(new Date(iso));
+  // "15 September 2025"
+}
+```
+
+---
+
+### 55E. Sitemap — Auto-include Blog Posts
+
+```ts
+// Update public/sitemap.xml generation to include all blog slugs.
+// Since the sitemap is static for this setup, regenerate it when new posts are added.
+// A build script can automate this — see 55F.
+
+// Add one <url> block per post:
+// <url>
+//   <loc>https://tablesmit.com/blog/how-to-make-a-table-in-markdown</loc>
+//   <changefreq>monthly</changefreq>
+//   <priority>0.8</priority>
+//   <lastmod>2025-09-15</lastmod>
+// </url>
+```
+
+---
+
+### 55F. Helper Script — Markdown to JSON
+
+Writing long Markdown in a JSON string is inconvenient.
+This script converts a `.md` file into a blog post `.json` file.
+
+```ts
+// scripts/md-to-blog-post.ts
+// Usage: npx ts-node scripts/md-to-blog-post.ts my-post.md
+
+import fs from 'fs';
+import path from 'path';
+
+const mdFile  = process.argv[2];
+const content = fs.readFileSync(mdFile, 'utf-8');
+const slug    = path.basename(mdFile, '.md');
+
+const post = {
+  title:       "FILL IN",
+  date:        new Date().toISOString().split('T')[0],
+  description: "FILL IN — max 160 chars",
+  author:      "Olayiwola Akin",
+  tags:        ["FILL IN"],
+  readTime:    Math.ceil(content.split(' ').length / 200),
+  featured:    false,
+  content:     content,      // Markdown content verbatim — no escaping needed in JSON
+};
+
+const outPath = `src/content/blog/${slug}.json`;
+fs.writeFileSync(outPath, JSON.stringify(post, null, 2));
+console.log(`Created: ${outPath}`);
+console.log(`Fill in: title, description, tags`);
+```
+
+Add to package.json:
+```json
+"scripts": {
+  "new-post": "ts-node scripts/md-to-blog-post.ts"
+}
+```
+
+Usage:
+```bash
+npm run new-post my-draft.md
+# Creates src/content/blog/my-draft.json
+# Edit the JSON to fill in title, description, and tags
+```
+
+---
+
+### 55G. Required Dependencies
+
+```bash
+npm install react-markdown remark-gfm react-helmet-async
+npm install -D @tailwindcss/typography
+```
+
+| Package                    | Purpose                                      |
+|----------------------------|----------------------------------------------|
+| `react-markdown`           | Renders Markdown `content` string as HTML    |
+| `remark-gfm`               | GitHub Flavored Markdown (tables, strikethrough, etc.) |
+| `react-helmet-async`       | Per-post `<title>`, meta tags, og tags, JSON-LD |
+| `@tailwindcss/typography`  | `prose` class — styles all Markdown output   |
+
+**Also add to `App.tsx` — wrap the router:**
+```tsx
+import { HelmetProvider } from 'react-helmet-async';
+<HelmetProvider>
+  <BrowserRouter>
+    {/* ...routes */}
+  </BrowserRouter>
+</HelmetProvider>
+```
+
+---
+
+### 55H. Navbar Update
+
+Add Blog to the navigation:
+
+```
+Home | Features | Blog | Open Source | About     [Start Building]  [GitHub ↗]
+```
+
+Update `siteConfig.ts`:
+```ts
+routes: {
+  // ...existing
+  blog:     '/blog',
+},
+nav: [
+  { label: 'Home',        path: '/' },
+  { label: 'Features',    path: '/#features' },
+  { label: 'Blog',        path: '/blog' },
+  { label: 'Open Source', path: '/open-source' },
+  { label: 'About',       path: '/about' },
+],
+```
+
+---
+
+### 55I. Tests Required
+
+```ts
+// src/services/blogService.test.ts
+describe('blogService', () => {
+  it('loads all JSON files from src/content/blog/')
+  it('derives slug from filename correctly')
+  it('sorts posts newest first by default')
+  it('puts featured posts before non-featured posts')
+  it('getPostBySlug returns correct post for valid slug')
+  it('getPostBySlug returns undefined for unknown slug')
+  it('getAllTags returns unique sorted tags across all posts')
+  it('parsePost handles missing optional fields gracefully')
+  it('readTime defaults to 1 when field is missing')
+})
+
+// src/pages/BlogListPage/BlogListPage.test.tsx
+describe('BlogListPage', () => {
+  it('renders a card for every blog post')
+  it('shows featured badge on featured posts')
+  it('links each card to the correct /blog/:slug route')
+  it('displays date, read time, author, and tags on each card')
+})
+
+// src/pages/BlogPostPage/BlogPostPage.test.tsx
+describe('BlogPostPage', () => {
+  it('renders the post title as H1')
+  it('renders the post content as Markdown')
+  it('redirects to /blog for unknown slugs')
+  it('sets correct <title> via Helmet')
+  it('renders JSON-LD structured data with correct fields')
+  it('shows tags as pill badges')
+  it('includes CTA link to /app at the bottom')
+})
+```
+
+---
+
+### 55J. v6.0 Checklist Additions
+
+```
+[ ] npm install react-markdown remark-gfm react-helmet-async
+[ ] npm install -D @tailwindcss/typography
+[ ] Add typography plugin to tailwind.config.ts
+[ ] Add HelmetProvider wrapper in App.tsx
+[ ] Create src/types/blog.types.ts
+[ ] Create src/services/blogService.ts with import.meta.glob
+[ ] Create src/content/blog/ directory
+[ ] Create BlogListPage and BlogPostPage (lazy-loaded)
+[ ] Add /blog and /blog/:slug routes to App.tsx
+[ ] Add Blog to nav in siteConfig.ts
+[ ] Create scripts/md-to-blog-post.ts helper
+[ ] Add "new-post" script to package.json
+[ ] Write first 3 blog posts as JSON (Section 38D priority articles)
+[ ] Update public/sitemap.xml with blog post URLs
+[ ] Update README.md with "Writing a blog post" section (see below)
+[ ] All blogService and page tests passing
 ```
 
 ---

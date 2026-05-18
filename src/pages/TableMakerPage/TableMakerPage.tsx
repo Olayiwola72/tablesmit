@@ -14,6 +14,8 @@ import { HeaderOptionsPanel } from '../../components/features/HeaderOptionsPanel
 import { ColorPanel } from '../../components/features/ColorPanel'
 import { BorderPanel } from '../../components/features/BorderPanel'
 import { MergeCellsPanel } from '../../components/features/MergeCellsPanel'
+import { AiFeaturesPanel } from '../../components/features/AiFeaturesPanel'
+import { TableCaption } from '../../components/features/TableCaption'
 import type { ExportFormat } from '../../types/export.types'
 
 const ExportPanel = lazy(() => import('../../components/features/ExportPanel'))
@@ -33,6 +35,7 @@ function TableMakerContent(): ReactNode {
   const { rows, cols } = useTableContext()
   const { exportAs, isExporting } = useExport()
   const [activeSheet, setActiveSheet] = useState<'settings' | 'presets' | null>(null)
+  const [caption, setCaption] = useState('')
 
   const handleExport = (format: ExportFormat): void => {
     void exportAs(format, tableRef.current)
@@ -42,10 +45,10 @@ function TableMakerContent(): ReactNode {
     <main className="flex h-[calc(100vh-56px)] flex-col overflow-hidden bg-white md:h-[calc(100vh-60px)]">
       <section className="border-b border-border bg-white px-6 py-5 text-center sm:py-7">
         <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
-          Tables built for analytical writing.
+          {siteConfig.copy.tableMakerHeadline}
         </h1>
         <p className="mx-auto mt-1 max-w-lg text-sm text-text-secondary">
-          Full control over headers, formatting, and export.
+          {siteConfig.copy.tableMakerSubtext}
         </p>
         <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-muted sm:text-sm">
           <span className="flex items-center gap-1.5">
@@ -76,9 +79,12 @@ function TableMakerContent(): ReactNode {
         </aside>
 
         <section className="flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace">
-          <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted">
+          <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted dark:bg-slate-900">
             <span>{rows} rows x {cols} columns</span>
             <span>{siteConfig.labels.autoFitColumn}</span>
+          </div>
+          <div className="px-4 pt-2" data-table-caption>
+            <TableCaption value={caption} onChange={setCaption} />
           </div>
           <TableGrid tableRef={tableRef} />
         </section>
@@ -94,6 +100,7 @@ function TableMakerContent(): ReactNode {
           <Suspense fallback={<PanelLoader />}>
             <QuickPresetsPanel />
           </Suspense>
+          <AiFeaturesPanel />
         </aside>
       </div>
 
@@ -134,6 +141,7 @@ function TableMakerContent(): ReactNode {
             <Suspense fallback={<PanelLoader />}>
               <QuickPresetsPanel />
             </Suspense>
+            <AiFeaturesPanel />
           </div>
         )}
       </MobileSheet>

@@ -4,12 +4,19 @@ import { presets } from './presets'
 
 export const siteConfig = {
   brand: {
-    name: 'Structra',
+    name: 'Tablesmit',
+    alternateName: 'Tablesmith',
     tagline: 'Tables, your way.',
-    githubUrl: 'https://github.com/Olayiwola72/structra',
-    contactEmail: 'hello@structra.app',
+    description:
+      'A minimalist table builder for analytical writing. With full control over headers, formatting, and export.',
+    metaDescription:
+      'Build clean, structured tables with full control over headers, formatting, and export. Free. No signup. Export to PDF, Excel, CSV, or PNG.',
+    url: 'https://tablesmit.com',
+    githubUrl: 'https://github.com/Olayiwola72/tablesmit',
+    contactEmail: 'hello@tablesmit.com',
+    authorTwitter: 'https://x.com/OlayiwolaAkinn1',
   },
-  exportFileBaseName: 'structra-table',
+  exportFileBaseName: 'tablesmit-table',
   exports: exportFormats,
   colors: {
     defaultHeader: '#1E293B',
@@ -33,15 +40,81 @@ export const siteConfig = {
     about: '/about',
     contact: '/contact',
     openSource: '/open-source',
+    privacy: '/privacy',
+    terms: '/terms',
+    changelog: '/changelog',
   },
+  sponsors: [
+    {
+      id: 'github',
+      label: 'GitHub Sponsors',
+      description: 'Sponsor monthly on GitHub',
+      url: 'https://github.com/sponsors/Olayiwola72',
+      cta: 'Sponsor on GitHub',
+    },
+    {
+      id: 'bmac',
+      label: 'Buy Me a Coffee',
+      description: 'One-time contribution',
+      url: 'https://buymeacoffee.com/Olayiwola72',
+      cta: 'Buy a coffee',
+    },
+    {
+      id: 'opencollective',
+      label: 'Open Collective',
+      description: 'For teams and organizations',
+      url: 'https://opencollective.com/tablesmit',
+      cta: 'Contribute',
+    },
+  ],
   nav: [
     { label: 'Home', route: 'home' },
     { label: 'Open Source', route: 'openSource' },
     { label: 'About', route: 'about' },
     { label: 'Contact', route: 'contact' },
   ],
+  copy: {
+    heroHeadlineLine1: 'Tables built for',
+    heroHeadlineLine2: 'analytical writing.',
+    heroSubtext:
+      'A minimalist table builder for analytical writing, with full control over headers, formatting, and export.',
+    tableMakerHeadline: 'Tables built for analytical writing.',
+    tableMakerSubtext: 'Full control over headers, formatting, and export.',
+    openSourceHeading: 'Built in the open.',
+    openSourceBody:
+      'Tablesmit is free and open source. The code is on GitHub. Read it, fork it, improve it, or adapt it for your own needs. We believe tools for writing and thinking should be transparent.',
+    aboutHeading: 'Built for structured thinkers.',
+    aboutOrigin:
+      'Tablesmit was created by a writer who needed more control than basic table generators provided.',
+    aboutTooLittle:
+      'Most tools gave too little: no header customization, no column formatting, no clean export. Others gave too much: the full weight of a spreadsheet for something that just needed to be a table.',
+    aboutMiddleGround:
+      'Tablesmit is the middle ground. Built for people who think in structure and publish with precision.',
+    whatWeAreNotHeading: 'What Tablesmit Is Not',
+    whatWeAreNot: [
+      'Not a spreadsheet.',
+      'Not a database.',
+      'Not a Notion competitor.',
+      'Not a design-heavy tool.',
+    ],
+    positioningClosing: 'We are a structured writing tool.',
+    openSourcePageHero: 'Built in the open. Sustained by the community.',
+    openSourcePageBody:
+      'Tablesmit is free and open source. The code is on GitHub. Read it, fork it, improve it, or adapt it for your own needs. We believe tools for writing and thinking should be transparent.',
+    sponsorBody:
+      'Tablesmit is maintained in the open. If the tool helps you write better tables, consider sponsoring. It keeps the project sustainable and focused.',
+    spreadTheWord:
+      'Share Tablesmit with someone who needs a better table tool. Stars on GitHub help others find it too.',
+    contactIntro:
+      'Tablesmit is built by one person who cares about getting the details right. Every email, every suggestion, every bug report shapes what this tool becomes.',
+    contactCommunity:
+      'You are not just a user. You are part of how Tablesmit grows.',
+    contactThanks:
+      'Tablesmit is open source and free. Every contributor, every issue filed, every kind word matters. Thank you for being here.',
+    contactHiReason: 'Stumbled on Tablesmit and want to share your thoughts? I would love to hear them.',
+  },
   labels: {
-    // Sidebar panels
+    startBuilding: 'Start Building',
     gridSize: 'Grid Size',
     rows: 'Rows',
     columns: 'Columns',
@@ -76,8 +149,6 @@ export const siteConfig = {
       { value: 'dashed', label: 'Dashed' },
       { value: 'double', label: 'Double' },
     ] as const,
-
-    // Toolbar
     addRow: 'Add Row',
     addColumn: 'Add Column',
     removeRow: 'Remove Row',
@@ -89,21 +160,13 @@ export const siteConfig = {
     importLabel: 'Import',
     importCsv: 'Import from CSV',
     importExcel: 'Import from Excel',
-
-    // Status bar
     autoFitColumn: 'Double-click a column border to AutoFit width',
     autoFitRow: 'Double-click to AutoFit row height',
-
-    // Merge announcements
     mergeAnnounce: 'Cells merged.',
     unmergeAnnounce: 'Cells unmerged.',
     cannotMergeSingleCell: 'Cannot merge a single cell. Select a range of cells first.',
     noMergeInSelection: 'No merge found in the selected range.',
-
-    // Loading
     loading: 'Loading\u2026',
-
-    // Context menu
     contextAutoFit: 'Auto-fit column',
     contextColumnBackground: 'Column background',
     contextCellBackground: 'Cell background',
@@ -116,14 +179,22 @@ export const siteConfig = {
       { value: 'center', label: 'Center' },
       { value: 'right', label: 'Right' },
     ] as const,
-
-    // Copy
     copyTable: 'Copy Table',
     copyAsCsv: 'Copy as CSV',
     copyAsMarkdown: 'Copy as Markdown',
     copyAsImage: 'Copy as Image',
-
-    // Nav
+    aiFeatures: 'AI Features (Beta)',
+    comingSoon: 'Coming soon',
+    aiFeatureList: ['Generate from text', 'Summarize', 'Clean data'],
+    aiFeatureNote: 'AI features are in development. Join the waitlist.',
+    joinWaitlist: 'Join Waitlist',
+    aiToolbar: 'AI',
+    importCleanData: 'Clean messy data',
+    tableCaptionPlaceholder: 'Add a table title or caption (optional)',
+    sortAscending: 'Sort ascending',
+    sortDescending: 'Sort descending',
+    privacyPolicy: 'Privacy Policy',
+    termsOfUse: 'Terms of Use',
   },
   messages: {
     importTooLarge: 'File too large. Maximum size is 5MB.',
@@ -143,3 +214,7 @@ export const siteConfig = {
     maxSizeMb: 5,
   },
 } as const
+
+export function brandHomeAriaLabel(): string {
+  return `${siteConfig.brand.name} home`
+}

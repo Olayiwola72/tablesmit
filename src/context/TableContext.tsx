@@ -93,6 +93,7 @@ interface TableActions {
   applyPreset: (preset: PresetDefinition) => void
   undo: () => void
   canUndo: boolean
+  historyDepth: number
 }
 
 interface TableStateFields {
@@ -400,7 +401,7 @@ export function isHeaderCell(headerStyle: HeaderStyle, row: number, col: number)
 export function TableProvider({ children }: { children: ReactNode }): ReactNode {
   const [state, dispatch] = useReducer(reducer, initialState)
   const stateRef = useRef(state)
-  const { recordSnapshot, undo: popHistory, canUndo } = useTableHistory()
+  const { recordSnapshot, undo: popHistory, canUndo, historyDepth } = useTableHistory()
 
   useEffect(() => { stateRef.current = state }, [state])
 
@@ -453,8 +454,9 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       applyPreset: (preset) => dispatchWithHistory({ type: 'applyPreset', preset }),
       undo,
       canUndo,
+      historyDepth,
     }),
-    [dispatchWithHistory, undo, canUndo],
+    [dispatchWithHistory, undo, canUndo, historyDepth],
   )
 
   const cellsValue = useMemo<TableCellsValue>(

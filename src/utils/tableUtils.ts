@@ -59,3 +59,22 @@ export function updateColumnFormat(
     row.map((cell, colIndex) => (colIndex === col ? { ...cell, format } : cell)),
   )
 }
+
+export function sortRows(
+  rows: CellData[][],
+  colIndex: number,
+  direction: 'asc' | 'desc',
+): CellData[][] {
+  return [...rows].sort((rowA, rowB) => {
+    const aVal = rowA[colIndex]?.value ?? ''
+    const bVal = rowB[colIndex]?.value ?? ''
+    if (aVal === '') return 1
+    if (bVal === '') return -1
+
+    const aNum = parseFloat(aVal)
+    const bNum = parseFloat(bVal)
+    const isNumeric = !Number.isNaN(aNum) && !Number.isNaN(bNum)
+    const compared = isNumeric ? aNum - bNum : aVal.localeCompare(bVal)
+    return direction === 'asc' ? compared : -compared
+  })
+}

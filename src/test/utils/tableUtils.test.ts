@@ -7,6 +7,7 @@ import {
   normalizeTableData,
   removeColumn,
   removeRow,
+  sortRows,
   updateCellValue,
   updateColumnFormat,
 } from '../../utils/tableUtils'
@@ -148,5 +149,38 @@ describe('updateColumnFormat', () => {
       expect(row[2].format).toBe('currency')
       expect(row[0].format).toBe('text')
     })
+  })
+})
+
+describe('sortRows', () => {
+  function tableWithValues(values: string[][]): ReturnType<typeof generateEmptyTable> {
+    return values.map((row, rowIndex) =>
+      row.map((value, colIndex) => createCell(rowIndex, colIndex, value)),
+    )
+  }
+
+  it('sorts string column ascending alphabetically', () => {
+    const rows = tableWithValues([['b'], ['a'], ['c']])
+    const sorted = sortRows(rows, 0, 'asc')
+    expect(sorted.map((row) => row[0].value)).toEqual(['a', 'b', 'c'])
+  })
+
+  it('sorts numeric column numerically', () => {
+    const rows = tableWithValues([['10'], ['2'], ['1']])
+    const sorted = sortRows(rows, 0, 'asc')
+    expect(sorted.map((row) => row[0].value)).toEqual(['1', '2', '10'])
+  })
+
+  it('places empty cells at the bottom regardless of direction', () => {
+    const rows = tableWithValues([[''], ['b'], ['a']])
+    const sorted = sortRows(rows, 0, 'asc')
+    expect(sorted.map((row) => row[0].value)).toEqual(['a', 'b', ''])
+  })
+
+  it('does not mutate the original rows array', () => {
+    const rows = tableWithValues([['b'], ['a']])
+    const original = rows.map((row) => row[0].value)
+    sortRows(rows, 0, 'asc')
+    expect(rows.map((row) => row[0].value)).toEqual(original)
   })
 })

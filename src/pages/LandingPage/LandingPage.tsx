@@ -4,24 +4,26 @@ import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button'
 import { siteConfig } from '../../config/siteConfig'
 
+const { brand, copy, labels, routes } = siteConfig
+
 export function LandingPage(): ReactNode {
   return (
     <main className="bg-white">
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <h1 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-text-primary sm:text-4xl lg:text-5xl">
-          Tables built for
+          {copy.heroHeadlineLine1}
           <br />
-          analytical writing.
+          {copy.heroHeadlineLine2}
         </h1>
         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg">
-          A minimalist table builder for analytical writing, with full control over headers, formatting, and export.
+          {copy.heroSubtext}
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="accent" size="lg">
-            <Link to={siteConfig.routes.home}>Start Building</Link>
+            <Link to={routes.home}>{labels.startBuilding}</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
-            <a href={siteConfig.brand.githubUrl} target="_blank" rel="noreferrer">
+            <a href={brand.githubUrl} target="_blank" rel="noreferrer">
               View on GitHub <ExternalLink size={16} aria-hidden="true" />
             </a>
           </Button>
@@ -29,13 +31,12 @@ export function LandingPage(): ReactNode {
       </section>
 
       <section id="open-source" className="bg-surface px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
-        <h2 className="text-2xl font-bold text-text-primary">Built in the open.</h2>
+        <h2 className="text-2xl font-bold text-text-primary">{copy.openSourceHeading}</h2>
         <p className="mx-auto mt-4 max-w-narrow text-base leading-relaxed text-text-secondary">
-          Structra is free and open source. The code is on GitHub. Read it, fork it, improve it, or adapt it for your own needs.
-          We believe tools for writing and thinking should be transparent.
+          {copy.openSourceBody}
         </p>
         <Button asChild variant="secondary" className="mt-6">
-          <a href={siteConfig.brand.githubUrl} target="_blank" rel="noreferrer">
+          <a href={brand.githubUrl} target="_blank" rel="noreferrer">
             View on GitHub <ExternalLink size={16} aria-hidden="true" />
           </a>
         </Button>
@@ -51,21 +52,20 @@ function AboutSection(): ReactNode {
   return (
     <section id="about" className="mx-auto grid max-w-content gap-10 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8">
       <div>
-        <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">Built for structured thinkers.</h2>
+        <h2 className="text-2xl font-bold text-text-primary sm:text-3xl">{copy.aboutHeading}</h2>
         <div className="mt-5 space-y-4 text-base leading-relaxed text-text-secondary">
-          <p>Structra was created by a writer who needed more control than basic table generators provided.</p>
-          <p>Most tools gave too little: no header customization, no column formatting, no clean export. Others gave too much: the full weight of a spreadsheet for something that just needed to be a table.</p>
-          <p>Structra is the middle ground. Built for people who think in structure and publish with precision.</p>
+          <p>{copy.aboutOrigin}</p>
+          <p>{copy.aboutTooLittle}</p>
+          <p>{copy.aboutMiddleGround}</p>
         </div>
       </div>
       <div className="rounded-md border border-border bg-surface p-6">
-        <h3 className="text-sm font-semibold text-text-primary">What Structra Is Not</h3>
+        <h3 className="text-sm font-semibold text-text-primary">{copy.whatWeAreNotHeading}</h3>
         <ul className="mt-4 space-y-2 text-sm text-text-muted">
-          <li>Not a spreadsheet.</li>
-          <li>Not a database.</li>
-          <li>Not a Notion competitor.</li>
-          <li>Not a design-heavy tool.</li>
-          <li className="pt-3 font-medium text-text-secondary">We are a structured writing tool.</li>
+          {copy.whatWeAreNot.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+          <li className="pt-3 font-medium text-text-secondary">{copy.positioningClosing}</li>
         </ul>
       </div>
     </section>

@@ -1,63 +1,50 @@
-# Contributing to Structra
+# Contributing to Tablesmit
 
-Thanks for your interest in contributing. Structra is MIT licensed and contributions are welcome.
+Thanks for your interest in contributing. Tablesmit is MIT licensed and contributions are welcome.
 
-## Getting Started
+Read `agents.md` in the repository root for brand, architecture, and testing standards before you start.
 
-```bash
-npm install
-npm run dev
+## Before You Start
+
+- Check [existing issues](https://github.com/Olayiwola72/tablesmit/issues) to avoid duplicates.
+- For large changes, open an issue first to discuss the approach.
+
+## Reporting Bugs
+
+Use the GitHub issue tracker. Include:
+
+- Steps to reproduce (be specific)
+- Expected behavior
+- Actual behavior
+- Browser and OS version
+- A screenshot or screen recording if relevant
+
+## Suggesting Features
+
+Open a GitHub Discussion, not an issue. Explain what you are trying to do, why the current tool does not meet your need, and what the feature would look like from a user's perspective.
+
+## Submitting a Pull Request
+
+1. Fork the repository
+2. Create a branch: `git checkout -b feat/your-feature-name`
+3. Make your changes
+4. Write tests — no PR without tests will be reviewed
+5. Run the full suite: `npm run test` — all must pass
+6. Run lint: `npm run lint` — zero errors
+7. Open a PR against `main` with a clear description
+
+## Code Standards
+
+- Follow SOLID, DRY, and KISS as defined in `agents.md`
+- No `any` types without a comment explaining why
+- No hardcoded hex colors — use Tailwind tokens
+- All new hooks must have test coverage
+
+## Commit Message Format
+
 ```
-
-## Project Structure
-
-See `AGENTS.md` for the full architecture guide. Key directories:
-
-- `src/config/` — product decisions, routes, presets, colors
-- `src/components/ui/` — reusable primitives (Button, IconButton, etc.)
-- `src/components/layout/` — shell components (Navbar, Footer)
-- `src/components/features/` — domain-specific components (TableGrid, ExportPanel, etc.)
-- `src/hooks/` — custom React hooks
-- `src/utils/` — pure functions, zero React dependencies
-- `src/pages/` — route-level page components
-
-## Development Workflow
-
-1. Create a branch: `git checkout -b feat/your-feature`
-2. Make changes. Keep components small and focused.
-3. Run tests: `npm test`
-4. Run lint: `npm run lint`
-5. Run build: `npm run build`
-6. Open a pull request.
-
-## Code Conventions
-
-- **TypeScript** — `strict: true`. No `any` without an inline comment.
-- **Styling** — Tailwind classes only. No `style={}`.
-- **Components** — one component per file, one directory per component.
-- **Exports** — named export + `export default` for `lazy()` loading.
-- **Routes** — never hardcode path strings. Use `siteConfig.routes.*`.
-- **Imports** — no direct cross-feature imports. Use context/hooks.
-
-## Testing
-
-Tests are written with Vitest + React Testing Library.
-
-```bash
-npm test                 # run all tests
-npx vitest --coverage    # with coverage report
-npx vitest --watch       # watch mode
+feat: add column sorting
+fix: correct autoFit clamp on empty column
+docs: update CONTRIBUTING.md
+test: add sortRows edge case for empty cells
 ```
-
-- `utils/` — target 95% coverage
-- `hooks/` — target 90% coverage
-- `components/` — target 80% coverage
-
-Don't write implementation code before a failing test exists.
-
-## Pull Request Guidelines
-
-- Keep PRs focused on a single concern.
-- Write a clear title and description.
-- Make sure all tests pass and the build succeeds.
-- No PR is too small. Typos and docs fixes are appreciated.

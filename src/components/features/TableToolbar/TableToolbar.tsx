@@ -1,4 +1,17 @@
-import { ChevronDown, Copy, Download, LayoutTemplate, Merge, Minus, Plus, Trash2, Undo2, Ungroup, Upload } from 'lucide-react'
+import {
+  ChevronDown,
+  Copy,
+  Download,
+  LayoutTemplate,
+  Merge,
+  Minus,
+  Plus,
+  Sparkles,
+  Trash2,
+  Undo2,
+  Ungroup,
+  Upload,
+} from 'lucide-react'
 import { useCallback, useMemo, useRef, type ReactNode, type RefObject } from 'react'
 import { siteConfig } from '../../../config/siteConfig'
 import { exportFormats } from '../../../config/exportConfig'
@@ -118,10 +131,25 @@ export function TableToolbar({ tableRef, onExport }: { tableRef: RefObject<HTMLD
         <Button variant="ghost" size="sm" onClick={table.unmergeSelection}>
           <Ungroup size={14} aria-hidden="true" /> {labels.unmerge}
         </Button>
-        <Button variant="ghost" size="sm" onClick={table.undo} disabled={!table.canUndo}>
-          <Undo2 size={14} aria-hidden="true" /> {labels.undo}
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="sm" onClick={table.undo} disabled={!table.canUndo}>
+              <Undo2 size={14} aria-hidden="true" /> {labels.undo}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            {table.canUndo
+              ? `Undo (${table.historyDepth} action${table.historyDepth === 1 ? '' : 's'})`
+              : 'Nothing to undo'}
+          </TooltipContent>
+        </Tooltip>
       </div>
+
+      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+
+      <Button variant="ghost" size="sm" disabled title={labels.comingSoon}>
+        <Sparkles size={14} aria-hidden="true" /> {labels.aiToolbar}
+      </Button>
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 
@@ -149,6 +177,7 @@ export function TableToolbar({ tableRef, onExport }: { tableRef: RefObject<HTMLD
         <DropdownMenuContent>
           <DropdownMenuItem onClick={() => csvInputRef.current?.click()}>{labels.importCsv}</DropdownMenuItem>
           <DropdownMenuItem onClick={() => excelInputRef.current?.click()}>{labels.importExcel}</DropdownMenuItem>
+          <DropdownMenuItem disabled>{labels.importCleanData}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <input ref={csvInputRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(event) => importFromInput('csv', event.target.files)} />

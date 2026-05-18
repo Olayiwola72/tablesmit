@@ -90,7 +90,7 @@ class ExcelExporter implements ExportStrategy {
     }
 
     const workbook = utils.book_new()
-    utils.book_append_sheet(workbook, worksheet, 'Structra')
+    utils.book_append_sheet(workbook, worksheet, siteConfig.brand.name)
     writeFile(workbook, `${options.filename ?? siteConfig.exportFileBaseName}.xlsx`)
   }
 }

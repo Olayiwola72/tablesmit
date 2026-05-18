@@ -3,6 +3,8 @@ import type { ReactNode } from 'react'
 import { Button } from '../../components/ui/Button'
 import { siteConfig } from '../../config/siteConfig'
 
+const { brand, copy } = siteConfig
+
 const reasons = [
   {
     icon: <Lightbulb size={18} aria-hidden="true" />,
@@ -17,7 +19,7 @@ const reasons = [
   {
     icon: <Heart size={18} aria-hidden="true" />,
     title: 'Just saying hi',
-    description: 'Stumbled on Structra and want to share your thoughts? I would love to hear them.',
+    description: copy.contactHiReason,
   },
   {
     icon: <Sparkles size={18} aria-hidden="true" />,
@@ -30,31 +32,21 @@ export function ContactPage(): ReactNode {
   return (
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <section className="mx-auto max-w-narrow text-center">
-        <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-          I would love to hear from you.
-        </h1>
+        <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">I would love to hear from you.</h1>
         <p className="mt-4 text-base leading-relaxed text-text-secondary">
-          Structra is built by one person who cares about getting the details right.
-          Every email, every suggestion, every bug report shapes what this tool becomes.
-          You are not just a user — you are part of how Structra grows.
+          {copy.contactIntro} {copy.contactCommunity}
         </p>
 
         <div className="mx-auto mt-10 inline-flex items-center gap-3 rounded-md border border-border bg-surface px-6 py-4">
-          <span className="text-sm text-text-muted"> Reach out at</span>
+          <span className="text-sm text-text-muted">Reach out at</span>
           <a
-            href="mailto:hello@structra.app"
-            className="text-base font-semibold text-primary hover:text-primary-hover transition-colors"
+            href={`mailto:${brand.contactEmail}`}
+            className="text-base font-semibold text-primary transition-colors hover:text-primary-hover"
           >
-            {siteConfig.brand.contactEmail}
+            {brand.contactEmail}
           </a>
-          <Button
-            variant="primary"
-            size="sm"
-            asChild
-          >
-            <a href={`mailto:${siteConfig.brand.contactEmail}`}>
-              Send an email
-            </a>
+          <Button variant="primary" size="sm" asChild>
+            <a href={`mailto:${brand.contactEmail}`}>Send an email</a>
           </Button>
         </div>
       </section>
@@ -77,13 +69,8 @@ export function ContactPage(): ReactNode {
       </section>
 
       <section className="mx-auto mt-20 max-w-narrow rounded-md border border-border bg-surface p-8 text-center sm:p-10">
-        <p className="text-sm font-medium text-text-primary">
-          Built with care, maintained with gratitude.
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-text-secondary">
-          Structra is open source and free. Every contributor, every issue filed,
-          every kind word — it all matters. Thank you for being here.
-        </p>
+        <p className="text-sm font-medium text-text-primary">Built with care, maintained with gratitude.</p>
+        <p className="mt-2 text-sm leading-relaxed text-text-secondary">{copy.contactThanks}</p>
       </section>
     </main>
   )

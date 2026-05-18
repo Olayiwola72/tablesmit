@@ -1,80 +1,59 @@
-# Structra
+# Tablesmit
 
-**Tables, your way.**
+> A minimalist table builder for analytical writing.
 
-A minimalist table builder for analytical writing — with full control over headers, formatting, and export.
+Build clean, structured tables with full control over headers, formatting, and export. No bloat. No account required. Free and open source.
 
-Built for writers, analysts, researchers, and technical thinkers who need clean structured tables without the noise of a spreadsheet.
+**[Open Tablesmit](https://tablesmit.com)**
+
+---
 
 ## Features
 
-- Customizable table dimensions up to configured limits.
-- Inline cell editing.
-- Multiple header layouts: top, left, both, or none.
-- Header and content color palettes.
-- Preset templates for schedules, checklists, pricing, contacts, and inventory.
-- Merge and unmerge cell ranges.
-- Per-column type formatting (text, number, currency, percentage, date).
-- AutoFit columns by double-clicking resize handles.
-- Drag-to-resize columns and rows with smooth ghost indicators.
-- Export to PDF, PNG, JPEG, and Excel.
-- Import from CSV and Excel.
-- Dark mode support.
-
-## Tech Stack
-
-| Layer       | Technology                                           |
-|-------------|------------------------------------------------------|
-| Framework   | React 18 + Vite                                      |
-| Language    | TypeScript (`strict: true`)                          |
-| Styling     | Tailwind CSS v3                                      |
-| Components  | shadcn/ui (Radix primitives)                         |
-| Icons       | Lucide React                                         |
-| Drag/Resize | @dnd-kit                                             |
-| Export      | jsPDF, html2canvas, SheetJS                          |
-| Import      | PapaParse (CSV), SheetJS (Excel)                     |
-| Testing     | Vitest + React Testing Library                       |
-| Routing     | React Router v6                                      |
+- Drag-to-resize columns and rows
+- Merge and unmerge cells
+- Custom header colors and styles
+- Word-style border controls
+- Column types: Text, Number, Currency, Percentage, Date
+- Auto-sum and auto-numbering column types
+- Smart clipboard paste from Excel, Word, or CSV
+- Export: PDF, PNG, JPEG, Excel, CSV
+- Import: CSV, Excel
+- Keyboard navigation
 
 ## Getting Started
 
 ```bash
+git clone https://github.com/Olayiwola72/tablesmit.git
+cd tablesmit
 npm install
 npm run dev
 ```
 
-## Scripts
+Open [http://localhost:5173](http://localhost:5173)
 
-| Command           | Description                    |
-|-------------------|--------------------------------|
-| `npm run dev`     | Start development server       |
-| `npm run build`   | Type-check and build for prod  |
-| `npm run preview` | Preview production build       |
-| `npm test`        | Run tests                      |
-| `npm run lint`    | Run ESLint                     |
+## Tech Stack
+
+React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Vitest
 
 ## Configuration
 
-Product decisions live in `src/config/siteConfig.ts`:
+Product decisions — brand name, routes, nav links, export formats, color palettes, and presets — live in one file:
 
-- Brand name, tagline, GitHub URL
-- Route paths
-- Export formats
-- Column format options
-- Color palettes
-- Presets
-- Navigation links
+```
+src/config/siteConfig.ts
+```
 
-Start there before changing component logic.
+Check there before changing component logic.
 
-## Architecture
+## Contributing
 
-- Every page is lazy-loaded via `React.lazy()`.
-- Heavy feature panels (Export, Presets, Column Formatting) are lazy-loaded inside the table maker.
-- State lives in `TableContext` — no external state library.
-- Export uses a strategy pattern: adding a new format means adding a new class.
-- Utility functions are pure — zero React dependencies.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE)
+
+---
+
+Built with care. [Support this project →](https://tablesmit.com/open-source)

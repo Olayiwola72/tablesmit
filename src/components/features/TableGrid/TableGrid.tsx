@@ -10,7 +10,7 @@ import { useRowResize } from '../../../hooks/useRowResize'
 import { useTableSelection } from '../../../hooks/useTableSelection'
 import { computeColumnSum, getContrastText } from '../../../utils/formatUtils'
 import { isRangeAnchor } from '../../../utils/mergeUtils'
-import { normalizeTableData } from '../../../utils/tableUtils'
+import { normalizeTableData, sortRows } from '../../../utils/tableUtils'
 import { TableCell } from './TableCell'
 import { TableHeaderCell } from './TableHeaderCell'
 
@@ -150,10 +150,12 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
 
   const [sortCol, setSortCol] = useState<number | null>(null)
   const [sortDir, setSortDir] = useState<'asc' | 'desc' | null>(null)
+  const [pasting, setPasting] = useState(false)
+  const [ctxMenu, setCtxMenu] = useState<CtxData>(null)
+  const [activeSub, setActiveSub] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (sortCol !== null && sortCol >= cols) { setSortCol(null); setSortDir(null) }
-  }, [cols, sortCol])
+  const activeSortCol = sortCol !== null && sortCol < cols ? sortCol : null
+  const activeSortDir = activeSortCol !== null ? sortDir : null
 
   useEffect(() => {
     const onKeyDown = (event: globalThis.KeyboardEvent): void => {
@@ -170,40 +172,41 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
 
   useEffect(() => {
     const onPaste = async (event: globalThis.ClipboardEvent): Promise<void> => {
-      setPasting(true)
       const target = event.target as HTMLElement
       if (target.closest('[contenteditable]')) return
+
       const items = event.clipboardData?.items
       if (!items) return
       event.preventDefault()
 
-      const html = items[0]?.type === 'text/html' ? event.clipboardData?.getData('text/html') : null
-      const text = event.clipboardData?.getData('text/plain') ?? ''
-
-      let rows: string[][] = []
-
-      if (html) {
-        const doc = new DOMParser().parseFromString(html, 'text/html')
-        const table = doc.querySelector('table')
-        if (table) {
-          rows = Array.from(table.rows).map((tr) =>
-            Array.from(tr.children).map((td) => (td.textContent ?? '').trim()),
-          )
-        }
-      }
-
-      if (rows.length === 0 && text) {
-        const lines = text.split(/\r?\n/).filter(Boolean)
-        const delim = lines.some((line) => line.includes('\t')) ? '\t' : ','
-        rows = lines.map((line) => line.split(delim).map((v) => v.trim()))
-        if (delim === ',' && rows.every((r) => r.length === 1)) rows = []
-      }
-
+      setPasting(true)
       try {
-        if (rows.length > 1 && rows[0]!.length > 1) {
-          const r = rows.length
-          const c = Math.max(...rows.map((row) => row.length))
-          const cellData = normalizeTableData(rows, r, c)
+        const html = items[0]?.type === 'text/html' ? event.clipboardData?.getData('text/html') : null
+        const text = event.clipboardData?.getData('text/plain') ?? ''
+
+        let pastedRows: string[][] = []
+
+        if (html) {
+          const doc = new DOMParser().parseFromString(html, 'text/html')
+          const table = doc.querySelector('table')
+          if (table) {
+            pastedRows = Array.from(table.rows).map((tr) =>
+              Array.from(tr.children).map((td) => (td.textContent ?? '').trim()),
+            )
+          }
+        }
+
+        if (pastedRows.length === 0 && text) {
+          const lines = text.split(/\r?\n/).filter(Boolean)
+          const delim = lines.some((line) => line.includes('\t')) ? '\t' : ','
+          pastedRows = lines.map((line) => line.split(delim).map((v) => v.trim()))
+          if (delim === ',' && pastedRows.every((r) => r.length === 1)) pastedRows = []
+        }
+
+        if (pastedRows.length > 1 && pastedRows[0]!.length > 1) {
+          const r = pastedRows.length
+          const c = Math.max(...pastedRows.map((row) => row.length))
+          const cellData = normalizeTableData(pastedRows, r, c)
           setCells(cellData)
         }
       } finally {
@@ -214,38 +217,36 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
     return () => document.removeEventListener('paste', onPaste)
   }, [setCells])
 
+  const sortDisabled = mergedRanges.length > 0
+
   const toggleSort = useCallback((col: number): void => {
-    setSortDir((prevDir) => {
-      if (sortCol !== col) { setSortCol(col); return 'asc' }
-      if (prevDir === 'asc') return 'desc'
-      return null
-    })
-  }, [sortCol])
-
-  const { sortedRows, sortedToOriginal } = useMemo(() => {
-    if (sortCol === null || sortDir === null) {
-      return { sortedRows: cells, sortedToOriginal: cells.map((_, i) => i) }
+    if (sortDisabled) return
+    if (sortCol !== col) {
+      setSortCol(col)
+      setSortDir('asc')
+      return
     }
-    const indices = cells.map((_, i) => i)
-    const stable = indices.slice()
-    stable.sort((a, b) => {
-      const va = cells[a]?.[sortCol]?.value ?? ''
-      const vb = cells[b]?.[sortCol]?.value ?? ''
-      const na = parseFloat(va); const nb = parseFloat(vb)
-      const cmp = !isNaN(na) && !isNaN(nb) ? na - nb : va.localeCompare(vb)
-      return sortDir === 'asc' ? cmp : -cmp
-    })
-    return {
-      sortedRows: stable.map((i) => cells[i]),
-      sortedToOriginal: stable,
+    if (sortDir === 'asc') {
+      setSortDir('desc')
+      return
     }
-  }, [cells, sortCol, sortDir])
+    if (sortDir === 'desc') {
+      setSortCol(null)
+      setSortDir(null)
+    }
+  }, [sortCol, sortDir, sortDisabled])
 
+  const sortedRows = useMemo(() => {
+    if (activeSortCol === null || activeSortDir === null) return cells
+    return sortRows(cells, activeSortCol, activeSortDir)
+  }, [cells, activeSortCol, activeSortDir])
 
-
-  const [pasting, setPasting] = useState(false)
-  const [ctxMenu, setCtxMenu] = useState<CtxData>(null)
-  const [activeSub, setActiveSub] = useState<string | null>(null)
+  const sortedToOriginal = useMemo(() => {
+    if (activeSortCol === null || activeSortDir === null) {
+      return cells.map((_, index) => index)
+    }
+    return sortedRows.map((sortedRow) => cells.findIndex((row) => row === sortedRow))
+  }, [cells, sortedRows, activeSortCol, activeSortDir])
 
   useEffect(() => {
     if (!ctxMenu) return
@@ -388,7 +389,7 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
         navigateToCell(row + dr, col + dc)
       }
     },
-    [cols, rows, navigateToCell],
+    [cols, navigateToCell],
   )
 
   return (
@@ -404,7 +405,8 @@ export function TableGrid({ tableRef }: { tableRef: RefObject<HTMLDivElement> })
             index={index}
             width={columnWidths[index]}
             format={cells[0]?.[index]?.format ?? 'text'}
-            sortDir={sortCol === index ? sortDir : null}
+            sortDir={activeSortCol === index ? activeSortDir : null}
+            sortDisabled={sortDisabled}
             onSort={() => toggleSort(index)}
             onFormatChange={(format) => setColumnFormat(index, format)}
             onResizeStart={onColumnResizeStart}

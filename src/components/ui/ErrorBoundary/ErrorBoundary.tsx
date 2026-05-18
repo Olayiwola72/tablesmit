@@ -1,0 +1,55 @@
+import { Component, type ErrorInfo, type ReactNode } from 'react'
+
+interface ErrorBoundaryProps {
+  children: ReactNode
+  fallback?: ReactNode
+  onError?: (error: Error, info: ErrorInfo) => void
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean
+  error: Error | null
+}
+
+function DefaultErrorFallback({ error }: { error: Error | null }): ReactNode {
+  return (
+    <div className="flex flex-col items-center justify-center gap-4 p-12 text-center">
+      <svg width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="2" y="2" width="28" height="10" rx="4" fill="#DC2626" opacity="0.15" />
+        <rect x="2" y="15" width="12" height="15" rx="3" fill="#DC2626" opacity="0.1" />
+        <rect x="18" y="15" width="12" height="15" rx="3" fill="#DC2626" opacity="0.06" />
+      </svg>
+      <p className="text-base font-semibold text-text-primary">Something went wrong.</p>
+      <p className="max-w-xs text-sm text-text-secondary">
+        {error?.message ?? 'An unexpected error occurred.'}
+      </p>
+      <button
+        type="button"
+        className="text-sm text-primary underline underline-offset-2"
+        onClick={() => window.location.reload()}
+      >
+        Reload the page
+      </button>
+    </div>
+  )
+}
+
+export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  state: ErrorBoundaryState = { hasError: false, error: null }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo): void {
+    this.props.onError?.(error, info)
+    console.error('[ErrorBoundary]', error, info.componentStack)
+  }
+
+  render(): ReactNode {
+    if (this.state.hasError) {
+      return this.props.fallback ?? <DefaultErrorFallback error={this.state.error} />
+    }
+    return this.props.children
+  }
+}

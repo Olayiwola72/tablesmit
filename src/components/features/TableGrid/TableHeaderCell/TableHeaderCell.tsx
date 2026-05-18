@@ -1,5 +1,5 @@
 import { memo, type ReactNode } from 'react'
-import { ArrowDown, ArrowUp, ChevronDown } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown } from 'lucide-react'
 import { siteConfig } from '../../../../config/siteConfig'
 import type { ColumnFormat } from '../../../../types/table.types'
 import { ResizeHandle } from '../ResizeHandle'
@@ -9,6 +9,7 @@ export interface TableHeaderCellProps {
   width: number
   format: ColumnFormat
   sortDir: 'asc' | 'desc' | null
+  sortDisabled?: boolean
   onSort: () => void
   onFormatChange: (format: ColumnFormat) => void
   onResizeStart: (event: React.MouseEvent, index: number, width: number) => void
@@ -21,6 +22,7 @@ function TableHeaderCellRaw({
   width,
   format,
   sortDir,
+  sortDisabled = false,
   onSort,
   onFormatChange,
   onResizeStart,
@@ -35,12 +37,19 @@ function TableHeaderCellRaw({
       <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
         <button
           type="button"
-          className="inline-flex items-center gap-0.5 rounded-sm px-1 py-0.5 hover:bg-border transition-colors"
+          className="inline-flex items-center gap-0.5 rounded-sm px-1 py-0.5 transition-colors hover:bg-border disabled:cursor-not-allowed disabled:opacity-50"
           onClick={onSort}
-          title="Sort column"
+          disabled={sortDisabled}
+          title={sortDisabled ? 'Clear merged cells to enable sorting' : 'Sort column'}
         >
           C{index + 1}
-          {sortDir === 'asc' ? <ArrowUp size={12} /> : sortDir === 'desc' ? <ArrowDown size={12} /> : null}
+          {sortDir === 'asc' ? (
+            <ArrowUp size={12} className="text-primary" />
+          ) : sortDir === 'desc' ? (
+            <ArrowDown size={12} className="text-primary" />
+          ) : (
+            <ArrowUpDown size={12} className="text-text-muted" />
+          )}
         </button>
         <select
           value={format}
@@ -72,5 +81,6 @@ export const TableHeaderCell = memo(TableHeaderCellRaw, (prev, next) => {
   if (prev.width !== next.width) return false
   if (prev.format !== next.format) return false
   if (prev.sortDir !== next.sortDir) return false
+  if (prev.sortDisabled !== next.sortDisabled) return false
   return true
 })

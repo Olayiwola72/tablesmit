@@ -19,7 +19,19 @@
   }
 
   body {
-    @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased;
+    @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased dark:bg-slate-900 dark:text-slate-100;
+  }
+
+  .dark .bg-white {
+    @apply bg-slate-900;
+  }
+
+  .dark .bg-surface {
+    @apply bg-slate-800;
+  }
+
+  .dark .border-border {
+    @apply border-slate-700;
   }
 
   h1,

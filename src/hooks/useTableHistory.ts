@@ -5,26 +5,36 @@ import { MAX_HISTORY } from '../config/tableDefaults'
 export interface TableHistoryApi {
   undo: () => TableState | undefined
   canUndo: boolean
+  historyDepth: number
   recordSnapshot: (state: TableState) => void
 }
 
 export function useTableHistory(): TableHistoryApi {
   const pastStates = useRef<TableState[]>([])
-  const [, setVersion] = useState(0)
+  const [historyDepth, setHistoryDepth] = useState(0)
+
+  const syncDepth = useCallback((): void => {
+    setHistoryDepth(pastStates.current.length)
+  }, [])
 
   const recordSnapshot = useCallback((state: TableState): void => {
     pastStates.current.push(state)
     if (pastStates.current.length > MAX_HISTORY) {
       pastStates.current.shift()
     }
-    setVersion((v) => v + 1)
-  }, [])
+    syncDepth()
+  }, [syncDepth])
 
   const undo = useCallback((): TableState | undefined => {
     const prev = pastStates.current.pop()
-    setVersion((v) => v + 1)
+    syncDepth()
     return prev
-  }, [])
+  }, [syncDepth])
 
-  return { undo, canUndo: pastStates.current.length > 0, recordSnapshot }
+  return {
+    undo,
+    canUndo: historyDepth > 0,
+    historyDepth,
+    recordSnapshot,
+  }
 }

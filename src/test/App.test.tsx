@@ -8,11 +8,11 @@ describe('App', () => {
     window.history.pushState({}, '', '/')
   })
 
-  it('renders Structra branding in the routed shell', () => {
+  it('renders Tablesmit branding in the routed shell', () => {
     render(<App />)
 
-    expect(screen.getAllByRole('img', { name: 'Structra' }).length).toBeGreaterThan(0)
-    expect(screen.getByRole('link', { name: 'Structra home' })).toBeInTheDocument()
+    expect(screen.getAllByRole('img', { name: 'Tablesmit' }).length).toBeGreaterThan(0)
+    expect(screen.getByRole('link', { name: 'Tablesmit home' })).toBeInTheDocument()
   })
 
   it('renders export options and templates headings on the table maker page', async () => {

@@ -6,7 +6,7 @@ import { exportFormats } from '../../../config/exportConfig'
 import { siteConfig } from '../../../config/siteConfig'
 import { getCurrentYear } from '../../../utils/dateUtils'
 
-const { routes } = siteConfig
+const { brand, routes } = siteConfig
 
 const productLinks = [
   { label: 'Home', href: routes.home },
@@ -16,6 +16,8 @@ const productLinks = [
 const companyLinks = [
   { label: 'About', href: routes.about },
   { label: 'Contact', href: routes.contact },
+  { label: siteConfig.labels.privacyPolicy, href: routes.privacy },
+  { label: siteConfig.labels.termsOfUse, href: routes.terms },
 ]
 
 export function Footer(): ReactNode {
@@ -23,9 +25,11 @@ export function Footer(): ReactNode {
     <footer className="border-t border-border bg-white py-10">
       <div className="mx-auto grid max-w-content gap-8 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div className="space-y-3 sm:col-span-2">
-          <img src={logoUrl} alt="Structra" className="h-9 w-[165px]" />
-          <p className="text-sm text-text-secondary">{siteConfig.brand.tagline}</p>
-          <p className="text-xs text-text-muted">© {getCurrentYear()} Structra. Open source under MIT license.</p>
+          <img src={logoUrl} alt={brand.name} className="h-9 w-[165px]" />
+          <p className="text-sm text-text-secondary">{brand.tagline}</p>
+          <p className="text-xs text-text-muted">
+            © {getCurrentYear()} {brand.name}. Open source under MIT license.
+          </p>
         </div>
         <FooterGroup title="Product" links={productLinks} />
         <div>
@@ -36,7 +40,12 @@ export function Footer(): ReactNode {
                 {link.label}
               </Link>
             ))}
-            <a href={siteConfig.brand.githubUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 transition-colors hover:text-primary">
+            <a
+              href={brand.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 transition-colors hover:text-primary"
+            >
               GitHub <ExternalLink size={13} aria-hidden="true" />
             </a>
           </nav>

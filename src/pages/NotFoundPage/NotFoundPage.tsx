@@ -10,7 +10,9 @@ export function NotFoundPage(): ReactNode {
     <main className="mx-auto flex min-h-[60vh] max-w-content flex-col items-center justify-center px-4 text-center">
       <NotFoundAnimation />
       <h1 className="text-3xl font-bold text-text-primary">Page not found.</h1>
-      <p className="mt-3 text-base text-text-secondary">That URL doesn't exist. Let's get you back to building.</p>
+      <p className="mt-3 text-base text-text-secondary">
+        That URL does not exist. Let us get you back to building.
+      </p>
       <Button asChild className="mt-6">
         <Link to={siteConfig.routes.home}>
           <ArrowLeft size={16} aria-hidden="true" /> Back to Home
