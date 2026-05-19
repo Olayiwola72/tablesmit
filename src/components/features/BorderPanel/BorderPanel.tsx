@@ -14,6 +14,7 @@ export function BorderPanel(): ReactNode {
       <div className="space-y-3">
         <select
           value={table.borderStyle}
+          name="border-style"
           aria-label={labels.borderStyle}
           className="h-8 w-full rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
           onChange={(event) => table.setBorderStyle(event.target.value as BorderStyle)}
@@ -27,7 +28,7 @@ export function BorderPanel(): ReactNode {
         {table.borderStyle !== 'none' && (
           <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
             <span>{labels.borderColor}</span>
-            <input type="color" value={table.borderColor} onChange={(event) => table.setBorderColor(event.target.value)} />
+            <input type="color" name="border-color" value={table.borderColor} onChange={(event) => table.setBorderColor(event.target.value)} />
           </label>
         )}
       </div>

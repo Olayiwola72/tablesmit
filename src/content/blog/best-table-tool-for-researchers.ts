@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'The Best Table Tool for Researchers and Analysts',
   date: '2025-10-08',
   description: 'Researchers and analysts need tables that are precise, structured, and exportable. Here is why Tablesmit fits the workflow.',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['researchers', 'analysts', 'productivity'],
   readTime: 4,
   featured: true,

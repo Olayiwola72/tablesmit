@@ -68,6 +68,7 @@ function renderColorPicker(current: string, onChange: (color: string) => void, c
         <span>Custom</span>
         <input
           type="color"
+          name="ctx-custom-color"
           value={current || '#ffffff'}
           className="h-7 w-10 cursor-pointer rounded-sm border border-border"
           onChange={(event) => { onChange(event.target.value); closeCtx() }}

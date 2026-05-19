@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../../context/TableContext'
 import { MergeCellsPanel } from '../../../../components/features/MergeCellsPanel/MergeCellsPanel'
@@ -9,19 +9,34 @@ function Wrapper({ children }: { children: ReactNode }): ReactNode {
 }
 
 describe('MergeCellsPanel', () => {
-  it('renders Merge Cells label', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  it('renders the section label', () => {
     render(<MergeCellsPanel />, { wrapper: Wrapper })
     expect(screen.getByText('Merge Cells')).toBeInTheDocument()
   })
 
-  it('renders Merge and Unmerge buttons', () => {
-    render(<MergeCellsPanel />, { wrapper: Wrapper })
-    expect(screen.getByRole('button', { name: 'Merge' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /unmerge/i })).toBeInTheDocument()
-  })
-
-  it('shows "No selection" initially', () => {
+  it('shows "No selection" by default', () => {
     render(<MergeCellsPanel />, { wrapper: Wrapper })
     expect(screen.getByText('No selection')).toBeInTheDocument()
+  })
+
+  it('renders "Merge" and "Unmerge" button text', () => {
+    render(<MergeCellsPanel />, { wrapper: Wrapper })
+    expect(screen.getByText('Merge')).toBeInTheDocument()
+    expect(screen.getByText('Unmerge')).toBeInTheDocument()
+  })
+
+  it('renders merge instructions text', () => {
+    render(<MergeCellsPanel />, { wrapper: Wrapper })
+    expect(screen.getByText(/Shift-click/i)).toBeInTheDocument()
+  })
+
+  it('contains an aria-live region for screen reader announcements', () => {
+    render(<MergeCellsPanel />, { wrapper: Wrapper })
+    const liveRegion = document.querySelector('[aria-live="assertive"]')
+    expect(liveRegion).toBeInTheDocument()
   })
 })

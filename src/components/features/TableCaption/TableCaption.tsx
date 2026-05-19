@@ -79,6 +79,7 @@ function TableCaptionRaw({
         <>
           <textarea
             value={value}
+            name="table-caption"
             autoFocus
             placeholder={siteConfig.labels.tableCaptionPlaceholder}
             rows={2}

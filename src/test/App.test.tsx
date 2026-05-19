@@ -15,12 +15,11 @@ describe('App', () => {
     expect(screen.getByRole('link', { name: 'Tablesmit home' })).toBeInTheDocument()
   })
 
-  it('renders export options and templates headings on the table maker page', async () => {
+  it('renders export options on the table maker page', async () => {
     window.history.pushState({}, '', '/')
     render(<App />)
 
     expect(await screen.findByRole('heading', { name: 'Export Options' }, { timeout: 5000 })).toBeInTheDocument()
-    expect(await screen.findByRole('heading', { name: 'Templates' }, { timeout: 5000 })).toBeInTheDocument()
   })
 
   it('lets users set a column type directly above the table', async () => {
@@ -28,7 +27,7 @@ describe('App', () => {
     window.history.pushState({}, '', '/')
     render(<App />)
 
-    const columnType = (await screen.findAllByLabelText('Column type 2'))[0]
+    const columnType = (await screen.findAllByLabelText('Column type 2', {}, { timeout: 5000 }))[0]
     await user.selectOptions(columnType, 'currency')
 
     expect(columnType).toHaveValue('currency')

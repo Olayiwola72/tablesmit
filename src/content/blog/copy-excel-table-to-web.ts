@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Copy a Table from Excel to the Web',
   date: '2025-09-20',
   description: 'Copying tables from Excel to web tools often breaks formatting. Here is how Tablesmit\'s smart clipboard paste keeps everything intact.',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['excel', 'clipboard', 'tutorial'],
   readTime: 3,
   featured: false,

@@ -14,7 +14,7 @@ const post = {
   title: 'FILL IN',
   date: new Date().toISOString().split('T')[0],
   description: 'FILL IN — max 160 chars',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['FILL IN'],
   readTime: Math.ceil(content.split(' ').length / 200),
   featured: false,

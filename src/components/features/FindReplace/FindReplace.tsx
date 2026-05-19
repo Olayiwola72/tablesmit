@@ -36,6 +36,7 @@ function FindReplaceRaw({
         <Search size={14} className="shrink-0 text-text-muted" aria-hidden="true" />
         <input
           type="text"
+          name="find-query"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Find..."
@@ -72,6 +73,7 @@ function FindReplaceRaw({
           <div className="flex items-center gap-2">
             <input
               type="text"
+              name="find-replace"
               value={replaceText}
               onChange={(e) => setReplaceText(e.target.value)}
               placeholder="Replace with..."

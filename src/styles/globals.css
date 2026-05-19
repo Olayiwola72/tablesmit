@@ -10,59 +10,50 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* text-text-muted — passes WCAG AA 4.7:1 on white (#FFF) */
+    --color-text-muted: 102 117 136;
+  }
+  .dark {
+    /* text-text-muted — passes WCAG AA 5.1:1 on dark bg (#0F172A) */
+    --color-text-muted: 156 163 175;
+  }
+
   * { box-sizing: border-box; }
+  html {
+    scroll-behavior: smooth;
+  }
   html, body {
     @apply h-full;
   }
   body {
-    @apply bg-white text-text-primary font-sans antialiased;
+    @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased dark:bg-slate-900 dark:text-slate-100;
   }
   #root {
     @apply flex min-h-full flex-col;
   }
-  /* :focus-visible */
+  h1, h2, h3, p {
+    @apply mt-0;
+  }
+  button, input, select, textarea {
+    letter-spacing: 0;
+  }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
   }
 }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased dark:bg-slate-900 dark:text-slate-100;
-  }
-
+@layer utilities {
   .dark .bg-white {
     @apply bg-slate-900;
   }
-
   .dark .bg-surface {
     @apply bg-slate-800;
   }
-
   .dark .border-border {
     @apply border-slate-700;
   }
-
-  h1,
-  h2,
-  h3,
-  p {
-    @apply mt-0;
-  }
-
-  button,
-  input,
-  select,
-  textarea {
-    letter-spacing: 0;
-  }
-
-  :focus-visible {
-    @apply outline-2 outline-offset-2 outline-primary;
-  }
+}
 
 @media print {
   nav, header, footer,

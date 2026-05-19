@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatCellValue, getContrastText } from '../../utils/formatUtils'
+import { computeColumnSum, formatCellValue, getContrastText } from '../../utils/formatUtils'
 
 describe('formatCellValue', () => {
   it('returns the value as-is for text format', () => {
@@ -58,6 +58,35 @@ describe('formatCellValue', () => {
     it('returns original value for invalid date', () => {
       expect(formatCellValue('not-a-date', 'date')).toBe('not-a-date')
     })
+  })
+})
+
+describe('formatCellValue auto-number', () => {
+  it('returns sequential numbers with rowIndex', () => {
+    expect(formatCellValue('', 'auto-number', 0)).toBe('1')
+    expect(formatCellValue('', 'auto-number', 4)).toBe('5')
+  })
+
+  it('returns 1 when rowIndex is undefined', () => {
+    expect(formatCellValue('', 'auto-number')).toBe('1')
+  })
+})
+
+describe('computeColumnSum', () => {
+  it('sums numeric values', () => {
+    expect(computeColumnSum([{ value: '10' }, { value: '20' }, { value: '30' }])).toBe(60)
+  })
+
+  it('handles NaN values gracefully', () => {
+    expect(computeColumnSum([{ value: 'abc' }, { value: '10' }, { value: '' }])).toBe(10)
+  })
+
+  it('returns 0 for empty array', () => {
+    expect(computeColumnSum([])).toBe(0)
+  })
+
+  it('returns 0 for all NaN values', () => {
+    expect(computeColumnSum([{ value: 'abc' }, { value: 'def' }])).toBe(0)
   })
 })
 

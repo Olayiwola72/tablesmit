@@ -15,6 +15,12 @@ dist-ssr
 # Generated coverage reports
 coverage
 
+# Playwright test results
+test-results
+
+# Playwright cache
+playwright-report
+
 # Generated export files from tests
 tablesmit-table.*
 

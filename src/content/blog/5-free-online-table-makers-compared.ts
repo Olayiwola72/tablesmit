@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: '5 Free Online Table Makers Compared',
   date: '2025-09-25',
   description: 'A practical comparison of five free online table generators — including Tablesmit — to help you choose the right tool for your workflow.',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['comparison', 'tools', 'productivity'],
   readTime: 5,
   featured: true,

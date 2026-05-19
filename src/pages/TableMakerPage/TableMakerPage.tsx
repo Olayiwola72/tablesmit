@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { Settings, Sparkles } from 'lucide-react'
+import { ArrowUp, Settings, Sparkles } from 'lucide-react'
 import { exportFormats } from '../../config/exportConfig'
 import { siteConfig } from '../../config/siteConfig'
 import { TableProvider, useTableContext, useTableData } from '../../context/TableContext'
@@ -21,8 +21,6 @@ import { FindReplace } from '../../components/features/FindReplace'
 import type { ExportFormat } from '../../types/export.types'
 
 const ExportPanel = lazy(() => import('../../components/features/ExportPanel'))
-const ColumnFormattingPanel = lazy(() => import('../../components/features/ColumnFormattingPanel'))
-const QuickPresetsPanel = lazy(() => import('../../components/features/QuickPresetsPanel'))
 
 export function TableMakerPage(): ReactNode {
   return (
@@ -129,6 +127,16 @@ function TableMakerContent(): ReactNode {
     replaceMode,
   } = useFindReplace(cells)
 
+  const [showBackToTop, setShowBackToTop] = useState(false)
+
+  useEffect(() => {
+    const onScroll = (): void => {
+      setShowBackToTop(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const handleFindClose = useCallback((): void => {
     setFindOpen(false)
   }, [setFindOpen])
@@ -142,12 +150,12 @@ function TableMakerContent(): ReactNode {
   }, [replaceAll, updateCell])
 
   const handleExport = useCallback((format: ExportFormat): void => {
-    void exportAs(format, tableRef.current)
-  }, [exportAs, tableRef])
+    void exportAs(format, tableRef.current, caption)
+  }, [exportAs, tableRef, caption])
 
   return (
-    <main className="flex flex-1 flex-col overflow-hidden bg-white">
-      <section className="border-b border-border bg-white px-6 py-5 text-center sm:py-7" data-print-hide>
+    <main className="flex flex-1 flex-col overflow-hidden bg-white dark:bg-slate-900">
+      <section className="border-b border-border bg-white px-6 py-5 text-center sm:py-7 dark:border-slate-700 dark:bg-slate-900" data-print-hide>
         <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
           {siteConfig.copy.tableMakerHeadline}
         </h1>
@@ -183,7 +191,7 @@ function TableMakerContent(): ReactNode {
         </aside>
 
         <section className="relative flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace">
-          <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted dark:bg-slate-900" data-print-hide>
+          <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted dark:border-slate-700 dark:bg-slate-900" data-print-hide>
             <span>{rows} rows x {cols} columns</span>
             <span>{siteConfig.labels.autoFitColumn}</span>
           </div>
@@ -216,12 +224,6 @@ function TableMakerContent(): ReactNode {
             <ExportPanel onExport={handleExport} isExporting={isExporting} />
           </Suspense>
           <MergeCellsPanel />
-          <Suspense fallback={<PanelLoader />}>
-            <ColumnFormattingPanel />
-          </Suspense>
-          <Suspense fallback={<PanelLoader />}>
-            <QuickPresetsPanel />
-          </Suspense>
           <AiFeaturesPanel />
         </aside>
       </div>
@@ -243,6 +245,17 @@ function TableMakerContent(): ReactNode {
         />
       </div>
 
+      {showBackToTop ? (
+        <button
+          type="button"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-20 right-4 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-opacity hover:bg-surface dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700"
+        >
+          <ArrowUp size={18} aria-hidden="true" />
+        </button>
+      ) : null}
+
       <MobileSheet title={activeSheet === 'settings' ? 'Settings' : 'Presets'} open={activeSheet !== null} onClose={() => setActiveSheet(null)}>
         {activeSheet === 'settings' ? (
           <div className="space-y-8">
@@ -257,12 +270,6 @@ function TableMakerContent(): ReactNode {
               <ExportPanel onExport={handleExport} isExporting={isExporting} />
             </Suspense>
             <MergeCellsPanel />
-            <Suspense fallback={<PanelLoader />}>
-              <ColumnFormattingPanel />
-            </Suspense>
-            <Suspense fallback={<PanelLoader />}>
-              <QuickPresetsPanel />
-            </Suspense>
             <AiFeaturesPanel />
           </div>
         )}

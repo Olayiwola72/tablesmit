@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Make a Table in Markdown',
   date: '2025-09-15',
   description: 'A practical guide to creating clean tables in Markdown — with examples you can generate in Tablesmit and paste directly.',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['markdown', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,

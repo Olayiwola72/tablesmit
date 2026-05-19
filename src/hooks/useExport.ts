@@ -7,7 +7,7 @@ import { toast, TOAST } from '../utils/toast'
 
 export interface ExportApi {
   isExporting: boolean
-  exportAs: (format: ExportFormat, element: HTMLElement | null) => Promise<void>
+  exportAs: (format: ExportFormat, element: HTMLElement | null, customFilename?: string) => Promise<void>
 }
 
 export function useExport(): ExportApi {
@@ -23,7 +23,7 @@ export function useExport(): ExportApi {
   useEffect(() => { styleRef.current = headerStyle }, [headerStyle])
   useEffect(() => { mergedRef.current = mergedRanges }, [mergedRanges])
 
-  const exportAs = async (format: ExportFormat, element: HTMLElement | null): Promise<void> => {
+  const exportAs = async (format: ExportFormat, element: HTMLElement | null, customFilename?: string): Promise<void> => {
     if (!element) return
     setIsExporting(true)
     element.classList.add('is-exporting')
@@ -32,7 +32,7 @@ export function useExport(): ExportApi {
     try {
       await exportTable(element, {
         format,
-        filename: siteConfig.exportFileBaseName,
+        filename: (customFilename?.trim() ? customFilename.trim() : siteConfig.exportFileBaseName) + '',
         cells: cellsRef.current,
         headerStyle: styleRef.current,
         mergedRanges: mergedRef.current,

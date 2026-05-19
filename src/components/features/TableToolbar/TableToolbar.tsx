@@ -1,6 +1,7 @@
 import {
   ChevronDown,
   Copy,
+  Download,
   LayoutTemplate,
   Merge,
   Minus,
@@ -18,8 +19,11 @@ import { toast, TOAST } from '../../../utils/toast'
 import { MAX_COLS, MAX_ROWS } from '../../../config/tableDefaults'
 import { presets } from '../../../config/presets'
 import { useImport } from '../../../hooks/useImport'
+import { useExport } from '../../../hooks/useExport'
 import { useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
 import { isSingleCellRange } from '../../../utils/mergeUtils'
+import type { ExportFormat } from '../../../types/export.types'
+import { exportFormats } from '../../../config/exportConfig'
 import { Button } from '../../ui/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/DropdownMenu'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../ui/Tooltip'
@@ -33,6 +37,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement>
   const csvInputRef = useRef<HTMLInputElement>(null)
   const excelInputRef = useRef<HTMLInputElement>(null)
   const { error, importFile } = useImport()
+  const { exportAs, isExporting } = useExport()
 
   const importFromInput = useCallback((kind: 'csv' | 'excel', files: FileList | null): void => {
     const file = files?.[0]
@@ -243,6 +248,25 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement>
       </DropdownMenu>
       <input ref={csvInputRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(event) => importFromInput('csv', event.target.files)} />
       <input ref={excelInputRef} type="file" accept=".xlsx,.xls" className="hidden" onChange={(event) => importFromInput('excel', event.target.files)} />
+
+      {/* Export dropdown — visible only on mobile (< lg), exports live in sidebar on desktop */}
+      <div className="mx-1 h-5 w-px shrink-0 bg-border lg:hidden" />
+      <div className="lg:hidden">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="secondary" size="sm" isLoading={isExporting}>
+              <Download size={14} aria-hidden="true" /> Export <ChevronDown size={14} aria-hidden="true" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {exportFormats.map((fmt) => (
+              <DropdownMenuItem key={fmt.format} onClick={() => exportAs(fmt.format as ExportFormat, tableRef.current)}>
+                {fmt.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 

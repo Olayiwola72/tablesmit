@@ -94,16 +94,21 @@ export function Navbar(): ReactNode {
                   {item.label}
                 </Link>
               ))}
-              <Button asChild variant="ghost" size="sm">
-                <a
-                  href={brand.githubUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => setIsOpen(false)}
-                >
-                  GitHub <ExternalLink size={14} aria-hidden="true" />
-                </a>
-              </Button>
+              <div className="flex items-center gap-2 pt-2 border-t border-border dark:border-slate-700">
+                <Button variant="ghost" size="sm" onClick={toggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+                  {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
+                </Button>
+                <Button asChild variant="ghost" size="sm">
+                  <a
+                    href={brand.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    GitHub <ExternalLink size={14} aria-hidden="true" />
+                  </a>
+                </Button>
+              </div>
             </nav>
           </aside>
         </>

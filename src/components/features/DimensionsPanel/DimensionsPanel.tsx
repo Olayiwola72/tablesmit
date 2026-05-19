@@ -18,11 +18,11 @@ export function DimensionsPanel(): ReactNode {
       <div className="grid grid-cols-2 gap-3">
         <label className="space-y-1 text-sm font-medium text-text-primary">
           {labels.rows}
-          <input className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" type="number" min={1} max={MAX_ROWS} value={rows} onChange={(event) => setRows(Number(event.target.value))} />
+          <input name="dim-rows" className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" type="number" min={1} max={MAX_ROWS} value={rows} onChange={(event) => setRows(Number(event.target.value))} />
         </label>
         <label className="space-y-1 text-sm font-medium text-text-primary">
           {labels.columns}
-          <input className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" type="number" min={1} max={MAX_COLS} value={cols} onChange={(event) => setCols(Number(event.target.value))} />
+          <input name="dim-cols" className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" type="number" min={1} max={MAX_COLS} value={cols} onChange={(event) => setCols(Number(event.target.value))} />
         </label>
       </div>
       <Button className="mt-4 w-full" variant="accent" onClick={() => table.generateTable(rows, cols)}>

@@ -37,7 +37,6 @@ export const siteConfig = {
   ],
   routes: {
     home: '/',
-    app: '/app',
     about: '/about',
     blog: '/blog',
     blogPost: '/blog/:slug',
@@ -119,7 +118,7 @@ export const siteConfig = {
     contactHiReason: 'Stumbled on Tablesmit and want to share your thoughts? I would love to hear them.',
   },
   labels: {
-    startBuilding: 'Start Building',
+
     gridSize: 'Grid Size',
     rows: 'Rows',
     columns: 'Columns',

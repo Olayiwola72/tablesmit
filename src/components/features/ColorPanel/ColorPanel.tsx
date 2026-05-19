@@ -15,7 +15,7 @@ export function ColorPanel(): ReactNode {
       <div className="space-y-4">
         <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
           <span className="inline-flex items-center gap-2"><Palette size={15} aria-hidden="true" /> {siteConfig.labels.header}</span>
-          <input type="color" value={table.headerColor} onChange={(event) => table.setHeaderColor(event.target.value)} />
+          <input type="color" name="header-color" value={table.headerColor} onChange={(event) => table.setHeaderColor(event.target.value)} />
         </label>
         <div className="flex flex-wrap gap-2" aria-label="Header color presets">
           {headerColorSwatches.map((swatch) => (
@@ -24,7 +24,7 @@ export function ColorPanel(): ReactNode {
         </div>
         <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
           {siteConfig.labels.content} text
-          <input type="color" value={table.contentColor} onChange={(event) => table.setContentColor(event.target.value)} />
+          <input type="color" name="content-text-color" value={table.contentColor} onChange={(event) => table.setContentColor(event.target.value)} />
         </label>
         <div className="flex flex-wrap gap-2" aria-label="Content color presets">
           {contentColorSwatches.map((swatch) => (
@@ -33,7 +33,7 @@ export function ColorPanel(): ReactNode {
         </div>
         <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
           Row background
-          <input type="color" value={table.contentBgColor || '#ffffff'} onChange={(event) => table.setContentBgColor(event.target.value)} />
+          <input type="color" name="row-bg-color" value={table.contentBgColor || '#ffffff'} onChange={(event) => table.setContentBgColor(event.target.value)} />
         </label>
         {table.contentBgColor ? (
           <button

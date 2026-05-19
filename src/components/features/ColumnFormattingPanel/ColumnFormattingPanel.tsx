@@ -15,6 +15,7 @@ export function ColumnFormattingPanel(): ReactNode {
           <label key={index} className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
             C{index + 1}
             <select
+              name={`sidebar-col-type-${index}`}
               aria-label={`Column type ${index + 1}`}
               className="h-9 rounded-md border border-border bg-white px-2 text-sm"
               value={cells[0]?.[index]?.format ?? 'text'}

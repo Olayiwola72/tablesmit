@@ -11,6 +11,7 @@
     "audit": "npm audit",
     "preview": "vite preview",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "new-post": "npx tsx scripts/md-to-blog-post.ts",
     "prepare": "husky"
   },
@@ -45,7 +46,8 @@
     "react-router-dom": "^6.30.2",
     "remark-gfm": "^4.0.1",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "vite-plugin-pwa": "^1.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -68,6 +70,7 @@
     "globals": "^17.5.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
+    "lighthouse": "^13.3.0",
     "lint-staged": "^17.0.5",
     "postcss": "^8.5.14",
     "sass": "^1.99.0",

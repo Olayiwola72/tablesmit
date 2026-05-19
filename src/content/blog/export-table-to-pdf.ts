@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Export a Table to PDF from Your Browser',
   date: '2025-10-01',
   description: 'Exporting a table to PDF does not require special software. Here is how to do it from your browser using Tablesmit.',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['pdf', 'export', 'tutorial'],
   readTime: 3,
   featured: false,

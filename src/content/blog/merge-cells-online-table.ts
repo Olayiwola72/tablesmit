@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Merge Cells in an Online Table',
   date: '2025-10-15',
   description: 'Merging cells in a web table editor is surprisingly rare. Here is how Tablesmit handles it and why it matters.',
-  author: 'Olayiwola Akin',
+  author: 'Olayiwola Akinnagbe',
   tags: ['merge', 'tables', 'tutorial'],
   readTime: 3,
   featured: false,

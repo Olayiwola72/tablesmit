@@ -3,7 +3,11 @@ import {
   addColumn,
   addRow,
   createCell,
+  deleteColAt,
+  deleteRowAt,
   generateEmptyTable,
+  insertColAt,
+  insertRowAt,
   normalizeTableData,
   removeColumn,
   removeRow,
@@ -101,6 +105,12 @@ describe('removeRow', () => {
   it('does not remove the last remaining row', () => {
     expect(removeRow(generateEmptyTable(1, 3))).toHaveLength(1)
   })
+
+  it('does not mutate the original', () => {
+    const t = generateEmptyTable(3, 3)
+    removeRow(t)
+    expect(t).toHaveLength(3)
+  })
 })
 
 describe('addColumn', () => {
@@ -182,5 +192,118 @@ describe('sortRows', () => {
     const original = rows.map((row) => row[0].value)
     sortRows(rows, 0, 'asc')
     expect(rows.map((row) => row[0].value)).toEqual(original)
+  })
+
+  it('sorts descending correctly', () => {
+    const rows = tableWithValues([['a'], ['c'], ['b']])
+    const sorted = sortRows(rows, 0, 'desc')
+    expect(sorted.map((row) => row[0].value)).toEqual(['c', 'b', 'a'])
+  })
+
+  it('places empty cells at bottom for descending sort', () => {
+    const rows = tableWithValues([['b'], [''], ['a']])
+    const sorted = sortRows(rows, 0, 'desc')
+    expect(sorted.map((row) => row[0].value)).toEqual(['b', 'a', ''])
+  })
+
+  it('handles mixed numeric and string values gracefully', () => {
+    const rows = tableWithValues([['a'], ['2'], ['b']])
+    const sorted = sortRows(rows, 0, 'asc')
+    expect(sorted[0][0].value).toBe('2')
+  })
+})
+
+describe('insertRowAt', () => {
+  it('inserts a row at the given index', () => {
+    const t = generateEmptyTable(3, 3)
+    const result = insertRowAt(t, 1)
+    expect(result).toHaveLength(4)
+    expect(result[1][0].id).toBe('R1C0')
+    expect(result[2][0].id).toBe('R2C0')
+  })
+
+  it('inserts at index 0 correctly', () => {
+    const t = generateEmptyTable(2, 2)
+    const result = insertRowAt(t, 0)
+    expect(result).toHaveLength(3)
+    expect(result[0][0].id).toBe('R0C0')
+    expect(result[1][0].id).toBe('R1C0')
+  })
+
+  it('inserts at end when index equals length', () => {
+    const t = generateEmptyTable(2, 2)
+    const result = insertRowAt(t, 2)
+    expect(result).toHaveLength(3)
+  })
+
+  it('rebases cell IDs for rows below the insertion point', () => {
+    const t = generateEmptyTable(2, 2)
+    const result = insertRowAt(t, 0)
+    expect(result[1][0].id).toBe('R1C0')
+    expect(result[0][0].id).toBe('R0C0')
+  })
+})
+
+describe('deleteRowAt', () => {
+  it('removes a row at the given index', () => {
+    const t = generateEmptyTable(3, 3)
+    const result = deleteRowAt(t, 1)
+    expect(result).toHaveLength(2)
+    expect(result[0][0].id).toBe('R0C0')
+    expect(result[1][0].id).toBe('R1C0')
+  })
+
+  it('does not remove the last remaining row', () => {
+    expect(deleteRowAt(generateEmptyTable(1, 3), 0)).toHaveLength(1)
+  })
+
+  it('does not mutate the original', () => {
+    const t = generateEmptyTable(3, 3)
+    deleteRowAt(t, 0)
+    expect(t).toHaveLength(3)
+  })
+})
+
+describe('insertColAt', () => {
+  it('inserts a column at the given index', () => {
+    const t = generateEmptyTable(2, 3)
+    const result = insertColAt(t, 1)
+    expect(result[0]).toHaveLength(4)
+    expect(result[0][1].id).toBe('R0C1')
+    expect(result[0][2].id).toBe('R0C2')
+  })
+
+  it('prepends a column at index 0', () => {
+    const t = generateEmptyTable(2, 2)
+    const result = insertColAt(t, 0)
+    expect(result[0]).toHaveLength(3)
+    expect(result[0][0].id).toBe('R0C0')
+    expect(result[0][1].id).toBe('R0C1')
+  })
+
+  it('does not mutate the original', () => {
+    const t = generateEmptyTable(2, 3)
+    insertColAt(t, 0)
+    expect(t[0]).toHaveLength(3)
+  })
+})
+
+describe('deleteColAt', () => {
+  it('removes a column at the given index', () => {
+    const t = generateEmptyTable(2, 3)
+    const result = deleteColAt(t, 1)
+    expect(result[0]).toHaveLength(2)
+    expect(result[0][0].id).toBe('R0C0')
+    expect(result[0][1].id).toBe('R0C1')
+  })
+
+  it('does not remove the last remaining column', () => {
+    expect(deleteColAt(generateEmptyTable(2, 1), 0)[0]).toHaveLength(1)
+  })
+
+  it('does not mutate the original', () => {
+    const t = generateEmptyTable(2, 3)
+    deleteColAt(t, 0)
+    expect(t[0]).toHaveLength(3)
   })
 })

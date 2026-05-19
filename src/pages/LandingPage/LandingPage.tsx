@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button'
 import { siteConfig } from '../../config/siteConfig'
 
-const { brand, copy, labels, routes } = siteConfig
+const { brand, copy, routes } = siteConfig
 
 export function LandingPage(): ReactNode {
   return (
@@ -20,7 +20,7 @@ export function LandingPage(): ReactNode {
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="accent" size="lg">
-            <Link to={routes.home}>{labels.startBuilding}</Link>
+            <Link to={routes.home}>Create a Table</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <a href={brand.githubUrl} target="_blank" rel="noreferrer">

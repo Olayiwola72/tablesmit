@@ -23,7 +23,7 @@ const config: Config = {
         text: {
           primary: '#111827',
           secondary: '#6B7280',
-          muted: '#9CA3AF',
+          muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
           inverse: '#FFFFFF',
         },
         success: { DEFAULT: '#059669', light: '#ECFDF5' },

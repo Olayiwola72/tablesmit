@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Footer } from './components/layout/Footer'
 import { Navbar } from './components/layout/Navbar'
+import { CookieConsent } from './components/ui/CookieConsent'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { PageLoader } from './components/ui/PageLoader'
+import { ShortcutsModal } from './components/features/ShortcutsModal/ShortcutsModal'
 import { TooltipProvider } from './components/ui/Tooltip'
 import { siteConfig } from './config/siteConfig'
 
@@ -26,6 +28,8 @@ export default function App(): ReactNode {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
+            <ShortcutsModal />
+            <CookieConsent />
             <div className="flex flex-1 flex-col">
               <Suspense fallback={<PageLoader />}>
                 <Routes>

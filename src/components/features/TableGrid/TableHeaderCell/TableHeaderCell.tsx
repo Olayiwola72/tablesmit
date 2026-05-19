@@ -37,6 +37,7 @@ function TableHeaderCellRaw({
       <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
         <button
           type="button"
+          aria-label={`C${index + 1}`}
           className="inline-flex items-center gap-0.5 rounded-sm px-1 py-0.5 transition-colors hover:bg-border disabled:cursor-not-allowed disabled:opacity-50"
           onClick={onSort}
           disabled={sortDisabled}
@@ -53,6 +54,7 @@ function TableHeaderCellRaw({
         </button>
         <select
           value={format}
+          name={`col-type-${index}`}
           aria-label={`Column type ${index + 1}`}
           title={`Column type: ${format}`}
           className="h-8 rounded-sm border border-border bg-white px-2 text-xs text-text-primary"

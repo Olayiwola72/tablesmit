@@ -343,8 +343,10 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
         const shift = event.shiftKey
         let nextRow = row
         let nextCol = shift ? col - 1 : col + 1
-        if (nextCol < 0) { nextRow--; nextCol = cols - 1 }
-        if (nextCol >= cols) { nextRow++; nextCol = 0 }
+        if (nextCol < 0 && nextRow > 0) { nextRow--; nextCol = cols - 1 }
+        else if (nextCol < 0) { nextRow = row; nextCol = cols - 1 }
+        if (nextCol >= cols && nextRow < rows - 1) { nextRow++; nextCol = 0 }
+        else if (nextCol >= cols) { nextRow = row; nextCol = 0 }
         navigateToCell(nextRow, nextCol)
         return
       }
@@ -367,14 +369,14 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
         navigateToCell(row + dr, col + dc)
       }
     },
-    [cols, navigateToCell],
+    [cols, rows, navigateToCell],
   )
 
   return (
     <div className="relative h-full overflow-auto p-2 sm:p-4">
       <div
         data-print-hide
-        className="mb-2 grid min-w-max border border-border bg-surface"
+        className="mb-2 grid min-w-max border border-border bg-surface dark:border-slate-700 dark:bg-slate-800"
         style={{ gridTemplateColumns: columnWidths.map((width) => `${width}px`).join(' ') }}
         aria-label="Column formatting controls"
       >
@@ -394,8 +396,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
           />
         ))}
       </div>
-      <div ref={tableRef} className="inline-block bg-white" data-table-container>
-        <table ref={gridRef} className="min-w-max border-collapse bg-white" role="grid" aria-label="Table editor" aria-rowcount={rows} aria-colcount={cols}>
+      <div ref={tableRef} className="inline-block bg-white dark:bg-slate-900" data-table-container>
+        <table ref={gridRef} className="min-w-max border-collapse bg-white dark:bg-slate-900" role="grid" aria-label="Table editor" aria-rowcount={rows} aria-colcount={cols}>
           <colgroup>
             {columnWidths.map((width, index) => (
               <col key={index} style={{ width }} />
@@ -518,7 +520,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
         />
       ) : null}
       {pasting ? (
-        <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center bg-white/60">
+        <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center bg-white/60 dark:bg-slate-900/60">
           <Loader2 size={24} className="animate-spin text-primary" aria-label="Pasting table data" />
         </div>
       ) : null}
