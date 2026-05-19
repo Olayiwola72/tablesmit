@@ -46,6 +46,7 @@ export const siteConfig = {
     privacy: '/privacy',
     terms: '/terms',
     changelog: '/changelog',
+    testimonials: '/testimonials',
   },
   sponsors: [
     {
@@ -72,11 +73,12 @@ export const siteConfig = {
   ],
   nav: [
     { label: 'Home', route: 'home' },
-    { label: 'Blog', route: 'blog' },
-    { label: 'Open Source', route: 'openSource' },
     { label: 'About', route: 'about' },
+    { label: 'Blog', route: 'blog' },
     { label: 'Contact', route: 'contact' },
+    { label: 'Open Source', route: 'openSource' },
     { label: 'Changelog', route: 'changelog' },
+    { label: 'Testimonials', route: 'testimonials' },
   ],
   copy: {
     heroHeadlineLine1: 'Tables built for',
@@ -166,6 +168,7 @@ export const siteConfig = {
     importLabel: 'Import',
     importCsv: 'Import from CSV',
     importExcel: 'Import from Excel',
+    shortcutsHint: 'Ctrl+/ for shortcuts',
     autoFitColumn: 'Double-click a column border to AutoFit width',
     autoFitRow: 'Double-click to AutoFit row height',
     mergeAnnounce: 'Cells merged.',

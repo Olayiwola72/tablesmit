@@ -19,6 +19,7 @@ const OpenSourcePage = lazy(() => import('./pages/OpenSourcePage/OpenSourcePage'
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage/PrivacyPage'))
 const TermsPage = lazy(() => import('./pages/TermsPage/TermsPage'))
 const ChangelogPage = lazy(() => import('./pages/ChangelogPage/ChangelogPage'))
+const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage/TestimonialsPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'))
 
 export default function App(): ReactNode {
@@ -49,6 +50,7 @@ export default function App(): ReactNode {
                   <Route path={siteConfig.routes.privacy} element={<PrivacyPage />} />
                   <Route path={siteConfig.routes.terms} element={<TermsPage />} />
                   <Route path={siteConfig.routes.changelog} element={<ChangelogPage />} />
+                  <Route path={siteConfig.routes.testimonials} element={<TestimonialsPage />} />
                   <Route path="*" element={<NotFoundPage />} />
                 </Routes>
               </Suspense>

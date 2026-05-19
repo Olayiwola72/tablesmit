@@ -18,6 +18,7 @@ const productLinks = [
 const companyLinks = [
   { label: 'About', href: routes.about },
   { label: 'Contact', href: routes.contact },
+  { label: 'Testimonials', href: routes.testimonials },
   { label: siteConfig.labels.privacyPolicy, href: routes.privacy },
   { label: siteConfig.labels.termsOfUse, href: routes.terms },
 ]

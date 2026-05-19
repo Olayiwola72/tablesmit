@@ -43,14 +43,16 @@ function TableHeaderCellRaw({
           disabled={sortDisabled}
           title={sortDisabled ? 'Clear merged cells to enable sorting' : 'Sort column'}
         >
-          C{index + 1}
-          {sortDir === 'asc' ? (
-            <ArrowUp size={12} className="text-primary" />
-          ) : sortDir === 'desc' ? (
-            <ArrowDown size={12} className="text-primary" />
-          ) : (
-            <ArrowUpDown size={12} className="text-text-muted" />
-          )}
+          <span className="text-xs font-medium">{`C${index + 1}`}</span>
+          <span data-print-hide>
+            {sortDir === 'asc' ? (
+              <ArrowUp size={12} className="text-primary" />
+            ) : sortDir === 'desc' ? (
+              <ArrowDown size={12} className="text-primary" />
+            ) : (
+              <ArrowUpDown size={12} className="text-text-muted" />
+            )}
+          </span>
         </button>
         <select
           value={format}
@@ -58,6 +60,7 @@ function TableHeaderCellRaw({
           aria-label={`Column type ${index + 1}`}
           title={`Column type: ${format}`}
           className="h-8 rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
+          data-export-hide data-print-hide
           onChange={(event) => onFormatChange(event.target.value as ColumnFormat)}
         >
           {siteConfig.columnFormats.map((option) => (
@@ -67,13 +70,15 @@ function TableHeaderCellRaw({
           ))}
         </select>
       </label>
-      <ChevronDown size={13} aria-hidden="true" className="text-text-muted" />
-      <ResizeHandle
-        axis="column"
-        label={siteConfig.labels.autoFitColumn}
-        onMouseDown={(event) => onResizeStart(event, index, width)}
-        onDoubleClick={() => onAutoFit(index)}
-      />
+      <ChevronDown size={13} aria-hidden="true" className="text-text-muted" data-export-hide data-print-hide />
+      <div data-print-hide className="contents">
+        <ResizeHandle
+          axis="column"
+          label={siteConfig.labels.autoFitColumn}
+          onMouseDown={(event) => onResizeStart(event, index, width)}
+          onDoubleClick={() => onAutoFit(index)}
+        />
+      </div>
     </div>
   )
 }

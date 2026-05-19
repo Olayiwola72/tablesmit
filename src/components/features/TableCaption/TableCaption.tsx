@@ -65,7 +65,7 @@ function TableCaptionRaw({
       return (
         <button
           type="button"
-          data-print-hide
+          data-print-hide data-export-hide
           className={`mb-2 w-full text-sm italic text-text-muted hover:text-text-secondary ${alignClass}`}
           onClick={() => setEditing(true)}
           onContextMenu={handleContextMenu}
@@ -91,7 +91,7 @@ function TableCaptionRaw({
               if (event.key === 'Escape') { event.currentTarget.blur(); setEditing(false) }
             }}
           />
-          <span className="mb-2 block text-xs text-text-muted" data-print-hide>Right click input for alignment</span>
+          <span className="mb-2 block text-xs text-text-muted" data-print-hide data-export-hide>Right click input for alignment</span>
         </>
       )
     }
@@ -116,10 +116,10 @@ function TableCaptionRaw({
       {inputOrDisplay()}
       {ctxMenu ? (
         <>
-          <div className="fixed inset-0 z-40" onClick={closeMenu} />
+          <div className="fixed inset-0 z-40" onClick={closeMenu} data-export-hide />
           <div
             ref={menuRef}
-            className="fixed z-50 w-44 rounded-md border border-border bg-white py-1 shadow-md"
+            className="fixed z-50 w-44 rounded-md border border-border bg-white py-1 shadow-md" data-export-hide
             style={{ left: ctxMenu.x, top: ctxMenu.y }}
           >
             <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-muted">

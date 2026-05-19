@@ -1,0 +1,68 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#FFFFFF"/>
+
+  <!-- Left 60% — table screenshot area -->
+  <rect x="0" y="0" width="720" height="630" fill="#F9FAFB"/>
+  <rect x="60" y="80" width="600" height="470" rx="8" fill="#FFFFFF" stroke="#E5E7EB" stroke-width="1"/>
+
+  <!-- Table header row -->
+  <rect x="61" y="81" width="598" height="48" rx="4" fill="#1E40AF"/>
+  <text x="100" y="111" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Product</text>
+  <text x="300" y="111" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Q1 Sales</text>
+  <text x="500" y="111" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Growth</text>
+
+  <!-- Table rows -->
+  <line x1="61" y1="129" x2="659" y2="129" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="100" y="159" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">Tablesmit Pro</text>
+  <text x="315" y="159" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">$12,450</text>
+  <text x="515" y="159" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#059669" font-weight="600">+24%</text>
+  <line x1="61" y1="169" x2="659" y2="169" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="100" y="199" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">Data Editor</text>
+  <text x="315" y="199" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">$8,320</text>
+  <text x="515" y="199" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#059669" font-weight="600">+18%</text>
+  <line x1="61" y1="209" x2="659" y2="209" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="100" y="239" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">Research Suite</text>
+  <text x="315" y="239" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">$6,780</text>
+  <text x="515" y="239" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#DC2626" font-weight="600">-3%</text>
+  <line x1="61" y1="249" x2="659" y2="249" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="100" y="279" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">Analytics Hub</text>
+  <text x="315" y="279" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#111827">$15,200</text>
+  <text x="515" y="279" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#059669" font-weight="600">+41%</text>
+
+  <!-- Column dividers -->
+  <line x1="260" y1="81" x2="260" y2="550" stroke="#E5E7EB" stroke-width="1"/>
+  <line x1="460" y1="81" x2="460" y2="550" stroke="#E5E7EB" stroke-width="1"/>
+
+  <!-- Right 40% — branding area -->
+  <!-- Logo 2B Icon mark -->
+  <g transform="translate(760, 80)">
+    <rect x="2" y="2" width="28" height="10" rx="4" fill="#1E40AF"/>
+    <rect x="2" y="15" width="12" height="15" rx="3" fill="#1E40AF" opacity="0.28"/>
+    <rect x="18" y="15" width="12" height="15" rx="3" fill="#1E40AF" opacity="0.14"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="800" y="102" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" letter-spacing="-0.5" fill="#1E293B">Tablesmit</text>
+
+  <!-- Tagline -->
+  <text x="760" y="145" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="500" fill="#6B7280">Tables, your way.</text>
+
+  <!-- Description -->
+  <text x="760" y="200" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#374151">Minimalist table builder for writers</text>
+  <text x="760" y="225" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#374151">and analysts. Drag-to-resize, merge</text>
+  <text x="760" y="250" font-family="Inter, system-ui, sans-serif" font-size="15" fill="#374151">cells, export anywhere. Free.</text>
+
+  <!-- Feature bullets -->
+  <g transform="translate(760, 300)">
+    <circle cx="6" cy="6" r="4" fill="#059669"/>
+    <text x="20" y="10" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Free. No signup.</text>
+  </g>
+  <g transform="translate(760, 335)">
+    <circle cx="6" cy="6" r="4" fill="#059669"/>
+    <text x="20" y="10" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Export to PDF, Excel, CSV</text>
+  </g>
+  <g transform="translate(760, 370)">
+    <circle cx="6" cy="6" r="4" fill="#059669"/>
+    <text x="20" y="10" font-family="Inter, system-ui, sans-serif" font-size="14" fill="#374151">Open source</text>
+  </g>
+</svg>

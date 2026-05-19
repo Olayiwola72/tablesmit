@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { ArrowUp, Settings, Sparkles } from 'lucide-react'
+import { ArrowUp, Keyboard, Settings, Sparkles } from 'lucide-react'
 import { exportFormats } from '../../config/exportConfig'
 import { siteConfig } from '../../config/siteConfig'
 import { TableProvider, useTableContext, useTableData } from '../../context/TableContext'
@@ -32,6 +32,7 @@ export function TableMakerPage(): ReactNode {
 
 function TableMakerContent(): ReactNode {
   const tableRef = useRef<HTMLDivElement>(null)
+  const exportRef = useRef<HTMLDivElement>(null)
   const { rows, cols, updateCell } = useTableContext()
   const { cells } = useTableData()
   const { exportAs, isExporting } = useExport()
@@ -150,8 +151,8 @@ function TableMakerContent(): ReactNode {
   }, [replaceAll, updateCell])
 
   const handleExport = useCallback((format: ExportFormat): void => {
-    void exportAs(format, tableRef.current, caption)
-  }, [exportAs, tableRef, caption])
+    void exportAs(format, exportRef.current, caption)
+  }, [exportAs, exportRef, caption])
 
   return (
     <main className="flex flex-1 flex-col overflow-hidden bg-white dark:bg-slate-900">
@@ -187,18 +188,23 @@ function TableMakerContent(): ReactNode {
           <DimensionsPanel />
           <HeaderOptionsPanel />
           <ColorPanel />
-          <BorderPanel />
         </aside>
 
         <section className="relative flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace">
           <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted dark:border-slate-700 dark:bg-slate-900" data-print-hide>
             <span>{rows} rows x {cols} columns</span>
             <span>{siteConfig.labels.autoFitColumn}</span>
+            <span className="flex items-center gap-1.5">
+              <Keyboard size={12} />
+              {siteConfig.labels.shortcutsHint}
+            </span>
           </div>
-          <div className="px-4 pt-2" data-table-caption>
-            <TableCaption value={caption} onChange={setCaption} alignment={captionAlignment} onAlignmentChange={setCaptionAlignment} />
+          <div ref={exportRef} className="flex flex-col min-w-0 w-fit">
+            <div className="px-4 pt-2" data-table-caption>
+              <TableCaption value={caption} onChange={setCaption} alignment={captionAlignment} onAlignmentChange={setCaptionAlignment} />
+            </div>
+            <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} />
           </div>
-          <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} />
           {findOpen && (
             <div className="absolute right-2 top-2 z-40">
               <FindReplace
@@ -223,6 +229,7 @@ function TableMakerContent(): ReactNode {
           <Suspense fallback={<PanelLoader />}>
             <ExportPanel onExport={handleExport} isExporting={isExporting} />
           </Suspense>
+          <BorderPanel />
           <MergeCellsPanel />
           <AiFeaturesPanel />
         </aside>
@@ -262,13 +269,13 @@ function TableMakerContent(): ReactNode {
             <DimensionsPanel />
             <HeaderOptionsPanel />
             <ColorPanel />
-            <BorderPanel />
           </div>
         ) : (
           <div className="space-y-8">
             <Suspense fallback={<PanelLoader />}>
               <ExportPanel onExport={handleExport} isExporting={isExporting} />
             </Suspense>
+            <BorderPanel />
             <MergeCellsPanel />
             <AiFeaturesPanel />
           </div>

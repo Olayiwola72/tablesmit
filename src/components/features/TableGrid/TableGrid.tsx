@@ -375,7 +375,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
   return (
     <div className="relative h-full overflow-auto p-2 sm:p-4">
       <div
-        data-print-hide
+        data-print-hide data-export-hide
         className="mb-2 grid min-w-max border border-border bg-surface dark:border-slate-700 dark:bg-slate-800"
         style={{ gridTemplateColumns: columnWidths.map((width) => `${width}px`).join(' ') }}
         aria-label="Column formatting controls"
