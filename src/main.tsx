@@ -4,6 +4,9 @@ import { Toaster } from 'sonner'
 import * as Sentry from '@sentry/react'
 import './index.scss'
 import App from './App.tsx'
+import { registerPWA } from './pwa.ts'
+
+registerPWA()
 
 const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN as string | undefined
 

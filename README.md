@@ -87,7 +87,7 @@ src/content/blog/how-to-make-a-table-in-markdown.json
   "title":       "How to Make a Table in Markdown",
   "date":        "2025-09-15",
   "description": "A practical guide to Markdown tables — with examples you can build in Tablesmit and paste anywhere.",
-  "author":      "Olayiwola Akin",
+  "author":      "Olayiwola Akinnagbe",
   "tags":        ["markdown", "tutorial", "tables"],
   "readTime":    4,
   "featured":    false,

@@ -15,6 +15,10 @@ dist-ssr
 # Generated coverage reports
 coverage
 
+# Lighthouse reports
+lh-detail.json
+lighthouse-report.json
+
 # Playwright test results
 test-results
 

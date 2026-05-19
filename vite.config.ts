@@ -8,6 +8,8 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      selfDestroying: true,
+      injectRegister: false,
       includeAssets: ['favicon.svg'],
       manifest: {
         name: 'Tablesmit',

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { Button } from '../Button'
 
 const CONSENT_KEY = 'tablesmit-consent'
@@ -30,7 +30,8 @@ function setConsent(value: 'accepted' | 'declined'): void {
 }
 
 export function CookieConsent(): ReactNode {
-  const consent = getConsent()
+  const [consent, setConsentState] = useState<'accepted' | 'declined' | null>(getConsent)
+
   if (consent !== null) {
     if (consent === 'accepted' && import.meta.env.PROD) loadAnalytics()
     return null
@@ -38,9 +39,13 @@ export function CookieConsent(): ReactNode {
 
   const accept = (): void => {
     setConsent('accepted')
+    setConsentState('accepted')
     if (import.meta.env.PROD) loadAnalytics()
   }
-  const decline = (): void => setConsent('declined')
+  const decline = (): void => {
+    setConsent('declined')
+    setConsentState('declined')
+  }
 
   return (
     <div

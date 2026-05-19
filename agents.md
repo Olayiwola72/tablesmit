@@ -252,83 +252,85 @@ recurs more than once — extract it to the config instead.
 
 ```ts
 // tailwind.config.ts
-import type { Config } from 'tailwindcss';
+import typography from '@tailwindcss/typography'
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
         primary: {
           DEFAULT: '#1E40AF',
-          hover:   '#1D3899',
-          light:   '#EFF6FF',
+          hover: '#1D3899',
+          light: '#EFF6FF',
         },
         accent: {
           DEFAULT: '#F59E0B',
-          hover:   '#D97706',
-          light:   '#FFFBEB',
+          hover: '#D97706',
+          light: '#FFFBEB',
         },
-        surface:  '#F9FAFB',
-        border:   '#E5E7EB',
+        surface: '#F9FAFB',
+        border: '#E5E7EB',
         'border-focus': '#1E40AF',
         text: {
-          primary:   '#111827',
+          primary: '#111827',
           secondary: '#6B7280',
-          muted:     '#9CA3AF',
-          inverse:   '#FFFFFF',
+          muted: 'rgb(var(--color-text-muted) / <alpha-value>)',
+          inverse: '#FFFFFF',
         },
         success: { DEFAULT: '#059669', light: '#ECFDF5' },
-        danger:  { DEFAULT: '#DC2626', light: '#FEF2F2' },
-        info:    { DEFAULT: '#0EA5E9', light: '#F0F9FF' },
+        danger: { DEFAULT: '#DC2626', light: '#FEF2F2' },
+        info: { DEFAULT: '#0EA5E9', light: '#F0F9FF' },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
         mono: ['JetBrains Mono', 'Courier New', 'monospace'],
       },
       fontSize: {
-        'xs':   ['0.75rem',   { lineHeight: '1rem' }],
-        'sm':   ['0.875rem',  { lineHeight: '1.25rem' }],
-        'base': ['1rem',      { lineHeight: '1.5rem' }],
-        'lg':   ['1.125rem',  { lineHeight: '1.75rem' }],
-        'xl':   ['1.25rem',   { lineHeight: '1.75rem' }],
-        '2xl':  ['1.5rem',    { lineHeight: '2rem' }],
-        '3xl':  ['1.875rem',  { lineHeight: '2.25rem' }],
-        '4xl':  ['2.25rem',   { lineHeight: '2.5rem' }],
-        '5xl':  ['3rem',      { lineHeight: '1.2' }],
+        xs: ['0.75rem', { lineHeight: '1rem' }],
+        sm: ['0.875rem', { lineHeight: '1.25rem' }],
+        base: ['1rem', { lineHeight: '1.5rem' }],
+        lg: ['1.125rem', { lineHeight: '1.75rem' }],
+        xl: ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1.2' }],
       },
       spacing: {
         '18': '4.5rem',
         '22': '5.5rem',
       },
       borderRadius: {
-        'sm': '4px',
-        'md': '8px',
-        'lg': '12px',
-        'xl': '16px',
+        sm: '4px',
+        md: '8px',
+        lg: '12px',
+        xl: '16px',
       },
       boxShadow: {
-        'sm': '0 1px 2px 0 rgb(0 0 0 / 0.05)',
-        'md': '0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07)',
-        'lg': '0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
+        sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)',
+        md: '0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07)',
+        lg: '0 10px 15px -3px rgb(0 0 0 / 0.08), 0 4px 6px -4px rgb(0 0 0 / 0.05)',
       },
       maxWidth: {
-        'content': '1200px',
-        'narrow':  '720px',
+        content: '1200px',
+        narrow: '720px',
       },
       height: {
-        'nav': '60px',
+        nav: '60px',
       },
       width: {
-        'sidebar-left':  '240px',
+        'sidebar-left': '240px',
         'sidebar-right': '220px',
       },
     },
   },
-  plugins: [],
-};
+  plugins: [typography],
+}
 
-export default config;
+export default config
 ```
 
 ### Token Usage Rules
@@ -409,8 +411,9 @@ bg-white border-b border-border shadow-sm (on scroll via JS class)
 Layout: justify-between items-center px-6
 Left: Logo SVG
 Center: nav links — text-sm font-medium text-text-secondary hover:text-primary
-Right: "Start Building" → Primary Button
-Links: Home · Open Source · About · Contact
+Right: GitHub ghost button (ExternalLink icon)
+Links: Home · Blog · Open Source · About · Contact · Changelog
+CTA: "Create a Table" lives in the hero section — not in the navbar
 ```
 
 ### Button Classes (define as reusable component — see Section 10)
@@ -653,9 +656,8 @@ Row height:   min 32px · max 300px
 ### Navigation
 ```
 Left:   [Tablesmit SVG Logo]
-Center: Home  |  Open Source  |  About  |  Contact
-Right:  [Start Building]   (primary button, md size)
-        [GitHub ↗]         (ghost button with ExternalLink icon)
+Center: Home  |  Blog  |  Open Source  |  About  |  Contact  |  Changelog
+Right:  [GitHub ↗]         (ghost button with ExternalLink icon)
 ```
 
 ---
@@ -675,7 +677,7 @@ SUBTEXT (text-base sm:text-lg text-text-secondary max-w-xl mx-auto):
   control over headers, formatting, and export.
 
 CTA ROW (flex-col sm:flex-row gap-3 justify-center mt-8):
-  PRIMARY:   [Start Building]          ← accent button, lg
+  PRIMARY:   [Create a Table]          ← accent button, lg
   SECONDARY: [View on GitHub ↗]        ← secondary/outline button, lg
                                           with ExternalLink icon from Lucide
 
@@ -838,21 +840,31 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
 
 ## 8. Tech Stack
 
-| Layer         | Technology                                                        | Notes                               |
-|---------------|-------------------------------------------------------------------|-------------------------------------|
-| Framework     | React 18 + Vite                                                   | –                                   |
-| Language      | TypeScript — `strict: true`                                       | –                                   |
-| Styling       | **Tailwind CSS v3**                                               | Config in `tailwind.config.ts`      |
-| Components    | **shadcn/ui**                                                     | Dropdowns, tooltips, dialogs        |
-| Icons         | **Lucide React**                                                  | `lucide-react` — only icon library  |
-| Drag/Resize   | **@dnd-kit/core + @dnd-kit/utilities**                            | Column/row resize, row reorder      |
-| Export PDF    | **jsPDF + html2canvas**                                           | –                                   |
-| Export Excel  | **@e965/xlsx** (SheetJS fork)                                     | Export + import                     |
-| Export Image  | **html2canvas**                                                   | PNG + JPEG                          |
-| Import CSV    | **PapaParse**                                                     | Fast, typed, browser-safe CSV parse |
-| Import Excel  | **@e965/xlsx** (SheetJS fork)                                     | Same lib as export — no extra dep   |
-| Testing       | **Vitest + React Testing Library + @testing-library/user-event**  | –                                   |
-| Routing       | **React Router v6**                                               | –                                   |
+| Layer             | Technology                                                        | Notes                               |
+|-------------------|-------------------------------------------------------------------|-------------------------------------|
+| Framework         | React 18 + Vite                                                   | –                                   |
+| Language          | TypeScript — `strict: true`                                       | –                                   |
+| Styling           | **Tailwind CSS v3**                                               | Config in `tailwind.config.ts`      |
+| Components        | **shadcn/ui**                                                     | Dropdowns, tooltips, dialogs        |
+| Icons             | **Lucide React**                                                  | `lucide-react` — only icon library  |
+| Drag/Resize       | **@dnd-kit/core + @dnd-kit/utilities**                            | Column/row resize, row reorder      |
+| Export PDF        | **jsPDF + html2canvas**                                           | –                                   |
+| Export Excel      | **@e965/xlsx** (SheetJS fork)                                     | Export + import                     |
+| Export Image      | **html2canvas**                                                   | PNG + JPEG                          |
+| Import CSV        | **PapaParse**                                                     | Fast, typed, browser-safe CSV parse |
+| Import Excel      | **@e965/xlsx** (SheetJS fork)                                     | Same lib as export — no extra dep   |
+| Unit Testing      | **Vitest + React Testing Library + @testing-library/user-event**  | –                                   |
+| E2E Testing       | **Playwright**                                                    | Tests in `e2e/`                     |
+| Routing           | **React Router v6**                                               | –                                   |
+| Fonts             | **@fontsource/inter + @fontsource/jetbrains-mono**                | Self-hosted, no external requests   |
+| Toast             | **sonner**                                                        | –                                   |
+| Markdown/Blog     | **react-markdown + remark-gfm**                                   | Blog content rendering              |
+| Meta/SEO          | **react-helmet-async**                                            | Per-page meta tags, JSON-LD         |
+| Theme/Typography  | **@tailwindcss/typography**                                       | `prose` class for blog content      |
+| Error Monitoring  | **@sentry/react**                                                 | Production only                     |
+| PWA               | **vite-plugin-pwa**                                               | Service worker, offline support     |
+| Git Hooks         | **husky + lint-staged**                                           | Pre-commit lint + format            |
+| Button Variants   | **class-variance-authority + clsx**                               | `cva()` for Button component        |
 
 ### Library Policy
 - **Use libraries freely** — don't build what already exists well.
@@ -876,7 +888,24 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
 tablesmit/
 ├── public/
 │   ├── favicon.svg                     ← icon-mark SVG (Section 2B)
-│   └── og-image.png
+│   ├── og-image.png
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── manifest.webmanifest
+│
+├── scripts/
+│   └── md-to-blog-post.ts              # Helper: .md → blog JSON
+│
+├── e2e/
+│   └── critical-path.spec.ts           # Playwright E2E tests
+│
+├── .github/
+│   ├── workflows/
+│   │   └── deploy-netlify.yml          # CI/CD pipeline
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.md
+│   │   └── feature_request.md
+│   └── pull_request_template.md
 │
 ├── src/
 │   ├── assets/
@@ -886,41 +915,105 @@ tablesmit/
 │   │   │
 │   │   ├── ui/                         # Reusable, domain-agnostic primitives
 │   │   │   │                           # (extend shadcn/ui components here)
+│   │   │   ├── Badge/
+│   │   │   │   ├── Badge.tsx
+│   │   │   │   └── index.ts
 │   │   │   ├── Button/
 │   │   │   │   ├── Button.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── IconButton/
-│   │   │   │   ├── IconButton.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── SectionLabel/
-│   │   │   │   ├── SectionLabel.tsx
 │   │   │   │   └── index.ts
 │   │   │   ├── ColorSwatch/
 │   │   │   │   ├── ColorSwatch.tsx
 │   │   │   │   └── index.ts
-│   │   │   └── Badge/
-│   │   │       ├── Badge.tsx
-│   │   │       └── index.ts
+│   │   │   ├── CookieConsent/
+│   │   │   │   ├── CookieConsent.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── DropdownMenu/            # shadcn/ui wrapper
+│   │   │   │   ├── DropdownMenu.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── ErrorBoundary/
+│   │   │   │   ├── ErrorBoundary.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── IconButton/
+│   │   │   │   ├── IconButton.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── Logo/
+│   │   │   │   ├── Logo.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── PageLoader/
+│   │   │   │   ├── PageLoader.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── PanelLoader/
+│   │   │   │   ├── PanelLoader.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── SectionLabel/
+│   │   │   │   ├── SectionLabel.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── Tooltip/                 # shadcn/ui wrapper
+│   │   │   │   ├── Tooltip.tsx
+│   │   │   │   └── index.ts
+│   │   │   └── ... (additional shadcn/ui add as needed)
 │   │   │
 │   │   ├── layout/                     # Structural shell components
-│   │   │   ├── Navbar/
-│   │   │   │   ├── Navbar.tsx
-│   │   │   │   └── index.ts
 │   │   │   ├── Footer/
 │   │   │   │   ├── Footer.tsx
 │   │   │   │   └── index.ts
-│   │   │   ├── Sidebar/
-│   │   │   │   ├── Sidebar.tsx
+│   │   │   ├── MobileSheet/
+│   │   │   │   ├── MobileSheet.tsx
 │   │   │   │   └── index.ts
-│   │   │   └── PageWrapper/
-│   │   │       ├── PageWrapper.tsx
+│   │   │   ├── Navbar/
+│   │   │   │   ├── Navbar.tsx
+│   │   │   │   └── index.ts
+│   │   │   ├── PageWrapper/
+│   │   │   │   ├── PageWrapper.tsx
+│   │   │   │   └── index.ts
+│   │   │   └── Sidebar/
+│   │   │       ├── Sidebar.tsx
 │   │   │       └── index.ts
 │   │   │
 │   │   └── features/                   # Domain-specific feature components
+│   │       ├── AiFeaturesPanel/
+│   │       │   ├── AiFeaturesPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── BorderPanel/
+│   │       │   ├── BorderPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── ColorPanel/
+│   │       │   ├── ColorPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── ColumnFormattingPanel/
+│   │       │   ├── ColumnFormattingPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── DimensionsPanel/
+│   │       │   ├── DimensionsPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── ExportPanel/
+│   │       │   ├── ExportPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── FindReplace/
+│   │       │   ├── FindReplace.tsx
+│   │       │   └── index.ts
+│   │       ├── HeaderOptionsPanel/
+│   │       │   ├── HeaderOptionsPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── MergeCellsPanel/
+│   │       │   ├── MergeCellsPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── QuickPresetsPanel/
+│   │       │   ├── QuickPresetsPanel.tsx
+│   │       │   └── index.ts
+│   │       ├── ShortcutsModal/
+│   │       │   ├── ShortcutsModal.tsx
+│   │       │   └── index.ts
+│   │       ├── TableCaption/
+│   │       │   ├── TableCaption.tsx
+│   │       │   └── index.ts
 │   │       ├── TableGrid/
 │   │       │   ├── TableGrid.tsx
 │   │       │   ├── TableCell/
 │   │       │   │   ├── TableCell.tsx
+│   │       │   │   └── index.ts
+│   │       │   ├── TableCtxMenu/
+│   │       │   │   ├── TableCtxMenu.tsx
 │   │       │   │   └── index.ts
 │   │       │   ├── TableHeaderCell/
 │   │       │   │   ├── TableHeaderCell.tsx
@@ -932,132 +1025,168 @@ tablesmit/
 │   │       ├── TableToolbar/
 │   │       │   ├── TableToolbar.tsx
 │   │       │   └── index.ts
-│   │       ├── DimensionsPanel/
-│   │       │   ├── DimensionsPanel.tsx
-│   │       │   └── index.ts
-│   │       ├── HeaderOptionsPanel/
-│   │       │   ├── HeaderOptionsPanel.tsx
-│   │       │   └── index.ts
-│   │       ├── ColorPanel/
-│   │       │   ├── ColorPanel.tsx
-│   │       │   └── index.ts
-│   │       ├── MergeCellsPanel/
-│   │       │   ├── MergeCellsPanel.tsx
-│   │       │   └── index.ts
-│   │       ├── ColumnFormattingPanel/
-│   │       │   ├── ColumnFormattingPanel.tsx
-│   │       │   └── index.ts
-│   │       ├── QuickPresetsPanel/
-│   │       │   ├── QuickPresetsPanel.tsx
-│   │       │   └── index.ts
-│   │       └── ExportPanel/
-│   │           ├── ExportPanel.tsx
+│   │       └── ThemePicker/
+│   │           ├── ThemePicker.tsx
 │   │           └── index.ts
 │   │
 │   ├── pages/
-│   │   ├── TableMakerPage/
-│   │   │   ├── TableMakerPage.tsx
+│   │   ├── AboutPage/
+│   │   │   ├── AboutPage.tsx
+│   │   │   └── index.ts
+│   │   ├── BlogListPage/
+│   │   │   ├── BlogListPage.tsx
+│   │   │   └── index.ts
+│   │   ├── BlogPostPage/
+│   │   │   ├── BlogPostPage.tsx
+│   │   │   └── index.ts
+│   │   ├── ChangelogPage/
+│   │   │   └── ChangelogPage.tsx        # imported directly via .tsx path (no index.ts)
+│   │   ├── ContactPage/
+│   │   │   ├── ContactPage.tsx
 │   │   │   └── index.ts
 │   │   ├── LandingPage/
 │   │   │   ├── LandingPage.tsx
 │   │   │   └── index.ts
-│   │   ├── AboutPage/
-│   │   │   ├── AboutPage.tsx
+│   │   ├── NotFoundPage/
+│   │   │   ├── NotFoundPage.tsx
 │   │   │   └── index.ts
-│   │   ├── ContactPage/
-│   │   │   ├── ContactPage.tsx
+│   │   ├── OpenSourcePage/
+│   │   │   └── OpenSourcePage.tsx       # imported directly via .tsx path (no index.ts)
+│   │   ├── PrivacyPage/
+│   │   │   ├── PrivacyPage.tsx
 │   │   │   └── index.ts
-│   │   └── OpenSourcePage/
-│   │       ├── OpenSourcePage.tsx
-│   │       └── index.ts
-│   │   └── NotFoundPage/
-│   │       ├── NotFoundPage.tsx
+│   │   ├── TableMakerPage/
+│   │   │   ├── TableMakerPage.tsx
+│   │   │   └── index.ts
+│   │   └── TermsPage/
+│   │       ├── TermsPage.tsx
 │   │       └── index.ts
 │   │
 │   ├── context/
-│   │   └── TableContext.tsx             # Global table state + dispatch
+│   │   ├── TableContext.tsx             # Global table state + dispatch (provider)
+│   │   ├── TableDataContext.tsx         # cells, columnWidths, rowHeights, mergedRanges
+│   │   └── TableSelectionContext.tsx    # selectedRange, hoveredCell, isDragging
+│   │   # no index.ts — contexts imported directly from their .tsx files
 │   │
 │   ├── hooks/
-│   │   ├── useTable.ts                 # Core CRUD: add/remove row/col, update cell
-│   │   ├── useTableSelection.ts        # Cell/range selection
-│   │   ├── useMergeCells.ts            # Merge / unmerge
-│   │   ├── useColumnResize.ts          # Drag-to-resize columns
-│   │   ├── useRowResize.ts             # Drag-to-resize rows
+│   │   ├── useColumnResize.ts          # Drag-to-resize columns (rAF)
 │   │   ├── useExport.ts                # Export orchestration
-│   │   ├── useTableHistory.ts          # Undo / redo
-│   │   └── useImport.ts                # CSV / Excel import
+│   │   ├── useFindReplace.ts           # Ctrl+F / Ctrl+H logic
+│   │   ├── useImport.ts                # CSV / Excel import
+│   │   ├── useMergeCells.ts            # Merge / unmerge
+│   │   ├── useRowResize.ts             # Drag-to-resize rows (rAF)
+│   │   ├── useTableHistory.ts          # Undo / redo (snapshot stack)
+│   │   ├── useTableSelection.ts        # Cell/range selection
+│   │   └── useTheme.ts                 # Dark/light mode toggle
 │   │
 │   ├── services/
+│   │   ├── blogService.ts              # import.meta.glob blog discovery
 │   │   ├── exportService.ts            # Strategy pattern: PDF/PNG/JPEG/Excel/CSV
 │   │   └── importService.ts            # CSV / Excel import logic
 │   │
 │   ├── utils/
-│   │   ├── tableUtils.ts               # Pure table transformation functions
-│   │   ├── mergeUtils.ts               # Merge range math
+│   │   ├── analytics.ts                # GA4 event tracking wrapper
 │   │   ├── cellUtils.ts                # Cell ID parsing, coordinate helpers
+│   │   ├── dateUtils.ts                # Dynamic year helper
+│   │   ├── formatDate.ts               # Intl.DateTimeFormat blog date formatting
 │   │   ├── formatUtils.ts              # Column format helpers
-│   │   └── dateUtils.ts                # Dynamic year helper
+│   │   ├── mergeUtils.ts               # Merge range math
+│   │   ├── tableUtils.ts               # Pure table transformation functions
+│   │   └── toast.ts                    # Sonner toast wrapper with TOAST consts
 │   │
 │   ├── types/
-│   │   ├── table.types.ts
+│   │   ├── blog.types.ts               # BlogPost interface
 │   │   ├── export.types.ts
-│   │   ├── ui.types.ts
-│   │   └── import.types.ts
+│   │   ├── import.types.ts
+│   │   ├── table.types.ts
+│   │   └── ui.types.ts
 │   │
 │   ├── config/
-│   │   ├── tableDefaults.ts            # DEFAULT_ROWS, DEFAULT_COLS, MAX limits
-│   │   ├── presets.ts                  # Preset table definitions
-│   │   ├── siteConfig.ts               # Routes, nav, exports, branding
+│   │   ├── changelog.ts                # ChangelogEntry[] data
+│   │   ├── colorPalette.ts             # Header color swatches
 │   │   ├── exportConfig.ts             # Supported formats + options
-│   │   └── colorPalette.ts             # Header color swatches
+│   │   ├── presets.ts                  # Preset table definitions
+│   │   ├── siteConfig.ts               # Routes, nav, exports, branding (SSoT)
+│   │   ├── tableDefaults.ts            # DEFAULT_ROWS, DEFAULT_COLS, MAX limits
+│   │   └── tableThemes.ts              # 6 theme definitions
 │   │
 │   ├── constants/
 │   │   └── keys.ts                     # Keyboard key constants
 │   │
+│   ├── content/
+│   │   └── blog/                       # Auto-discovered via import.meta.glob
+│   │       ├── 5-free-online-table-makers-compared.ts
+│   │       ├── best-table-tool-for-researchers.ts
+│   │       ├── copy-excel-table-to-web.ts
+│   │       ├── export-table-to-pdf.ts
+│   │       ├── how-to-make-a-table-in-markdown.ts
+│   │       └── merge-cells-online-table.ts
+│   │
 │   ├── styles/
-│   │   └── globals.css                 # Tailwind directives + any global CSS
+│   │   ├── globals.css                 # Tailwind directives + print styles
+│   │   └── ... (no other style files)
+│   │
+│   ├── index.scss                      # SCSS entry (imported by main.tsx)
+│   ├── pwa.ts                          # Custom service worker registration
 │   │
 │   ├── test/                           # All tests live here (never co-located with source)
-│   │   ├── setup.ts                    # jest-dom import
+│   │   ├── setup.ts                    # jest-dom import + polyfills
 │   │   ├── App.test.tsx
-│   │   ├── config.test.ts
+│   │   ├── config/
+│   │   │   ├── siteConfig.test.ts
+│   │   │   └── tableThemes.test.ts
 │   │   ├── utils/
 │   │   │   ├── cellUtils.test.ts
-│   │   │   ├── tableUtils.test.ts
-│   │   │   ├── mergeUtils.test.ts
+│   │   │   ├── dateUtils.test.ts
 │   │   │   ├── formatUtils.test.ts
-│   │   │   └── dateUtils.test.ts
+│   │   │   ├── mergeUtils.test.ts
+│   │   │   ├── tableUtils.test.ts
+│   │   │   └── toast.test.ts
 │   │   ├── hooks/
+│   │   │   ├── useColumnResize.test.ts
+│   │   │   ├── useExport.test.tsx
+│   │   │   ├── useFindReplace.test.ts
+│   │   │   ├── useImport.test.tsx
+│   │   │   ├── useMergeCells.test.ts
+│   │   │   ├── useRowResize.test.ts
 │   │   │   ├── useTableHistory.test.ts
 │   │   │   ├── useTableSelection.test.tsx
-│   │   │   ├── useImport.test.tsx
-│   │   │   ├── useColumnResize.test.ts
-│   │   │   ├── useRowResize.test.ts
-│   │   │   └── useExport.test.tsx
+│   │   │   └── useTheme.test.ts
 │   │   ├── services/
-│   │   │   ├── importService.test.ts
-│   │   │   └── exportService.test.ts
+│   │   │   ├── blogService.test.ts
+│   │   │   ├── exportService.test.ts
+│   │   │   └── importService.test.ts
 │   │   ├── context/
 │   │   │   └── TableContext.test.tsx
 │   │   ├── components/
 │   │   │   ├── ui/
 │   │   │   │   ├── Button/Button.test.tsx
-│   │   │   │   ├── IconButton/IconButton.test.tsx
-│   │   │   │   └── ColorSwatch/ColorSwatch.test.tsx
+│   │   │   │   ├── ColorSwatch/ColorSwatch.test.tsx
+│   │   │   │   ├── ErrorBoundary/ErrorBoundary.test.tsx
+│   │   │   │   └── IconButton/IconButton.test.tsx
+│   │   │   ├── layout/
+│   │   │   │   └── MobileSheet/MobileSheet.test.tsx
 │   │   │   └── features/
 │   │   │       ├── TableGrid/
 │   │   │       │   ├── TableCell/TableCell.test.tsx
+│   │   │       │   ├── TableCtxMenu/TableCtxMenu.test.tsx
+│   │   │       │   ├── TableGrid.test.tsx
 │   │   │       │   └── ResizeHandle/ResizeHandle.test.tsx
 │   │   │       ├── TableToolbar/TableToolbar.test.tsx
 │   │   │       ├── DimensionsPanel/DimensionsPanel.test.tsx
 │   │   │       ├── QuickPresetsPanel/QuickPresetsPanel.test.tsx
 │   │   │       ├── MergeCellsPanel/MergeCellsPanel.test.tsx
-│   │   │       └── ExportPanel/ExportPanel.test.tsx
+│   │   │       ├── FindReplace/FindReplace.test.tsx
+│   │   │       ├── ExportPanel/ExportPanel.test.tsx
+│   │   │       └── ThemePicker/ThemePicker.test.tsx
 │   │   └── pages/
+│   │       ├── BlogListPage/BlogListPage.test.tsx
+│   │       ├── BlogPostPage/BlogPostPage.test.tsx
+│   │       ├── ChangelogPage/ChangelogPage.test.tsx
 │   │       ├── TableMakerPage/TableMakerPage.test.tsx
 │   │       └── LandingPage/LandingPage.test.tsx
 │   │
-│   ├── App.tsx                         # Router only. Zero business logic.
+│   ├── App.tsx                         # Router + providers only. Zero business logic.
 │   └── main.tsx                        # ReactDOM.createRoot only.
 │
 ├── tailwind.config.ts
@@ -1065,6 +1194,9 @@ tablesmit/
 ├── tsconfig.json
 ├── vite.config.ts
 ├── postcss.config.js
+├── playwright.config.ts                # E2E test config
+├── netlify.toml                        # SPA redirect + deploy config
+├── .env.example                        # Documented env vars
 └── package.json
 ```
 
@@ -1076,36 +1208,60 @@ Heavy feature panels within the table maker are also lazy-loaded on first intera
 #### `src/App.tsx` — Routing with Suspense
 
 ```tsx
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, type ReactNode } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { PageLoader } from '@/components/ui/PageLoader';
-import { Navbar } from '@/components/layout/Navbar';
+import { HelmetProvider } from 'react-helmet-async';
 import { Footer } from '@/components/layout/Footer';
+import { Navbar } from '@/components/layout/Navbar';
+import { CookieConsent } from '@/components/ui/CookieConsent';
+import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
+import { PageLoader } from '@/components/ui/PageLoader';
+import { ShortcutsModal } from '@/components/features/ShortcutsModal/ShortcutsModal';
+import { TooltipProvider } from '@/components/ui/Tooltip';
+import { siteConfig } from '@/config/siteConfig';
 
 // Pages — never imported directly; bundled separately per route
 const LandingPage    = lazy(() => import('@/pages/LandingPage'));
 const TableMakerPage = lazy(() => import('@/pages/TableMakerPage'));
-const AboutPage      = lazy(() => import('@/pages/AboutPage'));
+const BlogListPage   = lazy(() => import('@/pages/BlogListPage'));
+const BlogPostPage   = lazy(() => import('@/pages/BlogPostPage'));
 const ContactPage    = lazy(() => import('@/pages/ContactPage'));
 const OpenSourcePage = lazy(() => import('@/pages/OpenSourcePage'));
+const PrivacyPage    = lazy(() => import('@/pages/PrivacyPage'));
+const TermsPage      = lazy(() => import('@/pages/TermsPage'));
+const ChangelogPage  = lazy(() => import('@/pages/ChangelogPage'));
 const NotFoundPage   = lazy(() => import('@/pages/NotFoundPage'));
 
-export default function App() {
+export default function App(): ReactNode {
   return (
-    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <Navbar />
-      <Suspense fallback={<PageLoader />}>
-        <Routes>
-          <Route path="/"            element={<TableMakerPage />} />
-          <Route path="/app"         element={<TableMakerPage />} />
-          <Route path="/about"       element={<LandingPage />} />
-          <Route path="/contact"     element={<ContactPage />} />
-          <Route path="/open-source" element={<OpenSourcePage />} />
-          <Route path="*"            element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
-      <Footer />
-    </BrowserRouter>
+    <ErrorBoundary>
+      <HelmetProvider>
+        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <TooltipProvider delayDuration={250}>
+            <Navbar />
+            <ShortcutsModal />
+            <CookieConsent />
+            <div className="flex flex-1 flex-col">
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  <Route path={siteConfig.routes.home}      element={<ErrorBoundary><TableMakerPage /></ErrorBoundary>} />
+                  <Route path={siteConfig.routes.about}     element={<LandingPage />} />
+                  <Route path={siteConfig.routes.blog}      element={<BlogListPage />} />
+                  <Route path={siteConfig.routes.blogPost}  element={<BlogPostPage />} />
+                  <Route path={siteConfig.routes.openSource} element={<OpenSourcePage />} />
+                  <Route path={siteConfig.routes.contact}   element={<ContactPage />} />
+                  <Route path={siteConfig.routes.privacy}   element={<PrivacyPage />} />
+                  <Route path={siteConfig.routes.terms}     element={<TermsPage />} />
+                  <Route path={siteConfig.routes.changelog} element={<ChangelogPage />} />
+                  <Route path="*"                           element={<NotFoundPage />} />
+                </Routes>
+              </Suspense>
+            </div>
+            <Footer />
+          </TooltipProvider>
+        </BrowserRouter>
+      </HelmetProvider>
+    </ErrorBoundary>
   );
 }
 ```
@@ -1169,21 +1325,48 @@ Optionally name the chunks for readable bundle analysis:
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      selfDestroying: true,
+      injectRegister: false,
+      includeAssets: ['favicon.svg'],
+      manifest: {
+        name: 'Tablesmit',
+        short_name: 'Tablesmit',
+        description: 'A minimalist table builder for analytical writing.',
+        theme_color: '#ffffff',
+        background_color: '#ffffff',
+        display: 'standalone',
+        scope: '/',
+        start_url: '/',
+        icons: [{ src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' }],
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+      },
+    }),
+  ],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
   build: {
     chunkSizeWarningLimit: 600,
-    minify: 'esbuild',       # JS and CSS minification. esbuild required as devDependency.
-    cssMinify: 'esbuild',   # Explicit config — Vite defaults to esbuild for both.
+    minify: 'esbuild',
+    cssMinify: 'esbuild',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react':  ['react', 'react-dom', 'react-router-dom'],
-          'vendor-ui':     ['lucide-react', 'class-variance-authority', 'clsx'],
+        manualChunks(id) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) return 'vendor-react'
+          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx')) return 'vendor-ui'
+          if (id.includes('node_modules/jspdf')) return 'vendor-pdf'
+          if (id.includes('node_modules/html2canvas')) return 'vendor-canvas'
+          if (id.includes('node_modules/@e965/xlsx')) return 'vendor-excel'
+          return undefined
         },
       },
     },
@@ -1201,24 +1384,95 @@ export default defineConfig({
 
 ### `src/styles/globals.css`
 ```css
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * { box-sizing: border-box; }
-  body {
-    @apply bg-white text-text-primary font-sans antialiased;
+  :root {
+    /* text-text-muted — passes WCAG AA 4.7:1 on white (#FFF) */
+    --color-text-muted: 102 117 136;
   }
-  /* Custom focus ring using Tailwind token */
+  .dark {
+    /* text-text-muted — passes WCAG AA 5.1:1 on dark bg (#0F172A) */
+    --color-text-muted: 156 163 175;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  html, body { @apply h-full; }
+  body {
+    @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased dark:bg-slate-900 dark:text-slate-100;
+  }
+  #root { @apply flex min-h-full flex-col; }
+  h1, h2, h3, p { @apply mt-0; }
+  button, input, select, textarea { letter-spacing: 0; }
   :focus-visible {
     @apply outline-2 outline-offset-2 outline-primary;
+  }
+}
+
+@layer utilities {
+  .dark .bg-white { @apply bg-slate-900; }
+  .dark .bg-surface { @apply bg-slate-800; }
+  .dark .border-border { @apply border-slate-700; }
+}
+
+@media print {
+  nav, header, footer,
+  [data-toolbar], [data-sidebar-left], [data-sidebar-right],
+  [data-print-hide],
+  .floating-action-buttons, .mobile-sheet-overlay {
+    display: none !important;
+  }
+
+  [data-table-container] {
+    overflow: visible !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11pt;
+  }
+
+  td, th {
+    border: 1px solid #E5E7EB !important;
+    padding: 6pt 8pt !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  th, [data-header-row] td {
+    background-color: #F1F5F9 !important;
+  }
+
+  tr { break-inside: avoid; }
+
+  [data-table-caption] {
+    font-size: 10pt;
+    font-style: italic;
+    color: #6B7280;
+    margin-bottom: 6pt;
+  }
+
+  @page {
+    margin: 2cm;
+    size: A4 landscape;
   }
 }
 ```
 
 > Note: Resize handle classes are now inlined directly in the `ResizeHandle` component.
-> The `@layer components` block was removed as dead code.
 
 ---
 
@@ -2502,11 +2756,11 @@ A CSP `<meta>` tag is set in `index.html` with the following directives:
 | Directive       | Value                                                              |
 |-----------------|--------------------------------------------------------------------|
 | `default-src`   | `'self'`                                                           |
-| `script-src`    | `'self' 'unsafe-inline'`                                           |
-| `style-src`     | `'self' 'unsafe-inline' https://fonts.googleapis.com`              |
-| `font-src`      | `'self' https://fonts.gstatic.com`                                 |
+| `script-src`    | `'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com` |
+| `style-src`     | `'self' 'unsafe-inline'`                                           |
+| `font-src`      | `'self' data:`                                                     |
 | `img-src`       | `'self' data:`                                                     |
-| `connect-src`   | `'self' ws:` (ws: enables Vite HMR in dev)                        |
+| `connect-src`   | `'self' ws: https://www.googletagmanager.com https://www.google-analytics.com` |
 | `frame-src`     | `'none'`                                                           |
 | `object-src`    | `'none'`                                                           |
 | `base-uri`      | `'self'`                                                           |
@@ -3562,7 +3816,7 @@ src/content/blog/how-to-make-a-table-in-markdown.json
   "title":       "How to Make a Table in Markdown",
   "date":        "2025-09-15",
   "description": "A practical guide to Markdown tables — with examples you can build in Tablesmit and paste anywhere.",
-  "author":      "Olayiwola Akin",
+  "author":      "Olayiwola Akinnagbe",
   "tags":        ["markdown", "tutorial", "tables"],
   "readTime":    4,
   "featured":    false,
@@ -3845,9 +4099,10 @@ A naive single Context holding all table state causes cascade re-renders:
 when one cell value changes, all 1,000 cells re-render because all are consumers
 of the same context value. `React.memo` helps only if props references are stable.
 
-### Solution: Three Contexts, Strict Selectors
+### Solution: Two Contexts + Single TableContext
 
-Split state into three isolated contexts. Components subscribe only to
+State is split across two isolated contexts plus a single `TableContext`
+that provides the derived/UI state. Components subscribe only to
 what they need. Unrelated state changes do not trigger re-renders.
 
 ```
@@ -3867,11 +4122,14 @@ what they need. Unrelated state changes do not trigger re-renders.
 └─────────────────────────────────────────────────────────┘
 
 ┌─────────────────────────────────────────────────────────┐
-│  TableUIContext                                          │
-│  headerStyle, headerColor, sortKey, borderDefaults       │
-│  activePreset, columnTypes[], showSumRow                 │
-│  Changes: when user changes sidebar controls             │
-│  Consumers: sidebar panels, TableHeaderCell              │
+│  TableContext (provider)                                 │
+│  Wraps TableDataContext + TableSelectionContext           │
+│  Provides: headerStyle, headerColor, sortKey,            │
+│  activePreset, columnTypes[], showSumRow, theme,         │
+│  borderDefaults, undo, columnWidths, rowHeights,         │
+│  and all dispatch actions                                │
+│  Changes: when user changes sidebar/toolbar controls     │
+│  Consumers: sidebar panels, TableHeaderCell, TableGrid   │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -3924,7 +4182,7 @@ This means: typing in `R0C0` re-renders ONLY `R0C0`. All other 999 cells stay fr
 src/context/
   TableDataContext.tsx       — cells, columnWidths, rowHeights, mergedRanges
   TableSelectionContext.tsx  — selectedRange, hoveredCell, isDragging
-  TableUIContext.tsx          — headerStyle, colors, sortKey, columnTypes
+  TableContext.tsx           — provider wrapping both contexts; exports hook + dispatch
   index.ts                   — re-exports all contexts and hooks
 ```
 
@@ -6077,7 +6335,7 @@ The filename (without extension) becomes the URL slug:
   "title":       "How to Make a Table in Markdown",
   "date":        "2025-09-15",
   "description": "A practical guide to creating clean tables in Markdown — with examples you can generate in Tablesmit and paste directly.",
-  "author":      "Olayiwola Akin",
+  "author":      "Olayiwola Akinnagbe",
   "tags":        ["markdown", "tutorial", "tables"],
   "readTime":    4,
   "featured":    false,
@@ -6094,7 +6352,7 @@ Markdown tables are simpler than they look..."
 | `title`       | string     | Yes      | H1 of the post and `<title>` tag. Max 60 chars for SEO.    |
 | `date`        | string     | Yes      | ISO 8601 format: `YYYY-MM-DD`. Used for sorting and display.|
 | `description` | string     | Yes      | Meta description. Max 160 chars. Used for SEO and card text.|
-| `author`      | string     | Yes      | Display name. Use "Olayiwola Akin" for posts by the author. |
+| `author`      | string     | Yes      | Display name. Use "Olayiwola Akinnagbe" for posts by the author. |
 | `tags`        | string[]   | Yes      | 1-4 tags. Lowercase. Used for filtering and related posts.  |
 | `readTime`    | number     | Yes      | Estimated minutes to read. Rough guide: 200 words/minute.   |
 | `featured`    | boolean    | No       | `true` pins the post to the top of the blog list. Default: `false`. |
@@ -6438,7 +6696,7 @@ const post = {
   title:       "FILL IN",
   date:        new Date().toISOString().split('T')[0],
   description: "FILL IN — max 160 chars",
-  author:      "Olayiwola Akin",
+  author:      "Olayiwola Akinnagbe",
   tags:        ["FILL IN"],
   readTime:    Math.ceil(content.split(' ').length / 200),
   featured:    false,
