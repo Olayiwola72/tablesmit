@@ -16,7 +16,7 @@ vi.mock('react-i18next', () => {
     'grid.tableEditor': 'Table editor',
     'grid.selectCell': 'Select cell {{id}}',
     // aria
-    'aria.closeMenuSearch': 'Close search',
+    'aria.closeMenu': 'Close menu',
     // export
     'export.exportAs': 'Export as',
     // aiFeatures
