@@ -45,6 +45,7 @@
     "contributeHeading": "كيفية المساهمة",
     "contributeBody": "اقرأ CONTRIBUTION.md في المستودع للحصول على إرشادات حول الإبلاغ عن الأخطاء واقتراح الميزات وتقديم طلبات السحب.",
     "readContributing": "قراءة CONTRIBUTION.md",
+    "ctaNote": "مرخص بموجب MIT. المساهمات مرحب بها.",
     "footerNote": "مرخص تحت MIT. لا ضمانات. بُني بعناية."
   },
   "contact": {
@@ -80,6 +81,7 @@
   },
   "testimonials": {
     "heading": "ماذا يقول الناس.",
+    "subtext": "استمع إلى الكتاب والمحللين والباحثين والمفكرين التقنيين الذين يستخدمون {{name}} يوميًا.",
     "emptyHeading": "لا توجد آراء بعد",
     "emptyBody": "نجمع ملاحظات المستخدمين الأوائل. إذا استخدمت Tablesmit، يسعدنا سماع رأيك.",
     "shareExperience": "شارك تجربتك",
@@ -357,6 +359,13 @@
     "notFoundTitle": "الصفحة غير موجودة — Tablesmit",
     "privacyTitle": "سياسة الخصوصية — Tablesmit",
     "termsTitle": "شروط الاستخدام — Tablesmit"
+  },
+  "features": {
+    "heading": "الميزات",
+    "subtext": "كل ما تحتاجه لبناء جداول منظمة ونظيفة.",
+    "learnMore": "اعرف المزيد",
+    "emptyState": "لا توجد ميزات مدرجة بعد.",
+    "backToFeatures": "العودة إلى الميزات"
   },
   "errors": {
     "pageNotFound": "الصفحة غير موجودة.",

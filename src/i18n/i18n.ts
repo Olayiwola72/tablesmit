@@ -1,8 +1,11 @@
 import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
+import { initReactI18next, setDefaults } from 'react-i18next'
 import Backend from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
+import en from './locales/en.json'
 import { LOCALES } from './config'
+
+setDefaults({ useSuspense: false })
 
 if (!i18n.isInitialized) {
   i18n
@@ -14,14 +17,14 @@ if (!i18n.isInitialized) {
       supportedLngs: LOCALES.map(l => l.code),
       ns: ['common'],
       defaultNS: 'common',
+      resources: {
+        en: { common: en as Record<string, unknown> },
+      },
       backend: {
         loadPath: '/locales/{{lng}}/{{ns}}.json',
       },
       interpolation: {
         escapeValue: false,
-      },
-      react: {
-        useSuspense: true,
       },
       detection: {
         order: ['localStorage', 'navigator'],

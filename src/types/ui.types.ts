@@ -16,4 +16,5 @@ export interface PresetDefinition {
   headerStyle: HeaderStyle
   headers: string[]
   data?: string[][]
+  mergedRanges?: Array<{ startRow: number; startCol: number; endRow: number; endCol: number }>
 }

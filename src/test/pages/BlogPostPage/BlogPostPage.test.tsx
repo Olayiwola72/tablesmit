@@ -40,8 +40,8 @@ describe('BlogPostPage', () => {
     expect(screen.getByText('tables')).toBeInTheDocument()
   })
 
-  it('includes CTA link to /app at the bottom', () => {
+  it('includes CTA link to home at the bottom', () => {
     renderPost('how-to-make-a-table-in-markdown')
-    expect(screen.getByRole('link', { name: /open tablesmit/i })).toHaveAttribute('href', '/app')
+    expect(screen.getByRole('link', { name: /open tablesmit/i })).toHaveAttribute('href', '/')
   })
 })

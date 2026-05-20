@@ -77,7 +77,6 @@ vi.mock('react-i18next', () => {
     'aria.undoDisabled': 'Nothing to undo',
     'aria.languageSelect': 'Select language',
     'aria.openMenu': 'Open menu',
-    'aria.closeMenu': 'Close menu',
     'aria.closePanelOverlay': 'Close panel overlay',
     'aria.closePanel': 'Close panel',
     'aria.themeSelect': 'Select table theme',
@@ -259,6 +258,7 @@ vi.mock('react-i18next', () => {
     'features.subtext': 'Every feature you need to build clean, structured tables.',
     'features.learnMore': 'Learn more',
     'features.emptyState': 'No features listed yet.',
+    'features.backToFeatures': 'Back to Features',
     // errors
     'errors.somethingWrong': 'Something went wrong.',
     'errors.unexpectedError': 'An unexpected error occurred.',

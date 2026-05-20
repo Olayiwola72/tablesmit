@@ -45,6 +45,7 @@
     "contributeHeading": "Cómo contribuir",
     "contributeBody": "Lee CONTRIBUTION.md en el repositorio para obtener pautas sobre cómo reportar errores, sugerir funcionalidades y enviar pull requests.",
     "readContributing": "Leer CONTRIBUTION.md",
+    "ctaNote": "Con licencia MIT. Contribuciones bienvenidas.",
     "footerNote": "Licencia MIT. Sin garantías. Hecho con cuidado."
   },
   "contact": {
@@ -80,6 +81,7 @@
   },
   "testimonials": {
     "heading": "Lo que dicen las personas.",
+    "subtext": "Escuche a escritores, analistas, investigadores y pensadores técnicos que usan {{name}} a diario.",
     "emptyHeading": "Aún no hay testimonios",
     "emptyBody": "Estamos recopilando comentarios de los primeros usuarios. Si has usado Tablesmit, nos encantaría saber de ti.",
     "shareExperience": "Comparte tu experiencia",
@@ -357,6 +359,13 @@
     "notFoundTitle": "Página no encontrada — Tablesmit",
     "privacyTitle": "Política de privacidad — Tablesmit",
     "termsTitle": "Términos de uso — Tablesmit"
+  },
+  "features": {
+    "heading": "Funcionalidades",
+    "subtext": "Todo lo que necesitas para crear tablas limpias y estructuradas.",
+    "learnMore": "Más información",
+    "emptyState": "No hay funcionalidades listadas todavía.",
+    "backToFeatures": "Volver a Funcionalidades"
   },
   "errors": {
     "pageNotFound": "Página no encontrada.",

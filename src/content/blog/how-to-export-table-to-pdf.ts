@@ -3,7 +3,7 @@ import type { BlogPost } from '../../types/blog.types'
 const post: BlogPost = {
   slug: 'how-to-export-table-to-pdf',
   title: 'How to Export a Table to PDF from Your Browser',
-  date: '2025-10-25',
+  date: '2026-02-25',
   description:
     'Exporting a web table to PDF is harder than it should be. Here is the cleanest way to do it — with no browser print dialog, no UI chrome, and no quality loss.',
   author: 'Olayiwola Akinnagbe',

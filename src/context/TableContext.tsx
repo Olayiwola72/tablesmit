@@ -26,7 +26,7 @@ import { siteConfig } from '../config/siteConfig'
 import type { BorderStyle, CellData, ColumnFormat, HeaderStyle, MergeRange, SelectionRange, TableState, TableTheme, TextAlign } from '../types/table.types'
 import type { PresetDefinition } from '../types/ui.types'
 import { useTableHistory } from '../hooks/useTableHistory'
-import { rangeFromSelection, isSingleCellRange, normalizeSelection } from '../utils/mergeUtils'
+import { rangeFromSelection, buildMergeKey, isSingleCellRange, normalizeSelection } from '../utils/mergeUtils'
 import {
   addColumn as addColumnToCells,
   addRow as addRowToCells,
@@ -454,7 +454,10 @@ function reducer(state: TableState, action: TableAction): TableState {
         columnTextAlign: Array.from({ length: action.preset.cols }, () => 'left' as TextAlign),
         cellColors: {},
         cellTextAlign: {},
-        mergedRanges: [],
+        mergedRanges: (action.preset.mergedRanges ?? []).map((r) => ({
+          ...r,
+          key: buildMergeKey(r.startRow, r.startCol, r.endRow, r.endCol),
+        })),
         selectedRange: null,
       }
     }

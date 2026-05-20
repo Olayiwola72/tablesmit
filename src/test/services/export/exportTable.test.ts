@@ -2,6 +2,9 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { exportTable } from '../../../services/exportService'
 import type { CellData } from '../../../types/table.types'
 
+const mockDownloadUrl = vi.hoisted(() => vi.fn())
+vi.mock('../../../services/export/utils', () => ({ downloadUrl: mockDownloadUrl }))
+
 const mockCanvas = vi.hoisted(() => ({
   toDataURL: vi.fn(() => 'data:image/png;base64,fakedata'),
   width: 800,
@@ -31,17 +34,6 @@ vi.mock('jspdf', () => ({ default: mockJspdf }))
 const mockUnparse = vi.hoisted(() => vi.fn(() => 'a,b,c\n1,2,3'))
 vi.mock('papaparse', () => ({ unparse: mockUnparse }))
 
-const mockWorksheet: Record<string, unknown> = vi.hoisted(() => ({}))
-const mockWorkbook = vi.hoisted(() => ({ SheetNames: [], Sheets: {} }))
-const mockUtils = vi.hoisted(() => ({
-  aoa_to_sheet: vi.fn(() => mockWorksheet),
-  encode_cell: vi.fn((addr: { r: number; c: number }) => `R${addr.r}C${addr.c}`),
-  book_new: vi.fn(() => mockWorkbook),
-  book_append_sheet: vi.fn(),
-}))
-const mockWriteFile = vi.hoisted(() => vi.fn())
-vi.mock('@e965/xlsx', () => ({ utils: mockUtils, writeFile: mockWriteFile }))
-
 vi.mock('../../../context/TableContext', () => ({ isHeaderCell: vi.fn() }))
 
 function makeCell(value: string, overrides: Partial<CellData> = {}): CellData {
@@ -59,9 +51,6 @@ describe('exportTable', () => {
     mockCanvas.toDataURL.mockReturnValue('data:image/png;base64,fakedata')
     mockPdfInstance.internal.pageSize.getWidth.mockReturnValue(595.28)
     mockPdfInstance.internal.pageSize.getHeight.mockReturnValue(841.89)
-    mockUtils.aoa_to_sheet = vi.fn(() => mockWorksheet)
-    mockUtils.book_new = vi.fn(() => mockWorkbook)
-    mockUtils.book_append_sheet = vi.fn()
   })
 
   afterEach(() => {
@@ -94,6 +83,6 @@ describe('exportTable', () => {
 
   it('dispatches to Excel strategy', async () => {
     await exportTable(el(), { format: 'excel', cells: [[makeCell('a')]] })
-    expect(mockUtils.aoa_to_sheet).toHaveBeenCalledOnce()
+    expect(mockDownloadUrl).toHaveBeenCalledOnce()
   })
 })

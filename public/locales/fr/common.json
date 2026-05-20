@@ -45,6 +45,7 @@
     "contributeHeading": "Comment contribuer",
     "contributeBody": "Lisez CONTRIBUTION.md dans le dépôt pour les directives sur le signalement de bugs, la suggestion de fonctionnalités et la soumission de pull requests.",
     "readContributing": "Lire CONTRIBUTION.md",
+    "ctaNote": "Sous licence MIT. Contributions bienvenues.",
     "footerNote": "Sous licence MIT. Aucune garantie. Construit avec soin."
   },
   "contact": {
@@ -80,6 +81,7 @@
   },
   "testimonials": {
     "heading": "Ce que les gens disent.",
+    "subtext": "Écoutez les écrivains, analystes, chercheurs et penseurs techniques qui utilisent {{name}} chaque jour.",
     "emptyHeading": "Pas encore de témoignages",
     "emptyBody": "Nous recueillons les retours des premiers utilisateurs. Si vous avez utilisé Tablesmit, nous aimerions connaître votre avis.",
     "shareExperience": "Partagez votre expérience",
@@ -357,6 +359,13 @@
     "notFoundTitle": "Page introuvable — Tablesmit",
     "privacyTitle": "Politique de confidentialité — Tablesmit",
     "termsTitle": "Conditions d'utilisation — Tablesmit"
+  },
+  "features": {
+    "heading": "Fonctionnalités",
+    "subtext": "Tout ce dont vous avez besoin pour créer des tableaux structurés et propres.",
+    "learnMore": "En savoir plus",
+    "emptyState": "Aucune fonctionnalité répertoriée pour le moment.",
+    "backToFeatures": "Retour aux fonctionnalités"
   },
   "errors": {
     "pageNotFound": "Page introuvable.",

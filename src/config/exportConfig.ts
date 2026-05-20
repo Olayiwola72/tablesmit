@@ -12,4 +12,5 @@ export const exportFormats: ExportDefinition[] = [
   { format: 'jpeg', label: 'JPEG', extension: 'jpeg' },
   { format: 'excel', label: 'Excel', extension: 'xlsx' },
   { format: 'csv', label: 'CSV', extension: 'csv' },
+  { format: 'latex', label: 'LaTeX', extension: 'tex' },
 ]

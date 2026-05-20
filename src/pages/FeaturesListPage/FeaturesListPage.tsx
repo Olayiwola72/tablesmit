@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { allFeatures } from '../../services/featureService'
+import { siteConfig } from '../../config/siteConfig'
 
 export default function FeaturesListPage(): ReactNode {
   const { t } = useTranslation()
@@ -19,25 +20,21 @@ export default function FeaturesListPage(): ReactNode {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {allFeatures.map(feature => (
-            <article
+            <Link
               key={feature.slug}
-              className="rounded-md border border-border p-6 transition-colors duration-150 hover:border-primary"
+              to={`${siteConfig.routes.features}/${feature.slug}`}
+              className="block rounded-md border border-border p-6 transition-all duration-150 hover:border-primary hover:shadow-sm"
             >
               <h2 className="mb-2 text-xl font-semibold text-text-primary">
-                <Link to={`/features/${feature.slug}`} className="hover:text-primary">
-                  {feature.heroHeadline}
-                </Link>
+                {feature.heroHeadline}
               </h2>
               <p className="mb-4 text-sm leading-relaxed text-text-secondary">
                 {feature.heroSubtext}
               </p>
-              <Link
-                to={`/features/${feature.slug}`}
-                className="text-sm font-medium text-primary hover:underline"
-              >
+              <span className="text-sm font-medium text-primary">
                 {t('features.learnMore')} &rarr;
-              </Link>
-            </article>
+              </span>
+            </Link>
           ))}
         </div>
 

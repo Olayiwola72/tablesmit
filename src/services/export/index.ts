@@ -3,6 +3,7 @@ import { PDFExporter } from './pdfExporter'
 import { ImageExporter } from './imageExporter'
 import { CSVExporter } from './csvExporter'
 import { ExcelExporter } from './excelExporter'
+import { LatexExporter } from './latexExporter'
 
 const strategies: Record<ExportFormat, ExportStrategy> = {
   pdf: new PDFExporter(),
@@ -10,6 +11,7 @@ const strategies: Record<ExportFormat, ExportStrategy> = {
   jpeg: new ImageExporter('image/jpeg'),
   excel: new ExcelExporter(),
   csv: new CSVExporter(),
+  latex: new LatexExporter(),
 }
 
 export async function exportTable(element: HTMLElement, options: ExportOptions): Promise<void> {

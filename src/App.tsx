@@ -5,12 +5,12 @@ import { Footer } from './components/layout/Footer'
 import { Navbar } from './components/layout/Navbar'
 import { CookieConsent } from './components/ui/CookieConsent'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
+import { BackToTop } from './components/ui/BackToTop'
 import { PageLoader } from './components/ui/PageLoader'
-import { ShortcutsModal } from './components/features/ShortcutsModal/ShortcutsModal'
 import { TooltipProvider } from './components/ui/Tooltip'
 import { siteConfig } from './config/siteConfig'
 
-const LandingPage = lazy(() => import('./pages/LandingPage/LandingPage'))
+const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'))
 const TableMakerPage = lazy(() => import('./pages/TableMakerPage/TableMakerPage'))
 const BlogListPage = lazy(() => import('./pages/BlogListPage/BlogListPage'))
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage/BlogPostPage'))
@@ -23,6 +23,11 @@ const TermsPage = lazy(() => import('./pages/TermsPage/TermsPage'))
 const ChangelogPage = lazy(() => import('./pages/ChangelogPage/ChangelogPage'))
 const TestimonialsPage = lazy(() => import('./pages/TestimonialsPage/TestimonialsPage'))
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage/NotFoundPage'))
+const ShortcutsModal = lazy(() =>
+  import('./components/features/ShortcutsModal/ShortcutsModal').then((m) => ({
+    default: m.ShortcutsModal,
+  })),
+)
 
 export default function App(): ReactNode {
   return (
@@ -31,7 +36,9 @@ export default function App(): ReactNode {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
-            <ShortcutsModal />
+            <Suspense fallback={null}>
+              <ShortcutsModal />
+            </Suspense>
             <CookieConsent />
             <div className="flex flex-1 flex-col">
               <Suspense fallback={<PageLoader />}>
@@ -44,7 +51,7 @@ export default function App(): ReactNode {
                       </ErrorBoundary>
                     }
                   />
-                  <Route path={siteConfig.routes.about} element={<LandingPage />} />
+                  <Route path={siteConfig.routes.about} element={<AboutPage />} />
                   <Route path={siteConfig.routes.blog} element={<BlogListPage />} />
                   <Route path={siteConfig.routes.blogPost} element={<BlogPostPage />} />
                   <Route path={siteConfig.routes.features} element={<FeaturesListPage />} />
@@ -60,6 +67,7 @@ export default function App(): ReactNode {
               </Suspense>
             </div>
             <Footer />
+            <BackToTop />
           </TooltipProvider>
         </BrowserRouter>
       </HelmetProvider>

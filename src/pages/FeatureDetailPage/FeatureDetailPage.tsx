@@ -10,9 +10,9 @@ export default function FeatureDetailPage(): ReactNode {
   const { slug } = useParams<{ slug: string }>()
   const feature = getFeatureBySlug(slug ?? '')
 
-  if (!feature) return <Navigate to="/features" replace />
+  if (!feature) return <Navigate to={siteConfig.routes.features} replace />
 
-  const featureUrl = `${siteConfig.brand.url}/features/${feature.slug}`
+  const featureUrl = `${siteConfig.brand.url}${siteConfig.routes.features}/${feature.slug}`
 
   const relatedFeatures = feature.relatedFeatures
     .map(s => allFeatures.find(f => f.slug === s))
@@ -40,10 +40,10 @@ export default function FeatureDetailPage(): ReactNode {
         {/* Hero */}
         <header className="mx-auto mb-16 max-w-narrow text-center">
           <Link
-            to="/features"
+            to={siteConfig.routes.features}
             className="mb-6 inline-block text-sm text-text-muted hover:text-primary"
           >
-            &larr; {t('blog.backToBlog')}
+            &larr; {t('features.backToFeatures')}
           </Link>
           <h1 className="mb-4 text-3xl font-bold leading-tight text-text-primary sm:text-4xl">
             {feature.heroHeadline}
@@ -118,7 +118,7 @@ export default function FeatureDetailPage(): ReactNode {
               {relatedFeatures.map(rf => rf && (
                 <Link
                   key={rf.slug}
-                  to={`/features/${rf.slug}`}
+                  to={`${siteConfig.routes.features}/${rf.slug}`}
                   className="rounded-md border border-border p-4 transition-colors hover:border-primary"
                 >
                   <h3 className="text-sm font-semibold text-text-primary">
@@ -139,7 +139,7 @@ export default function FeatureDetailPage(): ReactNode {
             {t('blog.ctaTitle')}
           </p>
           <Link
-            to="/"
+            to={siteConfig.routes.home}
             className="text-sm font-semibold text-primary hover:underline"
           >
             {t('blog.openTablesmit')}

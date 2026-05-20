@@ -8,6 +8,7 @@ import {
   generateEmptyTable,
   insertColAt,
   insertRowAt,
+  isTableEmpty,
   normalizeTableData,
   removeColumn,
   removeRow,
@@ -133,6 +134,35 @@ describe('removeColumn', () => {
   it('does not remove the last remaining column', () => {
     const t = generateEmptyTable(3, 1)
     expect(removeColumn(t)[0]).toHaveLength(1)
+  })
+})
+
+describe('isTableEmpty', () => {
+  it('returns true for an empty generated table', () => {
+    expect(isTableEmpty(generateEmptyTable(5, 5))).toBe(true)
+  })
+
+  it('returns false when any cell has a non-empty value', () => {
+    const t = generateEmptyTable(2, 2)
+    t[0][0].value = 'a'
+    expect(isTableEmpty(t)).toBe(false)
+  })
+
+  it('returns true for an empty 1x1 table', () => {
+    expect(isTableEmpty(generateEmptyTable(1, 1))).toBe(true)
+  })
+
+  it('returns true for a table with only whitespace cells', () => {
+    const t = generateEmptyTable(2, 2)
+    t[0][0].value = '  '
+    expect(isTableEmpty(t)).toBe(true)
+  })
+
+  it('returns false when multiple cells have content', () => {
+    const t = generateEmptyTable(3, 3)
+    t[1][1].value = 'hello'
+    t[2][2].value = 'world'
+    expect(isTableEmpty(t)).toBe(false)
   })
 })
 

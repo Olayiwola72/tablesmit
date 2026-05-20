@@ -72,6 +72,8 @@ export function Logo({ variant = 'full', theme = 'light', className }: LogoProps
     role: 'img' as const,
     'aria-label': siteConfig.brand.name,
     className,
+    dir: 'ltr' as const,
+    style: { direction: 'ltr' as const },
   }
 
   /* ── Icon mark (32×32) ── */
@@ -108,6 +110,7 @@ export function Logo({ variant = 'full', theme = 'light', className }: LogoProps
         <text x="52" y="30"
           fontFamily="Inter, -apple-system, sans-serif"
           fontSize="22" fontWeight="600" letterSpacing="-0.5"
+          textAnchor="start"
           fill={fill}
         >Tablesmit</text>
       </svg>
@@ -125,6 +128,7 @@ export function Logo({ variant = 'full', theme = 'light', className }: LogoProps
       <text x="46" y="30"
         fontFamily="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
         fontSize="22" fontWeight="600" letterSpacing="-0.5"
+        textAnchor="start"
         fill={wordFill}
       >Tablesmit</text>
     </svg>
