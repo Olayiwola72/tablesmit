@@ -5,9 +5,6 @@ import * as Sentry from '@sentry/react'
 import './index.scss'
 import './i18n/i18n'
 import App from './App.tsx'
-import { registerPWA } from './pwa.ts'
-
-registerPWA()
 
 const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN as string | undefined
 

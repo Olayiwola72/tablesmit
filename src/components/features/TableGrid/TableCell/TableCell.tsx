@@ -91,12 +91,13 @@ function TableCellRaw({
     : (cellColor || columnColor || rowColor || themeRowBg || contentBgColor || (stickyClasses ? '#ffffff' : undefined))
 
   return (
-    <CellTag
-      role={CellTag === 'td' ? 'gridcell' : 'columnheader'}
-      colSpan={merge ? merge.endCol - merge.startCol + 1 : undefined}
-      rowSpan={merge ? merge.endRow - merge.startRow + 1 : undefined}
-      aria-colindex={col + 1}
-      aria-selected={selected}
+      <CellTag
+        role={CellTag === 'td' ? 'gridcell' : 'columnheader'}
+        colSpan={merge ? merge.endCol - merge.startCol + 1 : undefined}
+        rowSpan={merge ? merge.endRow - merge.startRow + 1 : undefined}
+        aria-label={t('grid.selectCell', { id: `R${row + 1}C${col + 1}` })}
+        aria-colindex={col + 1}
+        aria-selected={selected}
       className={cn(
         'relative min-w-20 p-0 align-top text-xs sm:text-sm',
         CellTag === 'th' ? 'font-semibold text-text-inverse' : 'font-normal text-text-primary',
@@ -120,7 +121,6 @@ function TableCellRaw({
       <div
         contentEditable={!isFormula}
         suppressContentEditableWarning
-        aria-label={t('grid.selectCell', { id: `R${row + 1}C${col + 1}` })}
         className={cn(
           'min-h-11 whitespace-pre-wrap break-words p-1.5 outline-none sm:p-2',
           isFormula && 'cursor-default text-text-muted select-none',
