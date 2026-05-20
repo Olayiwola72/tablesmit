@@ -1,5 +1,6 @@
 import { memo, type ReactNode } from 'react'
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../../../config/siteConfig'
 import type { ColumnFormat } from '../../../../types/table.types'
 import { ResizeHandle } from '../ResizeHandle'
@@ -29,6 +30,7 @@ function TableHeaderCellRaw({
   onAutoFit,
   onContextMenu,
 }: TableHeaderCellProps): ReactNode {
+  const { t } = useTranslation()
   return (
     <div
       className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface pl-2 pr-3 py-1 md:pr-2"
@@ -41,7 +43,7 @@ function TableHeaderCellRaw({
           className="inline-flex items-center gap-0.5 rounded-sm px-1 py-0.5 transition-colors hover:bg-border disabled:cursor-not-allowed disabled:opacity-50"
           onClick={onSort}
           disabled={sortDisabled}
-          title={sortDisabled ? 'Clear merged cells to enable sorting' : 'Sort column'}
+          title={sortDisabled ? t('table.sortDisabledMsg') : t('table.sortColumn')}
         >
           <span className="text-xs font-medium">{`C${index + 1}`}</span>
           <span data-print-hide>
@@ -65,7 +67,7 @@ function TableHeaderCellRaw({
         >
           {siteConfig.columnFormats.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(`table.${option.value}`, option.label)}
             </option>
           ))}
         </select>

@@ -1,15 +1,17 @@
 import type { ReactNode } from 'react'
-import { siteConfig } from '../../../config/siteConfig'
-import { presets } from '../../../config/presets'
+import { useTranslation } from 'react-i18next'
+import { usePresets } from '../../../config/presets'
 import { useTableContext } from '../../../context/TableContext'
 import { Button } from '../../ui/Button'
 import { SectionLabel } from '../../ui/SectionLabel'
 
 export function QuickPresetsPanel(): ReactNode {
+  const { t } = useTranslation()
+  const presets = usePresets()
   const { applyPreset } = useTableContext()
   return (
     <section>
-      <SectionLabel>{siteConfig.labels.templates}</SectionLabel>
+      <SectionLabel>{t('panels.quickPresets')}</SectionLabel>
       <div className="grid gap-2">
         {presets.map((preset) => (
           <Button key={preset.id} variant="secondary" size="sm" onClick={() => applyPreset(preset)}>

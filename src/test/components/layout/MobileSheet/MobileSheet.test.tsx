@@ -63,7 +63,7 @@ describe('MobileSheet', () => {
         <p>Content</p>
       </MobileSheet>,
     )
-    await user.click(screen.getByRole('button', { name: 'Close' }))
+    await user.click(screen.getByRole('button', { name: 'Close panel' }))
     expect(onClose).toHaveBeenCalledOnce()
   })
 

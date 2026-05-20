@@ -1,5 +1,5 @@
 import { memo, type ReactNode } from 'react'
-import { siteConfig } from '../../../../config/siteConfig'
+import { useTranslation } from 'react-i18next'
 import { isHeaderCell } from '../../../../context/TableContext'
 import { cn } from '../../../../lib/utils'
 import type { BorderStyle, CellData, HeaderStyle, MergeRange, SelectionRange } from '../../../../types/table.types'
@@ -74,6 +74,7 @@ function TableCellRaw({
   isFindMatch,
   isCurrentMatch,
 }: TableCellProps): ReactNode {
+  const { t } = useTranslation()
   const CellTag = isHeaderCell(headerStyle, row, col) ? 'th' : 'td'
   const selected = selectedRange ? isCellInMergeRange(cell.id, { ...normalizeSelection(selectedRange) }) : false
   const displayValue = formatCellValue(cell.value, cell.format ?? 'text', row)
@@ -119,7 +120,7 @@ function TableCellRaw({
       <div
         contentEditable={!isFormula}
         suppressContentEditableWarning
-        aria-label={`${isFormula ? 'Formula' : 'Cell'} ${row + 1}, ${col + 1}`}
+        aria-label={t('grid.selectCell', { id: `R${row + 1}C${col + 1}` })}
         className={cn(
           'min-h-11 whitespace-pre-wrap break-words p-1.5 outline-none sm:p-2',
           isFormula && 'cursor-default text-text-muted select-none',
@@ -134,13 +135,13 @@ function TableCellRaw({
       </span>
       <ResizeHandle
         axis="column"
-        label={siteConfig.labels.autoFitColumn}
+        label={t('aria.resizeColumn', { index: col + 1 })}
         onMouseDown={(event) => onColumnResizeStart(event, col, columnWidth)}
         onDoubleClick={() => onAutoFitColumn(col)}
       />
       <ResizeHandle
         axis="row"
-        label={siteConfig.labels.autoFitRow}
+        label={t('aria.resizeRow', { index: row + 1 })}
         onMouseDown={(event) => onRowResizeStart(event, row, rowHeight)}
         onDoubleClick={() => onAutoFitRow(row)}
       />

@@ -1,9 +1,11 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { allPosts, getAllTags } from '../../services/blogService'
 import { formatDate } from '../../utils/formatDate'
 
 export default function BlogListPage(): ReactNode {
+  const { t } = useTranslation()
   const tags = getAllTags()
 
   return (
@@ -11,7 +13,7 @@ export default function BlogListPage(): ReactNode {
       <div className="mx-auto max-w-content">
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-            Writing about tables, structure, and analytical thinking.
+            {t('blog.heading')}
           </h1>
           <p className="mt-3 text-base text-text-secondary">
           </p>
@@ -35,7 +37,7 @@ export default function BlogListPage(): ReactNode {
             >
               {post.featured && (
                 <span className="text-xs font-semibold uppercase tracking-widest text-accent">
-                  Featured
+                  {t('blog.featured')}
                 </span>
               )}
               <time className="text-xs text-text-muted">{formatDate(post.date)}</time>
@@ -48,7 +50,7 @@ export default function BlogListPage(): ReactNode {
                 {post.description}
               </p>
               <div className="flex items-center gap-3 text-xs text-text-muted">
-                <span>{post.readTime} min read</span>
+                <span>{t('blog.minRead', { count: post.readTime })}</span>
                 <span>·</span>
                 <span>{post.author}</span>
                 <span>·</span>

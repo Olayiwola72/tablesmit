@@ -1,5 +1,5 @@
 import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { siteConfig } from '../../../config/siteConfig'
+import { useTranslation } from 'react-i18next'
 
 export type CaptionAlignment = 'left' | 'center' | 'right'
 
@@ -19,6 +19,7 @@ function TableCaptionRaw({
   alignment: CaptionAlignment
   onAlignmentChange: (align: CaptionAlignment) => void
 }): ReactNode {
+  const { t } = useTranslation()
   const [editing, setEditing] = useState(false)
   const [ctxMenu, setCtxMenu] = useState<CtxMenuState | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -70,7 +71,7 @@ function TableCaptionRaw({
           onClick={() => setEditing(true)}
           onContextMenu={handleContextMenu}
         >
-          {siteConfig.labels.tableCaptionPlaceholder}
+          {t('table.addCaption')}
         </button>
       )
     }
@@ -81,7 +82,7 @@ function TableCaptionRaw({
             value={value}
             name="table-caption"
             autoFocus
-            placeholder={siteConfig.labels.tableCaptionPlaceholder}
+            placeholder={t('table.addCaption')}
             rows={2}
             className={`w-full resize-none border-0 bg-transparent p-0 text-sm font-medium text-text-primary outline-none focus:ring-0 ${alignClass}`}
             onChange={(event) => onChange(event.target.value)}
@@ -91,7 +92,7 @@ function TableCaptionRaw({
               if (event.key === 'Escape') { event.currentTarget.blur(); setEditing(false) }
             }}
           />
-          <span className="mb-2 block text-xs text-text-muted" data-print-hide data-export-hide>Right click input for alignment</span>
+          <span className="mb-2 block text-xs text-text-muted" data-print-hide data-export-hide>{t('contextMenu.editCaption')}</span>
         </>
       )
     }
@@ -123,11 +124,11 @@ function TableCaptionRaw({
             style={{ left: ctxMenu.x, top: ctxMenu.y }}
           >
             <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-muted">
-              Caption alignment
+              {t('contextMenu.editCaption')}
             </div>
-            {renderAlignmentOption('L', 'Left', 'left')}
-            {renderAlignmentOption('E', 'Center', 'center')}
-            {renderAlignmentOption('R', 'Right', 'right')}
+            {renderAlignmentOption('L', t('contextMenu.alignLeft'), 'left')}
+            {renderAlignmentOption('E', t('contextMenu.alignCenter'), 'center')}
+            {renderAlignmentOption('R', t('contextMenu.alignRight'), 'right')}
           </div>
         </>
       ) : null}

@@ -1,6 +1,5 @@
 import { exportFormats } from './exportConfig'
 import { headerColorSwatches, contentColorSwatches } from './colorPalette'
-import { presets } from './presets'
 
 export const siteConfig = {
   brand: {
@@ -26,7 +25,6 @@ export const siteConfig = {
     header: headerColorSwatches,
     content: contentColorSwatches,
   },
-  presets,
   columnFormats: [
     { value: 'text', label: 'Text' },
     { value: 'number', label: 'Number' },

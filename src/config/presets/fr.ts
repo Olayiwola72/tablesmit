@@ -1,0 +1,72 @@
+import type { PresetDefinition } from '../../types/ui.types'
+
+const presets: PresetDefinition[] = [
+  {
+    id: 'research',
+    label: 'Notes de recherche',
+    rows: 6,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: ['Source', 'Constat principal', 'Pertinence', 'Notes'],
+    data: [
+      ['Source', 'Constat principal', 'Pertinence', 'Notes'],
+      ['Smith 2025', 'Marché devrait croître de 12 %', 'Élevée', 'Citer dans l\'intro'],
+      ['Lee et al.', 'Changement de préférence utilisateur détecté', 'Moyenne', 'Valider avec enquête'],
+      ['Données internes', 'Rétention chute après 6 mois', 'Élevée', 'Action pour l\'équipe'],
+      ['Rapport sectoriel', 'Trois concurrents émergents', 'Faible', 'Suivi trimestriel'],
+      ['', '', '', ''],
+    ],
+  },
+  {
+    id: 'matrix',
+    label: 'Matrice de fonctionnalités',
+    rows: 7,
+    cols: 4,
+    headerStyle: 'both',
+    headers: [],
+    data: [
+      ['', 'Actuel', 'Objectif', 'Écart'],
+      ['Export', 'PDF uniquement', 'PDF + CSV', 'Export CSV en attente'],
+      ['Formatage', 'De base', 'Markdown complet', 'Nécessite un analyseur'],
+      ['Collaboration', 'Aucune', 'Temps réel', 'Phase 2'],
+      ['Mobile', 'Bureau uniquement', 'Responsive', 'En cours'],
+      ['API', 'Lecture seule', 'Lecture + Écriture', 'Conception approuvée'],
+      ['', '', '', ''],
+    ],
+  },
+  {
+    id: 'tracker',
+    label: 'Suivi de contenu',
+    rows: 7,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: ['Élément', 'Format', 'Échéance', 'Statut'],
+    data: [
+      ['Élément', 'Format', 'Échéance', 'Statut'],
+      ['Rapport T1', 'PDF', '31 janv.', 'Rédaction'],
+      ['Étude de cas', 'Blog', '15 févr.', 'Recherche'],
+      ['Livre blanc', 'PDF', '1er mars', 'Pas commencé'],
+      ['Notes de version', 'Markdown', 'Hebdo', 'En cours'],
+      ['Newsletter', 'Email', 'Mensuel', 'Planifié'],
+      ['', '', '', ''],
+    ],
+  },
+  {
+    id: 'budget',
+    label: 'Résumé budgétaire',
+    rows: 6,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: ['Catégorie', 'Budget', 'Dépensé', 'Restant'],
+    data: [
+      ['Catégorie', 'Budget', 'Dépensé', 'Restant'],
+      ['Logiciels', '5 000 $', '3 200 $', '1 800 $'],
+      ['Prestataires', '12 000 $', '8 500 $', '3 500 $'],
+      ['Infrastructure', '3 000 $', '2 100 $', '900 $'],
+      ['Marketing', '4 000 $', '1 500 $', '2 500 $'],
+      ['', '', '', ''],
+    ],
+  },
+]
+
+export default presets

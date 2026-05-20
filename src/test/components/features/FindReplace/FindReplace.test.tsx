@@ -20,7 +20,7 @@ const defaultProps = {
 describe('FindReplace', () => {
   it('renders placeholder text in search input', () => {
     render(<FindReplace {...defaultProps} />)
-    expect(screen.getByPlaceholderText('Find...')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Search')).toBeInTheDocument()
   })
 
   it('shows "No matches" when totalMatches is 0', () => {
@@ -37,7 +37,7 @@ describe('FindReplace', () => {
     render(<FindReplace {...defaultProps} />)
     expect(screen.getByLabelText('Previous match')).toBeInTheDocument()
     expect(screen.getByLabelText('Next match')).toBeInTheDocument()
-    expect(screen.getByLabelText('Close search')).toBeInTheDocument()
+    expect(screen.getByLabelText('Close menu')).toBeInTheDocument()
   })
 
   it('calls onNext when next button is clicked', () => {
@@ -57,20 +57,20 @@ describe('FindReplace', () => {
   it('calls onClose when close button is clicked', () => {
     const onClose = vi.fn()
     render(<FindReplace {...defaultProps} onClose={onClose} />)
-    fireEvent.click(screen.getByLabelText('Close search'))
+    fireEvent.click(screen.getByLabelText('Close', { exact: false }))
     expect(onClose).toHaveBeenCalledOnce()
   })
 
   it('shows replace section when replaceMode is true', () => {
     render(<FindReplace {...defaultProps} replaceMode={true} />)
-    expect(screen.getByPlaceholderText('Replace with...')).toBeInTheDocument()
+    expect(screen.getByPlaceholderText('Replace with')).toBeInTheDocument()
     expect(screen.getByLabelText('Replace')).toBeInTheDocument()
-    expect(screen.getByLabelText('Replace all')).toBeInTheDocument()
+    expect(screen.getByLabelText(/Replace all/i)).toBeInTheDocument()
   })
 
   it('does not show replace section when replaceMode is false', () => {
     render(<FindReplace {...defaultProps} replaceMode={false} />)
-    expect(screen.queryByPlaceholderText('Replace with...')).not.toBeInTheDocument()
+    expect(screen.queryByPlaceholderText('Replace with')).not.toBeInTheDocument()
   })
 
   it('calls onReplace when replace button is clicked', () => {
@@ -83,21 +83,21 @@ describe('FindReplace', () => {
   it('calls onReplaceAll when replace all button is clicked', () => {
     const onReplaceAll = vi.fn()
     render(<FindReplace {...defaultProps} replaceMode={true} onReplaceAll={onReplaceAll} />)
-    fireEvent.click(screen.getByLabelText('Replace all'))
+    fireEvent.click(screen.getByLabelText(/Replace all/i))
     expect(onReplaceAll).toHaveBeenCalledOnce()
   })
 
   it('calls setQuery when search input changes', () => {
     const setQuery = vi.fn()
     render(<FindReplace {...defaultProps} setQuery={setQuery} />)
-    fireEvent.change(screen.getByPlaceholderText('Find...'), { target: { value: 'test' } })
+    fireEvent.change(screen.getByPlaceholderText('Search'), { target: { value: 'test' } })
     expect(setQuery).toHaveBeenCalledWith('test')
   })
 
   it('calls setReplaceText when replace input changes', () => {
     const setReplaceText = vi.fn()
     render(<FindReplace {...defaultProps} replaceMode={true} setReplaceText={setReplaceText} />)
-    fireEvent.change(screen.getByPlaceholderText('Replace with...'), { target: { value: 'new' } })
+    fireEvent.change(screen.getByPlaceholderText('Replace with'), { target: { value: 'new' } })
     expect(setReplaceText).toHaveBeenCalledWith('new')
   })
 })

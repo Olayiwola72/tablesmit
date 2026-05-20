@@ -21,6 +21,10 @@ function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return <TableProvider>{children}</TableProvider>
 }
 
+function getCell(row: number, col: number, cols: number = DEFAULT_COLS): HTMLElement {
+  return screen.getAllByRole('gridcell')[row * cols + col]
+}
+
 function renderTableGrid(props: Record<string, unknown> = {}): { tableRef: React.RefObject<HTMLDivElement | null> } {
   const tableRef = createRef<HTMLDivElement>()
   render(<TableGrid tableRef={tableRef} {...props} />, { wrapper: Wrapper })
@@ -71,7 +75,7 @@ describe('TableGrid', () => {
   it('selects a cell on click', async () => {
     const user = userEvent.setup()
     renderTableGrid()
-    const cell = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell = getCell(0, 0)
     expect(cell).toHaveAttribute('aria-selected', 'false')
     await user.click(cell)
     expect(cell).toHaveAttribute('aria-selected', 'true')
@@ -80,8 +84,8 @@ describe('TableGrid', () => {
   it('selects a different cell when a second cell is clicked', async () => {
     const user = userEvent.setup()
     renderTableGrid()
-    const cellA = screen.getByRole('gridcell', { name: /cell 1, 1/i })
-    const cellB = screen.getByRole('gridcell', { name: /cell 2, 2/i })
+    const cellA = getCell(0, 0)
+    const cellB = getCell(1, 1)
     await user.click(cellA)
     expect(cellA).toHaveAttribute('aria-selected', 'true')
     expect(cellB).toHaveAttribute('aria-selected', 'false')
@@ -141,9 +145,9 @@ describe('TableGrid', () => {
 
   it('highlights cells that match findMatches', () => {
     renderTableGrid({ findMatches: [{ row: 0, col: 0 }, { row: 1, col: 1 }] })
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
-    const cell11 = screen.getByRole('gridcell', { name: /cell 2, 2/i })
-    const cell01 = screen.getByRole('gridcell', { name: /cell 1, 2/i })
+    const cell00 = getCell(0, 0)
+    const cell11 = getCell(1, 1)
+    const cell01 = getCell(0, 1)
     expect(cell00.className).toContain('bg-accent-light')
     expect(cell11.className).toContain('bg-accent-light')
     expect(cell01.className).not.toContain('bg-accent-light')
@@ -154,8 +158,8 @@ describe('TableGrid', () => {
       findMatches: [{ row: 0, col: 0 }, { row: 2, col: 2 }],
       currentFindMatch: { row: 0, col: 0 },
     })
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
-    const cell22 = screen.getByRole('gridcell', { name: /cell 3, 3/i })
+    const cell00 = getCell(0, 0)
+    const cell22 = getCell(2, 2)
     expect(cell00.className).toContain('ring-accent')
     expect(cell22.className).toContain('bg-accent-light')
     expect(cell22.className).not.toContain('ring-accent')
@@ -165,70 +169,70 @@ describe('TableGrid', () => {
 
   it('moves focus to the next cell on ArrowRight key', () => {
     renderTableGrid()
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell00 = getCell(0, 0)
     const contentEditable = cell00.querySelector<HTMLElement>('[contenteditable]')
     expect(contentEditable).not.toBeNull()
 
     contentEditable!.focus()
     fireEvent.keyDown(contentEditable!, { key: 'ArrowRight' })
 
-    const cell01 = screen.getByRole('gridcell', { name: /cell 1, 2/i })
+    const cell01 = getCell(0, 1)
     const targetEditable = cell01.querySelector<HTMLElement>('[contenteditable]')
     expect(document.activeElement).toBe(targetEditable)
   })
 
   it('moves focus to the next row on ArrowDown key', () => {
     renderTableGrid()
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell00 = getCell(0, 0)
     const contentEditable = cell00.querySelector<HTMLElement>('[contenteditable]')
     contentEditable!.focus()
     fireEvent.keyDown(contentEditable!, { key: 'ArrowDown' })
-    const cell10 = screen.getByRole('gridcell', { name: /cell 2, 1/i })
+    const cell10 = getCell(1, 0)
     const targetEditable = cell10.querySelector<HTMLElement>('[contenteditable]')
     expect(document.activeElement).toBe(targetEditable)
   })
 
   it('moves to previous cell on ArrowLeft key', () => {
     renderTableGrid()
-    const cell01 = screen.getByRole('gridcell', { name: /cell 1, 2/i })
+    const cell01 = getCell(0, 1)
     const contentEditable = cell01.querySelector<HTMLElement>('[contenteditable]')
     contentEditable!.focus()
     fireEvent.keyDown(contentEditable!, { key: 'ArrowLeft' })
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell00 = getCell(0, 0)
     const targetEditable = cell00.querySelector<HTMLElement>('[contenteditable]')
     expect(document.activeElement).toBe(targetEditable)
   })
 
   it('moves to previous row on ArrowUp key', () => {
     renderTableGrid()
-    const cell10 = screen.getByRole('gridcell', { name: /cell 2, 1/i })
+    const cell10 = getCell(1, 0)
     const contentEditable = cell10.querySelector<HTMLElement>('[contenteditable]')
     contentEditable!.focus()
     fireEvent.keyDown(contentEditable!, { key: 'ArrowUp' })
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell00 = getCell(0, 0)
     const targetEditable = cell00.querySelector<HTMLElement>('[contenteditable]')
     expect(document.activeElement).toBe(targetEditable)
   })
 
   it('moves to first cell of next row on Tab at end of row', () => {
     renderTableGrid()
-    const cell04 = screen.getByRole('gridcell', { name: /cell 1, 5/i })
+    const cell04 = getCell(0, 4)
     const contentEditable = cell04.querySelector<HTMLElement>('[contenteditable]')
     contentEditable!.focus()
     fireEvent.keyDown(contentEditable!, { key: 'Tab' })
-    const cell10 = screen.getByRole('gridcell', { name: /cell 2, 1/i })
+    const cell10 = getCell(1, 0)
     const targetEditable = cell10.querySelector<HTMLElement>('[contenteditable]')
     expect(document.activeElement).toBe(targetEditable)
   })
 
   it('moves to last cell of previous row on Shift+Tab at start of row', () => {
     renderTableGrid()
-    const cell00 = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell00 = getCell(0, 0)
     const contentEditable = cell00.querySelector<HTMLElement>('[contenteditable]')
     contentEditable!.focus()
     fireEvent.keyDown(contentEditable!, { key: 'Tab', shiftKey: true })
     // Should wrap: row stays 0 (can't go below 0), col wraps to last
-    const lastCell = screen.getByRole('gridcell', { name: /cell 1, 5/i })
+    const lastCell = getCell(0, 4)
     const targetEditable = lastCell.querySelector<HTMLElement>('[contenteditable]')
     expect(document.activeElement).toBe(targetEditable)
   })
@@ -304,7 +308,7 @@ describe('TableGrid', () => {
   it('does not show undo toast when pressing Ctrl+Z with contentEditable focused', () => {
     renderTableGrid()
 
-    const cell = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell = getCell(0, 0)
     const editable = cell.querySelector<HTMLElement>('[contenteditable]')
     expect(editable).not.toBeNull()
 
@@ -327,7 +331,7 @@ describe('TableGrid', () => {
     const user = userEvent.setup()
     renderTableGrid()
 
-    const cell = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell = getCell(0, 0)
     await user.pointer({ keys: '[MouseRight]', target: cell })
 
     expect(await screen.findByText(/R1 · C1/)).toBeInTheDocument()
@@ -337,7 +341,7 @@ describe('TableGrid', () => {
     const user = userEvent.setup()
     renderTableGrid()
 
-    const cell = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell = getCell(0, 0)
     await user.pointer({ keys: '[MouseRight]', target: cell })
     expect(await screen.findByText(/R1 · C1/)).toBeInTheDocument()
 
@@ -351,7 +355,7 @@ describe('TableGrid', () => {
     const user = userEvent.setup()
     renderTableGrid()
 
-    const cell = screen.getByRole('gridcell', { name: /cell 1, 1/i })
+    const cell = getCell(0, 0)
     await user.pointer({ keys: '[MouseRight]', target: cell })
     expect(await screen.findByText(/R1 · C1/)).toBeInTheDocument()
 

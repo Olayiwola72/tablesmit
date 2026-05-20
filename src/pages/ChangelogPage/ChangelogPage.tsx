@@ -1,12 +1,14 @@
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { CHANGELOG, getChangeStyle } from '../../config/changelog'
 
 export function ChangelogPage(): ReactNode {
+  const { t } = useTranslation()
   return (
     <main className="mx-auto max-w-narrow px-4 py-16">
-      <h1 className="text-3xl font-bold text-text-primary">Changelog</h1>
+      <h1 className="text-3xl font-bold text-text-primary">{t('nav.changelog')}</h1>
       <p className="mt-3 text-base text-text-secondary">
-        Every release of Tablesmit, documented.
+        {t('changelogDescription', 'Every release of Tablesmit, documented.')}
       </p>
 
       <div className="mt-12 space-y-10">

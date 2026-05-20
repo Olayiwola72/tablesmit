@@ -1,25 +1,33 @@
 import type { ReactNode } from 'react'
-import { siteConfig } from '../../../config/siteConfig'
+import { useTranslation } from 'react-i18next'
 import { useTableContext } from '../../../context/TableContext'
 import type { BorderStyle } from '../../../types/table.types'
 import { SectionLabel } from '../../ui/SectionLabel'
 
 export function BorderPanel(): ReactNode {
+  const { t } = useTranslation()
   const table = useTableContext()
-  const { labels } = siteConfig
+
+  const borderStyleOptions = [
+    { value: 'none' as const, label: t('borderPanel.noBorder') },
+    { value: 'solid' as const, label: t('borderPanel.solid') },
+    { value: 'dotted' as const, label: t('borderPanel.dotted') },
+    { value: 'dashed' as const, label: t('borderPanel.dashed') },
+    { value: 'double' as const, label: t('borderPanel.double') },
+  ]
 
   return (
     <section>
-      <SectionLabel>{labels.borderStyle}</SectionLabel>
+      <SectionLabel>{t('panels.borderStyle')}</SectionLabel>
       <div className="space-y-3">
         <select
           value={table.borderStyle}
           name="border-style"
-          aria-label={labels.borderStyle}
+          aria-label={t('panels.borderStyle')}
           className="h-8 w-full rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
           onChange={(event) => table.setBorderStyle(event.target.value as BorderStyle)}
         >
-          {siteConfig.labels.borderStyles.map((option) => (
+          {borderStyleOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -27,7 +35,7 @@ export function BorderPanel(): ReactNode {
         </select>
         {table.borderStyle !== 'none' && (
           <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
-            <span>{labels.borderColor}</span>
+            <span>{t('borderPanel.borderColor')}</span>
             <input type="color" name="border-color" value={table.borderColor} onChange={(event) => table.setBorderColor(event.target.value)} />
           </label>
         )}

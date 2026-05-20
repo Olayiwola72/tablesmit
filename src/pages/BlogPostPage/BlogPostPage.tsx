@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import ReactMarkdown from 'react-markdown'
@@ -8,6 +9,7 @@ import { formatDate } from '../../utils/formatDate'
 import { siteConfig } from '../../config/siteConfig'
 
 export default function BlogPostPage(): ReactNode {
+  const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
   const post = getPostBySlug(slug ?? '')
 
@@ -42,7 +44,7 @@ export default function BlogPostPage(): ReactNode {
             <span>·</span>
             <time>{formatDate(post.date)}</time>
             <span>·</span>
-            <span>{post.readTime} min read</span>
+            <span>{t('blog.minRead', { count: post.readTime })}</span>
             <span>·</span>
             <span>{post.author}</span>
           </div>
@@ -83,13 +85,13 @@ export default function BlogPostPage(): ReactNode {
 
         <div className="mt-16 rounded-md border border-border bg-surface p-6 text-center">
           <p className="mb-3 text-sm text-text-secondary">
-            Try Tablesmit for yourself — free, no signup required.
+            {t('blog.ctaTitle')}
           </p>
           <Link
             to="/app"
             className="text-sm font-semibold text-primary hover:underline"
           >
-            Open Tablesmit
+            {t('blog.openTablesmit')}
           </Link>
         </div>
       </article>
