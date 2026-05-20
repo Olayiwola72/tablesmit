@@ -16,7 +16,7 @@ vi.mock('react-i18next', () => {
     'grid.tableEditor': 'Table editor',
     'grid.selectCell': 'Select cell {{id}}',
     // aria
-    'aria.closeMenu': 'Close search',
+    'aria.closeMenuSearch': 'Close search',
     // export
     'export.exportAs': 'Export as',
     // aiFeatures
@@ -255,7 +255,7 @@ vi.mock('react-i18next', () => {
     'themePicker.monochrome': 'Monochrome',
     // features
     'features.heading': 'Features',
-    'features.subtext': 'Everything you need to build clean, structured tables.',
+    'features.subtext': 'Every feature you need to build clean, structured tables.',
     'features.learnMore': 'Learn more',
     'features.emptyState': 'No features listed yet.',
     'features.backToFeatures': 'Back to Features',
