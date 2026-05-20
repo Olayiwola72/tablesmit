@@ -59,7 +59,7 @@ export function CookieConsent(): ReactNode {
       <div className="mx-auto flex max-w-content flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-text-secondary">
           {t('cookieConsent.message')}
-          <a href={siteConfig.routes.privacy} className="ml-1 text-primary underline underline-offset-2" aria-label={t('cookieConsent.learnMoreAria')}>{t('cookieConsent.learnMore')}</a>.
+          <a href={siteConfig.routes.privacy} className="ml-1 text-primary underline underline-offset-2" aria-label={t('cookieConsent.learnMoreAria')}>{t('cookieConsent.learnMore')} {t('footer.privacyPolicy')}</a>.
         </p>
         <div className="flex shrink-0 gap-2">
           <Button variant="ghost" size="sm" onClick={decline}>{t('cookieConsent.decline')}</Button>

@@ -121,7 +121,8 @@ function TableMakerContent(): ReactNode {
 
       if (isCtrl && e.key === 'c') {
         const target = e.target as HTMLElement
-        if (target.closest('[contenteditable]')) return
+        const tag = target.tagName.toLowerCase()
+        if (target.closest('[contenteditable]') || tag === 'input' || tag === 'textarea' || tag === 'select') return
         e.preventDefault()
 
         if (isTableEmpty(cells)) return
