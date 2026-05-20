@@ -135,14 +135,13 @@ describe('LatexExporter', () => {
     expect(result).toContain('\\$100 \\& more\\_')
   })
 
-  it('skips hidden cells', async () => {
+  it('emits empty placeholder for hidden cells to preserve column count', async () => {
     const cells: CellData[][] = [
       [makeCell('A'), makeCell('B', { isHidden: true }), makeCell('C')],
     ]
     await new LatexExporter().export(el(), { format: 'latex', cells })
     const result = await getResult()
-    expect(result).toContain('A & C \\\\')
-    expect(result).not.toContain('B')
+    expect(result).toContain('A &  & C \\\\')
   })
 
   it('uses \\multicolumn for cells with colSpan > 1', async () => {
@@ -171,6 +170,22 @@ describe('LatexExporter', () => {
     })
     const result = await getResult()
     expect(result).toContain('{cr}')
+  })
+
+  it('preserves column count under rowspan via empty placeholders', async () => {
+    const cells: CellData[][] = [
+      [makeCell('A', { rowSpan: 2 }), makeCell('B'), makeCell('C')],
+      [makeCell('', { isHidden: true }), makeCell('D'), makeCell('E')],
+    ]
+    await new LatexExporter().export(el(), { format: 'latex', cells })
+    const result = await getResult()
+    const lines = result.split('\n').filter(l => l.includes('\\\\'))
+    // Row 0: multirow + 2 normal cells
+    expect(lines[0]).toContain('\\multirow{2}')
+    expect(lines[0]).toContain('B')
+    expect(lines[0]).toContain('C')
+    // Row 1: empty placeholder (hidden) + 2 normal cells = 3 columns
+    expect(lines[1]).toMatch(/^\s*& D & E/)
   })
 
   it('uses default filename tablesmit-table.tex when none provided', () => {

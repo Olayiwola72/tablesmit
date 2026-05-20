@@ -6,19 +6,20 @@ import './i18n/i18n'
 import App from './App.tsx'
 import { registerPWA } from './pwa.ts'
 
-const dsn = import.meta.env.VITE_SENTRY_DSN as string | undefined
-if (import.meta.env.PROD && dsn) {
-  import('@sentry/react').then((Sentry) => {
-    Sentry.init({
-      dsn,
-      environment: 'production',
-      tracesSampleRate: 0.1,
-      integrations: [Sentry.browserTracingIntegration()],
-      beforeSend(event) {
-        if (event.extra?.cells) delete event.extra.cells
-        return event
-      },
-    })
+registerPWA()
+
+const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN as string | undefined
+
+if (import.meta.env.PROD && SENTRY_DSN) {
+  Sentry.init({
+    dsn: SENTRY_DSN,
+    environment: 'production',
+    tracesSampleRate: 0.1,
+    integrations: [Sentry.browserTracingIntegration()],
+    beforeSend(event) {
+      if (event.extra?.cells) delete event.extra.cells
+      return event
+    },
   })
 }
 

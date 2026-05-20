@@ -76,7 +76,10 @@ export class LatexExporter implements ExportStrategy {
 
       for (let c = 0; c < row.length; c++) {
         const cell = row[c]
-        if (cell.isHidden) continue
+        if (cell.isHidden) {
+          rowParts.push('')
+          continue
+        }
 
         let value = escapeLatex(cell.value)
 
