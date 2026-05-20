@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { allPosts, getAllTags } from '../../services/blogService'
 import { formatDate } from '../../utils/formatDate'
+import { siteConfig } from '../../config/siteConfig'
 
 export default function BlogListPage(): ReactNode {
   const { t } = useTranslation()
@@ -11,6 +12,12 @@ export default function BlogListPage(): ReactNode {
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-content">
+        <Link
+          to={siteConfig.routes.home}
+          className="mb-8 inline-flex items-center gap-1 text-sm text-text-muted hover:text-primary"
+        >
+          &larr; Home
+        </Link>
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
             {t('blog.heading')}
@@ -42,7 +49,7 @@ export default function BlogListPage(): ReactNode {
               )}
               <time className="text-xs text-text-muted">{formatDate(post.date)}</time>
               <h2 className="mb-2 mt-2 text-xl font-semibold text-text-primary">
-                <Link to={`/blog/${post.slug}`} className="hover:text-primary">
+                <Link to={`${siteConfig.routes.blog}/${post.slug}`} className="hover:text-primary">
                   {post.title}
                 </Link>
               </h2>

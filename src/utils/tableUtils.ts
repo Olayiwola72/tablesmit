@@ -92,6 +92,10 @@ export function updateColumnFormat(
   )
 }
 
+export function isTableEmpty(cells: CellData[][]): boolean {
+  return cells.every(row => row.every(cell => !cell.value.trim()))
+}
+
 export function sortRows(
   rows: CellData[][],
   colIndex: number,

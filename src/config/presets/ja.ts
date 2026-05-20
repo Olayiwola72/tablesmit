@@ -67,6 +67,23 @@ const presets: PresetDefinition[] = [
       ['', '', '', ''],
     ],
   },
+  {
+    id: 'q1',
+    label: '第1四半期の実績',
+    rows: 6,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: [],
+    data: [
+      ['第1四半期の実績', '', '', '目標'],
+      ['1月', '2月', '3月', ''],
+      ['$10,000', '$12,000', '$15,000', '$50,000'],
+      ['1,200', '1,350', '1,500', '4,500'],
+      ['85%', '90%', '92%', '90%'],
+      ['', '', '', ''],
+    ],
+    mergedRanges: [{ startRow: 0, startCol: 0, endRow: 0, endCol: 2 }],
+  },
 ]
 
 export default presets

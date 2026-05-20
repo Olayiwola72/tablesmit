@@ -3,7 +3,7 @@ import type { BlogPost } from '../../types/blog.types'
 const post: BlogPost = {
   slug: 'copy-excel-table-to-web',
   title: 'How to Copy a Table from Excel to the Web',
-  date: '2025-10-15',
+  date: '2026-06-05',
   description:
     'Copying a table from Excel to a web tool usually means rebuilding it from scratch. Tablesmit reads your clipboard and generates the table automatically.',
   author: 'Olayiwola Akinnagbe',

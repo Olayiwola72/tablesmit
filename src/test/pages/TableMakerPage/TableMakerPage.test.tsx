@@ -1,4 +1,4 @@
-import { act, render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
 import { TooltipProvider } from '../../../components/ui/Tooltip'
@@ -55,29 +55,6 @@ describe('TableMakerPage', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
     const statusItems = screen.getAllByText(/table/i)
     expect(statusItems.length).toBeGreaterThanOrEqual(1)
-  })
-
-  it('does not show back-to-top button by default', () => {
-    render(<TableMakerPage />, { wrapper: Wrapper })
-    expect(screen.queryByLabelText('Back to top')).not.toBeInTheDocument()
-  })
-
-  it('shows back-to-top button after scrolling past 400px', () => {
-    render(<TableMakerPage />, { wrapper: Wrapper })
-    expect(screen.queryByLabelText('Back to top')).not.toBeInTheDocument()
-    act(() => { window.scrollY = 500 })
-    fireEvent.scroll(window)
-    expect(screen.getByLabelText('Back to top')).toBeInTheDocument()
-  })
-
-  it('hides back-to-top button when scrolling back up', () => {
-    render(<TableMakerPage />, { wrapper: Wrapper })
-    act(() => { window.scrollY = 500 })
-    fireEvent.scroll(window)
-    expect(screen.getByLabelText('Back to top')).toBeInTheDocument()
-    act(() => { window.scrollY = 100 })
-    fireEvent.scroll(window)
-    expect(screen.queryByLabelText('Back to top')).not.toBeInTheDocument()
   })
 
   it('opens find panel on Ctrl+F', () => {

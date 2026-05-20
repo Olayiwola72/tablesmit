@@ -3,7 +3,7 @@ import type { BlogPost } from '../../types/blog.types'
 const post: BlogPost = {
   slug: 'best-table-tool-for-researchers',
   title: 'The Best Table Tool for Researchers and Analysts',
-  date: '2025-10-08',
+  date: '2026-04-04',
   description: 'Researchers and analysts need tables that are precise, structured, and exportable. Here is why Tablesmit fits the workflow.',
   author: 'Olayiwola Akinnagbe',
   tags: ['researchers', 'analysts', 'productivity'],
@@ -49,7 +49,7 @@ Export to PDF for submission, Excel for further analysis, PNG for embedding in p
 
 Tablesmit is MIT licensed. Researchers who value transparency can inspect the code and verify that no data leaves their browser.
 
-[Start building your research table](/app).`,
+[Start building your research table](/).`,
 }
 
 export default post

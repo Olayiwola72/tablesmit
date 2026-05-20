@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, expect, it } from 'vitest'
-import { LandingPage } from '../../../pages/LandingPage/LandingPage'
+import { AboutPage } from '../../../pages/AboutPage/AboutPage'
 
-describe('LandingPage', () => {
+describe('AboutPage', () => {
   it('renders the analytical-writing hero copy', () => {
     render(
       <MemoryRouter>
-        <LandingPage />
+        <AboutPage />
       </MemoryRouter>,
     )
 

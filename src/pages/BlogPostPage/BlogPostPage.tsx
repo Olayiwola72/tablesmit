@@ -1,21 +1,67 @@
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode, type ComponentPropsWithoutRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Helmet } from 'react-helmet-async'
+import { Copy, Check } from 'lucide-react'
 import { getPostBySlug } from '../../services/blogService'
 import { formatDate } from '../../utils/formatDate'
 import { siteConfig } from '../../config/siteConfig'
+import { toast } from '../../utils/toast'
+
+function extractText(node: ReactNode): string {
+  if (typeof node === 'string') return node
+  if (Array.isArray(node)) return node.map(extractText).join('')
+  if (node && typeof node === 'object' && 'props' in node) {
+    return extractText((node as { props: { children: ReactNode } }).props.children)
+  }
+  return ''
+}
+
+type PreBlockProps = ComponentPropsWithoutRef<'pre'>
+
+function PreBlock(props: PreBlockProps): ReactNode {
+  const [copied, setCopied] = useState(false)
+  const { children } = props
+
+  const handleCopy = (): void => {
+    const text = extractText(children)
+    if (!text) return
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(true)
+      toast.success('Copied to clipboard')
+      setTimeout(() => setCopied(false), 2000)
+    }).catch(() => toast.error('Failed to copy'))
+  }
+
+  return (
+    <div className="group relative">
+      <button
+        type="button"
+        onClick={handleCopy}
+        className="absolute right-2 top-2 z-10 rounded-sm bg-white/90 p-1.5 text-text-muted opacity-0 shadow-sm ring-1 ring-border transition-opacity duration-150 hover:bg-white hover:text-text-primary group-hover:opacity-100 focus-visible:opacity-100"
+        aria-label="Copy code"
+      >
+        {copied ? <Check size={14} /> : <Copy size={14} />}
+      </button>
+      <pre>{children}</pre>
+    </div>
+  )
+}
+
+const markdownComponents = {
+  pre: PreBlock,
+}
 
 export default function BlogPostPage(): ReactNode {
   const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
   const post = getPostBySlug(slug ?? '')
 
-  if (!post) return <Navigate to="/blog" replace />
+  if (!post) return <Navigate to={siteConfig.routes.blog} replace />
 
-  const postUrl = `${siteConfig.brand.url}/blog/${post.slug}`
+  const postUrl = `${siteConfig.brand.url}/${siteConfig.routes.blog}/${post.slug}`
 
   return (
     <>
@@ -38,9 +84,15 @@ export default function BlogPostPage(): ReactNode {
       </Helmet>
 
       <article className="mx-auto max-w-narrow px-4 py-16">
+        <Link
+          to={siteConfig.routes.blog}
+          className="mb-8 inline-flex items-center gap-1 text-sm text-text-muted hover:text-primary"
+        >
+          &larr; {t('blog.backToBlog')}
+        </Link>
         <header className="mb-10">
           <div className="mb-4 flex items-center gap-2 text-xs text-text-muted">
-            <Link to="/blog" className="hover:text-primary">Blog</Link>
+            <Link to={siteConfig.routes.blog} className="hover:text-primary">Blog</Link>
             <span>·</span>
             <time>{formatDate(post.date)}</time>
             <span>·</span>
@@ -72,13 +124,14 @@ export default function BlogPostPage(): ReactNode {
                         prose-headings:text-text-primary
                         prose-p:text-text-secondary
                         prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                        prose-code:rounded-sm prose-code:bg-surface prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm
-                        prose-pre:rounded-md prose-pre:border prose-pre:border-border prose-pre:bg-surface
+                        prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-text-primary
+                        prose-pre:rounded-md prose-pre:border prose-pre:border-border prose-pre:bg-gray-100 prose-pre:text-text-primary
+                        prose-table:border-collapse
                         prose-th:bg-primary prose-th:text-white prose-th:px-3 prose-th:py-2 prose-th:text-left prose-th:font-semibold
-                        prose-td:border prose-td:border-border prose-td:px-3 prose-td:py-2
-                        prose-tr:nth-child(even) prose-td:bg-surface
+                        prose-td:border prose-td:border-border prose-td:px-3 prose-td:py-2 prose-td:text-text-primary
+                        prose-tr:nth-child(even) prose-td:bg-gray-50
                         prose-blockquote:border-l-primary prose-blockquote:text-text-secondary">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
             {post.content}
           </ReactMarkdown>
         </div>
@@ -88,7 +141,7 @@ export default function BlogPostPage(): ReactNode {
             {t('blog.ctaTitle')}
           </p>
           <Link
-            to="/app"
+            to={siteConfig.routes.home}
             className="text-sm font-semibold text-primary hover:underline"
           >
             {t('blog.openTablesmit')}

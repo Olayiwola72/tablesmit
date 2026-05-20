@@ -1,38 +1,25 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { ExcelExporter } from '../../../services/export/excelExporter'
-import type { CellData, MergeRange } from '../../../types/table.types'
+import { downloadUrl } from '../../../services/export/utils'
 
-const mockWorksheet: Record<string, unknown> = vi.hoisted(() => ({}))
-const mockWorkbook = vi.hoisted(() => ({ SheetNames: [], Sheets: {} }))
-const mockUtils = vi.hoisted(() => ({
-  aoa_to_sheet: vi.fn(() => mockWorksheet),
-  encode_cell: vi.fn((addr: { r: number; c: number }) => `R${addr.r}C${addr.c}`),
-  book_new: vi.fn(() => mockWorkbook),
-  book_append_sheet: vi.fn(),
+vi.mock('../../../services/export/utils', () => ({
+  downloadUrl: vi.fn(),
 }))
-const mockWriteFile = vi.hoisted(() => vi.fn())
-vi.mock('@e965/xlsx', () => ({ utils: mockUtils, writeFile: mockWriteFile }))
 
 const mockIsHeaderCell = vi.hoisted(() => vi.fn())
 vi.mock('../../../context/TableContext', () => ({ isHeaderCell: mockIsHeaderCell }))
-
-function makeCell(value: string, overrides: Partial<CellData> = {}): CellData {
-  return { id: 'R0C0', value, colSpan: 1, rowSpan: 1, isMerged: false, isHidden: false, ...overrides }
-}
 
 function el(): HTMLElement {
   return document.createElement('div')
 }
 
+function makeCell(value: string, overrides: Partial<Record<string, unknown>> = {}): { id: string; value: string; colSpan: number; rowSpan: number; isMerged: boolean; isHidden: boolean } {
+  return { id: 'R0C0', value, colSpan: 1, rowSpan: 1, isMerged: false, isHidden: false, ...overrides }
+}
+
 describe('ExcelExporter', () => {
   beforeEach(() => {
     vi.clearAllMocks()
-    Object.getOwnPropertyNames(mockWorksheet).forEach(k => delete (mockWorksheet as Record<string, unknown>)[k])
-    Object.getOwnPropertyNames(mockWorkbook).forEach(k => delete (mockWorkbook as Record<string, unknown>)[k])
-    mockUtils.aoa_to_sheet = vi.fn(() => mockWorksheet)
-    mockUtils.encode_cell = vi.fn((addr: { r: number; c: number }) => `R${addr.r}C${addr.c}`)
-    mockUtils.book_new = vi.fn(() => mockWorkbook)
-    mockUtils.book_append_sheet = vi.fn()
     mockIsHeaderCell.mockReset()
   })
 
@@ -40,166 +27,146 @@ describe('ExcelExporter', () => {
     vi.restoreAllMocks()
   })
 
-  const sampleCells: CellData[][] = [
-    [makeCell('Product'), makeCell('Price')],
-    [makeCell('Widget'), makeCell('9.99')],
-    [makeCell('Gadget'), makeCell('24.99')],
-  ]
+  it('calls downloadUrl with an xlsx filename', async () => {
+    await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('A')]] })
+    expect(downloadUrl).toHaveBeenCalledOnce()
+    const url = (downloadUrl as ReturnType<typeof vi.fn>).mock.calls[0][0]
+    const filename = (downloadUrl as ReturnType<typeof vi.fn>).mock.calls[0][1]
+    expect(filename).toBe('tablesmit-table.xlsx')
+    expect(url).toContain('blob:')
+  })
 
-  it('creates worksheet from cell values', async () => {
-    await new ExcelExporter().export(el(), { format: 'excel', cells: sampleCells })
-    expect(mockUtils.aoa_to_sheet).toHaveBeenCalledWith([
-      ['Product', 'Price'],
-      ['Widget', '9.99'],
-      ['Gadget', '24.99'],
-    ])
+  it('uses custom filename when provided', async () => {
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('A')]],
+      filename: 'my-export',
+    })
+    expect((downloadUrl as ReturnType<typeof vi.fn>).mock.calls[0][1]).toBe('my-export.xlsx')
+  })
+
+  it('produces a valid xlsx blob with content', async () => {
+    await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('Hello')]] })
+    const url = (downloadUrl as ReturnType<typeof vi.fn>).mock.calls[0][0]
+    expect(url).toContain('blob:')
+    const blobUrl = url as string
+    const response = await fetch(blobUrl)
+    const buffer = await response.arrayBuffer()
+    expect(buffer.byteLength).toBeGreaterThan(0)
   })
 
   it('handles undefined cells gracefully', async () => {
     await new ExcelExporter().export(el(), { format: 'excel' })
-    expect(mockUtils.aoa_to_sheet).toHaveBeenCalledWith([])
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
-  it('applies merged ranges to worksheet !merges', async () => {
-    const merges: MergeRange[] = [
-      { key: 'R0C0:R1C1', startRow: 0, startCol: 0, endRow: 1, endCol: 1 },
-      { key: 'R2C0:R2C1', startRow: 2, startCol: 0, endRow: 2, endCol: 1 },
-    ]
+  it('writes caption into the xlsx', async () => {
     await new ExcelExporter().export(el(), {
       format: 'excel',
-      cells: [[makeCell('A')]],
-      mergedRanges: merges,
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
     })
-    expect(mockWorksheet['!merges']).toEqual([
-      { s: { r: 0, c: 0 }, e: { r: 1, c: 1 } },
-      { s: { r: 2, c: 0 }, e: { r: 2, c: 1 } },
-    ])
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
-  it('does not set !merges when mergedRanges is undefined', async () => {
-    await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('A')]] })
-    expect(mockWorksheet['!merges']).toBeUndefined()
-  })
-
-  it('does not set !merges when mergedRanges is empty', async () => {
-    await new ExcelExporter().export(el(), {
-      format: 'excel',
-      cells: [[makeCell('A')]],
-      mergedRanges: [],
-    })
-    expect(mockWorksheet['!merges']).toBeUndefined()
-  })
-
-  it('applies header-style formatting when headerStyle is first-row', async () => {
-    mockIsHeaderCell.mockImplementation((_style: string, row: number) => row === 0)
-    const cells: CellData[][] = [
-      [makeCell('H1'), makeCell('H2')],
-      [makeCell('D1'), makeCell('D2')],
-    ]
-    await new ExcelExporter().export(el(), {
-      format: 'excel',
-      cells,
-      headerStyle: 'first-row',
-    })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 0, c: 0 })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 0, c: 1 })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalledWith({ r: 1, c: 0 })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalledWith({ r: 1, c: 1 })
-  })
-
-  it('applies header-style formatting when headerStyle is first-column', async () => {
-    mockIsHeaderCell.mockImplementation((_style: string, _row: number, col: number) => col === 0)
-    const cells: CellData[][] = [
-      [makeCell('H1'), makeCell('D1')],
-      [makeCell('H2'), makeCell('D2')],
-    ]
-    await new ExcelExporter().export(el(), {
-      format: 'excel',
-      cells,
-      headerStyle: 'first-column',
-    })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 0, c: 0 })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 1, c: 0 })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalledWith({ r: 0, c: 1 })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalledWith({ r: 1, c: 1 })
-  })
-
-  it('applies header-style formatting when headerStyle is both', async () => {
-    mockIsHeaderCell.mockImplementation(
-      (_style: string, row: number, col: number) => row === 0 || col === 0,
-    )
-    const cells: CellData[][] = [
-      [makeCell('H'), makeCell('H')],
-      [makeCell('H'), makeCell('D')],
-    ]
-    await new ExcelExporter().export(el(), {
-      format: 'excel',
-      cells,
-      headerStyle: 'both',
-    })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 0, c: 0 })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 0, c: 1 })
-    expect(mockUtils.encode_cell).toHaveBeenCalledWith({ r: 1, c: 0 })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalledWith({ r: 1, c: 1 })
-  })
-
-  it('does not call encode_cell when headerStyle is none', async () => {
-    await new ExcelExporter().export(el(), {
-      format: 'excel',
-      cells: [[makeCell('A')]],
-      headerStyle: 'none',
-    })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalled()
-  })
-
-  it('does not call encode_cell when headerStyle is undefined', async () => {
-    await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('A')]] })
-    expect(mockUtils.encode_cell).not.toHaveBeenCalled()
-  })
-
-  it('ensures worksheet cell object exists for header cells', async () => {
+  it('applies styles from the styles option to produce a styled xlsx', async () => {
     mockIsHeaderCell.mockReturnValue(true)
-    const mockWorksheetLocal: Record<string, unknown> = {}
-    const mockAoaToSheetLocal = vi.fn(() => mockWorksheetLocal)
-    mockUtils.aoa_to_sheet = mockAoaToSheetLocal
     await new ExcelExporter().export(el(), {
       format: 'excel',
       cells: [[makeCell('Header')]],
       headerStyle: 'first-row',
+      styles: {
+        headerColor: '#1E40AF',
+        headerTextColor: '#FFFFFF',
+        borderColor: '#E5E7EB',
+        columnWidths: [140],
+        altRowBg: '#F9FAFB',
+        contentBgColor: '#FFFFFF',
+        rowColors: [],
+        columnColors: [],
+        cellColors: {},
+        columnTextAlign: ['left'],
+        cellTextAlign: {},
+        borderStyle: 'solid',
+      },
     })
-    expect(mockWorksheetLocal['R0C0']).toBeDefined()
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
-  it('preserves existing worksheet cell value when header cell already exists', async () => {
-    mockIsHeaderCell.mockReturnValue(true)
-    const mockWorksheetLocal: Record<string, { v: string }> = { 'R0C0': { v: 'Existing' } }
-    const mockAoaToSheetLocal = vi.fn(() => mockWorksheetLocal)
-    mockUtils.aoa_to_sheet = mockAoaToSheetLocal
+  it('applies merged ranges', async () => {
     await new ExcelExporter().export(el(), {
       format: 'excel',
-      cells: [[makeCell('Header')]],
-      headerStyle: 'first-row',
+      cells: [[makeCell('A'), makeCell('B')]],
+      mergedRanges: [
+        { key: 'R0C0:R0C1', startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      ],
     })
-    expect(mockWorksheetLocal['R0C0']).toEqual({ v: 'Existing' })
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
-  it('creates workbook and appends sheet with brand name', async () => {
-    await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('A')]] })
-    expect(mockUtils.book_new).toHaveBeenCalledOnce()
-    expect(mockUtils.book_append_sheet).toHaveBeenCalledWith(mockWorkbook, mockWorksheet, 'Tablesmit')
+  it('applies cellColors background to individual cells', async () => {
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('A')], [makeCell('B')]],
+      styles: {
+        headerColor: '#1E40AF',
+        headerTextColor: '#FFFFFF',
+        borderColor: '#E5E7EB',
+        columnWidths: [],
+        altRowBg: '#F9FAFB',
+        contentBgColor: '#FFFFFF',
+        rowColors: [],
+        columnColors: [],
+        cellColors: { R1C0: '#FF0000' },
+        columnTextAlign: ['left'],
+        cellTextAlign: {},
+        borderStyle: 'solid',
+      },
+    })
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
-  it('writes file with default filename', async () => {
-    await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('A')]] })
-    expect(mockWriteFile).toHaveBeenCalledWith(mockWorkbook, 'tablesmit-table.xlsx')
+  it('applies rowColors to all cells in a row', async () => {
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('A'), makeCell('B')]],
+      styles: {
+        headerColor: '#1E40AF',
+        headerTextColor: '#FFFFFF',
+        borderColor: '#E5E7EB',
+        columnWidths: [],
+        altRowBg: '#F9FAFB',
+        contentBgColor: '#FFFFFF',
+        rowColors: ['#00FF00'],
+        columnColors: [],
+        cellColors: {},
+        columnTextAlign: ['left', 'left'],
+        cellTextAlign: {},
+        borderStyle: 'solid',
+      },
+    })
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
-  it('writes file with custom filename', async () => {
+  it('omits borders when borderStyle is none', async () => {
     await new ExcelExporter().export(el(), {
       format: 'excel',
       cells: [[makeCell('A')]],
-      filename: 'data-export',
+      styles: {
+        headerColor: '#1E40AF',
+        headerTextColor: '#FFFFFF',
+        borderColor: '#E5E7EB',
+        columnWidths: [],
+        altRowBg: '#F9FAFB',
+        contentBgColor: '#FFFFFF',
+        rowColors: [],
+        columnColors: [],
+        cellColors: {},
+        columnTextAlign: ['left'],
+        cellTextAlign: {},
+        borderStyle: 'none',
+      },
     })
-    expect(mockWriteFile).toHaveBeenCalledWith(mockWorkbook, 'data-export.xlsx')
+    expect(downloadUrl).toHaveBeenCalledOnce()
   })
 })

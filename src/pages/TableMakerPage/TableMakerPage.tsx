@@ -1,5 +1,5 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
-import { ArrowUp, Keyboard, Settings, Sparkles } from 'lucide-react'
+import { Keyboard, Settings, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { exportFormats } from '../../config/exportConfig'
 import { TableProvider, useTableContext, useTableData } from '../../context/TableContext'
@@ -18,6 +18,8 @@ import { MergeCellsPanel } from '../../components/features/MergeCellsPanel'
 import { AiFeaturesPanel } from '../../components/features/AiFeaturesPanel'
 import { TableCaption, type CaptionAlignment } from '../../components/features/TableCaption'
 import { FindReplace } from '../../components/features/FindReplace'
+import { isTableEmpty } from '../../utils/tableUtils'
+import { toast } from '../../utils/toast'
 import type { ExportFormat } from '../../types/export.types'
 
 const ExportPanel = lazy(() => import('../../components/features/ExportPanel'))
@@ -39,7 +41,7 @@ function TableMakerContent(): ReactNode {
   const { exportAs, isExporting } = useExport()
   const [activeSheet, setActiveSheet] = useState<'settings' | 'presets' | null>(null)
   const [caption, setCaption] = useState('')
-  const [captionAlignment, setCaptionAlignment] = useState<CaptionAlignment>('left')
+  const [captionAlignment, setCaptionAlignment] = useState<CaptionAlignment>('center')
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
@@ -116,10 +118,36 @@ function TableMakerContent(): ReactNode {
         else if (e.key === 'l') setCaptionAlignment('left')
         else if (e.key === 'r') setCaptionAlignment('right')
       }
+
+      if (isCtrl && e.key === 'c') {
+        const target = e.target as HTMLElement
+        if (target.closest('[contenteditable]')) return
+        e.preventDefault()
+
+        if (isTableEmpty(cells)) return
+
+        const el = tableRef.current?.querySelector('table')
+        if (!el) return
+
+        import('html2canvas').then(({ default: html2canvas }) => {
+          html2canvas(el, { backgroundColor: '#ffffff', scale: 2, useCORS: true }).then(
+            (canvas) => {
+              canvas.toBlob((blob) => {
+                if (!blob) return
+                navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]).then(
+                  () => { toast.success(t('toast.copyImage')) },
+                  () => { toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.')) },
+                )
+              }, 'image/png')
+            },
+            () => { toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.')) },
+          )
+        })
+      }
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [caption, captionAlignment, tableRef])
+  }, [caption, captionAlignment, tableRef, cells, t])
 
   const {
     query, setQuery, replaceText, setReplaceText,
@@ -128,16 +156,6 @@ function TableMakerContent(): ReactNode {
     isOpen: findOpen, setIsOpen: setFindOpen,
     replaceMode,
   } = useFindReplace(cells)
-
-  const [showBackToTop, setShowBackToTop] = useState(false)
-
-  useEffect(() => {
-    const onScroll = (): void => {
-      setShowBackToTop(window.scrollY > 400)
-    }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const handleFindClose = useCallback((): void => {
     setFindOpen(false)
@@ -252,17 +270,6 @@ function TableMakerContent(): ReactNode {
           onClick={() => setActiveSheet('presets')}
         />
       </div>
-
-      {showBackToTop ? (
-        <button
-          type="button"
-          aria-label="Back to top"
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-20 right-4 z-30 flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white shadow-sm transition-opacity hover:bg-surface dark:border-slate-700 dark:bg-slate-800 dark:hover:bg-slate-700"
-        >
-          <ArrowUp size={18} aria-hidden="true" />
-        </button>
-      ) : null}
 
       <MobileSheet title={activeSheet === 'settings' ? 'Settings' : 'Presets'} open={activeSheet !== null} onClose={() => setActiveSheet(null)}>
         {activeSheet === 'settings' ? (

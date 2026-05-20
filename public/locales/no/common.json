@@ -45,6 +45,7 @@
     "contributeHeading": "Slik bidrar du",
     "contributeBody": "Les CONTRIBUTION.md i repositoriet for retningslinjer om rapportering av feil, forslag til funksjoner og innsending av pull requests.",
     "readContributing": "Les CONTRIBUTION.md",
+    "ctaNote": "MIT-lisensiert. Bidrag er velkomne.",
     "footerNote": "MIT-lisensiert. Ingen garantier. Laget med omhu."
   },
   "contact": {
@@ -80,6 +81,7 @@
   },
   "testimonials": {
     "heading": "Hva folk sier.",
+    "subtext": "Hør fra forfattere, analytikere, forskere og tekniske tenkere som bruker {{name}} hver dag.",
     "emptyHeading": "Ingen anbefalinger ennå",
     "emptyBody": "Vi samler tilbakemeldinger fra tidlige brukere. Hvis du har brukt Tablesmit, vil vi gjerne høre fra deg.",
     "shareExperience": "Del din erfaring",
@@ -357,6 +359,13 @@
     "notFoundTitle": "Siden ble ikke funnet — Tablesmit",
     "privacyTitle": "Personvernerklæring — Tablesmit",
     "termsTitle": "Bruksvilkår — Tablesmit"
+  },
+  "features": {
+    "heading": "Funksjoner",
+    "subtext": "Alt du trenger for å bygge rene, strukturerte tabeller.",
+    "learnMore": "Les mer",
+    "emptyState": "Ingen funksjoner oppført ennå.",
+    "backToFeatures": "Tilbake til funksjoner"
   },
   "errors": {
     "pageNotFound": "Siden ble ikke funnet.",

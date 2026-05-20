@@ -45,6 +45,7 @@
     "contributeHeading": "Wie Sie mitwirken können",
     "contributeBody": "Lesen Sie die CONTRIBUTION.md im Repository für Richtlinien zum Melden von Fehlern, Vorschlagen von Funktionen und Einreichen von Pull Requests.",
     "readContributing": "CONTRIBUTION.md lesen",
+    "ctaNote": "MIT-lizenziert. Beiträge willkommen.",
     "footerNote": "MIT-lizenziert. Keine Garantien. Mit Sorgfalt entwickelt."
   },
   "contact": {
@@ -80,6 +81,7 @@
   },
   "testimonials": {
     "heading": "Was die Leute sagen.",
+    "subtext": "Hören Sie von Autoren, Analysten, Forschern und technischen Denkern, die {{name}} täglich nutzen.",
     "emptyHeading": "Noch keine Erfahrungsberichte",
     "emptyBody": "Wir sammeln Feedback von frühen Nutzern. Wenn Sie Tablesmit verwendet haben, würden wir uns freuen, von Ihnen zu hören.",
     "shareExperience": "Teilen Sie Ihre Erfahrung",
@@ -267,7 +269,7 @@
   },
   "aiFeatures": {
     "heading": "KI-Funktionen",
-    "comingSoon": "Coming soon",
+    "comingSoon": "Demnächst verfügbar",
     "generateDescription": "Fügen Sie einen Absatz ein und lassen Sie ihn von KI als Tabelle strukturieren.",
     "generateFromText": "Aus Text generieren",
     "summarizeTable": "Tabelle zusammenfassen",
@@ -357,6 +359,13 @@
     "notFoundTitle": "Seite nicht gefunden — Tablesmit",
     "privacyTitle": "Datenschutzerklärung — Tablesmit",
     "termsTitle": "Nutzungsbedingungen — Tablesmit"
+  },
+  "features": {
+    "heading": "Funktionen",
+    "subtext": "Alles, was Sie brauchen, um saubere, strukturierte Tabellen zu erstellen.",
+    "learnMore": "Mehr erfahren",
+    "emptyState": "Noch keine Funktionen aufgelistet.",
+    "backToFeatures": "Zurück zu Funktionen"
   },
   "errors": {
     "pageNotFound": "Seite nicht gefunden.",

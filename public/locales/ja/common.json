@@ -45,6 +45,7 @@
     "contributeHeading": "貢献方法",
     "contributeBody": "リポジトリ内のCONTRIBUTION.mdで、バグ報告、機能提案、プルリクエストの提出に関するガイドラインをお読みください。",
     "readContributing": "CONTRIBUTION.mdを読む",
+    "ctaNote": "MITライセンス。コントリビューションを歓迎します。",
     "footerNote": "MITライセンス。保証はありません。大切に作られています。"
   },
   "contact": {
@@ -80,6 +81,7 @@
   },
   "testimonials": {
     "heading": "ユーザーの声。",
+    "subtext": "ライター、アナリスト、研究者、技術的思考者など、{{name}}を毎日使っている人々の声をお聞きください。",
     "emptyHeading": "まだレビューはありません",
     "emptyBody": "最初のユーザーからフィードバックを集めています。Tablesmitをお使いになった方は、ぜひ感想をお聞かせください。",
     "shareExperience": "体験を共有する",
@@ -357,6 +359,13 @@
     "notFoundTitle": "ページが見つかりません — Tablesmit",
     "privacyTitle": "プライバシーポリシー — Tablesmit",
     "termsTitle": "利用規約 — Tablesmit"
+  },
+  "features": {
+    "heading": "機能",
+    "subtext": "クリーンで構造化されたテーブルを作成するために必要なすべて。",
+    "learnMore": "もっと詳しく",
+    "emptyState": "まだ機能はリストされていません。",
+    "backToFeatures": "機能に戻る"
   },
   "errors": {
     "pageNotFound": "ページが見つかりません。",

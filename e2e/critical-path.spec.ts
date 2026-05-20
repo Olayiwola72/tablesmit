@@ -10,7 +10,6 @@ test.describe('Critical path', () => {
     await expect(page.locator('h1')).toContainText('analytical writing')
     const cells = page.locator('[role="gridcell"]')
     await expect(cells).toHaveCount(25)
-    await expect(page.getByText('5 rows x 5 columns')).toBeVisible()
   })
 
   test('type into a cell and verify content after commit', async ({ page }) => {
@@ -26,28 +25,28 @@ test.describe('Critical path', () => {
     await page.getByRole('button', { name: /add row/i }).click()
     const cells = page.locator('[role="gridcell"]')
     await expect(cells).toHaveCount(30)
-    await expect(page.getByText('6 rows x 5 columns')).toBeVisible()
+    await expect(page.getByText('6 × 5')).toBeVisible()
   })
 
   test('add a column increases column count', async ({ page }) => {
     await page.getByRole('button', { name: /add column/i }).click()
     const cells = page.locator('[role="gridcell"]')
     await expect(cells).toHaveCount(30)
-    await expect(page.getByText('5 rows x 6 columns')).toBeVisible()
+    await expect(page.getByText('5 × 6')).toBeVisible()
   })
 
   test('remove a row decreases row count', async ({ page }) => {
     await page.getByRole('button', { name: /remove row/i }).click()
     const cells = page.locator('[role="gridcell"]')
     await expect(cells).toHaveCount(20)
-    await expect(page.getByText('4 rows x 5 columns')).toBeVisible()
+    await expect(page.getByText('4 × 5')).toBeVisible()
   })
 
   test('remove a column decreases column count', async ({ page }) => {
     await page.getByRole('button', { name: /remove column/i }).click()
     const cells = page.locator('[role="gridcell"]')
     await expect(cells).toHaveCount(20)
-    await expect(page.getByText('5 rows x 4 columns')).toBeVisible()
+    await expect(page.getByText('5 × 4')).toBeVisible()
   })
 
   test('cannot remove the last row — button becomes disabled', async ({ page }) => {
@@ -57,7 +56,7 @@ test.describe('Critical path', () => {
     }
     const cells = page.locator('[role="gridcell"]')
     await expect(cells).toHaveCount(5)
-    await expect(page.getByText('1 rows x 5 columns')).toBeVisible()
+    await expect(page.getByText('1 × 5')).toBeVisible()
     // The button should now be disabled
     await expect(page.getByRole('button', { name: /remove row/i })).toBeDisabled()
   })
@@ -75,9 +74,9 @@ test.describe('Critical path', () => {
 
   test('find and replace panel opens and closes with Ctrl+F / Escape', async ({ page }) => {
     await page.keyboard.press('Control+f')
-    await expect(page.getByPlaceholder(/find/i)).toBeVisible()
+    await expect(page.getByPlaceholder(/search/i)).toBeVisible()
     await page.keyboard.press('Escape')
-    await expect(page.getByPlaceholder(/find/i)).not.toBeVisible()
+    await expect(page.getByPlaceholder(/search/i)).not.toBeVisible()
   })
 
   test('set caption and verify it renders', async ({ page }) => {
@@ -93,8 +92,8 @@ test.describe('Critical path', () => {
 
   test('apply a theme', async ({ page }) => {
     // Theme picker is a DropdownMenu in the toolbar
-    await page.getByRole('button', { name: /table theme/i }).click()
-    await page.getByRole('button', { name: /minimal/i }).click()
+    await page.getByRole('button', { name: /theme/i }).click()
+    await page.locator('button').filter({ hasText: 'Minimal' }).click()
     // Verify no crash — theme was applied
     await expect(page.locator('table[role="grid"]')).toBeVisible()
   })

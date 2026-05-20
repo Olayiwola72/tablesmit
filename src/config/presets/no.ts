@@ -67,6 +67,23 @@ const presets: PresetDefinition[] = [
       ['', '', '', ''],
     ],
   },
+  {
+    id: 'q1',
+    label: 'Q1-resultater',
+    rows: 6,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: [],
+    data: [
+      ['Q1-resultater', '', '', 'Mål'],
+      ['Jan', 'Feb', 'Mar', ''],
+      ['$10,000', '$12,000', '$15,000', '$50,000'],
+      ['1,200', '1,350', '1,500', '4,500'],
+      ['85%', '90%', '92%', '90%'],
+      ['', '', '', ''],
+    ],
+    mergedRanges: [{ startRow: 0, startCol: 0, endRow: 0, endCol: 2 }],
+  },
 ]
 
 export default presets

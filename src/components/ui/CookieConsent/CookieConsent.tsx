@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../Button'
+import { siteConfig } from '../../../config/siteConfig'
 
 const CONSENT_KEY = 'tablesmit-consent'
 const GA_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID as string | undefined
@@ -58,7 +59,7 @@ export function CookieConsent(): ReactNode {
       <div className="mx-auto flex max-w-content flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-text-secondary">
           {t('cookieConsent.message')}
-          <a href="/privacy" className="ml-1 text-primary underline underline-offset-2" aria-label={t('cookieConsent.learnMoreAria')}>{t('cookieConsent.learnMore')}</a>.
+          <a href={siteConfig.routes.privacy} className="ml-1 text-primary underline underline-offset-2" aria-label={t('cookieConsent.learnMoreAria')}>{t('cookieConsent.learnMore')}</a>.
         </p>
         <div className="flex shrink-0 gap-2">
           <Button variant="ghost" size="sm" onClick={decline}>{t('cookieConsent.decline')}</Button>
