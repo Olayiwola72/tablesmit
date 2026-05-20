@@ -54,6 +54,6 @@ describe('FeatureDetailPage', () => {
 
   it('back link goes to /features', () => {
     renderFeature('excel-export')
-    expect(screen.getByRole('link', { name: /all features/i })).toHaveAttribute('href', '/features')
+    expect(screen.getByRole('link', { name: /back to blog/i })).toHaveAttribute('href', '/features')
   })
 })

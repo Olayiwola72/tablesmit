@@ -18,6 +18,6 @@ describe('DimensionsPanel', () => {
 
   it('renders a Create Table button', () => {
     render(<DimensionsPanel />, { wrapper: Wrapper })
-    expect(screen.getByRole('button', { name: /create table/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /create a table/i })).toBeInTheDocument()
   })
 })

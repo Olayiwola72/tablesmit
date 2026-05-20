@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom'
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { allFeatures } from '../../services/featureService'
 
 export default function FeaturesListPage(): ReactNode {
+  const { t } = useTranslation()
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-content">
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-            Features
+            {t('features.heading')}
           </h1>
           <p className="mt-3 text-base text-text-secondary">
-            Every feature you need to build clean, structured tables.
+            {t('features.subtext')}
           </p>
         </header>
 
@@ -33,7 +35,7 @@ export default function FeaturesListPage(): ReactNode {
                 to={`/features/${feature.slug}`}
                 className="text-sm font-medium text-primary hover:underline"
               >
-                Learn more &rarr;
+                {t('features.learnMore')} &rarr;
               </Link>
             </article>
           ))}
@@ -41,7 +43,7 @@ export default function FeaturesListPage(): ReactNode {
 
         {allFeatures.length === 0 && (
           <p className="py-20 text-center text-sm text-text-muted">
-            No features listed yet.
+            {t('features.emptyState')}
           </p>
         )}
       </div>

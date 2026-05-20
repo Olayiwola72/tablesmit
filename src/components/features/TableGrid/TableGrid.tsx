@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode, type RefObject } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Loader2 } from 'lucide-react'
 import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/tableDefaults'
 import { isHeaderCell, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
@@ -23,6 +24,7 @@ interface TableGridProps {
 }
 
 export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGridProps): ReactNode {
+  const { t } = useTranslation()
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
   const {
@@ -182,7 +184,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
         if (target.closest('[contenteditable]')) return
         event.preventDefault()
         if (!canUndo) {
-          toast.info(TOAST.UNDO_EMPTY)
+          toast.info(t('toast.undoEmpty'))
           return
         }
         undo()
@@ -190,7 +192,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [undo, canUndo])
+  }, [undo, canUndo, t])
 
   useEffect(() => {
     const onPaste = async (event: globalThis.ClipboardEvent): Promise<void> => {
@@ -397,7 +399,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
         ))}
       </div>
       <div ref={tableRef} className="inline-block bg-white dark:bg-slate-900" data-table-container>
-        <table ref={gridRef} className="min-w-max border-collapse bg-white dark:bg-slate-900" role="grid" aria-label="Table editor" aria-rowcount={rows} aria-colcount={cols}>
+        <table ref={gridRef} className="min-w-max border-collapse bg-white dark:bg-slate-900" role="grid" aria-label={t('grid.tableEditor')} aria-rowcount={rows} aria-colcount={cols}>
           <colgroup>
             {columnWidths.map((width, index) => (
               <col key={index} style={{ width }} />

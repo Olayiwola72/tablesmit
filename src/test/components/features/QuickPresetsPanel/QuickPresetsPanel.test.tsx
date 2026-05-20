@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../../context/TableContext'
@@ -14,9 +14,11 @@ describe('QuickPresetsPanel', () => {
     expect(screen.getByText('Templates')).toBeInTheDocument()
   })
 
-  it('renders all preset buttons', () => {
+  it('renders all preset buttons', async () => {
     render(<QuickPresetsPanel />, { wrapper: Wrapper })
-    expect(screen.getByRole('button', { name: /research notes/i })).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /research notes/i })).toBeInTheDocument()
+    })
     expect(screen.getByRole('button', { name: /feature matrix/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /content tracker/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /budget summary/i })).toBeInTheDocument()

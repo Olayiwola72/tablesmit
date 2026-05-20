@@ -1,10 +1,12 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 import { getFeatureBySlug, allFeatures } from '../../services/featureService'
 import { siteConfig } from '../../config/siteConfig'
 
 export default function FeatureDetailPage(): ReactNode {
+  const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
   const feature = getFeatureBySlug(slug ?? '')
 
@@ -41,7 +43,7 @@ export default function FeatureDetailPage(): ReactNode {
             to="/features"
             className="mb-6 inline-block text-sm text-text-muted hover:text-primary"
           >
-            &larr; All features
+            &larr; {t('blog.backToBlog')}
           </Link>
           <h1 className="mb-4 text-3xl font-bold leading-tight text-text-primary sm:text-4xl">
             {feature.heroHeadline}
@@ -134,13 +136,13 @@ export default function FeatureDetailPage(): ReactNode {
         {/* CTA */}
         <div className="mx-auto mt-16 max-w-narrow rounded-md border border-border bg-surface p-6 text-center">
           <p className="mb-3 text-sm text-text-secondary">
-            Try it now — free, no signup required.
+            {t('blog.ctaTitle')}
           </p>
           <Link
             to="/"
             className="text-sm font-semibold text-primary hover:underline"
           >
-            Open Tablesmit
+            {t('blog.openTablesmit')}
           </Link>
         </div>
       </main>

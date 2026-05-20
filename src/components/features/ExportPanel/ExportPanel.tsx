@@ -1,6 +1,6 @@
 import { memo, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { exportFormats } from '../../../config/exportConfig'
-import { siteConfig } from '../../../config/siteConfig'
 import type { ExportFormat } from '../../../types/export.types'
 import { Button } from '../../ui/Button'
 import { SectionLabel } from '../../ui/SectionLabel'
@@ -12,18 +12,20 @@ function ExportPanelRaw({
   onExport: (format: ExportFormat) => void
   isExporting: boolean
 }): ReactNode {
+  const { t } = useTranslation()
+
   return (
     <section>
-      <SectionLabel>{siteConfig.labels.exportOptions}</SectionLabel>
+      <SectionLabel>{t('panels.export')}</SectionLabel>
       <div className="grid grid-cols-2 gap-2">
         {exportFormats.map((item) => (
           <Button key={item.format} variant="secondary" size="sm" isLoading={isExporting} onClick={() => onExport(item.format)}>
-            {item.label}
+            {t(`export.${item.format}`)}
           </Button>
         ))}
       </div>
       <p className="mt-3 text-xs text-text-muted">
-        Export the finished table as {exportFormats.map((e) => e.label).join(', ').replace(/, ([^,]*)$/, ', or $1')}.
+        {t('export.exportAs')} {exportFormats.map((e) => t(`export.${e.format}`)).join(', ').replace(/, ([^,]*)$/, ', or $1')}.
       </p>
     </section>
   )

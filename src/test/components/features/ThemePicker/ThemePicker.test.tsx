@@ -13,26 +13,26 @@ function Wrapper({ children }: { children: ReactNode }): ReactNode {
 describe('ThemePicker', () => {
   it('renders the section label', () => {
     render(<ThemePicker />, { wrapper: Wrapper })
-    expect(screen.getByText('Table Theme')).toBeInTheDocument()
+    expect(screen.getByText('Theme')).toBeInTheDocument()
   })
 
   it('renders all 6 theme options', () => {
     render(<ThemePicker />, { wrapper: Wrapper })
-    for (const theme of TABLE_THEMES) {
-      expect(screen.getByRole('button', { name: theme.label })).toBeInTheDocument()
-    }
+    const buttons = screen.getAllByRole('button', { name: /Select table theme/i })
+    expect(buttons).toHaveLength(TABLE_THEMES.length)
   })
 
   it('highlights the default theme as selected initially', () => {
     render(<ThemePicker />, { wrapper: Wrapper })
-    const defaultBtn = screen.getByRole('button', { name: 'Default' })
-    expect(defaultBtn).toHaveAttribute('aria-pressed', 'true')
+    const defaultBtn = screen.getByText('Default')
+    const parent = defaultBtn.closest('button')
+    expect(parent).toHaveAttribute('aria-pressed', 'true')
   })
 
   it('calls setTheme when a theme card is clicked', async () => {
     const user = userEvent.setup()
     render(<ThemePicker />, { wrapper: Wrapper })
-    const minimalBtn = screen.getByRole('button', { name: 'Minimal' })
+    const minimalBtn = screen.getByText('Minimal').closest('button')!
     await user.click(minimalBtn)
     expect(minimalBtn).toHaveAttribute('aria-pressed', 'true')
   })
@@ -40,10 +40,10 @@ describe('ThemePicker', () => {
   it('updates selected theme on subsequent clicks', async () => {
     const user = userEvent.setup()
     render(<ThemePicker />, { wrapper: Wrapper })
-    const strippedBtn = screen.getByRole('button', { name: 'Striped' })
+    const strippedBtn = screen.getByText('Striped').closest('button')!
     await user.click(strippedBtn)
     expect(strippedBtn).toHaveAttribute('aria-pressed', 'true')
-    const defaultBtn = screen.getByRole('button', { name: 'Default' })
+    const defaultBtn = screen.getByText('Default').closest('button')!
     expect(defaultBtn).toHaveAttribute('aria-pressed', 'false')
   })
 })

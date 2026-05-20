@@ -6,7 +6,7 @@ import { ExportPanel } from '../../../../components/features/ExportPanel/ExportP
 describe('ExportPanel', () => {
   it('renders Export Options label', () => {
     render(<ExportPanel onExport={vi.fn()} isExporting={false} />)
-    expect(screen.getByText('Export Options')).toBeInTheDocument()
+    expect(screen.getByText('Export')).toBeInTheDocument()
   })
 
   it('renders export format buttons', () => {

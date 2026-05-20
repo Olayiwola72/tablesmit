@@ -1,10 +1,12 @@
 import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../config/siteConfig'
 
 export function PrivacyPage(): ReactNode {
+  const { t } = useTranslation()
   return (
     <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-text-primary">{siteConfig.labels.privacyPolicy}</h1>
+      <h1 className="text-3xl font-bold text-text-primary">{t('footer.privacyPolicy')}</h1>
       <p className="mt-2 text-sm text-text-muted">Last updated: May 2026</p>
 
       <div className="mt-8 space-y-6 text-base leading-relaxed text-text-secondary">

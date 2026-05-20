@@ -1,9 +1,12 @@
-import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react'
+import { Check, ExternalLink, Globe, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { brandHomeAriaLabel, siteConfig } from '../../../config/siteConfig'
+import { siteConfig } from '../../../config/siteConfig'
 import { KEY_ESCAPE } from '../../../constants/keys'
+import { LOCALES } from '../../../i18n/config'
 import { Button } from '../../ui/Button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/DropdownMenu'
 import { IconButton } from '../../ui/IconButton'
 import { Logo } from '../../ui/Logo'
 import { useTheme } from '../../../hooks/useTheme'
@@ -11,9 +14,9 @@ import { useTheme } from '../../../hooks/useTheme'
 const { brand, routes } = siteConfig
 
 export function Navbar(): ReactNode {
+  const { t, i18n } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const { theme, toggle } = useTheme()
-  const homeAria = brandHomeAriaLabel()
   const logoTheme = theme === 'dark' ? 'dark' : 'light'
 
   useEffect(() => {
@@ -28,26 +31,45 @@ export function Navbar(): ReactNode {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white dark:border-slate-700 dark:bg-slate-900">
       <div className="mx-auto flex h-14 max-w-content items-center justify-between px-4 sm:px-6 md:h-nav lg:px-8">
-        <Link to={routes.home} aria-label={homeAria} className="flex items-center">
+        <Link to={routes.home} aria-label={`${brand.name} home`} className="flex items-center">
           <Logo variant="icon" theme={logoTheme} className="h-8 w-8 md:hidden" />
           <Logo variant="full" theme={logoTheme} className="hidden h-9 w-[165px] md:block" />
         </Link>
 
-        <nav aria-label="Primary navigation" className="hidden items-center gap-6 md:flex">
+        <nav aria-label={t('aria.openMenu')} className="hidden items-center gap-6 md:flex">
           {siteConfig.nav.map((item) => (
             <Link
               key={item.label}
               to={siteConfig.routes[item.route]}
               className="text-sm font-medium text-text-secondary transition-colors hover:text-primary"
             >
-              {item.label}
+              {t(`nav.${item.route}`, item.label)}
             </Link>
           ))}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" aria-label={t('aria.languageSelect')}>
+                <Globe size={16} />
+                {LOCALES.find((l) => l.code === i18n.language)?.name ?? i18n.language.toUpperCase()}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {LOCALES.map((locale) => (
+                <DropdownMenuItem
+                  key={locale.code}
+                  onClick={() => i18n.changeLanguage(locale.code)}
+                >
+                  {locale.name}
+                  {i18n.language === locale.code && <Check size={14} className="ml-auto" />}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <IconButton
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}
             icon={theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             onClick={toggle}
           />
@@ -60,7 +82,7 @@ export function Navbar(): ReactNode {
 
         <IconButton
           className="md:hidden"
-          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-label={isOpen ? t('aria.closeMenu') : t('aria.openMenu')}
           icon={isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
           onClick={() => setIsOpen((value) => !value)}
         />
@@ -70,7 +92,7 @@ export function Navbar(): ReactNode {
         <>
           <button
             type="button"
-            aria-label="Close menu overlay"
+            aria-label={t('aria.closeMenu')}
             className="fixed inset-0 z-40 bg-black/40 md:hidden"
             onClick={() => setIsOpen(false)}
           />
@@ -78,12 +100,12 @@ export function Navbar(): ReactNode {
             <div className="mb-8 flex items-center justify-between">
               <Logo variant="full" theme={logoTheme} className="h-9 w-[165px]" />
               <IconButton
-                aria-label="Close menu"
+                aria-label={t('aria.closeMenu')}
                 icon={<X size={20} aria-hidden="true" />}
                 onClick={() => setIsOpen(false)}
               />
             </div>
-            <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
+            <nav className="flex flex-col gap-4" aria-label={t('aria.closeMenu')}>
               {siteConfig.nav.map((item) => (
                 <Link
                   key={item.label}
@@ -91,11 +113,11 @@ export function Navbar(): ReactNode {
                   className="text-base font-medium text-text-primary"
                   onClick={() => setIsOpen(false)}
                 >
-                  {item.label}
+                  {t(`nav.${item.route}`, item.label)}
                 </Link>
               ))}
               <div className="flex items-center gap-2 pt-2 border-t border-border dark:border-slate-700">
-                <Button variant="ghost" size="sm" onClick={toggle} aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}>
+                <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>
                   {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
                 </Button>
                 <Button asChild variant="ghost" size="sm">

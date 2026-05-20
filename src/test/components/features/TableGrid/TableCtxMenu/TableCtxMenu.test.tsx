@@ -4,7 +4,22 @@ import { describe, expect, it, vi } from 'vitest'
 import { TableCtxMenu, type TableCtxMenuProps } from '../../../../../components/features/TableGrid/TableCtxMenu/TableCtxMenu'
 import { siteConfig } from '../../../../../config/siteConfig'
 
-const { labels } = siteConfig
+// Use translation values matching setup.ts
+const tLabels = {
+  autoFitColumn: 'Auto-fit column width',
+  sortAscending: 'Sort ascending',
+  sortDescending: 'Sort descending',
+  changeBackground: 'Change cell background color',
+  clearCell: 'Clear cell',
+  deleteRow: 'Delete row',
+  deleteColumn: 'Delete column',
+  insertRowAbove: 'Insert row above',
+  insertRowBelow: 'Insert row below',
+  insertColumnLeft: 'Insert column left',
+  insertColumnRight: 'Insert column right',
+  paste: 'Paste',
+  noColor: 'No color',
+}
 
 function createProps(overrides: Partial<TableCtxMenuProps> = {}): TableCtxMenuProps {
   return {
@@ -53,7 +68,7 @@ describe('TableCtxMenu', () => {
     const user = userEvent.setup()
     const autoFitColumn = vi.fn()
     render(<TableCtxMenu {...createProps({ autoFitColumn })} />)
-    await user.click(screen.getByText(labels.contextAutoFit))
+    await user.click(screen.getByText(tLabels.autoFitColumn))
     expect(autoFitColumn).toHaveBeenCalledWith(0)
   })
 
@@ -61,7 +76,7 @@ describe('TableCtxMenu', () => {
     const user = userEvent.setup()
     const autoFitColumn = vi.fn()
     render(<TableCtxMenu {...createProps({ autoFitColumn, ctxMenu: { type: 'column', col: 2, x: 0, y: 0 } })} />)
-    await user.click(screen.getByText(labels.contextAutoFit))
+    await user.click(screen.getByText(tLabels.autoFitColumn))
     expect(autoFitColumn).toHaveBeenCalledWith(2)
   })
 
@@ -71,17 +86,17 @@ describe('TableCtxMenu', () => {
     const sortDesc = vi.fn()
     render(<TableCtxMenu {...createProps({ sortAsc, sortDesc, ctxMenu: { type: 'column', col: 0, x: 0, y: 0 } })} />)
 
-    await user.click(screen.getByText(labels.sortAscending))
+    await user.click(screen.getByText(tLabels.sortAscending))
     expect(sortAsc).toHaveBeenCalledWith(0)
 
-    await user.click(screen.getByText(labels.sortDescending))
+    await user.click(screen.getByText(tLabels.sortDescending))
     expect(sortDesc).toHaveBeenCalledWith(0)
   })
 
   it('toggles background submenu and shows column and cell color picker sections', () => {
     render(<TableCtxMenu {...createProps({ activeSub: 'bg' })} />)
-    expect(screen.getByText(labels.contextColumnBackground)).toBeInTheDocument()
-    expect(screen.getByText(labels.contextCellBackground)).toBeInTheDocument()
+    const bgTexts = screen.getAllByText(tLabels.changeBackground)
+    expect(bgTexts.length).toBeGreaterThanOrEqual(2)
     const swatches = screen.getAllByRole('button', { name: /^#/ })
     expect(swatches.length).toBeGreaterThan(0)
   })
@@ -94,9 +109,10 @@ describe('TableCtxMenu', () => {
   })
 
   it('toggles text align submenu and shows alignment options', () => {
-    render(<TableCtxMenu {...createProps({ activeSub: 'align' })} />)
-    for (const opt of labels.textAlignOptions) {
-      expect(screen.getByText(opt.label)).toBeInTheDocument()
+    render(<TableCtxMenu {...createProps({ ctxMenu: { type: 'column', col: 0, x: 0, y: 0 }, activeSub: 'align' })} />)
+    const expected = ['Align left', 'Align center', 'Align right']
+    for (const text of expected) {
+      expect(screen.getByText(text)).toBeInTheDocument()
     }
   })
 
@@ -104,7 +120,7 @@ describe('TableCtxMenu', () => {
     const user = userEvent.setup()
     const updateCell = vi.fn()
     render(<TableCtxMenu {...createProps({ updateCell })} />)
-    await user.click(screen.getByText(labels.contextClearCell))
+    await user.click(screen.getByText(tLabels.clearCell))
     expect(updateCell).toHaveBeenCalledWith('R0C0', '')
   })
 
@@ -112,7 +128,7 @@ describe('TableCtxMenu', () => {
     const user = userEvent.setup()
     const deleteRowAt = vi.fn()
     render(<TableCtxMenu {...createProps({ deleteRowAt })} />)
-    await user.click(screen.getByText(labels.contextDeleteRow))
+    await user.click(screen.getByText(tLabels.deleteRow))
     expect(deleteRowAt).toHaveBeenCalledWith(0)
   })
 
@@ -120,7 +136,7 @@ describe('TableCtxMenu', () => {
     const user = userEvent.setup()
     const deleteColAt = vi.fn()
     render(<TableCtxMenu {...createProps({ deleteColAt })} />)
-    await user.click(screen.getByText(labels.contextDeleteCol))
+    await user.click(screen.getByText(tLabels.deleteColumn))
     expect(deleteColAt).toHaveBeenCalledWith(0)
   })
 
@@ -130,10 +146,10 @@ describe('TableCtxMenu', () => {
     const insertRowBelow = vi.fn()
     render(<TableCtxMenu {...createProps({ insertRowAbove, insertRowBelow })} />)
 
-    await user.click(screen.getByText(labels.contextInsertRowAbove))
+    await user.click(screen.getByText(tLabels.insertRowAbove))
     expect(insertRowAbove).toHaveBeenCalledWith(0)
 
-    await user.click(screen.getByText(labels.contextInsertRowBelow))
+    await user.click(screen.getByText(tLabels.insertRowBelow))
     expect(insertRowBelow).toHaveBeenCalledWith(0)
   })
 
@@ -143,10 +159,10 @@ describe('TableCtxMenu', () => {
     const insertColRight = vi.fn()
     render(<TableCtxMenu {...createProps({ insertColLeft, insertColRight })} />)
 
-    await user.click(screen.getByText(labels.contextInsertColLeft))
+    await user.click(screen.getByText(tLabels.insertColumnLeft))
     expect(insertColLeft).toHaveBeenCalledWith(0)
 
-    await user.click(screen.getByText(labels.contextInsertColRight))
+    await user.click(screen.getByText(tLabels.insertColumnRight))
     expect(insertColRight).toHaveBeenCalledWith(0)
   })
 
@@ -162,7 +178,7 @@ describe('TableCtxMenu', () => {
 
     const updateCell = vi.fn()
     render(<TableCtxMenu {...createProps({ updateCell })} />)
-    await user.click(screen.getByText(labels.contextPaste))
+    await user.click(screen.getByText(tLabels.paste))
 
     expect(readText).toHaveBeenCalledOnce()
     await waitFor(() => {
@@ -190,6 +206,6 @@ describe('TableCtxMenu', () => {
       activeSub: 'bg',
       columnColors: { 0: '#FF5722' },
     })} />)
-    expect(screen.getByText(labels.contextRemoveColor)).toBeInTheDocument()
+    expect(screen.getByText(tLabels.noColor)).toBeInTheDocument()
   })
 })

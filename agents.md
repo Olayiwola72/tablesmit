@@ -7371,6 +7371,19 @@ The `useSuspense: true` config suspends rendering until the active locale JSON i
 [x] Export strategy pattern — PDF/PNG/JPEG/Excel/CSV via strategy classes in export/ directory
 [x] Lighthouse 90+ passing on all four metrics
 [x] npm audit — zero high/critical vulnerabilities
+[x] Internationalization (i18n) via react-i18next — 8 languages (en, ar, fr, es, pt, ja, de, no)
+[x] Custom LocaleContext fully removed — zero references remain in codebase
+[x] All 8 locale JSON files with 335+ keys each, matching en/common.json structure
+[x] RTL support — Arabic sets document.documentElement.dir = 'rtl'
+[x] Language picker in Navbar — `<select>` with locale display names in their own language
+[x] Locale persisted in localStorage key `tablesmit-locale`
+[x] Type-safe translations — TypeScript augmentation derives key types from en/common.json
+[x] Brand name `Tablesmit` never translated in any locale
+[x] All toast messages use `useTranslation` + interpolation variables {{format}}, {{rows}}, etc.
+[x] All aria-labels translated across all 8 languages
+[x] useSuspense: true — app suspends on initial locale load, Suspense at root handles it
+[x] Lazy-loaded locale JSON via i18next-http-backend — only active language fetched
+[x] 438 tests passing, 50 test files, build compiles clean, lint zero errors
 ```
 
 ---

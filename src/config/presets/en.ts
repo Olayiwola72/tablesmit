@@ -1,6 +1,6 @@
-import type { PresetDefinition } from '../types/ui.types'
+import type { PresetDefinition } from '../../types/ui.types'
 
-export const presets: PresetDefinition[] = [
+const presets: PresetDefinition[] = [
   {
     id: 'research',
     label: 'Research Notes',
@@ -68,3 +68,5 @@ export const presets: PresetDefinition[] = [
     ],
   },
 ]
+
+export default presets

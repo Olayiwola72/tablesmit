@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowUp, Keyboard, Settings, Sparkles } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { exportFormats } from '../../config/exportConfig'
-import { siteConfig } from '../../config/siteConfig'
 import { TableProvider, useTableContext, useTableData } from '../../context/TableContext'
 import { useExport } from '../../hooks/useExport'
 import { useFindReplace } from '../../hooks/useFindReplace'
@@ -31,6 +31,7 @@ export function TableMakerPage(): ReactNode {
 }
 
 function TableMakerContent(): ReactNode {
+  const { t } = useTranslation()
   const tableRef = useRef<HTMLDivElement>(null)
   const exportRef = useRef<HTMLDivElement>(null)
   const { rows, cols, updateCell } = useTableContext()
@@ -75,9 +76,9 @@ function TableMakerContent(): ReactNode {
         /* Collect screen CSS only — skip @media print rules so the table
            renders with the same styling seen on screen */
         const cssRules: string[] = []
-        for (const sheet of document.styleSheets) {
+        for (const sheet of Array.from(document.styleSheets)) {
           try {
-            for (const rule of sheet.cssRules) {
+            for (const rule of Array.from(sheet.cssRules)) {
               if (rule instanceof CSSMediaRule && /print/i.test(rule.media.mediaText)) continue
               cssRules.push(rule.cssText)
             }
@@ -158,23 +159,23 @@ function TableMakerContent(): ReactNode {
     <main className="flex flex-1 flex-col overflow-hidden bg-white dark:bg-slate-900">
       <section className="border-b border-border bg-white px-6 py-5 text-center sm:py-7 dark:border-slate-700 dark:bg-slate-900" data-print-hide>
         <h1 className="text-xl font-bold text-text-primary sm:text-2xl">
-          {siteConfig.copy.tableMakerHeadline}
+          {t('hero.headline')}
         </h1>
         <p className="mx-auto mt-1 max-w-lg text-sm text-text-secondary">
-          {siteConfig.copy.tableMakerSubtext}
+          {t('hero.subtext')}
         </p>
         <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-muted sm:text-sm">
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
-            Custom headers
+            {t('hero.customHeaders')}
           </span>
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
-            Column types
+            {t('hero.columnTypes')}
           </span>
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
-            Merge cells
+            {t('hero.mergeCells')}
           </span>
           <span className="flex items-center gap-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
@@ -192,11 +193,11 @@ function TableMakerContent(): ReactNode {
 
         <section className="relative flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace">
           <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted dark:border-slate-700 dark:bg-slate-900" data-print-hide>
-            <span>{rows} rows x {cols} columns</span>
-            <span>{siteConfig.labels.autoFitColumn}</span>
+            <span>{t('grid.totalCells', { rows, cols })}</span>
+            <span>{t('grid.autoFitTip')}</span>
             <span className="flex items-center gap-1.5">
               <Keyboard size={12} />
-              {siteConfig.labels.shortcutsHint}
+              {t('grid.keyboardHint')}
             </span>
           </div>
           <div ref={exportRef} className="flex flex-col min-w-0 w-fit">

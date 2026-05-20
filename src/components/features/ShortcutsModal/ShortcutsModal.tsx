@@ -1,30 +1,32 @@
 import { useEffect, useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { KEY_ESCAPE } from '../../../constants/keys'
 import { X } from 'lucide-react'
 
 interface Shortcut {
   keys: string
-  label: string
+  labelKey: string
 }
 
-const SHORTCUTS: Shortcut[] = [
-  { keys: 'Ctrl+Z', label: 'Undo last action' },
-  { keys: 'Ctrl+F', label: 'Find in table' },
-  { keys: 'Ctrl+H', label: 'Find and replace' },
-  { keys: 'Ctrl+P', label: 'Print table' },
-  { keys: 'Ctrl+E', label: 'Align cell center' },
-  { keys: 'Ctrl+L', label: 'Align cell left' },
-  { keys: 'Ctrl+R', label: 'Align cell right' },
-  { keys: 'Tab / Shift+Tab', label: 'Navigate between cells' },
-  { keys: 'Arrow keys', label: 'Move cell focus' },
-  { keys: 'Enter', label: 'Edit focused cell' },
-  { keys: 'Escape', label: 'Close panel or exit edit mode' },
-  { keys: 'Delete / Backspace', label: 'Clear selected cell' },
-  { keys: 'Ctrl+?', label: 'Show this shortcut list' },
-]
-
 export function ShortcutsModal(): ReactNode {
+  const { t } = useTranslation()
   const [open, setOpen] = useState(false)
+
+  const shortcuts: Shortcut[] = [
+    { keys: t('shortcutKeys.ctrlZ'), labelKey: 'shortcuts.undo' },
+    { keys: t('shortcutKeys.ctrlF'), labelKey: 'shortcuts.find' },
+    { keys: t('shortcutKeys.ctrlH'), labelKey: 'shortcuts.findAndReplace_short' },
+    { keys: t('shortcutKeys.ctrlP'), labelKey: 'shortcuts.exportPdf' },
+    { keys: t('shortcutKeys.ctrlE'), labelKey: 'shortcuts.exportExcel' },
+    { keys: t('shortcutKeys.ctrlL'), labelKey: 'shortcuts.addRow' },
+    { keys: t('shortcutKeys.ctrlR'), labelKey: 'shortcuts.addColumn' },
+    { keys: `${t('shortcutKeys.tab')} / ${t('shortcutKeys.shiftTab')}`, labelKey: 'shortcuts.moveBetweenCells' },
+    { keys: t('shortcutKeys.arrowKeys'), labelKey: 'shortcuts.moveBetweenCells' },
+    { keys: t('shortcutKeys.enter'), labelKey: 'shortcuts.editCell' },
+    { keys: t('shortcutKeys.escape'), labelKey: 'shortcuts.cancelEdit' },
+    { keys: t('shortcutKeys.delete'), labelKey: 'shortcuts.deleteContent' },
+    { keys: t('shortcutKeys.ctrlSlash'), labelKey: 'shortcuts.shortcutsModal' },
+  ]
 
   useEffect(() => {
     const handler = (e: KeyboardEvent): void => {
@@ -60,13 +62,13 @@ export function ShortcutsModal(): ReactNode {
         className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-md border border-border bg-white p-6 shadow-sm"
         role="dialog"
         aria-modal="true"
-        aria-label="Keyboard shortcuts"
+        aria-label={t('shortcuts.title')}
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-text-primary">Keyboard Shortcuts</h2>
+          <h2 className="text-lg font-semibold text-text-primary">{t('shortcuts.title')}</h2>
           <button
             type="button"
-            aria-label="Close shortcuts"
+            aria-label={t('aria.closeMenu')}
             className="flex h-8 w-8 items-center justify-center rounded-sm text-text-secondary transition-colors hover:bg-surface hover:text-text-primary"
             onClick={() => setOpen(false)}
           >
@@ -74,9 +76,9 @@ export function ShortcutsModal(): ReactNode {
           </button>
         </div>
         <div className="divide-y divide-border">
-          {SHORTCUTS.map((s) => (
+          {shortcuts.map((s) => (
             <div key={s.keys} className="flex items-center justify-between py-2">
-              <span className="text-sm text-text-secondary">{s.label}</span>
+              <span className="text-sm text-text-secondary">{t(s.labelKey)}</span>
               <kbd className="rounded-sm border border-border bg-surface px-2 py-0.5 text-xs font-medium text-text-primary">
                 {s.keys}
               </kbd>
@@ -84,8 +86,8 @@ export function ShortcutsModal(): ReactNode {
           ))}
         </div>
         <p className="mt-4 text-xs text-text-muted">
-          Press <kbd className="rounded-sm border border-border bg-surface px-1 text-xs text-text-primary">?</kbd> or{' '}
-          <kbd className="rounded-sm border border-border bg-surface px-1 text-xs text-text-primary">Ctrl+/</kbd> to toggle this list.
+          <kbd className="rounded-sm border border-border bg-surface px-1 text-xs text-text-primary">{t('shortcutKeys.ctrlSlash')}</kbd>
+          {' '}{t('shortcuts.toggleList')}
         </p>
       </div>
     </>

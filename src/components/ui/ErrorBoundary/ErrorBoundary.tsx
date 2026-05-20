@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import * as Sentry from '@sentry/react'
 
 interface ErrorBoundaryProps {
@@ -13,6 +14,7 @@ interface ErrorBoundaryState {
 }
 
 function DefaultErrorFallback({ error }: { error: Error | null }): ReactNode {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col items-center justify-center gap-4 p-12 text-center">
       <svg width="40" height="40" viewBox="0 0 32 32" fill="none" aria-hidden="true">
@@ -20,16 +22,16 @@ function DefaultErrorFallback({ error }: { error: Error | null }): ReactNode {
         <rect x="2" y="15" width="12" height="15" rx="3" fill="#DC2626" opacity="0.1" />
         <rect x="18" y="15" width="12" height="15" rx="3" fill="#DC2626" opacity="0.06" />
       </svg>
-      <p className="text-base font-semibold text-text-primary">Something went wrong.</p>
+      <p className="text-base font-semibold text-text-primary">{t('errors.somethingWrong')}</p>
       <p className="max-w-xs text-sm text-text-secondary">
-        {error?.message ?? 'An unexpected error occurred.'}
+        {error?.message ?? t('errors.unexpectedError')}
       </p>
       <button
         type="button"
         className="text-sm text-primary underline underline-offset-2"
         onClick={() => window.location.reload()}
       >
-        Reload the page
+        {t('errors.reload')}
       </button>
     </div>
   )

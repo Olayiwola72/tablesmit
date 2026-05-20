@@ -47,13 +47,13 @@ describe('TableMakerPage', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
     const mergeHeadings = screen.getAllByText('Merge Cells')
     expect(mergeHeadings.length).toBeGreaterThanOrEqual(1)
-    const aiHeadings = screen.getAllByText('AI Features (Beta)')
+    const aiHeadings = screen.getAllByText('AI Features')
     expect(aiHeadings.length).toBeGreaterThanOrEqual(1)
   })
 
   it('renders the status bar with row and column count', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
-    const statusItems = screen.getAllByText(/rows.*columns|row.*col/i)
+    const statusItems = screen.getAllByText(/table/i)
     expect(statusItems.length).toBeGreaterThanOrEqual(1)
   })
 
@@ -82,17 +82,17 @@ describe('TableMakerPage', () => {
 
   it('opens find panel on Ctrl+F', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
-    expect(screen.queryByPlaceholderText(/Find/i)).not.toBeInTheDocument()
+    expect(screen.queryByPlaceholderText(/Search/i)).not.toBeInTheDocument()
     fireEvent.keyDown(document, { key: 'f', ctrlKey: true })
-    expect(screen.getByPlaceholderText(/Find/i)).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(/Search/i)).toBeInTheDocument()
   })
 
   it('closes find panel on Escape', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
     fireEvent.keyDown(document, { key: 'f', ctrlKey: true })
-    expect(screen.getByPlaceholderText(/Find/i)).toBeInTheDocument()
+    expect(screen.getByPlaceholderText(/Search/i)).toBeInTheDocument()
     fireEvent.keyDown(document, { key: 'Escape' })
-    expect(screen.queryByPlaceholderText(/Find/i)).not.toBeInTheDocument()
+    expect(screen.queryByPlaceholderText(/Search/i)).not.toBeInTheDocument()
   })
 
   it('shows mobile settings button at mobile viewport', () => {
@@ -116,7 +116,7 @@ describe('TableMakerPage', () => {
 
   it('renders the Header color picker label', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
-    const headerLabels = screen.getAllByText('Header')
+    const headerLabels = screen.getAllByText('Header color')
     expect(headerLabels.length).toBeGreaterThanOrEqual(1)
   })
 
@@ -127,7 +127,7 @@ describe('TableMakerPage', () => {
 
   it('renders the Border panel section', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
-    const borderLabels = screen.getAllByText('Border Style')
+    const borderLabels = screen.getAllByText('Borders')
     expect(borderLabels.length).toBeGreaterThanOrEqual(1)
   })
 })

@@ -93,7 +93,7 @@ describe('TableToolbar', () => {
   it('renders Templates and Theme dropdowns', () => {
     renderToolbar()
     expect(screen.getByText('Templates')).toBeInTheDocument()
-    expect(screen.getByText('Table Theme')).toBeInTheDocument()
+    expect(screen.getByText('Theme')).toBeInTheDocument()
   })
 
   it('renders the AI features button', () => {
@@ -103,7 +103,7 @@ describe('TableToolbar', () => {
 
   it('renders Copy Table and Import dropdown triggers', () => {
     renderToolbar()
-    expect(screen.getByText('Copy Table')).toBeInTheDocument()
+    expect(screen.getByText('Copy')).toBeInTheDocument()
     expect(screen.getByText('Import')).toBeInTheDocument()
   })
 })

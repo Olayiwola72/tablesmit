@@ -1,4 +1,5 @@
 import { useState, type ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '../Button'
 
 const CONSENT_KEY = 'tablesmit-consent'
@@ -30,6 +31,7 @@ function setConsent(value: 'accepted' | 'declined'): void {
 }
 
 export function CookieConsent(): ReactNode {
+  const { t } = useTranslation()
   const [consent, setConsentState] = useState<'accepted' | 'declined' | null>(getConsent)
 
   if (consent !== null) {
@@ -51,16 +53,16 @@ export function CookieConsent(): ReactNode {
     <div
       className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-white p-4 shadow-sm"
       role="dialog"
-      aria-label="Cookie consent"
+      aria-label={t('cookieConsent.dialogAria')}
     >
       <div className="mx-auto flex max-w-content flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-text-secondary">
-          This site uses cookies for analytics. No personal data is collected.
-          <a href="/privacy" className="ml-1 text-primary underline underline-offset-2" aria-label="Learn more about our privacy policy">Learn more</a>.
+          {t('cookieConsent.message')}
+          <a href="/privacy" className="ml-1 text-primary underline underline-offset-2" aria-label={t('cookieConsent.learnMoreAria')}>{t('cookieConsent.learnMore')}</a>.
         </p>
         <div className="flex shrink-0 gap-2">
-          <Button variant="ghost" size="sm" onClick={decline}>Decline</Button>
-          <Button variant="primary" size="sm" onClick={accept}>Accept</Button>
+          <Button variant="ghost" size="sm" onClick={decline}>{t('cookieConsent.decline')}</Button>
+          <Button variant="primary" size="sm" onClick={accept}>{t('cookieConsent.accept')}</Button>
         </div>
       </div>
     </div>

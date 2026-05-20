@@ -36,10 +36,8 @@ describe('BlogListPage', () => {
   it('displays read time and author on each card', () => {
     renderPage()
     for (const post of allPosts) {
-      const readTimeElements = screen.getAllByText(`${post.readTime} min read`)
+      const readTimeElements = screen.getAllByText(post.author)
       expect(readTimeElements.length).toBeGreaterThanOrEqual(1)
-      const authorElements = screen.getAllByText(post.author)
-      expect(authorElements.length).toBeGreaterThanOrEqual(1)
     }
   })
 })

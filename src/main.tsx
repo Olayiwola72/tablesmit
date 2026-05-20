@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { Toaster } from 'sonner'
 import * as Sentry from '@sentry/react'
 import './index.scss'
+import './i18n/i18n'
 import App from './App.tsx'
 import { registerPWA } from './pwa.ts'
 
