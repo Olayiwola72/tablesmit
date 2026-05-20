@@ -188,6 +188,24 @@ describe('LatexExporter', () => {
     expect(lines[1]).toMatch(/^\s*& D & E/)
   })
 
+  it('skips colspan-covered hidden cells to avoid extra separators', async () => {
+    const cells: CellData[][] = [
+      [
+        makeCell('A', { colSpan: 3 }),
+        makeCell('', { isHidden: true }),
+        makeCell('', { isHidden: true }),
+        makeCell('B'),
+      ],
+    ]
+    await new LatexExporter().export(el(), { format: 'latex', cells })
+    const result = await getResult()
+    const line = result.split('\n').find(l => l.includes('\\\\')) ?? ''
+    // \multicolumn{3} should consume cols 0-2, then col 3 standalone → 2 entries
+    const parts = line.split('\\\\')[0].split('&')
+    expect(parts).toHaveLength(2)
+    expect(parts[0].trim()).toContain('\\multicolumn{3}')
+  })
+
   it('uses default filename tablesmit-table.tex when none provided', () => {
     const cells: CellData[][] = [[makeCell('x')]]
     new LatexExporter().export(el(), { format: 'latex', cells })

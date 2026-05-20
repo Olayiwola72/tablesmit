@@ -37,7 +37,7 @@ describe('FindReplace', () => {
     render(<FindReplace {...defaultProps} />)
     expect(screen.getByLabelText('Previous match')).toBeInTheDocument()
     expect(screen.getByLabelText('Next match')).toBeInTheDocument()
-    expect(screen.getByLabelText('Close search')).toBeInTheDocument()
+    expect(screen.getByLabelText('Close menu')).toBeInTheDocument()
   })
 
   it('calls onNext when next button is clicked', () => {

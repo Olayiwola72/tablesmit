@@ -73,9 +73,19 @@ export class LatexExporter implements ExportStrategy {
       if (hasBorders) lines.push('\\hline')
 
       const rowParts: string[] = []
+      let skipCols = 0
 
       for (let c = 0; c < row.length; c++) {
         const cell = row[c]
+
+        // Cells covered by a \multicolumn from earlier in this row are skipped entirely
+        if (skipCols > 0) {
+          skipCols--
+          continue
+        }
+
+        // Hidden cells NOT covered by a \multicolumn are rowspan carry-overs —
+        // emit empty placeholder to keep column count aligned
         if (cell.isHidden) {
           rowParts.push('')
           continue
@@ -91,6 +101,7 @@ export class LatexExporter implements ExportStrategy {
         if (cell.colSpan > 1) {
           const align = colAlignment(c, columnTextAlign)
           value = `\\multicolumn{${cell.colSpan}}{${hasBorders ? `|${align}|` : align}}{${value}}`
+          skipCols = cell.colSpan - 1
         }
 
         // Handle rowspan — basic approximation with \multirow if available
