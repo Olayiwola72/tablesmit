@@ -11,11 +11,13 @@
 
 @layer base {
   :root {
-    /* text-text-muted — passes WCAG AA 4.7:1 on white (#FFF) */
+    --color-text-primary: 17 24 39;
+    --color-text-secondary: 107 114 128;
     --color-text-muted: 102 117 136;
   }
   .dark {
-    /* text-text-muted — passes WCAG AA 5.1:1 on dark bg (#0F172A) */
+    --color-text-primary: 241 245 249;
+    --color-text-secondary: 148 163 184;
     --color-text-muted: 156 163 175;
   }
 

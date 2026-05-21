@@ -1,5 +1,5 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
-import { PDFExporter } from '../../../services/exportService/impl/pdfExporter'
+import { PDFExporter } from '../../../../services/exportService/impl/pdfExporter'
 
 const mockCanvas = vi.hoisted(() => ({
   toDataURL: vi.fn(() => 'data:image/png;base64,fakedata'),

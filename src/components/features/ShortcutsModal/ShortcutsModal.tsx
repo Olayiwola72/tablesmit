@@ -55,7 +55,7 @@ export function ShortcutsModal(): ReactNode {
     <>
       <div className="fixed inset-0 z-50 bg-black/40" onClick={() => setOpen(false)} />
       <div
-        className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-md border border-border bg-white p-6 shadow-sm"
+        className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-md border border-border bg-white p-6 shadow-sm dark:bg-slate-900 dark:text-slate-100"
         role="dialog"
         aria-modal="true"
         aria-label={t('shortcuts.title')}

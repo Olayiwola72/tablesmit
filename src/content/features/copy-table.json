@@ -1,7 +1,7 @@
 {
   "slug": "copy-table",
   "metaTitle": "Copy Table as Image or Excel Data | Tablesmit",
-  "metaDescription": "Copy your table as a PNG image to your clipboard — paste directly into any document, email, or presentation. Or copy as Excel data to paste into any spreadsheet.",
+  "metaDescription": "Copy a table as a PNG image to your clipboard — paste directly into any document, email, or presentation. Or copy as Excel data to paste into any spreadsheet.",
   "heroHeadline": "Copy your table. Paste it anywhere.",
   "heroSubtext": "Two copy modes: a rendered PNG image for documents and presentations, or tab-separated data for spreadsheets. One button, two destinations — no file download required.",
   "icon": "Copy",
