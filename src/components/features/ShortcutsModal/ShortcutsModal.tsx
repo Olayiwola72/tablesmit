@@ -2,11 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KEY_ESCAPE } from '../../../constants/keys'
 import { X } from 'lucide-react'
-
-interface Shortcut {
-  keys: string
-  labelKey: string
-}
+import type { Shortcut } from './ShortcutsModal.types'
 
 export function ShortcutsModal(): ReactNode {
   const { t } = useTranslation()

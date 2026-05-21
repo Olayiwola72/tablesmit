@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { ArrowLeft } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '../../components/ui/Button'
+import { Button } from '../../components/ui/Button/Button'
 import { NotFoundAnimation } from '../../components/ui/NotFoundAnimation/NotFoundAnimation'
 import { siteConfig } from '../../config/siteConfig'
 

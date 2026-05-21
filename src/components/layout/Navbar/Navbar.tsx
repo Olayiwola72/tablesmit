@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom'
 import { siteConfig } from '../../../config/siteConfig'
 import { KEY_ESCAPE } from '../../../constants/keys'
 import { LOCALES } from '../../../i18n/config'
-import { Button } from '../../ui/Button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/DropdownMenu'
-import { IconButton } from '../../ui/IconButton'
-import { Logo } from '../../ui/Logo'
-import { useTheme } from '../../../hooks/useTheme'
+import { Button } from '../../ui/Button/Button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/DropdownMenu/DropdownMenu'
+import { IconButton } from '../../ui/IconButton/IconButton'
+import { Logo } from '../../ui/Logo/Logo'
+import { useTheme } from '../../../hooks/useTheme/useTheme'
 
 const { brand, routes } = siteConfig
 
@@ -116,7 +116,26 @@ export function Navbar(): ReactNode {
                   {t(`nav.${item.route}`, item.label)}
                 </Link>
               ))}
-              <div className="flex items-center gap-2 pt-2 border-t border-border dark:border-slate-700">
+              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border dark:border-slate-700">
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" aria-label={t('aria.languageSelect')}>
+                      <Globe size={14} />
+                      {LOCALES.find((l) => l.code === i18n.language)?.name ?? i18n.language.toUpperCase()}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="start">
+                    {LOCALES.map((locale) => (
+                      <DropdownMenuItem
+                        key={locale.code}
+                        onClick={() => { i18n.changeLanguage(locale.code); setIsOpen(false) }}
+                      >
+                        {locale.name}
+                        {i18n.language === locale.code && <Check size={14} className="ml-auto" />}
+                      </DropdownMenuItem>
+                    ))}
+                  </DropdownMenuContent>
+                </DropdownMenu>
                 <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>
                   {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
                 </Button>

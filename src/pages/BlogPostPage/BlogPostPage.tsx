@@ -1,14 +1,15 @@
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { useState, type ReactNode, type ComponentPropsWithoutRef } from 'react'
+import { useState, useEffect, type ReactNode, type ComponentPropsWithoutRef } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { Helmet } from 'react-helmet-async'
 import { Copy, Check } from 'lucide-react'
-import { getPostBySlug } from '../../services/blogService'
-import { formatDate } from '../../utils/formatDate'
+import type { BlogPost } from '../../services/blogService/blogService.types'
+import { getPostBySlug } from '../../services/blogService/blogService'
+import { formatDate } from '../../utils/formatDate/formatDate'
 import { siteConfig } from '../../config/siteConfig'
-import { toast } from '../../utils/toast'
+import { toast } from '../../utils/toast/toast'
 
 function extractText(node: ReactNode): string {
   if (typeof node === 'string') return node
@@ -22,6 +23,7 @@ function extractText(node: ReactNode): string {
 type PreBlockProps = ComponentPropsWithoutRef<'pre'>
 
 function PreBlock(props: PreBlockProps): ReactNode {
+  const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
   const { children } = props
 
@@ -30,9 +32,9 @@ function PreBlock(props: PreBlockProps): ReactNode {
     if (!text) return
     navigator.clipboard.writeText(text).then(() => {
       setCopied(true)
-      toast.success('Copied to clipboard')
+      toast.success(t('blog.copiedToClipboard'))
       setTimeout(() => setCopied(false), 2000)
-    }).catch(() => toast.error('Failed to copy'))
+    }).catch(() => toast.error(t('blog.failedToCopy')))
   }
 
   return (
@@ -41,7 +43,7 @@ function PreBlock(props: PreBlockProps): ReactNode {
         type="button"
         onClick={handleCopy}
         className="absolute right-2 top-2 z-10 rounded-sm bg-white/90 p-1.5 text-text-muted opacity-0 shadow-sm ring-1 ring-border transition-opacity duration-150 hover:bg-white hover:text-text-primary group-hover:opacity-100 focus-visible:opacity-100"
-        aria-label="Copy code"
+        aria-label={t('blog.copyCode')}
       >
         {copied ? <Check size={14} /> : <Copy size={14} />}
       </button>
@@ -57,7 +59,23 @@ const markdownComponents = {
 export default function BlogPostPage(): ReactNode {
   const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
-  const post = getPostBySlug(slug ?? '')
+  const [post, setPost] = useState<BlogPost | undefined | null>(undefined)
+
+  useEffect(() => {
+    let cancelled = false
+    getPostBySlug(slug ?? '').then(result => {
+      if (!cancelled) setPost(result ?? null)
+    })
+    return () => { cancelled = true }
+  }, [slug])
+
+  if (post === undefined) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
+      </div>
+    )
+  }
 
   if (!post) return <Navigate to={siteConfig.routes.blog} replace />
 

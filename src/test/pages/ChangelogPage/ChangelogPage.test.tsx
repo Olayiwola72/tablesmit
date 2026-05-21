@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { ChangelogPage } from '../../../pages/ChangelogPage/ChangelogPage'
-import type { ChangelogEntry } from '../../../config/changelog'
-import { CHANGELOG, getChangeStyle } from '../../../config/changelog'
+import type { ChangelogEntry } from '../../../config/changelog/changelog.types'
+import { CHANGELOG, getChangeStyle } from '../../../config/changelog/changelog'
 
 describe('ChangelogPage', () => {
   it('renders the page heading', () => {
@@ -19,8 +19,11 @@ describe('ChangelogPage', () => {
 
   it('renders the date for every version entry', () => {
     render(<ChangelogPage />)
-    for (const entry of CHANGELOG) {
-      expect(screen.getByText(entry.date)).toBeInTheDocument()
+    const dates = CHANGELOG.map((e) => e.date)
+    for (const date of [...new Set(dates)]) {
+      const matches = screen.getAllByText(date)
+      const expectedCount = dates.filter((d) => d === date).length
+      expect(matches.length).toBeGreaterThanOrEqual(expectedCount)
     }
   })
 

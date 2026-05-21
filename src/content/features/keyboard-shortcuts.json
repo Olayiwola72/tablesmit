@@ -1,0 +1,181 @@
+{
+  "slug": "keyboard-shortcuts",
+  "metaTitle": "Keyboard Shortcuts — Work Faster in Tablesmit",
+  "metaDescription": "Every Tablesmit action has a keyboard shortcut. Navigate cells, add rows, find and replace, and export to PDF — all without leaving the keyboard.",
+  "heroHeadline": "Your hands never have to leave the keyboard.",
+  "heroSubtext": "Every meaningful action in Tablesmit has a shortcut. Navigate, edit, export, and search at the speed you actually think — no mouse required.",
+  "icon": "Keyboard",
+  "shortcuts": [
+    {
+      "category": "Navigation",
+      "description": "Move through your table precisely without reaching for the mouse.",
+      "items": [
+        {
+          "label": "Move to next cell",
+          "keys": ["Tab"],
+          "note": ""
+        },
+        {
+          "label": "Move to previous cell",
+          "keys": ["Shift+Tab"],
+          "note": ""
+        },
+        {
+          "label": "Move between cells",
+          "keys": ["↑", "↓", "←", "→"],
+          "note": "Arrow key navigation works when a cell is selected but not in edit mode."
+        },
+        {
+          "label": "Enter edit mode",
+          "keys": ["Enter"],
+          "note": "Press Enter on a focused cell to start typing into it."
+        },
+        {
+          "label": "Exit edit mode",
+          "keys": ["Escape"],
+          "note": "Cancels the current edit without saving the change."
+        }
+      ]
+    },
+    {
+      "category": "Editing",
+      "description": "Modify cell content and correct mistakes without interrupting your flow.",
+      "items": [
+        {
+          "label": "Undo last action",
+          "keys": ["Ctrl+Z"],
+          "note": "Up to 50 actions deep. The tooltip on the Undo button shows how many actions are available."
+        },
+        {
+          "label": "Delete cell content",
+          "keys": ["Delete"],
+          "note": "Clears the content of the selected cell without removing the cell itself."
+        }
+      ]
+    },
+    {
+      "category": "Table Structure",
+      "description": "Add rows and columns without breaking your focus from the content.",
+      "items": [
+        {
+          "label": "Add row",
+          "keys": ["Ctrl+L"],
+          "note": "Appends a new empty row to the bottom of the table."
+        },
+        {
+          "label": "Add column",
+          "keys": ["Ctrl+R"],
+          "note": "Appends a new empty column to the right of the table."
+        }
+      ]
+    },
+    {
+      "category": "Search",
+      "description": "Find content across all cells and replace it without using the mouse.",
+      "items": [
+        {
+          "label": "Find",
+          "keys": ["Ctrl+F"],
+          "note": "Opens the find panel. Highlights all matching cells as you type."
+        },
+        {
+          "label": "Find and replace",
+          "keys": ["Ctrl+H"],
+          "note": "Opens the find and replace panel. Replace one match or all at once."
+        }
+      ]
+    },
+    {
+      "category": "Export",
+      "description": "Get your table out of the browser and into the world — instantly.",
+      "items": [
+        {
+          "label": "Export to PDF",
+          "keys": ["Ctrl+P"],
+          "note": "Exports the table as a clean PDF — no browser print dialog, no UI chrome."
+        },
+        {
+          "label": "Export to Excel",
+          "keys": ["Ctrl+E"],
+          "note": "Downloads a genuine .xlsx file with merged cells and formatting preserved."
+        },
+        {
+          "label": "Copy as image",
+          "keys": ["Ctrl+C"],
+          "status": "coming-soon",
+          "note": "Renders the table to a PNG and writes it to your clipboard. Paste directly into any document, presentation, or design tool."
+        }
+      ]
+    },
+    {
+      "category": "Help",
+      "description": "",
+      "items": [
+        {
+          "label": "Toggle keyboard shortcuts",
+          "keys": ["Ctrl+/"],
+          "note": "Opens or closes this shortcuts reference. Press it again to dismiss."
+        }
+      ]
+    }
+  ],
+  "benefits": [
+    {
+      "icon": "Zap",
+      "heading": "Stay in flow",
+      "body": "Every time you reach for the mouse, you lose a beat. Keyboard shortcuts keep your hands where your thinking is — on the content, not the interface."
+    },
+    {
+      "icon": "Navigation",
+      "heading": "Navigate large tables precisely",
+      "body": "Tab, Shift+Tab, and Arrow keys make moving through a 50-column table a matter of keystrokes. No clicking, no scrolling to find the next cell."
+    },
+    {
+      "icon": "Download",
+      "heading": "Export without breaking focus",
+      "body": "Ctrl+P and Ctrl+E let you export to PDF or Excel in the middle of editing — without opening a menu, without taking your hands off the keyboard."
+    },
+    {
+      "icon": "History",
+      "heading": "Undo confidently",
+      "body": "Ctrl+Z goes up to 50 actions deep. Edit freely, knowing you can always reverse the last step without hunting for the Undo button."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Learn the navigation shortcuts first",
+      "body": "Tab and Shift+Tab are the most important. They let you move through a table like a spreadsheet — left to right, row by row. Arrow keys give you full directional control when not in edit mode."
+    },
+    {
+      "number": 2,
+      "heading": "Use Ctrl+L and Ctrl+R to build structure",
+      "body": "Add rows with Ctrl+L and columns with Ctrl+R while filling in data. You never need to stop typing to extend the table."
+    },
+    {
+      "number": 3,
+      "heading": "Find and correct with Ctrl+F and Ctrl+H",
+      "body": "Made a spelling error across 20 rows? Ctrl+H opens find and replace. Fix it once and replace all. Done in seconds."
+    },
+    {
+      "number": 4,
+      "heading": "Export directly from the keyboard",
+      "body": "When your table is ready, Ctrl+P sends it to PDF and Ctrl+E sends it to Excel. No toolbar required. Press Ctrl+/ at any time to see the full reference."
+    }
+  ],
+  "useCases": [
+    "Researchers filling in large data tables without switching between mouse and keyboard",
+    "Writers who want to build and export a table without interrupting their typing rhythm",
+    "Analysts who move quickly between cells using Tab navigation during data entry",
+    "Anyone who wants to export a finished table instantly with a single keypress"
+  ],
+  "relatedFeatures": ["find-replace", "excel-export", "pdf-export"],
+  "relatedPost": "best-table-tool-for-researchers",
+
+  "_codex_notes": {
+    "schema_extension": "This page uses a 'shortcuts' field not present in the base FeaturePage type. Extend the type as shown below and handle it in FeatureDetailPage.",
+    "type_extension": "Add to src/types/feature.types.ts:\n\nexport interface ShortcutItem {\n  label:  string;\n  keys:   string[];\n  note?:  string;\n  status?: 'live' | 'coming-soon';\n}\n\nexport interface ShortcutCategory {\n  category:    string;\n  description: string;\n  items:       ShortcutItem[];\n}\n\nexport interface FeaturePage {\n  // ...existing fields\n  shortcuts?: ShortcutCategory[];  // optional — only present on keyboard-shortcuts page\n}",
+    "rendering": "In FeatureDetailPage: if (page.shortcuts) render a ShortcutsTable component between the hero and benefits sections. The table renders each category as a group with a heading, then each item as a row: label on the left, key badge(s) on the right. 'coming-soon' items render with an amber 'Coming soon' badge next to the key. Key badges: font-mono text-xs bg-surface border border-border rounded-sm px-2 py-1. Coming soon badge: same as accent-light with amber text.",
+    "coming_soon_item": "Ctrl+C (Copy as image) is in the pipeline. It is intentionally listed with status: 'coming-soon' to signal intent without shipping broken functionality. Remove the status field when the feature ships."
+  }
+}

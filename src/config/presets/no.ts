@@ -1,4 +1,4 @@
-import type { PresetDefinition } from '../../types/ui.types'
+import type { PresetDefinition } from '../../config/ui.types'
 
 const presets: PresetDefinition[] = [
   {

@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../Button'
+import { Button } from '../Button/Button'
 import { siteConfig } from '../../../config/siteConfig'
 
 const CONSENT_KEY = 'tablesmit-consent'

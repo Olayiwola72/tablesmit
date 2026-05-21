@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { CellData } from '../types/table.types'
+import type { CellData } from './table.types'
 
 export interface TableCellsValue {
   cells: CellData[][]

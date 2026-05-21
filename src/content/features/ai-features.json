@@ -1,0 +1,93 @@
+{
+  "slug": "ai-features",
+  "metaTitle": "AI Table Features — Generate, Summarise, and Clean | Tablesmit",
+  "metaDescription": "AI-powered table features in development — generate a table from plain text, summarise your data, and clean messy entries. Help shape what gets built first.",
+  "heroHeadline": "The table that thinks with you — coming soon.",
+  "heroSubtext": "We are building AI features directly into Tablesmit. Paste a paragraph and get a table. Ask for a summary. Clean inconsistent data automatically. The tools are in development — your input shapes what ships first.",
+  "icon": "Sparkles",
+  "status": "coming-soon",
+  "aiFeatures": [
+    {
+      "id": "generate-from-text",
+      "name": "Generate table from text",
+      "icon": "FileInput",
+      "status": "coming-soon",
+      "description": "Paste a paragraph, a list, or raw notes. The AI reads the structure and generates a properly formatted table — columns labelled, rows populated, types inferred.",
+      "example": "You paste: 'The team has three members. Alice is a designer based in Lagos earning ₦450,000. Bob is a developer in Abuja earning ₦520,000. Carol is a PM in Port Harcourt earning ₦480,000.' The AI produces a four-column table with Name, Role, Location, and Salary columns."
+    },
+    {
+      "id": "summarise-table",
+      "name": "Summarise this table",
+      "icon": "FileOutput",
+      "status": "coming-soon",
+      "description": "The AI reads your table and produces a two or three sentence plain-English summary of what the data shows — key patterns, totals, standout values. Useful for adding a findings paragraph above a results table.",
+      "example": "A 12-row sales table produces: 'Q3 shows the strongest performance, with total revenue of $284,000 across all regions. The North region consistently outperformed targets, while the South region declined by 14% compared to Q2.'"
+    },
+    {
+      "id": "clean-messy-data",
+      "name": "Clean messy data",
+      "icon": "Eraser",
+      "status": "coming-soon",
+      "description": "Inconsistent date formats, mixed currency symbols, trailing whitespace, mixed capitalisation — the AI normalises your data into consistent, clean values across the whole table.",
+      "example": "'jan 5 2024', '05-01-24', 'January 5th, 2024' in a date column all become '05 Jan 2024'. '$1,200', '1200 USD', '$ 1200.00' in a currency column all become '$1,200.00'."
+    },
+    {
+      "id": "convert-paragraph",
+      "name": "Convert paragraph to table",
+      "icon": "AlignJustify",
+      "status": "coming-soon",
+      "description": "Paste a section of structured prose — a product comparison, a list of specifications, a numbered set of findings — and the AI restructures it into a table. Ideal for turning research notes into publication-ready data."
+    }
+  ],
+  "benefits": [
+    {
+      "icon": "Clock",
+      "heading": "Time you will never get back — given back",
+      "body": "Manually structuring data from notes into a table can take twenty minutes. Generate from text does it in seconds. Clean messy data does in one click what would take careful cell-by-cell review."
+    },
+    {
+      "icon": "Shield",
+      "heading": "Processed in the browser — your data stays private",
+      "body": "When AI features ship, the AI call goes through a serverless function. Your table data is not stored, not logged, and not used for training. The response comes back and the connection closes."
+    },
+    {
+      "icon": "MessageSquare",
+      "heading": "Help us build what matters most to you",
+      "body": "These features are in development. The order they ship depends on what the community needs most. Tell us which one you would use first."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Find the AI panel",
+      "body": "The AI Features panel is in the right sidebar. Click AI in the toolbar to open it directly."
+    },
+    {
+      "number": 2,
+      "heading": "See what is coming",
+      "body": "Each feature is listed with a description. 'Coming soon' means it is in development — not abandoned, not vaporware."
+    },
+    {
+      "number": 3,
+      "heading": "Tell us what to build first",
+      "body": "Use the contact page or open a GitHub Discussion to vote for the feature you need most. The most-requested feature ships first."
+    }
+  ],
+  "useCases": [
+    "A researcher who wants to paste interview notes and generate a structured comparison table automatically",
+    "An analyst who imports CSV data from a legacy system with inconsistent date and currency formats",
+    "A writer who wants a one-paragraph summary of a 30-row data table to include above it in their article",
+    "Anyone who spends time manually reformatting data that a model could clean in seconds"
+  ],
+  "cta": {
+    "heading": "Which feature do you need first?",
+    "body": "Tell us and we will build it. AI features are shaped by real use — not product roadmap guesswork.",
+    "buttonLabel": "Share your use case",
+    "buttonLink": "/contact"
+  },
+  "relatedFeatures": ["find-replace", "column-types", "copy-table"],
+  "relatedPost": "best-table-tool-for-researchers",
+  "_codex_notes": {
+    "note": "This page has status: 'coming-soon' at the top level. Render a prominent amber 'In development' banner below the hero. The aiFeatures array renders as a 2×2 card grid (or stacked on mobile). Each card: icon, name, status badge, description, and example (in a styled blockquote or code-like box). The cta object renders as a callout section at the bottom of the page before related features. Do not render the standard steps section for this page — replace with the cta section."
+  }
+}

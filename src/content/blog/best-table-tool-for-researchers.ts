@@ -1,4 +1,4 @@
-import type { BlogPost } from '../../types/blog.types'
+import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'best-table-tool-for-researchers',

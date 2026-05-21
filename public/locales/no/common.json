@@ -64,7 +64,24 @@
     "errorTitle": "Noe gikk galt.",
     "errorBody": "Kunne ikke sende meldingen din. Prøv igjen eller send oss en e-post direkte.",
     "orEmail": "Eller send oss e-post direkte på",
-    "reachOnX": "eller kontakt oss på X"
+    "reachOnX": "eller kontakt oss på X",
+    "featureIdea": "Funksjonsidé",
+    "featureIdeaDesc": "Noe som mangler som ville forbedre arbeidsflyten din? Si ifra.",
+    "bugGlitch": "Feil eller problem",
+    "bugGlitchDesc": "Noe som ikke fungerer som det skal? Jeg skal se på det og fikse det.",
+    "justSayingHi": "Bare sier hei",
+    "somethingElse": "Noe annet",
+    "somethingElseDesc": "Hva som helst på hjertet. Jeg leser hver melding.",
+    "whatToReachOutAbout": "Hva vil du ta kontakt om?",
+    "builtWithCare": "Bygget med omhu, vedlikeholdt med takknemlighet."
+  },
+  "pagination": {
+    "page": "Side {{current}} av {{total}}",
+    "prev": "Forrige",
+    "next": "Neste",
+    "prevAria": "Gå til forrige side",
+    "nextAria": "Gå til neste side",
+    "pageAria": "Gå til side {{number}}"
   },
   "blog": {
     "heading": "Skriver om tabeller, struktur og analytisk tenkning.",
@@ -72,7 +89,11 @@
     "minRead": "{{count}} min lesing",
     "openTablesmit": "Åpne Tablesmit",
     "ctaTitle": "Prøv Tablesmit selv — gratis, ingen registrering nødvendig.",
-    "backToBlog": "Tilbake til bloggen"
+    "backToBlog": "Tilbake til bloggen",
+    "empty": "Ingen innlegg ennå. Kom tilbake snart.",
+    "copiedToClipboard": "Kopiert til utklippstavlen",
+    "failedToCopy": "Kopiering mislyktes",
+    "copyCode": "Kopier kode"
   },
   "notFound": {
     "heading": "Siden ble ikke funnet.",
@@ -103,7 +124,9 @@
     "png": "PNG",
     "jpeg": "JPEG",
     "excel": "Excel",
-    "csv": "CSV"
+    "csv": "CSV",
+    "privacyPolicy": "Personvern",
+    "termsOfUse": "Bruksvilkår"
   },
   "toolbar": {
     "templates": "Maler",
@@ -365,7 +388,11 @@
     "subtext": "Alt du trenger for å bygge rene, strukturerte tabeller.",
     "learnMore": "Les mer",
     "emptyState": "Ingen funksjoner oppført ennå.",
-    "backToFeatures": "Tilbake til funksjoner"
+    "backToFeatures": "Tilbake til funksjoner",
+    "benefits": "Fordeler",
+    "howItWorks": "Slik fungerer det",
+    "useCases": "Brukstilfeller",
+    "relatedFeatures": "Relaterte funksjoner"
   },
   "errors": {
     "pageNotFound": "Siden ble ikke funnet.",
@@ -399,7 +426,9 @@
     "openShortcuts": "Åpne tastatursnarveier",
     "openSettings": "Åpne innstillinger",
     "openPresets": "Åpne maler",
-    "toggleDarkMode": "Bytt til {{mode}}-modus"
+    "toggleDarkMode": "Bytt til {{mode}}-modus",
+    "closePanelOverlay": "Lukk paneloverlegg",
+    "closePanel": "Lukk panel"
   },
   "shortcutKeys": {
     "ctrlZ": "Ctrl+Z",
@@ -417,5 +446,38 @@
     "delete": "Delete",
     "questionMark": "?",
     "ctrlSlash": "Ctrl+/"
+  },
+  "loading": "Laster…",
+  "changelogDescription": "Hver utgivelse av Tablesmit, dokumentert.",
+  "cookieConsent": {
+    "message": "Dette nettstedet bruker informasjonskapsler for analyse. Ingen personlige data samles inn.",
+    "learnMore": "Les mer",
+    "learnMoreAria": "Les mer om vår personvernpolicy",
+    "accept": "Godta",
+    "decline": "Avvis",
+    "dialogAria": "Informasjonskapselsamtykke"
+  },
+  "privacy": {
+    "lastUpdated": "Sist oppdatert: mai 2026",
+    "intro": "{{name}} er et nettleserbasert verktøy. Vi krever ikke konto, og vi lagrer ikke tabelldataene dine på noen server.",
+    "whatWeCollect": "Hva vi samler inn",
+    "whatWeCollectBody": "Vi kan bruke analyseverktøy for å forstå hvordan {{name}} brukes. Analyser samler inn anonymiserte bruksdata som besøkte sider, tid på siden og generell geografisk region på landsnivå. Vi samler ikke inn navn, e-postadresser eller personlig identifiserbar informasjon gjennom selve appen.",
+    "whatWeDontCollect": "Hva vi ikke samler inn",
+    "whatWeDontCollectBody": "Tabellinnholdet ditt forlater aldri nettleseren din. Vi overfører, lagrer eller behandler ikke tabelldataene dine på våre servere. Vi selger ikke data til tredjeparter.",
+    "fileImports": "Filimport",
+    "fileImportsBody": "Når du importerer en CSV- eller Excel-fil, leses den lokalt i nettleseren din. Filen lastes aldri opp til noen server.",
+    "contact": "Kontakt",
+    "contactBody": "Spørsmål om personvern:"
+  },
+  "terms": {
+    "lastUpdated": "Sist oppdatert: mai 2026",
+    "intro": "Ved å bruke {{name}} godtar du disse vilkårene.",
+    "service": "Tjenesten",
+    "serviceBody": "{{name}} tilbys gratis, som den er, uten garantier for oppetid, nøyaktighet eller egnethet for noe bestemt formål.",
+    "yourContent": "Ditt innhold",
+    "yourContentBody": "Du beholder fullt eierskap til alt innhold du oppretter med {{name}}. Vi gjør ikke krav på noen rettigheter over dine tabeller, data eller eksporter.",
+    "openSource": "Åpen kildekode",
+    "openSourceBody": "Kildekoden til {{name}} er tilgjengelig under MIT-lisensen. Du kan forke, modifisere og distribuere den under disse vilkårene.",
+    "contact": "Kontakt"
   }
 }

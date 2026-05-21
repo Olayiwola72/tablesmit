@@ -1,10 +1,6 @@
-import { memo, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { memo, type ReactNode } from 'react'
 import { cn } from '../../../lib/utils'
-
-export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: ReactNode
-  'aria-label': string
-}
+import type { IconButtonProps } from './IconButton.types'
 
 function IconButtonRaw({ icon, className, ...props }: IconButtonProps): ReactNode {
   return (

@@ -761,7 +761,7 @@ LEFT:
 RIGHT (flex gap-8 text-sm text-text-secondary):
   Product:    Home · Open Source
   Company:    About · Contact · GitHub ↗
-  Export:     PDF · PNG · JPEG · Excel · CSV
+  Export:     PDF · PNG · JPEG · Excel · CSV · LaTeX
 
 Footer links: hover:text-primary transition-colors
 NO heavy footer. NO newsletter signup. NO marketing.
@@ -1665,7 +1665,7 @@ export interface TableState {
 }
 
 // src/types/export.types.ts
-export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv';
+export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv' | 'latex';
 export interface ExportOptions {
   format: ExportFormat;
   filename?: string;
@@ -1939,7 +1939,7 @@ describe('TableToolbar', () => {
   });
   it('renders export buttons for all four formats', () => {
     wrap(<TableToolbar />);
-    ['pdf', 'png', 'jpeg', 'excel'].forEach(fmt =>
+    ['pdf', 'png', 'jpeg', 'excel', 'latex'].forEach(fmt =>
       expect(screen.getByRole('button', { name: new RegExp(fmt, 'i') }))
         .toBeInTheDocument()
     );
@@ -2300,7 +2300,7 @@ Desktop:
 ```
 Mobile:
   - Overflow-x: toolbar scrolls horizontally — do NOT wrap buttons
-  - Export group: collapse PDF/PNG/JPEG/Excel into a single "Export ▾" DropdownMenu
+  - Export group: collapse PDF/PNG/JPEG/Excel/LaTeX into a single "Export ▾" DropdownMenu
   - Add/Remove group: keep visible (most-used actions)
   - Merge/Unmerge: keep visible
 
@@ -2323,7 +2323,7 @@ Implementation:
     </DropdownMenu>
   </div>
   <div className="hidden lg:flex items-center gap-1">
-    {/* individual PDF PNG JPEG Excel buttons */}
+    {/* individual PDF PNG JPEG Excel CSV LaTeX buttons */}
   </div>
 ```
 
@@ -2554,7 +2554,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] 7 tests covering: closed state, open content, title, overlay close, ESC close, close button, open/close toggle
 
 ### Export
-- [x] PDF/PNG/JPEG/Excel/CSV export via strategy pattern in `export/` directory
+- [x] PDF/PNG/JPEG/Excel/CSV/LaTeX export via strategy pattern in `export/` directory
 - [x] CSV export format added (`CSVExporter` class using PapaParse unparse)
 - [x] CSV export listed in toolbar export group and siteConfig
 
@@ -3836,7 +3836,7 @@ and export. No bloat. No account required. Free and open source.
 - Auto-sum for numeric columns
 - Column sorting
 - Smart clipboard paste from Excel, Word, or CSV
-- Export: PDF, PNG, JPEG, Excel, CSV
+- Export: PDF, PNG, JPEG, Excel, CSV, LaTeX (.tex)
 - Import: CSV, Excel
 - Dark mode
 - Keyboard navigation
@@ -4090,7 +4090,7 @@ and force the eye to pause at an unexpected beat.
 
 | Instead of                                      | Write                                        |
 |-------------------------------------------------|----------------------------------------------|
-| "Export — PDF, PNG, JPEG"                       | "Export to PDF, PNG, or JPEG"                |
+| "Export — PDF, PNG, JPEG, LaTeX"              | "Export to PDF, PNG, JPEG, or LaTeX"                |
 | "Tables, your way — built for writers"          | "Tables, your way. Built for writers."       |
 | "Resize columns — like Excel"                   | "Resize columns like Excel."                 |
 | "No account — no paywall — no nonsense"         | "No account. No paywall. No nonsense."       |
@@ -6195,6 +6195,7 @@ export function trackEvent(name: string, params?: Record<string, unknown>) {
 
 // Usage throughout the app:
 trackEvent('table_exported', { format: 'pdf' });
+tackEvent('table_exported', { format: 'latex' });
 trackEvent('table_imported', { source: 'csv', rows: 10 });
 trackEvent('theme_applied',  { theme: 'striped' });
 ```
@@ -7334,7 +7335,7 @@ Meta:      Page titles and meta descriptions per language
 
 ```
 - Brand name: "Tablesmit" — always the same in every language
-- Export format names: "PDF", "PNG", "JPEG", "Excel", "CSV"
+- Export format names: "PDF", "PNG", "JPEG", "Excel", "CSV", "LaTeX"
 - Code, technical identifiers, URLs
 - Blog post content (posts are authored in English only — translation optional in future)
 ```
@@ -7363,27 +7364,37 @@ The `useSuspense: true` config suspends rendering until the active locale JSON i
 
 ### v7.0 — Completed (do not re-implement)
 
+i18n shipped in v7.0. All items below are locked.
+
+```
+[x] 8-language support: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian
+[x] RTL layout for Arabic via document.documentElement.dir = 'rtl'
+[x] react-i18next + i18next-http-backend — lazy loads locale JSON from /public/locales/
+[x] i18next-browser-languagedetector — auto-detects from localStorage then navigator.language
+[x] TypeSafe translations via types.d.ts augmentation of react-i18next
+[x] Brand name never translated in any locale
+[x] Locale persisted in localStorage key "tablesmit-locale"
+[x] Language picker in Navbar — native <select> with locale display names
+[x] Toast messages use interpolation variables ({{format}}, {{rows}}, etc.)
+[x] All aria-labels translated for full screen reader support in all 8 languages
+[x] src/i18n/i18n.ts — i18next initialisation
+[x] src/i18n/config.ts — LOCALES array with code, name, direction
+[x] src/i18n/types.d.ts — TypeScript augmentation
+[x] /public/locales/{en,ar,fr,es,pt,ja,de,no}/common.json — all 8 locale files
+[x] Custom LocaleContext fully removed — zero references remain
+```
+
+Also completed alongside v7.0:
 ```
 [x] GitHub repo hygiene — description, website, topics set manually (Section 54)
 [x] Logo 2 (T-form) activated — Logo 1 retired
 [x] og-image.png updated to use Logo 2 mark
 [x] Navbar updated: Home · About · Blog · Contact · Open Source · Changelog
-[x] Export strategy pattern — PDF/PNG/JPEG/Excel/CSV via strategy classes in export/ directory
+[x] Export strategy pattern — PDF/PNG/JPEG/Excel/CSV/LaTeX via strategy classes in export/ directory
 [x] Lighthouse 90+ passing on all four metrics
 [x] npm audit — zero high/critical vulnerabilities
-[x] Internationalization (i18n) via react-i18next — 8 languages (en, ar, fr, es, pt, ja, de, no)
-[x] Custom LocaleContext fully removed — zero references remain in codebase
-[x] All 8 locale JSON files with 335+ keys each, matching en/common.json structure
-[x] RTL support — Arabic sets document.documentElement.dir = 'rtl'
-[x] Language picker in Navbar — `<select>` with locale display names in their own language
-[x] Locale persisted in localStorage key `tablesmit-locale`
-[x] Type-safe translations — TypeScript augmentation derives key types from en/common.json
-[x] Brand name `Tablesmit` never translated in any locale
-[x] All toast messages use `useTranslation` + interpolation variables {{format}}, {{rows}}, etc.
-[x] All aria-labels translated across all 8 languages
-[x] useSuspense: true — app suspends on initial locale load, Suspense at root handles it
-[x] Lazy-loaded locale JSON via i18next-http-backend — only active language fetched
-[x] 438 tests passing, 50 test files, build compiles clean, lint zero errors
+[x] Testimonials page — /testimonials, config-driven, empty state + card grid (Section 60)
+[x] Branch protection — no direct push to main (Section 62)
 ```
 
 ---
@@ -7460,33 +7471,76 @@ One post already committed: `best-table-tool-for-researchers.ts` (featured: true
 
 ## 59. Feature Landing Pages — Content Specification
 
-Six feature page JSON files are written and ready to commit to `src/content/features/`.
+Six feature page JSON files were written in the initial pass.
+The full set has since been expanded to 23 pages covering every visible UI feature.
+All files are written and ready to commit to `src/content/features/`.
 The system architecture is specified in Section 56.
 
-### Pages to commit
+### Complete Feature Pages List
 
-| Filename | Route | Target keyword |
+| Filename | Route | Target keyword | Status |
+|---|---|---|---|
+| `excel-export.json` | /features/excel-export | export table to excel online | ✅ Ready |
+| `pdf-export.json` | /features/pdf-export | export table to pdf online | ✅ Ready |
+| `csv-import.json` | /features/csv-import | import csv to table online | ✅ Ready |
+| `csv-export.json` | /features/csv-export | export table to csv online | ✅ Ready |
+| `image-export.json` | /features/image-export | export table as image png | ✅ Ready |
+| `merge-cells.json` | /features/merge-cells | merge cells online table | ✅ Ready |
+| `custom-headers.json` | /features/custom-headers | custom table headers online | ✅ Ready |
+| `drag-to-resize.json` | /features/drag-to-resize | resize table columns online | ✅ Ready |
+| `keyboard-shortcuts.json` | /features/keyboard-shortcuts | table builder keyboard shortcuts | ✅ Ready |
+| `table-themes.json` | /features/table-themes | table styles online | ✅ Ready |
+| `templates.json` | /features/templates | table templates online free | ✅ Ready |
+| `border-styles.json` | /features/border-styles | table border styles online | ✅ Ready |
+| `freeze-panes.json` | /features/freeze-panes | freeze header row online | ✅ Ready |
+| `copy-table.json` | /features/copy-table | copy table as image | ✅ Ready |
+| `find-replace.json` | /features/find-replace | find and replace in table | ✅ Ready |
+| `column-types.json` | /features/column-types | table column formatting online | ✅ Ready |
+| `table-caption.json` | /features/table-caption | table title caption field | ✅ Ready |
+| `column-sorting.json` | /features/column-sorting | sort table columns online | ✅ Ready |
+| `ai-features.json` | /features/ai-features | ai table generator | ✅ Ready |
+| `dark-mode.json` | /features/dark-mode | dark mode table builder | ✅ Ready |
+| `auto-sum.json` | /features/auto-sum | auto sum table column online | ✅ Ready |
+| `context-menu.json` | /features/context-menu | right click table context menu | ✅ Ready |
+| `undo.json` | /features/undo | undo table editing online | ✅ Ready |
+
+### Schema Extensions Required
+
+Some pages use additional JSON fields beyond the base `FeaturePage` type.
+These must be handled in `FeatureDetailPage` with conditional rendering:
+
+| Page | Additional field | Rendering |
 |---|---|---|
-| `excel-export.json` | /features/excel-export | export table to excel online |
-| `pdf-export.json` | /features/pdf-export | export table to pdf online |
-| `csv-import.json` | /features/csv-import | import csv to table online |
-| `merge-cells.json` | /features/merge-cells | merge cells online table |
-| `custom-headers.json` | /features/custom-headers | custom table headers |
-| `drag-to-resize.json` | /features/drag-to-resize | resize table columns online |
+| `keyboard-shortcuts` | `shortcuts[]` — ShortcutCategory[] | ShortcutsTable component |
+| `table-themes` | `themes[]` — ThemePreview[] | ThemePreviewGrid component |
+| `templates` | `templates[]` — TemplateCard[] | TemplateCardGrid component |
+| `border-styles` | `borderTypes[]`, `borderStyles[]` | Two reference grids |
+| `copy-table` | `copyModes[]` — CopyMode[] | Two side-by-side mode cards |
+| `column-types` | `columnTypes[]` — ColumnType[] | Type reference grid |
+| `image-export` | `comparison{}` | PNG vs JPEG comparison table |
+| `ai-features` | `aiFeatures[]`, `cta{}`, `status` | Feature cards + CTA block |
+| `context-menu` | `menuItems{}` — cell and columnHeader arrays | Two reference panels |
 
-### Implementation checklist
+### Implementation Checklist
 
 ```
-[ ] src/types/feature.types.ts — FeaturePage, FeatureBenefit, FeatureStep interfaces
+[ ] src/types/feature.types.ts — base FeaturePage type + all extension interfaces
 [ ] src/services/featureService.ts — import.meta.glob auto-discovery
-[ ] src/pages/FeaturesListPage/ — grid of all feature cards
-[ ] src/pages/FeatureDetailPage/ — hero + benefits + steps + use cases + related
+[ ] src/pages/FeaturesListPage/ — grid of all 23 feature cards
+[ ] src/pages/FeatureDetailPage/ — hero + conditional sections + related
 [ ] Routes: /features and /features/:slug added to App.tsx (lazy-loaded)
-[ ] All 6 JSON files committed to src/content/features/
+[ ] All 23 JSON files committed to src/content/features/
+[ ] Each page renders correctly — check conditional sections per _codex_notes
+[ ] ai-features page shows 'In development' amber banner below hero
+[ ] keyboard-shortcuts page renders ShortcutsTable between hero and benefits
+[ ] image-export page renders PNG vs JPEG comparison table
+[ ] copy-table page shows 'Coming soon' badge on Copy as Image mode card
+[ ] context-menu page renders two reference panels (cell vs column header)
 [ ] Each page: metaTitle, metaDescription, og:url, JSON-LD via react-helmet-async
-[ ] sitemap.xml updated with /features/* URLs
+[ ] FeaturesListPage links 'Features' nav item (already in siteConfig)
+[ ] sitemap.xml updated with all 23 /features/* URLs
+[ ] featureService tests: auto-discovery, slug derivation, not-found
 [ ] FeaturesListPage and FeatureDetailPage tests written
-[ ] featureService tests: auto-discovery, slug derivation, not-found handling
 ```
 
 ---
@@ -7577,7 +7631,7 @@ Dashed border box: border-2 border-dashed border-border rounded-md p-10
             "We are collecting feedback from early users.
              If you have used Tablesmit, we would love to hear from you."
   CTA:      [Share your experience →] → /contact
-  Secondary: "or reach out on X @OlayiwolaAkinn1 / hello@tablesmit.com"
+  Secondary: "or mention us on X @OlayiwolaAkinn1"
 ```
 
 ### Target: 3 testimonials before v8.0 ships

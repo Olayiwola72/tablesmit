@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
@@ -18,30 +18,49 @@ function renderPost(slug: string): void {
 }
 
 describe('BlogPostPage', () => {
-  it('renders the post title as H1 for valid slug', () => {
+  it('renders the post title as H1 for valid slug', async () => {
     renderPost('how-to-make-a-table-in-markdown')
-    expect(screen.getByRole('heading', { level: 1, name: /how to make a table in markdown/i })).toBeInTheDocument()
+    await waitFor(() => {
+      expect(
+        screen.getByRole('heading', {
+          level: 1,
+          name: /how to make a table in markdown/i,
+        })
+      ).toBeInTheDocument()
+    })
   })
 
-  it('renders the post content as Markdown', () => {
+  it('renders the post content as Markdown', async () => {
     renderPost('how-to-make-a-table-in-markdown')
-    expect(screen.getByText(/Markdown tables are simpler/)).toBeInTheDocument()
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Markdown tables are simpler/)
+      ).toBeInTheDocument()
+    })
   })
 
-  it('redirects to /blog for unknown slugs', () => {
+  it('redirects to /blog for unknown slugs', async () => {
     renderPost('nonexistent-slug')
-    expect(screen.getByText('Blog list page')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText('Blog list page')).toBeInTheDocument()
+    })
   })
 
-  it('shows tags as pill badges', () => {
+  it('shows tags as pill badges', async () => {
     renderPost('how-to-make-a-table-in-markdown')
-    expect(screen.getByText('markdown')).toBeInTheDocument()
-    expect(screen.getByText('tutorial')).toBeInTheDocument()
-    expect(screen.getByText('tables')).toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.getByText('markdown')).toBeInTheDocument()
+      expect(screen.getByText('tutorial')).toBeInTheDocument()
+      expect(screen.getByText('tables')).toBeInTheDocument()
+    })
   })
 
-  it('includes CTA link to home at the bottom', () => {
+  it('includes CTA link to home at the bottom', async () => {
     renderPost('how-to-make-a-table-in-markdown')
-    expect(screen.getByRole('link', { name: /open tablesmit/i })).toHaveAttribute('href', '/')
+    await waitFor(() => {
+      expect(
+        screen.getByRole('link', { name: /open tablesmit/i })
+      ).toHaveAttribute('href', '/')
+    })
   })
 })

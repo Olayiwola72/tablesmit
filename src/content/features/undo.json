@@ -1,0 +1,65 @@
+{
+  "slug": "undo",
+  "metaTitle": "Undo in the Table Editor — Ctrl+Z | Tablesmit",
+  "metaDescription": "Undo up to 50 actions with Ctrl+Z. The undo button shows exactly how many actions are available. Edit confidently — every change is reversible.",
+  "heroHeadline": "Edit without fear. Every change is reversible.",
+  "heroSubtext": "Press Ctrl+Z to undo the last action. Up to 50 steps deep. The undo button tells you how many actions are available before you run out — so you always know where you stand.",
+  "icon": "Undo2",
+  "benefits": [
+    {
+      "icon": "RotateCcw",
+      "heading": "50-action undo history",
+      "body": "Tablesmit keeps the last 50 actions in memory. Delete a row, change a theme, clear a column — any of these can be reversed with Ctrl+Z, up to 50 actions back."
+    },
+    {
+      "icon": "Info",
+      "heading": "The button tells you what is available",
+      "body": "Hover over the Undo button in the toolbar and the tooltip shows exactly how many actions are available — '14 actions' or '1 action'. You never have to guess."
+    },
+    {
+      "icon": "ShieldOff",
+      "heading": "Destructive actions are undoable",
+      "body": "Clear All, Delete Row, Delete Column, Replace All in find-and-replace — all write to the undo stack. Nothing is permanently destructive until you close the tab."
+    },
+    {
+      "icon": "Keyboard",
+      "heading": "Ctrl+Z — the shortcut you already know",
+      "body": "No special gesture, no settings. Ctrl+Z (Cmd+Z on Mac) undoes the last action. It works from anywhere in the editor — you do not need to click first."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Press Ctrl+Z to undo",
+      "body": "Press Ctrl+Z at any time to undo the most recent action. The table reverts to its state before that action."
+    },
+    {
+      "number": 2,
+      "heading": "Keep pressing to go further back",
+      "body": "Each press of Ctrl+Z goes one step further back. Up to 50 actions are available. The undo button fades when the stack is empty."
+    },
+    {
+      "number": 3,
+      "heading": "Check the tooltip before undoing",
+      "body": "Hover over the Undo button to see how many actions remain. This tells you how far back you can go before the history runs out."
+    }
+  ],
+  "useCases": [
+    "Undoing an accidental Clear All that emptied a fully populated table",
+    "Stepping back through several formatting changes to return to an earlier visual state",
+    "Reversing a Replace All that changed more cells than intended",
+    "Recovering from a theme change that did not look right after applying"
+  ],
+  "notes": [
+    {
+      "heading": "History clears when you close the tab",
+      "body": "The undo history lives in memory for the current session only. Closing the tab or refreshing the page clears it. Export your table before leaving if you may need to recover it."
+    },
+    {
+      "heading": "History is capped at 50 actions",
+      "body": "After 50 actions, the oldest entry is removed to make room for the newest. Rapid editing in a large table will fill the stack quickly."
+    }
+  ],
+  "relatedFeatures": ["keyboard-shortcuts", "find-replace", "context-menu"],
+  "relatedPost": "how-to-merge-cells-in-online-table"
+}

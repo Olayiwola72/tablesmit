@@ -1,4 +1,5 @@
 {
+  "loading": "Loading…",
   "brand": {
     "name": "Tablesmit",
     "tagline": "Tables, your way.",
@@ -64,7 +65,24 @@
     "errorTitle": "Something went wrong.",
     "errorBody": "Could not send your message. Try again or email us directly.",
     "orEmail": "Or email us directly at",
-    "reachOnX": "or reach out on X"
+    "reachOnX": "or reach out on X",
+    "featureIdea": "Feature idea",
+    "featureIdeaDesc": "Something missing that would make your workflow cleaner? Tell me.",
+    "bugGlitch": "Bug or glitch",
+    "bugGlitchDesc": "Something not working right? I will take a look and fix it.",
+    "justSayingHi": "Just saying hi",
+    "somethingElse": "Something else",
+    "somethingElseDesc": "Anything on your mind. I read every message.",
+    "whatToReachOutAbout": "What to reach out about",
+    "builtWithCare": "Built with care, maintained with gratitude."
+  },
+  "pagination": {
+    "page": "Page {{current}} of {{total}}",
+    "prev": "Previous",
+    "next": "Next",
+    "prevAria": "Go to previous page",
+    "nextAria": "Go to next page",
+    "pageAria": "Go to page {{number}}"
   },
   "blog": {
     "heading": "Writing about tables, structure, and analytical thinking.",
@@ -72,7 +90,11 @@
     "minRead": "{{count}} min read",
     "openTablesmit": "Open Tablesmit",
     "ctaTitle": "Try Tablesmit for yourself — free, no signup required.",
-    "backToBlog": "Back to Blog"
+    "backToBlog": "Back to Blog",
+    "empty": "No posts yet. Check back soon.",
+    "copiedToClipboard": "Copied to clipboard",
+    "failedToCopy": "Failed to copy",
+    "copyCode": "Copy code"
   },
   "notFound": {
     "heading": "Page not found.",
@@ -369,7 +391,11 @@
     "subtext": "Every feature you need to build clean, structured tables.",
     "learnMore": "Learn more",
     "emptyState": "No features listed yet.",
-    "backToFeatures": "Back to Features"
+    "backToFeatures": "Back to Features",
+    "benefits": "Benefits",
+    "howItWorks": "How it works",
+    "useCases": "Use cases",
+    "relatedFeatures": "Related features"
   },
   "cookieConsent": {
     "message": "This site uses cookies for analytics. No personal data is collected.",
@@ -432,5 +458,28 @@
     "delete": "Delete",
     "questionMark": "?",
     "ctrlSlash": "Ctrl+/"
+  },
+  "privacy": {
+    "lastUpdated": "Last updated: May 2026",
+    "intro": "{{name}} is a browser-based tool. We do not require an account, and we do not store your table data on any server.",
+    "whatWeCollect": "What we collect",
+    "whatWeCollectBody": "We may use analytics to understand how people use {{name}}. Analytics collect anonymised usage data such as pages visited, time on page, and general geographic region at country level. We do not collect names, email addresses, or personally identifiable information through the app itself.",
+    "whatWeDontCollect": "What we do not collect",
+    "whatWeDontCollectBody": "Your table content never leaves your browser. We do not transmit, store, or process your table data on our servers. We do not sell data to third parties.",
+    "fileImports": "File imports",
+    "fileImportsBody": "When you import a CSV or Excel file, it is read locally in your browser. The file is never uploaded to any server.",
+    "contact": "Contact",
+    "contactBody": "Questions about privacy:"
+  },
+  "terms": {
+    "lastUpdated": "Last updated: May 2026",
+    "intro": "By using {{name}} you agree to these terms.",
+    "service": "The service",
+    "serviceBody": "{{name}} is provided free of charge, as-is, with no guarantees of uptime, accuracy, or fitness for any particular purpose.",
+    "yourContent": "Your content",
+    "yourContentBody": "You retain full ownership of any content you create with {{name}}. We claim no rights over your tables, data, or exports.",
+    "openSource": "Open source",
+    "openSourceBody": "{{name}} source code is available under the MIT license. You may fork, modify, and distribute it under those terms.",
+    "contact": "Contact"
   }
 }

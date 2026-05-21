@@ -1,7 +1,7 @@
 import { ExternalLink, GitFork } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../../components/ui/Button'
+import { Button } from '../../components/ui/Button/Button'
 import { siteConfig } from '../../config/siteConfig'
 
 const { brand, sponsors } = siteConfig
@@ -20,12 +20,12 @@ export function OpenSourcePage(): ReactNode {
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button asChild variant="secondary" size="lg">
             <a href={brand.githubUrl} target="_blank" rel="noreferrer">
-              <GitFork size={18} aria-hidden="true" /> View on GitHub{' '}
+              <GitFork size={18} aria-hidden="true" /> {t('hero.viewGitHub')}{' '}
               <ExternalLink size={16} aria-hidden="true" />
             </a>
           </Button>
         </div>
-        <p className="mt-4 text-xs text-text-muted">MIT licensed. Contributions welcome.</p>
+        <p className="mt-4 text-xs text-text-muted">{t('openSource.ctaNote')}</p>
       </section>
 
       <section className="bg-surface px-4 py-16 sm:px-6 sm:py-20 lg:px-8">

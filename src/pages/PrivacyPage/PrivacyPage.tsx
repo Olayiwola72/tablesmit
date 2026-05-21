@@ -4,47 +4,35 @@ import { siteConfig } from '../../config/siteConfig'
 
 export function PrivacyPage(): ReactNode {
   const { t } = useTranslation()
+  const name = siteConfig.brand.name
+  
   return (
     <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-text-primary">{t('footer.privacyPolicy')}</h1>
-      <p className="mt-2 text-sm text-text-muted">Last updated: May 2026</p>
+      <p className="mt-2 text-sm text-text-muted">{t('privacy.lastUpdated')}</p>
 
       <div className="mt-8 space-y-6 text-base leading-relaxed text-text-secondary">
-        <p>
-          {siteConfig.brand.name} is a browser-based tool. We do not require an account, and we do not
-          store your table data on any server.
-        </p>
+        <p>{t('privacy.intro', { name })}</p>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">What we collect</h2>
-          <p className="mt-3">
-            We may use analytics to understand how people use {siteConfig.brand.name}. Analytics collect
-            anonymised usage data such as pages visited, time on page, and general geographic region at
-            country level. We do not collect names, email addresses, or personally identifiable information
-            through the app itself.
-          </p>
+          <h2 className="text-xl font-semibold text-text-primary">{t('privacy.whatWeCollect')}</h2>
+          <p className="mt-3">{t('privacy.whatWeCollectBody', { name })}</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">What we do not collect</h2>
-          <p className="mt-3">
-            Your table content never leaves your browser. We do not transmit, store, or process your table
-            data on our servers. We do not sell data to third parties.
-          </p>
+          <h2 className="text-xl font-semibold text-text-primary">{t('privacy.whatWeDontCollect')}</h2>
+          <p className="mt-3">{t('privacy.whatWeDontCollectBody')}</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">File imports</h2>
-          <p className="mt-3">
-            When you import a CSV or Excel file, it is read locally in your browser. The file is never
-            uploaded to any server.
-          </p>
+          <h2 className="text-xl font-semibold text-text-primary">{t('privacy.fileImports')}</h2>
+          <p className="mt-3">{t('privacy.fileImportsBody')}</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">Contact</h2>
+          <h2 className="text-xl font-semibold text-text-primary">{t('privacy.contact')}</h2>
           <p className="mt-3">
-            Questions about privacy:{' '}
+            {t('privacy.contactBody')}{' '}
             <a href={`mailto:${siteConfig.brand.contactEmail}`} className="text-primary hover:underline">
               {siteConfig.brand.contactEmail}
             </a>

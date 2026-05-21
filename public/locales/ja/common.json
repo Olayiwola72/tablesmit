@@ -64,7 +64,24 @@
     "errorTitle": "エラーが発生しました。",
     "errorBody": "メッセージを送信できませんでした。もう一度お試しいただくか、直接メールでお問い合わせください。",
     "orEmail": "またはこちらに直接メールをお送りください",
-    "reachOnX": "またはXでご連絡ください"
+    "reachOnX": "またはXでご連絡ください",
+    "featureIdea": "機能リクエスト",
+    "featureIdeaDesc": "ワークフローを改善するために不足しているものはありますか？教えてください。",
+    "bugGlitch": "バグまたは不具合",
+    "bugGlitchDesc": "何か正しく動作していませんか？確認して修正します。",
+    "justSayingHi": "ご挨拶",
+    "somethingElse": "その他",
+    "somethingElseDesc": "何でもお聞かせください。すべてのメッセージに目を通します。",
+    "whatToReachOutAbout": "お問い合わせ内容",
+    "builtWithCare": "丁寧に作られ、感謝の気持ちを込めて維持されています。"
+  },
+  "pagination": {
+    "page": "{{current}} / {{total}} ページ",
+    "prev": "前へ",
+    "next": "次へ",
+    "prevAria": "前のページへ",
+    "nextAria": "次のページへ",
+    "pageAria": "ページ{{number}}へ"
   },
   "blog": {
     "heading": "テーブル、構造、分析的思考について。",
@@ -72,7 +89,11 @@
     "minRead": "読了まで約{{count}}分",
     "openTablesmit": "Tablesmitを開く",
     "ctaTitle": "Tablesmitを実際にお試しください——無料、登録不要。",
-    "backToBlog": "ブログに戻る"
+    "backToBlog": "ブログに戻る",
+    "empty": "まだ投稿はありません。また後で確認してください。",
+    "copiedToClipboard": "クリップボードにコピーしました",
+    "failedToCopy": "コピーに失敗しました",
+    "copyCode": "コードをコピー"
   },
   "notFound": {
     "heading": "ページが見つかりません。",
@@ -103,7 +124,9 @@
     "png": "PNG",
     "jpeg": "JPEG",
     "excel": "Excel",
-    "csv": "CSV"
+    "csv": "CSV",
+    "privacyPolicy": "プライバシーポリシー",
+    "termsOfUse": "利用規約"
   },
   "toolbar": {
     "templates": "テンプレート",
@@ -365,7 +388,11 @@
     "subtext": "クリーンで構造化されたテーブルを作成するために必要なすべて。",
     "learnMore": "もっと詳しく",
     "emptyState": "まだ機能はリストされていません。",
-    "backToFeatures": "機能に戻る"
+    "backToFeatures": "機能に戻る",
+    "benefits": "利点",
+    "howItWorks": "使い方",
+    "useCases": "使用例",
+    "relatedFeatures": "関連機能"
   },
   "errors": {
     "pageNotFound": "ページが見つかりません。",
@@ -399,7 +426,9 @@
     "openShortcuts": "キーボードショートカットを開く",
     "openSettings": "設定を開く",
     "openPresets": "プリセットを開く",
-    "toggleDarkMode": "{{mode}}モードに切り替え"
+    "toggleDarkMode": "{{mode}}モードに切り替え",
+    "closePanelOverlay": "パネルオーバーレイを閉じる",
+    "closePanel": "パネルを閉じる"
   },
   "shortcutKeys": {
     "ctrlZ": "Ctrl+Z",
@@ -417,5 +446,38 @@
     "delete": "Delete",
     "questionMark": "?",
     "ctrlSlash": "Ctrl+/"
+  },
+  "loading": "読み込み中…",
+  "changelogDescription": "Tablesmitのすべてのリリースを記録。",
+  "cookieConsent": {
+    "message": "このサイトは分析のためにCookieを使用します。個人データは収集されません。",
+    "learnMore": "詳細を見る",
+    "learnMoreAria": "プライバシーポリシーの詳細を見る",
+    "accept": "同意する",
+    "decline": "拒否する",
+    "dialogAria": "Cookieの同意"
+  },
+  "privacy": {
+    "lastUpdated": "最終更新: 2026年5月",
+    "intro": "{{name}}はブラウザベースのツールです。アカウントは不要で、テーブルデータをサーバーに保存することはありません。",
+    "whatWeCollect": "収集するデータ",
+    "whatWeCollectBody": "{{name}}の使用方法を理解するために分析ツールを使用することがあります。分析ツールは、訪問したページ、ページ滞在時間、国レベルの地理的領域などの匿名化された使用データを収集します。アプリ自体を通じて名前、メールアドレス、個人を特定できる情報を収集することはありません。",
+    "whatWeDontCollect": "収集しないデータ",
+    "whatWeDontCollectBody": "テーブルの内容はブラウザから外部に出ることはありません。テーブルデータをサーバーで送信、保存、処理することはありません。データを第三者に販売することもありません。",
+    "fileImports": "ファイルインポート",
+    "fileImportsBody": "CSVまたはExcelファイルをインポートする場合、ファイルはブラウザ内でローカルに読み込まれます。ファイルがサーバーにアップロードされることはありません。",
+    "contact": "お問い合わせ",
+    "contactBody": "プライバシーに関するご質問:"
+  },
+  "terms": {
+    "lastUpdated": "最終更新: 2026年5月",
+    "intro": "{{name}}を使用することにより、これらの条件に同意したものとみなされます。",
+    "service": "サービス",
+    "serviceBody": "{{name}}は無料で提供され、現状のままで、稼働時間、正確性、特定の目的への適合性について一切保証しません。",
+    "yourContent": "あなたのコンテンツ",
+    "yourContentBody": "{{name}}で作成したコンテンツの所有権はすべてお客様に帰属します。当社はお客様のテーブル、データ、またはエクスポートに対する権利を主張しません。",
+    "openSource": "オープンソース",
+    "openSourceBody": "{{name}}のソースコードはMITライセンスの下で利用可能です。これらの条件の下でフォーク、変更、配布することができます。",
+    "contact": "お問い合わせ"
   }
 }

@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { ExternalLink } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { Button } from '../../components/ui/Button'
+import { Button } from '../../components/ui/Button/Button'
 import { siteConfig } from '../../config/siteConfig'
 
 const { brand, routes } = siteConfig

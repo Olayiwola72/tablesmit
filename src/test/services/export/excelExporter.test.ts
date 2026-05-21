@@ -1,8 +1,8 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
-import { ExcelExporter } from '../../../services/export/excelExporter'
-import { downloadUrl } from '../../../services/export/utils'
+import { ExcelExporter } from '../../../services/exportService/impl/excelExporter'
+import { downloadUrl } from '../../../services/exportService/utils'
 
-vi.mock('../../../services/export/utils', () => ({
+vi.mock('../../../services/exportService/utils', () => ({
   downloadUrl: vi.fn(),
 }))
 

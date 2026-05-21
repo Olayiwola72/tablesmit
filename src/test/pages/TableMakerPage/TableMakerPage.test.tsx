@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
-import { TooltipProvider } from '../../../components/ui/Tooltip'
+import { TooltipProvider } from '../../../components/ui/Tooltip/Tooltip'
 import { TableMakerPage } from '../../../pages/TableMakerPage/TableMakerPage'
 
 vi.mock('../../../services/exportService', () => ({

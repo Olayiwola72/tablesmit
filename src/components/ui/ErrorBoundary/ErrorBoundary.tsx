@@ -1,17 +1,7 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import * as Sentry from '@sentry/react'
-
-interface ErrorBoundaryProps {
-  children: ReactNode
-  fallback?: ReactNode
-  onError?: (error: Error, info: ErrorInfo) => void
-}
-
-interface ErrorBoundaryState {
-  hasError: boolean
-  error: Error | null
-}
+import type { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types'
 
 function DefaultErrorFallback({ error }: { error: Error | null }): ReactNode {
   const { t } = useTranslation()

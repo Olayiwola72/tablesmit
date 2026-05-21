@@ -1,0 +1,61 @@
+{
+  "slug": "column-sorting",
+  "metaTitle": "Sort Table Columns Online — Ascending and Descending | Tablesmit",
+  "metaDescription": "Sort any table column in ascending or descending order. Numeric columns sort by value, not alphabetically. Empty cells always go to the bottom. Free, no signup.",
+  "heroHeadline": "Sort any column — the way you'd actually expect.",
+  "heroSubtext": "Click the sort icon in any column header to sort ascending or descending. Number columns sort numerically. Date columns sort chronologically. Empty cells sink to the bottom, always.",
+  "icon": "ArrowUpDown",
+  "benefits": [
+    {
+      "icon": "Hash",
+      "heading": "Numeric sort for number columns",
+      "body": "A Number or Currency column sorted ascending puts 2 before 10 — not 10 before 2. Tablesmit reads the column type and sorts by value, not by character string."
+    },
+    {
+      "icon": "ArrowDownAZ",
+      "heading": "Alphabetical sort for text columns",
+      "body": "Text columns sort A-Z ascending and Z-A descending, using standard locale-aware collation. Handles names, categories, and labels correctly."
+    },
+    {
+      "icon": "ChevronsDown",
+      "heading": "Empty cells always go to the bottom",
+      "body": "Regardless of sort direction, empty cells are placed at the bottom of the column. Your data stays together; gaps sink out of the way."
+    },
+    {
+      "icon": "TableProperties",
+      "heading": "Sort is non-destructive",
+      "body": "Sorting reorders rows in the view. The original row order is preserved in the table state. Clicking the sort icon a third time clears the sort and restores original order."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Click the sort icon in a column header",
+      "body": "Each column header shows a sort icon. Click it once to sort ascending — an up arrow appears in the header."
+    },
+    {
+      "number": 2,
+      "heading": "Click again for descending",
+      "body": "Click the same icon again to sort descending. The arrow flips. Numbers go high-to-low. Text goes Z-to-A."
+    },
+    {
+      "number": 3,
+      "heading": "Click a third time to clear",
+      "body": "Click once more to remove the sort and restore the original row order."
+    }
+  ],
+  "useCases": [
+    "Sorting a price column in ascending order to rank products from cheapest to most expensive",
+    "Alphabetically sorting a name column in a contact list for easier reading",
+    "Sorting a date column chronologically to arrange events in order",
+    "Sorting a quantity column descending to see which items are most in stock"
+  ],
+  "notes": [
+    {
+      "heading": "Sorting is disabled when merged cells are present",
+      "body": "Merged cells change the row structure in ways that make reordering unpredictable. If your table has merged cells, the sort icons are disabled. Unmerge first, then sort."
+    }
+  ],
+  "relatedFeatures": ["column-types", "find-replace", "freeze-panes"],
+  "relatedPost": "best-table-tool-for-researchers"
+}

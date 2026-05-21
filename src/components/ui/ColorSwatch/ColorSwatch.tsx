@@ -1,12 +1,7 @@
 import { Check } from 'lucide-react'
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { cn } from '../../../lib/utils'
-
-export interface ColorSwatchProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string
-  value: string
-  selected?: boolean
-}
+import type { ColorSwatchProps } from './ColorSwatch.types'
 
 export function ColorSwatch({ label, value, selected = false, className, ...props }: ColorSwatchProps): ReactNode {
   return (

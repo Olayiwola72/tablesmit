@@ -1,4 +1,4 @@
-import type { ColorSwatch } from '../types/ui.types'
+import type { ColorSwatch } from '../config/ui.types'
 
 export const headerColorSwatches: ColorSwatch[] = [
   { label: 'White', value: '#ffffff' },

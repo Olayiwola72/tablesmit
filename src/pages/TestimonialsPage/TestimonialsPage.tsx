@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../config/siteConfig'
-import { TESTIMONIALS } from '../../config/testimonials'
+import { TESTIMONIALS } from '../../config/testimonials/testimonials'
 
 const { routes, brand } = siteConfig
 

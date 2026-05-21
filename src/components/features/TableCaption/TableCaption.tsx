@@ -1,12 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-
-export type CaptionAlignment = 'left' | 'center' | 'right'
-
-interface CtxMenuState {
-  x: number
-  y: number
-}
+import type { CaptionAlignment, CtxMenuState } from './TableCaption.types'
 
 function TableCaptionRaw({
   value,

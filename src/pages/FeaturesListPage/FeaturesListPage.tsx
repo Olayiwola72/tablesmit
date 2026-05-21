@@ -1,11 +1,37 @@
+import { useState, useEffect, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { allFeatures } from '../../services/featureService'
+import type { FeaturePage } from '../../services/featureService/featureService.types'
+import { getAllFeatures } from '../../services/featureService/featureService'
 import { siteConfig } from '../../config/siteConfig'
+import { ITEMS_PER_PAGE } from '../../config/table/tableDefaults'
+import { Button } from '../../components/ui/Button/Button'
 
 export default function FeaturesListPage(): ReactNode {
   const { t } = useTranslation()
+  const [features, setFeatures] = useState<FeaturePage[] | null>(null)
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    getAllFeatures().then(all => setFeatures(all))
+  }, [])
+
+  if (features === null) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-content">
+          <div className="flex items-center justify-center py-20">
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  const totalPages = Math.max(1, Math.ceil(features.length / ITEMS_PER_PAGE))
+  const start = (page - 1) * ITEMS_PER_PAGE
+  const pageFeatures = features.slice(start, start + ITEMS_PER_PAGE)
+
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-content">
@@ -19,7 +45,7 @@ export default function FeaturesListPage(): ReactNode {
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {allFeatures.map(feature => (
+          {pageFeatures.map(feature => (
             <Link
               key={feature.slug}
               to={`${siteConfig.routes.features}/${feature.slug}`}
@@ -38,7 +64,42 @@ export default function FeaturesListPage(): ReactNode {
           ))}
         </div>
 
-        {allFeatures.length === 0 && (
+        {totalPages > 1 && (
+          <nav aria-label="Features pagination" className="mt-12 flex items-center justify-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              isDisabled={page <= 1}
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              aria-label={t('pagination.prevAria')}
+            >
+              &larr; {t('pagination.prev')}
+            </Button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+              <Button
+                key={n}
+                variant={n === page ? 'primary' : 'ghost'}
+                size="sm"
+                onClick={() => setPage(n)}
+                aria-label={t('pagination.pageAria', { number: n })}
+                aria-current={n === page ? 'page' : undefined}
+              >
+                {n}
+              </Button>
+            ))}
+            <Button
+              variant="ghost"
+              size="sm"
+              isDisabled={page >= totalPages}
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              aria-label={t('pagination.nextAria')}
+            >
+              {t('pagination.next')} &rarr;
+            </Button>
+          </nav>
+        )}
+
+        {features.length === 0 && (
           <p className="py-20 text-center text-sm text-text-muted">
             {t('features.emptyState')}
           </p>

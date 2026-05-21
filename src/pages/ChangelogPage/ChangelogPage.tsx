@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { CHANGELOG, getChangeStyle } from '../../config/changelog'
+import type { ChangelogEntry } from '../../config/changelog/changelog.types'
+import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
 
 export function ChangelogPage(): ReactNode {
   const { t } = useTranslation()
@@ -8,9 +9,8 @@ export function ChangelogPage(): ReactNode {
     <main className="mx-auto max-w-narrow px-4 py-16">
       <h1 className="text-3xl font-bold text-text-primary">{t('nav.changelog')}</h1>
       <p className="mt-3 text-base text-text-secondary">
-        {t('changelogDescription', 'Every release of Tablesmit, documented.')}
+        {t('changelogDescription')}
       </p>
-
       <div className="mt-12 space-y-10">
         {CHANGELOG.map((entry) => (
           <article key={entry.version} className="border-b border-border pb-10 last:border-0">
@@ -19,7 +19,7 @@ export function ChangelogPage(): ReactNode {
               <time className="text-sm text-text-muted">{entry.date}</time>
             </div>
             <ul className="mt-4 space-y-2">
-              {entry.changes.map((change, index) => {
+              {entry.changes.map((change: ChangelogEntry['changes'][number], index) => {
                 const style = getChangeStyle(change.type)
                 return (
                   <li key={index} className="flex items-start gap-3 text-sm">

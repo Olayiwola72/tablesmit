@@ -1,9 +1,9 @@
 import { memo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { exportFormats } from '../../../config/exportConfig'
-import type { ExportFormat } from '../../../types/export.types'
-import { Button } from '../../ui/Button'
-import { SectionLabel } from '../../ui/SectionLabel'
+import { exportFormats } from '../../../config/export/exportConfig'
+import type { ExportFormat } from '../../../services/exportService/export.types'
+import { Button } from '../../ui/Button/Button'
+import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 function ExportPanelRaw({
   onExport,
@@ -31,4 +31,6 @@ function ExportPanelRaw({
   )
 }
 
-export const ExportPanel = memo(ExportPanelRaw)
+const ExportPanel = memo(ExportPanelRaw)
+export { ExportPanel }
+export default ExportPanel

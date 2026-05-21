@@ -50,17 +50,23 @@ export default defineConfig({
     chunkSizeWarningLimit: 600,
     minify: 'esbuild',
     cssMinify: 'esbuild',
+    target: 'es2020',
     rollupOptions: {
       output: {
         manualChunks(id): string | undefined {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) {
+          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom') || id.includes('node_modules/scheduler')) {
             return 'vendor-react'
           }
-          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx')) {
+          if (id.includes('node_modules/i18next') || id.includes('node_modules/react-i18next')) {
+            return 'vendor-i18n'
+          }
+          if (id.includes('node_modules/@sentry/react')) return 'vendor-sentry'
+          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx') || id.includes('node_modules/sonner')) {
             return 'vendor-ui'
           }
           if (id.includes('node_modules/html2canvas')) return 'vendor-canvas'
-          if (id.includes('node_modules/@e965/xlsx')) return 'vendor-excel'
+          if (id.includes('node_modules/exceljs')) return 'vendor-excel'
+          if (id.includes('node_modules/papaparse')) return 'vendor-csv'
           return undefined
         },
       },

@@ -1,9 +1,9 @@
-import type { BlogPost } from '../../types/blog.types'
+import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'free-online-table-makers-compared',
   title: '5 Free Online Table Makers Compared',
-  date: '2026-05-20',
+  date: '2025-10-20',
   description:
     'Not all web table generators are built the same. We compare five free options on the features that actually matter — merge cells, export quality, column formatting, and ease of use.',
   author: 'Olayiwola Akinnagbe',

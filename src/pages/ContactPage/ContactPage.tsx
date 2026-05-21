@@ -1,7 +1,7 @@
 import { Heart, Lightbulb, MessageCircle, Sparkles } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Button } from '../../components/ui/Button'
+import { Button } from '../../components/ui/Button/Button'
 import { siteConfig } from '../../config/siteConfig'
 
 const { brand } = siteConfig
@@ -12,23 +12,23 @@ export function ContactPage(): ReactNode {
   const reasons = [
     {
       icon: <Lightbulb size={18} aria-hidden="true" />,
-      title: 'Feature idea',
-      description: 'Something missing that would make your workflow cleaner? Tell me.',
+      title: t('contact.featureIdea'),
+      description: t('contact.featureIdeaDesc'),
     },
     {
       icon: <MessageCircle size={18} aria-hidden="true" />,
-      title: 'Bug or glitch',
-      description: 'Something not working right? I will take a look and fix it.',
+      title: t('contact.bugGlitch'),
+      description: t('contact.bugGlitchDesc'),
     },
     {
       icon: <Heart size={18} aria-hidden="true" />,
-      title: 'Just saying hi',
+      title: t('contact.justSayingHi'),
       description: t('contact.body'),
     },
     {
       icon: <Sparkles size={18} aria-hidden="true" />,
-      title: 'Something else',
-      description: 'Anything on your mind. I read every message.',
+      title: t('contact.somethingElse'),
+      description: t('contact.somethingElseDesc'),
     },
   ]
 
@@ -56,7 +56,7 @@ export function ContactPage(): ReactNode {
 
       <section className="mx-auto mt-20 max-w-2xl">
         <h2 className="text-center text-xs font-semibold uppercase tracking-widest text-text-muted">
-          What to reach out about
+          {t('contact.whatToReachOutAbout')}
         </h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
           {reasons.map((item) => (
@@ -72,7 +72,7 @@ export function ContactPage(): ReactNode {
       </section>
 
       <section className="mx-auto mt-20 max-w-narrow rounded-md border border-border bg-surface p-8 text-center sm:p-10">
-        <p className="text-sm font-medium text-text-primary">Built with care, maintained with gratitude.</p>
+        <p className="text-sm font-medium text-text-primary">{t('contact.builtWithCare')}</p>
         <p className="mt-2 text-sm leading-relaxed text-text-secondary">{t('contact.body')}</p>
       </section>
     </main>

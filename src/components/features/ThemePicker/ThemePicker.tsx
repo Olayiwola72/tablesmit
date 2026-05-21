@@ -1,9 +1,10 @@
 import { memo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { TABLE_THEMES, type ThemeDefinition } from '../../../config/tableThemes'
+import type { ThemeDefinition } from '../../../config/table/tableThemes.types'
+import { TABLE_THEMES } from '../../../config/table/tableThemes'
 import { useTableContext } from '../../../context/TableContext'
 import { cn } from '../../../lib/utils'
-import { SectionLabel } from '../../ui/SectionLabel'
+import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 const themeLabelKey: Record<string, string> = {
   'default': 'themePicker.default',

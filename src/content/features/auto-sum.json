@@ -1,0 +1,55 @@
+{
+  "slug": "auto-sum",
+  "metaTitle": "Auto-Sum and Auto-Numbering for Table Columns | Tablesmit",
+  "metaDescription": "Enable auto-sum on any number or currency column — totals appear automatically in a summary row. Auto-number rows sequentially without typing. Free, no signup.",
+  "heroHeadline": "Totals and row numbers — without typing a single formula.",
+  "heroSubtext": "Turn on auto-sum for any numeric column and a running total appears in a summary row below your data. Enable auto-numbering and rows count themselves. No spreadsheet formulas required.",
+  "icon": "Sigma",
+  "benefits": [
+    {
+      "icon": "Calculator",
+      "heading": "Totals that update automatically",
+      "body": "Enable auto-sum on a Number or Currency column and a summary row appears at the bottom. Add a row, change a value — the total updates instantly without any recalculation."
+    },
+    {
+      "icon": "List",
+      "heading": "Row numbers that resequence themselves",
+      "body": "Auto-numbering fills a column with sequential integers — 1, 2, 3. Add a row, delete a row, reorder — the sequence updates automatically. No manual renumbering."
+    },
+    {
+      "icon": "FileDown",
+      "heading": "Summary row exports with the table",
+      "body": "The auto-sum row is included in PDF, Excel, and image exports — styled clearly as a summary rather than a data row. In CSV, it exports as a final row of values."
+    },
+    {
+      "icon": "Lock",
+      "heading": "Auto-numbered cells are read-only",
+      "body": "Auto-numbered cells are locked — you cannot type in them. This prevents accidental edits that would break the sequence. Disable auto-numbering to make the column editable again."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Set the column type to Number or Currency",
+      "body": "Auto-sum is only available for Number and Currency columns. Click the type label in the column header and select the appropriate type."
+    },
+    {
+      "number": 2,
+      "heading": "Enable auto-sum in the Column Type panel",
+      "body": "In the right sidebar, find the Column Type section. Toggle 'Show sum row' for any Number or Currency column. A summary row appears at the bottom of the table."
+    },
+    {
+      "number": 3,
+      "heading": "Or enable auto-numbering for a row counter",
+      "body": "Toggle 'Auto-number' for any Number column to fill it with sequential integers. The column locks — values are managed automatically."
+    }
+  ],
+  "useCases": [
+    "Adding a total row to a budget or expense table that sums all currency values automatically",
+    "Numbering rows in a ranked list or ordered dataset without typing each number manually",
+    "Showing the total quantity or value at the bottom of an inventory table",
+    "Creating a numbered list of references, items, or entries that resequences when rows are added or removed"
+  ],
+  "relatedFeatures": ["column-types", "column-sorting", "excel-export"],
+  "relatedPost": "best-table-tool-for-researchers"
+}

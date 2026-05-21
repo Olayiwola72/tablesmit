@@ -4,40 +4,32 @@ import { siteConfig } from '../../config/siteConfig'
 
 export function TermsPage(): ReactNode {
   const { t } = useTranslation()
+  const name = siteConfig.brand.name
   return (
     <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-text-primary">{t('footer.termsOfUse')}</h1>
-      <p className="mt-2 text-sm text-text-muted">Last updated: May 2026</p>
+      <p className="mt-2 text-sm text-text-muted">{t('terms.lastUpdated')}</p>
 
       <div className="mt-8 space-y-6 text-base leading-relaxed text-text-secondary">
-        <p>By using {siteConfig.brand.name} you agree to these terms.</p>
+        <p>{t('terms.intro', { name })}</p>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">The service</h2>
-          <p className="mt-3">
-            {siteConfig.brand.name} is provided free of charge, as-is, with no guarantees of uptime,
-            accuracy, or fitness for any particular purpose.
-          </p>
+          <h2 className="text-xl font-semibold text-text-primary">{t('terms.service')}</h2>
+          <p className="mt-3">{t('terms.serviceBody', { name })}</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">Your content</h2>
-          <p className="mt-3">
-            You retain full ownership of any content you create with {siteConfig.brand.name}. We claim
-            no rights over your tables, data, or exports.
-          </p>
+          <h2 className="text-xl font-semibold text-text-primary">{t('terms.yourContent')}</h2>
+          <p className="mt-3">{t('terms.yourContentBody', { name })}</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">Open source</h2>
-          <p className="mt-3">
-            {siteConfig.brand.name} source code is available under the MIT license. You may fork, modify,
-            and distribute it under those terms.
-          </p>
+          <h2 className="text-xl font-semibold text-text-primary">{t('terms.openSource')}</h2>
+          <p className="mt-3">{t('terms.openSourceBody', { name })}</p>
         </section>
 
         <section>
-          <h2 className="text-xl font-semibold text-text-primary">Contact</h2>
+          <h2 className="text-xl font-semibold text-text-primary">{t('terms.contact')}</h2>
           <p className="mt-3">
             <a href={`mailto:${siteConfig.brand.contactEmail}`} className="text-primary hover:underline">
               {siteConfig.brand.contactEmail}

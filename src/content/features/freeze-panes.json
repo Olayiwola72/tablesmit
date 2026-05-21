@@ -1,0 +1,55 @@
+{
+  "slug": "freeze-panes",
+  "metaTitle": "Freeze Header Row and First Column Online | Tablesmit",
+  "metaDescription": "Keep your header row or first column visible while scrolling large tables — exactly like Excel freeze panes, directly in your browser. Free, no signup.",
+  "heroHeadline": "Keep your headers in view no matter how far you scroll.",
+  "heroSubtext": "Freeze the header row, the first column, or both. Scroll through a 50-row table and always know what every cell means — your labels stay pinned.",
+  "icon": "PinIcon",
+  "benefits": [
+    {
+      "icon": "Eye",
+      "heading": "Always know where you are",
+      "body": "Scroll down 40 rows and the header row stays visible at the top. Scroll right and the first column stays in place. You never lose context in a large table."
+    },
+    {
+      "icon": "ToggleLeft",
+      "heading": "On and off in one click",
+      "body": "Freeze header row and freeze first column are independent checkboxes. Turn either on or off instantly — no restructuring, no reformatting."
+    },
+    {
+      "icon": "Columns",
+      "heading": "Freeze both simultaneously",
+      "body": "Enable both options together for tables that need row and column labels. The top-left corner cell stays fixed while the rest of the table scrolls freely."
+    },
+    {
+      "icon": "Download",
+      "heading": "Freeze state is visual only",
+      "body": "Frozen panes are a viewing aid. They do not affect your data, cell structure, or export. PDF, Excel, and PNG exports render the full table without the freeze behaviour."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Open the Header Definitions panel",
+      "body": "Find the Header Definitions section in the left sidebar. The Freeze options are at the bottom of this panel."
+    },
+    {
+      "number": 2,
+      "heading": "Check Freeze header row",
+      "body": "Tick the Freeze header row checkbox. The first row becomes sticky — it stays at the top of the table area as you scroll down."
+    },
+    {
+      "number": 3,
+      "heading": "Check Freeze first column (optional)",
+      "body": "Tick Freeze first column to also keep the leftmost column visible as you scroll right. Both options can be active at once."
+    }
+  ],
+  "useCases": [
+    "Reviewing a 40-row research data table where the column headers must always be visible",
+    "Editing a 15-column table where the row labels in the first column identify each entry",
+    "Building a comparison table where both the category column and the header row need to stay fixed",
+    "Entering data into a long schedule or inventory table without losing track of which column is which"
+  ],
+  "relatedFeatures": ["custom-headers", "drag-to-resize", "table-themes"],
+  "relatedPost": "best-table-tool-for-researchers"
+}

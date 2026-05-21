@@ -1,9 +1,9 @@
-import type { BlogPost } from '../../types/blog.types'
+import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-make-a-table-in-markdown',
   title: 'How to Make a Table in Markdown',
-  date: '2026-03-16',
+  date: '2025-10-10',
   description:
     'Markdown tables are simpler than they look. Learn the syntax in five minutes — then see how Tablesmit generates them for you without writing a single pipe character.',
   author: 'Olayiwola Akinnagbe',

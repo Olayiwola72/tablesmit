@@ -3,8 +3,8 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { headerColorSwatches, contentColorSwatches } from '../../../config/colorPalette'
 import { useTableContext } from '../../../context/TableContext'
-import { ColorSwatch } from '../../ui/ColorSwatch'
-import { SectionLabel } from '../../ui/SectionLabel'
+import { ColorSwatch } from '../../ui/ColorSwatch/ColorSwatch'
+import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function ColorPanel(): ReactNode {
   const { t } = useTranslation()

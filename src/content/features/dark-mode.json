@@ -1,0 +1,55 @@
+{
+  "slug": "dark-mode",
+  "metaTitle": "Dark Mode Table Builder | Tablesmit",
+  "metaDescription": "Tablesmit supports dark mode — toggle from the navbar or let it follow your system preference. Every panel, sidebar, and table element adapts automatically.",
+  "heroHeadline": "Work the way your eyes prefer.",
+  "heroSubtext": "Toggle dark mode from the navbar or let Tablesmit follow your system setting. The entire interface adapts — table, sidebars, panels, and all export previews.",
+  "icon": "Moon",
+  "benefits": [
+    {
+      "icon": "Monitor",
+      "heading": "Follows your system preference",
+      "body": "On first visit, Tablesmit reads your system's colour scheme preference. If your OS is set to dark, Tablesmit opens dark — without touching a setting."
+    },
+    {
+      "icon": "ToggleRight",
+      "heading": "Toggle from the navbar in one click",
+      "body": "The sun and moon icon in the navbar switches between light and dark instantly. Your preference is saved and remembered across sessions."
+    },
+    {
+      "icon": "Eye",
+      "heading": "Every element adapts — including the table",
+      "body": "Backgrounds, borders, cell content, sidebar panels, dropdowns, and tooltips all switch correctly. The table grid is readable in both modes — borders stay visible, text stays legible."
+    },
+    {
+      "icon": "Lightbulb",
+      "heading": "Designed for long sessions",
+      "body": "Writing and data work often runs for hours. Dark mode reduces eye strain in low-light environments — especially for late evening research and report work."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Click the moon icon in the navbar",
+      "body": "The moon icon (dark mode off) and sun icon (dark mode on) sit in the right side of the navbar. Click to toggle."
+    },
+    {
+      "number": 2,
+      "heading": "Or let it follow your system",
+      "body": "If you have not manually toggled, Tablesmit uses your OS preference — set in System Preferences (Mac) or Display settings (Windows/Linux)."
+    },
+    {
+      "number": 3,
+      "heading": "Your preference is remembered",
+      "body": "The setting is stored in your browser. On your next visit, Tablesmit opens in the mode you last used."
+    }
+  ],
+  "useCases": [
+    "Researchers working late at night who need a low-glare interface during long analysis sessions",
+    "Writers who prefer dark interfaces for extended focus work",
+    "Developers and technical users who keep their entire OS in dark mode and want their tools to match",
+    "Anyone in a low-light environment where a bright white interface causes strain"
+  ],
+  "relatedFeatures": ["table-themes", "table-caption", "keyboard-shortcuts"],
+  "relatedPost": "free-online-table-makers-compared"
+}

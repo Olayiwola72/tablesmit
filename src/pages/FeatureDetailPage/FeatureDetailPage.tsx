@@ -1,22 +1,48 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import type { ReactNode } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
-import { getFeatureBySlug, allFeatures } from '../../services/featureService'
+import type { FeaturePage } from '../../services/featureService/featureService.types'
+import { getFeatureBySlug, getAllFeatures } from '../../services/featureService/featureService'
 import { siteConfig } from '../../config/siteConfig'
 
 export default function FeatureDetailPage(): ReactNode {
   const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
-  const feature = getFeatureBySlug(slug ?? '')
+  const [feature, setFeature] = useState<FeaturePage | undefined | null>(undefined)
+  const [relatedFeatures, setRelatedFeatures] = useState<FeaturePage[]>([])
+
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([getFeatureBySlug(slug ?? ''), getAllFeatures()]).then(
+      ([f, all]) => {
+        if (cancelled) return
+        if (f) {
+          setFeature(f)
+          setRelatedFeatures(
+            f.relatedFeatures
+              .map(s => all.find(rf => rf.slug === s))
+              .filter(Boolean) as FeaturePage[]
+          )
+        } else {
+          setFeature(null)
+        }
+      }
+    )
+    return () => { cancelled = true }
+  }, [slug])
+
+  if (feature === undefined) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-white">
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
+      </div>
+    )
+  }
 
   if (!feature) return <Navigate to={siteConfig.routes.features} replace />
 
   const featureUrl = `${siteConfig.brand.url}${siteConfig.routes.features}/${feature.slug}`
-
-  const relatedFeatures = feature.relatedFeatures
-    .map(s => allFeatures.find(f => f.slug === s))
-    .filter(Boolean)
 
   return (
     <>
@@ -55,7 +81,7 @@ export default function FeatureDetailPage(): ReactNode {
 
         {/* Benefits */}
         <section className="mx-auto mb-16 max-w-content">
-          <h2 className="mb-8 text-2xl font-bold text-text-primary">Benefits</h2>
+          <h2 className="mb-8 text-2xl font-bold text-text-primary">{t('features.benefits')}</h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {feature.benefits.map((benefit, i) => (
               <div
@@ -75,7 +101,7 @@ export default function FeatureDetailPage(): ReactNode {
 
         {/* How it works */}
         <section className="mx-auto mb-16 max-w-narrow">
-          <h2 className="mb-8 text-2xl font-bold text-text-primary">How it works</h2>
+          <h2 className="mb-8 text-2xl font-bold text-text-primary">{t('features.howItWorks')}</h2>
           <div className="space-y-8">
             {feature.steps.map(step => (
               <div key={step.number} className="flex gap-4">
@@ -98,7 +124,7 @@ export default function FeatureDetailPage(): ReactNode {
         {/* Use cases */}
         {feature.useCases.length > 0 && (
           <section className="mx-auto mb-16 max-w-narrow">
-            <h2 className="mb-6 text-2xl font-bold text-text-primary">Use cases</h2>
+            <h2 className="mb-6 text-2xl font-bold text-text-primary">{t('features.useCases')}</h2>
             <ul className="space-y-3">
               {feature.useCases.map((uc, i) => (
                 <li key={i} className="flex items-start gap-3 text-sm text-text-secondary">
@@ -113,7 +139,7 @@ export default function FeatureDetailPage(): ReactNode {
         {/* Related features */}
         {relatedFeatures.length > 0 && (
           <section className="mx-auto max-w-narrow border-t border-border pt-10">
-            <h2 className="mb-6 text-xl font-bold text-text-primary">Related features</h2>
+            <h2 className="mb-6 text-xl font-bold text-text-primary">{t('features.relatedFeatures')}</h2>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {relatedFeatures.map(rf => rf && (
                 <Link

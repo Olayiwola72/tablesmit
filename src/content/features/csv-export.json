@@ -1,0 +1,55 @@
+{
+  "slug": "csv-export",
+  "metaTitle": "Export Table as CSV Online — Free | Tablesmit",
+  "metaDescription": "Export any table to a clean, safe CSV file in one click. Injection-safe sanitisation included. Works with Excel, Google Sheets, databases, and data tools. Free, no signup.",
+  "heroHeadline": "Export to CSV — clean, safe, and universally compatible.",
+  "heroSubtext": "One click exports your table as a properly formatted CSV file. Compatible with every spreadsheet, database, data pipeline, and analysis tool that reads structured data.",
+  "icon": "FileText",
+  "benefits": [
+    {
+      "icon": "ShieldCheck",
+      "heading": "Injection-safe sanitisation",
+      "body": "CSV injection is a real vulnerability — values starting with =, +, -, or @ can execute formulas when opened in Excel. Tablesmit sanitises every cell value before export, wrapping dangerous characters safely."
+    },
+    {
+      "icon": "Globe",
+      "heading": "Works with everything",
+      "body": "CSV is the universal format for structured data. Every spreadsheet application, database, data warehouse, and analysis tool reads it. If a system can import data, it reads CSV."
+    },
+    {
+      "icon": "FileDown",
+      "heading": "Caption exports as a header comment",
+      "body": "If your table has a caption, it exports as the first line of the CSV. Analysis tools that support comments display it as context. Tools that don't simply skip it."
+    },
+    {
+      "icon": "Lock",
+      "heading": "Processed entirely in your browser",
+      "body": "The CSV is generated using PapaParse, entirely client-side. Your data is never uploaded to a server. The file downloads instantly, direct from memory."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Build your table",
+      "body": "Set up your rows, columns, and data. Column types, themes, and borders are a display layer — CSV export contains the raw values."
+    },
+    {
+      "number": 2,
+      "heading": "Click CSV in the Export panel",
+      "body": "Find the Export section in the right sidebar. Click CSV. The file downloads immediately."
+    },
+    {
+      "number": 3,
+      "heading": "Open in any tool",
+      "body": "Open the file in Excel, Google Sheets, Python, R, a database importer — anything that reads CSV. The data is clean and ready."
+    }
+  ],
+  "useCases": [
+    "Exporting a data table for import into a PostgreSQL or MySQL database",
+    "Sharing structured data with a developer or analyst who will process it programmatically",
+    "Exporting to CSV for use in Python (pandas), R, or a statistical analysis tool",
+    "Creating a clean dataset file from manually entered table data"
+  ],
+  "relatedFeatures": ["csv-import", "excel-export", "column-types"],
+  "relatedPost": "copy-excel-table-to-web"
+}
