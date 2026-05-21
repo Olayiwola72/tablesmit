@@ -25,7 +25,7 @@ export function DimensionsPanel(): ReactNode {
           <input name="dim-cols" className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" type="number" min={1} max={MAX_COLS} value={cols} onChange={(event) => setCols(Number(event.target.value))} />
         </label>
       </div>
-      <Button className="mt-4 w-full" variant="accent" onClick={() => table.generateTable(rows, cols)}>
+      <Button className="mt-4 w-full" variant="primary" onClick={() => table.generateTable(rows, cols)}>
         <Sparkles size={16} aria-hidden="true" /> {t('hero.cta')}
       </Button>
       <p className="mt-3 flex items-center gap-2 text-xs text-text-muted">

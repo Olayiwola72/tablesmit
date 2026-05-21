@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../../context/TableProvider'
@@ -31,6 +31,20 @@ describe('BorderPanel', () => {
   it('renders border color input by default (default style is solid)', () => {
     render(<BorderPanel />, { wrapper: Wrapper })
     expect(screen.getByText('Border color')).toBeInTheDocument()
+  })
+
+  it('changing border style select does not throw', () => {
+    render(<BorderPanel />, { wrapper: Wrapper })
+    const select = screen.getByLabelText('Borders')
+    fireEvent.change(select, { target: { value: 'dashed' } })
+    expect(select).toHaveValue('dashed')
+  })
+
+  it('changing border color input does not throw', () => {
+    render(<BorderPanel />, { wrapper: Wrapper })
+    const input = document.querySelector('input[type="color"]')
+    expect(input).toBeInTheDocument()
+    fireEvent.change(input!, { target: { value: '#ff0000' } })
   })
 
   it('renders in a section element', () => {

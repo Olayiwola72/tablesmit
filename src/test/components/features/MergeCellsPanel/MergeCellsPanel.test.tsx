@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../../context/TableContext'
@@ -38,5 +38,23 @@ describe('MergeCellsPanel', () => {
     render(<MergeCellsPanel />, { wrapper: Wrapper })
     const liveRegion = document.querySelector('[aria-live="assertive"]')
     expect(liveRegion).toBeInTheDocument()
+  })
+
+  it('clicking Merge does not throw when no selection', async () => {
+    render(<MergeCellsPanel />, { wrapper: Wrapper })
+    const mergeBtn = screen.getByText('Merge')
+    fireEvent.click(mergeBtn)
+  })
+
+  it('clicking Unmerge does not throw when no selection', async () => {
+    render(<MergeCellsPanel />, { wrapper: Wrapper })
+    const unmergeBtn = screen.getByText('Unmerge')
+    fireEvent.click(unmergeBtn)
+  })
+
+  it('has sr-only aria-live assertive region for announcements', () => {
+    render(<MergeCellsPanel />, { wrapper: Wrapper })
+    const srRegion = document.querySelector('.sr-only[aria-live="assertive"]')
+    expect(srRegion).toBeInTheDocument()
   })
 })

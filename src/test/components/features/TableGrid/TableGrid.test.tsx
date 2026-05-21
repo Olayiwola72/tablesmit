@@ -132,12 +132,12 @@ describe('TableGrid', () => {
   it('shows a sum footer row when a column format is changed to Sum', async () => {
     const user = userEvent.setup()
     renderTableGrid()
-    expect(screen.queryByText(/Total:/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Sum:/i)).not.toBeInTheDocument()
 
     const select = screen.getByLabelText('Column type 1')
     await user.selectOptions(select, 'sum')
 
-    expect(await screen.findByText(/Total:/i)).toBeInTheDocument()
+    expect(await screen.findByText(/Sum:/i)).toBeInTheDocument()
     expect(await screen.findByText(/0\.00/)).toBeInTheDocument()
   })
 

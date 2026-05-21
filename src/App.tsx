@@ -9,7 +9,7 @@ import { BackToTop } from './components/ui/BackToTop/BackToTop'
 import { PageLoader } from './components/ui/PageLoader/PageLoader'
 import { TooltipProvider } from './components/ui/Tooltip/Tooltip'
 import { siteConfig } from './config/siteConfig'
-import TableMakerPage from './pages/TableMakerPage/TableMakerPage'
+const TableMakerPage = lazy(() => import('./pages/TableMakerPage/TableMakerPage'))
 
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'))
 const BlogListPage = lazy(() => import('./pages/BlogListPage/BlogListPage'))
