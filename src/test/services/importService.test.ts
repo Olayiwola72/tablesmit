@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { importCsv, importExcel } from '../../services/importService'
+import { importCsv, importExcel } from '../../services/importService/importService'
 
 const createFile = (content: string, name = 'test.csv', mime = 'text/csv'): File =>
   new File([content], name, { type: mime })
@@ -30,10 +30,8 @@ describe('importExcel', () => {
     await expect(importExcel(file)).rejects.toThrow('File too large')
   })
 
-  it('handles empty spreadsheets', async () => {
-    const file = createFile('', 'empty.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    const result = await importExcel(file)
-    expect(result.rows).toBeGreaterThanOrEqual(1)
-    expect(result.cols).toBeGreaterThanOrEqual(1)
+  it('rejects files that are not valid XLSX', async () => {
+    const file = createFile('not a valid xlsx', 'bad.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    await expect(importExcel(file)).rejects.toThrow('Could not read file')
   })
 })

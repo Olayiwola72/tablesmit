@@ -1,8 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
 import { Slot } from '@radix-ui/react-slot'
-import { cva, type VariantProps } from 'class-variance-authority'
-import { forwardRef, memo, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { cva } from 'class-variance-authority'
+import { forwardRef, memo, type ReactNode } from 'react'
 import { cn } from '../../../lib/utils'
+import type { ButtonProps } from './Button.types'
 
 export const buttonVariants = cva(
   'inline-flex select-none items-center justify-center gap-2 rounded-md text-sm font-semibold transition-all duration-150 ease-in-out motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-busy:cursor-wait aria-busy:opacity-70',
@@ -24,15 +25,6 @@ export const buttonVariants = cva(
     defaultVariants: { variant: 'primary', size: 'md' },
   },
 )
-
-export interface ButtonProps
-  extends ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  isLoading?: boolean
-  isDisabled?: boolean
-  children: ReactNode
-}
 
 const ButtonInner = forwardRef<HTMLButtonElement, ButtonProps>(function Button({
   asChild = false,

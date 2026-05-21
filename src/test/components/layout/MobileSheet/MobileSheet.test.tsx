@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { MobileSheet } from '../../../../components/layout/MobileSheet'
+import { MobileSheet } from '../../../../components/layout/MobileSheet/MobileSheet'
 
 describe('MobileSheet', () => {
   it('renders nothing when closed', () => {

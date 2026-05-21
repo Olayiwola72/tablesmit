@@ -1,4 +1,4 @@
-import { exportFormats } from './exportConfig'
+import { exportFormats } from './export/exportConfig'
 import { headerColorSwatches, contentColorSwatches } from './colorPalette'
 
 export const siteConfig = {
@@ -16,7 +16,6 @@ export const siteConfig = {
     defaultAuthor: 'Olayiwola Akinnagbe',
     authorTwitter: 'https://x.com/OlayiwolaAkinn1',
   },
-  activeLogo: 'logo2' as 'logo1' | 'logo2',
   exportFileBaseName: 'tablesmit-table',
   exports: exportFormats,
   colors: {

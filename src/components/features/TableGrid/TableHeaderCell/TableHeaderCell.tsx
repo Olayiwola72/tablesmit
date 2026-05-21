@@ -2,21 +2,9 @@ import { memo, type ReactNode } from 'react'
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../../../config/siteConfig'
-import type { ColumnFormat } from '../../../../types/table.types'
-import { ResizeHandle } from '../ResizeHandle'
-
-export interface TableHeaderCellProps {
-  index: number
-  width: number
-  format: ColumnFormat
-  sortDir: 'asc' | 'desc' | null
-  sortDisabled?: boolean
-  onSort: () => void
-  onFormatChange: (format: ColumnFormat) => void
-  onResizeStart: (event: React.MouseEvent, index: number, width: number) => void
-  onAutoFit: (index: number) => void
-  onContextMenu: (col: number, event: React.MouseEvent) => void
-}
+import type { ColumnFormat } from '../../../../context/table.types'
+import { ResizeHandle } from '../ResizeHandle/ResizeHandle'
+import type { TableHeaderCellProps } from './TableHeaderCell.types'
 
 function TableHeaderCellRaw({
   index,

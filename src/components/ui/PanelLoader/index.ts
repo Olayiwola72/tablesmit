@@ -1,1 +1,0 @@
-export { PanelLoader } from './PanelLoader'

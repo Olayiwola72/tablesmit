@@ -1,27 +1,23 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode, type RefObject } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Loader2 } from 'lucide-react'
-import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/tableDefaults'
+import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/table/tableDefaults'
 import { isHeaderCell, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
 import { KEY_ESCAPE } from '../../../constants/keys'
-import { useColumnResize } from '../../../hooks/useColumnResize'
-import { useRowResize } from '../../../hooks/useRowResize'
-import { useTableSelection } from '../../../hooks/useTableSelection'
-import { TABLE_THEMES } from '../../../config/tableThemes'
-import { computeColumnSum, getContrastText } from '../../../utils/formatUtils'
-import { isRangeAnchor } from '../../../utils/mergeUtils'
-import { normalizeTableData, sortRows } from '../../../utils/tableUtils'
-import { toast, TOAST } from '../../../utils/toast'
-import { TableCell } from './TableCell'
-import { TableCtxMenu } from './TableCtxMenu'
-import type { CtxData } from './TableCtxMenu'
-import { TableHeaderCell } from './TableHeaderCell'
-
-interface TableGridProps {
-  tableRef: RefObject<HTMLDivElement>
-  findMatches?: Array<{ row: number; col: number }>
-  currentFindMatch?: { row: number; col: number } | null
-}
+import { useColumnResize } from '../../../hooks/useColumnResize/useColumnResize'
+import { useRowResize } from '../../../hooks/useRowResize/useRowResize'
+import { useTableSelection } from '../../../hooks/useTableSelection/useTableSelection'
+import { TABLE_THEMES } from '../../../config/table/tableThemes'
+import { computeColumnSum, getContrastText } from '../../../utils/formatUtils/formatUtils'
+import { isRangeAnchor } from '../../../utils/mergeUtils/mergeUtils'
+import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
+import { useColumnSort } from '../../../hooks/useColumnSort/useColumnSort'
+import { toast } from '../../../utils/toast/toast'
+import { TableCell } from './TableCell/TableCell'
+import { TableCtxMenu } from './TableCtxMenu/TableCtxMenu'
+import type { CtxData } from './TableCtxMenu/TableCtxMenu.types'
+import { TableHeaderRow } from './TableHeaderRow/TableHeaderRow'
+import type { TableGridProps } from './TableGrid.types'
 
 export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGridProps): ReactNode {
   const { t } = useTranslation()
@@ -71,6 +67,19 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
 
   const { ghostLineRef: columnGhostLineRef, onMouseDown: onColumnResizeStart } = useColumnResize(setColumnWidth)
   const { ghostLineRef: rowGhostLineRef, onMouseDown: onRowResizeStart } = useRowResize(setRowHeight)
+
+  const { pasting } = useClipboardPaste(setCells)
+
+  const {
+    activeSortCol,
+    activeSortDir,
+    toggleSort,
+    sortAsc,
+    sortDesc,
+    sortedRows,
+    sortedToOriginal,
+    sortDisabled,
+  } = useColumnSort(cells, cols, mergedRanges)
 
   const autoFitColumn = useCallback((columnIndex: number): void => {
     const table = gridRef.current
@@ -168,14 +177,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
     return totals
   }, [sumCols, cells])
 
-  const [sortCol, setSortCol] = useState<number | null>(null)
-  const [sortDir, setSortDir] = useState<'asc' | 'desc' | null>(null)
-  const [pasting, setPasting] = useState(false)
   const [ctxMenu, setCtxMenu] = useState<CtxData>(null)
   const [activeSub, setActiveSub] = useState<string | null>(null)
-
-  const activeSortCol = sortCol !== null && sortCol < cols ? sortCol : null
-  const activeSortDir = activeSortCol !== null ? sortDir : null
 
   useEffect(() => {
     const onKeyDown = (event: globalThis.KeyboardEvent): void => {
@@ -193,99 +196,6 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [undo, canUndo, t])
-
-  useEffect(() => {
-    const onPaste = async (event: globalThis.ClipboardEvent): Promise<void> => {
-      const target = event.target as HTMLElement
-      if (target.closest('[contenteditable]')) return
-
-      const items = event.clipboardData?.items
-      if (!items) return
-      event.preventDefault()
-
-      setPasting(true)
-      try {
-        const html = items[0]?.type === 'text/html' ? event.clipboardData?.getData('text/html') : null
-        const text = event.clipboardData?.getData('text/plain') ?? ''
-
-        let pastedRows: string[][] = []
-
-        if (html) {
-          const doc = new DOMParser().parseFromString(html, 'text/html')
-          const table = doc.querySelector('table')
-          if (table) {
-            pastedRows = Array.from(table.rows).map((tr) =>
-              Array.from(tr.children).map((td) => (td.textContent ?? '').trim()),
-            )
-          }
-        }
-
-        if (pastedRows.length === 0 && text) {
-          const lines = text.split(/\r?\n/).filter(Boolean)
-          const delim = lines.some((line) => line.includes('\t')) ? '\t' : ','
-          pastedRows = lines.map((line) => line.split(delim).map((v) => v.trim()))
-          if (delim === ',' && pastedRows.every((r) => r.length === 1)) pastedRows = []
-        }
-
-        if (pastedRows.length > 1 && pastedRows[0]!.length > 1) {
-          const r = pastedRows.length
-          const c = Math.max(...pastedRows.map((row) => row.length))
-          const cellData = normalizeTableData(pastedRows, r, c)
-          setCells(cellData)
-          toast.success(TOAST.PASTE_SUCCESS(r, c))
-        }
-      } catch {
-        toast.error(TOAST.PASTE_ERROR)
-      } finally {
-        setPasting(false)
-      }
-    }
-    document.addEventListener('paste', onPaste)
-    return () => document.removeEventListener('paste', onPaste)
-  }, [setCells])
-
-  const sortDisabled = mergedRanges.length > 0
-
-  const toggleSort = useCallback((col: number): void => {
-    if (sortDisabled) return
-    if (sortCol !== col) {
-      setSortCol(col)
-      setSortDir('asc')
-      return
-    }
-    if (sortDir === 'asc') {
-      setSortDir('desc')
-      return
-    }
-    if (sortDir === 'desc') {
-      setSortCol(null)
-      setSortDir(null)
-    }
-  }, [sortCol, sortDir, sortDisabled])
-
-  const sortAsc = useCallback((col: number): void => {
-    if (sortDisabled) return
-    setSortCol(col)
-    setSortDir('asc')
-  }, [sortDisabled])
-
-  const sortDesc = useCallback((col: number): void => {
-    if (sortDisabled) return
-    setSortCol(col)
-    setSortDir('desc')
-  }, [sortDisabled])
-
-  const sortedRows = useMemo(() => {
-    if (activeSortCol === null || activeSortDir === null) return cells
-    return sortRows(cells, activeSortCol, activeSortDir)
-  }, [cells, activeSortCol, activeSortDir])
-
-  const sortedToOriginal = useMemo(() => {
-    if (activeSortCol === null || activeSortDir === null) {
-      return cells.map((_, index) => index)
-    }
-    return sortedRows.map((sortedRow) => cells.findIndex((row) => row === sortedRow))
-  }, [cells, sortedRows, activeSortCol, activeSortDir])
 
   useEffect(() => {
     if (!ctxMenu) return
@@ -376,28 +286,19 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
 
   return (
     <div className="relative h-full overflow-auto p-2 sm:p-4">
-      <div
-        data-print-hide data-export-hide
-        className="mb-2 grid min-w-max border border-border bg-surface dark:border-slate-700 dark:bg-slate-800"
-        style={{ gridTemplateColumns: columnWidths.map((width) => `${width}px`).join(' ') }}
-        aria-label="Column formatting controls"
-      >
-        {Array.from({ length: cols }, (_, index) => (
-          <TableHeaderCell
-            key={index}
-            index={index}
-            width={columnWidths[index]}
-            format={cells[0]?.[index]?.format ?? 'text'}
-            sortDir={activeSortCol === index ? activeSortDir : null}
-            sortDisabled={sortDisabled}
-            onSort={() => toggleSort(index)}
-            onFormatChange={(format) => setColumnFormat(index, format)}
-            onResizeStart={onColumnResizeStart}
-            onAutoFit={autoFitColumn}
-            onContextMenu={handleColumnContextMenu}
-          />
-        ))}
-      </div>
+      <TableHeaderRow
+        cols={cols}
+        columnWidths={columnWidths}
+        cells={cells}
+        activeSortCol={activeSortCol}
+        activeSortDir={activeSortDir}
+        sortDisabled={sortDisabled}
+        onSort={toggleSort}
+        onFormatChange={setColumnFormat}
+        onResizeStart={onColumnResizeStart}
+        onAutoFit={autoFitColumn}
+        onContextMenu={handleColumnContextMenu}
+      />
       <div ref={tableRef} className="inline-block bg-white dark:bg-slate-900" data-table-container>
         <table ref={gridRef} className="min-w-max border-collapse bg-white dark:bg-slate-900" role="grid" aria-label={t('grid.tableEditor')} aria-rowcount={rows} aria-colcount={cols}>
           <colgroup>

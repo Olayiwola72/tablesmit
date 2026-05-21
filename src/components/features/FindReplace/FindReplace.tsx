@@ -1,21 +1,7 @@
 import { ChevronDown, ChevronUp, Search, X } from 'lucide-react'
 import { memo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-
-export interface FindReplaceProps {
-  query: string
-  setQuery: (value: string) => void
-  replaceText: string
-  setReplaceText: (value: string) => void
-  matchIndex: number
-  totalMatches: number
-  onNext: () => void
-  onPrev: () => void
-  onReplace: () => void
-  onReplaceAll: () => void
-  onClose: () => void
-  replaceMode: boolean
-}
+import type { FindReplaceProps } from './FindReplace.types'
 
 function FindReplaceRaw({
   query,

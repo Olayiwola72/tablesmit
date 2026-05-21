@@ -1,9 +1,9 @@
-import type { BlogPost } from '../../types/blog.types'
+import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-merge-cells-in-online-table',
   title: 'How to Merge Cells in an Online Table',
-  date: '2026-01-11',
+  date: '2025-11-01',
   description:
     'Most web table tools do not support cell merging. Here is how to merge and unmerge cells in Tablesmit — and when to use it in your tables.',
   author: 'Olayiwola Akinnagbe',

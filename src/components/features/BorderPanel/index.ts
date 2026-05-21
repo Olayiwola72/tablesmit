@@ -1,1 +1,0 @@
-export { BorderPanel } from './BorderPanel'

@@ -3,14 +3,8 @@ import type { ReactNode } from 'react'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KEY_ESCAPE } from '../../../constants/keys'
-import { Button } from '../../ui/Button'
-
-export interface MobileSheetProps {
-  title: string
-  open: boolean
-  onClose: () => void
-  children: ReactNode
-}
+import { Button } from '../../ui/Button/Button'
+import type { MobileSheetProps } from './MobileSheet.types'
 
 export function MobileSheet({ title, open, onClose, children }: MobileSheetProps): ReactNode {
   const { t } = useTranslation()

@@ -1,13 +1,41 @@
+import { useState, useEffect, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import type { ReactNode } from 'react'
-import { allPosts, getAllTags } from '../../services/blogService'
-import { formatDate } from '../../utils/formatDate'
+import type { BlogPost } from '../../services/blogService/blogService.types'
+import { getAllPosts, getAllTags } from '../../services/blogService/blogService'
+import { formatDate } from '../../utils/formatDate/formatDate'
 import { siteConfig } from '../../config/siteConfig'
+import { ITEMS_PER_PAGE } from '../../config/table/tableDefaults'
+import { Button } from '../../components/ui/Button/Button'
 
 export default function BlogListPage(): ReactNode {
   const { t } = useTranslation()
-  const tags = getAllTags()
+  const [posts, setPosts] = useState<BlogPost[] | null>(null)
+  const [tags, setTags] = useState<string[]>([])
+  const [page, setPage] = useState(1)
+
+  useEffect(() => {
+    Promise.all([getAllPosts(), getAllTags()]).then(([all, allTags]) => {
+      setPosts(all)
+      setTags(allTags)
+    })
+  }, [])
+
+  if (posts === null) {
+    return (
+      <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-content">
+          <div className="flex items-center justify-center py-20">
+            <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  const totalPages = Math.max(1, Math.ceil(posts.length / ITEMS_PER_PAGE))
+  const start = (page - 1) * ITEMS_PER_PAGE
+  const pagePosts = posts.slice(start, start + ITEMS_PER_PAGE)
 
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
@@ -16,7 +44,7 @@ export default function BlogListPage(): ReactNode {
           to={siteConfig.routes.home}
           className="mb-8 inline-flex items-center gap-1 text-sm text-text-muted hover:text-primary"
         >
-          &larr; Home
+          &larr; {t('nav.home')}
         </Link>
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
@@ -37,10 +65,11 @@ export default function BlogListPage(): ReactNode {
         </header>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {allPosts.map(post => (
-            <article
+          {pagePosts.map(post => (
+            <Link
               key={post.slug}
-              className="rounded-md border border-border p-6 transition-colors duration-150 hover:border-primary"
+              to={`${siteConfig.routes.blog}/${post.slug}`}
+              className="block rounded-md border border-border p-6 transition-colors duration-150 hover:border-primary"
             >
               {post.featured && (
                 <span className="text-xs font-semibold uppercase tracking-widest text-accent">
@@ -49,9 +78,7 @@ export default function BlogListPage(): ReactNode {
               )}
               <time className="text-xs text-text-muted">{formatDate(post.date)}</time>
               <h2 className="mb-2 mt-2 text-xl font-semibold text-text-primary">
-                <Link to={`${siteConfig.routes.blog}/${post.slug}`} className="hover:text-primary">
-                  {post.title}
-                </Link>
+                {post.title}
               </h2>
               <p className="mb-4 text-sm leading-relaxed text-text-secondary">
                 {post.description}
@@ -67,13 +94,48 @@ export default function BlogListPage(): ReactNode {
                   </span>
                 ))}
               </div>
-            </article>
+            </Link>
           ))}
         </div>
 
-        {allPosts.length === 0 && (
+        {totalPages > 1 && (
+          <nav aria-label="Blog pagination" className="mt-12 flex items-center justify-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              isDisabled={page <= 1}
+              onClick={() => setPage(p => Math.max(1, p - 1))}
+              aria-label={t('pagination.prevAria')}
+            >
+              &larr; {t('pagination.prev')}
+            </Button>
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
+              <Button
+                key={n}
+                variant={n === page ? 'primary' : 'ghost'}
+                size="sm"
+                onClick={() => setPage(n)}
+                aria-label={t('pagination.pageAria', { number: n })}
+                aria-current={n === page ? 'page' : undefined}
+              >
+                {n}
+              </Button>
+            ))}
+            <Button
+              variant="ghost"
+              size="sm"
+              isDisabled={page >= totalPages}
+              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+              aria-label={t('pagination.nextAria')}
+            >
+              {t('pagination.next')} &rarr;
+            </Button>
+          </nav>
+        )}
+
+        {posts.length === 0 && (
           <p className="py-20 text-center text-sm text-text-muted">
-            No posts yet. Check back soon.
+            {t('blog.empty')}
           </p>
         )}
       </div>

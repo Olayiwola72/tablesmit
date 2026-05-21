@@ -1,28 +1,30 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Keyboard, Settings, Sparkles } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { exportFormats } from '../../config/exportConfig'
+import { exportFormats } from '../../config/export/exportConfig'
 import { TableProvider, useTableContext, useTableData } from '../../context/TableContext'
-import { useExport } from '../../hooks/useExport'
-import { useFindReplace } from '../../hooks/useFindReplace'
-import { IconButton } from '../../components/ui/IconButton'
-import { PanelLoader } from '../../components/ui/PanelLoader'
-import { MobileSheet } from '../../components/layout/MobileSheet'
-import { TableGrid } from '../../components/features/TableGrid'
-import { TableToolbar } from '../../components/features/TableToolbar'
-import { DimensionsPanel } from '../../components/features/DimensionsPanel'
-import { HeaderOptionsPanel } from '../../components/features/HeaderOptionsPanel'
-import { ColorPanel } from '../../components/features/ColorPanel'
-import { BorderPanel } from '../../components/features/BorderPanel'
-import { MergeCellsPanel } from '../../components/features/MergeCellsPanel'
-import { AiFeaturesPanel } from '../../components/features/AiFeaturesPanel'
-import { TableCaption, type CaptionAlignment } from '../../components/features/TableCaption'
-import { FindReplace } from '../../components/features/FindReplace'
-import { isTableEmpty } from '../../utils/tableUtils'
-import { toast } from '../../utils/toast'
-import type { ExportFormat } from '../../types/export.types'
+import { useExport } from '../../hooks/useExport/useExport'
+import { useFindReplace } from '../../hooks/useFindReplace/useFindReplace'
+import { usePrintTable } from '../../hooks/usePrintTable/usePrintTable'
+import { IconButton } from '../../components/ui/IconButton/IconButton'
+import { PanelLoader } from '../../components/ui/PanelLoader/PanelLoader'
+import { MobileSheet } from '../../components/layout/MobileSheet/MobileSheet'
+import { TableGrid } from '../../components/features/TableGrid/TableGrid'
+import { TableToolbar } from '../../components/features/TableToolbar/TableToolbar'
+import { DimensionsPanel } from '../../components/features/DimensionsPanel/DimensionsPanel'
+import { HeaderOptionsPanel } from '../../components/features/HeaderOptionsPanel/HeaderOptionsPanel'
+import { ColorPanel } from '../../components/features/ColorPanel/ColorPanel'
+import { BorderPanel } from '../../components/features/BorderPanel/BorderPanel'
+import { MergeCellsPanel } from '../../components/features/MergeCellsPanel/MergeCellsPanel'
+import { AiFeaturesPanel } from '../../components/features/AiFeaturesPanel/AiFeaturesPanel'
+import { TableCaption } from '../../components/features/TableCaption/TableCaption'
+import type { CaptionAlignment } from '../../components/features/TableCaption/TableCaption.types'
+import { FindReplace } from '../../components/features/FindReplace/FindReplace'
+import { isTableEmpty } from '../../utils/tableUtils/tableUtils'
+import { toast } from '../../utils/toast/toast'
+import type { ExportFormat } from '../../services/exportService/export.types'
 
-const ExportPanel = lazy(() => import('../../components/features/ExportPanel'))
+const ExportPanel = lazy(() => import('../../components/features/ExportPanel/ExportPanel'))
 
 export function TableMakerPage(): ReactNode {
   return (
@@ -43,74 +45,11 @@ function TableMakerContent(): ReactNode {
   const [caption, setCaption] = useState('')
   const [captionAlignment, setCaptionAlignment] = useState<CaptionAlignment>('center')
 
+  usePrintTable(tableRef)
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
       const isCtrl = e.ctrlKey || e.metaKey
-
-      if (isCtrl && e.key === 'p') {
-        e.preventDefault()
-        const iframe = document.createElement('iframe')
-        iframe.style.position = 'fixed'
-        iframe.style.right = '-9999px'
-        iframe.style.bottom = '-9999px'
-        iframe.style.width = '0'
-        iframe.style.height = '0'
-        document.body.appendChild(iframe)
-
-        const win = iframe.contentWindow
-        if (!win) { document.body.removeChild(iframe); return }
-
-        /* Build print content: clone caption + table, strip print-hide elements */
-        const caption = document.querySelector<HTMLElement>('[data-table-caption]')
-        const container = tableRef.current
-        let bodyHTML = ''
-        if (caption) {
-          const clone = caption.cloneNode(true) as HTMLElement
-          clone.querySelectorAll('[data-print-hide]').forEach(el => el.remove())
-          bodyHTML += clone.outerHTML
-        }
-        if (container) {
-          const clone = container.cloneNode(true) as HTMLElement
-          clone.querySelectorAll('[data-print-hide]').forEach(el => el.remove())
-          bodyHTML += clone.outerHTML
-        }
-
-        /* Collect screen CSS only — skip @media print rules so the table
-           renders with the same styling seen on screen */
-        const cssRules: string[] = []
-        for (const sheet of Array.from(document.styleSheets)) {
-          try {
-            for (const rule of Array.from(sheet.cssRules)) {
-              if (rule instanceof CSSMediaRule && /print/i.test(rule.media.mediaText)) continue
-              cssRules.push(rule.cssText)
-            }
-          } catch { /* cross-origin sheet — skip */ }
-        }
-
-        const printCSS = `@media print {
-  body { margin:2cm; }
-  @page { margin:2cm; size:A4 landscape; }
-  td, th { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
-  [data-print-hide] { display:none !important; }
-}`
-
-        const doc = win.document
-        doc.open()
-        doc.write(`<!DOCTYPE html>
-<html>
-<head>
-  <style>${cssRules.join('\n')}</style>
-  <style>${printCSS}</style>
-</head>
-<body>${bodyHTML}</body>
-</html>`)
-        doc.close()
-
-        win.addEventListener('load', () => {
-          setTimeout(() => { win.print(); document.body.removeChild(iframe) }, 300)
-        })
-        return
-      }
 
       if (isCtrl && (e.key === 'e' || e.key === 'l' || e.key === 'r')) {
         e.preventDefault()

@@ -1,13 +1,18 @@
 import { describe, it, expect } from 'vitest'
-import { allFeatures, getFeatureBySlug } from '../../../services/featureService'
+import {
+  getAllFeatures,
+  getFeatureBySlug,
+} from '../../../services/featureService/featureService'
 
 describe('featureService', () => {
-  it('loads all JSON files from src/content/features/', () => {
-    expect(allFeatures.length).toBeGreaterThanOrEqual(6)
+  it('loads all JSON files from src/content/features/', async () => {
+    const features = await getAllFeatures()
+    expect(features.length).toBeGreaterThanOrEqual(6)
   })
 
-  it('all features have slugs', () => {
-    const slugs = allFeatures.map(f => f.slug)
+  it('all features have slugs', async () => {
+    const features = await getAllFeatures()
+    const slugs = features.map(f => f.slug)
     expect(slugs).toContain('excel-export')
     expect(slugs).toContain('pdf-export')
     expect(slugs).toContain('csv-import')
@@ -16,18 +21,19 @@ describe('featureService', () => {
     expect(slugs).toContain('drag-to-resize')
   })
 
-  it('getFeatureBySlug returns correct feature for valid slug', () => {
-    const feature = getFeatureBySlug('excel-export')
+  it('getFeatureBySlug returns correct feature for valid slug', async () => {
+    const feature = await getFeatureBySlug('excel-export')
     expect(feature).toBeDefined()
     expect(feature!.slug).toBe('excel-export')
   })
 
-  it('getFeatureBySlug returns undefined for unknown slug', () => {
-    expect(getFeatureBySlug('nonexistent')).toBeUndefined()
+  it('getFeatureBySlug returns undefined for unknown slug', async () => {
+    expect(await getFeatureBySlug('nonexistent')).toBeUndefined()
   })
 
-  it('every feature has required fields', () => {
-    for (const f of allFeatures) {
+  it('every feature has required fields', async () => {
+    const features = await getAllFeatures()
+    for (const f of features) {
       expect(f.slug).toBeTruthy()
       expect(f.metaTitle).toBeTruthy()
       expect(f.metaDescription).toBeTruthy()
@@ -40,8 +46,9 @@ describe('featureService', () => {
     }
   })
 
-  it('every benefit has heading and body', () => {
-    for (const f of allFeatures) {
+  it('every benefit has heading and body', async () => {
+    const features = await getAllFeatures()
+    for (const f of features) {
       for (const b of f.benefits) {
         expect(b.heading).toBeTruthy()
         expect(b.body).toBeTruthy()
@@ -49,8 +56,9 @@ describe('featureService', () => {
     }
   })
 
-  it('every step has number, heading, and body', () => {
-    for (const f of allFeatures) {
+  it('every step has number, heading, and body', async () => {
+    const features = await getAllFeatures()
+    for (const f of features) {
       for (const s of f.steps) {
         expect(typeof s.number).toBe('number')
         expect(s.heading).toBeTruthy()

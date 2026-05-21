@@ -1,1 +1,0 @@
-export { ColorPanel } from './ColorPanel'

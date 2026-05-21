@@ -1,1 +1,0 @@
-export { BackToTop } from './BackToTop'

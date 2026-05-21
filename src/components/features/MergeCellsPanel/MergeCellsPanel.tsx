@@ -2,10 +2,10 @@ import { Merge } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useMergeCells } from '../../../hooks/useMergeCells'
-import { normalizeSelection } from '../../../utils/mergeUtils'
-import { Button } from '../../ui/Button'
-import { SectionLabel } from '../../ui/SectionLabel'
+import { useMergeCells } from '../../../hooks/useMergeCells/useMergeCells'
+import { normalizeSelection } from '../../../utils/mergeUtils/mergeUtils'
+import { Button } from '../../ui/Button/Button'
+import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function MergeCellsPanel(): ReactNode {
   const { t } = useTranslation()

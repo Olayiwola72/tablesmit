@@ -64,7 +64,24 @@
     "errorTitle": "Une erreur est survenue.",
     "errorBody": "Impossible d'envoyer votre message. Réessayez ou écrivez-nous directement.",
     "orEmail": "Ou écrivez-nous directement à",
-    "reachOnX": "ou contactez-nous sur X"
+    "reachOnX": "ou contactez-nous sur X",
+    "featureIdea": "Idée de fonctionnalité",
+    "featureIdeaDesc": "Quelque chose manque qui améliorerait votre flux de travail ? Dites-le moi.",
+    "bugGlitch": "Bug ou problème",
+    "bugGlitchDesc": "Quelque chose ne fonctionne pas correctement ? Je vais regarder et corriger.",
+    "justSayingHi": "Juste dire bonjour",
+    "somethingElse": "Autre chose",
+    "somethingElseDesc": "Tout ce qui vous passe par la tête. Je lis chaque message.",
+    "whatToReachOutAbout": "De quoi voulez-vous parler ?",
+    "builtWithCare": "Construit avec soin, maintenu avec gratitude."
+  },
+  "pagination": {
+    "page": "Page {{current}} sur {{total}}",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "prevAria": "Aller à la page précédente",
+    "nextAria": "Aller à la page suivante",
+    "pageAria": "Aller à la page {{number}}"
   },
   "blog": {
     "heading": "Des articles sur les tableaux, la structure et la pensée analytique.",
@@ -72,7 +89,11 @@
     "minRead": "{{count}} min de lecture",
     "openTablesmit": "Ouvrir Tablesmit",
     "ctaTitle": "Essayez Tablesmit gratuitement — sans inscription.",
-    "backToBlog": "Retour au blog"
+    "backToBlog": "Retour au blog",
+    "empty": "Aucun article pour le moment. Revenez bientôt.",
+    "copiedToClipboard": "Copié dans le presse-papiers",
+    "failedToCopy": "Échec de la copie",
+    "copyCode": "Copier le code"
   },
   "notFound": {
     "heading": "Page introuvable.",
@@ -103,7 +124,9 @@
     "png": "PNG",
     "jpeg": "JPEG",
     "excel": "Excel",
-    "csv": "CSV"
+    "csv": "CSV",
+    "privacyPolicy": "Politique de Confidentialité",
+    "termsOfUse": "Conditions d'Utilisation"
   },
   "toolbar": {
     "templates": "Modèles",
@@ -365,7 +388,11 @@
     "subtext": "Tout ce dont vous avez besoin pour créer des tableaux structurés et propres.",
     "learnMore": "En savoir plus",
     "emptyState": "Aucune fonctionnalité répertoriée pour le moment.",
-    "backToFeatures": "Retour aux fonctionnalités"
+    "backToFeatures": "Retour aux fonctionnalités",
+    "benefits": "Avantages",
+    "howItWorks": "Comment ça marche",
+    "useCases": "Cas d'utilisation",
+    "relatedFeatures": "Fonctionnalités connexes"
   },
   "errors": {
     "pageNotFound": "Page introuvable.",
@@ -399,7 +426,9 @@
     "openShortcuts": "Ouvrir les raccourcis clavier",
     "openSettings": "Ouvrir les paramètres",
     "openPresets": "Ouvrir les modèles",
-    "toggleDarkMode": "Passer en mode {{mode}}"
+    "toggleDarkMode": "Passer en mode {{mode}}",
+    "closePanelOverlay": "Fermer la superposition du panneau",
+    "closePanel": "Fermer le panneau"
   },
   "shortcutKeys": {
     "ctrlZ": "Ctrl+Z",
@@ -417,5 +446,38 @@
     "delete": "Suppr",
     "questionMark": "?",
     "ctrlSlash": "Ctrl+/"
+  },
+  "loading": "Chargement…",
+  "changelogDescription": "Chaque version de Tablesmit, documentée.",
+  "cookieConsent": {
+    "message": "Ce site utilise des cookies à des fins d'analyse. Aucune donnée personnelle n'est collectée.",
+    "learnMore": "En savoir plus",
+    "learnMoreAria": "En savoir plus sur notre politique de confidentialité",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "dialogAria": "Consentement aux cookies"
+  },
+  "privacy": {
+    "lastUpdated": "Dernière mise à jour : mai 2026",
+    "intro": "{{name}} est un outil basé sur le navigateur. Nous n'exigeons pas de compte et nous ne stockons pas les données de votre tableau sur un serveur.",
+    "whatWeCollect": "Ce que nous collectons",
+    "whatWeCollectBody": "Nous pouvons utiliser des analyses pour comprendre comment {{name}} est utilisé. Les analyses collectent des données d'utilisation anonymisées telles que les pages visitées, le temps passé sur la page et la région géographique générale au niveau du pays. Nous ne collectons pas les noms, adresses e-mail ou informations personnelles identifiables via l'application elle-même.",
+    "whatWeDontCollect": "Ce que nous ne collectons pas",
+    "whatWeDontCollectBody": "Le contenu de votre tableau ne quitte jamais votre navigateur. Nous ne transmettons, stockons ou traitons pas les données de votre tableau sur nos serveurs. Nous ne vendons pas de données à des tiers.",
+    "fileImports": "Importations de fichiers",
+    "fileImportsBody": "Lorsque vous importez un fichier CSV ou Excel, il est lu localement dans votre navigateur. Le fichier n'est jamais téléchargé sur un serveur.",
+    "contact": "Contact",
+    "contactBody": "Questions sur la confidentialité :"
+  },
+  "terms": {
+    "lastUpdated": "Dernière mise à jour : mai 2026",
+    "intro": "En utilisant {{name}} vous acceptez ces conditions.",
+    "service": "Le service",
+    "serviceBody": "{{name}} est fourni gratuitement, en l'état, sans garantie de disponibilité, d'exactitude ou d'adéquation à un usage particulier.",
+    "yourContent": "Votre contenu",
+    "yourContentBody": "Vous conservez la pleine propriété de tout contenu créé avec {{name}}. Nous ne revendiquons aucun droit sur vos tableaux, données ou exportations.",
+    "openSource": "Open source",
+    "openSourceBody": "Le code source de {{name}} est disponible sous licence MIT. Vous pouvez le forker, le modifier et le distribuer selon ces conditions.",
+    "contact": "Contact"
   }
 }

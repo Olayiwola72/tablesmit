@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, it, expect } from 'vitest'
 import FeaturesListPage from '../../../pages/FeaturesListPage/FeaturesListPage'
-import { allFeatures } from '../../../services/featureService'
+import { getAllFeatures } from '../../../services/featureService/featureService'
+import { ITEMS_PER_PAGE } from '../../../config/table/tableDefaults'
 
 function renderPage(): void {
   render(
@@ -13,29 +14,58 @@ function renderPage(): void {
 }
 
 describe('FeaturesListPage', () => {
-  it('renders page heading', () => {
+  it('renders page heading', async () => {
     renderPage()
-    expect(screen.getByRole('heading', { level: 1, name: /features/i })).toBeInTheDocument()
+    await waitFor(() => {
+      expect(
+        screen.getByRole('heading', { level: 1, name: /features/i })
+      ).toBeInTheDocument()
+    })
   })
 
-  it('renders a card for every feature', () => {
+  it('renders the first page of features', async () => {
     renderPage()
-    for (const feature of allFeatures) {
+    const allFeatures = await getAllFeatures()
+    const firstPage = allFeatures.slice(0, ITEMS_PER_PAGE)
+    await screen.findByText(firstPage[0].heroHeadline)
+    for (const feature of firstPage) {
       expect(screen.getByText(feature.heroHeadline)).toBeInTheDocument()
     }
   })
 
-  it('links each card to the correct /features/:slug route', () => {
+  it('links cards on first page to correct /features/:slug route', async () => {
     renderPage()
-    for (const feature of allFeatures) {
-      const link = screen.getByRole('link', { name: new RegExp(feature.heroHeadline, 'i') })
-      expect(link).toHaveAttribute('href', `/features/${feature.slug}`)
+    const allFeatures = await getAllFeatures()
+    const firstPage = allFeatures.slice(0, ITEMS_PER_PAGE)
+    await screen.findByText(firstPage[0].heroHeadline)
+    for (const feature of firstPage) {
+      const links = screen.getAllByRole('link')
+      const cardLink = links.find(l => l.getAttribute('href') === `/features/${feature.slug}`)
+      expect(cardLink).toBeDefined()
+      expect(cardLink).toHaveTextContent(feature.heroHeadline)
     }
   })
 
-  it('shows learn more link on each card', () => {
+  it('shows learn more link on each first-page card', async () => {
     renderPage()
-    const learnMoreLinks = screen.getAllByText(/learn more/i)
-    expect(learnMoreLinks.length).toBe(allFeatures.length)
+    const allFeatures = await getAllFeatures()
+    await screen.findByText(allFeatures[0].heroHeadline)
+    await waitFor(() => {
+      const learnMoreLinks = screen.getAllByText(/learn more/i)
+      expect(learnMoreLinks.length).toBe(
+        Math.min(allFeatures.length, ITEMS_PER_PAGE)
+      )
+    })
+  })
+
+  it('renders pagination controls when there are multiple pages', async () => {
+    renderPage()
+    const allFeatures = await getAllFeatures()
+    await screen.findByText(allFeatures[0].heroHeadline)
+    if (allFeatures.length > ITEMS_PER_PAGE) {
+      await waitFor(() => {
+        expect(screen.getByRole('navigation')).toBeInTheDocument()
+      })
+    }
   })
 })

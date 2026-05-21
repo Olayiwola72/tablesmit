@@ -3,11 +3,11 @@ import userEvent from '@testing-library/user-event'
 import { createRef, type ReactNode } from 'react'
 import { describe, expect, it, vi, afterEach } from 'vitest'
 import { TableProvider } from '../../../../context/TableContext'
-import { TableGrid } from '../../../../components/features/TableGrid'
-import { DEFAULT_COLS, DEFAULT_ROWS } from '../../../../config/tableDefaults'
-import { toast } from '../../../../utils/toast'
+import { TableGrid } from '../../../../components/features/TableGrid/TableGrid'
+import { DEFAULT_COLS, DEFAULT_ROWS } from '../../../../config/table/tableDefaults'
+import { toast } from '../../../../utils/toast/toast'
 
-vi.mock('../../../../utils/toast', () => ({
+vi.mock('../../../../utils/toast/toast', () => ({
   toast: { success: vi.fn(), error: vi.fn(), info: vi.fn() },
   TOAST: {
     PASTE_SUCCESS: (rows: number, cols: number) =>

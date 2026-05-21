@@ -1,11 +1,11 @@
 import { act, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { createRef, type ReactNode } from 'react'
-import { TooltipProvider } from '../../../../components/ui/Tooltip'
+import { TooltipProvider } from '../../../../components/ui/Tooltip/Tooltip'
 import { TableProvider } from '../../../../context/TableContext'
 import { TableToolbar } from '../../../../components/features/TableToolbar/TableToolbar'
 
-vi.mock('../../../../hooks/useImport', () => ({
+vi.mock('../../../../hooks/useImport/useImport', () => ({
   useImport: () => ({ error: null, importFile: vi.fn() }),
 }))
 

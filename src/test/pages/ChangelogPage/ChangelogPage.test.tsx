@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { ChangelogPage } from '../../../pages/ChangelogPage/ChangelogPage'
-import type { ChangelogEntry } from '../../../config/changelog'
-import { CHANGELOG, getChangeStyle } from '../../../config/changelog'
+import type { ChangelogEntry } from '../../../config/changelog/changelog.types'
+import { CHANGELOG, getChangeStyle } from '../../../config/changelog/changelog'
 
 describe('ChangelogPage', () => {
   it('renders the page heading', () => {

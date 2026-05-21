@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { HeaderStyle } from '../../../types/table.types'
+import type { HeaderStyle } from '../../../context/table.types'
 import { useTableContext } from '../../../context/TableContext'
-import { SectionLabel } from '../../ui/SectionLabel'
+import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function HeaderOptionsPanel(): ReactNode {
   const { t } = useTranslation()
@@ -32,6 +32,7 @@ export function HeaderOptionsPanel(): ReactNode {
       <label className="space-y-1 text-sm font-medium text-text-primary">
         <select
           name="header-style"
+          aria-label={t('panels.headerOptions')}
           className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm"
           value={headerStyle}
           onChange={(event) =>

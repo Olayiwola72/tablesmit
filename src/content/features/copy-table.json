@@ -1,0 +1,76 @@
+{
+  "slug": "copy-table",
+  "metaTitle": "Copy Table as Image or Excel Data | Tablesmit",
+  "metaDescription": "Copy your table as a PNG image to your clipboard — paste directly into any document, email, or presentation. Or copy as Excel data to paste into any spreadsheet.",
+  "heroHeadline": "Copy your table. Paste it anywhere.",
+  "heroSubtext": "Two copy modes: a rendered PNG image for documents and presentations, or tab-separated data for spreadsheets. One button, two destinations — no file download required.",
+  "icon": "Copy",
+  "benefits": [
+    {
+      "icon": "Image",
+      "heading": "Copy as image — paste without exporting",
+      "body": "The table is rendered at 2x resolution and written directly to your clipboard as a PNG. Paste into Word, Google Docs, email, Notion, Figma, or any tool that accepts images."
+    },
+    {
+      "icon": "Table",
+      "heading": "Copy as Excel data — paste into any spreadsheet",
+      "body": "Copies tab-separated values (TSV) to your clipboard — the exact format Excel and Google Sheets read as structured data. Paste and your table appears as a proper grid."
+    },
+    {
+      "icon": "Zap",
+      "heading": "No download, no file",
+      "body": "Both modes write to your clipboard directly. No file is saved to your downloads folder. Paste immediately into whatever you are working in."
+    },
+    {
+      "icon": "Keyboard",
+      "heading": "Ctrl+C for Copy as image",
+      "body": "Press Ctrl+C (Cmd+C on Mac) to copy the table as an image without opening the Copy menu. The quickest way to get your table into a document."
+    }
+  ],
+  "copyModes": [
+    {
+      "id": "copy-as-image",
+      "name": "Copy as Image",
+      "shortcut": "Ctrl+C",
+      "status": "coming-soon",
+      "description": "Renders the table as a 2x PNG and writes it to the clipboard. Paste into any application that accepts images — Word, email, Notion, Figma, presentations.",
+      "bestFor": "Documents, presentations, design tools, email"
+    },
+    {
+      "id": "copy-excel-data",
+      "name": "Copy Excel Data",
+      "shortcut": null,
+      "status": "live",
+      "description": "Copies tab-separated values (TSV) — the format Excel and Google Sheets use when pasting structured data. Open Excel, paste, your table appears as a grid.",
+      "bestFor": "Excel, Google Sheets, LibreOffice Calc, any spreadsheet"
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Click the Copy button",
+      "body": "Find the Copy button in the toolbar. Click the dropdown arrow to choose between Copy as Image and Copy Excel Data."
+    },
+    {
+      "number": 2,
+      "heading": "Choose your copy mode",
+      "body": "Copy as Image for documents and visual destinations. Copy Excel Data for spreadsheets and data tools. Or press Ctrl+C to copy as image directly."
+    },
+    {
+      "number": 3,
+      "heading": "Paste into your destination",
+      "body": "Switch to your target application and press Ctrl+V (Cmd+V on Mac). The table appears exactly as it was in Tablesmit — no reformatting, no cleanup."
+    }
+  ],
+  "useCases": [
+    "Copying a pricing table as an image and pasting it directly into a client email",
+    "Pasting a structured data table from Tablesmit into Excel for further analysis",
+    "Inserting a research table as an image into a Word or Google Docs report",
+    "Pasting table data into Google Sheets to continue working in a spreadsheet"
+  ],
+  "relatedFeatures": ["excel-export", "pdf-export", "keyboard-shortcuts"],
+  "relatedPost": "copy-excel-table-to-web",
+  "_codex_notes": {
+    "note": "copyModes is a new field specific to this page. Render the two modes as side-by-side cards in the hero section — before the benefits. Each card: name, shortcut badge (if exists), status badge ('Live' in green or 'Coming soon' in amber), description, bestFor. Copy as Image has status 'coming-soon' — render with the amber badge and a 'In the pipeline — Ctrl+C will trigger this' note."
+  }
+}

@@ -2,10 +2,10 @@ import { Sparkles } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../../config/siteConfig'
-import { Badge } from '../../ui/Badge'
-import { Button } from '../../ui/Button'
-import { SectionLabel } from '../../ui/SectionLabel'
-import { toast } from '../../../utils/toast'
+import { Badge } from '../../ui/Badge/Badge'
+import { Button } from '../../ui/Button/Button'
+import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
+import { toast } from '../../../utils/toast/toast'
 
 export function AiFeaturesPanel(): ReactNode {
   const { t } = useTranslation()

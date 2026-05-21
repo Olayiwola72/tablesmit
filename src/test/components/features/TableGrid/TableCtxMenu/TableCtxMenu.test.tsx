@@ -1,7 +1,8 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { TableCtxMenu, type TableCtxMenuProps } from '../../../../../components/features/TableGrid/TableCtxMenu/TableCtxMenu'
+import { TableCtxMenu } from '../../../../../components/features/TableGrid/TableCtxMenu/TableCtxMenu'
+import type { TableCtxMenuProps } from '../../../../../components/features/TableGrid/TableCtxMenu/TableCtxMenu.types'
 import { siteConfig } from '../../../../../config/siteConfig'
 
 // Use translation values matching setup.ts

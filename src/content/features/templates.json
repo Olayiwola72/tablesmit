@@ -1,0 +1,101 @@
+{
+  "slug": "templates",
+  "metaTitle": "Table Templates — Start From a Structure, Not a Blank Grid | Tablesmit",
+  "metaDescription": "Ready-made table templates for pricing, schedules, checklists, contact lists, and more. One click generates the structure — you fill in the content.",
+  "heroHeadline": "Start from a structure, not a blank grid.",
+  "heroSubtext": "Tablesmit's built-in templates generate the right columns, headers, and row structure for common table types. Skip the setup and get straight to the content.",
+  "icon": "LayoutTemplate",
+  "benefits": [
+    {
+      "icon": "Zap",
+      "heading": "Structure in one click",
+      "body": "Each template generates the complete column structure for its use case — headers, column types, and initial rows — so you start filling content immediately."
+    },
+    {
+      "icon": "Pencil",
+      "heading": "Fully editable after generation",
+      "body": "Templates are starting points. Every column can be renamed, retyped, resized, or removed. Every row can be edited, merged, or extended."
+    },
+    {
+      "icon": "Download",
+      "heading": "Export-ready from the start",
+      "body": "Templates are designed to export cleanly. The Pricing Table PDF looks like a real pricing document. The Schedule exports to Excel with correct date columns."
+    },
+    {
+      "icon": "Plus",
+      "heading": "Or start from scratch",
+      "body": "Templates are optional. Set your own row and column count in Grid Size and click Create a Table to start with a blank grid."
+    }
+  ],
+  "templates": [
+    {
+      "id": "pricing-table",
+      "name": "Pricing Table",
+      "description": "Plan names, features, and pricing tiers. Designed for product and service pricing pages, proposals, and comparisons.",
+      "columns": ["Plan", "Price", "Users", "Storage", "Support"],
+      "icon": "DollarSign"
+    },
+    {
+      "id": "schedule",
+      "name": "Schedule",
+      "description": "Time, activity, duration, and location columns. For event programmes, class timetables, conference agendas, and meeting schedules.",
+      "columns": ["Time", "Activity", "Duration", "Location", "Notes"],
+      "icon": "Calendar"
+    },
+    {
+      "id": "checklist",
+      "name": "Checklist",
+      "description": "Task, status, owner, and deadline. For project tracking, process documentation, and structured to-do lists.",
+      "columns": ["Task", "Status", "Owner", "Deadline", "Notes"],
+      "icon": "CheckSquare"
+    },
+    {
+      "id": "contact-list",
+      "name": "Contact List",
+      "description": "Name, organisation, role, email, and phone. For team directories, stakeholder lists, and event registrations.",
+      "columns": ["Name", "Organisation", "Role", "Email", "Phone"],
+      "icon": "Users"
+    },
+    {
+      "id": "inventory",
+      "name": "Inventory",
+      "description": "Item, category, quantity, unit price, and total value. For stock lists, equipment registers, and asset tracking.",
+      "columns": ["Item", "Category", "Quantity", "Unit Price", "Total"],
+      "icon": "Package"
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Click Templates in the toolbar",
+      "body": "The Templates dropdown shows all available templates. Each one shows a brief description of its use case."
+    },
+    {
+      "number": 2,
+      "heading": "Select your template",
+      "body": "Click a template to generate the table instantly. The correct columns, headers, and initial rows appear in the grid."
+    },
+    {
+      "number": 3,
+      "heading": "Fill in your content",
+      "body": "Click any cell to edit. Tab to move to the next cell. Add rows with Ctrl+L as your data grows."
+    },
+    {
+      "number": 4,
+      "heading": "Export when ready",
+      "body": "Export to PDF, Excel, PNG, or CSV directly from the toolbar — or use keyboard shortcuts Ctrl+P and Ctrl+E."
+    }
+  ],
+  "useCases": [
+    "Creating a client pricing proposal using the Pricing Table template",
+    "Building a conference programme or event schedule from the Schedule template",
+    "Generating a project task tracker from the Checklist template",
+    "Producing a stakeholder or team directory using the Contact List template",
+    "Documenting equipment or stock levels with the Inventory template"
+  ],
+  "relatedFeatures": ["table-themes", "excel-export", "pdf-export"],
+  "relatedPost": "free-online-table-makers-compared",
+  "_codex_notes": {
+    "note": "The 'templates' array lists each template with id, name, description, columns, and icon. In FeatureDetailPage, if page.templates exists, render a TemplateCardGrid between benefits and steps. Each card: template name (bold), icon top-left, description, and a small inline preview showing the column headers as chips."
+  }
+}

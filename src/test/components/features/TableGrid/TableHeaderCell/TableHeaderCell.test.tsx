@@ -2,7 +2,8 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { siteConfig } from '../../../../../config/siteConfig'
-import { TableHeaderCell, type TableHeaderCellProps } from '../../../../../components/features/TableGrid/TableHeaderCell/TableHeaderCell'
+import { TableHeaderCell } from '../../../../../components/features/TableGrid/TableHeaderCell/TableHeaderCell'
+import type { TableHeaderCellProps } from '../../../../../components/features/TableGrid/TableHeaderCell/TableHeaderCell.types'
 
 function createProps(overrides: Partial<TableHeaderCellProps> = {}): TableHeaderCellProps {
   return {

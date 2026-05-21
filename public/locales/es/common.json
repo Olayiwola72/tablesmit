@@ -64,7 +64,24 @@
     "errorTitle": "Algo salió mal.",
     "errorBody": "No se pudo enviar tu mensaje. Intenta de nuevo o escríbenos directamente.",
     "orEmail": "O escríbenos directamente a",
-    "reachOnX": "o contáctanos en X"
+    "reachOnX": "o contáctanos en X",
+    "featureIdea": "Sugerir función",
+    "featureIdeaDesc": "¿Algo que falta y mejoraría tu flujo de trabajo? Dímelo.",
+    "bugGlitch": "Error o fallo",
+    "bugGlitchDesc": "¿Algo no funciona bien? Lo revisaré y lo arreglaré.",
+    "justSayingHi": "Solo saludar",
+    "somethingElse": "Otra cosa",
+    "somethingElseDesc": "Cualquier cosa que tengas en mente. Leo cada mensaje.",
+    "whatToReachOutAbout": "¿Sobre qué quieres contactar?",
+    "builtWithCare": "Construido con cuidado, mantenido con gratitud."
+  },
+  "pagination": {
+    "page": "Página {{current}} de {{total}}",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "prevAria": "Ir a la página anterior",
+    "nextAria": "Ir a la página siguiente",
+    "pageAria": "Ir a la página {{number}}"
   },
   "blog": {
     "heading": "Escribiendo sobre tablas, estructura y pensamiento analítico.",
@@ -72,7 +89,11 @@
     "minRead": "{{count}} min de lectura",
     "openTablesmit": "Abrir Tablesmit",
     "ctaTitle": "Prueba Tablesmit — gratis, sin necesidad de registro.",
-    "backToBlog": "Volver al Blog"
+    "backToBlog": "Volver al Blog",
+    "empty": "Aún no hay publicaciones. Vuelve pronto.",
+    "copiedToClipboard": "Copiado al portapapeles",
+    "failedToCopy": "Error al copiar",
+    "copyCode": "Copiar código"
   },
   "notFound": {
     "heading": "Página no encontrada.",
@@ -103,7 +124,9 @@
     "png": "PNG",
     "jpeg": "JPEG",
     "excel": "Excel",
-    "csv": "CSV"
+    "csv": "CSV",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfUse": "Términos de Uso"
   },
   "toolbar": {
     "templates": "Plantillas",
@@ -365,7 +388,11 @@
     "subtext": "Todo lo que necesitas para crear tablas limpias y estructuradas.",
     "learnMore": "Más información",
     "emptyState": "No hay funcionalidades listadas todavía.",
-    "backToFeatures": "Volver a Funcionalidades"
+    "backToFeatures": "Volver a Funcionalidades",
+    "benefits": "Beneficios",
+    "howItWorks": "Cómo funciona",
+    "useCases": "Casos de uso",
+    "relatedFeatures": "Funciones relacionadas"
   },
   "errors": {
     "pageNotFound": "Página no encontrada.",
@@ -399,7 +426,9 @@
     "openShortcuts": "Abrir atajos de teclado",
     "openSettings": "Abrir configuración",
     "openPresets": "Abrir plantillas",
-    "toggleDarkMode": "Cambiar a modo {{mode}}"
+    "toggleDarkMode": "Cambiar a modo {{mode}}",
+    "closePanelOverlay": "Cerrar superposición del panel",
+    "closePanel": "Cerrar panel"
   },
   "shortcutKeys": {
     "ctrlZ": "Ctrl+Z",
@@ -417,5 +446,38 @@
     "delete": "Suprimir",
     "questionMark": "?",
     "ctrlSlash": "Ctrl+/"
+  },
+  "loading": "Cargando…",
+  "changelogDescription": "Cada versión de Tablesmit, documentada.",
+  "cookieConsent": {
+    "message": "Este sitio utiliza cookies para análisis. No se recopilan datos personales.",
+    "learnMore": "Más información",
+    "learnMoreAria": "Más información sobre nuestra política de privacidad",
+    "accept": "Aceptar",
+    "decline": "Rechazar",
+    "dialogAria": "Consentimiento de cookies"
+  },
+  "privacy": {
+    "lastUpdated": "Última actualización: mayo de 2026",
+    "intro": "{{name}} es una herramienta basada en navegador. No requerimos una cuenta y no almacenamos los datos de tu tabla en ningún servidor.",
+    "whatWeCollect": "Qué recopilamos",
+    "whatWeCollectBody": "Podemos utilizar análisis para entender cómo se usa {{name}}. Los análisis recopilan datos de uso anónimos como páginas visitadas, tiempo en la página y región geográfica general a nivel de país. No recopilamos nombres, direcciones de correo electrónico ni información de identificación personal a través de la aplicación.",
+    "whatWeDontCollect": "Qué no recopilamos",
+    "whatWeDontCollectBody": "El contenido de tu tabla nunca sale de tu navegador. No transmitimos, almacenamos ni procesamos los datos de tu tabla en nuestros servidores. No vendemos datos a terceros.",
+    "fileImports": "Importación de archivos",
+    "fileImportsBody": "Cuando importas un archivo CSV o Excel, se lee localmente en tu navegador. El archivo nunca se carga en ningún servidor.",
+    "contact": "Contacto",
+    "contactBody": "¿Preguntas sobre privacidad?"
+  },
+  "terms": {
+    "lastUpdated": "Última actualización: mayo de 2026",
+    "intro": "Al usar {{name}} aceptas estos términos.",
+    "service": "El servicio",
+    "serviceBody": "{{name}} se proporciona de forma gratuita, tal cual, sin garantías de disponibilidad, precisión o idoneidad para ningún propósito particular.",
+    "yourContent": "Tu contenido",
+    "yourContentBody": "Conservas la propiedad total de cualquier contenido que crees con {{name}}. No reclamamos derechos sobre tus tablas, datos o exportaciones.",
+    "openSource": "Código abierto",
+    "openSourceBody": "El código fuente de {{name}} está disponible bajo la licencia MIT. Puedes bifurcarlo, modificarlo y distribuirlo bajo esos términos.",
+    "contact": "Contacto"
   }
 }
