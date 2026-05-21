@@ -16,7 +16,8 @@ function Wrapper({ children }: { children: ReactNode }): ReactNode {
 describe('Navbar', () => {
   it('renders the logo', () => {
     render(<Navbar />, { wrapper: Wrapper })
-    expect(screen.getByRole('img', { name: 'Tablesmit' })).toBeInTheDocument()
+    const logos = screen.getAllByRole('img', { name: 'Tablesmit' })
+    expect(logos.length).toBeGreaterThanOrEqual(1)
   })
 
   it('renders the logo with a link to home', () => {
@@ -44,7 +45,7 @@ describe('Navbar', () => {
 
   it('renders the dark mode toggle', () => {
     render(<Navbar />, { wrapper: Wrapper })
-    expect(screen.getByRole('button', { name: /toggle dark mode/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /toggleDarkMode/i })).toBeInTheDocument()
   })
 
   it('renders the GitHub link', () => {

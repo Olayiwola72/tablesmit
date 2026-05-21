@@ -19,8 +19,11 @@ describe('ChangelogPage', () => {
 
   it('renders the date for every version entry', () => {
     render(<ChangelogPage />)
-    for (const entry of CHANGELOG) {
-      expect(screen.getByText(entry.date)).toBeInTheDocument()
+    const dates = CHANGELOG.map((e) => e.date)
+    for (const date of [...new Set(dates)]) {
+      const matches = screen.getAllByText(date)
+      const expectedCount = dates.filter((d) => d === date).length
+      expect(matches.length).toBeGreaterThanOrEqual(expectedCount)
     }
   })
 
