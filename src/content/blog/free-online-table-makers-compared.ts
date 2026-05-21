@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: '5 Free Online Table Makers Compared',
   date: '2025-10-20',
   description:
-    'Not all web table generators are built the same. We compare five free options on the features that actually matter — merge cells, export quality, column formatting, and ease of use.',
+    'Not all web table generators are built the same. We compare five free options on features that matter, from merge cells to export quality.',
   author: 'Olayiwola Akinnagbe',
   tags: ['comparison', 'tools', 'productivity'],
   readTime: 7,

@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Make a Table in Markdown',
   date: '2025-10-10',
   description:
-    'Markdown tables are simpler than they look. Learn the syntax in five minutes — then see how Tablesmit generates them for you without writing a single pipe character.',
+    'Markdown tables are simpler than they look. Learn the syntax in five minutes — then see how Tablesmit generates them without writing a single pipe character.',
   author: 'Olayiwola Akinnagbe',
   tags: ['markdown', 'tutorial', 'tables'],
   readTime: 5,

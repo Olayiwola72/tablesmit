@@ -3,7 +3,7 @@ import {
   getAllPosts,
   getPostBySlug,
   getAllTags,
-} from '../../services/blogService/blogService'
+} from '../../../services/blogService/blogService'
 
 describe('blogService', () => {
   it('loads at least one blog post', async () => {

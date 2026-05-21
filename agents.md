@@ -267,7 +267,7 @@ const config: Config = {
           light: '#EFF6FF',
         },
         accent: {
-          DEFAULT: '#F59E0B',
+          DEFAULT: '#B45309',
           hover: '#D97706',
           light: '#FFFBEB',
         },
@@ -500,7 +500,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:   'bg-primary text-text-inverse hover:bg-primary-hover hover:shadow-md active:bg-[#1a3080] active:scale-[0.97] active:shadow-none',
-        accent:    'bg-accent text-white hover:bg-accent-hover hover:shadow-md active:bg-[#b45309] active:scale-[0.97] active:shadow-none',
+        accent:    'bg-accent text-white hover:bg-accent-hover hover:shadow-md active:bg-[#78350F] active:scale-[0.97] active:shadow-none',
         secondary: 'bg-transparent border border-border text-text-primary hover:bg-surface hover:border-primary hover:text-primary active:bg-gray-100 active:scale-[0.97]',
         ghost:     'bg-transparent text-text-secondary hover:bg-surface hover:text-text-primary active:bg-border active:scale-[0.97]',
         danger:    'bg-danger text-white hover:bg-red-700 hover:shadow-md active:bg-red-800 active:scale-[0.97] active:shadow-none',

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
-import { CSVExporter } from '../../../services/exportService/impl/csvExporter'
-import type { CellData } from '../../../context/table.types'
+import { CSVExporter } from '../../../../services/exportService/impl/csvExporter'
+import type { CellData } from '../../../../context/table.types'
 
 const mockUnparse = vi.hoisted(() => vi.fn(() => 'a,b,c\n1,2,3'))
 vi.mock('papaparse', () => ({ unparse: mockUnparse }))

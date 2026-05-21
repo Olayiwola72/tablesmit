@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { brandHomeAriaLabel, siteConfig } from '../../../config/siteConfig'
+import { brandHomeAriaLabel, siteConfig } from '../../config/siteConfig'
 
 describe('siteConfig', () => {
   it('uses Tablesmit as the product name', () => {

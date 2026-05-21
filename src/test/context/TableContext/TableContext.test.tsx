@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
-import { TableProvider, useSelectedRange, useTableContext, useTableData } from '../../context/TableContext'
+import { TableProvider, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return <TableProvider>{children}</TableProvider>

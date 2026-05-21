@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { importCsv, importExcel } from '../../services/importService/importService'
+import { importCsv, importExcel } from '../../../services/importService/importService'
 
 const createFile = (content: string, name = 'test.csv', mime = 'text/csv'): File =>
   new File([content], name, { type: mime })
