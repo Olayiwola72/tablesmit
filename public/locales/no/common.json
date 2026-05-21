@@ -145,6 +145,8 @@
     "copy": "Kopier",
     "copyImage": "Kopier som bilde",
     "copyExcel": "Kopier som Excel-data",
+    "copyCsv": "Kopier som CSV",
+    "copyMarkdown": "Kopier som Markdown",
     "ai": "KI",
     "print": "Skriv ut",
     "startBuilding": "Begynn å bygge",

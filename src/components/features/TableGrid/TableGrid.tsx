@@ -1,22 +1,22 @@
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
+import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Loader2 } from 'lucide-react'
 import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/table/tableDefaults'
 import { isHeaderCell, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
-import { KEY_ESCAPE } from '../../../constants/keys'
 import { useColumnResize } from '../../../hooks/useColumnResize/useColumnResize'
 import { useRowResize } from '../../../hooks/useRowResize/useRowResize'
 import { useTableSelection } from '../../../hooks/useTableSelection/useTableSelection'
+import { useTableGridKeyHandlers } from '../../../hooks/useTableGridKeyHandlers/useTableGridKeyHandlers'
 import { TABLE_THEMES } from '../../../config/table/tableThemes'
 import { computeColumnSum, getContrastText } from '../../../utils/formatUtils/formatUtils'
 import { isRangeAnchor } from '../../../utils/mergeUtils/mergeUtils'
 import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { useColumnSort } from '../../../hooks/useColumnSort/useColumnSort'
-import { toast } from '../../../utils/toast/toast'
 import { TableCell } from './TableCell/TableCell'
 import { TableCtxMenu } from './TableCtxMenu/TableCtxMenu'
 import type { CtxData } from './TableCtxMenu/TableCtxMenu.types'
 import { TableHeaderRow } from './TableHeaderRow/TableHeaderRow'
+import { SumRowFooter } from './SumRowFooter/SumRowFooter'
+import { PastingOverlay } from './PastingOverlay/PastingOverlay'
 import type { TableGridProps } from './TableGrid.types'
 
 export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGridProps): ReactNode {
@@ -180,39 +180,9 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
   const [ctxMenu, setCtxMenu] = useState<CtxData>(null)
   const [activeSub, setActiveSub] = useState<string | null>(null)
 
-  useEffect(() => {
-    const onKeyDown = (event: globalThis.KeyboardEvent): void => {
-      if ((event.metaKey || event.ctrlKey) && event.key === 'z') {
-        const target = event.target as HTMLElement
-        if (target.closest('[contenteditable]')) return
-        event.preventDefault()
-        if (!canUndo) {
-          toast.info(t('toast.undoEmpty'))
-          return
-        }
-        undo()
-      }
-    }
-    document.addEventListener('keydown', onKeyDown)
-    return () => document.removeEventListener('keydown', onKeyDown)
-  }, [undo, canUndo, t])
-
-  useEffect(() => {
-    if (!ctxMenu) return
-    const onKeyDown = (event: globalThis.KeyboardEvent): void => {
-      if (event.key === KEY_ESCAPE) { setCtxMenu(null); setActiveSub(null) }
-    }
-    const onClickOutside = (event: globalThis.MouseEvent): void => {
-      const target = event.target as HTMLElement
-      if (!target.closest('[data-ctx-menu]')) { setCtxMenu(null); setActiveSub(null) }
-    }
-    document.addEventListener('keydown', onKeyDown)
-    document.addEventListener('mousedown', onClickOutside)
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-      document.removeEventListener('mousedown', onClickOutside)
-    }
-  }, [ctxMenu])
+  const { handleCellKeyDown } = useTableGridKeyHandlers(
+    canUndo, undo, ctxMenu, (v) => { setCtxMenu(v); setActiveSub(null) }, (v) => { setActiveSub(v) }, cols, rows, hiddenSet,
+  )
 
   const closeCtx = useCallback((): void => { setCtxMenu(null); setActiveSub(null) }, [])
 
@@ -238,51 +208,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
     setActiveSub((prev) => (prev === key ? null : key))
   }, [])
 
-  const navigateToCell = useCallback(
-    (nextRow: number, nextCol: number): void => {
-      if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols) return
-      if (hiddenSet.has(`R${nextRow}C${nextCol}`)) return
-      const el = document.querySelector<HTMLElement>(`[data-cell-id="R${nextRow}C${nextCol}"] [contenteditable]`)
-      el?.focus()
-    },
-    [cols, rows, hiddenSet],
-  )
-
-  const handleCellKeyDown = useCallback(
-    (row: number, col: number, event: KeyboardEvent): void => {
-      if (event.key === 'Tab') {
-        event.preventDefault()
-        const shift = event.shiftKey
-        let nextRow = row
-        let nextCol = shift ? col - 1 : col + 1
-        if (nextCol < 0 && nextRow > 0) { nextRow--; nextCol = cols - 1 }
-        else if (nextCol < 0) { nextRow = row; nextCol = cols - 1 }
-        if (nextCol >= cols && nextRow < rows - 1) { nextRow++; nextCol = 0 }
-        else if (nextCol >= cols) { nextRow = row; nextCol = 0 }
-        navigateToCell(nextRow, nextCol)
-        return
-      }
-
-      if (event.key.startsWith('Arrow')) {
-        const sel = window.getSelection()
-        const text = (event.currentTarget as HTMLElement).textContent ?? ''
-
-        if (event.key === 'ArrowLeft' && sel && sel.rangeCount > 0 && sel.getRangeAt(0).startOffset > 0) return
-        if (event.key === 'ArrowRight' && sel && sel.rangeCount > 0 && sel.getRangeAt(0).startOffset < text.length) return
-
-        event.preventDefault()
-        const delta: Record<string, [number, number]> = {
-          ArrowUp: [-1, 0],
-          ArrowDown: [1, 0],
-          ArrowLeft: [0, -1],
-          ArrowRight: [0, 1],
-        }
-        const [dr, dc] = delta[event.key] ?? [0, 0]
-        navigateToCell(row + dr, col + dc)
-      }
-    },
-    [cols, rows, navigateToCell],
-  )
+  // navigateToCell and handleCellKeyDown provided by useTableGridKeyHandlers
 
   return (
     <div className="relative h-full overflow-auto p-2 sm:p-4">
@@ -360,34 +286,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
               )
             })}
           </tbody>
-          {sumCols.length > 0 ? (
-            <tfoot>
-              <tr className="border-t-2 border-primary/30 bg-surface text-xs font-semibold text-text-primary">
-                {cells[0]?.map((_cell, colIndex) => {
-                  const total = columnTotals[colIndex]
-                  const isSum = sumCols.includes(colIndex)
-                  const isFirstSum = colIndex === sumCols[0]
-                  return (
-                    <td
-                      key={colIndex}
-                      className="px-2 py-1.5"
-                      style={{
-                        border: borderStyle === 'none' ? 'none' : `1px ${borderStyle} ${borderColor}`,
-                        textAlign: (cellTextAlign[`R${cells.length}C${colIndex}`] || columnTextAlign[colIndex] || 'left') as React.CSSProperties['textAlign'],
-                      }}
-                    >
-                      {isSum ? (
-                        <span>
-                          {isFirstSum ? <span className="mr-1 text-text-muted">Total:</span> : null}
-                          {total.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 })}
-                        </span>
-                      ) : ''}
-                    </td>
-                  )
-                })}
-              </tr>
-            </tfoot>
-          ) : null}
+          <SumRowFooter cells={cells} sumCols={sumCols} columnTotals={columnTotals} borderStyle={borderStyle} borderColor={borderColor} columnTextAlign={columnTextAlign} cellTextAlign={cellTextAlign} />
         </table>
       </div>
       <div ref={columnGhostLineRef} className="fixed bottom-0 top-0 z-50 hidden w-px bg-primary pointer-events-none" aria-hidden="true" />
@@ -422,11 +321,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
           sortDesc={sortDesc}
         />
       ) : null}
-      {pasting ? (
-        <div className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center bg-white/60 dark:bg-slate-900/60">
-          <Loader2 size={24} className="animate-spin text-primary" aria-label="Pasting table data" />
-        </div>
-      ) : null}
+      <PastingOverlay pasting={pasting} />
     </div>
   )
 }

@@ -146,6 +146,8 @@
     "copy": "Copy",
     "copyImage": "Copy as Image",
     "copyExcel": "Copy as Excel Data",
+    "copyCsv": "Copy as CSV",
+    "copyMarkdown": "Copy as Markdown",
     "ai": "AI",
     "print": "Print",
     "startBuilding": "Start Building",

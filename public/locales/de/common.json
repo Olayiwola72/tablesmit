@@ -145,6 +145,8 @@
     "copy": "Kopieren",
     "copyImage": "Als Bild kopieren",
     "copyExcel": "Als Excel-Daten kopieren",
+    "copyCsv": "Als CSV kopieren",
+    "copyMarkdown": "Als Markdown kopieren",
     "ai": "KI",
     "print": "Drucken",
     "startBuilding": "Loslegen",
