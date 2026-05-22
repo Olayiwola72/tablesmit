@@ -304,6 +304,7 @@ export function reducer(state: TableState, action: TableAction): TableState {
         theme: action.theme,
         headerColor: themeConfig.headerBg,
         borderColor: themeConfig.borderColor,
+        headerStyle: state.headerStyle === 'none' ? 'first-row' : state.headerStyle,
       }
     }
     case 'applyPreset': {

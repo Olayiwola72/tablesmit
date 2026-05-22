@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { reducer } from '../../../context/TableReducer/TableReducer'
 import { initialState } from '../../../context/TableState/TableState'
+import { TABLE_THEMES } from '../../../config/table/tableThemes'
 import { generateEmptyTable } from '../../../utils/tableUtils/tableUtils'
 
 describe('TableReducer', () => {
@@ -98,6 +99,38 @@ describe('TableReducer', () => {
   it('processes SET_FREEZE_ROW action', () => {
     const next = reducer(initialState, { type: 'setFreezeRow', freeze: true })
     expect(next.freezeRow).toBe(true)
+  })
+
+  it('processes SET_THEME action', () => {
+    const next = reducer(initialState, { type: 'setTheme', theme: 'minimal' })
+    expect(next.theme).toBe('minimal')
+    expect(next.headerColor).toBe('#FFFFFF')
+    expect(next.borderColor).toBe('#F3F4F6')
+  })
+
+  it('setTheme with headerStyle none sets headerStyle to first-row', () => {
+    const next = reducer(initialState, { type: 'setTheme', theme: 'academic' })
+    expect(next.headerStyle).toBe('first-row')
+  })
+
+  it('setTheme preserves existing headerStyle when not none', () => {
+    const withHeader = reducer(initialState, { type: 'setHeaderStyle', headerStyle: 'first-column' })
+    const next = reducer(withHeader, { type: 'setTheme', theme: 'monochrome' })
+    expect(next.headerStyle).toBe('first-column')
+  })
+
+  it('setTheme with unknown theme returns state unchanged', () => {
+    const next = reducer(initialState, { type: 'setTheme', theme: 'nonexistent' as never })
+    expect(next).toBe(initialState)
+  })
+
+  it('setTheme applies correct theme config values', () => {
+    for (const themeConfig of TABLE_THEMES) {
+      const next = reducer(initialState, { type: 'setTheme', theme: themeConfig.id })
+      expect(next.theme).toBe(themeConfig.id)
+      expect(next.headerColor).toBe(themeConfig.headerBg)
+      expect(next.borderColor).toBe(themeConfig.borderColor)
+    }
   })
 
   it('returns state unchanged for unknown action type', () => {
