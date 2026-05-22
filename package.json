@@ -18,16 +18,12 @@
   },
   "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
   "overrides": {
-    "uuid": ">=11.1.1"
+    "uuid": "11.1.1"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "eslint --fix --max-warnings=0"
     ]
-  },
-  "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
-  "overrides": {
-    "uuid": "11.1.1"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -85,6 +81,7 @@
     "lighthouse": "^13.3.0",
     "lint-staged": "^17.0.5",
     "postcss": "^8.5.14",
+    "rollup-plugin-visualizer": "^7.0.1",
     "sass": "^1.99.0",
     "tailwindcss": "^3.4.19",
     "typescript": "~6.0.2",

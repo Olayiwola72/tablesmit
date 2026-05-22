@@ -7,6 +7,15 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Preconnect to critical origins -->
+    <link rel="preconnect" href="https://*.ingest.sentry.io" />
+    <link rel="dns-prefetch" href="https://*.ingest.sentry.io" />
+
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/favicon.svg" as="image" />
+    <link rel="preload" href="/og-image.png" as="image" />
+
     <title>Tablesmit - Tables, Your Way</title>
     <meta
       name="description"

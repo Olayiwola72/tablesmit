@@ -36,7 +36,7 @@ export default function App(): ReactNode {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
-            <Suspense fallback={null}>
+            <Suspense fallback={<PanelLoader />}>
               <ShortcutsModal />
             </Suspense>
             <CookieConsent />
