@@ -2,14 +2,25 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 function isPackage(id: string, packageName: string): boolean {
   return id.replaceAll('\\', '/').includes(`/node_modules/${packageName}/`)
 }
 
+const isAnalyze = process.env.ANALYZE === 'true'
+
 export default defineConfig({
   plugins: [
     react(),
+    ...(isAnalyze
+      ? [visualizer({
+          filename: 'dist/stats.html',
+          open: true,
+          gzipSize: true,
+          brotliSize: true,
+        })]
+      : []),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,
@@ -90,8 +101,10 @@ export default defineConfig({
             return 'vendor-ui'
           }
           if (isPackage(id, 'html2canvas')) return 'vendor-canvas'
+          if (isPackage(id, 'jspdf')) return 'vendor-pdf'
           if (isPackage(id, 'exceljs')) return 'vendor-excel'
           if (isPackage(id, 'papaparse')) return 'vendor-csv'
+          if (isPackage(id, 'react-markdown') || isPackage(id, 'remark-gfm')) return 'vendor-blog'
           return undefined
         },
       },
