@@ -1,4 +1,4 @@
-import type { MergeRange, SelectionRange } from '../../context/table.types'
+import type { MergeRange, SelectionRange } from '../../types/table'
 import { parseCellId } from '../cell/cellUtils'
 
 export function normalizeSelection(range: SelectionRange): SelectionRange {

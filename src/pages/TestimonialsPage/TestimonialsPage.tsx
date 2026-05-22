@@ -46,7 +46,7 @@ export function TestimonialsPage(): ReactNode {
               <a
                 href={brand.authorTwitter}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-4 py-2 text-sm text-text-primary shadow-sm transition-colors hover:border-primary hover:text-primary"
               >
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
@@ -93,7 +93,7 @@ export function TestimonialsPage(): ReactNode {
                     <a
                       href={testimonial.sourceUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="ml-auto flex items-center gap-1 text-xs text-primary hover:underline"
                     >
                       <ExternalLink size={12} aria-hidden="true" />

@@ -2,9 +2,10 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { ExcelExporter } from '../../../../services/exportService/impl/excelExporter'
 import { downloadUrl } from '../../../../services/exportService/utils'
 
-vi.mock('../../../../services/exportService/utils', () => ({
-  downloadUrl: vi.fn(),
-}))
+vi.mock('../../../../services/exportService/utils', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../../../services/exportService/utils')>()
+  return { ...actual, downloadUrl: vi.fn() }
+})
 
 const mockIsHeaderCell = vi.hoisted(() => vi.fn())
 vi.mock('../../../../context/TableContext', () => ({ isHeaderCell: mockIsHeaderCell }))

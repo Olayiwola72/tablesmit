@@ -1,5 +1,5 @@
 import { siteConfig } from '../../config/siteConfig'
-import type { ColumnFormat } from '../../context/table.types'
+import type { ColumnFormat } from '../../types/table'
 
 const { locale } = siteConfig
 

@@ -1,6 +1,17 @@
 import { useEffect } from 'react'
 import type { RefObject } from 'react'
 
+function sanitizePrintableClone(element: HTMLElement): void {
+  element.querySelectorAll('script, iframe, object, embed').forEach((node) => node.remove())
+  element.querySelectorAll('*').forEach((node) => {
+    for (const attribute of Array.from(node.attributes)) {
+      if (attribute.name.toLowerCase().startsWith('on')) {
+        node.removeAttribute(attribute.name)
+      }
+    }
+  })
+}
+
 export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
@@ -29,11 +40,13 @@ export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
       if (caption) {
         const clone = caption.cloneNode(true) as HTMLElement
         clone.querySelectorAll('[data-print-hide]').forEach(el => el.remove())
+        sanitizePrintableClone(clone)
         bodyHTML += clone.outerHTML
       }
       if (container) {
         const clone = container.cloneNode(true) as HTMLElement
         clone.querySelectorAll('[data-print-hide]').forEach(el => el.remove())
+        sanitizePrintableClone(clone)
         bodyHTML += clone.outerHTML
       }
 

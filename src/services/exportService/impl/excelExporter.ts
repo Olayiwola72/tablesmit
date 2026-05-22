@@ -1,7 +1,7 @@
-import type { CellData, BorderStyle as TbBorderStyle } from '../../../context/table.types'
+import type { CellData, BorderStyle as TbBorderStyle } from '../../../types/table'
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
 import { siteConfig } from '../../../config/siteConfig'
-import { downloadUrl } from '../utils'
+import { downloadUrl, filenameWithExtension } from '../utils'
 import { isHeaderCell } from '../../../context/TableContext'
 
 type ExceljsBorderStyle = 'thin' | 'dotted' | 'dashed' | 'double'
@@ -144,6 +144,6 @@ export class ExcelExporter implements ExportStrategy {
     const blob = new Blob([buffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     })
-    downloadUrl(URL.createObjectURL(blob), `${options.filename ?? siteConfig.exportFileBaseName}.xlsx`)
+    downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'xlsx'))
   }
 }

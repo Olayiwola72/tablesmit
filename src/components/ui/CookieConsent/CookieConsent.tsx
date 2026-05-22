@@ -24,11 +24,20 @@ function loadAnalytics(): void {
 }
 
 function getConsent(): 'accepted' | 'declined' | null {
-  return localStorage.getItem(CONSENT_KEY) as 'accepted' | 'declined' | null
+  try {
+    const value = localStorage.getItem(CONSENT_KEY)
+    return value === 'accepted' || value === 'declined' ? value : null
+  } catch {
+    return null
+  }
 }
 
 function setConsent(value: 'accepted' | 'declined'): void {
-  localStorage.setItem(CONSENT_KEY, value)
+  try {
+    localStorage.setItem(CONSENT_KEY, value)
+  } catch {
+    /* Consent still applies for the current session. */
+  }
 }
 
 export function CookieConsent(): ReactNode {

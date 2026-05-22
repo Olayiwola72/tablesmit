@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
-import { TableProvider } from '../../../../context/TableProvider'
+import { TableProvider } from '../../../../context/TableProvider/TableProvider'
 import { HeaderOptionsPanel } from '../../../../components/features/HeaderOptionsPanel/HeaderOptionsPanel'
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {

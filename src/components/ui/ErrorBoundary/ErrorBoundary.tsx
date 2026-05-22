@@ -39,7 +39,9 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       contexts: { react: { componentStack: info.componentStack } },
     })
     this.props.onError?.(error, info)
-    console.error('[ErrorBoundary]', error, info.componentStack)
+    if (import.meta.env.DEV) {
+      console.error('[ErrorBoundary]', error, info.componentStack)
+    }
   }
 
   render(): ReactNode {

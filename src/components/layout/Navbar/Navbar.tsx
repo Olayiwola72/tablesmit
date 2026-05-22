@@ -36,7 +36,7 @@ export function Navbar(): ReactNode {
           <Logo variant="full" theme={logoTheme} className="hidden h-9 w-[165px] md:block" />
         </Link>
 
-        <nav aria-label={t('aria.openMenu')} className="hidden items-center gap-6 md:flex">
+        <nav aria-label="Primary navigation" className="hidden items-center gap-6 md:flex">
           {siteConfig.nav.map((item) => (
             <Link
               key={item.label}
@@ -74,7 +74,7 @@ export function Navbar(): ReactNode {
             onClick={toggle}
           />
           <Button asChild variant="ghost" size="sm">
-            <a href={brand.githubUrl} target="_blank" rel="noreferrer">
+            <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
               GitHub <ExternalLink size={14} aria-hidden="true" />
             </a>
           </Button>
@@ -105,7 +105,7 @@ export function Navbar(): ReactNode {
                 onClick={() => setIsOpen(false)}
               />
             </div>
-            <nav className="flex flex-col gap-4" aria-label={t('aria.closeMenu')}>
+            <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
               {siteConfig.nav.map((item) => (
                 <Link
                   key={item.label}
@@ -143,7 +143,7 @@ export function Navbar(): ReactNode {
                   <a
                     href={brand.githubUrl}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     onClick={() => setIsOpen(false)}
                   >
                     GitHub <ExternalLink size={14} aria-hidden="true" />

@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { useColumnSort } from '../../../hooks/useColumnSort/useColumnSort'
-import type { CellData, MergeRange } from '../../../context/table.types'
+import type { CellData, MergeRange } from '../../../types/table'
 
 function makeCells(values: string[][]): CellData[][] {
   return values.map((row, r) =>

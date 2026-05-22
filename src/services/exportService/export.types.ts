@@ -1,4 +1,4 @@
-import type { CellData, HeaderStyle, MergeRange, TextAlign, BorderStyle } from '../../context/table.types'
+import type { CellData, HeaderStyle, MergeRange, TextAlign, BorderStyle } from '../../types/table'
 
 export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv' | 'latex'
 

@@ -1,7 +1,7 @@
 import { useMemo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTableContext, useTableData } from '../../../context/TableContext'
-import type { ColumnFormat } from '../../../context/table.types'
+import type { ColumnFormat } from '../../../types/table'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function ColumnFormattingPanel(): ReactNode {

@@ -15,6 +15,7 @@ if (import.meta.env.PROD && SENTRY_DSN) {
   Sentry.init({
     dsn: SENTRY_DSN,
     environment: 'production',
+    sendDefaultPii: false,
     tracesSampleRate: 0.1,
     integrations: [Sentry.browserTracingIntegration()],
     beforeSend(event) {

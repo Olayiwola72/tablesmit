@@ -87,7 +87,7 @@ function TableMakerContent(): ReactNode {
     }
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
-  }, [caption, captionAlignment, tableRef, cells, t])
+  }, [cells, t])
 
   const {
     query, setQuery, replaceText, setReplaceText,
@@ -141,7 +141,7 @@ function TableMakerContent(): ReactNode {
           </span>
         </div>
       </section>
-      <TableToolbar tableRef={tableRef} />
+      <TableToolbar tableRef={tableRef} isExporting={isExporting} onExport={handleExport} />
       <div className="flex flex-1 overflow-hidden">
         <aside className="hidden w-sidebar-left flex-none flex-col gap-8 overflow-y-auto border-r border-border bg-surface p-6 md:flex" data-sidebar-left>
           <DimensionsPanel />

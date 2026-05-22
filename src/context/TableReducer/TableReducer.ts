@@ -7,22 +7,17 @@ import {
   DEFAULT_ROWS,
   MAX_COLS,
   MAX_ROWS,
-} from '../config/table/tableDefaults'
-import { TABLE_THEMES } from '../config/table/tableThemes'
-import { siteConfig } from '../config/siteConfig'
+} from '../../config/table/tableDefaults'
+import { TABLE_THEMES } from '../../config/table/tableThemes'
+import { siteConfig } from '../../config/siteConfig'
 import type {
-  BorderStyle,
   CellData,
-  ColumnFormat,
   HeaderStyle,
   MergeRange,
-  SelectionRange,
-  TableState,
-  TableTheme,
   TextAlign,
-} from './table.types'
-import type { PresetDefinition } from '../config/ui.types'
-import { buildMergeKey, rangeFromSelection, isSingleCellRange, normalizeSelection } from '../utils/mergeUtils/mergeUtils'
+} from '../../types/table'
+import type { TableState } from '../TableState/TableState.types'
+import { buildMergeKey, rangeFromSelection, isSingleCellRange, normalizeSelection } from '../../utils/mergeUtils/mergeUtils'
 import {
   addColumn as addColumnToCells,
   addRow as addRowToCells,
@@ -35,73 +30,14 @@ import {
   removeColumn as removeColumnFromCells,
   removeRow as removeRowFromCells,
   updateCellValue,
-} from '../utils/tableUtils/tableUtils'
+} from '../../utils/tableUtils/tableUtils'
+import type { TableAction } from './TableReducer.types'
+import { initialState } from '../TableState/TableState'
 
-export type TableAction =
-  | { type: 'generate'; rows: number; cols: number }
-  | { type: 'setCells'; cells: CellData[][] }
-  | { type: 'updateCell'; cellId: string; value: string }
-  | { type: 'addRow' }
-  | { type: 'insertRowAt'; index: number }
-  | { type: 'removeRow' }
-  | { type: 'deleteRowAt'; index: number }
-  | { type: 'addColumn' }
-  | { type: 'insertColAt'; index: number }
-  | { type: 'removeColumn' }
-  | { type: 'deleteColAt'; index: number }
-  | { type: 'clearAll' }
-  | { type: 'setHeaderStyle'; headerStyle: HeaderStyle }
-  | { type: 'setHeaderColor'; color: string }
-  | { type: 'setContentColor'; color: string }
-  | { type: 'setContentBgColor'; color: string }
-  | { type: 'selectRange'; range: SelectionRange }
-  | { type: 'mergeSelection' }
-  | { type: 'unmergeSelection' }
-  | { type: 'setColumnWidth'; col: number; width: number }
-  | { type: 'setRowHeight'; row: number; height: number }
-  | { type: 'setColumnFormat'; col: number; format: ColumnFormat }
-  | { type: 'setBorderStyle'; borderStyle: BorderStyle }
-  | { type: 'setBorderColor'; color: string }
-  | { type: 'setRowColor'; row: number; color: string }
-  | { type: 'setColumnColor'; col: number; color: string }
-  | { type: 'setCellColor'; cellId: string; color: string }
-  | { type: 'setColumnTextAlign'; col: number; align: TextAlign }
-  | { type: 'setCellTextAlign'; cellId: string; align: TextAlign }
-  | { type: 'setFreezeRow'; freeze: boolean }
-  | { type: 'setFreezeCol'; freeze: boolean }
-  | { type: 'setTheme'; theme: TableTheme }
-  | { type: 'applyPreset'; preset: PresetDefinition }
-  | { type: 'UNDO'; state: TableState }
-
-export const STORAGE_KEY = 'tablesmit-state'
-export const SESSION_KEY = 'tablesmit-session'
+export type { TableAction }
 
 const clamp = (value: number, min: number, max: number): number =>
   Math.min(Math.max(Math.trunc(Number.isFinite(value) ? value : min), min), max)
-
-export const initialState: TableState = {
-  cells: generateEmptyTable(DEFAULT_ROWS, DEFAULT_COLS),
-  columnWidths: Array.from({ length: DEFAULT_COLS }, () => DEFAULT_COLUMN_WIDTH),
-  rowHeights: Array.from({ length: DEFAULT_ROWS }, () => DEFAULT_ROW_HEIGHT),
-  mergedRanges: [],
-  headerStyle: 'none',
-  headerColor: siteConfig.colors.defaultHeader,
-  contentColor: siteConfig.colors.defaultContent,
-  borderStyle: DEFAULT_BORDER_STYLE,
-  borderColor: DEFAULT_BORDER_COLOR,
-  contentBgColor: '',
-  theme: 'default',
-  rowColors: Array.from({ length: DEFAULT_ROWS }, () => ''),
-  columnColors: Array.from({ length: DEFAULT_COLS }, () => ''),
-  columnTextAlign: Array.from({ length: DEFAULT_COLS }, () => 'left' as TextAlign),
-  cellColors: {},
-  cellTextAlign: {},
-  selectedRange: null,
-  freezeRow: false,
-  freezeCol: false,
-  rows: DEFAULT_ROWS,
-  cols: DEFAULT_COLS,
-}
 
 function removeInvalidMerges(ranges: MergeRange[], rows: number, cols: number): MergeRange[] {
   return ranges.filter((range) => range.endRow < rows && range.endCol < cols)
@@ -399,9 +335,4 @@ export function reducer(state: TableState, action: TableAction): TableState {
   }
 }
 
-export function isHeaderCell(headerStyle: HeaderStyle, row: number, col: number): boolean {
-  if (headerStyle === 'both') return row === 0 || col === 0
-  if (headerStyle === 'first-row') return row === 0
-  if (headerStyle === 'first-column') return col === 0
-  return false
-}
+

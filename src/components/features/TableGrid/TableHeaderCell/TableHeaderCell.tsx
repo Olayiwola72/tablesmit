@@ -2,7 +2,7 @@ import { memo, type ReactNode } from 'react'
 import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../../../config/siteConfig'
-import type { ColumnFormat } from '../../../../context/table.types'
+import type { ColumnFormat } from '../../../../types/table'
 import { ResizeHandle } from '../ResizeHandle/ResizeHandle'
 import type { TableHeaderCellProps } from './TableHeaderCell.types'
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import type { CellData } from '../../context/table.types'
+import type { CellData } from '../../types/table'
+import { MAX_COLS, MAX_ROWS } from '../../config/table/tableDefaults'
 import { normalizeTableData } from '../../utils/tableUtils/tableUtils'
 import { toast, TOAST } from '../../utils/toast/toast'
 
@@ -10,8 +11,8 @@ export function useClipboardPaste(
 
   useEffect(() => {
     const onPaste = async (event: globalThis.ClipboardEvent): Promise<void> => {
-      const target = event.target as HTMLElement
-      if (target.closest('[contenteditable]')) return
+      const target = event.target
+      if (target instanceof HTMLElement && target.closest('[contenteditable]')) return
 
       const items = event.clipboardData?.items
       if (!items) return
@@ -42,9 +43,10 @@ export function useClipboardPaste(
         }
 
         if (pastedRows.length > 1 && pastedRows[0]!.length > 1) {
-          const r = pastedRows.length
-          const c = Math.max(...pastedRows.map((row) => row.length))
-          const cellData = normalizeTableData(pastedRows, r, c)
+          const r = Math.min(pastedRows.length, MAX_ROWS)
+          const c = Math.min(Math.max(...pastedRows.map((row) => row.length)), MAX_COLS)
+          const trimmedRows = pastedRows.slice(0, r).map((row) => row.slice(0, c))
+          const cellData = normalizeTableData(trimmedRows, r, c)
           setCells(cellData)
           toast.success(TOAST.PASTE_SUCCESS(r, c))
         }

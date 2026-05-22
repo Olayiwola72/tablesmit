@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { CSVExporter } from '../../../../services/exportService/impl/csvExporter'
-import type { CellData } from '../../../../context/table.types'
+import type { CellData } from '../../../../types/table'
 
 const mockUnparse = vi.hoisted(() => vi.fn(() => 'a,b,c\n1,2,3'))
 vi.mock('papaparse', () => ({ unparse: mockUnparse }))
@@ -14,16 +14,19 @@ function el(): HTMLElement {
 }
 
 describe('CSVExporter', () => {
-  let mockAnchor: { href: string; download: string; click: ReturnType<typeof vi.fn> }
+  let mockAnchor: HTMLAnchorElement
+  let click: ReturnType<typeof vi.fn>
   let createElementSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     vi.clearAllMocks()
     vi.spyOn(URL, 'createObjectURL').mockReturnValue('blob:mock-url')
-    mockAnchor = { href: '', download: '', click: vi.fn() }
+    mockAnchor = document.createElement('a')
+    click = vi.fn()
+    mockAnchor.click = click as unknown as HTMLAnchorElement['click']
     const originalCreateElement = document.createElement.bind(document)
     createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tag) => {
-      if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement
+      if (tag === 'a') return mockAnchor
       return originalCreateElement(tag)
     })
   })
@@ -77,7 +80,7 @@ describe('CSVExporter', () => {
     it('creates an anchor element and calls click', async () => {
       await new CSVExporter().export(el(), { format: 'csv', cells: [[makeCell('test')]] })
       expect(createElementSpy).toHaveBeenCalledWith('a')
-      expect(mockAnchor.click).toHaveBeenCalledOnce()
+      expect(click).toHaveBeenCalledOnce()
     })
 
     it('sets href and download on the anchor tag', async () => {

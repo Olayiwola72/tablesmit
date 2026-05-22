@@ -1,4 +1,4 @@
-import type { CellData, ColumnFormat } from '../../context/table.types'
+import type { CellData, ColumnFormat } from '../../types/table'
 import { buildCellId } from '../cell/cellUtils'
 
 export function createCell(row: number, col: number, value = ''): CellData {

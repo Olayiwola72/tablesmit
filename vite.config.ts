@@ -3,6 +3,10 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 
+function isPackage(id: string, packageName: string): boolean {
+  return id.replaceAll('\\', '/').includes(`/node_modules/${packageName}/`)
+}
+
 export default defineConfig({
   plugins: [
     react(),
@@ -41,6 +45,26 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globIgnores: [
+          '**/vendor-excel-*.js',
+          '**/vendor-canvas-*.js',
+          '**/jspdf.es.min-*.js',
+        ],
+        cleanupOutdatedCaches: true,
+        maximumFileSizeToCacheInBytes: 5242880,
+        runtimeCaching: [
+          {
+            urlPattern: /\/assets\/(vendor-excel|vendor-canvas|jspdf\.es\.min)-.*\.js$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'tablesmit-export-chunks',
+              expiration: {
+                maxEntries: 6,
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
+          },
+        ],
       },
     }),
   ],
@@ -55,19 +79,19 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id): string | undefined {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom') || id.includes('node_modules/scheduler')) {
+          if (isPackage(id, 'react') || isPackage(id, 'react-dom') || isPackage(id, 'react-router-dom') || isPackage(id, 'scheduler')) {
             return 'vendor-react'
           }
-          if (id.includes('node_modules/i18next') || id.includes('node_modules/react-i18next')) {
+          if (isPackage(id, 'i18next') || isPackage(id, 'react-i18next') || isPackage(id, 'i18next-browser-languagedetector')) {
             return 'vendor-i18n'
           }
-          if (id.includes('node_modules/@sentry/react')) return 'vendor-sentry'
-          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx') || id.includes('node_modules/sonner')) {
+          if (isPackage(id, '@sentry/react')) return 'vendor-sentry'
+          if (isPackage(id, 'lucide-react') || isPackage(id, 'class-variance-authority') || isPackage(id, 'clsx') || isPackage(id, 'sonner')) {
             return 'vendor-ui'
           }
-          if (id.includes('node_modules/html2canvas')) return 'vendor-canvas'
-          if (id.includes('node_modules/exceljs')) return 'vendor-excel'
-          if (id.includes('node_modules/papaparse')) return 'vendor-csv'
+          if (isPackage(id, 'html2canvas')) return 'vendor-canvas'
+          if (isPackage(id, 'exceljs')) return 'vendor-excel'
+          if (isPackage(id, 'papaparse')) return 'vendor-csv'
           return undefined
         },
       },

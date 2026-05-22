@@ -32,7 +32,7 @@
     />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:; connect-src 'self' ws: https://www.googletagmanager.com https://www.google-analytics.com; frame-src 'none'; object-src 'none'; base-uri 'self'"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: blob:; connect-src 'self' ws: wss: https://www.googletagmanager.com https://www.google-analytics.com https://region1.google-analytics.com https://*.ingest.sentry.io; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"
     />
     <script type="application/ld+json">
     {

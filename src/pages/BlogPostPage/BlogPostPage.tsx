@@ -142,12 +142,12 @@ export default function BlogPostPage(): ReactNode {
                         prose-headings:text-text-primary
                         prose-p:text-text-secondary
                         prose-a:text-primary prose-a:no-underline hover:prose-a:underline
-                        prose-code:rounded prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-text-primary
-                        prose-pre:rounded-md prose-pre:border prose-pre:border-border prose-pre:bg-gray-100 prose-pre:text-text-primary
+                        prose-code:rounded-sm prose-code:bg-surface prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-code:font-medium prose-code:text-text-primary
+                        prose-pre:rounded-md prose-pre:border prose-pre:border-border prose-pre:bg-surface prose-pre:text-text-primary
                         prose-table:border-collapse
                         prose-th:bg-primary prose-th:text-white prose-th:px-3 prose-th:py-2 prose-th:text-left prose-th:font-semibold
                         prose-td:border prose-td:border-border prose-td:px-3 prose-td:py-2 prose-td:text-text-primary
-                        prose-tr:nth-child(even) prose-td:bg-gray-50
+                        prose-tr:nth-child(even) prose-td:bg-surface
                         prose-blockquote:border-l-primary prose-blockquote:text-text-secondary">
           <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
             {post.content}

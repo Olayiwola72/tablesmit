@@ -2,7 +2,7 @@ import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Eras
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../../../config/siteConfig'
-import type { ColumnFormat, TextAlign } from '../../../../context/table.types'
+import type { ColumnFormat, TextAlign } from '../../../../types/table'
 import type { TableCtxMenuProps } from './TableCtxMenu.types'
 
 const colorPresets = [

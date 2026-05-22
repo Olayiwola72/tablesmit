@@ -1,4 +1,4 @@
-import type { TableState } from '../../context/table.types'
+import type { TableState } from '../../context/TableState/TableState.types'
 
 export interface TableHistoryApi {
   undo: () => TableState | undefined

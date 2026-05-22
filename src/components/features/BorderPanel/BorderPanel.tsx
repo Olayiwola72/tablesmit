@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTableContext } from '../../../context/TableContext'
-import type { BorderStyle } from '../../../context/table.types'
+import type { BorderStyle } from '../../../types/table'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function BorderPanel(): ReactNode {

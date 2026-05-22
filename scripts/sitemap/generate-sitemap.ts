@@ -1,16 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import type { UrlEntry } from './sitemap.types'
 
 const SITE_URL = 'https://tablesmit.com'
-const PUBLIC_DIR = path.resolve(import.meta.dirname, '../public')
-const CONTENT_DIR = path.resolve(import.meta.dirname, '../src/content')
-
-interface UrlEntry {
-  loc: string
-  changefreq: string
-  priority: string
-  lastmod?: string
-}
+const PUBLIC_DIR = path.resolve(import.meta.dirname, '../../public')
+const CONTENT_DIR = path.resolve(import.meta.dirname, '../../src/content')
 
 // ── Static pages from siteConfig ──
 const staticPages: UrlEntry[] = [
