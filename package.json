@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "audit": "npm audit",
     "preview": "vite preview",
+    "analyze": "ANALYZE=true npm run build",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "new-post": "npx tsx scripts/md-to-blog-post.ts",
