@@ -146,6 +146,7 @@
     "copy": "Copy",
     "copyImage": "Copy as Image",
     "copyExcel": "Copy as Excel Data",
+    "copyLatex": "Copy as LaTeX",
     "ai": "AI",
     "print": "Print",
     "startBuilding": "Start Building",
@@ -234,9 +235,14 @@
     "sortAscending": "Sort ascending",
     "sortDescending": "Sort descending",
     "editCaption": "Edit caption",
+    "clickToAddCaption": "Click to add caption",
+    "clickToEditCaption": "Click to edit caption",
     "alignLeft": "Align left",
     "alignCenter": "Align center",
-    "alignRight": "Align right"
+    "alignRight": "Align right",
+    "captionTextColor": "Caption text color",
+    "captionBackground": "Caption background",
+    "customColor": "Custom"
   },
   "panels": {
     "dimensions": "Grid Size",
@@ -343,6 +349,7 @@
     "importError": "Could not read file. Check the format and try again.",
     "importTooLarge": "File too large. Maximum size is 5MB.",
     "copyImage": "Table copied as image.",
+    "copyLatex": "Table copied as LaTeX.",
     "copyData": "Table data copied. Paste into Excel or Google Sheets.",
     "pasteSuccess": "Table pasted. {{rows}} rows, {{cols}} columns.",
     "pasteError": "Could not read clipboard. Try importing a file instead.",

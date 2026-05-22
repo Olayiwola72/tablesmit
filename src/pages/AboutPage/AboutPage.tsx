@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { ExternalLink } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button/Button'
@@ -16,7 +17,11 @@ export function AboutPage(): ReactNode {
   const lines = splitNotList(t('about.whatWeAreNot'))
 
   return (
-    <main className="bg-white">
+    <>
+      <Helmet>
+        <title>{t('meta.aboutTitle')}</title>
+      </Helmet>
+      <main className="bg-white">
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <h1 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-text-primary sm:text-4xl lg:text-5xl">
           {t('hero.headline')}
@@ -67,6 +72,7 @@ export function AboutPage(): ReactNode {
         </div>
       </section>
     </main>
+    </>
   )
 }
 

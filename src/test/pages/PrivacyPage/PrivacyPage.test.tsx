@@ -1,35 +1,44 @@
 import { render, screen } from '@testing-library/react'
+import { HelmetProvider } from 'react-helmet-async'
 import { describe, expect, it } from 'vitest'
 import { PrivacyPage } from '../../../pages/PrivacyPage/PrivacyPage'
 
+function renderPage(): void {
+  render(
+    <HelmetProvider>
+      <PrivacyPage />
+    </HelmetProvider>,
+  )
+}
+
 describe('PrivacyPage', () => {
   it('renders heading', () => {
-    render(<PrivacyPage />)
+    renderPage()
     expect(screen.getByText(/Privacy Policy/i)).toBeInTheDocument()
   })
 
   it('renders last updated line', () => {
-    render(<PrivacyPage />)
+    renderPage()
     expect(screen.getByText(/Last updated/i)).toBeInTheDocument()
   })
 
   it('renders what we collect section', () => {
-    render(<PrivacyPage />)
+    renderPage()
     expect(screen.getByText(/What we collect/i)).toBeInTheDocument()
   })
 
   it('renders what we do not collect section', () => {
-    render(<PrivacyPage />)
+    renderPage()
     expect(screen.getByText(/What we do not collect/i)).toBeInTheDocument()
   })
 
   it('renders file imports section', () => {
-    render(<PrivacyPage />)
+    renderPage()
     expect(screen.getByText(/File imports/i)).toBeInTheDocument()
   })
 
   it('renders contact section with email', () => {
-    render(<PrivacyPage />)
+    renderPage()
     expect(screen.getByText(/Contact/i)).toBeInTheDocument()
     expect(screen.getByText('hello@tablesmit.com')).toBeInTheDocument()
   })

@@ -152,7 +152,8 @@
     "startBuilding": "Begynn å bygge",
     "undoActions": "Angre ({{count}} handling)",
     "undoActions_plural": "Angre ({{count}} handlinger)",
-    "nothingToUndo": "Ingenting å angre"
+    "nothingToUndo": "Ingenting å angre",
+    "copyLatex": "Kopier som LaTeX"
   },
   "table": {
     "gridSize": "Rutenettstørrelse",
@@ -235,9 +236,14 @@
     "sortAscending": "Sorter stigende",
     "sortDescending": "Sorter synkende",
     "editCaption": "Rediger bildetekst",
+    "clickToAddCaption": "Klikk for å legge til bildetekst",
+    "clickToEditCaption": "Klikk for å redigere bildetekst",
     "alignLeft": "Venstrejuster",
     "alignCenter": "Midtstill",
-    "alignRight": "Høyrejuster"
+    "alignRight": "Høyrejuster",
+    "captionTextColor": "Bildetekstfarge",
+    "captionBackground": "Bildetekstbakgrunn",
+    "customColor": "Egendefinert"
   },
   "panels": {
     "dimensions": "Rutenettstørrelse",
@@ -348,7 +354,8 @@
     "pasteError": "Kunne ikke lese utklippstavlen. Prøv å importere en fil i stedet.",
     "undoEmpty": "Ingenting igjen å angre.",
     "tableCleared": "Tabell tømt.",
-    "aiWaitlist": "KI-funksjoner kommer snart! Ta kontakt for å fortelle hva du ønsker å se."
+    "aiWaitlist": "KI-funksjoner kommer snart! Ta kontakt for å fortelle hva du ønsker å se.",
+    "copyLatex": "Tabell kopiert som LaTeX."
   },
   "presets": {
     "researchNotes": "Forskningsnotater",

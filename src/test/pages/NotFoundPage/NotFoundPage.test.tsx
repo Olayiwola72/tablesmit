@@ -1,42 +1,37 @@
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { describe, expect, it } from 'vitest'
 import { NotFoundPage } from '../../../pages/NotFoundPage/NotFoundPage'
 
-describe('NotFoundPage', () => {
-  it('renders heading', () => {
-    render(
+function renderPage(): void {
+  render(
+    <HelmetProvider>
       <MemoryRouter>
         <NotFoundPage />
-      </MemoryRouter>,
-    )
+      </MemoryRouter>
+    </HelmetProvider>,
+  )
+}
+
+describe('NotFoundPage', () => {
+  it('renders heading', () => {
+    renderPage()
     expect(screen.getByText(/Page not found/i)).toBeInTheDocument()
   })
 
   it('renders body text', () => {
-    render(
-      <MemoryRouter>
-        <NotFoundPage />
-      </MemoryRouter>,
-    )
+    renderPage()
     expect(screen.getByText(/That URL doesn't exist/i)).toBeInTheDocument()
   })
 
   it('renders back to home link', () => {
-    render(
-      <MemoryRouter>
-        <NotFoundPage />
-      </MemoryRouter>,
-    )
+    renderPage()
     expect(screen.getByRole('link', { name: /back to home/i })).toBeInTheDocument()
   })
 
   it('renders NotFoundAnimation SVG', () => {
-    render(
-      <MemoryRouter>
-        <NotFoundPage />
-      </MemoryRouter>,
-    )
+    renderPage()
     const svg = document.querySelector('svg')
     expect(svg).toBeInTheDocument()
   })

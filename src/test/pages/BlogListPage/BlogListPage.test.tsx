@@ -1,14 +1,17 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
 import BlogListPage from '../../../pages/BlogListPage/BlogListPage'
 import { getAllPosts } from '../../../services/blogService/blogService'
 
 function renderPage(): void {
   render(
-    <MemoryRouter>
-      <BlogListPage />
-    </MemoryRouter>,
+    <HelmetProvider>
+      <MemoryRouter>
+        <BlogListPage />
+      </MemoryRouter>
+    </HelmetProvider>,
   )
 }
 

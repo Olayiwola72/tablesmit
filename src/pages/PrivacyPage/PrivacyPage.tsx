@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../config/siteConfig'
@@ -7,7 +8,11 @@ export function PrivacyPage(): ReactNode {
   const name = siteConfig.brand.name
   
   return (
-    <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
+    <>
+      <Helmet>
+        <title>{t('meta.privacyTitle')}</title>
+      </Helmet>
+      <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-text-primary">{t('footer.privacyPolicy')}</h1>
       <p className="mt-2 text-sm text-text-muted">{t('privacy.lastUpdated')}</p>
 
@@ -40,6 +45,7 @@ export function PrivacyPage(): ReactNode {
         </section>
       </div>
     </main>
+    </>
   )
 }
 

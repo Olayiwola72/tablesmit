@@ -1,5 +1,6 @@
 import { useState, useEffect, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import type { BlogPost } from '../../services/blogService/blogService.types'
 import { getAllPosts, getAllTags } from '../../services/blogService/blogService'
@@ -39,6 +40,9 @@ export default function BlogListPage(): ReactNode {
 
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>{t('meta.blogTitle')}</title>
+      </Helmet>
       <div className="mx-auto max-w-content">
         <Link
           to={siteConfig.routes.home}

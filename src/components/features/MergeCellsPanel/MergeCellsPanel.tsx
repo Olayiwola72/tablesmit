@@ -55,3 +55,5 @@ export function MergeCellsPanel(): ReactNode {
     </section>
   )
 }
+
+export default MergeCellsPanel

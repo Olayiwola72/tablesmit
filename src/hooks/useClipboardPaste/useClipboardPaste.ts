@@ -35,6 +35,11 @@ export function useClipboardPaste(
           }
         }
 
+        if (pastedRows.length === 0 && text && text.includes('\\begin{tabular}')) {
+          const { parseLatexTabular } = await import('../../utils/latexUtils')
+          pastedRows = parseLatexTabular(text)
+        }
+
         if (pastedRows.length === 0 && text) {
           const lines = text.split(/\r?\n/).filter(Boolean)
           const delim = lines.some((line) => line.includes('\t')) ? '\t' : ','

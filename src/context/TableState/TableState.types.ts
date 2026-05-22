@@ -2,6 +2,8 @@ import type { CellData } from '../../types/table/cell.types'
 import type { MergeRange, SelectionRange } from '../../types/table/merge.types'
 import type { HeaderStyle, BorderStyle, TextAlign, TableTheme } from '../../types/table/table-state.types'
 
+export type CaptionAlignment = 'left' | 'center' | 'right'
+
 export interface TableState {
   cells: CellData[][]
   columnWidths: number[]
@@ -24,4 +26,8 @@ export interface TableState {
   cols: number
   freezeRow: boolean
   freezeCol: boolean
+  caption: string
+  captionAlignment: CaptionAlignment
+  captionTextColor: string
+  captionBgColor: string
 }

@@ -40,3 +40,5 @@ export function AiFeaturesPanel(): ReactNode {
     </section>
   )
 }
+
+export default AiFeaturesPanel

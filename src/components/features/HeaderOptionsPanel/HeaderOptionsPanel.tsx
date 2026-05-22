@@ -4,7 +4,7 @@ import type { HeaderStyle } from '../../../types/table'
 import { useTableContext } from '../../../context/TableContext'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
-export function HeaderOptionsPanel(): ReactNode {
+function HeaderOptionsPanel(): ReactNode {
   const { t } = useTranslation()
   const {
     headerStyle,
@@ -77,3 +77,6 @@ export function HeaderOptionsPanel(): ReactNode {
     </section>
   )
 }
+
+export { HeaderOptionsPanel }
+export default HeaderOptionsPanel

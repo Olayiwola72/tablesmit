@@ -1,5 +1,5 @@
 import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2 } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ColumnFormat, TextAlign } from '@/types/table'
 import type { TableCtxMenuProps } from './TableCtxMenu.types'
@@ -32,6 +32,23 @@ function CtxSeparator(): ReactNode {
 
 export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
   const { t } = useTranslation()
+  const menuRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = menuRef.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const GAP = 8
+    let { left, top } = rect
+    if (rect.right > window.innerWidth) left = window.innerWidth - rect.width - GAP
+    if (rect.bottom > window.innerHeight) top = window.innerHeight - rect.height - GAP
+    if (left < GAP) left = GAP
+    if (top < GAP) top = GAP
+    if (left !== rect.left || top !== rect.top) {
+      el.style.left = `${left}px`
+      el.style.top = `${top}px`
+    }
+  })
 
   const handlePaste = async (): Promise<void> => {
     try {
@@ -45,6 +62,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
 
   return (
     <div
+      ref={menuRef}
       data-ctx-menu
       className="fixed z-50 w-64 rounded-md border border-border bg-white py-1 shadow-sm text-sm"
       style={{ left: ctxMenu.x, top: ctxMenu.y }}

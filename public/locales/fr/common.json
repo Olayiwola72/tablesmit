@@ -152,7 +152,8 @@
     "startBuilding": "Commencer",
     "undoActions": "Annuler ({{count}} action)",
     "undoActions_plural": "Annuler ({{count}} actions)",
-    "nothingToUndo": "Rien à annuler"
+    "nothingToUndo": "Rien à annuler",
+    "copyLatex": "Copier en LaTeX"
   },
   "table": {
     "gridSize": "Taille de la grille",
@@ -235,9 +236,14 @@
     "sortAscending": "Trier par ordre croissant",
     "sortDescending": "Trier par ordre décroissant",
     "editCaption": "Modifier la légende",
+    "clickToAddCaption": "Cliquez pour ajouter une légende",
+    "clickToEditCaption": "Cliquez pour modifier la légende",
     "alignLeft": "Aligner à gauche",
     "alignCenter": "Centrer",
-    "alignRight": "Aligner à droite"
+    "alignRight": "Aligner à droite",
+    "captionTextColor": "Couleur du texte de la légende",
+    "captionBackground": "Arrière-plan de la légende",
+    "customColor": "Personnalisé"
   },
   "panels": {
     "dimensions": "Taille de la grille",
@@ -348,7 +354,8 @@
     "pasteError": "Impossible de lire le presse-papiers. Essayez plutôt d'importer un fichier.",
     "undoEmpty": "Plus rien à annuler.",
     "tableCleared": "Tableau effacé.",
-    "aiWaitlist": "Les fonctionnalités IA arrivent bientôt ! Contactez-nous pour partager ce que vous aimeriez voir."
+    "aiWaitlist": "Les fonctionnalités IA arrivent bientôt ! Contactez-nous pour partager ce que vous aimeriez voir.",
+    "copyLatex": "Tableau copié en LaTeX."
   },
   "presets": {
     "researchNotes": "Notes de recherche",

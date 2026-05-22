@@ -1,5 +1,5 @@
 import type { CellData, ColumnFormat, HeaderStyle, SelectionRange, TableTheme, TextAlign, BorderStyle } from '../../types/table'
-import type { TableState } from '../TableState/TableState.types'
+import type { CaptionAlignment, TableState } from '../TableState/TableState.types'
 import type { PresetDefinition } from '../../types/table'
 
 export type TableAction =
@@ -37,3 +37,7 @@ export type TableAction =
   | { type: 'setTheme'; theme: TableTheme }
   | { type: 'applyPreset'; preset: PresetDefinition }
   | { type: 'UNDO'; state: TableState }
+  | { type: 'setCaption'; caption: string }
+  | { type: 'setCaptionAlignment'; alignment: CaptionAlignment }
+  | { type: 'setCaptionTextColor'; color: string }
+  | { type: 'setCaptionBgColor'; color: string }

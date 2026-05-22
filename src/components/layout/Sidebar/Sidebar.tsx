@@ -13,7 +13,7 @@ export function Sidebar({
   return (
     <aside
       className={cn(
-        'hidden flex-col overflow-y-auto bg-surface p-6 md:flex',
+        'hidden flex-col overflow-y-auto bg-surface p-6 md:flex [content-visibility:auto]',
         side === 'left' ? 'w-sidebar-left border-r border-border' : 'w-sidebar-right border-l border-border lg:flex md:hidden',
         className,
       )}

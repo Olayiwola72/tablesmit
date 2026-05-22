@@ -1,4 +1,5 @@
 import { ExternalLink, GitFork } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button/Button'
@@ -9,7 +10,11 @@ const { brand, sponsors } = siteConfig
 export function OpenSourcePage(): ReactNode {
   const { t } = useTranslation()
   return (
-    <main>
+    <>
+      <Helmet>
+        <title>{t('meta.openSourceTitle')}</title>
+      </Helmet>
+      <main>
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl lg:text-5xl">
           {t('openSource.heading')}
@@ -86,6 +91,7 @@ export function OpenSourcePage(): ReactNode {
         </div>
       </section>
     </main>
+    </>
   )
 }
 

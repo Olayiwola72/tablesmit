@@ -43,6 +43,81 @@ describe('useClipboardPaste', () => {
     document.body.removeChild(editable)
   })
 
+  it('parses LaTeX tabular from plain text clipboard', async () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const latex = `\\begin{tabular}{|l|l|}
+\\hline
+Name & Age \\\\
+\\hline
+Alice & 30 \\\\
+\\hline
+\\end{tabular}`
+
+    const data = new DataTransfer()
+    data.setData('text/plain', latex)
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    await vi.waitFor(() => {
+      expect(setCells).toHaveBeenCalled()
+    })
+
+    const cells = setCells.mock.calls[0][0]
+    expect(cells[0][0].value).toBe('Name')
+    expect(cells[0][1].value).toBe('Age')
+    expect(cells[1][0].value).toBe('Alice')
+    expect(cells[1][1].value).toBe('30')
+  })
+
+  it('parses LaTeX tabular with \\textbf headers', async () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const latex = `\\begin{tabular}{|l|l|}
+\\hline
+\\textbf{Product} & \\textbf{Price} \\\\
+\\hline
+Widget & 9.99 \\\\
+\\hline
+\\end{tabular}`
+
+    const data = new DataTransfer()
+    data.setData('text/plain', latex)
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    await vi.waitFor(() => {
+      expect(setCells).toHaveBeenCalled()
+    })
+
+    const cells = setCells.mock.calls[0][0]
+    expect(cells[0][0].value).toBe('Product')
+    expect(cells[0][1].value).toBe('Price')
+  })
+
+  it('falls through to TSV/CSV when LaTeX is not tabular', () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const data = new DataTransfer()
+    data.setData('text/plain', 'plain text without latex')
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    expect(setCells).not.toHaveBeenCalled()
+  })
+
   it('clamps large clipboard tables before setting cells', () => {
     const setCells = vi.fn()
     renderHook(() => useClipboardPaste(setCells))

@@ -10,6 +10,7 @@ describe('CopyDropdown', () => {
         onCopyExcelData={vi.fn()}
         onCopyCsv={vi.fn()}
         onCopyMarkdown={vi.fn()}
+        onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
       />,
     )
@@ -23,6 +24,7 @@ describe('CopyDropdown', () => {
         onCopyExcelData={vi.fn()}
         onCopyCsv={vi.fn()}
         onCopyMarkdown={vi.fn()}
+        onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
       />,
     )
@@ -30,6 +32,7 @@ describe('CopyDropdown', () => {
     expect(screen.getByText('Copy as Excel Data')).toBeInTheDocument()
     expect(screen.getByText('Copy as CSV')).toBeInTheDocument()
     expect(screen.getByText('Copy as Markdown')).toBeInTheDocument()
+    expect(screen.getByText('Copy as LaTeX')).toBeInTheDocument()
     expect(screen.getByText('Copy as Image')).toBeInTheDocument()
   })
 
@@ -41,6 +44,7 @@ describe('CopyDropdown', () => {
         onCopyExcelData={onCopyExcelData}
         onCopyCsv={vi.fn()}
         onCopyMarkdown={vi.fn()}
+        onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
       />,
     )
@@ -57,6 +61,7 @@ describe('CopyDropdown', () => {
         onCopyExcelData={vi.fn()}
         onCopyCsv={onCopyCsv}
         onCopyMarkdown={vi.fn()}
+        onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
       />,
     )
@@ -73,6 +78,7 @@ describe('CopyDropdown', () => {
         onCopyExcelData={vi.fn()}
         onCopyCsv={vi.fn()}
         onCopyMarkdown={onCopyMarkdown}
+        onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
       />,
     )
@@ -89,6 +95,7 @@ describe('CopyDropdown', () => {
         onCopyExcelData={vi.fn()}
         onCopyCsv={vi.fn()}
         onCopyMarkdown={vi.fn()}
+        onCopyLatex={vi.fn()}
         onCopyImage={onCopyImage}
       />,
     )

@@ -26,6 +26,10 @@ function fakeState(overrides: Partial<TableState> = {}): TableState {
     freezeRow: false,
     freezeCol: false,
     theme: 'default',
+    caption: '',
+    captionAlignment: 'center',
+    captionTextColor: '#6B7280',
+    captionBgColor: '',
     ...overrides,
   }
 }

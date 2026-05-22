@@ -24,7 +24,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
   const presets = usePresets()
-  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsImage } = useCopyTable(cells, tableRef)
+  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage } = useCopyTable(cells, tableRef)
   const { exportAs, isExporting } = useExport()
 
   const { t } = useTranslation()
@@ -76,6 +76,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         onCopyExcelData={copyAsExcelData}
         onCopyCsv={copyAsCsv}
         onCopyMarkdown={copyAsMarkdown}
+        onCopyLatex={() => copyAsLatex(table.headerStyle)}
         onCopyImage={copyAsImage}
       />
 

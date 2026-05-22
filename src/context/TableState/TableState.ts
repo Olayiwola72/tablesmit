@@ -8,7 +8,7 @@ import {
 } from '../../config/table/tableDefaults'
 import { siteConfig } from '../../config/siteConfig'
 import type { TextAlign } from '../../types/table'
-import type { TableState } from './TableState.types'
+import type { CaptionAlignment, TableState } from './TableState.types'
 import { generateEmptyTable } from '../../utils/tableUtils/tableUtils'
 
 export const STORAGE_KEY = 'tablesmit-state'
@@ -36,4 +36,8 @@ export const initialState: TableState = {
   freezeCol: false,
   rows: DEFAULT_ROWS,
   cols: DEFAULT_COLS,
+  caption: '',
+  captionAlignment: 'center' as CaptionAlignment,
+  captionTextColor: '',
+  captionBgColor: '',
 }

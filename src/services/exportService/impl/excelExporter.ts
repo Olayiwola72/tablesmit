@@ -76,7 +76,25 @@ export class ExcelExporter implements ExportStrategy {
     let dataStartRow = 1
 
     if (caption) {
-      worksheet.getCell(1, 1).value = caption
+      const captionCell = worksheet.getCell(1, 1)
+      captionCell.value = caption
+      captionCell.font = {
+        name: 'Calibri',
+        size: 12,
+        italic: true,
+        color: { argb: options.captionTextColor ? toArgb(options.captionTextColor) : 'FF6B7280' },
+      }
+      if (options.captionBgColor) {
+        captionCell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: toArgb(options.captionBgColor) },
+        }
+      }
+      captionCell.alignment = {
+        horizontal: options.captionAlignment ?? 'center',
+        vertical: 'middle',
+      }
       const cols = (cellsData[0]?.length ?? 1)
       if (cols > 1) {
         worksheet.mergeCells(1, 1, 1, cols)

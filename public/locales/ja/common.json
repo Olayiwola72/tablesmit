@@ -152,7 +152,8 @@
     "startBuilding": "作成を開始",
     "undoActions": "元に戻す（{{count}}件の操作）",
     "undoActions_plural": "元に戻す（{{count}}件の操作）",
-    "nothingToUndo": "元に戻せる操作はありません"
+    "nothingToUndo": "元に戻せる操作はありません",
+    "copyLatex": "LaTeXとしてコピー"
   },
   "table": {
     "gridSize": "グリッドサイズ",
@@ -235,9 +236,14 @@
     "sortAscending": "昇順で並べ替え",
     "sortDescending": "降順で並べ替え",
     "editCaption": "キャプションを編集",
+    "clickToAddCaption": "キャプションを追加するにはクリック",
+    "clickToEditCaption": "キャプションを編集するにはクリック",
     "alignLeft": "左揃え",
     "alignCenter": "中央揃え",
-    "alignRight": "右揃え"
+    "alignRight": "右揃え",
+    "captionTextColor": "キャプションの文字色",
+    "captionBackground": "キャプションの背景色",
+    "customColor": "カスタム"
   },
   "panels": {
     "dimensions": "グリッドサイズ",
@@ -348,7 +354,8 @@
     "pasteError": "クリップボードを読み取れませんでした。代わりにファイルをインポートしてみてください。",
     "undoEmpty": "元に戻せる操作はありません。",
     "tableCleared": "テーブルをクリアしました。",
-    "aiWaitlist": "AI機能は準備中です！ご希望の機能があればお聞かせください。"
+    "aiWaitlist": "AI機能は準備中です！ご希望の機能があればお聞かせください。",
+    "copyLatex": "テーブルをLaTeXとしてコピーしました。"
   },
   "presets": {
     "researchNotes": "研究ノート",
