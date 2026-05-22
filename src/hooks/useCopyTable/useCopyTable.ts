@@ -1,7 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from '../../utils/toast/toast'
-import type { CellData } from '../../context/table.types'
+import type { CellData } from '@/types/table'
 
 export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTMLDivElement | null>) {
   const { t } = useTranslation()

@@ -1,4 +1,4 @@
-import type { CellData, BorderStyle } from '../../../../context/table.types'
+import type { CellData, BorderStyle } from '@/types/table'
 
 export interface SumRowFooterProps {
   cells: CellData[][]

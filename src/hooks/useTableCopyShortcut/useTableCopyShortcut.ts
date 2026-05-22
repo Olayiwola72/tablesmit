@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { CaptionAlignment } from '../../components/features/TableCaption/TableCaption.types'
 import { isTableEmpty } from '../../utils/tableUtils/tableUtils'
 import { toast } from '../../utils/toast/toast'
-import type { CellData } from '../../context/table.types'
+import type { CellData } from '@/types/table'
 
 export function useTableCopyShortcut(
   cells: CellData[][],

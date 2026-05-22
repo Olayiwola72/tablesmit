@@ -1,7 +1,7 @@
 import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2 } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { ColumnFormat, TextAlign } from '../../../../context/table.types'
+import type { ColumnFormat, TextAlign } from '@/types/table'
 import type { TableCtxMenuProps } from './TableCtxMenu.types'
 import { CtxColorSubmenu } from './CtxColorSubmenu/CtxColorSubmenu'
 import { CtxColumnTypeSubmenu } from './CtxColumnTypeSubmenu/CtxColumnTypeSubmenu'
