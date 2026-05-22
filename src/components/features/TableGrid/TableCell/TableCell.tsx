@@ -1,4 +1,4 @@
-import { memo, type ReactNode } from 'react'
+import { memo, type ClipboardEvent as ReactClipboardEvent, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { isHeaderCell } from '../../../../context/TableContext'
 import { cn } from '../../../../lib/utils'
@@ -6,6 +6,22 @@ import { formatCellValue } from '../../../../utils/formatUtils/formatUtils'
 import { isCellInMergeRange, normalizeSelection } from '../../../../utils/mergeUtils/mergeUtils'
 import { ResizeHandle } from '../ResizeHandle/ResizeHandle'
 import type { TableCellProps } from './TableCell.types'
+
+function insertPlainTextAtSelection(text: string): void {
+  const selection = window.getSelection()
+  if (!selection || selection.rangeCount === 0) return
+
+  const range = selection.getRangeAt(0)
+  range.deleteContents()
+
+  const textNode = document.createTextNode(text)
+  range.insertNode(textNode)
+  range.setStartAfter(textNode)
+  range.collapse(true)
+
+  selection.removeAllRanges()
+  selection.addRange(range)
+}
 
 function TableCellRaw({
   cell,
@@ -56,6 +72,14 @@ function TableCellRaw({
     ? headerColor
     : (cellColor || columnColor || rowColor || themeRowBg || contentBgColor || (stickyClasses ? '#ffffff' : undefined))
 
+  const handlePaste = (event: ReactClipboardEvent<HTMLDivElement>): void => {
+    if (isFormula) return
+    const text = event.clipboardData.getData('text/plain')
+    if (!text) return
+    event.preventDefault()
+    insertPlainTextAtSelection(text)
+  }
+
   return (
       <CellTag
         role={CellTag === 'td' ? 'gridcell' : 'columnheader'}
@@ -93,6 +117,7 @@ function TableCellRaw({
         )}
         onBlur={(event) => onBlur(cell.id, event.currentTarget.textContent ?? '', col)}
         onKeyDown={(event) => onKeyDown(row, col, event)}
+        onPaste={handlePaste}
       >
         {displayValue}
       </div>

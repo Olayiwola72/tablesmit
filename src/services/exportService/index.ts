@@ -1,19 +1,35 @@
 import type { ExportFormat, ExportOptions, ExportStrategy } from './export.types'
-import { PDFExporter } from './impl/pdfExporter'
-import { ImageExporter } from './impl/imageExporter'
-import { CSVExporter } from './impl/csvExporter'
-import { ExcelExporter } from './impl/excelExporter'
-import { LatexExporter } from './impl/latexExporter'
 
-const strategies: Record<ExportFormat, ExportStrategy> = {
-  pdf: new PDFExporter(),
-  png: new ImageExporter('image/png'),
-  jpeg: new ImageExporter('image/jpeg'),
-  excel: new ExcelExporter(),
-  csv: new CSVExporter(),
-  latex: new LatexExporter(),
+async function loadExporter(format: ExportFormat): Promise<ExportStrategy> {
+  switch (format) {
+    case 'pdf': {
+      const { PDFExporter } = await import('./impl/pdfExporter')
+      return new PDFExporter()
+    }
+    case 'png': {
+      const { ImageExporter } = await import('./impl/imageExporter')
+      return new ImageExporter('image/png')
+    }
+    case 'jpeg': {
+      const { ImageExporter } = await import('./impl/imageExporter')
+      return new ImageExporter('image/jpeg')
+    }
+    case 'excel': {
+      const { ExcelExporter } = await import('./impl/excelExporter')
+      return new ExcelExporter()
+    }
+    case 'csv': {
+      const { CSVExporter } = await import('./impl/csvExporter')
+      return new CSVExporter()
+    }
+    case 'latex': {
+      const { LatexExporter } = await import('./impl/latexExporter')
+      return new LatexExporter()
+    }
+  }
 }
 
 export async function exportTable(element: HTMLElement, options: ExportOptions): Promise<void> {
-  await strategies[options.format].export(element, options)
+  const exporter = await loadExporter(options.format)
+  await exporter.export(element, options)
 }

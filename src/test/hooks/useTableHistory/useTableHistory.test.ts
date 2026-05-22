@@ -1,6 +1,6 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import type { TableState } from '../../../context/table.types'
+import type { TableState } from '../../../context/TableState/TableState.types'
 import { useTableHistory } from '../../../hooks/useTableHistory/useTableHistory'
 
 function fakeState(overrides: Partial<TableState> = {}): TableState {

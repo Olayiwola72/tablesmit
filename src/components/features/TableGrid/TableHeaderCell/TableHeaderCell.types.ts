@@ -1,4 +1,4 @@
-import type { ColumnFormat } from '../../../../context/table.types'
+import type { ColumnFormat } from '../../../../types/table'
 
 export interface TableHeaderCellProps {
   index: number

@@ -1,5 +1,6 @@
 import type { ExportOptions, ExportStrategy } from '../export.types'
 import { siteConfig } from '../../../config/siteConfig'
+import { filenameWithExtension } from '../utils'
 
 export class PDFExporter implements ExportStrategy {
   async export(element: HTMLElement, options: ExportOptions): Promise<void> {
@@ -27,6 +28,6 @@ export class PDFExporter implements ExportStrategy {
     const width = canvas.width * ratio
     const height = canvas.height * ratio
     pdf.addImage(image, 'PNG', (pageWidth - width) / 2, 32, width, Math.min(height, pageHeight - 64))
-    pdf.save(`${options.filename ?? siteConfig.exportFileBaseName}.pdf`)
+    pdf.save(filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'pdf'))
   }
 }

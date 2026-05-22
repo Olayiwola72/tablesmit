@@ -1,7 +1,7 @@
 import { Palette } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { headerColorSwatches, contentColorSwatches } from '../../../config/colorPalette'
+import { headerColorSwatches, contentColorSwatches } from '../../../config/colorPalette/colorPalette'
 import { useTableContext } from '../../../context/TableContext'
 import { ColorSwatch } from '../../ui/ColorSwatch/ColorSwatch'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'

@@ -1,9 +1,7 @@
 import { createContext, useContext } from 'react'
-import type { CellData } from './table.types'
+import type { TableCellsValue } from './TableDataContext.types'
 
-export interface TableCellsValue {
-  cells: CellData[][]
-}
+export type { TableCellsValue }
 
 export const TableCellsContext = createContext<TableCellsValue | null>(null)
 

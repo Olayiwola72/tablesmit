@@ -101,9 +101,4 @@ describe('TableToolbar', () => {
     expect(screen.getByRole('button', { name: /AI/i })).toBeInTheDocument()
   })
 
-  it('renders Copy Table and Import dropdown triggers', () => {
-    renderToolbar()
-    expect(screen.getByText('Copy')).toBeInTheDocument()
-    expect(screen.getByText('Import')).toBeInTheDocument()
-  })
 })

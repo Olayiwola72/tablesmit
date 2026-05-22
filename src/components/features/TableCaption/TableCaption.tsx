@@ -1,5 +1,6 @@
 import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { cn } from '../../../lib/utils'
 import type { CaptionAlignment, CtxMenuState } from './TableCaption.types'
 
 function TableCaptionRaw({
@@ -45,9 +46,10 @@ function TableCaptionRaw({
   const renderAlignmentOption = (key: string, label: string, value: CaptionAlignment): ReactNode => (
     <button
       type="button"
-      className={`w-full px-3 py-1.5 text-left text-sm transition-colors hover:bg-surface ${
-        alignment === value ? 'font-semibold text-primary' : 'text-text-primary'
-      }`}
+      className={cn(
+        'w-full px-3 py-1.5 text-left text-sm transition-colors hover:bg-surface',
+        alignment === value ? 'font-semibold text-primary' : 'text-text-primary',
+      )}
       onClick={() => setAlign(value)}
     >
       {alignment === value ? `✓ ${label}` : label}
@@ -61,7 +63,7 @@ function TableCaptionRaw({
         <button
           type="button"
           data-print-hide data-export-hide
-          className={`mb-2 w-full text-sm italic text-text-muted hover:text-text-secondary ${alignClass}`}
+          className={cn('mb-2 w-full text-sm italic text-text-muted hover:text-text-secondary', alignClass)}
           onClick={() => setEditing(true)}
           onContextMenu={handleContextMenu}
         >
@@ -78,7 +80,7 @@ function TableCaptionRaw({
             autoFocus
             placeholder={t('table.addCaption')}
             rows={2}
-            className={`w-full resize-none border-0 bg-transparent p-0 text-sm font-medium text-text-primary outline-none focus:ring-0 ${alignClass}`}
+            className={cn('w-full resize-none border-0 bg-transparent p-0 text-sm font-medium text-text-primary outline-none focus:ring-0', alignClass)}
             onChange={(event) => onChange(event.target.value)}
             onBlur={() => setEditing(false)}
             onContextMenu={handleContextMenu}
@@ -92,7 +94,7 @@ function TableCaptionRaw({
     }
     return (
       <p
-        className={`mb-2 cursor-text text-sm font-medium text-text-primary ${alignClass}`}
+        className={cn('mb-2 cursor-text text-sm font-medium text-text-primary', alignClass)}
         onClick={() => setEditing(true)}
         onContextMenu={handleContextMenu}
         role="button"
@@ -114,7 +116,7 @@ function TableCaptionRaw({
           <div className="fixed inset-0 z-40" onClick={closeMenu} data-export-hide />
           <div
             ref={menuRef}
-            className="fixed z-50 w-44 rounded-md border border-border bg-white py-1 shadow-md" data-export-hide
+            className="fixed z-50 w-44 rounded-md border border-border bg-white py-1 shadow-sm" data-export-hide
             style={{ left: ctxMenu.x, top: ctxMenu.y }}
           >
             <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-muted">

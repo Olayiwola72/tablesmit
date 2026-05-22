@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
-import { TableProvider } from '../../../../context/TableProvider'
+import { TableProvider } from '../../../../context/TableProvider/TableProvider'
 import { BorderPanel } from '../../../../components/features/BorderPanel/BorderPanel'
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {

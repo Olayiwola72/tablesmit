@@ -46,7 +46,7 @@ describe('FooterGroup', () => {
     )
     const link = screen.getByText('GitHub')
     expect(link).toHaveAttribute('target', '_blank')
-    expect(link).toHaveAttribute('rel', 'noreferrer')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
   })
 
   it('renders external links with ExternalLink icon', () => {

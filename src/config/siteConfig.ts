@@ -1,5 +1,5 @@
 import { exportFormats } from './export/exportConfig'
-import { headerColorSwatches, contentColorSwatches } from './colorPalette'
+import { headerColorSwatches, contentColorSwatches } from './colorPalette/colorPalette'
 
 export const siteConfig = {
   brand: {

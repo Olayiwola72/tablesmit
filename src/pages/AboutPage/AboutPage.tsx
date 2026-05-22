@@ -29,7 +29,7 @@ export function AboutPage(): ReactNode {
             <Link to={routes.home}>{t('hero.cta')}</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
-            <a href={brand.githubUrl} target="_blank" rel="noreferrer">
+            <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
               {t('hero.viewGitHub')} <ExternalLink size={16} aria-hidden="true" />
             </a>
           </Button>
@@ -42,7 +42,7 @@ export function AboutPage(): ReactNode {
           {t('openSource.body')}
         </p>
         <Button asChild variant="secondary" className="mt-6">
-          <a href={brand.githubUrl} target="_blank" rel="noreferrer">
+          <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
             {t('hero.viewGitHub')} <ExternalLink size={16} aria-hidden="true" />
           </a>
         </Button>

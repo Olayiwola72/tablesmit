@@ -1,6 +1,6 @@
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
 import { siteConfig } from '../../../config/siteConfig'
-import { downloadUrl } from '../utils'
+import { downloadUrl, filenameWithExtension } from '../utils'
 
 function escapeLatex(value: string): string {
   return value
@@ -41,7 +41,7 @@ export class LatexExporter implements ExportStrategy {
 
     if (cells.length === 0 || cells[0].length === 0) {
       const blob = new Blob(['% Empty table'], { type: 'text/plain;charset=utf-8' })
-      downloadUrl(URL.createObjectURL(blob), `${options.filename ?? siteConfig.exportFileBaseName}.tex`)
+      downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'tex'))
       return
     }
 
@@ -124,6 +124,6 @@ export class LatexExporter implements ExportStrategy {
 
     const content = lines.join('\n')
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' })
-    downloadUrl(URL.createObjectURL(blob), `${options.filename ?? siteConfig.exportFileBaseName}.tex`)
+    downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'tex'))
   }
 }

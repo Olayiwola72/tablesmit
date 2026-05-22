@@ -1,4 +1,4 @@
-import type { CellData } from '../../context/table.types'
+import type { CellData } from '../../types/table'
 
 export interface ImportResult {
   cells: CellData[][]

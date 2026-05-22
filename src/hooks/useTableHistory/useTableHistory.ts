@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import type { TableState } from '../../context/table.types'
+import type { TableState } from '../../context/TableState/TableState.types'
 import { MAX_HISTORY } from '../../config/table/tableDefaults'
 import type { TableHistoryApi } from './useTableHistory.types'
 

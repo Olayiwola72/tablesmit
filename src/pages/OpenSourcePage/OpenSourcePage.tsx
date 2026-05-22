@@ -19,7 +19,7 @@ export function OpenSourcePage(): ReactNode {
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
           <Button asChild variant="secondary" size="lg">
-            <a href={brand.githubUrl} target="_blank" rel="noreferrer">
+            <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
               <GitFork size={18} aria-hidden="true" /> {t('hero.viewGitHub')}{' '}
               <ExternalLink size={16} aria-hidden="true" />
             </a>
@@ -46,7 +46,7 @@ export function OpenSourcePage(): ReactNode {
                       : t('openSource.sponsorCollective')}
                 </p>
                 <Button asChild variant="secondary" size="sm" className="mt-6">
-                  <a href={sponsor.url} target="_blank" rel="noreferrer">
+                  <a href={sponsor.url} target="_blank" rel="noopener noreferrer">
                     {sponsor.cta} <ExternalLink size={14} aria-hidden="true" />
                   </a>
                 </Button>
@@ -63,7 +63,7 @@ export function OpenSourcePage(): ReactNode {
             {t('openSource.contributorsBody')}
           </p>
           <Button asChild variant="secondary" className="mt-6">
-            <a href={`${brand.githubUrl}/graphs/contributors`} target="_blank" rel="noreferrer">
+            <a href={`${brand.githubUrl}/graphs/contributors`} target="_blank" rel="noopener noreferrer">
               {t('openSource.viewContributors')} <ExternalLink size={16} aria-hidden="true" />
             </a>
           </Button>
@@ -77,7 +77,7 @@ export function OpenSourcePage(): ReactNode {
             {t('openSource.contributeBody')}
           </p>
           <Button asChild variant="secondary" size="lg" className="mt-8">
-            <a href={brand.githubUrl} target="_blank" rel="noreferrer">
+            <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
               <GitFork size={18} aria-hidden="true" /> {t('hero.viewGitHub')}{' '}
               <ExternalLink size={16} aria-hidden="true" />
             </a>

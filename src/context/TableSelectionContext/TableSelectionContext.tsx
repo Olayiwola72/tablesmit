@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { SelectionRange } from './table.types'
+import type { SelectionRange } from '../../types/table'
 
 export const TableSelectionCtx = createContext<SelectionRange | null>(null)
 

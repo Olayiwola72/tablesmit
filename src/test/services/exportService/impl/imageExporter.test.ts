@@ -14,16 +14,19 @@ function el(): HTMLElement {
 }
 
 describe('ImageExporter', () => {
-  let mockAnchor: { href: string; download: string; click: ReturnType<typeof vi.fn> }
+  let mockAnchor: HTMLAnchorElement
+  let click: ReturnType<typeof vi.fn>
   let createElementSpy: ReturnType<typeof vi.spyOn>
 
   beforeEach(() => {
     vi.clearAllMocks()
     mockCanvas.toDataURL.mockReturnValue('data:image/png;base64,fakedata')
-    mockAnchor = { href: '', download: '', click: vi.fn() }
+    mockAnchor = document.createElement('a')
+    click = vi.fn()
+    mockAnchor.click = click as unknown as HTMLAnchorElement['click']
     const originalCreateElement = document.createElement.bind(document)
     createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tag) => {
-      if (tag === 'a') return mockAnchor as unknown as HTMLAnchorElement
+      if (tag === 'a') return mockAnchor
       return originalCreateElement(tag)
     })
   })
@@ -87,6 +90,6 @@ describe('ImageExporter', () => {
   it('creates an anchor element and calls click', async () => {
     await new ImageExporter('image/png').export(el(), { format: 'png' })
     expect(createElementSpy).toHaveBeenCalledWith('a')
-    expect(mockAnchor.click).toHaveBeenCalledOnce()
+    expect(click).toHaveBeenCalledOnce()
   })
 })

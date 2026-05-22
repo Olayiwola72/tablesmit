@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { HeaderStyle } from '../../../context/table.types'
+import type { HeaderStyle } from '../../../types/table'
 import { useTableContext } from '../../../context/TableContext'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 

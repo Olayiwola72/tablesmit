@@ -13,12 +13,16 @@ async function fetchLocale(lng: string): Promise<Record<string, unknown> | null>
   try {
     const res = await fetch(url)
     if (!res.ok) {
-      console.error(`[tablesmit] Failed to load locale ${lng}: ${res.status}`)
+      if (import.meta.env.DEV) {
+        console.error(`[tablesmit] Failed to load locale ${lng}: ${res.status}`)
+      }
       return null
     }
     return await res.json() as Record<string, unknown>
   } catch (err) {
-    console.error(`[tablesmit] Failed to load locale: ${lng}`, err)
+    if (import.meta.env.DEV) {
+      console.error(`[tablesmit] Failed to load locale: ${lng}`, err)
+    }
     return null
   }
 }

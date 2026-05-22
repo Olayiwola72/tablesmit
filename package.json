@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run generate-sitemap && tsc -b && vite build",
-    "generate-sitemap": "npx tsx scripts/generate-sitemap.ts",
+    "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
     "lint": "eslint .",
     "audit": "npm audit",
     "preview": "vite preview",
@@ -24,6 +24,10 @@
     "src/**/*.{ts,tsx}": [
       "eslint --fix --max-warnings=0"
     ]
+  },
+  "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
+  "overrides": {
+    "uuid": "11.1.1"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

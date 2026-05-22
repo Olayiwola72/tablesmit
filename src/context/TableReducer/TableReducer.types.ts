@@ -1,0 +1,39 @@
+import type { CellData, ColumnFormat, HeaderStyle, SelectionRange, TableTheme, TextAlign, BorderStyle } from '../../types/table'
+import type { TableState } from '../TableState/TableState.types'
+import type { PresetDefinition } from '../../types/table'
+
+export type TableAction =
+  | { type: 'generate'; rows: number; cols: number }
+  | { type: 'setCells'; cells: CellData[][] }
+  | { type: 'updateCell'; cellId: string; value: string }
+  | { type: 'addRow' }
+  | { type: 'insertRowAt'; index: number }
+  | { type: 'removeRow' }
+  | { type: 'deleteRowAt'; index: number }
+  | { type: 'addColumn' }
+  | { type: 'insertColAt'; index: number }
+  | { type: 'removeColumn' }
+  | { type: 'deleteColAt'; index: number }
+  | { type: 'clearAll' }
+  | { type: 'setHeaderStyle'; headerStyle: HeaderStyle }
+  | { type: 'setHeaderColor'; color: string }
+  | { type: 'setContentColor'; color: string }
+  | { type: 'setContentBgColor'; color: string }
+  | { type: 'selectRange'; range: SelectionRange }
+  | { type: 'mergeSelection' }
+  | { type: 'unmergeSelection' }
+  | { type: 'setColumnWidth'; col: number; width: number }
+  | { type: 'setRowHeight'; row: number; height: number }
+  | { type: 'setColumnFormat'; col: number; format: ColumnFormat }
+  | { type: 'setBorderStyle'; borderStyle: BorderStyle }
+  | { type: 'setBorderColor'; color: string }
+  | { type: 'setRowColor'; row: number; color: string }
+  | { type: 'setColumnColor'; col: number; color: string }
+  | { type: 'setCellColor'; cellId: string; color: string }
+  | { type: 'setColumnTextAlign'; col: number; align: TextAlign }
+  | { type: 'setCellTextAlign'; cellId: string; align: TextAlign }
+  | { type: 'setFreezeRow'; freeze: boolean }
+  | { type: 'setFreezeCol'; freeze: boolean }
+  | { type: 'setTheme'; theme: TableTheme }
+  | { type: 'applyPreset'; preset: PresetDefinition }
+  | { type: 'UNDO'; state: TableState }

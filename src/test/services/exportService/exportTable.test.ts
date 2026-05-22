@@ -1,9 +1,12 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { exportTable } from '../../../services/exportService'
-import type { CellData } from '../../../context/table.types'
+import type { CellData } from '../../../types/table'
 
 const mockDownloadUrl = vi.hoisted(() => vi.fn())
-vi.mock('../../../services/exportService/utils', () => ({ downloadUrl: mockDownloadUrl }))
+vi.mock('../../../services/exportService/utils', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../../services/exportService/utils')>()
+  return { ...actual, downloadUrl: mockDownloadUrl }
+})
 
 const mockCanvas = vi.hoisted(() => ({
   toDataURL: vi.fn(() => 'data:image/png;base64,fakedata'),

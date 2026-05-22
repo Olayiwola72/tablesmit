@@ -1,5 +1,6 @@
 import { renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
+import { MAX_COLS, MAX_ROWS } from '../../../config/table/tableDefaults'
 import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 
 describe('useClipboardPaste', () => {
@@ -40,5 +41,25 @@ describe('useClipboardPaste', () => {
     editable.dispatchEvent(event)
     expect(setCells).not.toHaveBeenCalled()
     document.body.removeChild(editable)
+  })
+
+  it('clamps large clipboard tables before setting cells', () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const data = new DataTransfer()
+    const text = Array.from({ length: MAX_ROWS + 10 }, (_, row) =>
+      Array.from({ length: MAX_COLS + 5 }, (_, col) => `${row}:${col}`).join('\t'),
+    ).join('\n')
+    data.setData('text/plain', text)
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    const cells = setCells.mock.calls[0][0]
+    expect(cells).toHaveLength(MAX_ROWS)
+    expect(cells[0]).toHaveLength(MAX_COLS)
   })
 })

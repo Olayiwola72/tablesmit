@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { PresetDefinition } from '../../config/ui.types'
+import type { PresetDefinition } from '../../types/table'
 
 const localePresetLoaders: Record<string, () => Promise<{ default: PresetDefinition[] }>> = {
   en: () => import('./en'),

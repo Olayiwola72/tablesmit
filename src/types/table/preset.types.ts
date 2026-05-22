@@ -1,12 +1,4 @@
-import type { HeaderStyle } from '../context/table.types'
-
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'accent'
-export type ButtonSize = 'sm' | 'md' | 'lg'
-
-export interface ColorSwatch {
-  label: string
-  value: string
-}
+import type { HeaderStyle } from './table-state.types'
 
 export interface PresetDefinition {
   id: string

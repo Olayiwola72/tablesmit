@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { contentColorSwatches, headerColorSwatches } from '../../config/colorPalette'
+import { contentColorSwatches, headerColorSwatches } from '../../../config/colorPalette/colorPalette'
 
 describe('headerColorSwatches', () => {
   it('has exactly 6 swatches', () => {
