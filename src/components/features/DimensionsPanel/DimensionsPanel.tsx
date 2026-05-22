@@ -34,3 +34,5 @@ export function DimensionsPanel(): ReactNode {
     </section>
   )
 }
+
+export default DimensionsPanel

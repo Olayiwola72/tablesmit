@@ -152,7 +152,8 @@
     "startBuilding": "Começar a Construir",
     "undoActions": "Desfazer ({{count}} ação)",
     "undoActions_plural": "Desfazer ({{count}} ações)",
-    "nothingToUndo": "Nada para desfazer"
+    "nothingToUndo": "Nada para desfazer",
+    "copyLatex": "Copiar como LaTeX"
   },
   "table": {
     "gridSize": "Tamanho da Grade",
@@ -235,9 +236,14 @@
     "sortAscending": "Ordenar crescente",
     "sortDescending": "Ordenar decrescente",
     "editCaption": "Editar legenda",
+    "clickToAddCaption": "Clique para adicionar legenda",
+    "clickToEditCaption": "Clique para editar legenda",
     "alignLeft": "Alinhar à esquerda",
     "alignCenter": "Alinhar ao centro",
-    "alignRight": "Alinhar à direita"
+    "alignRight": "Alinhar à direita",
+    "captionTextColor": "Cor do texto da legenda",
+    "captionBackground": "Fundo da legenda",
+    "customColor": "Personalizado"
   },
   "panels": {
     "dimensions": "Tamanho da Grade",
@@ -348,7 +354,8 @@
     "pasteError": "Não foi possível ler a área de transferência. Tente importar um arquivo.",
     "undoEmpty": "Nada para desfazer.",
     "tableCleared": "Tabela limpa.",
-    "aiWaitlist": "Os recursos de IA estão chegando! Fale conosco para compartilhar o que gostaria de ver."
+    "aiWaitlist": "Os recursos de IA estão chegando! Fale conosco para compartilhar o que gostaria de ver.",
+    "copyLatex": "Tabela copiada como LaTeX."
   },
   "presets": {
     "researchNotes": "Notas de Pesquisa",

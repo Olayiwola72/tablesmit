@@ -1,4 +1,5 @@
 import { useState, useEffect, type ReactNode } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import type { FeaturePage } from '../../services/featureService/featureService.types'
@@ -34,6 +35,9 @@ export default function FeaturesListPage(): ReactNode {
 
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>{t('meta.featuresTitle')}</title>
+      </Helmet>
       <div className="mx-auto max-w-content">
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">

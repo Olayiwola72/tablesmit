@@ -65,5 +65,16 @@ export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTML
     }
   }, [tableRef, t])
 
-  return { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsImage }
+  const copyAsLatex = useCallback(async (headerStyle?: string): Promise<void> => {
+    try {
+      const { cellsToLatex } = await import('../../utils/latexUtils')
+      const latex = cellsToLatex(cells, headerStyle)
+      await navigator.clipboard.writeText(latex)
+      toast.success(t('toast.copyLatex', 'Table copied as LaTeX.'))
+    } catch {
+      toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
+    }
+  }, [cells, t])
+
+  return { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsImage, copyAsLatex }
 }

@@ -331,6 +331,14 @@ export function reducer(state: TableState, action: TableAction): TableState {
     }
     case 'UNDO':
       return action.state
+    case 'setCaption':
+      return { ...state, caption: action.caption }
+    case 'setCaptionAlignment':
+      return { ...state, captionAlignment: action.alignment }
+    case 'setCaptionTextColor':
+      return { ...state, captionTextColor: action.color }
+    case 'setCaptionBgColor':
+      return { ...state, captionBgColor: action.color }
     default:
       return state
   }

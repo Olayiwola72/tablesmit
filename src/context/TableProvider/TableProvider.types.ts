@@ -1,4 +1,5 @@
 import type { CellData, HeaderStyle, MergeRange, SelectionRange, TableTheme, TextAlign, BorderStyle, ColumnFormat } from '../../types/table'
+import type { CaptionAlignment } from '../TableState/TableState.types'
 import type { PresetDefinition } from '../../types/table'
 
 export interface TableStateFields {
@@ -21,6 +22,10 @@ export interface TableStateFields {
   cellTextAlign: Record<string, string>
   freezeRow: boolean
   freezeCol: boolean
+  caption: string
+  captionAlignment: CaptionAlignment
+  captionTextColor: string
+  captionBgColor: string
 }
 
 export interface TableActions {
@@ -60,6 +65,10 @@ export interface TableActions {
   undo: () => void
   canUndo: boolean
   historyDepth: number
+  setCaption: (caption: string) => void
+  setCaptionAlignment: (alignment: CaptionAlignment) => void
+  setCaptionTextColor: (color: string) => void
+  setCaptionBgColor: (color: string) => void
 }
 
 export type TableContextValue = TableStateFields & TableActions

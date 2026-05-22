@@ -46,6 +46,43 @@ describe('ExcelExporter', () => {
     expect((downloadUrl as ReturnType<typeof vi.fn>).mock.calls[0][1]).toBe('my-export.xlsx')
   })
 
+  it('applies caption alignment from options', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+      captionAlignment: 'right',
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    const captionCell = worksheet.getCell(1, 1)
+    expect(captionCell.alignment?.horizontal).toBe('right')
+  })
+
+  it('defaults caption alignment to center when not provided', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    const captionCell = worksheet.getCell(1, 1)
+    expect(captionCell.alignment?.horizontal).toBe('center')
+  })
+
   it('produces a valid xlsx blob with content', async () => {
     await new ExcelExporter().export(el(), { format: 'excel', cells: [[makeCell('Hello')]] })
     const url = (downloadUrl as ReturnType<typeof vi.fn>).mock.calls[0][0]
@@ -66,6 +103,40 @@ describe('ExcelExporter', () => {
       format: 'excel',
       cells: [[makeCell('Data')]],
       caption: 'My Caption',
+    })
+    expect(downloadUrl).toHaveBeenCalledOnce()
+  })
+
+  it('styles caption cell with text color', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+      captionTextColor: '#FF0000',
+    })
+    expect(downloadUrl).toHaveBeenCalledOnce()
+  })
+
+  it('styles caption cell with background color', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+      captionBgColor: '#FFFF00',
+    })
+    expect(downloadUrl).toHaveBeenCalledOnce()
+  })
+
+  it('styles caption cell with both text and background colors', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+      captionTextColor: '#FF0000',
+      captionBgColor: '#FFFF00',
     })
     expect(downloadUrl).toHaveBeenCalledOnce()
   })

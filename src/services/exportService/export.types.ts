@@ -22,6 +22,9 @@ export interface ExportOptions {
   filename?: string
   quality?: number
   caption?: string
+  captionTextColor?: string
+  captionBgColor?: string
+  captionAlignment?: 'left' | 'center' | 'right'
   cells?: CellData[][]
   headerStyle?: HeaderStyle
   mergedRanges?: MergeRange[]

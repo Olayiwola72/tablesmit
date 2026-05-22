@@ -1,7 +1,7 @@
 import { renderHook, act } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
-import { TableProvider, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
+import { TableProvider, useSelectedRange, useTableContext, useTableData, initialState } from '../../../context/TableContext'
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return <TableProvider>{children}</TableProvider>
@@ -156,5 +156,48 @@ describe('TableContext', () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {})
     expect(() => renderHook(() => useTableContext())).toThrow('useTableContext must be used inside TableProvider')
     spy.mockRestore()
+  })
+
+  describe('caption persistence', () => {
+    it('initialises with empty caption state', () => {
+      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
+      expect(result.current.caption).toBe('')
+      expect(result.current.captionAlignment).toBe('center')
+      expect(result.current.captionTextColor).toBe('')
+      expect(result.current.captionBgColor).toBe('')
+    })
+
+    it('sets caption value', () => {
+      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
+      act(() => result.current.setCaption('Table 1'))
+      expect(result.current.caption).toBe('Table 1')
+    })
+
+    it('sets caption alignment', () => {
+      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
+      act(() => result.current.setCaptionAlignment('right'))
+      expect(result.current.captionAlignment).toBe('right')
+    })
+
+    it('sets caption text color', () => {
+      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
+      act(() => result.current.setCaptionTextColor('#ff0000'))
+      expect(result.current.captionTextColor).toBe('#ff0000')
+    })
+
+    it('sets caption background color', () => {
+      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
+      act(() => result.current.setCaptionBgColor('#EFF6FF'))
+      expect(result.current.captionBgColor).toBe('#EFF6FF')
+    })
+
+    it('caption fields are included in initialState', () => {
+      expect(initialState).toHaveProperty('caption')
+      expect(initialState).toHaveProperty('captionAlignment')
+      expect(initialState).toHaveProperty('captionTextColor')
+      expect(initialState).toHaveProperty('captionBgColor')
+      expect(initialState.caption).toBe('')
+      expect(initialState.captionAlignment).toBe('center')
+    })
   })
 })

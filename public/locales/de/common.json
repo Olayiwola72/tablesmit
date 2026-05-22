@@ -152,7 +152,8 @@
     "startBuilding": "Loslegen",
     "undoActions": "Rückgängig ({{count}} Aktion)",
     "undoActions_plural": "Rückgängig ({{count}} Aktionen)",
-    "nothingToUndo": "Nichts rückgängig zu machen"
+    "nothingToUndo": "Nichts rückgängig zu machen",
+    "copyLatex": "Als LaTeX kopieren"
   },
   "table": {
     "gridSize": "Rastergröße",
@@ -235,9 +236,14 @@
     "sortAscending": "Aufsteigend sortieren",
     "sortDescending": "Absteigend sortieren",
     "editCaption": "Beschriftung bearbeiten",
+    "clickToAddCaption": "Klicken, um Beschriftung hinzuzufügen",
+    "clickToEditCaption": "Klicken, um Beschriftung zu bearbeiten",
     "alignLeft": "Linksbündig",
     "alignCenter": "Zentriert",
-    "alignRight": "Rechtsbündig"
+    "alignRight": "Rechtsbündig",
+    "captionTextColor": "Beschriftungstextfarbe",
+    "captionBackground": "Beschriftungshintergrund",
+    "customColor": "Benutzerdefiniert"
   },
   "panels": {
     "dimensions": "Rastergröße",
@@ -348,7 +354,8 @@
     "pasteError": "Zwischenablage konnte nicht gelesen werden. Versuchen Sie stattdessen, eine Datei zu importieren.",
     "undoEmpty": "Es gibt nichts rückgängig zu machen.",
     "tableCleared": "Tabelle geleert.",
-    "aiWaitlist": "KI-Funktionen kommen bald! Teilen Sie uns mit, was Sie sich wünschen."
+    "aiWaitlist": "KI-Funktionen kommen bald! Teilen Sie uns mit, was Sie sich wünschen.",
+    "copyLatex": "Tabelle als LaTeX kopiert."
   },
   "presets": {
     "researchNotes": "Forschungsnotizen",

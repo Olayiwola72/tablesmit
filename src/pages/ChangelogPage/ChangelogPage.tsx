@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ChangelogEntry } from '../../config/changelog/changelog.types'
@@ -6,7 +7,11 @@ import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
 export function ChangelogPage(): ReactNode {
   const { t } = useTranslation()
   return (
-    <main className="mx-auto max-w-narrow px-4 py-16">
+    <>
+      <Helmet>
+        <title>{t('meta.changelogTitle')}</title>
+      </Helmet>
+      <main className="mx-auto max-w-narrow px-4 py-16">
       <h1 className="text-3xl font-bold text-text-primary">{t('nav.changelog')}</h1>
       <p className="mt-3 text-base text-text-secondary">
         {t('changelogDescription')}
@@ -35,6 +40,7 @@ export function ChangelogPage(): ReactNode {
         ))}
       </div>
     </main>
+    </>
   )
 }
 

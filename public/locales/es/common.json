@@ -152,7 +152,8 @@
     "startBuilding": "Empezar a construir",
     "undoActions": "Deshacer ({{count}} acción)",
     "undoActions_plural": "Deshacer ({{count}} acciones)",
-    "nothingToUndo": "Nada que deshacer"
+    "nothingToUndo": "Nada que deshacer",
+    "copyLatex": "Copiar como LaTeX"
   },
   "table": {
     "gridSize": "Tamaño de cuadrícula",
@@ -235,9 +236,14 @@
     "sortAscending": "Ordenar ascendente",
     "sortDescending": "Ordenar descendente",
     "editCaption": "Editar leyenda",
+    "clickToAddCaption": "Haz clic para añadir un título",
+    "clickToEditCaption": "Haz clic para editar el título",
     "alignLeft": "Alinear izquierda",
     "alignCenter": "Alinear centro",
-    "alignRight": "Alinear derecha"
+    "alignRight": "Alinear derecha",
+    "captionTextColor": "Color del texto de la leyenda",
+    "captionBackground": "Fondo de la leyenda",
+    "customColor": "Personalizado"
   },
   "panels": {
     "dimensions": "Tamaño de cuadrícula",
@@ -348,7 +354,8 @@
     "pasteError": "No se pudo leer el portapapeles. Intenta importar un archivo en su lugar.",
     "undoEmpty": "No hay nada que deshacer.",
     "tableCleared": "Tabla limpiada.",
-    "aiWaitlist": "¡Las funciones de IA están por llegar! Contáctanos para compartir lo que te gustaría ver."
+    "aiWaitlist": "¡Las funciones de IA están por llegar! Contáctanos para compartir lo que te gustaría ver.",
+    "copyLatex": "Tabla copiada como LaTeX."
   },
   "presets": {
     "researchNotes": "Notas de investigación",

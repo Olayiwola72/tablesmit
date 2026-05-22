@@ -56,7 +56,15 @@ export class LatexExporter implements ExportStrategy {
     if (caption) {
       lines.push('\\begin{table}[htbp]')
       lines.push('\\centering')
-      lines.push(`\\caption{${escapeLatex(caption)}}`)
+      let captionBody = escapeLatex(caption)
+      if (options.captionBgColor && options.captionTextColor) {
+        captionBody = `\\colorbox[HTML]{${options.captionBgColor.slice(1)}}{\\textcolor[HTML]{${options.captionTextColor.slice(1)}}{${captionBody}}}`
+      } else if (options.captionBgColor) {
+        captionBody = `\\colorbox[HTML]{${options.captionBgColor.slice(1)}}{${captionBody}}`
+      } else if (options.captionTextColor) {
+        captionBody = `\\textcolor[HTML]{${options.captionTextColor.slice(1)}}{${captionBody}}`
+      }
+      lines.push(`\\caption{${captionBody}}`)
     }
 
     lines.push(`\\begin{tabular}{${alignStr}}`)

@@ -152,7 +152,8 @@
     "startBuilding": "ابدأ البناء",
     "undoActions": "تراجع ({{count}} إجراء)",
     "undoActions_plural": "تراجع ({{count}} إجراءات)",
-    "nothingToUndo": "لا يوجد شيء للتراجع عنه"
+    "nothingToUndo": "لا يوجد شيء للتراجع عنه",
+    "copyLatex": "نسخ كـ LaTeX"
   },
   "table": {
     "gridSize": "حجم الشبكة",
@@ -235,9 +236,14 @@
     "sortAscending": "ترتيب تصاعدي",
     "sortDescending": "ترتيب تنازلي",
     "editCaption": "تحرير التسمية",
+    "clickToAddCaption": "انقر لإضافة تسمية توضيحية",
+    "clickToEditCaption": "انقر لتعديل التسمية التوضيحية",
     "alignLeft": "محاذاة لليسار",
     "alignCenter": "محاذاة للوسط",
-    "alignRight": "محاذاة لليمين"
+    "alignRight": "محاذاة لليمين",
+    "captionTextColor": "لون نص التسمية التوضيحية",
+    "captionBackground": "خلفية التسمية التوضيحية",
+    "customColor": "مخصص"
   },
   "panels": {
     "dimensions": "حجم الشبكة",
@@ -348,7 +354,8 @@
     "pasteError": "تعذر قراءة الحافظة. حاول استيراد ملف بدلاً من ذلك.",
     "undoEmpty": "لا يوجد شيء للتراجع عنه.",
     "tableCleared": "تم مسح الجدول.",
-    "aiWaitlist": "ميزات الذكاء الاصطناعي قادمة قريبًا! تواصل معنا لمشاركة ما تود رؤيته."
+    "aiWaitlist": "ميزات الذكاء الاصطناعي قادمة قريبًا! تواصل معنا لمشاركة ما تود رؤيته.",
+    "copyLatex": "تم نسخ الجدول كـ LaTeX."
   },
   "presets": {
     "researchNotes": "ملاحظات بحثية",

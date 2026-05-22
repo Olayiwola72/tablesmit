@@ -1,5 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
 import FeaturesListPage from '../../../pages/FeaturesListPage/FeaturesListPage'
 import { getAllFeatures } from '../../../services/featureService/featureService'
@@ -7,9 +8,11 @@ import { ITEMS_PER_PAGE } from '../../../config/table/tableDefaults'
 
 function renderPage(): void {
   render(
-    <MemoryRouter>
-      <FeaturesListPage />
-    </MemoryRouter>,
+    <HelmetProvider>
+      <MemoryRouter>
+        <FeaturesListPage />
+      </MemoryRouter>
+    </HelmetProvider>,
   )
 }
 

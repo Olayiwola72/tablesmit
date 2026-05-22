@@ -1,4 +1,5 @@
 import { Heart, Lightbulb, MessageCircle, Sparkles } from 'lucide-react'
+import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button/Button'
@@ -9,6 +10,17 @@ const { brand } = siteConfig
 export function ContactPage(): ReactNode {
   const { t } = useTranslation()
 
+  return (
+    <>
+      <Helmet>
+        <title>{t('meta.contactTitle')}</title>
+      </Helmet>
+      {renderContent(t)}
+    </>
+  )
+}
+
+function renderContent(t: (key: string) => string): ReactNode {
   const reasons = [
     {
       icon: <Lightbulb size={18} aria-hidden="true" />,

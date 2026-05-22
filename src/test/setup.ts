@@ -2,6 +2,13 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
 
+// Polyfill ResizeObserver for jsdom (used by TableGrid to match caption width to table)
+globalThis.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
 vi.mock('react-i18next', () => {
   const translations: Record<string, string> = {
     // testimonials
@@ -152,9 +159,14 @@ vi.mock('react-i18next', () => {
     'contextMenu.sortAscending': 'Sort ascending',
     'contextMenu.sortDescending': 'Sort descending',
     'contextMenu.editCaption': 'Edit caption',
+    'contextMenu.clickToAddCaption': 'Click to add caption',
+    'contextMenu.clickToEditCaption': 'Click to edit caption',
     'contextMenu.alignLeft': 'Align left',
     'contextMenu.alignCenter': 'Align center',
     'contextMenu.alignRight': 'Align right',
+    'contextMenu.captionTextColor': 'Caption text color',
+    'contextMenu.captionBackground': 'Caption background',
+    'contextMenu.customColor': 'Custom',
     // panels
     'panels.dimensions': 'Grid Size',
     'panels.headerOptions': 'Header Definitions',

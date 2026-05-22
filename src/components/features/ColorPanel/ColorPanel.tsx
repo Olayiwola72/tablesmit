@@ -49,3 +49,5 @@ export function ColorPanel(): ReactNode {
     </section>
   )
 }
+
+export default ColorPanel

@@ -123,6 +123,39 @@ describe('LatexExporter', () => {
     expect(result).toContain('\\end{table}')
   })
 
+  it('wraps caption in \\textcolor when captionTextColor is provided', async () => {
+    const cells: CellData[][] = [[makeCell('x')]]
+    await new LatexExporter().export(el(), {
+      format: 'latex', cells, caption: 'My Table',
+      captionTextColor: '#FF0000',
+    })
+    const result = await getResult()
+    expect(result).toContain('\\textcolor[HTML]{FF0000}{My Table}')
+    expect(result).toContain('\\caption')
+  })
+
+  it('wraps caption in \\colorbox when captionBgColor is provided', async () => {
+    const cells: CellData[][] = [[makeCell('x')]]
+    await new LatexExporter().export(el(), {
+      format: 'latex', cells, caption: 'My Table',
+      captionBgColor: '#FFFF00',
+    })
+    const result = await getResult()
+    expect(result).toContain('\\colorbox[HTML]{FFFF00}{My Table}')
+    expect(result).toContain('\\caption')
+  })
+
+  it('wraps caption in both \\colorbox and \\textcolor when both colors provided', async () => {
+    const cells: CellData[][] = [[makeCell('x')]]
+    await new LatexExporter().export(el(), {
+      format: 'latex', cells, caption: 'My Table',
+      captionTextColor: '#FF0000',
+      captionBgColor: '#FFFF00',
+    })
+    const result = await getResult()
+    expect(result).toContain('\\colorbox[HTML]{FFFF00}{\\textcolor[HTML]{FF0000}{My Table}}')
+  })
+
   it('does not wrap in table environment when caption is absent', async () => {
     const cells: CellData[][] = [[makeCell('x')]]
     await new LatexExporter().export(el(), { format: 'latex', cells })

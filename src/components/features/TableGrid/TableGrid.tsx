@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/table/tableDefaults'
 import { isHeaderCell, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
@@ -11,6 +11,7 @@ import { computeColumnSum, getContrastText } from '../../../utils/formatUtils/fo
 import { isRangeAnchor } from '../../../utils/mergeUtils/mergeUtils'
 import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { useColumnSort } from '../../../hooks/useColumnSort/useColumnSort'
+import { TableCaption } from '../TableCaption/TableCaption'
 import { TableCell } from './TableCell/TableCell'
 import { TableCtxMenu } from './TableCtxMenu/TableCtxMenu'
 import type { CtxData } from './TableCtxMenu/TableCtxMenu.types'
@@ -19,7 +20,7 @@ import { SumRowFooter } from './SumRowFooter/SumRowFooter'
 import { PastingOverlay } from './PastingOverlay/PastingOverlay'
 import type { TableGridProps } from './TableGrid.types'
 
-export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGridProps): ReactNode {
+export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: TableGridProps): ReactNode {
   const { t } = useTranslation()
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
@@ -80,6 +81,18 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
     sortedToOriginal,
     sortDisabled,
   } = useColumnSort(cells, cols, mergedRanges)
+
+  const [actualTableWidth, setActualTableWidth] = useState(0)
+
+  useEffect(() => {
+    const table = gridRef.current
+    if (!table) return
+    const observer = new ResizeObserver(([entry]) => {
+      setActualTableWidth(entry.contentRect.width)
+    })
+    observer.observe(table)
+    return () => observer.disconnect()
+  }, [])
 
   const autoFitColumn = useCallback((columnIndex: number): void => {
     const table = gridRef.current
@@ -225,7 +238,12 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch }: TableGrid
         onAutoFit={autoFitColumn}
         onContextMenu={handleColumnContextMenu}
       />
-      <div ref={tableRef} className="inline-block bg-white dark:bg-slate-900" data-table-container>
+      {caption && (
+        <div data-table-caption {...(caption.value ? {} : { 'data-export-hide': true, 'data-print-hide': true })}>
+          <TableCaption {...caption} tableWidth={actualTableWidth} hasBorder={borderStyle !== 'none'} />
+        </div>
+      )}
+      <div ref={tableRef} className="inline-block align-top bg-white dark:bg-slate-900" data-table-container>
         <table ref={gridRef} className="min-w-max border-collapse bg-white dark:bg-slate-900" role="grid" aria-label={t('grid.tableEditor')} aria-rowcount={rows} aria-colcount={cols}>
           <colgroup>
             {columnWidths.map((width, index) => (
