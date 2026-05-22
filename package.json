@@ -16,6 +16,10 @@
     "new-post": "npx tsx scripts/md-to-blog-post.ts",
     "prepare": "husky"
   },
+  "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
+  "overrides": {
+    "uuid": ">=11.1.1"
+  },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "eslint --fix --max-warnings=0"

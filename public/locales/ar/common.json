@@ -145,6 +145,8 @@
     "copy": "نسخ",
     "copyImage": "نسخ كصورة",
     "copyExcel": "نسخ كبيانات Excel",
+    "copyCsv": "نسخ كـ CSV",
+    "copyMarkdown": "نسخ كـ Markdown",
     "ai": "الذكاء الاصطناعي",
     "print": "طباعة",
     "startBuilding": "ابدأ البناء",

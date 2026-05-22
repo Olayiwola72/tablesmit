@@ -1,16 +1,11 @@
 import { ChevronDown, Copy } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { CopyDropdownProps } from './CopyDropdown.types'
 import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
-import type { CopyDropdownProps } from './CopyDropdown.types'
 
-export function CopyDropdown({
-  onCopyExcelData,
-  onCopyCsv,
-  onCopyMarkdown,
-  onCopyImage,
-}: CopyDropdownProps): ReactNode {
+export function CopyDropdown({ onCopyExcelData, onCopyCsv, onCopyMarkdown, onCopyImage }: CopyDropdownProps): ReactNode {
   const { t } = useTranslation()
 
   return (

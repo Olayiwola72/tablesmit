@@ -1,20 +1,19 @@
-import { Check, ExternalLink, Globe, Menu, Moon, Sun, X } from 'lucide-react'
+import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { siteConfig } from '../../../config/siteConfig'
 import { KEY_ESCAPE } from '../../../constants/keys'
-import { LOCALES } from '../../../i18n/config'
 import { Button } from '../../ui/Button/Button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../ui/DropdownMenu/DropdownMenu'
 import { IconButton } from '../../ui/IconButton/IconButton'
+import { LanguagePicker } from '../../ui/LanguagePicker/LanguagePicker'
 import { Logo } from '../../ui/Logo/Logo'
 import { useTheme } from '../../../hooks/useTheme/useTheme'
 
 const { brand, routes } = siteConfig
 
 export function Navbar(): ReactNode {
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const { theme, toggle } = useTheme()
   const logoTheme = theme === 'dark' ? 'dark' : 'light'
@@ -49,25 +48,7 @@ export function Navbar(): ReactNode {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" aria-label={t('aria.languageSelect')}>
-                <Globe size={16} />
-                {LOCALES.find((l) => l.code === i18n.language)?.name ?? i18n.language.toUpperCase()}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {LOCALES.map((locale) => (
-                <DropdownMenuItem
-                  key={locale.code}
-                  onClick={() => i18n.changeLanguage(locale.code)}
-                >
-                  {locale.name}
-                  {i18n.language === locale.code && <Check size={14} className="ml-auto" />}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <LanguagePicker />
           <IconButton
             aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}
             icon={theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
@@ -117,25 +98,7 @@ export function Navbar(): ReactNode {
                 </Link>
               ))}
               <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border dark:border-slate-700">
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" aria-label={t('aria.languageSelect')}>
-                      <Globe size={14} />
-                      {LOCALES.find((l) => l.code === i18n.language)?.name ?? i18n.language.toUpperCase()}
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start">
-                    {LOCALES.map((locale) => (
-                      <DropdownMenuItem
-                        key={locale.code}
-                        onClick={() => { i18n.changeLanguage(locale.code); setIsOpen(false) }}
-                      >
-                        {locale.name}
-                        {i18n.language === locale.code && <Check size={14} className="ml-auto" />}
-                      </DropdownMenuItem>
-                    ))}
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                <LanguagePicker align="start" onSelect={() => setIsOpen(false)} />
                 <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>
                   {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
                 </Button>

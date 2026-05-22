@@ -5,7 +5,7 @@ import type { FeaturePage } from '../../services/featureService/featureService.t
 import { getAllFeatures } from '../../services/featureService/featureService'
 import { siteConfig } from '../../config/siteConfig'
 import { ITEMS_PER_PAGE } from '../../config/table/tableDefaults'
-import { Button } from '../../components/ui/Button/Button'
+import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
 
 export default function FeaturesListPage(): ReactNode {
   const { t } = useTranslation()
@@ -64,40 +64,7 @@ export default function FeaturesListPage(): ReactNode {
           ))}
         </div>
 
-        {totalPages > 1 && (
-          <nav aria-label="Features pagination" className="mt-12 flex items-center justify-center gap-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              isDisabled={page <= 1}
-              onClick={() => setPage(p => Math.max(1, p - 1))}
-              aria-label={t('pagination.prevAria')}
-            >
-              &larr; {t('pagination.prev')}
-            </Button>
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map(n => (
-              <Button
-                key={n}
-                variant={n === page ? 'primary' : 'ghost'}
-                size="sm"
-                onClick={() => setPage(n)}
-                aria-label={t('pagination.pageAria', { number: n })}
-                aria-current={n === page ? 'page' : undefined}
-              >
-                {n}
-              </Button>
-            ))}
-            <Button
-              variant="ghost"
-              size="sm"
-              isDisabled={page >= totalPages}
-              onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-              aria-label={t('pagination.nextAria')}
-            >
-              {t('pagination.next')} &rarr;
-            </Button>
-          </nav>
-        )}
+        <PaginationNav currentPage={page} totalPages={totalPages} onPageChange={setPage} />
 
         {features.length === 0 && (
           <p className="py-20 text-center text-sm text-text-muted">

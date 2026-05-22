@@ -1,12 +1,13 @@
 import { ChevronDown, Download } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import type { MobileExportDropdownProps } from './MobileExportDropdown.types'
 import { exportFormats } from '../../../../config/export/exportConfig'
 import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
-import type { MobileExportDropdownProps } from './MobileExportDropdown.types'
+import type { ExportFormat } from '../../../../services/exportService/export.types'
 
-export function MobileExportDropdown({ isExporting, onExport }: MobileExportDropdownProps): ReactNode {
+export function MobileExportDropdown({ isExporting, onExport, tableRef }: MobileExportDropdownProps): ReactNode {
   const { t } = useTranslation()
 
   return (
@@ -18,9 +19,9 @@ export function MobileExportDropdown({ isExporting, onExport }: MobileExportDrop
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          {exportFormats.map((item) => (
-            <DropdownMenuItem key={item.format} onClick={() => onExport(item.format)}>
-              {item.label}
+          {exportFormats.map((fmt) => (
+            <DropdownMenuItem key={fmt.format} onClick={() => onExport(fmt.format as ExportFormat, tableRef.current)}>
+              {fmt.label}
             </DropdownMenuItem>
           ))}
         </DropdownMenuContent>

@@ -54,9 +54,36 @@ describe('HeaderOptionsPanel', () => {
     expect(screen.getByRole('checkbox', { name: /freeze first column/i })).not.toBeChecked()
   })
 
-  it('checking freeze row does not crash', async () => {
+  it('checking freeze row checks the checkbox', async () => {
     const user = userEvent.setup()
     render(<HeaderOptionsPanel />, { wrapper: Wrapper })
-    await user.click(screen.getByRole('checkbox', { name: /freeze header row/i }))
+    const checkbox = screen.getByRole('checkbox', { name: /freeze header row/i })
+    await user.click(checkbox)
+    expect(checkbox).toBeChecked()
+  })
+
+  it('unchecking freeze row unchecks the checkbox', async () => {
+    const user = userEvent.setup()
+    render(<HeaderOptionsPanel />, { wrapper: Wrapper })
+    const checkbox = screen.getByRole('checkbox', { name: /freeze header row/i })
+    await user.click(checkbox)
+    await user.click(checkbox)
+    expect(checkbox).not.toBeChecked()
+  })
+
+  it('checking freeze column checks the checkbox', async () => {
+    const user = userEvent.setup()
+    render(<HeaderOptionsPanel />, { wrapper: Wrapper })
+    const checkbox = screen.getByRole('checkbox', { name: /freeze first column/i })
+    await user.click(checkbox)
+    expect(checkbox).toBeChecked()
+  })
+
+  it('changing header style select does not throw', async () => {
+    const user = userEvent.setup()
+    render(<HeaderOptionsPanel />, { wrapper: Wrapper })
+    const select = screen.getByRole('combobox')
+    await user.selectOptions(select, 'first-column')
+    expect(select).toHaveValue('first-column')
   })
 })

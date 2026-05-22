@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../../context/TableProvider/TableProvider'
@@ -35,5 +35,20 @@ describe('ColumnFormattingPanel', () => {
     expect(labels).toContain('Currency')
     expect(labels).toContain('Percentage')
     expect(labels).toContain('Date')
+  })
+
+  it('renders Sum and Auto-number options', () => {
+    render(<ColumnFormattingPanel />, { wrapper: Wrapper })
+    const options = document.querySelectorAll('option')
+    const labels = Array.from(options).map((o) => o.textContent)
+    expect(labels).toContain('Sum')
+    expect(labels).toContain('Auto-number')
+  })
+
+  it('changing column format does not throw', () => {
+    render(<ColumnFormattingPanel />, { wrapper: Wrapper })
+    const selects = screen.getAllByRole('combobox')
+    fireEvent.change(selects[0], { target: { value: 'number' } })
+    expect(selects[0]).toHaveValue('number')
   })
 })

@@ -1,58 +1,16 @@
 import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2 } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../../config/siteConfig'
-import type { ColumnFormat, TextAlign } from '../../../../types/table'
+import type { ColumnFormat, TextAlign } from '../../../../context/table.types'
 import type { TableCtxMenuProps } from './TableCtxMenu.types'
-
-const colorPresets = [
-  '#FFE4E1', '#FFF0D9', '#FFFACD', '#E8F5E9', '#E3F2FD', '#F3E5F5',
-  '#FFCDD2', '#FFE0B2', '#FFF9C4', '#C8E6C9', '#BBDEFB', '#E1BEE7',
-  '#FF5722', '#FF9800', '#FFEB3B', '#4CAF50', '#2196F3', '#9C27B0',
-]
+import { CtxColorSubmenu } from './CtxColorSubmenu/CtxColorSubmenu'
+import { CtxColumnTypeSubmenu } from './CtxColumnTypeSubmenu/CtxColumnTypeSubmenu'
+import { CtxAlignSubmenu } from './CtxAlignSubmenu/CtxAlignSubmenu'
 
 const alignIcons: Record<string, ReactNode> = {
   left: <AlignLeft size={14} />,
   center: <AlignCenter size={14} />,
   right: <AlignRight size={14} />,
-}
-
-function renderColorPicker(current: string, onChange: (color: string) => void, closeCtx: () => void, customLabel: string, removeColorLabel: string): ReactNode {
-  return (
-    <div>
-      <div className="mb-2 flex flex-wrap gap-1">
-        {colorPresets.map((c) => (
-          <button
-            key={c}
-            type="button"
-            aria-label={c}
-            className={`h-6 w-6 rounded-sm border border-border cursor-pointer transition-transform hover:scale-110 ${current === c ? 'ring-2 ring-primary ring-offset-1' : ''}`}
-            style={{ backgroundColor: c }}
-            onClick={() => { onChange(c); closeCtx() }}
-          />
-        ))}
-      </div>
-      <label className="flex items-center justify-between gap-2 text-xs text-text-secondary">
-        <span>{customLabel}</span>
-        <input
-          type="color"
-          name="ctx-custom-color"
-          value={current || '#ffffff'}
-          className="h-7 w-10 cursor-pointer rounded-sm border border-border"
-          onChange={(event) => { onChange(event.target.value); closeCtx() }}
-        />
-      </label>
-      {current ? (
-        <button
-          type="button"
-          className="mt-1 w-full rounded-sm px-2 py-1 text-xs text-text-secondary hover:bg-danger hover:text-white transition-colors"
-          onClick={() => { onChange(''); closeCtx() }}
-        >
-          {removeColorLabel}
-        </button>
-      ) : null}
-    </div>
-  )
 }
 
 function CtxButton({ icon, label, onClick }: { icon: ReactNode; label: string; onClick: () => void }): ReactNode {
@@ -74,11 +32,6 @@ function CtxSeparator(): ReactNode {
 
 export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
   const { t } = useTranslation()
-  const alignLabelMap: Record<string, string> = {
-    left: t('contextMenu.alignLeft'),
-    center: t('contextMenu.alignCenter'),
-    right: t('contextMenu.alignRight'),
-  }
 
   const handlePaste = async (): Promise<void> => {
     try {
@@ -102,7 +55,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
           : `Column ${ctxMenu.col + 1}`}
       </div>
 
-      {/* Shared: auto-fit + sort (column) */}
+      {/* Shared: auto-fit */}
       {ctxMenu.type === 'column' ? (
         <>
           <CtxButton icon={<Ruler size={14} className="text-text-muted" />} label={t('contextMenu.autoFitColumn')} onClick={() => { autoFitColumn(ctxMenu.col); onClose() }} />
@@ -128,10 +81,10 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
             {activeSub === 'bg' ? (
               <div className="border-t border-border px-3 py-2">
                 <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeBackground')}</p>
-                {renderColorPicker(columnColors[ctxMenu.col] || '', (c) => setColumnColor(ctxMenu.col, c), onClose, t('colorPanel.customColor'), t('colorPanel.noColor'))}
+                <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
                 <hr className="my-2 border-border" />
                 <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeBackground')}</p>
-                {renderColorPicker(cellColors[`R${ctxMenu.row}C${ctxMenu.col}`] ?? '', (c) => setCellColor(`R${ctxMenu.row}C${ctxMenu.col}`, c), onClose, t('colorPanel.customColor'), t('colorPanel.noColor'))}
+                <CtxColorSubmenu current={cellColors[`R${ctxMenu.row}C${ctxMenu.col}`] ?? ''} onChange={(c) => setCellColor(`R${ctxMenu.row}C${ctxMenu.col}`, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
               </div>
             ) : null}
           </div>
@@ -147,18 +100,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               <span className="text-xs text-text-muted">{cells[0]?.[ctxMenu.col]?.format ?? 'text'}</span>
             </button>
             {activeSub === 'type' ? (
-              <div className="border-t border-border px-3 py-2">
-                {siteConfig.columnFormats.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    className={`block w-full rounded-sm px-2 py-1 text-left text-xs hover:bg-surface ${cells[0]?.[ctxMenu.col]?.format === opt.value ? 'font-semibold text-primary' : 'text-text-primary'}`}
-                    onClick={() => { setColumnFormat(ctxMenu.col, opt.value as ColumnFormat); onClose() }}
-                  >
-                    {t(`table.${opt.value}`, opt.label)}
-                  </button>
-                ))}
-              </div>
+              <CtxColumnTypeSubmenu currentFormat={cells[0]?.[ctxMenu.col]?.format} onChange={(f) => { setColumnFormat(ctxMenu.col, f as ColumnFormat); onClose() }} onClose={onClose} />
             ) : null}
           </div>
 
@@ -185,7 +127,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
             </button>
             {activeSub === 'rowColor' ? (
               <div className="border-t border-border px-3 py-2">
-                {renderColorPicker(rowColors[ctxMenu.row] || '', (c) => setRowColor(ctxMenu.row, c), onClose, t('colorPanel.customColor'), t('colorPanel.noColor'))}
+                <CtxColorSubmenu current={rowColors[ctxMenu.row] || ''} onChange={(c) => setRowColor(ctxMenu.row, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
               </div>
             ) : null}
           </div>
@@ -215,7 +157,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
             </button>
             {activeSub === 'bg' ? (
               <div className="border-t border-border px-3 py-2">
-                {renderColorPicker(columnColors[ctxMenu.col] || '', (c) => setColumnColor(ctxMenu.col, c), onClose, t('colorPanel.customColor'), t('colorPanel.noColor'))}
+                <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
               </div>
             ) : null}
           </div>
@@ -231,18 +173,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               <span className="text-xs text-text-muted">{cells[0]?.[ctxMenu.col]?.format ?? 'text'}</span>
             </button>
             {activeSub === 'type' ? (
-              <div className="border-t border-border px-3 py-2">
-                {siteConfig.columnFormats.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    className={`block w-full rounded-sm px-2 py-1 text-left text-xs hover:bg-surface ${cells[0]?.[ctxMenu.col]?.format === opt.value ? 'font-semibold text-primary' : 'text-text-primary'}`}
-                    onClick={() => { setColumnFormat(ctxMenu.col, opt.value as ColumnFormat); onClose() }}
-                  >
-                    {t(`table.${opt.value}`, opt.label)}
-                  </button>
-                ))}
-              </div>
+              <CtxColumnTypeSubmenu currentFormat={cells[0]?.[ctxMenu.col]?.format} onChange={(f) => { setColumnFormat(ctxMenu.col, f as ColumnFormat); onClose() }} onClose={onClose} />
             ) : null}
           </div>
 
@@ -257,19 +188,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               <span className="text-text-muted">{activeSub === 'align' ? '\u25B2' : '\u25BC'}</span>
             </button>
             {activeSub === 'align' ? (
-              <div className="border-t border-border px-3 py-2">
-                {siteConfig.labels.textAlignOptions.map((opt) => (
-                  <button
-                    key={opt.value}
-                    type="button"
-                    className={`flex w-full items-center gap-2 rounded-sm px-2 py-1 text-left text-xs hover:bg-surface ${(columnTextAlign[ctxMenu.col] || 'left') === opt.value ? 'font-semibold text-primary' : 'text-text-primary'}`}
-                    onClick={() => { setColumnTextAlign(ctxMenu.col, opt.value as TextAlign); onClose() }}
-                  >
-                    {alignIcons[opt.value]}
-                    {alignLabelMap[opt.value]}
-                  </button>
-                ))}
-              </div>
+              <CtxAlignSubmenu currentAlign={columnTextAlign[ctxMenu.col] || 'left'} onChange={(a) => { setColumnTextAlign(ctxMenu.col, a as TextAlign); onClose() }} onClose={onClose} />
             ) : null}
           </div>
 

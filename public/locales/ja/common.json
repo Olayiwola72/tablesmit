@@ -145,6 +145,8 @@
     "copy": "コピー",
     "copyImage": "画像としてコピー",
     "copyExcel": "Excelデータとしてコピー",
+    "copyCsv": "CSVとしてコピー",
+    "copyMarkdown": "Markdownとしてコピー",
     "ai": "AI",
     "print": "印刷",
     "startBuilding": "作成を開始",
