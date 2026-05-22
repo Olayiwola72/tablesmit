@@ -1,4 +1,4 @@
-import type { TableTheme } from '../../../../context/table.types'
+import type { TableTheme } from '@/types/table'
 
 export interface ThemeDropdownProps {
   theme: TableTheme

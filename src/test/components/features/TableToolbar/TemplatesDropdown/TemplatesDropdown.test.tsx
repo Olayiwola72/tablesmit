@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { TemplatesDropdown } from '../../../../../components/features/TableToolbar/TemplatesDropdown/TemplatesDropdown'
-import type { PresetDefinition } from '../../../../../config/ui.types'
+import type { PresetDefinition } from '@/types/table'
 
 const mockPresets: PresetDefinition[] = [
   { id: 'research-notes', label: 'Research Notes', rows: 5, cols: 3, headerStyle: 'first-row', headers: ['Topic', 'Source', 'Notes'] },

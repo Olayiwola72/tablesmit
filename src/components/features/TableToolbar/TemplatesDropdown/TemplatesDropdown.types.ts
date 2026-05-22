@@ -1,4 +1,4 @@
-import type { PresetDefinition } from '../../../../config/ui.types'
+import type { PresetDefinition } from '@/types/table'
 
 export interface TemplatesDropdownProps {
   presets: PresetDefinition[]

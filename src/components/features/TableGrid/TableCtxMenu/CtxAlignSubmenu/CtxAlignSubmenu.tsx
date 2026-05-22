@@ -2,7 +2,7 @@ import { AlignCenter, AlignLeft, AlignRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CtxAlignSubmenuProps } from './CtxAlignSubmenu.types'
-import type { TextAlign } from '../../../../../context/table.types'
+import type { TextAlign } from '@/types/table'
 import { siteConfig } from '../../../../../config/siteConfig'
 
 const alignIcons: Record<string, ReactNode> = {
