@@ -2,26 +2,9 @@ import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../Button/Button'
 import { siteConfig } from '../../../config/siteConfig'
+import { loadAnalytics } from '../../../utils/analytics/analytics'
 
 const CONSENT_KEY = 'tablesmit-consent'
-const GA_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID as string | undefined
-
-function loadAnalytics(): void {
-  if (!GA_ID || typeof window === 'undefined') return
-  if (document.querySelector('#tablesmit-gtag')) return
-
-  const s = document.createElement('script')
-  s.id = 'tablesmit-gtag'
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`
-  s.async = true
-  document.head.appendChild(s)
-
-  const w = window as unknown as Record<string, unknown>
-  w.dataLayer = w.dataLayer ?? []
-  const gtag = (...args: unknown[]) => { (w.dataLayer as unknown[]).push(args) }
-  gtag('js', new Date())
-  gtag('config', GA_ID)
-}
 
 function getConsent(): 'accepted' | 'declined' | null {
   try {

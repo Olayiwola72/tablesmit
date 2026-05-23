@@ -13,6 +13,11 @@ dist-ssr
 *.local
 .vite
 
+# Environment variables
+.env
+.env.local
+.env.*.local
+
 # Generated coverage reports
 coverage
 
