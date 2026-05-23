@@ -2726,9 +2726,22 @@ Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `impo
 
 ### Security
 
-CSP meta tag with restrictive allow-list. CSV injection protection — `sanitizeCsvValue()` wraps cells starting with `=`, `+`, `-`, `@`. File size limits (5MB max on imports via `assertFileSize()`). Cell guard — import clamped at 100K cells total (50 rows × 20 cols max). Excel lib: `exceljs` (no known high-severity CVEs). Sentry `beforeSend` strips `cells[][]` from payloads. Sentry lazy-load — `@sentry/react` only fetched in production when an error occurs. CookieConsent gates GA4. No secrets in `VITE_*` vars — any future AI calls via serverless functions. `npm audit` — 0 high/critical.
+### Performance (Section 38C)
+- [x] Lighthouse: Performance **99**, LCP **0.9s**, FCP **0.7s**, CLS **0**, TBT **0ms** — all targets met
+- [x] Self-hosted fonts via `@fontsource/inter` + `@fontsource/jetbrains-mono`
+- [x] rAF resize pattern for column/row drag — no layout thrashing
+- [x] `React.memo` on `TableCell`, split contexts (`TableDataContext` + `TableSelectionContext`)
+- [x] Lazy-loaded export libraries (jsPDF, html2canvas in separate vendor chunks)
+- [x] `manualChunks` in `vite.config.ts` splitting react, ui, pdf, canvas, excel
+- [x] Initial bundle ~150 KB gzipped (target < 150 KB) — met by lazy-loading Sentry (was 34 kB gzip eagerly loaded)
+- [ ] No table grid skeleton placeholder (low priority — first paint already 0.7s)
+- [ ] TTFB depends on Netlify edge — outside client control
 
-### Error Monitoring
+### Error Monitoring (Section 46)
+- [x] `@sentry/react` lazy-loaded via `src/lib/sentry.ts` — never eagerly imported, only loaded in production with DSN configured
+- [x] `beforeSend` scrubs `event.extra.cells` — table content never reaches Sentry
+- [x] `ErrorBoundary.componentDidCatch` wires `Sentry.captureException` with component stack
+- [x] `.env.example` has `VITE_SENTRY_DSN` placeholder
 
 `@sentry/react` lazy-loaded via `src/lib/sentry.ts` — never eagerly imported, only loaded in production with DSN configured. `beforeSend` scrubs `event.extra.cells` — table content never reaches Sentry. `ErrorBoundary.componentDidCatch` wires `captureException` with component stack. `.env.example` has `VITE_SENTRY_DSN` placeholder.
 
@@ -2744,7 +2757,13 @@ GitHub issue templates (`bug_report.md`, `feature_request.md`). `pull_request_te
 
 8 languages: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian. English bundled at build time. 7 non-English locales fetched lazily via `fetch('/locales/{code}/common.json')` after init. LanguageDetector reads from localStorage + navigator. RTL for Arabic via `document.documentElement.dir = 'rtl'`. Language picker in Navbar. Brand name never translated. All toast messages use `useTranslation` with interpolation variables. All aria-labels translated. `useSuspense: false` — manual fetch pattern handles loading asynchronously.
 
-### Branch Protection
+### Content — v8.0 Targets
+- [x] Blog posts committed to `src/content/blog/` (Section 58 — 6 posts live)
+- [x] Feature landing pages — system built + 23 JSON files live in `src/content/features/` (Section 59)
+- [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
+  - [x] Google Search Console — verified + sitemap submitted (Section 38G)
+  - [x] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 53)
+- [x] Sitemap updated with blog post and feature page URLs
 
 Main branch protected — direct push returns 403. PR required for all merges. Required status checks: lint + test + build must all pass. Force pushes blocked. Branch naming convention: `feat/`, `fix/`, `docs/`, `chore/`, `test/`, `refactor/`, `content/`, `i18n/`. `.github/workflows/deploy-netlify.yml` — single job with lint, test, build steps as required checks.
 
@@ -7478,7 +7497,17 @@ on first render (zero network requests).
 
 **Live:** Tablesmit is live at tablesmit.com, indexed in Google Search Console, and tracked via GA4 (consent-gated) and Sentry (lazy-loaded, production-only).
 
+<<<<<<< HEAD
 **Content:** 6 blog posts and 23 feature landing pages published. Sitemap updated with all URLs.
+=======
+```
+CONTENT — must ship before any promotion:
+[x] Blog posts — 5 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
+[x] Feature landing pages — system built + 23 JSON files live (Section 59)
+[ ] Real testimonials — replace empty TESTIMONIALS array with at least 3 real quotes (Section 57)
+[x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
+[x] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
+>>>>>>> d4c751c (Resolve merge conflict in agents.md)
 
 **Testimonials:** Empty — not yet collected. The page at `/testimonials` renders an empty state with a CTA to share feedback. 3+ real quotes needed before including in promotional materials.
 
