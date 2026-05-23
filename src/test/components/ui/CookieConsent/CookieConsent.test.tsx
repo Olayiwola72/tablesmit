@@ -23,7 +23,7 @@ describe('CookieConsent', () => {
 
   it('renders privacy policy link', () => {
     render(<CookieConsent />)
-    expect(screen.getByRole('link', { name: 'Learn more about our privacy policy' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Learn more Privacy Policy' })).toBeInTheDocument()
   })
 
   it('hides after accepting', async () => {

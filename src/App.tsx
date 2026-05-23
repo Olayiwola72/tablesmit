@@ -41,7 +41,7 @@ export default function App(): ReactNode {
               <ShortcutsModal />
             </Suspense>
             <CookieConsent />
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col min-h-[calc(100vh-60px)]">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
                   <Route

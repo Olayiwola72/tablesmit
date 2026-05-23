@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { CtxAlignSubmenu } from '../../../../../components/features/TableGrid/TableCtxMenu/CtxAlignSubmenu/CtxAlignSubmenu'
+import { CtxAlignSubmenu } from '../../../../../../components/features/TableGrid/TableCtxMenu/CtxAlignSubmenu/CtxAlignSubmenu'
 
 const baseProps = {
   currentAlign: '',
@@ -39,7 +39,6 @@ describe('CtxAlignSubmenu', () => {
     renderMenu()
     const buttons = screen.getAllByRole('button')
     expect(buttons).toHaveLength(3)
-    // Each button should contain an SVG icon
     buttons.forEach(btn => {
       expect(btn.querySelector('svg')).toBeInTheDocument()
     })

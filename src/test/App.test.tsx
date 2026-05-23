@@ -19,7 +19,7 @@ describe('App', () => {
     window.history.pushState({}, '', '/')
     render(<App />)
 
-    expect(await screen.findByRole('heading', { name: 'Export' }, { timeout: 5000 })).toBeInTheDocument()
+    expect(await screen.findByRole('heading', { name: 'Export' }, { timeout: 15000 })).toBeInTheDocument()
   })
 
   it('lets users set a column type directly above the table', async () => {

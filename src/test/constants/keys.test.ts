@@ -1,7 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import {
-  KEY_ARROW_DOWN, KEY_ARROW_LEFT, KEY_ARROW_RIGHT, KEY_ARROW_UP, KEY_ESCAPE,
-} from '../../../constants/keys'
+import { KEY_ARROW_DOWN, KEY_ARROW_LEFT, KEY_ARROW_RIGHT, KEY_ARROW_UP, KEY_ESCAPE } from '../../constants/keys'
 
 describe('keys', () => {
   it('KEY_ESCAPE is Escape', () => expect(KEY_ESCAPE).toBe('Escape'))

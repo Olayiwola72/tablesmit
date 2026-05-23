@@ -57,15 +57,17 @@ export default defineConfig({
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
         globIgnores: [
-          '**/vendor-excel-*.js',
-          '**/vendor-canvas-*.js',
+          '**/exceljs.min-*.js',
           '**/jspdf.es.min-*.js',
+          '**/html2canvas-*.js',
+          '**/papaparse.min-*.js',
+          '**/purify.es-*.js',
         ],
         cleanupOutdatedCaches: true,
         maximumFileSizeToCacheInBytes: 5242880,
         runtimeCaching: [
           {
-            urlPattern: /\/assets\/(vendor-excel|vendor-canvas|jspdf\.es\.min)-.*\.js$/,
+            urlPattern: /\/assets\/(exceljs\.min|jspdf\.es\.min|html2canvas)-.*\.js$/,
             handler: 'CacheFirst',
             options: {
               cacheName: 'tablesmit-export-chunks',
@@ -100,13 +102,18 @@ export default defineConfig({
           if (isPackage(id, 'lucide-react') || isPackage(id, 'class-variance-authority') || isPackage(id, 'clsx') || isPackage(id, 'sonner')) {
             return 'vendor-ui'
           }
-          if (isPackage(id, 'html2canvas')) return 'vendor-canvas'
-          if (isPackage(id, 'jspdf')) return 'vendor-pdf'
-          if (isPackage(id, 'exceljs')) return 'vendor-excel'
-          if (isPackage(id, 'papaparse')) return 'vendor-csv'
-          if (isPackage(id, 'react-markdown') || isPackage(id, 'remark-gfm')) return 'vendor-blog'
           return undefined
         },
+      },
+    },
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter(
+          (dep) =>
+            !dep.includes('jspdf.es.min') &&
+            !dep.includes('html2canvas') &&
+            !dep.includes('exceljs.min'),
+        )
       },
     },
   },

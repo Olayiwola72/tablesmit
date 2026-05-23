@@ -13,6 +13,14 @@ export function getChangeStyle(type: ChangelogEntry['changes'][number]['type']):
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.2.3',
+    date: '2026-05-23',
+    changes: [
+      { type: 'fixed',    description: 'PDF export failing on large tables — html2canvas retries at lower scale when initial render exceeds browser canvas limits' },
+      { type: 'fixed',    description: 'Caption default alignment responsive — center on desktop, left on mobile, explicit user choice always respected' },
+    ],
+  },
+  {
     version: '1.2.2',
     date: '2026-05-21',
     changes: [

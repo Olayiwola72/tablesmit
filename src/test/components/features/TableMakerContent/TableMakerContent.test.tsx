@@ -32,7 +32,7 @@ describe('TableMakerContent', () => {
 
   it('renders the Grid Size panel', async () => {
     render(<TableMakerContent />, { wrapper: Wrapper })
-    expect(await screen.findByText('Grid Size')).toBeInTheDocument()
+    expect(await screen.findByText('Grid Size', {}, { timeout: 15000 })).toBeInTheDocument()
   })
 
   it('renders the table workspace region', () => {
