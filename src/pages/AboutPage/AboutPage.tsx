@@ -20,6 +20,11 @@ export function AboutPage(): ReactNode {
     <>
       <Helmet>
         <title>{t('meta.aboutTitle')}</title>
+        <meta name="description" content={t('meta.aboutDescription')} />
+        <meta property="og:title" content={t('meta.aboutTitle')} />
+        <meta property="og:description" content={t('meta.aboutDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.about}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.about}`} />
       </Helmet>
       <main className="bg-white">
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">

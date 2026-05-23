@@ -14,6 +14,11 @@ export function ContactPage(): ReactNode {
     <>
       <Helmet>
         <title>{t('meta.contactTitle')}</title>
+        <meta name="description" content={t('meta.contactDescription')} />
+        <meta property="og:title" content={t('meta.contactTitle')} />
+        <meta property="og:description" content={t('meta.contactDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.contact}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.contact}`} />
       </Helmet>
       {renderContent(t)}
     </>

@@ -42,6 +42,11 @@ export default function BlogListPage(): ReactNode {
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
       <Helmet>
         <title>{t('meta.blogTitle')}</title>
+        <meta name="description" content={t('meta.blogDescription')} />
+        <meta property="og:title" content={t('meta.blogTitle')} />
+        <meta property="og:description" content={t('meta.blogDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.blog}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.blog}`} />
       </Helmet>
       <div className="mx-auto max-w-content">
         <Link

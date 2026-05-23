@@ -1,29 +1,14 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Toaster } from 'sonner'
-import * as Sentry from '@sentry/react'
 import './index.scss'
 import './i18n/i18n'
 import App from './App.tsx'
 import { registerPWA } from './pwa.ts'
+import { initSentry } from './lib/sentry.ts'
 
 registerPWA()
-
-const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN as string | undefined
-
-if (import.meta.env.PROD && SENTRY_DSN) {
-  Sentry.init({
-    dsn: SENTRY_DSN,
-    environment: 'production',
-    sendDefaultPii: false,
-    tracesSampleRate: 0.1,
-    integrations: [Sentry.browserTracingIntegration()],
-    beforeSend(event) {
-      if (event.extra?.cells) delete event.extra.cells
-      return event
-    },
-  })
-}
+initSentry()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -37,6 +37,11 @@ export default function FeaturesListPage(): ReactNode {
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
       <Helmet>
         <title>{t('meta.featuresTitle')}</title>
+        <meta name="description" content={t('meta.featuresDescription')} />
+        <meta property="og:title" content={t('meta.featuresTitle')} />
+        <meta property="og:description" content={t('meta.featuresDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.features}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.features}`} />
       </Helmet>
       <div className="mx-auto max-w-content">
         <header className="mb-12 text-center">

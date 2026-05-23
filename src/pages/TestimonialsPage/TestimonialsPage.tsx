@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useTranslation } from 'react-i18next'
 import { TESTIMONIALS } from '../../config/testimonials/testimonials'
+import { siteConfig } from '../../config/siteConfig'
 import { TestimonialCard } from '../../components/features/TestimonialCard/TestimonialCard'
 import { TestimonialEmptyState } from '../../components/features/TestimonialEmptyState/TestimonialEmptyState'
 
@@ -11,6 +12,11 @@ export function TestimonialsPage(): ReactNode {
     <main>
       <Helmet>
         <title>{t('meta.testimonialsTitle')}</title>
+        <meta name="description" content={t('meta.testimonialsDescription')} />
+        <meta property="og:title" content={t('meta.testimonialsTitle')} />
+        <meta property="og:description" content={t('meta.testimonialsDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.testimonials}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.testimonials}`} />
       </Helmet>
       <section className="mx-auto max-w-content px-4 py-12 text-center sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl lg:text-5xl">

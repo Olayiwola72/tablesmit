@@ -13,6 +13,7 @@ export function NotFoundPage(): ReactNode {
     <>
       <Helmet>
         <title>{t('meta.notFoundTitle')}</title>
+        <meta name="description" content={t('meta.notFoundDescription')} />
       </Helmet>
       <main className="mx-auto flex min-h-[60vh] max-w-content flex-col items-center justify-center px-4 text-center">
       <NotFoundAnimation />

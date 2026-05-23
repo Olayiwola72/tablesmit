@@ -23,11 +23,11 @@ describe('OpenSourcePage', () => {
     expect(githubLinks.length).toBeGreaterThanOrEqual(1)
   })
 
-  it('renders sponsor cards', () => {
+  it('renders no sponsor cards when all are disabled', () => {
     renderPage()
-    expect(screen.getByText(/Sponsor monthly on GitHub/i)).toBeInTheDocument()
-    expect(screen.getByText(/One-time contribution/i)).toBeInTheDocument()
-    expect(screen.getByText(/For teams and organizations/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Sponsor monthly on GitHub/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/One-time contribution/i)).not.toBeInTheDocument()
+    expect(screen.queryByText(/For teams and organizations/i)).not.toBeInTheDocument()
   })
 
   it('renders contributors section', () => {

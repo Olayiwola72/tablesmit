@@ -1,8 +1,10 @@
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import type { ChangelogEntry } from '../../config/changelog/changelog.types'
 import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
+import { siteConfig } from '../../config/siteConfig'
 
 export function ChangelogPage(): ReactNode {
   const { t } = useTranslation()
@@ -10,6 +12,10 @@ export function ChangelogPage(): ReactNode {
     <>
       <Helmet>
         <title>{t('meta.changelogTitle')}</title>
+        <meta name="description" content={t('meta.changelogDescription')} />
+        <meta property="og:title" content={t('meta.changelogTitle')} />
+        <meta property="og:description" content={t('meta.changelogDescription')} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.changelog}`} />
       </Helmet>
       <main className="mx-auto max-w-narrow px-4 py-16">
       <h1 className="text-3xl font-bold text-text-primary">{t('nav.changelog')}</h1>
@@ -38,6 +44,15 @@ export function ChangelogPage(): ReactNode {
             </ul>
           </article>
         ))}
+      </div>
+
+      <div className="mt-12 text-center">
+        <Link
+          to={siteConfig.routes.home}
+          className="text-sm font-semibold text-primary hover:underline"
+        >
+          &larr; Back to Tablesmit
+        </Link>
       </div>
     </main>
     </>

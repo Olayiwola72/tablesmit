@@ -13,6 +13,11 @@ export function OpenSourcePage(): ReactNode {
     <>
       <Helmet>
         <title>{t('meta.openSourceTitle')}</title>
+        <meta name="description" content={t('meta.openSourceDescription')} />
+        <meta property="og:title" content={t('meta.openSourceTitle')} />
+        <meta property="og:description" content={t('meta.openSourceDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.openSource}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.openSource}`} />
       </Helmet>
       <main>
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
@@ -36,11 +41,11 @@ export function OpenSourcePage(): ReactNode {
       <section className="bg-surface px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div className="mx-auto max-w-content">
           <h2 className="text-center text-2xl font-bold text-text-primary">{t('openSource.sponsorHeading')}</h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {sponsors.map((sponsor) => (
+          <div className="mt-10 flex flex-wrap justify-center gap-6">
+            {sponsors.filter((s) => s.enabled).map((sponsor) => (
               <article
                 key={sponsor.id}
-                className="flex flex-col rounded-md border border-border bg-white p-6"
+                className="flex w-full max-w-sm flex-col rounded-md border border-border bg-white p-6"
               >
                 <h3 className="text-lg font-semibold text-text-primary">{sponsor.label}</h3>
                 <p className="mt-2 flex-1 text-sm text-text-secondary">

@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import { siteConfig } from '../../config/siteConfig'
 
 export function PrivacyPage(): ReactNode {
@@ -11,6 +12,11 @@ export function PrivacyPage(): ReactNode {
     <>
       <Helmet>
         <title>{t('meta.privacyTitle')}</title>
+        <meta name="description" content={t('meta.privacyDescription')} />
+        <meta property="og:title" content={t('meta.privacyTitle')} />
+        <meta property="og:description" content={t('meta.privacyDescription')} />
+        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.privacy}`} />
+        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.privacy}`} />
       </Helmet>
       <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-text-primary">{t('footer.privacyPolicy')}</h1>
@@ -43,6 +49,22 @@ export function PrivacyPage(): ReactNode {
             </a>
           </p>
         </section>
+      </div>
+
+      <div className="mt-10 text-center">
+        <Link
+          to={siteConfig.routes.home}
+          className="text-sm font-semibold text-primary hover:underline"
+        >
+          &larr; Back to Tablesmit
+        </Link>
+        <span className="mx-3 text-text-muted">·</span>
+        <Link
+          to={siteConfig.routes.terms}
+          className="text-sm font-semibold text-primary hover:underline"
+        >
+          Terms of Use
+        </Link>
       </div>
     </main>
     </>
