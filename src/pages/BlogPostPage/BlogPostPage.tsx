@@ -79,7 +79,7 @@ export default function BlogPostPage(): ReactNode {
 
   if (!post) return <Navigate to={siteConfig.routes.blog} replace />
 
-  const postUrl = `${siteConfig.brand.url}/${siteConfig.routes.blog}/${post.slug}`
+  const postUrl = `${siteConfig.brand.url}${siteConfig.routes.blog}/${post.slug}`
 
   return (
     <>

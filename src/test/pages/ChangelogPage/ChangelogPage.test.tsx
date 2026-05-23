@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
 import { ChangelogPage } from '../../../pages/ChangelogPage/ChangelogPage'
@@ -8,7 +9,9 @@ import { CHANGELOG, getChangeStyle } from '../../../config/changelog/changelog'
 function renderPage(): void {
   render(
     <HelmetProvider>
-      <ChangelogPage />
+      <MemoryRouter>
+        <ChangelogPage />
+      </MemoryRouter>
     </HelmetProvider>,
   )
 }

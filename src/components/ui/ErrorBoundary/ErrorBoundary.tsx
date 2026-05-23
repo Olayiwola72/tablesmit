@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import * as Sentry from '@sentry/react'
+import { captureException } from '../../../lib/sentry.ts'
 import type { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types'
 
 function DefaultErrorFallback({ error }: { error: Error | null }): ReactNode {
@@ -35,9 +35,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   componentDidCatch(error: Error, info: ErrorInfo): void {
-    Sentry.captureException(error, {
-      contexts: { react: { componentStack: info.componentStack } },
-    })
+    captureException(error, { componentStack: info.componentStack })
     this.props.onError?.(error, info)
     if (import.meta.env.DEV) {
       console.error('[ErrorBoundary]', error, info.componentStack)

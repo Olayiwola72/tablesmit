@@ -54,6 +54,7 @@ export const siteConfig = {
       description: 'Sponsor monthly on GitHub',
       url: 'https://github.com/sponsors/Olayiwola72',
       cta: 'Sponsor on GitHub',
+      enabled: false,
     },
     {
       id: 'bmac',
@@ -61,6 +62,7 @@ export const siteConfig = {
       description: 'One-time contribution',
       url: 'https://buymeacoffee.com/Olayiwola72',
       cta: 'Buy a coffee',
+      enabled: false,
     },
     {
       id: 'opencollective',
@@ -68,6 +70,7 @@ export const siteConfig = {
       description: 'For teams and organizations',
       url: 'https://opencollective.com/tablesmit',
       cta: 'Contribute',
+      enabled: false,
     },
   ],
   nav: [
