@@ -51,20 +51,11 @@ describe('TableCaption', () => {
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
   })
 
-  it('renders center alignment with responsive classes by default (left on mobile, center on desktop)', () => {
+  it('renders center alignment directly without responsive fallback', () => {
     renderWithProviders(<TableCaption {...defaultProps} alignment="center" />)
     const btn = screen.getByText('Add a table title or caption (optional)')
-    expect(btn.className).toContain('text-left')
-    expect(btn.className).toContain('md:text-center')
-  })
-
-  it('renders center alignment without responsive classes after user explicitly selects center', async () => {
-    const user = userEvent.setup()
-    renderWithProviders(<TableCaption {...defaultProps} alignment="center" />)
-    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
-    await user.click(screen.getByText(/Align center/))
-    expect(screen.getByText('Add a table title or caption (optional)').className).toContain('text-center')
-    expect(screen.getByText('Add a table title or caption (optional)').className).not.toContain('md:text-center')
+    expect(btn.className).toContain('text-center')
+    expect(btn.className).not.toContain('md:text-center')
   })
 
   it('renders right alignment without responsive override', () => {

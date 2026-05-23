@@ -9,6 +9,21 @@ on:
   workflow_dispatch:
 
 jobs:
+  validate-branch-name:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check branch name
+        run: |
+          BRANCH="${GITHUB_HEAD_REF}"
+          if [[ ! "$BRANCH" =~ ^(feature|fix|docs|chore|test|refactor|content|i18n)\/.+ ]]; then
+            echo "Invalid branch name: '$BRANCH'"
+            echo "Allowed prefixes: feature/ fix/ docs/ chore/ test/ refactor/ content/ i18n/"
+            exit 1
+          fi
+          echo "Branch name '$BRANCH' is valid."
+
+
   build-and-deploy:
     runs-on: ubuntu-latest
 

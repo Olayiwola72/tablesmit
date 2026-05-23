@@ -2973,7 +2973,8 @@ Last updated: 2026-05-23 — 1083 tests passing (139 test files), coverage thres
 - [x] Feature landing pages — system built + 23 JSON files live in `src/content/features/` (Section 59)
 - [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
   - [x] Google Search Console — verified + sitemap submitted (Section 38G)
-  - [ ] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 53)
+  - [x] Netlify env var — `VITE_GA4_MEASUREMENT_ID` set in dashboard (Section 53)
+  - [x] Netlify env var — `VITE_SENTRY_DSN` set in dashboard (Section 53)
 - [x] Sitemap updated with blog post and feature page URLs
 
 ---
@@ -7837,14 +7838,15 @@ CONTENT — must ship before any promotion:
 [x] Feature landing pages — system built + 23 JSON files live (Section 59)
 [ ] Real testimonials — replace empty TESTIMONIALS array with at least 3 real quotes (Section 57)
 [x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
-[ ] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
+[x] Netlify env var — VITE_GA4_MEASUREMENT_ID set in dashboard (Section 53)
+[ ] Netlify env var — VITE_SENTRY_DSN set in dashboard (Section 53)
 
 ARCHITECTURE:
 [x] Split contexts — TableDataContext / TableSelectionContext / TableContext (Section 37)
 [x] ARIA grid pattern — role="grid", row/cell roles, arrow key navigation (Section 44)
 
 MONITORING:
-[ ] Sentry — VITE_SENTRY_DSN set + Sentry.init wired to ErrorBoundary (Section 46)
+[x] Sentry — VITE_SENTRY_DSN set + Sentry.init wired to ErrorBoundary (Section 46)
 
 GROWTH:
 [ ] GitHub stars ≥ 20 → submit to Made in Nigeria OSS (Section 38I / 54)

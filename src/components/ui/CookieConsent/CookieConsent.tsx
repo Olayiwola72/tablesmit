@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../Button/Button'
 import { siteConfig } from '../../../config/siteConfig'
@@ -26,16 +26,20 @@ function setConsent(value: 'accepted' | 'declined'): void {
 export function CookieConsent(): ReactNode {
   const { t } = useTranslation()
   const [consent, setConsentState] = useState<'accepted' | 'declined' | null>(getConsent)
+  const analyticsLoaded = useRef(false)
 
-  if (consent !== null) {
-    if (consent === 'accepted' && import.meta.env.PROD) loadAnalytics()
-    return null
-  }
+  useEffect(() => {
+    if (consent === 'accepted' && import.meta.env.PROD && !analyticsLoaded.current) {
+      analyticsLoaded.current = true
+      try { loadAnalytics() } catch { /* gtag blocked or unavailable */ }
+    }
+  }, [consent])
+
+  if (consent !== null) return null
 
   const accept = (): void => {
     setConsent('accepted')
     setConsentState('accepted')
-    if (import.meta.env.PROD) loadAnalytics()
   }
   const decline = (): void => {
     setConsent('declined')
