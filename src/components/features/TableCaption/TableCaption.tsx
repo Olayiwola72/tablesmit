@@ -27,6 +27,7 @@ function TableCaptionRaw({
   const dragRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
   const rafRef = useRef<number>()
+  const [hasUserChosen, setHasUserChosen] = useState(false)
 
   const onResizeStart = useCallback((e: React.MouseEvent): void => {
     e.preventDefault()
@@ -55,8 +56,9 @@ function TableCaptionRaw({
     document.addEventListener('mouseup', onUp)
   }, [captionH])
 
-  const alignClass =
-    alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left'
+  const alignClass = hasUserChosen
+    ? alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left'
+    : alignment === 'center' ? 'text-left md:text-center' : alignment === 'right' ? 'text-right' : 'text-left'
 
   const textColorStyle = textColor ? { color: textColor } : undefined
   const bgColorStyle = bgColor ? { backgroundColor: bgColor } : undefined
@@ -71,6 +73,7 @@ function TableCaptionRaw({
   const closeMenu = useCallback((): void => { setCtxMenu(null); setActivePicker(null) }, [])
 
   const setAlign = useCallback((a: CaptionAlignment): void => {
+    setHasUserChosen(true)
     onAlignmentChange(a)
     closeMenu()
   }, [onAlignmentChange, closeMenu])
@@ -247,6 +250,7 @@ function TableCaptionRaw({
         ref={dragRef}
         onMouseDown={onResizeStart}
         className="absolute bottom-0 left-0 right-0 h-2 cursor-row-resize opacity-0 hover:opacity-100 transition-opacity duration-100 bg-primary/20"
+        role="separator"
         aria-label="Resize caption height"
       />
       {ctxMenu ? (

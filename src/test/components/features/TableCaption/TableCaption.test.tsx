@@ -51,12 +51,30 @@ describe('TableCaption', () => {
     expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
   })
 
-  it('renders with correct alignment class', () => {
-    const { rerender } = renderWithProviders(<TableCaption {...defaultProps} alignment="center" />)
+  it('renders center alignment with responsive classes by default (left on mobile, center on desktop)', () => {
+    renderWithProviders(<TableCaption {...defaultProps} alignment="center" />)
     const btn = screen.getByText('Add a table title or caption (optional)')
-    expect(btn.className).toContain('text-center')
-    rerender(<TooltipProvider><TableCaption {...defaultProps} alignment="right" /></TooltipProvider>)
+    expect(btn.className).toContain('text-left')
+    expect(btn.className).toContain('md:text-center')
+  })
+
+  it('renders center alignment without responsive classes after user explicitly selects center', async () => {
+    const user = userEvent.setup()
+    renderWithProviders(<TableCaption {...defaultProps} alignment="center" />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    await user.click(screen.getByText(/Align center/))
+    expect(screen.getByText('Add a table title or caption (optional)').className).toContain('text-center')
+    expect(screen.getByText('Add a table title or caption (optional)').className).not.toContain('md:text-center')
+  })
+
+  it('renders right alignment without responsive override', () => {
+    renderWithProviders(<TableCaption {...defaultProps} alignment="right" />)
     expect(screen.getByText('Add a table title or caption (optional)').className).toContain('text-right')
+  })
+
+  it('renders left alignment without responsive override', () => {
+    renderWithProviders(<TableCaption {...defaultProps} alignment="left" />)
+    expect(screen.getByText('Add a table title or caption (optional)').className).toContain('text-left')
   })
 
   it('opens context menu on right-click', () => {

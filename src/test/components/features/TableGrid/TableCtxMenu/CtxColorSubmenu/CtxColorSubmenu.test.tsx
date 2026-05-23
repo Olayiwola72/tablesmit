@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { CtxColorSubmenu } from '../../../../../components/features/TableGrid/TableCtxMenu/CtxColorSubmenu/CtxColorSubmenu'
+import { CtxColorSubmenu } from '../../../../../../components/features/TableGrid/TableCtxMenu/CtxColorSubmenu/CtxColorSubmenu'
 
 const baseProps = {
   current: '',
@@ -53,7 +53,6 @@ describe('CtxColorSubmenu', () => {
   it('highlights the current color preset with a ring', () => {
     renderMenu({ ...baseProps, current: '#FFE4E1' })
     const buttons = screen.getAllByRole('button')
-    // First preset should have the ring
     expect(buttons[0].className).toContain('ring-2')
     expect(buttons[0].className).toContain('ring-primary')
   })

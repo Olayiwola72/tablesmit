@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { CtxColumnTypeSubmenu } from '../../../../../components/features/TableGrid/TableCtxMenu/CtxColumnTypeSubmenu/CtxColumnTypeSubmenu'
-import type { CtxColumnTypeSubmenuProps } from '../../../../../components/features/TableGrid/TableCtxMenu/CtxColumnTypeSubmenu/CtxColumnTypeSubmenu.types'
+import { CtxColumnTypeSubmenu } from '../../../../../../components/features/TableGrid/TableCtxMenu/CtxColumnTypeSubmenu/CtxColumnTypeSubmenu'
+import type { CtxColumnTypeSubmenuProps } from '../../../../../../components/features/TableGrid/TableCtxMenu/CtxColumnTypeSubmenu/CtxColumnTypeSubmenu.types'
 
 const baseProps: CtxColumnTypeSubmenuProps = {
   currentFormat: undefined,

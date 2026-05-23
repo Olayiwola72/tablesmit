@@ -34,6 +34,8 @@ function el(): HTMLElement {
 describe('PDFExporter', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockHtml2canvas.mockReset()
+    mockHtml2canvas.mockResolvedValue(mockCanvas)
     mockCanvas.width = 800
     mockCanvas.height = 600
     mockCanvas.toDataURL.mockReturnValue('data:image/png;base64,fakedata')
@@ -50,11 +52,28 @@ describe('PDFExporter', () => {
     await new PDFExporter().export(element, { format: 'pdf' })
     expect(mockHtml2canvas).toHaveBeenCalledWith(element, expect.objectContaining({
       backgroundColor: '#ffffff',
-      scale: 3,
+      scale: 2,
       useCORS: true,
     }))
     const [, opts] = mockHtml2canvas.mock.calls[0]
     expect(typeof opts.onclone).toBe('function')
+  })
+
+  it('falls back to lower scale when html2canvas fails', async () => {
+    mockHtml2canvas
+      .mockRejectedValueOnce(new Error('canvas too large'))
+      .mockResolvedValueOnce(mockCanvas)
+    await new PDFExporter().export(el(), { format: 'pdf' })
+    expect(mockHtml2canvas).toHaveBeenCalledTimes(2)
+    expect(mockHtml2canvas.mock.calls[0][1].scale).toBe(2)
+    expect(mockHtml2canvas.mock.calls[1][1].scale).toBe(1.5)
+    expect(mockPdfInstance.save).toHaveBeenCalled()
+  })
+
+  it('re-throws when all scales fail', async () => {
+    mockHtml2canvas.mockRejectedValue(new Error('canvas error'))
+    await expect(new PDFExporter().export(el(), { format: 'pdf' })).rejects.toThrow('canvas error')
+    expect(mockHtml2canvas).toHaveBeenCalledTimes(3)
   })
 
   it('creates jsPDF with landscape for wide canvas', async () => {

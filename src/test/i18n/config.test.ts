@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LOCALES } from '../../../i18n/config'
+import { LOCALES } from '../../i18n/config'
 
 describe('LOCALES', () => {
   it('has exactly 8 locales', () => {

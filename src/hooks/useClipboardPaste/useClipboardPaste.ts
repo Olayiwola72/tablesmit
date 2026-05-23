@@ -40,6 +40,12 @@ export function useClipboardPaste(
           pastedRows = parseLatexTabular(text)
         }
 
+        if (pastedRows.length === 0 && text && text.includes('|')) {
+          const { parseMarkdownTable } = await import('../../utils/markdownUtils/markdownToCells')
+          const result = parseMarkdownTable(text)
+          if (result) pastedRows = result
+        }
+
         if (pastedRows.length === 0 && text) {
           const lines = text.split(/\r?\n/).filter(Boolean)
           const delim = lines.some((line) => line.includes('\t')) ? '\t' : ','

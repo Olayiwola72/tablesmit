@@ -68,7 +68,7 @@
     @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased dark:bg-slate-900 dark:text-slate-100;
   }
   #root {
-    @apply flex min-h-full flex-col;
+    @apply flex min-h-dvh flex-col;
   }
   h1, h2, h3, p {
     @apply mt-0;

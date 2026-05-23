@@ -62,7 +62,7 @@ Everything runs in the browser. Your data never touches a server.
 The stack, since you will ask:
 
 React 18 · TypeScript strict · Vite · Tailwind · shadcn/ui · react-i18next
-(8 languages, Arabic RTL included) · Vitest with 404 tests passing ·
+(8 languages, Arabic RTL included) · Vitest with 1083 tests passing ·
 Playwright for E2E · Sentry for error monitoring · PWA with offline support.
 
 Export uses a strategy pattern — each format (PDF, Excel, PNG, JPEG, CSV) is
@@ -171,7 +171,7 @@ The technical bit, for those who care:
 
 React 18 · TypeScript strict · Vite · shadcn/ui
 8-language i18n including Arabic RTL
-404 unit tests passing
+1083 unit tests passing
 PWA — works offline
 Strategy pattern for exports
 File-driven blog

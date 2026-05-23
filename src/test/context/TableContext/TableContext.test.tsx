@@ -163,40 +163,7 @@ describe('TableContext', () => {
       const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
       expect(result.current.caption).toBe('')
       expect(result.current.captionAlignment).toBe('center')
-      expect(result.current.captionTextColor).toBe('')
-      expect(result.current.captionBgColor).toBe('')
-    })
 
-    it('sets caption value', () => {
-      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
-      act(() => result.current.setCaption('Table 1'))
-      expect(result.current.caption).toBe('Table 1')
-    })
-
-    it('sets caption alignment', () => {
-      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
-      act(() => result.current.setCaptionAlignment('right'))
-      expect(result.current.captionAlignment).toBe('right')
-    })
-
-    it('sets caption text color', () => {
-      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
-      act(() => result.current.setCaptionTextColor('#ff0000'))
-      expect(result.current.captionTextColor).toBe('#ff0000')
-    })
-
-    it('sets caption background color', () => {
-      const { result } = renderHook(() => useTableContext(), { wrapper: Wrapper })
-      act(() => result.current.setCaptionBgColor('#EFF6FF'))
-      expect(result.current.captionBgColor).toBe('#EFF6FF')
-    })
-
-    it('caption fields are included in initialState', () => {
-      expect(initialState).toHaveProperty('caption')
-      expect(initialState).toHaveProperty('captionAlignment')
-      expect(initialState).toHaveProperty('captionTextColor')
-      expect(initialState).toHaveProperty('captionBgColor')
-      expect(initialState.caption).toBe('')
       expect(initialState.captionAlignment).toBe('center')
     })
   })

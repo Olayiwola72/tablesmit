@@ -1,6 +1,6 @@
 # Tablesmit — Brand Identity & Engineering Implementation Guide
 > For AI Coding Agents (Codex, Claude Code, etc.)
-> Version 6.0 | Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
+> Version 8.0 | Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
 > Status: Authoritative. Do not deviate without explicit instruction.
 
 ---
@@ -76,127 +76,65 @@ remove it. When in doubt: simplify.
 
 ## 2. Logo
 
-### 2A. Primary Logo (Full — Icon + Wordmark)
+The only logo is the **T-form** — three rectangles forming a table with a header row.
+No outlines, no strokes. Pure filled shapes only.
+Rendered as a React SVG component (`src/components/ui/Logo/Logo.tsx`), not an external image file.
 
+### Concept
+
+Three rectangles. Full opacity on top (the header row), fading opacity below
+(two data columns). Reads as a table with a header from 16px up.
+The decreasing opacity from left column to right subtly implies "more columns beyond."
+The shape is also a T — a quiet reference to the brand name.
+
+### 2A. Full Logo (Icon + Wordmark)
+
+**Light background:**
 ```svg
 <svg width="220" height="48" viewBox="0 0 220 48" fill="none"
      xmlns="http://www.w3.org/2000/svg">
   <g transform="translate(4,8)">
-    <rect x="0" y="0" width="32" height="32" rx="6"
-          stroke="#1E293B" stroke-width="1.5" fill="none"/>
-    <line x1="12" y1="6" x2="12" y2="26"
-          stroke="#1E293B" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="6" y1="14" x2="26" y2="14"
-          stroke="#1E293B" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="0" y="0" width="30" height="10" rx="4" fill="#1E40AF"/>
+    <rect x="0" y="13" width="13" height="15" rx="3" fill="#1E40AF" opacity="0.28"/>
+    <rect x="17" y="13" width="13" height="15" rx="3" fill="#1E40AF" opacity="0.14"/>
   </g>
-  <text x="52" y="30"
-        font-family="Inter, -apple-system, sans-serif"
+  <text x="46" y="30"
+        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
         font-size="22" font-weight="600" letter-spacing="-0.5"
         fill="#1E293B">Tablesmit</text>
 </svg>
 ```
 
-### 2B. Icon Mark Only (Favicon)
-
+**Dark background:**
 ```svg
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none"
-     xmlns="http://www.w3.org/2000/svg">
-  <rect x="1" y="1" width="30" height="30" rx="6"
-        stroke="#1E293B" stroke-width="1.5" fill="none"/>
-  <line x1="11" y1="5" x2="11" y2="27"
-        stroke="#1E293B" stroke-width="1.5" stroke-linecap="round"/>
-  <line x1="5" y1="13" x2="27" y2="13"
-        stroke="#1E293B" stroke-width="1.5" stroke-linecap="round"/>
-</svg>
-```
-
-### 2C. Logo Rules
-- Minimum: 120px wide (full) · 24px (icon)
-- On white: full color as above
-- On dark: swap `#1E293B` → `#FFFFFF`
-- Never: stretch, rotate, recolor, add shadows, or animate
-
----
-
-### 2D. Logo 2 — T-form (Alternate · Ready to Switch)
-
-Status: **approved, not yet active**. Logo 1 remains current until explicitly switched.
-To activate: replace all Logo 1 SVG references with Logo 2 SVGs below. One find-and-replace.
-
-#### Concept
-
-Three rectangles. No outlines, no strokes. Full opacity on top (the header row),
-fading opacity below (two data columns). Reads as a table with a header from 16px up.
-The decreasing opacity from left column to right subtly implies "more data beyond the fold."
-The shape is also a T — a quiet reference to the brand name.
-
-#### Logo 2A — Full Logo (icon + wordmark)
-
-```svg
-<!-- Tablesmit Logo 2 — Full — Light background -->
 <svg width="220" height="48" viewBox="0 0 220 48" fill="none"
      xmlns="http://www.w3.org/2000/svg">
-
-  <!-- Icon mark: T-form (header row + two column cells) -->
   <g transform="translate(4,8)">
-    <!-- Header row — full width, solid primary blue -->
-    <rect x="0" y="0" width="30" height="10" rx="4" fill="#1E40AF"/>
-    <!-- Left column cell — 28% opacity -->
-    <rect x="0" y="13" width="13" height="15" rx="3" fill="#1E40AF" opacity="0.28"/>
-    <!-- Right column cell — 14% opacity -->
-    <rect x="17" y="13" width="13" height="15" rx="3" fill="#1E40AF" opacity="0.14"/>
-  </g>
-
-  <!-- Wordmark -->
-  <text x="46" y="30"
-        font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-        font-size="22"
-        font-weight="600"
-        letter-spacing="-0.5"
-        fill="#1E293B">Tablesmit</text>
-
-</svg>
-```
-
-```svg
-<!-- Tablesmit Logo 2 — Full — Dark background -->
-<svg width="220" height="48" viewBox="0 0 220 48" fill="none"
-     xmlns="http://www.w3.org/2000/svg">
-
-  <g transform="translate(4,8)">
-    <!-- Header row — lighter blue for dark backgrounds -->
     <rect x="0" y="0" width="30" height="10" rx="4" fill="#60A5FA"/>
     <rect x="0" y="13" width="13" height="15" rx="3" fill="#60A5FA" opacity="0.35"/>
     <rect x="17" y="13" width="13" height="15" rx="3" fill="#60A5FA" opacity="0.18"/>
   </g>
-
   <text x="46" y="30"
         font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
-        font-size="22"
-        font-weight="600"
-        letter-spacing="-0.5"
+        font-size="22" font-weight="600" letter-spacing="-0.5"
         fill="#FFFFFF">Tablesmit</text>
-
 </svg>
 ```
 
-#### Logo 2B — Icon Mark Only (Favicon / App Icon)
+### 2B. Icon Mark Only (Favicon / App Icon)
 
+**Light background:**
 ```svg
-<!-- Tablesmit Logo 2 — Icon mark — Light -->
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
      xmlns="http://www.w3.org/2000/svg">
-  <!-- Header row -->
   <rect x="2" y="2" width="28" height="10" rx="4" fill="#1E40AF"/>
-  <!-- Left column cell -->
   <rect x="2" y="15" width="12" height="15" rx="3" fill="#1E40AF" opacity="0.28"/>
-  <!-- Right column cell -->
   <rect x="18" y="15" width="12" height="15" rx="3" fill="#1E40AF" opacity="0.14"/>
 </svg>
 ```
 
+**Dark background:**
 ```svg
-<!-- Tablesmit Logo 2 — Icon mark — Dark -->
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none"
      xmlns="http://www.w3.org/2000/svg">
   <rect x="2" y="2" width="28" height="10" rx="4" fill="#60A5FA"/>
@@ -205,9 +143,12 @@ The shape is also a T — a quiet reference to the brand name.
 </svg>
 ```
 
-#### Logo 2 — Anatomy & Rules
+### 2C. Anatomy & Rules
 
 ```
+Full logo:   220×48 viewBox, icon at (4,8), wordmark at x=46, y=30
+Icon mark:   32×32 viewBox
+
 Header bar:     x=2, y=2, width=28, height=10, rx=4
                 fill: #1E40AF (light) · #60A5FA (dark)
                 Represents: the header row — the product's signature feature
@@ -220,27 +161,30 @@ Right cell:     x=18, y=15, width=12, height=15, rx=3
                 opacity: 0.14 (light) · 0.20 (dark)
                 Gap from left cell: 6px
 
-Key decisions:
-  - No outlines, no strokes — pure filled shapes only
-  - Opacity fade (left → right) implies "more columns beyond"
-  - 3px gap between header and body = visual table separation
-  - All rx values ≤ 4px — consistent with UI rounded corner rules
-  - Minimum render size: 16px (favicon) — all three shapes remain distinct
-
-Color rules:
-  - Light backgrounds: #1E40AF header + opacity fades
-  - Dark backgrounds: #60A5FA (blue-400) header + opacity fades
-  - Never recolor the header bar to anything other than these two values
-  - Never remove the opacity difference between left and right cells
-  - Never add outlines or strokes
-
-Switch checklist (when activating Logo 2):
-  [x] Replace Logo 1A SVG in Navbar component — uses Logo component, activeLogo already set to 'logo2'
-  [x] Replace Logo 1B SVG in public/favicon.svg — already updated
-  [x] Replace Logo 1B SVG in PageLoader component — uses Logo component
-  [x] Update og-image.png to use new mark
-  [x] Verify dark background variant renders correctly in any dark UI panels — Logo component handles theme prop
+Wordmark:       font-size 22, font-weight 600, letter-spacing -0.5
+                fill: #1E293B (light) · #FFFFFF (dark)
 ```
+
+### 2D. Logo Rules
+- Minimum: 120px wide (full) · 24px (icon)
+- No outlines, no strokes — pure filled shapes only
+- Opacity fade (left → right) implies "more columns beyond"
+- 3px gap between header and body = visual table separation
+- All `rx` values ≤ 4px — consistent with UI rounded corner rules
+- Minimum render size: 16px (favicon) — all three shapes remain distinct
+- Never recolor the header bar to anything other than `#1E40AF` (light) or `#60A5FA` (dark)
+- Never remove the opacity difference between left and right cells
+- Never add outlines or strokes
+- Never: stretch, rotate, recolor, add shadows, or animate
+
+### 2E. Implementation
+
+The logo is a pure React SVG component at `src/components/ui/Logo/Logo.tsx` with two variants:
+- `variant="full"` — 220×48 SVG with icon + wordmark
+- `variant="icon"` — 32×32 SVG, icon only (used in Navbar mobile, favicon, PageLoader)
+
+Theme is handled via the `theme` prop (`'light'` | `'dark'`), which controls fill colors.
+No external image files are loaded at runtime — `src/assets/logo.svg` exists for reference only.
 
 ---
 
@@ -412,11 +356,7 @@ Layout: justify-between items-center px-6
 Left: Logo SVG
 Center: nav links — text-sm font-medium text-text-secondary hover:text-primary
 Right: GitHub ghost button (ExternalLink icon)
-<<<<<<< HEAD
-Links: Home · About · Blog · Contact · Open Source · Changelog
-=======
-Links: Home · About · Blog · Contact · Open Source · Changelog · Testimonials
->>>>>>> 07c248b (setting up testimonials page)
+Links: Home · About · Features · Blog · Contact · Open Source · Changelog · Testimonials
 CTA: "Create a Table" lives in the hero section — not in the navbar
 ```
 
@@ -442,7 +382,7 @@ PRIMARY
   Active:   active:bg-[#1a3080] active:scale-[0.97] active:shadow-none
   Loading:  aria-busy cursor-wait opacity-70
 
-ACCENT  (Generate Table — one instance only)
+ACCENT  (Create Table — one instance only)
   Default:  bg-accent text-white px-5 py-2.5
   Hover:    hover:bg-accent-hover hover:shadow-md
   Active:   active:bg-[#b45309] active:scale-[0.97] active:shadow-none
@@ -488,7 +428,7 @@ NAV LINK (not a button, but stateful)
 // Use cva() (class-variance-authority) to define variants cleanly.
 
 import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const buttonVariants = cva(
   // Base classes applied to every variant
@@ -523,7 +463,7 @@ Groups separated by: <div class="w-px h-5 bg-border mx-1" />
 
 Groups:
   1. Templates ▾ (DropdownMenu)                          (secondary button)
-       └─ Research Notes · Feature Matrix · Content Tracker · Budget Summary
+       └─ Research Notes · Feature Matrix · Content Tracker · Budget Summary · Q1 Performance
   2. Add Row · Add Column · Remove Row · Remove Column   (ghost buttons)
   3. Merge · Unmerge                                     (ghost buttons)
   4. Import ▾ (DropdownMenu)                             (secondary button)
@@ -660,7 +600,7 @@ Row height:   min 32px · max 300px
 ### Navigation
 ```
 Left:   [Tablesmit SVG Logo]
-Center: Home  |  Blog  |  Open Source  |  About  |  Contact  |  Changelog
+Center: Home  |  About  |  Features  |  Blog  |  Contact  |  Open Source  |  Changelog  |  Testimonials
 Right:  [GitHub ↗]         (ghost button with ExternalLink icon)
 ```
 
@@ -691,7 +631,7 @@ Clean white space speaks for itself.
 
 ---
 
-> **Note:** The Features section was removed from the LandingPage. The table maker page (`/`) now serves as the primary entry point. The About page (`/about`) contains the brand story and "What Tablesmit Is Not" list.
+> **Note:** The table maker page (`/`) serves as the primary entry point. The About page (`/about`) contains the brand story and "What Tablesmit Is Not" list. There is no separate LandingPage — AboutPage at `/about` fulfills that role.
 
 ---
 
@@ -759,8 +699,8 @@ LEFT:
   © {getCurrentYear()} Tablesmit. Open source under MIT license.
 
 RIGHT (flex gap-8 text-sm text-text-secondary):
-  Product:    Home · Open Source
-  Company:    About · Contact · GitHub ↗
+  Product:    Home · Blog · Features · Changelog · Open Source
+  Company:    About · Contact · Testimonials · Privacy Policy · Terms of Use · GitHub ↗
   Export:     PDF · PNG · JPEG · Excel · CSV · LaTeX
 
 Footer links: hover:text-primary transition-colors
@@ -853,10 +793,9 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
 | Icons             | **Lucide React**                                                  | `lucide-react` — only icon library  |
 | Drag/Resize       | **@dnd-kit/core + @dnd-kit/utilities**                            | Column/row resize, row reorder      |
 | Export PDF        | **jsPDF + html2canvas**                                           | –                                   |
-| Export Excel      | **@e965/xlsx** (SheetJS fork)                                     | Export + import                     |
-| Export Image      | **html2canvas**                                                   | PNG + JPEG                          |
-| Import CSV        | **PapaParse**                                                     | Fast, typed, browser-safe CSV parse |
-| Import Excel      | **@e965/xlsx** (SheetJS fork)                                     | Same lib as export — no extra dep   |
+| Export Excel      | **exceljs**                                     | Export + import                     |
+
+| Import Excel      | **exceljs**                                     | Same lib as export — no extra dep   |
 | Unit Testing      | **Vitest + React Testing Library + @testing-library/user-event**  | –                                   |
 | E2E Testing       | **Playwright**                                                    | Tests in `e2e/`                     |
 | Routing           | **React Router v6**                                               | –                                   |
@@ -877,7 +816,7 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
 - **Lucide React** for all icons — consistent, tree-shakeable, typed.
 - **@dnd-kit** for all drag interactions — resize handles, row reordering.
 - **PapaParse** for CSV import — `Papa.parse(file, { header: true })` returns typed rows.
-- **@e965/xlsx** (SheetJS fork) handles both Excel import and export — do not add a second Excel library.
+- **exceljs** handles both Excel import and export — do not add a second Excel library.
 - Introduce a new library only if: (a) it solves a real problem, and
   (b) it is actively maintained with >1k GitHub stars.
 - Do NOT install two libraries that solve the same problem.
@@ -893,19 +832,30 @@ tablesmit/
 ├── public/
 │   ├── favicon.svg                     ← icon-mark SVG (Section 2B)
 │   ├── og-image.png
+│   ├── og-image.svg
 │   ├── robots.txt
 │   ├── sitemap.xml
-│   └── manifest.webmanifest
+│   ├── fonts/                          # Self-hosted woff2 font files
+│   ├── icons/                          # PWA icons (192, 512)
+│   ├── launch/                         # Product Hunt + HN launch copy
+│   └── locales/                        # i18n JSON per language
+│       ├── ar/common.json
+│       ├── de/common.json
+│       ├── ...
+│       └── no/common.json
 │
 ├── scripts/
-│   └── md-to-blog-post.ts              # Helper: .md → blog JSON
+│   ├── md-to-blog-post.ts              # Helper: .md → blog JSON
+│   └── sitemap/
+│       ├── generate-sitemap.ts
+│       └── sitemap.types.ts
 │
 ├── e2e/
 │   └── critical-path.spec.ts           # Playwright E2E tests
 │
 ├── .github/
 │   ├── workflows/
-│   │   └── deploy-netlify.yml          # CI/CD pipeline
+│   │   └── deploy-netlify.yml          # CI/CD: lint + test + build + deploy
 │   ├── ISSUE_TEMPLATE/
 │   │   ├── bug_report.md
 │   │   └── feature_request.md
@@ -915,229 +865,260 @@ tablesmit/
 │   ├── assets/
 │   │   └── logo.svg                    ← full logo SVG (Section 2A)
 │   │
+│   ├── lib/
+│   │   └── utils.ts                    # cn() helper (clsx + tailwind-merge)
+│   │
 │   ├── components/
 │   │   │
 │   │   ├── ui/                         # Reusable, domain-agnostic primitives
 │   │   │   │                           # (extend shadcn/ui components here)
+│   │   │   ├── BackToTop/
+│   │   │   │   └── BackToTop.tsx
 │   │   │   ├── Badge/
-│   │   │   │   ├── Badge.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── Badge.tsx
 │   │   │   ├── Button/
-│   │   │   │   ├── Button.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── Button.tsx
 │   │   │   ├── ColorSwatch/
-│   │   │   │   ├── ColorSwatch.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── ColorSwatch.tsx
 │   │   │   ├── CookieConsent/
-│   │   │   │   ├── CookieConsent.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── CookieConsent.tsx
 │   │   │   ├── DropdownMenu/            # shadcn/ui wrapper
-│   │   │   │   ├── DropdownMenu.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── DropdownMenu.tsx
 │   │   │   ├── ErrorBoundary/
-│   │   │   │   ├── ErrorBoundary.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── ErrorBoundary.tsx
 │   │   │   ├── IconButton/
-│   │   │   │   ├── IconButton.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── IconButton.tsx
+│   │   │   ├── LanguagePicker/
+│   │   │   │   └── LanguagePicker.tsx
 │   │   │   ├── Logo/
-│   │   │   │   ├── Logo.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── Logo.tsx
+│   │   │   ├── NotFoundAnimation/
+│   │   │   │   └── NotFoundAnimation.tsx
 │   │   │   ├── PageLoader/
-│   │   │   │   ├── PageLoader.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── PageLoader.tsx
+│   │   │   ├── PaginationNav/
+│   │   │   │   └── PaginationNav.tsx
 │   │   │   ├── PanelLoader/
-│   │   │   │   ├── PanelLoader.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── PanelLoader.tsx
 │   │   │   ├── SectionLabel/
-│   │   │   │   ├── SectionLabel.tsx
-│   │   │   │   └── index.ts
-│   │   │   ├── Tooltip/                 # shadcn/ui wrapper
-│   │   │   │   ├── Tooltip.tsx
-│   │   │   │   └── index.ts
-│   │   │   └── ... (additional shadcn/ui add as needed)
+│   │   │   │   └── SectionLabel.tsx
+│   │   │   └── Tooltip/                 # shadcn/ui wrapper
+│   │   │       └── Tooltip.tsx
 │   │   │
 │   │   ├── layout/                     # Structural shell components
 │   │   │   ├── Footer/
-│   │   │   │   ├── Footer.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── Footer.tsx
+│   │   │   ├── FooterGroup/
+│   │   │   │   └── FooterGroup.tsx
 │   │   │   ├── MobileSheet/
-│   │   │   │   ├── MobileSheet.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── MobileSheet.tsx
 │   │   │   ├── Navbar/
-│   │   │   │   ├── Navbar.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── Navbar.tsx
 │   │   │   ├── PageWrapper/
-│   │   │   │   ├── PageWrapper.tsx
-│   │   │   │   └── index.ts
+│   │   │   │   └── PageWrapper.tsx
 │   │   │   └── Sidebar/
-│   │   │       ├── Sidebar.tsx
-│   │   │       └── index.ts
+│   │   │       └── Sidebar.tsx
 │   │   │
 │   │   └── features/                   # Domain-specific feature components
 │   │       ├── AiFeaturesPanel/
-│   │       │   ├── AiFeaturesPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── AiFeaturesPanel.tsx
+│   │       ├── BlogPostCard/
+│   │       │   └── BlogPostCard.tsx
 │   │       ├── BorderPanel/
-│   │       │   ├── BorderPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── BorderPanel.tsx
 │   │       ├── ColorPanel/
-│   │       │   ├── ColorPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── ColorPanel.tsx
 │   │       ├── ColumnFormattingPanel/
-│   │       │   ├── ColumnFormattingPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── ColumnFormattingPanel.tsx
 │   │       ├── DimensionsPanel/
-│   │       │   ├── DimensionsPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── DimensionsPanel.tsx
 │   │       ├── ExportPanel/
-│   │       │   ├── ExportPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── ExportPanel.tsx
+│   │       ├── FeatureSections/         # For feature landing pages
+│   │       │   ├── FeatureBenefitsSection/
+│   │       │   ├── FeatureCtaSection/
+│   │       │   ├── FeatureHeroSection/
+│   │       │   ├── FeatureRelatedSection/
+│   │       │   ├── FeatureStepsSection/
+│   │       │   └── FeatureUseCasesSection/
 │   │       ├── FindReplace/
-│   │       │   ├── FindReplace.tsx
-│   │       │   └── index.ts
+│   │       │   └── FindReplace.tsx
 │   │       ├── HeaderOptionsPanel/
-│   │       │   ├── HeaderOptionsPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── HeaderOptionsPanel.tsx
+│   │       ├── HeroBanner/
+│   │       │   └── HeroBanner.tsx
 │   │       ├── MergeCellsPanel/
-│   │       │   ├── MergeCellsPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── MergeCellsPanel.tsx
+│   │       ├── MobileFloatingActions/
+│   │       │   └── MobileFloatingActions.tsx
 │   │       ├── QuickPresetsPanel/
-│   │       │   ├── QuickPresetsPanel.tsx
-│   │       │   └── index.ts
+│   │       │   └── QuickPresetsPanel.tsx
 │   │       ├── ShortcutsModal/
-│   │       │   ├── ShortcutsModal.tsx
-│   │       │   └── index.ts
+│   │       │   └── ShortcutsModal.tsx
+│   │       ├── StatusBar/
+│   │       │   └── StatusBar.tsx
 │   │       ├── TableCaption/
-│   │       │   ├── TableCaption.tsx
-│   │       │   └── index.ts
+│   │       │   └── TableCaption.tsx
 │   │       ├── TableGrid/
 │   │       │   ├── TableGrid.tsx
-│   │       │   ├── TableCell/
-│   │       │   │   ├── TableCell.tsx
-│   │       │   │   └── index.ts
-│   │       │   ├── TableCtxMenu/
-│   │       │   │   ├── TableCtxMenu.tsx
-│   │       │   │   └── index.ts
-│   │       │   ├── TableHeaderCell/
-│   │       │   │   ├── TableHeaderCell.tsx
-│   │       │   │   └── index.ts
+│   │       │   ├── PastingOverlay/
 │   │       │   ├── ResizeHandle/
-│   │       │   │   ├── ResizeHandle.tsx
-│   │       │   │   └── index.ts
-│   │       │   └── index.ts
+│   │       │   ├── SumRowFooter/
+│   │       │   ├── TableCell/
+│   │       │   ├── TableCtxMenu/
+│   │       │   │   ├── CtxAlignSubmenu/
+│   │       │   │   ├── CtxColorSubmenu/
+│   │       │   │   └── CtxColumnTypeSubmenu/
+│   │       │   ├── TableHeaderCell/
+│   │       │   └── TableHeaderRow/
+│   │       ├── TableMakerContent/
+│   │       │   └── TableMakerContent.tsx
 │   │       ├── TableToolbar/
-│   │       │   ├── TableToolbar.tsx
-│   │       │   └── index.ts
+│   │       │   ├── CopyDropdown/
+│   │       │   ├── ImportDropdown/
+│   │       │   ├── MergeUndoGroup/
+│   │       │   ├── MobileExportDropdown/
+│   │       │   ├── RowColumnActions/
+│   │       │   ├── TemplatesDropdown/
+│   │       │   ├── ThemeDropdown/
+│   │       │   └── TableToolbar.tsx
+│   │       ├── TestimonialCard/
+│   │       │   └── TestimonialCard.tsx
+│   │       ├── TestimonialEmptyState/
+│   │       │   └── TestimonialEmptyState.tsx
 │   │       └── ThemePicker/
-│   │           ├── ThemePicker.tsx
-│   │           └── index.ts
+│   │           └── ThemePicker.tsx
 │   │
-│   ├── pages/
+│   ├── pages/                           # No index.ts files — lazy-imported by path
 │   │   ├── AboutPage/
-│   │   │   ├── AboutPage.tsx
-│   │   │   └── index.ts
+│   │   │   └── AboutPage.tsx
 │   │   ├── BlogListPage/
-│   │   │   ├── BlogListPage.tsx
-│   │   │   └── index.ts
+│   │   │   └── BlogListPage.tsx
 │   │   ├── BlogPostPage/
-│   │   │   ├── BlogPostPage.tsx
-│   │   │   └── index.ts
+│   │   │   └── BlogPostPage.tsx
 │   │   ├── ChangelogPage/
-│   │   │   └── ChangelogPage.tsx        # imported directly via .tsx path (no index.ts)
+│   │   │   └── ChangelogPage.tsx
 │   │   ├── ContactPage/
-│   │   │   ├── ContactPage.tsx
-│   │   │   └── index.ts
-│   │   ├── LandingPage/
-│   │   │   ├── LandingPage.tsx
-│   │   │   └── index.ts
+│   │   │   └── ContactPage.tsx
+│   │   ├── FeatureDetailPage/
+│   │   │   └── FeatureDetailPage.tsx
+│   │   ├── FeaturesListPage/
+│   │   │   └── FeaturesListPage.tsx
 │   │   ├── NotFoundPage/
-│   │   │   ├── NotFoundPage.tsx
-│   │   │   └── index.ts
+│   │   │   └── NotFoundPage.tsx
 │   │   ├── OpenSourcePage/
-│   │   │   └── OpenSourcePage.tsx       # imported directly via .tsx path (no index.ts)
+│   │   │   └── OpenSourcePage.tsx
 │   │   ├── PrivacyPage/
-│   │   │   ├── PrivacyPage.tsx
-│   │   │   └── index.ts
-│   │   ├── TestimonialsPage/
-│   │   │   └── TestimonialsPage.tsx      # imported directly via .tsx path (no index.ts)
+│   │   │   └── PrivacyPage.tsx
 │   │   ├── TableMakerPage/
-│   │   │   ├── TableMakerPage.tsx
-│   │   │   └── index.ts
-│   │   └── TermsPage/
-│   │       ├── TermsPage.tsx
-│   │       └── index.ts
+│   │   │   └── TableMakerPage.tsx
+│   │   ├── TermsPage/
+│   │   │   └── TermsPage.tsx
+│   │   └── TestimonialsPage/
+│   │       └── TestimonialsPage.tsx
 │   │
 │   ├── context/
-│   │   ├── TableContext.tsx             # Global table state + dispatch (provider)
-│   │   ├── TableDataContext.tsx         # cells, columnWidths, rowHeights, mergedRanges
-│   │   └── TableSelectionContext.tsx    # selectedRange, hoveredCell, isDragging
+│   │   ├── TableContext.tsx             # Barrel re-export from sub-modules
+│   │   ├── TableDataContext/            # TableCellsContext — cells array only
+│   │   │   └── TableDataContext.tsx
+│   │   ├── TableProvider/               # Main provider wrapping all 3 contexts
+│   │   │   └── TableProvider.tsx
+│   │   ├── TableReducer/                # Reducer + action types
+│   │   │   └── TableReducer.ts
+│   │   ├── TableSelectionContext/       # TableSelectionCtx — selectedRange only
+│   │   │   └── TableSelectionContext.tsx
+│   │   └── TableState/                  # Initial state + persistence
+│   │       └── TableState.ts
 │   │   # no index.ts — contexts imported directly from their .tsx files
 │   │
-│   ├── hooks/
-│   │   ├── useColumnResize.ts          # Drag-to-resize columns (rAF)
-│   │   ├── useExport.ts                # Export orchestration
-│   │   ├── useFindReplace.ts           # Ctrl+F / Ctrl+H logic
-│   │   ├── useImport.ts                # CSV / Excel import
-│   │   ├── useMergeCells.ts            # Merge / unmerge
-│   │   ├── useRowResize.ts             # Drag-to-resize rows (rAF)
-│   │   ├── useTableHistory.ts          # Undo / redo (snapshot stack)
-│   │   ├── useTableSelection.ts        # Cell/range selection
-│   │   └── useTheme.ts                 # Dark/light mode toggle
+│   ├── hooks/                           # Each in own directory with optional .types.ts
+│   │   ├── useClipboardPaste/
+│   │   ├── useColumnResize/
+│   │   ├── useColumnSort/
+│   │   ├── useCopyTable/
+│   │   ├── useExport/
+│   │   ├── useFindReplace/
+│   │   ├── useImport/
+│   │   ├── useMergeCells/
+│   │   ├── usePrintTable/
+│   │   ├── useRowResize/
+│   │   ├── useTableCopyShortcut/
+│   │   ├── useTableGridKeyHandlers/
+│   │   ├── useTableHistory/
+│   │   ├── useTableSelection/
+│   │   └── useTheme/
 │   │
 │   ├── services/
-│   │   ├── blogService.ts              # import.meta.glob blog discovery
-│   │   ├── export/
-│   │   │   ├── index.ts                 # strategies map + exportTable()
-│   │   │   ├── utils.ts                 # downloadUrl helper
-│   │   │   ├── pdfExporter.ts           # PDFExporter class
-│   │   │   ├── imageExporter.ts         # ImageExporter (PNG/JPEG) class
-│   │   │   ├── csvExporter.ts           # CSVExporter + sanitizeCsvValue
-│   │   │   └── excelExporter.ts         # ExcelExporter class
-│   │   ├── exportService.ts             # Barrel re-export from ./export/
-│   │   └── importService.ts            # CSV / Excel import logic
+│   │   ├── blogService/                 # import.meta.glob blog discovery
+│   │   │   └── blogService.ts
+│   │   ├── exportService/               # Strategy pattern per format
+│   │   │   ├── index.ts                  # Factory + dynamic import
+│   │   │   ├── utils.ts                  # downloadUrl helper
+│   │   │   ├── export.types.ts           # ExportFormat, ExportStrategy
+│   │   │   └── impl/
+│   │   │       ├── csvExporter.ts
+│   │   │       ├── excelExporter.ts
+│   │   │       ├── imageExporter.ts
+│   │   │       ├── latexExporter.ts
+│   │   │       └── pdfExporter.ts
+│   │   ├── featureService/              # import.meta.glob feature discovery
+│   │   │   └── featureService.ts
+│   │   └── importService/
+│   │       └── importService.ts         # CSV (PapaParse) + Excel (SheetJS)
+│   │
+│   ├── i18n/
+│   │   ├── i18n.ts                      # i18next init (manual fetch, no http-backend)
+│   │   ├── config.ts                    # LOCALES array (8 languages)
+│   │   ├── types.d.ts                   # TS augmentation for type-safe t()
+│   │   └── locales/
+│   │       └── en.json                  # English source of truth (bundled directly)
 │   │
 │   ├── utils/
-│   │   ├── analytics.ts                # GA4 event tracking wrapper
-│   │   ├── cellUtils.ts                # Cell ID parsing, coordinate helpers
-│   │   ├── dateUtils.ts                # Dynamic year helper
-│   │   ├── formatDate.ts               # Intl.DateTimeFormat blog date formatting
-│   │   ├── formatUtils.ts              # Column format helpers
-│   │   ├── mergeUtils.ts               # Merge range math
-│   │   ├── tableUtils.ts               # Pure table transformation functions
-│   │   └── toast.ts                    # Sonner toast wrapper with TOAST consts
+│   │   ├── analytics/                   # GA4 event tracking
+│   │   ├── cell/                        # buildCellId, parseCellId
+│   │   ├── dateUtils/                   # getCurrentYear
+│   │   ├── formatDate/                  # Intl.DateTimeFormat
+│   │   ├── formatUtils/                 # Column format helpers
+│   │   ├── latexUtils/                  # cellsToLatex() — cells → LaTeX tabular string; parseLatexTabular() — LaTeX → string[][]
+│   │   ├── markdownUtils/               # parseMarkdownTable() — detects and parses Markdown pipe tables → string[][]
+│   │   ├── mergeUtils/                  # Merge range math
+│   │   ├── tableUtils/                  # Pure table transformation functions
+│   │   └── toast/                       # Sonner toast wrapper + TOAST consts
 │   │
 │   ├── types/
-│   │   ├── blog.types.ts               # BlogPost interface
-│   │   ├── export.types.ts
-│   │   ├── import.types.ts
-│   │   ├── table.types.ts
-│   │   └── ui.types.ts
+│   │   └── table/                       # All table-related types
+│   │       ├── index.ts
+│   │       ├── cell.types.ts
+│   │       ├── merge.types.ts
+│   │       ├── preset.types.ts
+│   │       └── table-state.types.ts
+│   │   # Per-service types live in the service directory (export.types.ts, etc.)
+│   │   # No top-level ui.types.ts — button/types exist in Button.types.ts
 │   │
 │   ├── config/
-│   │   ├── changelog.ts                # ChangelogEntry[] data
-│   │   ├── colorPalette.ts             # Header color swatches
-│   │   ├── exportConfig.ts             # Supported formats + options
-│   │   ├── presets.ts                  # Preset table definitions
 │   │   ├── siteConfig.ts               # Routes, nav, exports, branding (SSoT)
-│   │   ├── tableDefaults.ts            # DEFAULT_ROWS, DEFAULT_COLS, MAX limits
-│   │   └── tableThemes.ts              # 6 theme definitions
+│   │   ├── changelog/                   # ChangelogEntry[] data + types
+│   │   ├── colorPalette/               # Header + content color swatches
+│   │   ├── export/                     # Supported formats + options
+│   │   ├── presets/                    # Per-locale preset definitions
+│   │   ├── table/                      # tableDefaults, tableThemes
+│   │   └── testimonials/               # Testimonial type + data
 │   │
 │   ├── constants/
 │   │   └── keys.ts                     # Keyboard key constants
 │   │
 │   ├── content/
-│   │   └── blog/                       # Auto-discovered via import.meta.glob
-│   │       ├── 5-free-online-table-makers-compared.ts
-│   │       ├── best-table-tool-for-researchers.ts
-│   │       ├── copy-excel-table-to-web.ts
-│   │       ├── export-table-to-pdf.ts
-│   │       ├── how-to-make-a-table-in-markdown.ts
-│   │       └── merge-cells-online-table.ts
+│   │   ├── blog/                       # Auto-discovered via import.meta.glob
+│   │   │   ├── best-table-tool-for-researchers.ts
+│   │   │   ├── copy-excel-table-to-web.ts
+│   │   │   ├── free-online-table-makers-compared.ts
+│   │   │   ├── how-to-export-table-to-pdf.ts
+│   │   │   ├── how-to-make-a-table-in-markdown.ts
+│   │   │   └── how-to-merge-cells-in-online-table.ts
+│   │   └── features/                   # 23 feature page JSON definitions
 │   │
 │   ├── styles/
-│   │   ├── globals.css                 # Tailwind directives + print styles
-│   │   └── ... (no other style files)
+│   │   └── globals.css                 # Tailwind directives + print styles
 │   │
 │   ├── index.scss                      # SCSS entry (imported by main.tsx)
 │   ├── pwa.ts                          # Custom service worker registration
@@ -1145,76 +1126,39 @@ tablesmit/
 │   ├── test/                           # All tests live here (never co-located with source)
 │   │   ├── setup.ts                    # jest-dom import + polyfills
 │   │   ├── App.test.tsx
-│   │   ├── config/
-│   │   │   ├── siteConfig.test.ts
-│   │   │   └── tableThemes.test.ts
-│   │   ├── utils/
-│   │   │   ├── cellUtils.test.ts
-│   │   │   ├── dateUtils.test.ts
-│   │   │   ├── formatUtils.test.ts
-│   │   │   ├── mergeUtils.test.ts
-│   │   │   ├── tableUtils.test.ts
-│   │   │   └── toast.test.ts
-│   │   ├── hooks/
-│   │   │   ├── useColumnResize.test.ts
-│   │   │   ├── useExport.test.tsx
-│   │   │   ├── useFindReplace.test.ts
-│   │   │   ├── useImport.test.tsx
-│   │   │   ├── useMergeCells.test.ts
-│   │   │   ├── useRowResize.test.ts
-│   │   │   ├── useTableHistory.test.ts
-│   │   │   ├── useTableSelection.test.tsx
-│   │   │   └── useTheme.test.ts
-│   │   ├── services/
-│   │   │   ├── blogService.test.ts
-│   │   │   ├── export/
-│   │   │   │   ├── exportTable.test.ts  # exportTable dispatch tests
-│   │   │   │   ├── pdfExporter.test.ts  # PDF exporter tests
-│   │   │   │   ├── imageExporter.test.ts# PNG/JPEG exporter tests
-│   │   │   │   ├── csvExporter.test.ts  # CSV exporter + sanitize tests
-│   │   │   │   └── excelExporter.test.ts# Excel exporter tests
-│   │   │   └── importService.test.ts
-│   │   ├── context/
-│   │   │   └── TableContext.test.tsx
+│   │   ├── config/                     # 8 test files
+│   │   ├── constants/                  # keys.test.ts
+│   │   ├── content/                    # blog.test.ts, features.test.ts
+│   │   ├── context/                    # 6 test files (TableContext, TableProvider, TableReducer, etc.)
+│   │   ├── hooks/                      # 15 test files (all hooks tested)
+│   │   ├── i18n/                       # config.test.ts, i18n.test.ts
+│   │   ├── lib/                        # utils.test.ts (cn() tests)
+│   │   ├── pages/                      # 13 test files (every page tested)
+│   │   ├── services/                   # 12 test files (all services)
 │   │   ├── components/
-│   │   │   ├── ui/
-│   │   │   │   ├── Button/Button.test.tsx
-│   │   │   │   ├── ColorSwatch/ColorSwatch.test.tsx
-│   │   │   │   ├── ErrorBoundary/ErrorBoundary.test.tsx
-│   │   │   │   └── IconButton/IconButton.test.tsx
-│   │   │   ├── layout/
-│   │   │   │   └── MobileSheet/MobileSheet.test.tsx
-│   │   │   └── features/
-│   │   │       ├── TableGrid/
-│   │   │       │   ├── TableCell/TableCell.test.tsx
-│   │   │       │   ├── TableCtxMenu/TableCtxMenu.test.tsx
-│   │   │       │   ├── TableGrid.test.tsx
-│   │   │       │   └── ResizeHandle/ResizeHandle.test.tsx
-│   │   │       ├── TableToolbar/TableToolbar.test.tsx
-│   │   │       ├── DimensionsPanel/DimensionsPanel.test.tsx
-│   │   │       ├── QuickPresetsPanel/QuickPresetsPanel.test.tsx
-│   │   │       ├── MergeCellsPanel/MergeCellsPanel.test.tsx
-│   │   │       ├── FindReplace/FindReplace.test.tsx
-│   │   │       ├── ExportPanel/ExportPanel.test.tsx
-│   │   │       └── ThemePicker/ThemePicker.test.tsx
-│   │   └── pages/
-│   │       ├── BlogListPage/BlogListPage.test.tsx
-│   │       ├── BlogPostPage/BlogPostPage.test.tsx
-│   │       ├── ChangelogPage/ChangelogPage.test.tsx
-│   │       ├── TableMakerPage/TableMakerPage.test.tsx
-│   │       └── LandingPage/LandingPage.test.tsx
+│   │   │   ├── ui/                     # 16 test files (every UI component)
+│   │   │   ├── layout/                 # 6 test files (every layout component)
+│   │   │   └── features/               # 45 test files (every feature component)
+│   │   └── utils/                      # 11 test files (every util)
 │   │
 │   ├── App.tsx                         # Router + providers only. Zero business logic.
-│   └── main.tsx                        # ReactDOM.createRoot only.
+│   └── main.tsx                        # ReactDOM.createRoot + Sentry + Toaster.
 │
 ├── tailwind.config.ts
 ├── vitest.config.ts
 ├── tsconfig.json
+├── tsconfig.app.json
+├── tsconfig.node.json
 ├── vite.config.ts
 ├── postcss.config.js
 ├── playwright.config.ts                # E2E test config
 ├── netlify.toml                        # SPA redirect + deploy config
 ├── .env.example                        # Documented env vars
+├── eslint.config.js
+├── .prettierrc
+├── .husky/                             # pre-commit hook
+├── CONTRIBUTING.md
+├── README.md
 └── package.json
 ```
 
@@ -1239,17 +1183,19 @@ import { TooltipProvider } from '@/components/ui/Tooltip';
 import { siteConfig } from '@/config/siteConfig';
 
 // Pages — never imported directly; bundled separately per route
-const LandingPage    = lazy(() => import('@/pages/LandingPage'));
-const TableMakerPage = lazy(() => import('@/pages/TableMakerPage'));
+const AboutPage      = lazy(() => import('@/pages/AboutPage'));
 const BlogListPage   = lazy(() => import('@/pages/BlogListPage'));
 const BlogPostPage   = lazy(() => import('@/pages/BlogPostPage'));
+const ChangelogPage  = lazy(() => import('@/pages/ChangelogPage'));
 const ContactPage    = lazy(() => import('@/pages/ContactPage'));
+const FeatureDetailPage = lazy(() => import('@/pages/FeatureDetailPage'));
+const FeaturesListPage  = lazy(() => import('@/pages/FeaturesListPage'));
+const NotFoundPage   = lazy(() => import('@/pages/NotFoundPage'));
 const OpenSourcePage = lazy(() => import('@/pages/OpenSourcePage'));
 const PrivacyPage    = lazy(() => import('@/pages/PrivacyPage'));
+const TableMakerPage = lazy(() => import('@/pages/TableMakerPage'));
 const TermsPage      = lazy(() => import('@/pages/TermsPage'));
-const ChangelogPage  = lazy(() => import('@/pages/ChangelogPage'));
 const TestimonialsPage = lazy(() => import('@/pages/TestimonialsPage'));
-const NotFoundPage   = lazy(() => import('@/pages/NotFoundPage'));
 
 export default function App(): ReactNode {
   return (
@@ -1258,22 +1204,24 @@ export default function App(): ReactNode {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
-            <ShortcutsModal />
             <CookieConsent />
+            <BackToTop />
             <div className="flex flex-1 flex-col">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
-                  <Route path={siteConfig.routes.home}      element={<ErrorBoundary><TableMakerPage /></ErrorBoundary>} />
-                  <Route path={siteConfig.routes.about}     element={<LandingPage />} />
-                  <Route path={siteConfig.routes.blog}      element={<BlogListPage />} />
-                  <Route path={siteConfig.routes.blogPost}  element={<BlogPostPage />} />
-                  <Route path={siteConfig.routes.openSource} element={<OpenSourcePage />} />
-                  <Route path={siteConfig.routes.contact}   element={<ContactPage />} />
-                  <Route path={siteConfig.routes.privacy}   element={<PrivacyPage />} />
-                  <Route path={siteConfig.routes.terms}     element={<TermsPage />} />
-                  <Route path={siteConfig.routes.changelog} element={<ChangelogPage />} />
+                  <Route path={siteConfig.routes.home}        element={<ErrorBoundary><TableMakerPage /></ErrorBoundary>} />
+                  <Route path={siteConfig.routes.about}       element={<AboutPage />} />
+                  <Route path={siteConfig.routes.blog}        element={<BlogListPage />} />
+                  <Route path={siteConfig.routes.blogPost}    element={<BlogPostPage />} />
+                  <Route path={siteConfig.routes.features}    element={<FeaturesListPage />} />
+                  <Route path={siteConfig.routes.featureDetail} element={<FeatureDetailPage />} />
+                  <Route path={siteConfig.routes.openSource}  element={<OpenSourcePage />} />
+                  <Route path={siteConfig.routes.contact}     element={<ContactPage />} />
+                  <Route path={siteConfig.routes.privacy}     element={<PrivacyPage />} />
+                  <Route path={siteConfig.routes.terms}       element={<TermsPage />} />
+                  <Route path={siteConfig.routes.changelog}   element={<ChangelogPage />} />
                   <Route path={siteConfig.routes.testimonials} element={<TestimonialsPage />} />
-                  <Route path="*"                           element={<NotFoundPage />} />
+                  <Route path="*"                             element={<NotFoundPage />} />
                 </Routes>
               </Suspense>
             </div>
@@ -1286,7 +1234,7 @@ export default function App(): ReactNode {
 }
 ```
 
-#### Lazy-loaded Feature Panels (within `TableMakerPage`)
+#### Lazy-loaded Feature Panels (within `TableMakerContent`)
 
 Heavy sidepanel components are lazy-loaded on mount so the core table
 grid is interactive immediately:
@@ -1299,7 +1247,7 @@ const QuickPresetsPanel    = lazy(() => import('@/components/features/QuickPrese
 const ColumnFormattingPanel = lazy(() => import('@/components/features/ColumnFormattingPanel'));
 const ExportPanel          = lazy(() => import('@/components/features/ExportPanel'));
 
-// Usage inside TableMakerPage layout:
+// Usage inside TableMakerContent layout:
 <Suspense fallback={<PanelLoader />}>
   <QuickPresetsPanel />
 </Suspense>
@@ -1385,7 +1333,7 @@ export default defineConfig({
           if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx')) return 'vendor-ui'
           if (id.includes('node_modules/jspdf')) return 'vendor-pdf'
           if (id.includes('node_modules/html2canvas')) return 'vendor-canvas'
-          if (id.includes('node_modules/@e965/xlsx')) return 'vendor-excel'
+          if (id.includes('node_modules/exceljs')) return 'vendor-excel'
           return undefined
         },
       },
@@ -1523,15 +1471,15 @@ strategy pattern — never `if/else` sprawl inside a component.
 // ✅ Button extended via variant prop — never modified internally
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'accent';
 
-// ✅ Export: new format = new class, zero changes to existing code
+// ✅ Export: new format = new class; the factory needs one new case
 interface ExportStrategy {
   export(element: HTMLElement, options: ExportOptions): Promise<void>;
 }
-class PDFExporter   implements ExportStrategy { /* ... */ }
-class PNGExporter   implements ExportStrategy { /* ... */ }
-class JPEGExporter  implements ExportStrategy { /* ... */ }
-class ExcelExporter implements ExportStrategy { /* ... */ }
-// Adding CSV later: just add CSVExporter. Nothing else changes.
+class PDFExporter     implements ExportStrategy { /* ... */ }
+class ImageExporter   implements ExportStrategy { /* ... */ }  // PNG/JPEG via mime param
+class ExcelExporter   implements ExportStrategy { /* ... */ }
+class CSVExporter     implements ExportStrategy { /* ... */ }
+class LatexExporter   implements ExportStrategy { /* ... */ }
 ```
 
 **L — Liskov Substitution**
@@ -1588,7 +1536,7 @@ If the same Tailwind class string appears 3+ times, it belongs in a component.
 <div className="text-xs font-semibold text-text-muted uppercase tracking-widest mb-3">
 
 // ✅ Extracted
-<SectionLabel>Table Dimensions</SectionLabel>
+<SectionLabel>Grid Size</SectionLabel>
 ```
 
 ---
@@ -1615,85 +1563,281 @@ Don't add state management libraries (Zustand, Redux) unless
 | Controller        | `TableContext` receives all UI events, delegates to hooks             |
 | Low Coupling      | Components never import each other — only context, hooks, types      |
 | High Cohesion     | `TableCell/` contains only cell concerns; `ExportPanel/` export only |
-| Pure Fabrication  | `export/index.ts`, all `utils/` — exist to reduce coupling          |
+| Pure Fabrication  | `exportService/index.ts`, all `utils/` — exist to reduce coupling          |
 
 ---
 
 ## 11. TypeScript Conventions
 
+### File Organization
+
+Types live in `*.types.ts` files co-located with their owner:
+
+| Owner | Type file path |
+|---|---|
+| Table data types | `src/types/table/cell.types.ts`, `merge.types.ts`, `table-state.types.ts`, `preset.types.ts` (barrel: `src/types/table/index.ts`) |
+| Context / state | `src/context/TableState/TableState.types.ts` |
+| Reducer actions | `src/context/TableReducer/TableReducer.types.ts` |
+| Provider API | `src/context/TableProvider/TableProvider.types.ts` |
+| Export service | `src/services/exportService/export.types.ts` |
+| Import service | `src/services/importService/importService.types.ts` |
+| Hook props/return | `src/hooks/useExport/useExport.types.ts`, `useImport/`, `useTheme/`, etc. |
+| Component props | Co-located at `src/components/ui/Button/Button.types.ts`, etc. |
+| Config schemas | `src/config/colorPalette/colorPalette.types.ts`, `changelog/changelog.types.ts`, etc. |
+| i18n augmentation | `src/i18n/types.d.ts` |
+
+**Rule:** Every module that exports types gets a co-located `.types.ts` file. Top-level `src/types/` contains only generic table data types that are shared across the app. Per-service, per-hook, and per-component types live beside their implementation.
+
+### Core Table Types
+
 ```ts
-// src/types/table.types.ts
+// src/types/table/cell.types.ts
 export interface CellData {
-  id: string;           // "R{row}C{col}" e.g. "R0C2"
-  value: string;
-  colSpan: number;      // Default: 1
-  rowSpan: number;      // Default: 1
-  isMerged: boolean;    // True for anchor cell of a merge
-  isHidden: boolean;    // True for cells absorbed by a merge
-  format?: ColumnFormat;
+  id: string           // "R{row}C{col}" e.g. "R0C2"
+  value: string
+  colSpan: number      // Default: 1
+  rowSpan: number      // Default: 1
+  isMerged: boolean    // True for anchor cell of a merge
+  isHidden: boolean    // True for cells absorbed by a merge
+  format?: ColumnFormat
 }
 
+export type ColumnFormat = 'text' | 'number' | 'currency' | 'percentage' | 'date' | 'sum' | 'auto-number'
+```
+
+```ts
+// src/types/table/merge.types.ts
 export interface MergeRange {
-  key: string;          // "R{r1}C{c1}:R{r2}C{c2}"
-  startRow: number;
-  startCol: number;
-  endRow: number;
-  endCol: number;
+  key: string          // "R{r1}C{c1}:R{r2}C{c2}"
+  startRow: number
+  startCol: number
+  endRow: number
+  endCol: number
 }
 
 export interface SelectionRange {
-  startRow: number;
-  startCol: number;
-  endRow: number;
-  endCol: number;
-}
-
-export type HeaderStyle  = 'none' | 'first-row' | 'first-column' | 'both';
-export type ColumnFormat = 'text' | 'number' | 'currency' | 'percentage' | 'date';
-
-export interface TableState {
-  cells: CellData[][];
-  columnWidths: number[];
-  rowHeights: number[];
-  mergedRanges: MergeRange[];
-  headerStyle: HeaderStyle;
-  headerColor: string;
-  contentColor: string;
-  selectedRange: SelectionRange | null;
-  rows: number;
-  cols: number;
-}
-
-// src/types/export.types.ts
-export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv' | 'latex';
-export interface ExportOptions {
-  format: ExportFormat;
-  filename?: string;
-  quality?: number;     // JPEG only: 0–1
-}
-export interface ExportStrategy {
-  export(element: HTMLElement, options: ExportOptions): Promise<void>;
-}
-
-// src/types/ui.types.ts
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'accent';
-export type ButtonSize    = 'sm' | 'md' | 'lg';
-export interface ColorSwatch  { label: string; value: string; }
-export interface PresetDefinition {
-  id: string;
-  label: string;
-  rows: number;
-  cols: number;
-  headers: string[];
-  data?: string[][];
+  startRow: number
+  startCol: number
+  endRow: number
+  endCol: number
 }
 ```
 
-**TypeScript Rules:**
+```ts
+// src/types/table/table-state.types.ts
+export type HeaderStyle  = 'none' | 'first-row' | 'first-column' | 'both'
+export type BorderStyle  = 'none' | 'solid' | 'dotted' | 'dashed' | 'double'
+export type TextAlign    = 'left' | 'center' | 'right'
+export type TableTheme   = 'default' | 'minimal' | 'dark-header' | 'striped' | 'academic' | 'monochrome'
+```
+
+```ts
+// src/types/table/preset.types.ts
+import type { HeaderStyle } from './table-state.types'
+
+export interface PresetDefinition {
+  id: string
+  label: string
+  rows: number
+  cols: number
+  headerStyle: HeaderStyle
+  headers: string[]
+  data?: string[][]
+  mergedRanges?: Array<{ startRow: number; startCol: number; endRow: number; endCol: number }>
+}
+```
+
+```ts
+// src/types/table/index.ts — barrel re-export
+export type { CellData, ColumnFormat } from './cell.types'
+export type { MergeRange, SelectionRange } from './merge.types'
+export type { HeaderStyle, BorderStyle, TextAlign, TableTheme } from './table-state.types'
+export type { PresetDefinition } from './preset.types'
+```
+
+### State Types
+
+```ts
+// src/context/TableState/TableState.types.ts
+export type CaptionAlignment = 'left' | 'center' | 'right'
+
+export interface TableState {
+  cells: CellData[][]
+  columnWidths: number[]
+  rowHeights: number[]
+  mergedRanges: MergeRange[]
+  headerStyle: HeaderStyle
+  headerColor: string
+  contentColor: string
+  theme: TableTheme
+  borderStyle: BorderStyle
+  borderColor: string
+  contentBgColor: string
+  rowColors: string[]
+  columnColors: string[]
+  columnTextAlign: TextAlign[]
+  cellColors: Record<string, string>
+  cellTextAlign: Record<string, string>
+  selectedRange: SelectionRange | null
+  rows: number
+  cols: number
+  freezeRow: boolean
+  freezeCol: boolean
+  caption: string
+  captionAlignment: CaptionAlignment
+  captionTextColor: string
+  captionBgColor: string
+}
+```
+
+### Context Types
+
+```ts
+// src/context/TableProvider/TableProvider.types.ts
+// TableStateFields (subset of TableState without methods) + TableActions interface
+// Combined as: type TableContextValue = TableStateFields & TableActions
+
+export interface TableStateFields {
+  rows: number; cols: number; columnWidths: number[]; rowHeights: number[];
+  mergedRanges: MergeRange[];
+  headerStyle: HeaderStyle; headerColor: string; contentColor: string;
+  theme: TableTheme; borderStyle: BorderStyle; borderColor: string;
+  contentBgColor: string; rowColors: string[]; columnColors: string[];
+  columnTextAlign: TextAlign[]; cellColors: Record<string, string>;
+  cellTextAlign: Record<string, string>;
+  freezeRow: boolean; freezeCol: boolean;
+  caption: string; captionAlignment: CaptionAlignment;
+  captionTextColor: string; captionBgColor: string;
+}
+
+export interface TableActions {
+  updateCell: (cellId: string, value: string) => void
+  addRow: () => void; removeRow: () => void; addColumn: () => void; removeColumn: () => void
+  insertRowAt: (index: number) => void; deleteRowAt: (index: number) => void
+  insertColAt: (index: number) => void; deleteColAt: (index: number) => void
+  mergeSelection: () => void; unmergeSelection: () => void
+  setHeaderStyle: (style: HeaderStyle) => void; setHeaderColor: (color: string) => void
+  setContentColor: (color: string) => void; setContentBgColor: (color: string) => void
+  setColumnWidth: (col: number, width: number) => void
+  setRowHeight: (row: number, height: number) => void
+  setColumnFormat: (col: number, format: ColumnFormat) => void
+  setBorderStyle: (style: BorderStyle) => void; setBorderColor: (color: string) => void
+  setRowColor: (row: number, color: string) => void
+  setColumnColor: (col: number, color: string) => void
+  setCellColor: (cellId: string, color: string) => void
+  setColumnTextAlign: (col: number, align: TextAlign) => void
+  setCellTextAlign: (cellId: string, align: TextAlign) => void
+  setFreezeRow: (freeze: boolean) => void; setFreezeCol: (freeze: boolean) => void
+  setTheme: (theme: TableTheme) => void
+  applyPreset: (preset: PresetDefinition) => void
+  selectRange: (range: SelectionRange) => void
+  generateTable: (rows: number, cols: number) => void
+  clearAll: () => void; undo: () => void
+  canUndo: boolean; historyDepth: number
+  setCaption: (caption: string) => void
+  setCaptionAlignment: (alignment: CaptionAlignment) => void
+  setCaptionTextColor: (color: string) => void
+  setCaptionBgColor: (color: string) => void
+}
+```
+
+```ts
+// src/context/TableReducer/TableReducer.types.ts — discriminated union of 43 action types
+export type TableAction =
+  | { type: 'generate'; rows: number; cols: number }
+  | { type: 'setCells'; cells: CellData[][] }
+  | { type: 'updateCell'; cellId: string; value: string }
+  | { type: 'addRow' | 'removeRow' | 'addColumn' | 'removeColumn' | 'clearAll' }
+  | { type: 'insertRowAt' | 'deleteRowAt'; index: number }
+  | { type: 'insertColAt' | 'deleteColAt'; index: number }
+  | { type: 'setHeaderStyle'; headerStyle: HeaderStyle }
+  | { type: 'setHeaderColor' | 'setContentColor' | 'setContentBgColor' | 'setBorderColor'; color: string }
+  | { type: 'selectRange'; range: SelectionRange }
+  | { type: 'mergeSelection' | 'unmergeSelection' }
+  | { type: 'setColumnWidth'; col: number; width: number }
+  | { type: 'setRowHeight'; row: number; height: number }
+  | { type: 'setColumnFormat'; col: number; format: ColumnFormat }
+  | { type: 'setBorderStyle'; borderStyle: BorderStyle }
+  | { type: 'setRowColor'; row: number; color: string }
+  | { type: 'setColumnColor'; col: number; color: string }
+  | { type: 'setCellColor'; cellId: string; color: string }
+  | { type: 'setColumnTextAlign'; col: number; align: TextAlign }
+  | { type: 'setCellTextAlign'; cellId: string; align: TextAlign }
+  | { type: 'setFreezeRow'; freeze: boolean }
+  | { type: 'setFreezeCol'; freeze: boolean }
+  | { type: 'setTheme'; theme: TableTheme }
+  | { type: 'applyPreset'; preset: PresetDefinition }
+  | { type: 'UNDO'; state: TableState }
+  | { type: 'setCaption'; caption: string }
+  | { type: 'setCaptionAlignment'; alignment: CaptionAlignment }
+  | { type: 'setCaptionTextColor' | 'setCaptionBgColor'; color: string }
+```
+
+### Export Service Types
+
+```ts
+// src/services/exportService/export.types.ts
+export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv' | 'latex'
+
+export interface ExportOptions {
+  format: ExportFormat
+  filename?: string
+  quality?: number                    // JPEG only: 0–1
+  caption?: string
+  captionTextColor?: string
+  captionBgColor?: string
+  captionAlignment?: 'left' | 'center' | 'right'
+  cells?: CellData[][]
+  headerStyle?: HeaderStyle
+  mergedRanges?: MergeRange[]
+  styles?: ExportStyleOptions
+}
+
+export interface ExportStrategy {
+  export(element: HTMLElement, options: ExportOptions): Promise<void>
+}
+```
+
+### Button Types (Derived from CVA)
+
+Button variant and size types are not defined as standalone named types. They are
+derived from the `cva()` call via `VariantProps<typeof buttonVariants>`:
+
+```ts
+// src/components/ui/Button/Button.types.ts
+import type { VariantProps } from 'class-variance-authority'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { buttonVariants } from './Button'
+
+export interface ButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+  isLoading?: boolean
+  isDisabled?: boolean
+  children: ReactNode
+}
+```
+
+The `cva()` keys define the allowed values: `variant: 'primary' | 'accent' | 'secondary' | 'ghost' | 'danger'` and `size: 'sm' | 'md' | 'lg'`.
+
+### Color Swatch Types
+
+```ts
+// src/config/colorPalette/colorPalette.types.ts
+export interface ColorSwatch {
+  label: string
+  value: string
+}
+```
+
+### TypeScript Rules
 - `"strict": true` in `tsconfig.json` — always
 - No `any` without an inline comment explaining unavoidability
 - All exported functions/hooks must have explicit return types
 - Prefer `interface` for object shapes; `type` for unions and aliases
+- Types live beside their implementation (`*.types.ts`), except shared table data types which live in `src/types/table/`
+- Barrel re-exports via `index.ts` — never import types from deep paths outside the owner module
 
 ---
 
@@ -1894,8 +2038,8 @@ import { Button } from './Button';
 
 describe('Button', () => {
   it('renders its label', () => {
-    render(<Button variant="primary">Generate Table</Button>);
-    expect(screen.getByRole('button', { name: /generate table/i })).toBeInTheDocument();
+    render(<Button variant="primary">Create Table</Button>);
+    expect(screen.getByRole('button', { name: /create table/i })).toBeInTheDocument();
   });
   it('fires onClick on click', async () => {
     const user = userEvent.setup();
@@ -2000,8 +2144,8 @@ contaminates other tests.
 
 ✅ No co-located test files
   All tests live in src/test/ mirroring source structure:
-    src/utils/tableUtils.ts        → src/test/utils/tableUtils.test.ts
-    src/hooks/useColumnResize.ts   → src/test/hooks/useColumnResize.test.ts
+    src/utils/tableUtils/tableUtils.ts       → src/test/utils/tableUtils.test.ts
+    src/hooks/useColumnResize/useColumnResize.ts → src/test/hooks/useColumnResize.test.ts
     src/components/ui/Button/Button.tsx → src/test/components/ui/Button/Button.test.tsx
 
 ❌ NO co-located .test.ts/x files next to source components
@@ -2089,7 +2233,7 @@ Mobile (< md):
   - Show: logo (icon mark only, not wordmark) + hamburger menu icon button
   - Hide: nav links, CTA button
   - Hamburger opens: full-screen slide-in drawer (from right, 280px wide)
-    - Drawer contains: all nav links stacked vertically + "Start Building" CTA
+    - Drawer contains: all nav links stacked vertically
     - Drawer overlay: bg-black/40 backdrop, closes on click-outside or ESC
   - Height: h-14 (56px)
 
@@ -2115,8 +2259,7 @@ Classes:
   {/* Nav links: hidden on mobile */}
   <nav className="hidden md:flex items-center gap-6"> ... </nav>
 
-  {/* CTA: hidden on mobile (lives in drawer) */}
-  <Button className="hidden md:inline-flex"> Start Building </Button>
+  {/* No CTA in Navbar — CTA lives in hero section */}
 
   {/* Hamburger: visible on mobile only */}
   <IconButton className="md:hidden" aria-label="Open menu"> <Menu /> </IconButton>
@@ -2259,7 +2402,7 @@ Desktop:
 
   {/* CTAs: stacked on mobile, inline on sm+ */}
   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-    <Button variant="accent" size="lg">→ Start Building for Free</Button>
+    <Button variant="accent" size="lg">→ Create a Table</Button>
     <a className="text-sm font-medium text-primary hover:underline">
       See how it works ↓
     </a>
@@ -2352,7 +2495,7 @@ Apply as: `text-3xl sm:text-4xl lg:text-5xl` — never hard-code one size for al
 
 ---
 
-### Responsive Checklist (add to Section 18)
+### Responsive Checklist (add to Section 16)
 
 - [x] Navbar shows hamburger on mobile; full nav on md+
 - [x] Drawer/sheet opens and closes correctly with overlay + ESC key
@@ -2392,7 +2535,7 @@ Apply as: `text-3xl sm:text-4xl lg:text-5xl` — never hard-code one size for al
 - ❌ No `coverage/` or `tablesmit-table.*` in repository — always gitignored
 - ❌ No hardcoded hrefs in navigation — always reference `siteConfig.routes.*` by key
 - ❌ No co-located `.test.tsx` files with source — all tests in `src/test/` mirroring source structure
-- ❌ No presets copied from other table generators (tabley.online, etc.) — `src/config/presets.ts` must contain only original Tablesmit templates: Research Notes, Feature Matrix, Content Tracker, Budget Summary
+- ❌ No presets copied from other table generators (tabley.online, etc.) — `src/config/presets/index.ts` must contain only original Tablesmit templates: Research Notes, Feature Matrix, Content Tracker, Budget Summary, Q1 Performance
 
 ---
 
@@ -2420,10 +2563,10 @@ npx shadcn@latest add button select tooltip dropdown-menu separator badge dialog
 npm install @dnd-kit/core @dnd-kit/utilities
 
 # 6. Export libraries
-npm install jspdf html2canvas @e965/xlsx
+npm install jspdf html2canvas exceljs
 
 # 7. Import libraries
-npm install papaparse
+npm install papaparse exceljs
 npm install -D @types/papaparse
 
 # 8. Internationalization
@@ -2455,7 +2598,7 @@ npx husky init
 ## 19. Implementation Status & Checklist
 
 Use this section to track progress. Check items when they are complete.
-Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresholds met via vitest.config.ts (lines: 75%, functions: 65%, branches: 60%, statements: 70%). All layers above thresholds.
+Last updated: 2026-05-23 — 1083 tests passing (139 test files), coverage thresholds met via vitest.config.ts (lines: 75%, functions: 65%, branches: 60%, statements: 70%). All layers above thresholds.
 
 ### Brand & Positioning
 - [x] Rename all "competing tools" occurrences to "Tablesmit" across all files and strings
@@ -2476,7 +2619,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] OpenSourcePage created with hero, sponsor CTA, and contribute section
 
 ### Routing
-- [x] `/` serves `TableMakerPage`, `/about` serves `LandingPage` kept as alias
+- [x] `/` serves `TableMakerPage`, `/about` serves `AboutPage`
 - [x] Route paths reference `siteConfig.routes.*` — no hardcoded hrefs
 - [x] `BrowserRouter` future flags configured (`v7_startTransition`, `v7_relativeSplatPath`)
 - [x] NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`)
@@ -2613,7 +2756,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] `vitest.config.ts` configured per Section 12 with thresholds: lines 75, functions 65, branches 60, statements 70
 - [x] `src/test/setup.ts` created with `@testing-library/jest-dom` + DataTransfer/ClipboardEvent polyfills for jsdom
 - [x] Utils → 95% · Services → 90% · Hooks → 90% · UI components → 85% · Features → 80% · Pages → 75%
-- [x] 46 test files, 404 tests passing across all layers
+- [x] 139 test files, 1083 tests passing across all layers
 - [x] Tests in `src/test/` mirroring source structure — no co-located .test files
 - [x] `useImport` tests: valid CSV · valid Excel · malformed file · file >5MB · success path
 - [x] `useColumnResize` tests: full mousedown→mousemove→mouseup cycle · min/max clamping · ghost line display during drag · cleanup
@@ -2650,7 +2793,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 ### Toolbar & Sidebar Reorganization
 - [x] Theme dropdown moved from right sidebar into horizontal toolbar, beside Templates
 - [x] Export dropdown removed from horizontal toolbar (export lives only in right sidebar ExportPanel)
-- [x] Copy table dropdown extended: "Copy as Excel Data" (TSV) at top, CSV follows
+- [x] Copy table dropdown: Excel Data (TSV), CSV, Markdown, LaTeX, Image
 - [x] "Start Building" button and `/` route removed from Navbar and App.tsx
 - [x] Footer overflow fix: flex layout — footer sits below content naturally without double-scrollbar
 
@@ -2684,7 +2827,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 
 ### Changelog Page (Section 47)
 - [x] Route: `/changelog`
-- [x] Data-driven from `src/config/changelog.ts` typed array
+- [x] Data-driven from `src/config/changelog/changelog.ts` typed array
 - [x] Version numbers, dates, color-coded change-type badges
 
 ### Table Caption (Section 48)
@@ -2704,14 +2847,24 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 
 ### Table Themes (Section 51)
 - [x] 6 themes: Default, Minimal, Dark Header, Striped, Academic, Monochrome
-- [x] `TABLE_THEMES` config in `src/config/tableThemes.ts`
+- [x] `TABLE_THEMES` config in `src/config/table/tableThemes.ts`
 - [x] ThemePicker component with thumbnail cards
 - [x] Theme dropdown in toolbar
 - [x] Full test coverage for themes
 
+### Feature Landing Pages (Section 59)
+- [x] 23 feature JSON files in `src/content/features/`
+- [x] `FeaturesListPage` — card grid with feature icon, description, category
+- [x] `FeatureDetailPage` — hero + conditional sections (benefits, use cases, steps, CTA, related)
+- [x] Routes: `/features` and `/features/:slug` added to App.tsx (lazy-loaded)
+- [x] `featureService.ts` — `import.meta.glob` auto-discovery
+- [x] `FeatureSections/` — 6 reusable section components (Hero, Benefits, UseCases, Steps, Cta, Related)
+- [x] `FeatureDetailPage` handles special pages: keyboard-shortcuts, table-themes, etc.
+- [x] All 23 pages render correctly with conditional sections
+
 ### Blog System (Section 55)
-- [x] `src/types/blog.types.ts` — `BlogPost` interface
-- [x] `src/services/blogService.ts` — `import.meta.glob` discovery, sorted posts, getBySlug, getAllTags
+- [x] `src/services/blogService/blogService.types.ts` — `BlogPost` interface
+- [x] `src/services/blogService/blogService.ts` — `import.meta.glob` discovery, sorted posts, getBySlug, getAllTags
 - [x] `BlogListPage` — card grid with tags, dates, featured badge
 - [x] `BlogPostPage` — ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data
 - [x] 6 blog posts in `src/content/blog/`
@@ -2732,7 +2885,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 
 ### Lint & Test Cleanup
 - [x] `npm run lint` zero-warnings — ESM import for tailwind typography plugin
-- [x] 404 tests passing (46 test files), 0 failures
+- [x] 1083 tests passing (139 test files), 0 failures
 - [x] Zero stderr warnings — `act()` wrap fix for useImport test, `console.error` suppression for TableContext provider test
 
 ### Test Coverage Expansion
@@ -2747,7 +2900,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] **formatUtils.ts**: added `auto-number` format tests (with/without `rowIndex`) and `computeColumnSum` (numeric/NaN/empty)
 - [x] **TableToolbar**: expanded from 4 to 13 tests — button rendering + no-crash interaction tests for add/remove row/col, merge, unmerge, undo, clear all, Templates/Theme/AI/Copy/Import buttons
 - [x] **Updated coverage thresholds** in `vitest.config.ts` to: lines 75, functions 65, branches 60, statements 70 (matches current achievable levels)
-- [x] All 404 tests pass (46 test files), lint zero-warnings, build compiles cleanly
+- [x] All 1054 tests pass (136 test files), lint zero-warnings, build compiles cleanly
 
 ### Security
 - [x] Content Security Policy meta tag in `index.html` — restricts script/style/font/image/frame sources, allows Googletagmanager + Google-Analytics on user consent
@@ -2756,7 +2909,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] Row/col clamping during import — `normaliseRows()` clamps to `MAX_ROWS`/`MAX_COLS` before creating cell arrays
 - [x] XLSX cell count limit — 100K max cells via range decode check before `XLSX.utils.sheet_to_json()`
 - [x] `crossorigin` attribute on all Google Fonts `<link>` tags
-- [x] Migrated from `xlsx@0.18.5` to `@e965/xlsx@0.20.3` (community-maintained fork) — resolves the two high-severity CVEs. No remaining npm audit findings.
+- [x] Uses `exceljs@^4.4.0` for Excel import and export — resolves the two high-severity CVEs found in earlier `xlsx` dependency. No remaining npm audit findings.
 
 ### Performance (Section 38C)
 - [x] Lighthouse: Performance **99**, LCP **0.9s**, FCP **0.7s**, CLS **0**, TBT **0ms** — all targets met
@@ -2793,11 +2946,11 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] Export filename uses table caption when present — `caption.trim()` passed through `useExport → exportTable` chain, falls back to `tablesmit-table`
 
 ### Internationalization (Section v7.0 — react-i18next)
-- [x] `npm install i18next react-i18next i18next-http-backend i18next-browser-languagedetector`
-- [x] `/src/i18n/i18n.ts` — i18next initialisation with http-backend + language detector
+- [x] `npm install i18next react-i18next i18next-browser-languagedetector` (no http-backend — uses manual fetch + addResourceBundle)
+- [x] `/src/i18n/i18n.ts` — i18next initialisation with manual fetch for non-English locales
 - [x] `/src/i18n/config.ts` — `LOCALES` array: en, ar, fr, es, pt, ja, de, no
 - [x] `/src/i18n/types.d.ts` — TypeScript augmentation deriving key types from en/common.json
-- [x] `/public/locales/{en,ar,fr,es,pt,ja,de,no}/common.json` — all 8 locale JSON files
+- [x] `/public/locales/{ar,fr,es,pt,ja,de,no}/common.json` — 7 non-English locale files (English is bundled directly at `src/i18n/locales/en.json`)
 - [x] Custom LocaleContext fully removed — zero references remain in codebase
 - [x] RTL: `document.documentElement.dir = 'rtl'` on Arabic via `i18n.on('languageChanged')`
 - [x] Language picker in Navbar — `<select>` with locale display names in their own language
@@ -2805,7 +2958,7 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] Brand name `Tablesmit` never translated in any locale
 - [x] All toast messages use `useTranslation` + interpolation variables `{{format}}`, `{{rows}}`, etc.
 - [x] All aria-labels translated across all 8 languages
-- [x] `useSuspense: true` — app suspends on initial locale load, `<Suspense>` at main.tsx root handles it
+- [x] `useSuspense: false` — manual fetch pattern handles loading asynchronously
 
 ### Branch Protection (Section 62)
 - [x] Main branch protected — direct push returns 403
@@ -2813,15 +2966,15 @@ Last updated: 2026-05-19 — 404 tests passing (46 test files), coverage thresho
 - [x] Required status checks: lint + test + build must all pass
 - [x] Force pushes blocked
 - [x] Branch naming convention enforced: feat/ fix/ docs/ chore/ test/ refactor/ content/ i18n/
-- [x] `.github/workflows/ci.yml` — all three jobs (lint, test, build) as required checks
+- [x] `.github/workflows/deploy-netlify.yml` — single job with lint, test, build steps as required checks
 
 ### Content — v8.0 Targets
-- [ ] Blog posts committed to `src/content/blog/` (Section 58 — 5 posts ready)
-- [ ] Feature landing pages system built + 6 JSON files (Section 59)
+- [x] Blog posts committed to `src/content/blog/` (Section 58 — 6 posts live)
+- [x] Feature landing pages — system built + 23 JSON files live in `src/content/features/` (Section 59)
 - [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
-- [ ] Google Search Console — verified + sitemap submitted (Section 57B)
-- [ ] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 57A)
-- [ ] Sitemap updated with blog post and feature page URLs
+  - [ ] Google Search Console — verified + sitemap submitted (Section 38G)
+  - [ ] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 53)
+- [x] Sitemap updated with blog post and feature page URLs
 
 ---
 
@@ -2870,7 +3023,7 @@ This only affects CSV export. Excel export (SheetJS) handles this differently �
 
 | Measure                  | Location                          | Threshold                              |
 |--------------------------|-----------------------------------|----------------------------------------|
-| File size limit          | `importService.ts:assertFileSize` | 5MB                                    |
+| File size limit          | `importService.ts:assertFileSize` → `MAX_IMPORT_FILE_SIZE` in `tableDefaults.ts` | 5MB |
 | Row clamp                | `importService.ts:normaliseRows`  | `MAX_ROWS` (50)                        |
 | Column clamp             | `importService.ts:normaliseRows`  | `MAX_COLS` (20)                        |
 | XLSX cell count limit    | `importService.ts:importExcel`    | 100,000 cells                          |
@@ -2891,7 +3044,7 @@ Run `npm run audit` before each release. The `xlsx` (SheetJS) package has a know
 
 If the risk profile changes, migrate to a maintained fork (`@sheetjs/sheetjs` or `exceljs`).
 
-> **Update:** This project has migrated from `xlsx@0.18.5` to `@e965/xlsx@0.20.3`, a community-maintained fork that resolves both CVEs. `npm audit` now reports 0 vulnerabilities.
+> **Update:** This project has migrated from `xlsx@0.18.5` to `exceljs@^4.4.0` for Excel import and export — resolves the two high-severity CVEs found in earlier `xlsx` dependency. `npm audit` now reports 0 vulnerabilities.
 
 ---
 
@@ -2938,7 +3091,7 @@ The following were fully implemented and tested in v6.0.
 [x] Brand rename — zero "Structra" occurrences in product code
 [x] siteConfig route audit — all 12 routes verified matching agents.md
 [x] Lint zero-warnings — 0 warnings, all TypeScript strict rules satisfied
-[x] Test coverage audit — 46 test files, 404 tests passing, 0 failures, zero stderr warnings
+[x] Test coverage audit — 139 test files, 1083 tests passing, 0 failures, zero stderr warnings
 
 Completed outside this document (do not re-implement):
 [x] CI/CD — GitHub Actions to Netlify (implemented and verified)
@@ -2961,7 +3114,7 @@ The following test coverage improvements were completed after v6.0.
 [x] ErrorBoundary → 90% lines (was 30%)
 [x] New test files: toast.test.ts, useExport.test.tsx, ErrorBoundary.test.tsx, FindReplace.test.tsx, MergeCellsPanel.test.tsx
 [x] TableToolbar: 4 → 13 tests, with no-crash interaction coverage
-[x] All 404 tests passing, 46 test files, lint zero-warnings
+[x] All 1083 tests passing, 139 test files, lint zero-warnings
 [x] Coverage thresholds lowered in vitest.config.ts to: lines 75, functions 65, branches 60, statements 70
 [x] globals.css @layer components block removed (dead code)
 
@@ -3079,7 +3232,7 @@ Rationale: "Reset" clears everything — destructive and irreversible.
 ### Implementation — `useTableHistory` hook
 
 ```ts
-// src/hooks/useTableHistory.ts
+// src/hooks/useTableHistory/useTableHistory.ts
 // Manages a stack of TableState snapshots. Max 50 entries (configurable).
 
 const MAX_HISTORY = 50;
@@ -3178,7 +3331,7 @@ Dotted Border      — dotted stroke
 ### Data Model Addition
 
 ```ts
-// src/types/table.types.ts — add to CellData
+// src/types/table/cell.types.ts — add to CellData
 export type BorderStyle =
   | 'none' | 'solid' | 'dashed' | 'dotted' | 'double';
 
@@ -3198,7 +3351,7 @@ borders?: CellBorders;
 ### UI — Border Picker Panel
 
 Location: Right sidebar, below Column Type panel.
-Component: `BorderStylePanel` in `src/components/features/BorderStylePanel/`
+Component: `BorderPanel` at `src/components/features/BorderPanel/`
 
 ```
 Layout: 2×7 grid of icon buttons, each showing a border pattern preview
@@ -3209,7 +3362,7 @@ Apply to: current cell selection (selectedRange from TableContext)
 ### CSS Application
 
 ```ts
-// Utility in src/utils/borderUtils.ts
+// Utility (conceptual — border styles computed inline in TableGrid)
 export function getBorderStyles(borders: CellBorders): React.CSSProperties {
   const toCSS = (b: CellBorders['top']) =>
     b ? `${b.weight === 'thin' ? 1 : b.weight === 'medium' ? 2 : 3}px ${b.style} ${b.color}` : 'none';
@@ -3328,13 +3481,13 @@ describe('ContextMenu', () => {
 ## 26. Smart Clipboard Paste
 
 When the user pastes (Ctrl+V / Cmd+V) into the table — or into an empty state —
-detect if the clipboard contains a structured table (from Excel, Word, or CSV)
-and automatically generate or populate the table.
+detect if the clipboard contains a structured table (from Excel, Word, CSV,
+LaTeX tabular, or Markdown) and automatically generate or populate the table.
 
 ### Detection Logic
 
 ```ts
-// src/hooks/useClipboardPaste.ts
+// src/hooks/useClipboardPaste/useClipboardPaste.ts
 // Listen for paste events on document (captured at app root level)
 
 document.addEventListener('paste', async (e) => {
@@ -3348,18 +3501,30 @@ document.addEventListener('paste', async (e) => {
     return handleHtmlTablePaste(html);
   }
 
-  // 2. TSV (tab-separated — Excel default plain text format)
+  // 2. LaTeX tabular (\begin{tabular} ... \end{tabular})
   const text = clipData.getData('text/plain');
+  if (text && /\\\\begin\\{tabular}/.test(text)) {
+    return handleLatexPaste(text);
+  }
+
+  // 3. Markdown table (contains pipe-and-dash separator row)
+  if (text && text.includes('|')) {
+    const { parseMarkdownTable } = await import('../../utils/markdownUtils/markdownToCells');
+    const mdRows = parseMarkdownTable(text);
+    if (mdRows) return handleTablePaste(mdRows, 'Markdown');
+  }
+
+  // 4. TSV (tab-separated — Excel default plain text format)
   if (text && text.includes('\t')) {
     return handleTsvPaste(text);
   }
 
-  // 3. CSV (comma-separated plain text)
+  // 5. CSV (comma-separated plain text)
   if (text && text.includes(',')) {
     return handleCsvPaste(text);
   }
 
-  // 4. Plain text — paste into focused cell only (default browser behavior)
+  // 6. Plain text — paste into focused cell only (default browser behavior)
 });
 ```
 
@@ -3400,6 +3565,8 @@ Show toast on failure:
 ```ts
 describe('useClipboardPaste', () => {
   it('detects HTML table in clipboard and calls handleHtmlTablePaste')
+  it('detects LaTeX tabular and calls handleLatexPaste')
+  it('detects Markdown table and calls handleTablePaste')
   it('detects TSV content and calls handleTsvPaste')
   it('detects CSV content and calls handleCsvPaste')
   it('parses an HTML table to a 2D string array correctly')
@@ -3414,10 +3581,93 @@ describe('useClipboardPaste', () => {
 
 ## 27. Copy Table Button
 
-A **Copy** button in the toolbar with a dropdown arrow revealing two modes.
+A **Copy** button in the toolbar with a dropdown arrow revealing five modes.
 
 ### UI
 
+```
+
+Toolbar right side (before export group):
+
+[Copy ▾]    ← secondary button with ChevronDown icon
+
+Dropdown:
+  Copy as Excel Data      → TSV string to clipboard (pastes into Excel as table)
+  Copy as CSV             → comma-separated string to clipboard
+  Copy as Markdown        → generates pipe-table to clipboard
+  Copy as LaTeX           → generates \begin{tabular} to clipboard
+  Copy as Image           → renders table to canvas via html2canvas, copies to clipboard as PNG
+```
+
+### Implementation
+
+```ts
+// Copy Excel Data (TSV)
+const copyAsExcelData = async () => {
+  const tsv = cells
+    .map(row => row.filter(c => !c.isHidden).map(c => c.value).join('\t'))
+    .join('\n');
+  await navigator.clipboard.writeText(tsv);
+  toast('Table data copied. Paste into Excel or Google Sheets.');
+};
+
+// Copy as CSV
+const copyAsCsv = async () => {
+  const rows = cells.map(row =>
+    row.map(cell => {
+      let value = cell.value;
+      if (/[,"\n]/.test(value)) value = `"${value.replace(/"/g, '""')}"`;
+      return value;
+    }).join(',')
+  );
+  await navigator.clipboard.writeText(rows.join('\n'));
+  toast('Table data copied as CSV.');
+};
+
+// Copy as Markdown
+const copyAsMarkdown = async () => {
+  const colCount = cells[0]!.length;
+  const header = `| ${cells[0]!.map((_c, i) => ` C${i + 1} `).join('|')} |`;
+  const separator = `| ${Array.from({ length: colCount }, () => ' --- ').join('|')} |`;
+  const body = cells.map(row =>
+    `| ${row.map(cell => ` ${cell.value || ' '} `).join('|')} |`
+  ).join('\n');
+  await navigator.clipboard.writeText(`${header}\n${separator}\n${body}`);
+  toast('Table copied as Markdown.');
+};
+
+// Copy as LaTeX
+const copyAsLatex = async (headerStyle?: string) => {
+  const { cellsToLatex } = await import('../../utils/latexUtils');
+  const latex = cellsToLatex(cells, headerStyle);
+  await navigator.clipboard.writeText(latex);
+  toast('Table copied as LaTeX.');
+};
+
+// Copy as Image
+const copyAsImage = async () => {
+  const { default: html2canvas } = await import('html2canvas');
+  const canvas = await html2canvas(el, { backgroundColor: '#ffffff', scale: 2, useCORS: true });
+  const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, 'image/png'));
+  if (!blob) return;
+  await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+  toast('Table copied as image.');
+};
+```
+
+### Tests Required
+
+```ts
+describe('copyTable', () => {
+  it('copyAsExcelData produces correct TSV string')
+  it('copyAsExcelData skips hidden (merged) cells')
+  it('copyAsCsv produces correctly quoted CSV')
+  it('copyAsMarkdown generates valid pipe-table')
+  it('copyAsLatex generates valid LaTeX tabular')
+  it('copyAsImage calls html2canvas and navigator.clipboard.write')
+  it('shows correct toast message on success')
+  it('shows error toast if clipboard write fails')
+})
 ```
 Toolbar right side (before export group):
 
@@ -3484,7 +3734,7 @@ When enabled:
 ```
 
 ```ts
-// src/utils/tableUtils.ts
+// src/utils/tableUtils/tableUtils.ts
 export function sumColumn(cells: CellData[][], colIndex: number): number {
   return cells.reduce((sum, row) => {
     const val = parseFloat(row[colIndex]?.value ?? '');
@@ -3552,7 +3802,7 @@ Visual state:
 ### Implementation
 
 ```ts
-// src/utils/tableUtils.ts
+// src/utils/tableUtils/tableUtils.ts
 export function sortRows(
   rows: CellData[][],
   colIndex: number,
@@ -4177,91 +4427,145 @@ A naive single Context holding all table state causes cascade re-renders:
 when one cell value changes, all 1,000 cells re-render because all are consumers
 of the same context value. `React.memo` helps only if props references are stable.
 
-### Solution: Two Contexts + Single TableContext
+### Solution: Three Contexts + Provider
 
-State is split across two isolated contexts plus a single `TableContext`
-that provides the derived/UI state. Components subscribe only to
-what they need. Unrelated state changes do not trigger re-renders.
+State is split across three isolated contexts. Components subscribe only
+to what they need. Unrelated state changes do not trigger re-renders.
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  TableDataContext                                        │
-│  cells[][], columnWidths[], rowHeights[], mergedRanges[] │
-│  Changes: when table content or structure changes        │
-│  Consumers: TableCell (own cell only), ExportPanel       │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  TableCellsContext (src/context/TableDataContext/)            │
+│  cells[][] only                                                │
+│  Hook: useTableData() → { cells: CellData[][] }               │
+│  Changes: when cell content or structure changes              │
+│  Consumers: TableCell (via own cellId lookup), ExportPanel    │
+└──────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────────┐
-│  TableSelectionContext                                   │
-│  selectedRange, hoveredCell, isDragging, activeResizeCol │
-│  Changes: on every mouse move / click                   │
-│  Consumers: TableCell (selection highlight only)         │
-│  WHY SEPARATE: mouse moves must NOT re-render cell data  │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  TableSelectionCtx (src/context/TableSelectionContext/)       │
+│  selectedRange only (SelectionRange | null)                   │
+│  Hook: useSelectedRange() → SelectionRange | null             │
+│  Changes: on every mouse move / click                        │
+│  Consumers: TableCell (selection highlight only)              │
+│  WHY SEPARATE: mouse moves must NOT re-render cell data       │
+└──────────────────────────────────────────────────────────────┘
 
-┌─────────────────────────────────────────────────────────┐
-│  TableContext (provider)                                 │
-│  Wraps TableDataContext + TableSelectionContext           │
-│  Provides: headerStyle, headerColor, sortKey,            │
-│  activePreset, columnTypes[], showSumRow, theme,         │
-│  borderDefaults, undo, columnWidths, rowHeights,         │
-│  and all dispatch actions                                │
-│  Changes: when user changes sidebar/toolbar controls     │
-│  Consumers: sidebar panels, TableHeaderCell, TableGrid   │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│  TableContext (src/context/TableProvider/)                    │
+│  Hook: useTableContext() → TableContextValue                  │
+│  = TableStateFields & TableActions                            │
+│  Provides all non-cell state + dispatch actions:              │
+│  rows, cols, columnWidths, rowHeights, mergedRanges,         │
+│  headerStyle, headerColor, contentColor, contentBgColor,     │
+│  borderStyle, borderColor, theme, rowColors, columnColors,   │
+│  columnTextAlign, cellColors, cellTextAlign, freezeRow,      │
+│  freezeCol, caption, captionAlignment, captionTextColor,     │
+│  captionBgColor + generateTable, updateCell, addRow,         │
+│  removeRow, addColumn, removeColumn, insertRowAt,            │
+│  deleteRowAt, insertColAt, deleteColAt, mergeSelection,      │
+│  unmergeSelection, setHeaderStyle/Color, setContentColor,    │
+│  setContentBgColor, setColumnWidth/Height, setColumnFormat,  │
+│  setBorderStyle/Color, setRowColor, setColumnColor,          │
+│  setCellColor, setColumnTextAlign, setCellTextAlign,         │
+│  setFreezeRow/Col, setTheme, applyPreset, selectRange,       │
+│  setCaption, setCaptionAlignment, setCaptionTextColor,       │
+│  setCaptionBgColor, undo, canUndo, historyDepth              │
+│  Changes: when user changes sidebar/toolbar controls         │
+│  Consumers: toolbar, sidebar panels, TableHeaderCell,        │
+│  TableGrid layout, TableCtxMenu                              │
+└──────────────────────────────────────────────────────────────┘
 ```
 
-### Selector Hook Pattern
+### Provider Nesting Order (matters for re-renders)
 
-Each `TableCell` gets only its own data — not the full cells array:
-
-```ts
-// src/hooks/useTableCell.ts
-// Returns only the data for one specific cell — memoised
-export function useTableCell(cellId: string): CellData {
-  const { cells } = useContext(TableDataContext);
-  const [row, col] = parseCellId(cellId);
-  // useMemo ensures referential stability — only changes when THIS cell changes
-  return useMemo(() => cells[row][col], [cells, row, col]);
-}
-
-// src/hooks/useIsSelected.ts
-export function useIsSelected(cellId: string): boolean {
-  const { selectedRange } = useContext(TableSelectionContext);
-  if (!selectedRange) return false;
-  const { row, col } = parseCellId(cellId);
-  return (
-    row >= selectedRange.startRow && row <= selectedRange.endRow &&
-    col >= selectedRange.startCol && col <= selectedRange.endCol
-  );
-}
+```
+<TableCellsContext.Provider value={{ cells: state.cells }}>
+  <TableSelectionCtx.Provider value={state.selectedRange}>
+    <TableContext.Provider value={mainValue}>
+      {children}
+    </TableContext.Provider>
+  </TableSelectionCtx.Provider>
+</TableCellsContext.Provider>
 ```
 
-### TableCell — Correctly Memoised
+Components consuming `TableContext` will also re-render when cells or
+selection change (because they are descendants of both inner providers).
+This is acceptable because `useMemo` on `mainValue` prevents re-creating
+the context value when only `state.cells` or `state.selectedRange` change.
+
+### Cell Selection — Context Usage
+
+Each `TableCell` pulls only what it needs from each context:
 
 ```tsx
-// src/components/features/TableGrid/TableCell/TableCell.tsx
-export const TableCell = React.memo(
-  ({ cellId, onSelect, onChange }: TableCellProps) => {
-    const cell       = useTableCell(cellId);       // TableDataContext
-    const isSelected = useIsSelected(cellId);      // TableSelectionContext
-    // ...
-  },
-  // Custom comparator — only re-render if cellId changes (it never does)
-  (prev, next) => prev.cellId === next.cellId
-);
+// TableCell reads its own cell data from TableCellsContext
+const { cells } = useTableData()
+const cell = cells[row][col]
+
+// Selection state comes from a separate context — no re-render on data change
+const selectedRange = useSelectedRange()
+const isSelected = selectedRange && (
+  row >= selectedRange.startRow && row <= selectedRange.endRow &&
+  col >= selectedRange.startCol && col <= selectedRange.endCol
+)
 ```
 
-This means: typing in `R0C0` re-renders ONLY `R0C0`. All other 999 cells stay frozen.
+This means: typing in `R0C0` re-renders ONLY `R0C0` (via its `React.memo`
+check). All other 999 cells stay frozen because `TableCellsContext` value
+changes but their individual `memo` comparison on `cellId` prevents update.
+
+### Key Implementation Details
+
+**dispatchWithHistory pattern:**
+Every action except `selectRange`, `setCaption`, `setCaptionAlignment`,
+`setCaptionTextColor`, and `setCaptionBgColor` is intercepted by
+`dispatchWithHistory` which calls `recordSnapshot(stateRef.current)` before
+dispatching. This gives undo coverage for structural changes while keeping
+high-frequency actions (selection, caption typing) out of the history stack.
+
+**stateRef:**
+A `useRef(state)` captures the current reducer state. This is passed to
+`recordSnapshot` inside `dispatchWithHistory`'s closure, ensuring the
+snapshot always captures the pre-action state even if the reducer is busy.
+
+**Persistence:**
+State is saved to `localStorage` with a 400ms debounce after every change.
+On first load (per session), old localStorage data is cleared via
+`sessionStorage` flag — this prevents stale data from a previous session
+from reappearing. Corrupt data silently falls back to `initialState`.
 
 ### Context File Structure
 
 ```
 src/context/
-  TableDataContext.tsx       — cells, columnWidths, rowHeights, mergedRanges
-  TableSelectionContext.tsx  — selectedRange, hoveredCell, isDragging
-  TableContext.tsx           — provider wrapping both contexts; exports hook + dispatch
-  index.ts                   — re-exports all contexts and hooks
+  TableDataContext/       — creates TableCellsContext — cells[][] only
+    TableDataContext.tsx
+    TableDataContext.types.ts
+  TableSelectionContext/  — creates TableSelectionCtx — selectedRange only
+    TableSelectionContext.tsx
+  TableProvider/          — creates TableContext — all non-cell state + actions
+    TableProvider.tsx
+    TableProvider.types.ts
+  TableReducer/           — pure reducer function + action type union
+    TableReducer.ts
+    TableReducer.types.ts
+  TableState/             — initialState + persistence keys
+    TableState.ts
+    TableState.types.ts
+  TableContext.tsx         — barrel re-export (no index.ts — imported directly)
+```
+
+### Hooks Reference
+
+| Hook | Context consumed | Returns | Purpose |
+|---|---|---|---|
+| `useTableData()` | `TableCellsContext` | `{ cells: CellData[][] }` | Cell content only |
+| `useSelectedRange()` | `TableSelectionCtx` | `SelectionRange \| null` | Selection state |
+| `useTableContext()` | `TableContext` | `TableStateFields & TableActions` | Everything else |
+
+All three are re-exported from `src/context/TableContext.tsx`:
+```tsx
+export { TableProvider, useTableContext, useTableData, useSelectedRange } from './TableProvider/TableProvider'
 ```
 
 ### Upgrade Path (if profiling reveals a genuine bottleneck)
@@ -4685,8 +4989,7 @@ You need links from credible, relevant sources.
 These must be implemented in the React app, not added later.
 
 ```tsx
-// src/pages/LandingPage/LandingPage.tsx
-// Use react-helmet-async or @vite/plugin-html for dynamic meta
+// Use react-helmet-async for dynamic meta per page
 
 // URL structure — clean, keyword-rich, no query strings
 /                        ✅
@@ -4941,7 +5244,7 @@ Third-party services
 Your rights
   If you are in the EU or UK, you have rights under GDPR/UK GDPR including
   the right to access, correct, or delete data held about you.
-  Contact: [your email address]
+  Contact: hello@tablesmit.com
 
 Changes to this policy
   We will update this page when our practices change.
@@ -4981,7 +5284,7 @@ Limitation of liability
   inaccurate exports, or any damage arising from use of the tool.
 
 Contact
-  [your email address]
+  hello@tablesmit.com
 ```
 
 ---
@@ -5148,7 +5451,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 ### Usage — standardised toast calls
 
 ```ts
-// src/utils/toast.ts
+// src/utils/toast/toast.ts
 // Thin wrapper — ensures consistent messages across the app.
 // Import from here, never directly from 'sonner', so messages stay in one place.
 
@@ -5306,7 +5609,7 @@ const config: Config = {
 ### `useTheme` Hook
 
 ```ts
-// src/hooks/useTheme.ts
+// src/hooks/useTheme/useTheme.ts
 export function useTheme() {
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     const stored = localStorage.getItem('tablesmit-theme');
@@ -5343,15 +5646,11 @@ const { theme, toggle } = useTheme();
 
 ### Logo — Dark Mode
 
-Use Logo 2B dark variant (Section 2D) when `theme === 'dark'`.
+The single T-form Logo component (Section 2E) accepts a `theme` prop to
+automatically switch between light and dark fill colors — no separate image files.
 
 ```tsx
-<img
-  src={theme === 'dark' ? '/logo-dark.svg' : '/logo.svg'}
-  alt="Tablesmit"
-  width="160"
-  height="32"
-/>
+<Logo variant="full" theme={theme} />
 ```
 
 ### Dark Mode Rules
@@ -5469,7 +5768,7 @@ const handleGridKeyDown = (e: KeyboardEvent) => {
 ### Announcement Messages
 
 ```ts
-// src/utils/announcements.ts
+// Conceptual — announcements are defined inline in component files
 export const ANNOUNCE = {
   ROW_ADDED:     (total: number) => `Row added. ${total} rows total.`,
   ROW_REMOVED:   (total: number) => `Row removed. ${total} rows total.`,
@@ -5564,10 +5863,44 @@ without coupling to Tailwind class names (which may change):
 <p data-table-caption>      {/* Caption element — Section 48 */}
 ```
 
-### Print Preview Button (optional, v7+)
+### Ctrl+P Hook — `usePrintTable`
 
-A "Print" option in the export dropdown that calls `window.print()` —
-simpler than PDF export and instant. Add to export group in toolbar.
+A custom hook intercepts `Ctrl+P` / `Cmd+P` globally to print only the table
+content (not the app chrome).
+
+```ts
+// src/hooks/usePrintTable/usePrintTable.ts
+// Intercepts Ctrl+P, creates a hidden <iframe>, clones the table + caption
+// into it, copies all CSS rules, and triggers window.print() on the iframe.
+
+export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent): void => {
+      const isCtrl = e.ctrlKey || e.metaKey
+      if (!isCtrl || e.key !== 'p') return
+      const target = e.target as HTMLElement
+      if (target.closest('[contenteditable]')) return
+      e.preventDefault()
+
+      // Create hidden iframe, clone table content + styles, print
+      const iframe = document.createElement('iframe')
+      iframe.style.position = 'fixed'
+      iframe.style.right = '-9999px'
+      // ...
+      win.print()
+    }
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [tableRef])
+}
+```
+
+Behaviour:
+- Skips paste when focus is inside a `[contenteditable]` cell (user is editing)
+- Sanitizes cloned DOM: removes scripts, iframes, event handler attributes
+- Copies all CSS (including print rules from `globals.css`)
+- Adds `@page A4 landscape` to the print styles
+- Removes `[data-print-hide]` elements from the output
 
 ---
 
@@ -5647,7 +5980,7 @@ Keep it simple — version number, date, bullet list of changes.
 ```tsx
 // src/pages/ChangelogPage/ChangelogPage.tsx
 // Data-driven: read from a static array, newest first.
-// No CMS, no database — just a typed array in src/config/changelog.ts
+// No CMS, no database — just a typed array in src/config/changelog/changelog.ts
 
 export interface ChangelogEntry {
   version: string;       // "1.2.0"
@@ -5659,7 +5992,7 @@ export interface ChangelogEntry {
 }
 ```
 
-### `src/config/changelog.ts` — starter entries
+### `src/config/changelog/changelog.ts` — starter entries
 
 ```ts
 export const CHANGELOG: ChangelogEntry[] = [
@@ -5738,7 +6071,7 @@ Rendered (has content):
 ### Data Model Addition
 
 ```ts
-// src/types/table.types.ts — add to TableState
+// src/types/table/table-state.types.ts — add to TableState
 export interface TableState {
   // ...existing fields
   caption: string;   // "" when empty
@@ -5828,7 +6161,7 @@ When not frozen (default):
 ### Data Model Addition
 
 ```ts
-// src/types/table.types.ts — add to TableState
+// src/types/table/table-state.types.ts — add to TableState
 export interface TableState {
   // ...existing fields
   freezeRow: boolean;   // default: false
@@ -5898,7 +6231,7 @@ Replace panel (Ctrl+H):
 ### Implementation
 
 ```ts
-// src/hooks/useFindReplace.ts
+// src/hooks/useFindReplace/useFindReplace.ts
 export function useFindReplace(cells: CellData[][]) {
   const [query, setQuery]       = useState('');
   const [isOpen, setIsOpen]     = useState(false);
@@ -5977,7 +6310,7 @@ Monochrome  — greyscale only, no colour accents — for print-first tables
 ### Data Model Addition
 
 ```ts
-// src/types/table.types.ts — add to TableState
+// src/types/table/table-state.types.ts — add to TableState
 export type TableTheme =
   | 'default' | 'minimal' | 'dark-header'
   | 'striped' | 'academic' | 'monochrome';
@@ -5991,7 +6324,7 @@ export interface TableState {
 ### Theme Definitions
 
 ```ts
-// src/config/tableThemes.ts
+// src/config/table/tableThemes.ts
 export interface ThemeDefinition {
   id:          TableTheme;
   label:       string;
@@ -6095,7 +6428,7 @@ const { canUndo, historyDepth } = useTableHistory();
 ### `useTableHistory` — add `historyDepth`
 
 ```ts
-// src/hooks/useTableHistory.ts — add this to the return value
+// src/hooks/useTableHistory/useTableHistory.ts — add this to the return value
 const historyDepth = pointer;   // number of undoable actions available
 
 return { push, undo, canUndo, historyDepth };
@@ -6185,7 +6518,7 @@ VITE_APP_URL=http://localhost:5173
 ### GA4 Integration
 
 ```ts
-// src/utils/analytics.ts
+// src/utils/analytics/analytics.ts
 const GA_ID = import.meta.env.VITE_GA4_MEASUREMENT_ID;
 
 export function trackEvent(name: string, params?: Record<string, unknown>) {
@@ -6313,10 +6646,12 @@ before searching for brand references in components.**
 
 export const SITE_CONFIG = {
   // Brand
-  name:        'Tablesmit',       // was "Structra" — verify this is updated
+  name:        'Tablesmit',
   tagline:     'Tables, your way.',
   description: 'A minimalist table builder for analytical writing.',
   url:         'https://tablesmit.com',
+  contactEmail:'hello@tablesmit.com',
+  defaultAuthor:'Olayiwola Akinnagbe',
 
   // Repository
   githubUrl:   'https://github.com/Olayiwola72/tablesmit',
@@ -6324,14 +6659,32 @@ export const SITE_CONFIG = {
 
   // Routes
   routes: {
-    home:        '/',
-    about:       '/about',
-    openSource:  '/open-source',
-    changelog:   '/changelog',
-    privacy:     '/privacy',
-    terms:       '/terms',
-    notFound:    '*',
+    home:          '/',
+    about:         '/about',
+    blog:          '/blog',
+    blogPost:      '/blog/:slug',
+    features:      '/features',
+    featureDetail: '/features/:slug',
+    openSource:    '/open-source',
+    contact:       '/contact',
+    privacy:       '/privacy',
+    terms:         '/terms',
+    changelog:     '/changelog',
+    testimonials:  '/testimonials',
+    notFound:      '*',
   },
+
+  // Nav — sourced from here, not hardcoded in components
+  nav: [
+    { label: 'Home', route: 'home' },
+    { label: 'About', route: 'about' },
+    { label: 'Features', route: 'features' },
+    { label: 'Blog', route: 'blog' },
+    { label: 'Contact', route: 'contact' },
+    { label: 'Open Source', route: 'openSource' },
+    { label: 'Changelog', route: 'changelog' },
+    { label: 'Testimonials', route: 'testimonials' },
+  ],
 } as const;
 ```
 
@@ -6399,16 +6752,15 @@ Full PR instructions: Section 38I
 
 ---
 
-## 56. Blog System — JSON-Driven
+## 56. Blog System — TypeScript-Driven
 
 ### Design Principle
 
 Creating a new blog post requires exactly one action:
-**drop a `.json` or `.ts` file into `src/content/blog/`.**
+**drop a `.ts` file into `src/content/blog/`.**
 
 No registry to update. No index file to maintain. No code change.
-Vite's `import.meta.glob` discovers every file in that directory automatically
-(both `.json` and `.ts` extensions are supported).
+Vite's `import.meta.glob` discovers every file in that directory automatically.
 The post appears on the blog list and gets its own URL on the next build.
 
 ---
@@ -6419,15 +6771,16 @@ The post appears on the blog list and gets its own URL on the next build.
 src/
   content/
     blog/
-      how-to-make-a-table-in-markdown.json
-      copy-excel-table-to-web.json
-      5-free-online-table-makers-compared.json
-      how-to-export-a-table-to-pdf.json
-      ...
+      best-table-tool-for-researchers.ts
+      copy-excel-table-to-web.ts
+      free-online-table-makers-compared.ts
+      how-to-export-table-to-pdf.ts
+      how-to-make-a-table-in-markdown.ts
+      how-to-merge-cells-in-online-table.ts
 ```
 
 The filename (without extension) becomes the URL slug:
-`how-to-make-a-table-in-markdown.json` → `/blog/how-to-make-a-table-in-markdown`
+`how-to-make-a-table-in-markdown.ts` → `/blog/how-to-make-a-table-in-markdown`
 
 **Filename rules:**
 ```
@@ -6440,28 +6793,36 @@ The filename (without extension) becomes the URL slug:
 
 ---
 
-### JSON Post Schema
+### Post Format (TypeScript module)
 
-```jsonc
-// src/content/blog/how-to-make-a-table-in-markdown.json
-{
-  "title":       "How to Make a Table in Markdown",
-  "date":        "2025-09-15",
-  "description": "A practical guide to creating clean tables in Markdown — with examples you can generate in Tablesmit and paste directly.",
-  "author":      "Olayiwola Akinnagbe",
-  "tags":        ["markdown", "tutorial", "tables"],
-  "readTime":    4,
-  "featured":    false,
-  "content":     "## Introduction
+Blog posts are `.ts` files that export a typed `BlogPost` object as the default export:
 
-Markdown tables are simpler than they look..."
+```ts
+// src/content/blog/how-to-make-a-table-in-markdown.ts
+import type { BlogPost } from '../../services/blogService/blogService.types'
+
+const post: BlogPost = {
+  slug:        'how-to-make-a-table-in-markdown',   // optional — derived from filename if absent
+  title:       'How to Make a Table in Markdown',
+  date:        '2025-09-15',
+  description: 'A practical guide to creating clean tables in Markdown — with examples you can generate in Tablesmit and paste directly.',
+  author:      'Olayiwola Akinnagbe',
+  tags:        ['markdown', 'tutorial', 'tables'],
+  readTime:    4,
+  featured:    false,
+  content:     `## Introduction
+
+Markdown tables are simpler than they look...`,
 }
+
+export default post
 ```
 
 **Field reference:**
 
 | Field         | Type       | Required | Notes                                                       |
 |---------------|------------|----------|-------------------------------------------------------------|
+| `slug`        | string     | No       | URL slug. Auto-derived from filename if omitted.            |
 | `title`       | string     | Yes      | H1 of the post and `<title>` tag. Max 60 chars for SEO.    |
 | `date`        | string     | Yes      | ISO 8601 format: `YYYY-MM-DD`. Used for sorting and display.|
 | `description` | string     | Yes      | Meta description. Max 160 chars. Used for SEO and card text.|
@@ -6469,11 +6830,11 @@ Markdown tables are simpler than they look..."
 | `tags`        | string[]   | Yes      | 1-4 tags. Lowercase. Used for filtering and related posts.  |
 | `readTime`    | number     | Yes      | Estimated minutes to read. Rough guide: 200 words/minute.   |
 | `featured`    | boolean    | No       | `true` pins the post to the top of the blog list. Default: `false`. |
-| `content`     | string     | Yes      | Full post body in Markdown. Use `\n` for newlines in JSON. |
+| `content`     | string     | Yes      | Full post body in Markdown. Use a template literal for readability. |
 
 ---
 
-### Content — Markdown in JSON
+### Content — Markdown in template literals
 
 Content is written as a Markdown string inside the JSON `content` field.
 
@@ -6522,7 +6883,7 @@ A helper script in `scripts/` can automate this — see Section 55F.
 ### 55A. Type Definition
 
 ```ts
-// src/types/blog.types.ts
+// src/services/blogService/blogService.types.ts
 
 export interface BlogPost {
   slug:        string;       // derived from filename — not in the JSON itself
@@ -6542,54 +6903,71 @@ export interface BlogPost {
 ### 55B. Blog Service — Auto-Discovery via import.meta.glob
 
 ```ts
-// src/services/blogService.ts
-// Discovers and loads all blog posts from src/content/blog/*.json
-// Zero config — adding a JSON file is all that is needed.
+// src/services/blogService/blogService.ts
+// Discovers and loads all blog posts from src/content/blog/*.ts
+// Zero config — adding a .ts file is all that is needed.
 
-import type { BlogPost } from '@/types/blog.types';
+import type { BlogPost } from './blogService.types';
 
 // Vite glob import — eager: true loads all modules at build time
-const postModules = import.meta.glob<Record<string, unknown>>(
-  '../content/blog/*.{json,ts}',
-  { eager: true }
+const postModules = import.meta.glob<{ default: BlogPost }>(
+  '../../content/blog/*.ts',
+  { eager: false }
 );
 
-function slugFromPath(path: string): string {
-  // '../content/blog/how-to-make-a-table-in-markdown.json' → 'how-to-make-a-table-in-markdown'
-  return path.split('/').pop()!.replace(/\.(json|ts)$/, '');
-}
+let cache: BlogPost[] | null = null;
 
-function parsePost(path: string, raw: Record<string, unknown>): BlogPost {
-  return {
-    slug:        slugFromPath(path),
-    title:       String(raw.title       ?? ''),
-    date:        String(raw.date        ?? ''),
-    description: String(raw.description ?? ''),
-    author:      String(raw.author      ?? ''),
-    tags:        Array.isArray(raw.tags) ? raw.tags.map(String) : [],
-    readTime:    Number(raw.readTime    ?? 1),
-    featured:    Boolean(raw.featured   ?? false),
-    content:     String(raw.content     ?? ''),
-  };
-}
-
-// All posts — sorted newest first, featured posts at top
-export const allPosts: BlogPost[] = Object.entries(postModules)
-  .map(([path, raw]) => parsePost(path, raw as Record<string, unknown>))
-  .sort((a, b) => {
+async function ensureLoaded(): Promise<BlogPost[]> {
+  if (cache) return cache;
+  const entries = Object.entries(postModules);
+  const loaded = await Promise.all(
+    entries.map(async ([path, load]) => {
+      const slugFromPath = path.split('/').pop()?.replace(/\.(json|ts)$/, '') ?? '';
+      const mod = await load();
+      const post = mod.default;
+      if (typeof post.slug !== 'string' || post.slug === '') {
+        post.slug = slugFromPath;
+      }
+      return post;
+    })
+  );
+  cache = loaded.sort((a, b) => {
     if (a.featured && !b.featured) return -1;
     if (!a.featured && b.featured) return  1;
     return new Date(b.date).getTime() - new Date(a.date).getTime();
   });
+  return cache;
+}
+
+// All posts — sorted newest first, featured posts at top
+export async function getPostsPage(
+  page: number,
+  perPage: number
+): Promise<{ posts: BlogPost[]; total: number }> {
+  const all = await ensureLoaded();
+  const start = (page - 1) * perPage;
+  return {
+    posts: all.slice(start, start + perPage),
+    total: all.length,
+  };
+}
 
 // Get a single post by slug
-export function getPostBySlug(slug: string): BlogPost | undefined {
-  return allPosts.find(p => p.slug === slug);
+export async function getPostBySlug(
+  slug: string
+): Promise<BlogPost | undefined> {
+  const all = await ensureLoaded();
+  return all.find(p => p.slug === slug);
 }
 
 // Get all unique tags across all posts
-export function getAllTags(): string[] {
-  return [...new Set(allPosts.flatMap(p => p.tags))].sort();
+export async function getAllTags(): Promise<string[]> {
+  const all = await ensureLoaded();
+  return [...new Set(all.flatMap(p => p.tags))].sort();
+}
+
+export async function getAllPosts(): Promise<BlogPost[]> {
+  return ensureLoaded();
 }
 ```
 
@@ -6610,7 +6988,7 @@ const BlogPostPage = lazy(() => import('@/pages/BlogPostPage'));
 #### BlogListPage (`src/pages/BlogListPage/BlogListPage.tsx`)
 
 ```tsx
-import { allPosts, getAllTags } from '@/services/blogService';
+import { getAllPosts, getAllTags } from '@/services/blogService';
 
 // Layout:
 // - Page heading: "Writing about tables, structure, and analytical thinking."
@@ -6645,16 +7023,24 @@ import { allPosts, getAllTags } from '@/services/blogService';
 #### BlogPostPage (`src/pages/BlogPostPage/BlogPostPage.tsx`)
 
 ```tsx
+import { useEffect, useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import { getPostBySlug } from '@/services/blogService';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Helmet } from 'react-helmet-async';
+import { PanelLoader } from '@/components/ui/PanelLoader';
+import type { BlogPost } from '@/services/blogService/blogService.types';
 
 export const BlogPostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  const post = getPostBySlug(slug ?? '');
+  const [post, setPost] = useState<BlogPost | null | undefined>(undefined);
 
+  useEffect(() => {
+    if (slug) getPostBySlug(slug).then(setPost);
+  }, [slug]);
+
+  if (post === undefined) return <PanelLoader />;
   if (!post) return <Navigate to="/blog" replace />;
 
   return (
@@ -6758,16 +7144,21 @@ plugins: [
 ### 55D. Utility — Date Formatting
 
 ```ts
-// src/utils/formatDate.ts
+// src/utils/formatDate/formatDate.ts
+import i18n from 'i18next'
+
 export function formatDate(iso: string): string {
-  return new Intl.DateTimeFormat('en-GB', {
+  return new Intl.DateTimeFormat(i18n.language, {
     day:   'numeric',
     month: 'long',
     year:  'numeric',
-  }).format(new Date(iso));
-  // "15 September 2025"
+  }).format(new Date(iso))
+  // "15 September 2025" (English) · "15 septembre 2025" (French)
 }
 ```
+
+The locale-aware implementation uses the current `i18n.language` from react-i18next
+so dates render in the user's chosen language.
 
 ---
 
@@ -6789,10 +7180,10 @@ export function formatDate(iso: string): string {
 
 ---
 
-### 55F. Helper Script — Markdown to JSON
+### 55F. Helper Script — Markdown to Post
 
-Writing long Markdown in a JSON string is inconvenient.
-This script converts a `.md` file into a blog post `.json` file.
+Writing long Markdown in a template literal string is inconvenient.
+This script converts a `.md` file into a blog post `.ts` file with the content pre-filled.
 
 ```ts
 // scripts/md-to-blog-post.ts
@@ -6805,21 +7196,27 @@ const mdFile  = process.argv[2];
 const content = fs.readFileSync(mdFile, 'utf-8');
 const slug    = path.basename(mdFile, '.md');
 
-const post = {
-  title:       "FILL IN",
-  date:        new Date().toISOString().split('T')[0],
-  description: "FILL IN — max 160 chars",
-  author:      "Olayiwola Akinnagbe",
-  tags:        ["FILL IN"],
-  readTime:    Math.ceil(content.split(' ').length / 200),
-  featured:    false,
-  content:     content,      // Markdown content verbatim — no escaping needed in JSON
-};
+const ts = `import type { BlogPost } from '../../services/blogService/blogService.types'
 
-const outPath = `src/content/blog/${slug}.json`;
-fs.writeFileSync(outPath, JSON.stringify(post, null, 2));
+const post: BlogPost = {
+  slug:        '${slug}',
+  title:       'FILL IN',
+  date:        '${new Date().toISOString().split('T')[0]}',
+  description: 'FILL IN — max 160 chars',
+  author:      'Olayiwola Akinnagbe',
+  tags:        ['FILL IN'],
+  readTime:    ${Math.ceil(content.split(' ').length / 200)},
+  featured:    false,
+  content:     \`${content.replace(/`/g, '\\`')}\`,
+}
+
+export default post
+`;
+
+const outPath = `src/content/blog/${slug}.ts`;
+fs.writeFileSync(outPath, ts);
 console.log(`Created: ${outPath}`);
-console.log(`Fill in: title, description, tags`);
+console.log(`Fill in: title, description, and tags`);
 ```
 
 Add to package.json:
@@ -6832,8 +7229,8 @@ Add to package.json:
 Usage:
 ```bash
 npm run new-post my-draft.md
-# Creates src/content/blog/my-draft.json
-# Edit the JSON to fill in title, description, and tags
+# Creates src/content/blog/my-draft.ts
+# Edit the .ts file to fill in title, description, and tags
 ```
 
 ---
@@ -6922,8 +7319,7 @@ describe('BlogPostPage', () => {
 [x] npm install -D @tailwindcss/typography
 [x] Add typography plugin to tailwind.config.ts
 [x] Add HelmetProvider wrapper in App.tsx
-[x] Create src/types/blog.types.ts
-[x] Create src/services/blogService.ts with import.meta.glob
+[x] Create src/services/blogService/blogService.ts with import.meta.glob
 [x] Create src/content/blog/ directory
 [x] Create BlogListPage and BlogPostPage (lazy-loaded)
 [x] Add /blog and /blog/:slug routes to App.tsx
@@ -6949,7 +7345,7 @@ with a link to the contact page.
 ### Data Source
 
 ```ts
-// src/config/testimonials.ts
+// src/config/testimonials/testimonials.ts
 export interface Testimonial {
   id: string
   name: string
@@ -6995,7 +7391,7 @@ Seven tests in `src/test/pages/TestimonialsPage/TestimonialsPage.test.tsx`:
 ### v6.0 Checklist Additions
 
 ```
-[x] Create src/config/testimonials.ts with Testimonial type and empty array
+[x] Create src/config/testimonials/testimonials.ts with Testimonial type and empty array
 [x] Create src/pages/TestimonialsPage/TestimonialsPage.tsx
 [x] Add /testimonials route to App.tsx (lazy-loaded)
 [x] Add testimonials route key to siteConfig.routes
@@ -7010,13 +7406,18 @@ Seven tests in `src/test/pages/TestimonialsPage/TestimonialsPage.test.tsx`:
 ## v7.0 — Internationalization (i18n)
 
 > **Implementation updated:** The initial i18n used a custom `LocaleContext`.
-> This was replaced with **react-i18next + i18next-http-backend** — the industry standard.
+> This was replaced with **react-i18next** — the industry standard.
 > The custom LocaleContext is fully removed. Do not re-implement it.
+> Note: The actual implementation uses **manual `fetch()` + `addResourceBundle()`** instead of
+> `i18next-http-backend`. English is bundled directly; other languages are fetched lazily
+> from `/public/locales/{lng}/common.json`. This avoids the extra http-backend dependency
+> while achieving the same lazy-loading behaviour. `useSuspense: false` is used since
+> the manual fetch pattern handles loading asynchronously.
 
 ### Libraries
 
 ```bash
-npm install i18next react-i18next i18next-http-backend i18next-browser-languagedetector
+npm install i18next react-i18next i18next-browser-languagedetector
 ```
 
 ### Supported Languages
@@ -7037,29 +7438,31 @@ npm install i18next react-i18next i18next-http-backend i18next-browser-languaged
 ```
 /public
   /locales
-    /en/common.json     ← source of truth (English)
     /ar/common.json
-    /fr/common.json
-    /es/common.json
-    /pt/common.json
-    /ja/common.json
     /de/common.json
+    /es/common.json
+    /fr/common.json
+    /ja/common.json
     /no/common.json
+    /pt/common.json
+    (English is bundled directly in src/i18n/locales/en.json — never fetched)
 
 /src
   /i18n
     i18n.ts             ← initialise i18next (see below)
-    config.ts           ← language metadata (name, direction, flag)
+    config.ts           ← language metadata (name, direction)
     types.d.ts          ← TypeScript augmentation for type-safe t()
+    locales/
+      en.json           ← source of truth, imported directly
 ```
 
 ### Why This Architecture
 
 ```
-✅ Lazy loading via http-backend — only the active language JSON is fetched.
-   A user who never changes language never downloads Arabic or Japanese.
+✅ Lazy loading via manual fetch — only non-English locale JSON is fetched
+   on demand. English is always available (bundled directly).
 
-✅ Type safety — all translation keys are typed from en/common.json.
+✅ Type safety — all translation keys are typed from en.json.
    Mistyped keys are caught at compile time, not at runtime.
 
 ✅ i18next is the standard — battle-tested, community-maintained,
@@ -7068,50 +7471,84 @@ npm install i18next react-i18next i18next-http-backend i18next-browser-languaged
 ✅ No custom context to maintain — useTranslation() from react-i18next
    replaces useLocale() with zero bespoke code.
 
-✅ Suspense-compatible — the app suspends while the locale JSON loads,
-   then hydrates. Works cleanly with React.lazy() lazy pages.
+✅ No http-backend dependency — simpler setup, same lazy-loading behaviour.
+   English locale is always available on first render (zero network requests).
 ```
 
 ### `/src/i18n/i18n.ts`
 
 ```ts
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import Backend from 'i18next-http-backend';
-import LanguageDetector from 'i18next-browser-languagedetector';
+import i18n from 'i18next'
+import { initReactI18next, setDefaults } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import en from './locales/en.json'
+import { LOCALES } from './config'
+
+setDefaults({ useSuspense: false })
+
+const LOCALE_URL = '/locales/{{lng}}/common.json'
+
+async function fetchLocale(lng: string): Promise<Record<string, unknown> | null> {
+  const url = LOCALE_URL.replace('{{lng}}', lng)
+  try {
+    const res = await fetch(url)
+    if (!res.ok) {
+      if (import.meta.env.DEV) {
+        console.error(`[tablesmit] Failed to load locale ${lng}: ${res.status}`)
+      }
+      return null
+    }
+    return await res.json() as Record<string, unknown>
+  } catch (err) {
+    if (import.meta.env.DEV) {
+      console.error(`[tablesmit] Failed to load locale: ${lng}`, err)
+    }
+    return null
+  }
+}
 
 if (!i18n.isInitialized) {
   i18n
-    .use(Backend)           // lazy-loads JSON from /public/locales/
     .use(LanguageDetector)  // detects from localStorage then navigator.language
     .use(initReactI18next)
     .init({
       fallbackLng: 'en',
-      supportedLngs: ['en', 'ar', 'fr', 'es', 'pt', 'ja', 'de', 'no'],
+      supportedLngs: LOCALES.map(l => l.code),
       ns: ['common'],
       defaultNS: 'common',
-
-      backend: {
-        loadPath: '/locales/{{lng}}/{{ns}}.json',
+      resources: {
+        en: { common: en as Record<string, unknown> },
       },
-
       interpolation: {
-        escapeValue: false,   // React already escapes by default
+        escapeValue: false,
       },
-
-      react: {
-        useSuspense: true,    // suspend while loading — pairs with Suspense fallback
-      },
-
       detection: {
         order: ['localStorage', 'navigator'],
         caches: ['localStorage'],
         lookupLocalStorage: 'tablesmit-locale',
       },
-    });
+    })
+    .then(() => {
+      LOCALES
+        .filter(l => l.code !== 'en')
+        .forEach(({ code }) => {
+          fetchLocale(code).then(data => {
+            if (data) i18n.addResourceBundle(code, 'common', data, true, true)
+          })
+        })
+    })
 }
 
-export default i18n;
+// RTL and lang attribute on <html> — handled here, not in App.tsx
+i18n.on('languageChanged', (lng) => {
+  const locale = LOCALES.find(l => l.code === lng)
+  if (locale) {
+    document.documentElement.dir = locale.dir
+    document.documentElement.lang = lng
+  }
+})
+
+export default i18n
 ```
 
 ### `/src/i18n/config.ts`
@@ -7144,7 +7581,7 @@ export const LOCALES: LocaleConfig[] = [
 // Every call to t('some.key') is now checked at compile time.
 
 import 'react-i18next';
-import type en from '../../public/locales/en/common.json';
+import type en from './locales/en.json';
 
 declare module 'react-i18next' {
   interface CustomTypeOptions {
@@ -7156,83 +7593,53 @@ declare module 'react-i18next' {
 }
 ```
 
-### `/public/locales/en/common.json` — structure
+### `src/i18n/locales/en.json` — structure (partial)
 
-English is the source of truth. All other locale files must implement the same shape.
+English is the source of truth at `src/i18n/locales/en.json`. All other locale files
+at `/public/locales/{lng}/common.json` must implement the same shape.
 Missing keys fall back to English automatically (`fallbackLng: 'en'`).
+
+The full file has 40+ sections covering every UI string. Here is the top-level
+key structure (abbreviated):
 
 ```json
 {
-  "nav": {
-    "home":       "Home",
-    "about":      "About",
-    "blog":       "Blog",
-    "contact":    "Contact",
-    "openSource": "Open Source",
-    "changelog":  "Changelog"
-  },
-  "hero": {
-    "headline":    "Tables built for analytical writing.",
-    "subtext":     "A minimalist table builder — with full control over headers, formatting, and export.",
-    "cta":         "Start Building"
-  },
-  "toolbar": {
-    "addRow":      "Add Row",
-    "addColumn":   "Add Column",
-    "removeRow":   "Remove Row",
-    "removeColumn":"Remove Column",
-    "merge":       "Merge",
-    "unmerge":     "Unmerge",
-    "clearAll":    "Clear All",
-    "undo":        "Undo"
-  },
-  "export": {
-    "pdf":         "PDF",
-    "png":         "PNG",
-    "jpeg":        "JPEG",
-    "excel":       "Excel",
-    "csv":         "CSV"
-  },
-  "toast": {
-    "exportSuccess":   "Table exported as {{format}}.",
-    "exportError":     "Export failed. Try reducing the table size.",
-    "importSuccess":   "Table imported. {{rows}} rows, {{cols}} columns.",
-    "importError":     "Could not read file. Check the format and try again.",
-    "importTooLarge":  "File too large. Maximum size is 5MB.",
-    "copyImage":       "Table copied as image.",
-    "copyData":        "Table data copied. Paste into Excel or Google Sheets.",
-    "pasteSuccess":    "Table pasted. {{rows}} rows, {{cols}} columns.",
-    "pasteError":      "Could not read clipboard. Try importing a file instead.",
-    "undoEmpty":       "Nothing left to undo.",
-    "tableCleared":    "Table cleared."
-  },
-  "aria": {
-    "tableEditor":     "Table editor",
-    "resizeColumn":    "Resize column {{index}}. Double-click to auto-fit.",
-    "mergeButton":     "Merge selected cells",
-    "undoButton":      "Undo. {{depth}} actions available.",
-    "undoDisabled":    "Nothing to undo",
-    "themeSelect":     "Select table theme",
-    "languageSelect":  "Select language"
-  },
-  "meta": {
-    "homeTitle":        "Tablesmit — Tables, Your Way",
-    "homeDescription":  "A minimalist table builder for analytical writing. Build clean structured tables with full control over headers, formatting, and export. Free, no signup.",
-    "blogTitle":        "Blog — Tablesmit",
-    "aboutTitle":       "About — Tablesmit",
-    "notFoundTitle":    "Page not found — Tablesmit"
-  },
-  "errors": {
-    "pageNotFound":     "Page not found.",
-    "pageNotFoundSub":  "That URL does not exist. Let us get you back to building.",
-    "backToHome":       "Back to Home",
-    "somethingWrong":   "Something went wrong.",
-    "reload":           "Reload the page"
-  },
-  "brand": {
-    "name":    "Tablesmit",
-    "tagline": "Tables, your way."
-  }
+  "brand":       { "name": "Tablesmit", "tagline": "Tables, your way.", ... },
+  "nav":         { "home": "Home", "about": "About", ... },
+  "hero":        { "headline": "Tables built for analytical writing.", ... },
+  "about":       { "heading": "Built for structured thinkers.", ... },
+  "openSource":  { "heading": "Built in the open.", ... },
+  "contact":     { "heading": "Get in touch.", ... },
+  "footer":      { "copyright": "Tables, your way.", ... },
+  "blog":        { "heading": "Writing about tables, structure, and analytical thinking.", ... },
+  "notFound":    { "heading": "Page not found.", ... },
+  "testimonials":{ "heading": "What people are saying.", ... },
+  "toolbar":     { "addRow": "Add Row", "merge": "Merge", ... },
+  "table":       { "gridSize": "Grid Size", "mergeCells": "Merge Cells", ... },
+  "grid":        { "tableEditor": "Table editor", ... },
+  "contextMenu": { "autoFitColumn": "Auto-fit column width", ... },
+  "panels":      { "dimensions": "Grid Size", "export": "Export", ... },
+  "colorPanel":  { "headerColor": "Header color", ... },
+  "borderPanel": { "noBorder": "No Border", "allBorders": "All Borders", ... },
+  "themePicker": { "selectTheme": "Select table theme", ... },
+  "aiFeatures":  { "heading": "AI Features", "comingSoon": "Coming soon", ... },
+  "shortcuts":   { "title": "Keyboard Shortcuts", ... },
+  "export":      { "pdf": "PDF", "excel": "Excel", ... },
+  "presets":     { "researchNotes": "Research Notes", ... },
+  "themes":      { "defaultDescription": "White cells, primary blue header...", ... },
+  "columnFormats": { "textDescription": "Plain text...", ... },
+  "meta":        { "homeTitle": "Tablesmit — Tables, Your Way", ... },
+  "features":    { "heading": "Features", ... },
+  "cookieConsent": { "message": "This site uses cookies...", ... },
+  "pagination":  { "page": "Page {{current}} of {{total}}", ... },
+  "shortcutKeys":{ "ctrlZ": "Ctrl+Z", ... },
+  "privacy":     { "lastUpdated": "Last updated: May 2026", ... },
+  "terms":       { "lastUpdated": "Last updated: May 2026", ... },
+  "errors":      { "pageNotFound": "Page not found.", ... },
+  "aria":        { "tableEditor": "Table editor", ... },
+  "toast":       { "exportSuccess": "Table exported as {{format}}.", ... },
+  "loading":     "Loading…",
+  "changelogDescription": "Every release of Tablesmit, documented."
 }
 ```
 
@@ -7268,42 +7675,51 @@ toast.success(t('toast.exportSuccess', { format: 'PDF' }));
 
 ### RTL Support (Arabic)
 
-```tsx
-// src/App.tsx — set dir on <html> when language changes
-import i18n from '@/i18n/i18n';
-import { LOCALES } from '@/i18n/config';
-
-i18n.on('languageChanged', (lng) => {
-  const locale = LOCALES.find(l => l.code === lng);
-  document.documentElement.dir = locale?.dir ?? 'ltr';
-  document.documentElement.lang = lng;
-});
-```
+RTL handling lives inside `src/i18n/i18n.ts` — the `languageChanged` listener sets
+`document.documentElement.dir` and `lang` automatically. No changes needed in App.tsx.
 
 ### Language Picker (Navbar)
 
 ```tsx
-import { useTranslation } from 'react-i18next';
-import { LOCALES } from '@/i18n/config';
+import { Check, Globe } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { LOCALES } from '@/i18n/config'
+import { Button } from '../Button/Button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '../DropdownMenu/DropdownMenu'
 
-const LanguagePicker: React.FC = () => {
-  const { i18n } = useTranslation();
+export function LanguagePicker({ align = 'end', onSelect }: LanguagePickerProps) {
+  const { t, i18n } = useTranslation()
 
   return (
-    <select
-      value={i18n.language}
-      onChange={e => i18n.changeLanguage(e.target.value)}
-      aria-label={t('aria.languageSelect')}
-      className="text-sm bg-transparent border border-border rounded-sm px-2 py-1"
-    >
-      {LOCALES.map(locale => (
-        <option key={locale.code} value={locale.code}>
-          {locale.name}
-        </option>
-      ))}
-    </select>
-  );
-};
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="sm" aria-label={t('aria.languageSelect')}>
+          <Globe size={16} />
+          {LOCALES.find((l) => l.code === i18n.language)?.name ?? i18n.language.toUpperCase()}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align={align}>
+        {LOCALES.map((locale) => (
+          <DropdownMenuItem
+            key={locale.code}
+            onClick={() => {
+              i18n.changeLanguage(locale.code)
+              onSelect?.()
+            }}
+          >
+            {locale.name}
+            {i18n.language === locale.code && <Check size={14} className="ml-auto" />}
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 ```
 
 ### Adding a New Language
@@ -7313,11 +7729,10 @@ const LanguagePicker: React.FC = () => {
    Copy from en/common.json — translate every value, preserve all keys and
    interpolation variables exactly.
 
-2. Add the language code to supportedLngs in src/i18n/i18n.ts
+2. Add a LocaleConfig entry to LOCALES in src/i18n/config.ts
+   (supportedLngs in i18n.ts is derived automatically from LOCALES.map(l => l.code))
 
-3. Add a LocaleConfig entry to LOCALES in src/i18n/config.ts
-
-4. The language picker renders it automatically on next build.
+3. The language picker renders it automatically on next build.
    No component changes required.
 ```
 
@@ -7345,20 +7760,32 @@ Meta:      Page titles and meta descriptions per language
 ```tsx
 // src/main.tsx — import i18n before App to ensure initialisation
 import './i18n/i18n';
-import { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
-import App from './App';
-import { PageLoader } from '@/components/ui/PageLoader';
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { Toaster } from 'sonner'
+import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
-  <Suspense fallback={<PageLoader />}>
+  <StrictMode>
     <App />
-  </Suspense>
-);
+    <Toaster
+      position="bottom-right"
+      toastOptions={{
+        duration: 3000,
+        classNames: {
+          toast: 'font-sans text-sm',
+          success: 'border-l-4 border-success',
+          error: 'border-l-4 border-danger',
+        },
+      }}
+    />
+  </StrictMode>,
+)
 ```
 
-The `Suspense` at root level handles the initial translation load.
-The `useSuspense: true` config suspends rendering until the active locale JSON is fetched.
+No `Suspense` wrapper at root level — the manual fetch pattern handles loading
+asynchronously (via `useSuspense: false`). The English locale is always available
+on first render (zero network requests).
 
 ---
 
@@ -7369,7 +7796,7 @@ i18n shipped in v7.0. All items below are locked.
 ```
 [x] 8-language support: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian
 [x] RTL layout for Arabic via document.documentElement.dir = 'rtl'
-[x] react-i18next + i18next-http-backend — lazy loads locale JSON from /public/locales/
+[x] react-i18next + manual fetch + addResourceBundle — lazy loads locale JSON from /public/locales/
 [x] i18next-browser-languagedetector — auto-detects from localStorage then navigator.language
 [x] TypeSafe translations via types.d.ts augmentation of react-i18next
 [x] Brand name never translated in any locale
@@ -7380,7 +7807,7 @@ i18n shipped in v7.0. All items below are locked.
 [x] src/i18n/i18n.ts — i18next initialisation
 [x] src/i18n/config.ts — LOCALES array with code, name, direction
 [x] src/i18n/types.d.ts — TypeScript augmentation
-[x] /public/locales/{en,ar,fr,es,pt,ja,de,no}/common.json — all 8 locale files
+ [x] English source of truth at `src/i18n/locales/en.json`; 7 non-English locales at `/public/locales/{ar,fr,es,pt,ja,de,no}/common.json`
 [x] Custom LocaleContext fully removed — zero references remain
 ```
 
@@ -7406,15 +7833,15 @@ All items reference their full specification section in this document.
 
 ```
 CONTENT — must ship before any promotion:
-[ ] Blog posts — 5 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
-[ ] Feature landing pages — system built + 6 JSON files live (Section 56 / 59)
+[x] Blog posts — 5 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
+[x] Feature landing pages — system built + 23 JSON files live (Section 59)
 [ ] Real testimonials — replace empty TESTIMONIALS array with at least 3 real quotes (Section 57)
-[ ] Google Search Console — verified, sitemap submitted, homepage indexed (Section 57B)
-[ ] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 57A)
+[ ] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
+[ ] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
 
 ARCHITECTURE:
-[ ] Split contexts — TableDataContext / TableSelectionContext / TableUIContext (Section 37)
-[ ] ARIA grid pattern — role="grid", row/cell roles, arrow key navigation (Section 44)
+[x] Split contexts — TableDataContext / TableSelectionContext / TableContext (Section 37)
+[x] ARIA grid pattern — role="grid", row/cell roles, arrow key navigation (Section 44)
 
 MONITORING:
 [ ] Sentry — VITE_SENTRY_DSN set + Sentry.init wired to ErrorBoundary (Section 46)
@@ -7422,7 +7849,7 @@ MONITORING:
 GROWTH:
 [ ] GitHub stars ≥ 20 → submit to Made in Nigeria OSS (Section 38I / 54)
 [ ] Product Hunt launch assets — demo GIF, 3 screenshots at 1270×760, 60-word description
-[ ] Sitemap updated — include all blog and feature page URLs
+[x] Sitemap updated — include all blog and feature page URLs
 ```
 
 ---
@@ -7471,10 +7898,8 @@ One post already committed: `best-table-tool-for-researchers.ts` (featured: true
 
 ## 59. Feature Landing Pages — Content Specification
 
-Six feature page JSON files were written in the initial pass.
-The full set has since been expanded to 23 pages covering every visible UI feature.
-All files are written and ready to commit to `src/content/features/`.
-The system architecture is specified in Section 56.
+23 JSON files cover every visible UI feature. All files live at `src/content/features/`.
+The system architecture (auto-discovery via `import.meta.glob`) mirrors the blog system in Section 56.
 
 ### Complete Feature Pages List
 
@@ -7507,40 +7932,40 @@ The system architecture is specified in Section 56.
 ### Schema Extensions Required
 
 Some pages use additional JSON fields beyond the base `FeaturePage` type.
-These must be handled in `FeatureDetailPage` with conditional rendering:
+These are **runtime-only** — the `FeaturePage` type in `featureService.types.ts` does not include them. The `parseFeature()` function casts via `Record<string, unknown>`, so extra fields are accessed through direct property access or `as any` casts. When rendering these in `FeatureDetailPage`, check for the field's existence and render conditionally.
 
 | Page | Additional field | Rendering |
 |---|---|---|
-| `keyboard-shortcuts` | `shortcuts[]` — ShortcutCategory[] | ShortcutsTable component |
-| `table-themes` | `themes[]` — ThemePreview[] | ThemePreviewGrid component |
+| `keyboard-shortcuts` | `shortcuts[]` — `{category, description, items[]}` | ShortcutsTable component |
+| `table-themes` | `themes[]` — `{id, name, description, bestFor}` | ThemePreviewGrid component |
 | `templates` | `templates[]` — TemplateCard[] | TemplateCardGrid component |
 | `border-styles` | `borderTypes[]`, `borderStyles[]` | Two reference grids |
-| `copy-table` | `copyModes[]` — CopyMode[] | Two side-by-side mode cards |
-| `column-types` | `columnTypes[]` — ColumnType[] | Type reference grid |
-| `image-export` | `comparison{}` | PNG vs JPEG comparison table |
+| `copy-table` | `copyModes[]` — `{id, name, shortcut, status, description, bestFor}` | Two side-by-side mode cards |
+| `column-types` | `columnTypes[]` — `{id, name, icon, description, example}` | Type reference grid |
+| `image-export` | `comparison{}` — `{heading, rows[]}` | PNG vs JPEG comparison table |
 | `ai-features` | `aiFeatures[]`, `cta{}`, `status` | Feature cards + CTA block |
-| `context-menu` | `menuItems{}` — cell and columnHeader arrays | Two reference panels |
+| `context-menu` | `menuItems{}` — `{cell[], columnHeader[]}` | Two reference panels |
 
 ### Implementation Checklist
 
 ```
-[ ] src/types/feature.types.ts — base FeaturePage type + all extension interfaces
-[ ] src/services/featureService.ts — import.meta.glob auto-discovery
-[ ] src/pages/FeaturesListPage/ — grid of all 23 feature cards
-[ ] src/pages/FeatureDetailPage/ — hero + conditional sections + related
-[ ] Routes: /features and /features/:slug added to App.tsx (lazy-loaded)
-[ ] All 23 JSON files committed to src/content/features/
-[ ] Each page renders correctly — check conditional sections per _codex_notes
-[ ] ai-features page shows 'In development' amber banner below hero
-[ ] keyboard-shortcuts page renders ShortcutsTable between hero and benefits
-[ ] image-export page renders PNG vs JPEG comparison table
-[ ] copy-table page shows 'Coming soon' badge on Copy as Image mode card
-[ ] context-menu page renders two reference panels (cell vs column header)
-[ ] Each page: metaTitle, metaDescription, og:url, JSON-LD via react-helmet-async
-[ ] FeaturesListPage links 'Features' nav item (already in siteConfig)
-[ ] sitemap.xml updated with all 23 /features/* URLs
-[ ] featureService tests: auto-discovery, slug derivation, not-found
-[ ] FeaturesListPage and FeatureDetailPage tests written
+[x] src/services/featureService/featureService.types.ts — base FeaturePage type + all extension interfaces
+[x] src/services/featureService/featureService.ts — import.meta.glob auto-discovery
+[x] src/pages/FeaturesListPage/ — grid of all 23 feature cards
+[x] src/pages/FeatureDetailPage/ — hero + conditional sections + related
+[x] Routes: /features and /features/:slug added to App.tsx (lazy-loaded)
+[x] All 23 JSON files committed to src/content/features/
+[x] Each page renders correctly — check conditional sections per _codex_notes
+[x] ai-features page shows 'In development' amber banner below hero
+[x] keyboard-shortcuts page renders ShortcutsTable between hero and benefits
+[x] image-export page renders PNG vs JPEG comparison table
+[x] copy-table page shows 'Coming soon' badge on Copy as Image mode card
+[x] context-menu page renders two reference panels (cell vs column header)
+[x] Each page: metaTitle, metaDescription, og:url, JSON-LD via react-helmet-async
+[x] FeaturesListPage links 'Features' nav item (already in siteConfig)
+[x] sitemap.xml updated with all 23 /features/* URLs
+[x] featureService tests: auto-discovery, slug derivation, not-found
+[x] FeaturesListPage and FeatureDetailPage tests written
 ```
 
 ---
@@ -7550,7 +7975,7 @@ These must be handled in `FeatureDetailPage` with conditional rendering:
 ### Current state
 
 The page exists at `/testimonials`. The `TESTIMONIALS` array in
-`src/config/testimonials.ts` is empty. The empty state renders correctly.
+`src/config/testimonials/testimonials.ts` is empty. The empty state renders correctly.
 
 ### Collecting testimonials
 
@@ -7576,7 +8001,7 @@ The recommended approach:
 ### Adding a testimonial
 
 ```ts
-// src/config/testimonials.ts — add one object to the array
+// src/config/testimonials/testimonials.ts — add one object to the array
 
 export const TESTIMONIALS: Testimonial[] = [
   {
@@ -7777,49 +8202,46 @@ i18n:     add missing toolbar keys to Arabic locale
 
 ---
 
-### `.github/workflows/ci.yml` — Verify These Steps Exist
+### `.github/workflows/deploy-netlify.yml` — Verify Steps
 
-The CI pipeline must run all three gates before any PR can be merged:
+The pipeline runs all gates in a single `build-and-deploy` job. Required
+checks (`lint`, `test`, `build`) map to steps within that job:
 
 ```yaml
-name: CI
+name: Deploy to Netlify
 
 on:
   push:
-    branches-ignore: [main]   # branches only — main merges come from PRs
+    branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  lint:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20', cache: 'npm' }
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
       - run: npm ci
-      - run: npm run lint          # must exit 0 — zero warnings
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20', cache: 'npm' }
-      - run: npm ci
-      - run: npm test -- --run    # all tests must pass
-
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: { node-version: '20', cache: 'npm' }
-      - run: npm ci
-      - run: npm run build         # must complete without errors
+      - run: npm run lint
+      - run: npm run prepare         # husky install
+      - run: npm run test
+      - run: npm run audit
+      - run: npm run build
+      - if: github.ref == 'refs/heads/main'
+        run: curl "$deploy_url"
+        env:
+          deploy_url: ${{ secrets.NETLIFY_DEPLOY_HOOK_URL }}
 ```
 
-All three jobs (`lint`, `test`, `build`) must appear as required status checks
+All three gates (`lint`, `test`, `build` steps) must be required checks
 in the branch protection settings above.
 
 ---

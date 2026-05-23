@@ -103,6 +103,88 @@ Widget & 9.99 \\\\
     expect(cells[0][1].value).toBe('Price')
   })
 
+  it('parses a Markdown table from plain text clipboard', async () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const md = [
+      '| Product | Price | Qty |',
+      '|---------|-------|-----|',
+      '| Widget  | 9.99  | 5   |',
+      '| Gadget  | 14.99 | 3   |',
+    ].join('\n')
+
+    const data = new DataTransfer()
+    data.setData('text/plain', md)
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    await vi.waitFor(() => {
+      expect(setCells).toHaveBeenCalled()
+    })
+
+    const cells = setCells.mock.calls[0][0]
+    expect(cells).toHaveLength(3)
+    expect(cells[0]).toHaveLength(3)
+    expect(cells[0][0].value).toBe('Product')
+    expect(cells[0][1].value).toBe('Price')
+    expect(cells[0][2].value).toBe('Qty')
+    expect(cells[1][0].value).toBe('Widget')
+    expect(cells[1][1].value).toBe('9.99')
+    expect(cells[1][2].value).toBe('5')
+    expect(cells[2][0].value).toBe('Gadget')
+    expect(cells[2][1].value).toBe('14.99')
+    expect(cells[2][2].value).toBe('3')
+  })
+
+  it('parses Markdown table with alignment colons', async () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const md = [
+      '| Left | Center | Right |',
+      '|:-----|:------:|------:|',
+      '| A    | B      | C     |',
+    ].join('\n')
+
+    const data = new DataTransfer()
+    data.setData('text/plain', md)
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    await vi.waitFor(() => {
+      expect(setCells).toHaveBeenCalled()
+    })
+
+    const cells = setCells.mock.calls[0][0]
+    expect(cells).toHaveLength(2)
+    expect(cells[0][0].value).toBe('Left')
+    expect(cells[0][1].value).toBe('Center')
+    expect(cells[0][2].value).toBe('Right')
+    expect(cells[1][0].value).toBe('A')
+  })
+
+  it('falls through to TSV/CSV when Markdown has no pipe-separator line', () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const data = new DataTransfer()
+    data.setData('text/plain', 'just some text without a table')
+
+    document.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+    }))
+
+    expect(setCells).not.toHaveBeenCalled()
+  })
+
   it('falls through to TSV/CSV when LaTeX is not tabular', () => {
     const setCells = vi.fn()
     renderHook(() => useClipboardPaste(setCells))
