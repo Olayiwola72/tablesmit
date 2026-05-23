@@ -3,6 +3,7 @@ import { siteConfig } from '../../config/siteConfig'
 import { useTableContext } from '../../context/TableContext'
 import { importCsv, importExcel } from '../../services/importService/importService'
 import { toast, TOAST } from '../../utils/toast/toast'
+import { trackEvent } from '../../utils/analytics/analytics'
 import type { ImportApi } from './useImport.types'
 
 export function useImport(): ImportApi {
@@ -16,6 +17,7 @@ export function useImport(): ImportApi {
       setCells(result.cells)
       const rows = result.cells.length
       const cols = result.cells[0]?.length ?? 0
+      trackEvent('table_imported', { source: kind, rows, cols })
       toast.success(TOAST.IMPORT_SUCCESS(rows, cols))
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : siteConfig.messages.importParseError

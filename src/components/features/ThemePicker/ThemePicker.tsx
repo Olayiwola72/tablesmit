@@ -5,6 +5,7 @@ import { TABLE_THEMES } from '../../../config/table/tableThemes'
 import { useTableContext } from '../../../context/TableContext'
 import { cn } from '../../../lib/utils'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
+import { trackEvent } from '../../../utils/analytics/analytics'
 
 const themeLabelKey: Record<string, string> = {
   'default': 'themePicker.default',
@@ -52,7 +53,7 @@ export function ThemePicker(): ReactNode {
             key={th.id}
             theme={th}
             isSelected={theme === th.id}
-            onSelect={() => setTheme(th.id)}
+            onSelect={() => { setTheme(th.id); trackEvent('theme_applied', { theme: th.id }) }}
           />
         ))}
       </div>

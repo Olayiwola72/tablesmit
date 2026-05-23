@@ -2972,7 +2972,7 @@ Last updated: 2026-05-23 — 1083 tests passing (139 test files), coverage thres
 - [x] Blog posts committed to `src/content/blog/` (Section 58 — 6 posts live)
 - [x] Feature landing pages — system built + 23 JSON files live in `src/content/features/` (Section 59)
 - [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
-  - [ ] Google Search Console — verified + sitemap submitted (Section 38G)
+  - [x] Google Search Console — verified + sitemap submitted (Section 38G)
   - [ ] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 53)
 - [x] Sitemap updated with blog post and feature page URLs
 
@@ -7836,7 +7836,7 @@ CONTENT — must ship before any promotion:
 [x] Blog posts — 5 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
 [x] Feature landing pages — system built + 23 JSON files live (Section 59)
 [ ] Real testimonials — replace empty TESTIMONIALS array with at least 3 real quotes (Section 57)
-[ ] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
+[x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
 [ ] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
 
 ARCHITECTURE:

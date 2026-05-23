@@ -5,6 +5,7 @@ import { exportTable } from '../../services/exportService'
 import type { ExportFormat } from '../../services/exportService/export.types'
 import { TABLE_THEMES } from '../../config/table/tableThemes'
 import { toast, TOAST } from '../../utils/toast/toast'
+import { trackEvent } from '../../utils/analytics/analytics'
 import type { ExportApi } from './useExport.types'
 
 export function useExport(): ExportApi {
@@ -71,6 +72,7 @@ export function useExport(): ExportApi {
           borderStyle: stylesRef.current.borderStyle,
         },
       })
+      trackEvent('table_exported', { format })
       toast.success(TOAST.EXPORT_SUCCESS(format.toUpperCase()))
     } catch {
       toast.error(TOAST.EXPORT_ERROR)

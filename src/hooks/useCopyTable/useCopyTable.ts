@@ -1,6 +1,7 @@
 import { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from '../../utils/toast/toast'
+import { trackEvent } from '../../utils/analytics/analytics'
 import type { CellData } from '@/types/table'
 
 export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTMLDivElement | null>) {
@@ -16,6 +17,7 @@ export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTML
         }).join(','),
       )
       await navigator.clipboard.writeText(lines.join('\n'))
+      trackEvent('table_copied', { method: 'csv' })
       toast.success(t('toast.copyCsv', 'Table data copied as CSV.'))
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
@@ -28,6 +30,7 @@ export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTML
         .map((row) => row.filter((c) => !c.isHidden).map((c) => c.value).join('\t'))
         .join('\n')
       await navigator.clipboard.writeText(tsv)
+      trackEvent('table_copied', { method: 'excel' })
       toast.success(t('toast.copyData'))
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
@@ -44,6 +47,7 @@ export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTML
         `| ${row.map((cell) => ` ${cell.value || ' '} `).join('|')} |`,
       ).join('\n')
       await navigator.clipboard.writeText(`${header}\n${separator}\n${body}`)
+      trackEvent('table_copied', { method: 'markdown' })
       toast.success(t('toast.copyMarkdown', 'Table copied as Markdown.'))
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
@@ -59,6 +63,7 @@ export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTML
       const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'))
       if (!blob) return
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+      trackEvent('table_copied', { method: 'image' })
       toast.success(t('toast.copyImage'))
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
@@ -70,6 +75,7 @@ export function useCopyTable(cells: CellData[][], tableRef: React.RefObject<HTML
       const { cellsToLatex } = await import('../../utils/latexUtils')
       const latex = cellsToLatex(cells, headerStyle)
       await navigator.clipboard.writeText(latex)
+      trackEvent('table_copied', { method: 'latex' })
       toast.success(t('toast.copyLatex', 'Table copied as LaTeX.'))
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))

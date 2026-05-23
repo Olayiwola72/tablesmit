@@ -10,6 +10,7 @@ import { useTableContext, useTableData, useSelectedRange } from '../../../contex
 import { isSingleCellRange } from '../../../utils/mergeUtils/mergeUtils'
 import { useCopyTable } from '../../../hooks/useCopyTable/useCopyTable'
 import { useExport } from '../../../hooks/useExport/useExport'
+import { trackEvent } from '../../../utils/analytics/analytics'
 import { Button } from '../../ui/Button/Button'
 import { TemplatesDropdown } from './TemplatesDropdown/TemplatesDropdown'
 import { ThemeDropdown } from './ThemeDropdown/ThemeDropdown'
@@ -36,7 +37,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
 
   return (
     <div className="flex h-12 items-center gap-2 overflow-x-auto border-b border-border bg-surface px-6" data-toolbar>
-      <TemplatesDropdown presets={presets} onApplyPreset={table.applyPreset} />
+      <TemplatesDropdown presets={presets} onApplyPreset={(p) => { table.applyPreset(p); trackEvent('preset_applied', { preset: p.id }) }} />
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 
@@ -59,14 +60,14 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         canMerge={canMerge}
         canUndo={table.canUndo}
         historyDepth={table.historyDepth}
-        onMerge={table.mergeSelection}
-        onUnmerge={table.unmergeSelection}
-        onUndo={table.undo}
+        onMerge={() => { table.mergeSelection(); trackEvent('table_merged', {}) }}
+        onUnmerge={() => { table.unmergeSelection(); trackEvent('table_unmerged', {}) }}
+        onUndo={() => { table.undo(); trackEvent('table_undone', {}) }}
       />
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 
-      <Button variant="ghost" size="sm" title={t('aiFeatures.comingSoon')} onClick={() => toast.info(t('toast.aiWaitlist'))}>
+      <Button variant="ghost" size="sm" title={t('aiFeatures.comingSoon')} onClick={() => { trackEvent('ai_waitlist_clicked', {}); toast.info(t('toast.aiWaitlist')) }}>
         <Sparkles size={14} aria-hidden="true" /> {t('toolbar.ai')}
       </Button>
 
@@ -90,7 +91,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 
-      <Button variant="danger" size="sm" onClick={() => { table.clearAll(); toast.info(t('toast.tableCleared')) }}>
+      <Button variant="danger" size="sm" onClick={() => { table.clearAll(); trackEvent('table_cleared', {}); toast.info(t('toast.tableCleared')) }}>
         <Trash2 size={14} aria-hidden="true" /> {t('toolbar.clearAll')}
       </Button>
     </div>
