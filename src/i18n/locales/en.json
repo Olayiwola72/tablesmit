@@ -220,6 +220,8 @@
     "autoFitColumn": "Auto-fit column width",
     "autoFitRow": "Auto-fit row height",
     "changeBackground": "Change cell background color",
+    "changeColumnBackground": "Change column background color",
+    "changeRowBackground": "Change row background color",
     "changeTextColor": "Change text color",
     "changeColumnType": "Change column type",
     "insertRowAbove": "Insert row above",

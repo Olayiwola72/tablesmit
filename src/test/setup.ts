@@ -170,6 +170,8 @@ vi.mock('react-i18next', () => {
     'contextMenu.autoFitColumn': 'Auto-fit column width',
     'contextMenu.autoFitRow': 'Auto-fit row height',
     'contextMenu.changeBackground': 'Change cell background color',
+    'contextMenu.changeColumnBackground': 'Change column background color',
+    'contextMenu.changeRowBackground': 'Change row background color',
     'contextMenu.changeTextColor': 'Change text color',
     'contextMenu.changeColumnType': 'Change column type',
     'contextMenu.insertRowAbove': 'Insert row above',

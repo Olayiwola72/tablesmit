@@ -1,19 +1,10 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
-describe('initSentry', () => {
-  afterEach(() => {
-    vi.unstubAllEnvs()
-  })
-
-  it('does not throw in dev mode', async () => {
-    const { initSentry } = await import('../../lib/sentry')
-    expect(() => initSentry()).not.toThrow()
-  })
-
-  it('does not trigger Sentry import in dev mode', async () => {
-    vi.stubEnv('VITE_SENTRY_DSN', 'https://key@org.ingest.sentry.io/project')
-    const { initSentry } = await import('../../lib/sentry')
-    expect(() => initSentry()).not.toThrow()
+describe('sentry module', () => {
+  it('does not export initSentry (deferred init removed)', async () => {
+    const mod = await import('../../lib/sentry')
+    expect(mod).not.toHaveProperty('initSentry')
+    expect(mod).toHaveProperty('captureException')
   })
 })
 

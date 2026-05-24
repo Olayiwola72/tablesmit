@@ -221,6 +221,8 @@
     "autoFitColumn": "ضبط عرض العمود تلقائيًا",
     "autoFitRow": "ضبط ارتفاع الصف تلقائيًا",
     "changeBackground": "تغيير لون خلفية الخلية",
+    "changeColumnBackground": "تغيير لون خلفية العمود",
+    "changeRowBackground": "تغيير لون خلفية الصف",
     "changeTextColor": "تغيير لون النص",
     "changeColumnType": "تغيير نوع العمود",
     "insertRowAbove": "إدراج صف فوق",

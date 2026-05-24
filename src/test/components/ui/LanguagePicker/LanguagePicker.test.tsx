@@ -52,4 +52,6 @@ describe('LanguagePicker', () => {
     await user.click(screen.getByText('Français'))
     expect(onSelect).toHaveBeenCalledOnce()
   })
+
+
 })

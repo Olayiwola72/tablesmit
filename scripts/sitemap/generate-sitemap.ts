@@ -3,11 +3,8 @@ import path from 'node:path'
 import type { UrlEntry } from './sitemap.types'
 
 const SITE_URL = 'https://tablesmit.com'
-const PUBLIC_DIR = path.resolve(import.meta.dirname, '../../public')
-const CONTENT_DIR = path.resolve(import.meta.dirname, '../../src/content')
 
-// ── Static pages from siteConfig ──
-const staticPages: UrlEntry[] = [
+export const STATIC_PAGES: UrlEntry[] = [
   { loc: '/', changefreq: 'weekly', priority: '1.0' },
   { loc: '/about', changefreq: 'monthly', priority: '0.7' },
   { loc: '/open-source', changefreq: 'monthly', priority: '0.7' },
@@ -20,16 +17,15 @@ const staticPages: UrlEntry[] = [
   { loc: '/testimonials', changefreq: 'monthly', priority: '0.6' },
 ]
 
-// ── Blog posts ──
-function getBlogPosts(): UrlEntry[] {
-  const blogDir = path.join(CONTENT_DIR, 'blog')
-  if (!fs.existsSync(blogDir)) return []
+export function getBlogPosts(contentDir: string, readFile: (p: string) => string, exists: (p: string) => boolean, readDir: (p: string) => string[]): UrlEntry[] {
+  const blogDir = path.join(contentDir, 'blog')
+  if (!exists(blogDir)) return []
 
-  const files = fs.readdirSync(blogDir).filter(f => f.endsWith('.ts'))
+  const files = readDir(blogDir).filter(f => f.endsWith('.ts'))
   return files.map((file) => {
     const slug = file.replace(/\.ts$/, '')
     const filePath = path.join(blogDir, file)
-    const content = fs.readFileSync(filePath, 'utf-8')
+    const content = readFile(filePath)
 
     // Extract date field from the TS module
     const dateMatch = content.match(/^\s*date:\s*['"](.+?)['"]/m)
@@ -44,15 +40,14 @@ function getBlogPosts(): UrlEntry[] {
   })
 }
 
-// ── Feature pages ──
-function getFeaturePages(): UrlEntry[] {
-  const featuresDir = path.join(CONTENT_DIR, 'features')
-  if (!fs.existsSync(featuresDir)) return []
+export function getFeaturePages(contentDir: string, readFile: (p: string) => string, exists: (p: string) => boolean, readDir: (p: string) => string[]): UrlEntry[] {
+  const featuresDir = path.join(contentDir, 'features')
+  if (!exists(featuresDir)) return []
 
-  const files = fs.readdirSync(featuresDir).filter(f => f.endsWith('.json'))
+  const files = readDir(featuresDir).filter(f => f.endsWith('.json'))
   return files.map((file) => {
     const filePath = path.join(featuresDir, file)
-    const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as Record<string, unknown>
+    const raw = JSON.parse(readFile(filePath)) as Record<string, unknown>
     return {
       loc: `/features/${String(raw.slug ?? file.replace(/\.json$/, ''))}`,
       changefreq: 'monthly',
@@ -61,17 +56,20 @@ function getFeaturePages(): UrlEntry[] {
   })
 }
 
-// ── Gather all entries ──
-function getAllEntries(): UrlEntry[] {
+export function getAllEntries(
+  contentDir: string,
+  readFile: (p: string) => string,
+  exists: (p: string) => boolean,
+  readDir: (p: string) => string[],
+): UrlEntry[] {
   return [
-    ...staticPages,
-    ...getBlogPosts(),
-    ...getFeaturePages(),
+    ...STATIC_PAGES,
+    ...getBlogPosts(contentDir, readFile, exists, readDir),
+    ...getFeaturePages(contentDir, readFile, exists, readDir),
   ]
 }
 
-// ── Generate XML ──
-function generateXml(entries: UrlEntry[]): string {
+export function generateXml(entries: UrlEntry[]): string {
   const urls = entries
     .map((entry) => {
       const parts = [
@@ -93,8 +91,13 @@ ${urls}
 `
 }
 
-// ── Write file ──
-const entries = getAllEntries()
-const sitemapPath = path.join(PUBLIC_DIR, 'sitemap.xml')
-fs.writeFileSync(sitemapPath, generateXml(entries), 'utf-8')
-console.log(`Sitemap generated: ${sitemapPath} (${entries.length} URLs)`)
+// ── CLI entry ──
+if (!process.env.VITEST) {
+  const PUBLIC_DIR = path.resolve(import.meta.dirname, '../../public')
+  const CONTENT_DIR = path.resolve(import.meta.dirname, '../../src/content')
+
+  const entries = getAllEntries(CONTENT_DIR, (p) => fs.readFileSync(p, 'utf-8'), (p) => fs.existsSync(p), (p) => fs.readdirSync(p))
+  const sitemapPath = path.join(PUBLIC_DIR, 'sitemap.xml')
+  fs.writeFileSync(sitemapPath, generateXml(entries), 'utf-8')
+  console.log(`Sitemap generated: ${sitemapPath} (${entries.length} URLs)`)
+}

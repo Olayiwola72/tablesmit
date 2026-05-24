@@ -221,6 +221,8 @@
     "autoFitColumn": "Auto-tilpass kolonnebredde",
     "autoFitRow": "Auto-tilpass radhøyde",
     "changeBackground": "Endre cellebakgrunnsfarge",
+    "changeColumnBackground": "Endre kolonnebakgrunnsfarge",
+    "changeRowBackground": "Endre radbakgrunnsfarge",
     "changeTextColor": "Endre tekstfarge",
     "changeColumnType": "Endre kolonnetype",
     "insertRowAbove": "Sett inn rad over",

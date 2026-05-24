@@ -221,6 +221,8 @@
     "autoFitColumn": "Spaltenbreite automatisch anpassen",
     "autoFitRow": "Zeilenhöhe automatisch anpassen",
     "changeBackground": "Zellenhintergrundfarbe ändern",
+    "changeColumnBackground": "Spaltenhintergrundfarbe ändern",
+    "changeRowBackground": "Zeilenhintergrundfarbe ändern",
     "changeTextColor": "Textfarbe ändern",
     "changeColumnType": "Spaltentyp ändern",
     "insertRowAbove": "Zeile darüber einfügen",

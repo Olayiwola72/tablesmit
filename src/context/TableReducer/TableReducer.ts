@@ -311,6 +311,7 @@ export function reducer(state: TableState, action: TableAction): TableState {
       const cells = normalizeTableData(action.preset.data ?? [], action.preset.rows, action.preset.cols)
       return {
         ...state,
+        caption: action.preset.caption ?? action.preset.label,
         rows: action.preset.rows,
         cols: action.preset.cols,
         cells,

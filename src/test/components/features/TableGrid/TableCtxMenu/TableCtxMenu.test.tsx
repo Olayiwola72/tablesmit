@@ -11,6 +11,8 @@ const tLabels = {
   sortAscending: 'Sort ascending',
   sortDescending: 'Sort descending',
   changeBackground: 'Change cell background color',
+  changeColumnBackground: 'Change column background color',
+  changeRowBackground: 'Change row background color',
   clearCell: 'Clear cell',
   deleteRow: 'Delete row',
   deleteColumn: 'Delete column',
@@ -95,12 +97,22 @@ describe('TableCtxMenu', () => {
     expect(sortDesc).toHaveBeenCalledWith(0)
   })
 
-  it('toggles background submenu and shows column and cell color picker sections', () => {
+  it('toggles background submenu and shows column color, cell color, and swatches', () => {
     render(<TableCtxMenu {...createProps({ activeSub: 'bg' })} />)
-    const bgTexts = screen.getAllByText(tLabels.changeBackground)
-    expect(bgTexts.length).toBeGreaterThanOrEqual(2)
+    expect(screen.getAllByText(tLabels.changeBackground).length).toBeGreaterThanOrEqual(1)
+    expect(screen.getByText(tLabels.changeColumnBackground)).toBeInTheDocument()
     const swatches = screen.getAllByRole('button', { name: /^#/ })
     expect(swatches.length).toBeGreaterThan(0)
+  })
+
+  it('shows row background color toggle in cell context menu', () => {
+    render(<TableCtxMenu {...createProps({ activeSub: 'rowColor' })} />)
+    expect(screen.getByText(tLabels.changeRowBackground)).toBeInTheDocument()
+  })
+
+  it('shows column background color toggle in column context menu', () => {
+    render(<TableCtxMenu {...createProps({ ctxMenu: { type: 'column', col: 0, x: 0, y: 0 }, activeSub: 'bg' })} />)
+    expect(screen.getByText(tLabels.changeColumnBackground)).toBeInTheDocument()
   })
 
   it('toggles column type submenu and shows all format options', () => {

@@ -3,6 +3,7 @@ import type { HeaderStyle } from './table-state.types'
 export interface PresetDefinition {
   id: string
   label: string
+  caption?: string
   rows: number
   cols: number
   headerStyle: HeaderStyle

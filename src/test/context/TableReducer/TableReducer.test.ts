@@ -3,6 +3,7 @@ import { reducer } from '../../../context/TableReducer/TableReducer'
 import { initialState } from '../../../context/TableState/TableState'
 import { TABLE_THEMES } from '../../../config/table/tableThemes'
 import { generateEmptyTable } from '../../../utils/tableUtils/tableUtils'
+import type { PresetDefinition } from '../../../types/table'
 
 describe('TableReducer', () => {
   it('processes SET_CELLS action', () => {
@@ -136,5 +137,35 @@ describe('TableReducer', () => {
   it('returns state unchanged for unknown action type', () => {
     const next = reducer(initialState, { type: 'UNKNOWN' } as never)
     expect(next).toBe(initialState)
+  })
+
+  describe('applyPreset', () => {
+    const preset: PresetDefinition = {
+      id: 'test',
+      label: 'Test Preset',
+      rows: 3,
+      cols: 4,
+      headerStyle: 'first-row',
+      headers: ['A', 'B', 'C', 'D'],
+    }
+
+    it('sets caption from preset.label', () => {
+      const next = reducer(initialState, { type: 'applyPreset', preset })
+      expect(next.caption).toBe('Test Preset')
+    })
+
+    it('uses preset.caption over label when provided', () => {
+      const withCaption = { ...preset, caption: 'Custom Caption' }
+      const next = reducer(initialState, { type: 'applyPreset', preset: withCaption })
+      expect(next.caption).toBe('Custom Caption')
+    })
+
+    it('builds correct cell dimensions', () => {
+      const next = reducer(initialState, { type: 'applyPreset', preset })
+      expect(next.rows).toBe(3)
+      expect(next.cols).toBe(4)
+      expect(next.cells).toHaveLength(3)
+      expect(next.cells[0]).toHaveLength(4)
+    })
   })
 })

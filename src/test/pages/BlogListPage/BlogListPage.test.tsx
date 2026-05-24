@@ -4,6 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
 import BlogListPage from '../../../pages/BlogListPage/BlogListPage'
 import { getAllPosts } from '../../../services/blogService/blogService'
+import { ITEMS_PER_PAGE } from '../../../config/table/tableDefaults'
 
 function renderPage(): void {
   render(
@@ -23,12 +24,12 @@ describe('BlogListPage', () => {
     })
   })
 
-  it('renders a card for every blog post', async () => {
+  it('renders a card for every blog post on the first page', async () => {
     renderPage()
     const posts = await getAllPosts()
-    // Wait for any post title to appear, proving data loaded
-    await screen.findByText(posts[0].title)
-    for (const post of posts) {
+    const pagePosts = posts.slice(0, ITEMS_PER_PAGE)
+    await screen.findByText(pagePosts[0].title)
+    for (const post of pagePosts) {
       expect(screen.getByText(post.title)).toBeInTheDocument()
     }
   })
@@ -36,11 +37,9 @@ describe('BlogListPage', () => {
   it('links each card to the correct /blog/:slug route', async () => {
     renderPage()
     const posts = await getAllPosts()
-    // Wait for data to load by looking for the first post title
-    await screen.findByText(posts[0].title)
-    // Now check each link's href using the card as a whole element
-    for (const post of posts) {
-      // The entire card is wrapped in a <Link>, so find it by its href
+    const pagePosts = posts.slice(0, ITEMS_PER_PAGE)
+    await screen.findByText(pagePosts[0].title)
+    for (const post of pagePosts) {
       const links = screen.getAllByRole('link')
       const cardLink = links.find(l => l.getAttribute('href') === `/blog/${post.slug}`)
       expect(cardLink).toBeDefined()
@@ -51,8 +50,9 @@ describe('BlogListPage', () => {
   it('displays read time and author on each card', async () => {
     renderPage()
     const posts = await getAllPosts()
-    await screen.findByText(posts[0].title)
-    for (const post of posts) {
+    const pagePosts = posts.slice(0, ITEMS_PER_PAGE)
+    await screen.findByText(pagePosts[0].title)
+    for (const post of pagePosts) {
       const authorElements = screen.getAllByText(post.author)
       expect(authorElements.length).toBeGreaterThanOrEqual(1)
     }

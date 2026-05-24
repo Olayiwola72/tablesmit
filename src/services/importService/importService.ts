@@ -40,12 +40,12 @@ function assertFileSize(file: File): void {
   }
 }
 
-function normaliseRows(rows: unknown[][]): ImportResult {
+function normaliseRows(rows: unknown[][], minRows = 1, minCols = 1): ImportResult {
   const stringRows = rows
     .map((row) => row.map((value) => String(value ?? '')))
     .filter((row) => row.some((value) => value.trim()))
-  const rawRowCount = Math.max(stringRows.length, 1)
-  const rawColCount = Math.max(...stringRows.map((row) => row.length), 1)
+  const rawRowCount = Math.max(stringRows.length, minRows)
+  const rawColCount = Math.max(...stringRows.map((row) => row.length), minCols)
 
   const rowCount = Math.min(rawRowCount, MAX_ROWS)
   const colCount = Math.min(rawColCount, MAX_COLS)
@@ -190,7 +190,8 @@ export async function importExcel(file: File): Promise<ImportResult> {
       rows.push(rowValues)
     })
 
-    const result = normaliseRows(rows)
+    const actualRows = hasCaption ? bottom - top : bottom - top + 1
+    const result = normaliseRows(rows, actualRows, colCount)
     if (captionValue) result.caption = captionValue
     if (firstRowFill) {
       result.headerColor = firstRowFill

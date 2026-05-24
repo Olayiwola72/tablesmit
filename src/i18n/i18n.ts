@@ -27,6 +27,13 @@ async function fetchLocale(lng: string): Promise<Record<string, unknown> | null>
   }
 }
 
+export async function loadLocale(lng: string): Promise<void> {
+  if (lng === 'en') return
+  if (i18n.hasResourceBundle(lng, 'common')) return
+  const data = await fetchLocale(lng)
+  if (data) i18n.addResourceBundle(lng, 'common', data, true, true)
+}
+
 if (!i18n.isInitialized) {
   i18n
     .use(LanguageDetector)
@@ -49,13 +56,8 @@ if (!i18n.isInitialized) {
       },
     })
     .then(() => {
-      LOCALES
-        .filter(l => l.code !== 'en')
-        .forEach(({ code }) => {
-          fetchLocale(code).then(data => {
-            if (data) i18n.addResourceBundle(code, 'common', data, true, true)
-          })
-        })
+      const currentLang = i18n.language?.split('-')[0] ?? 'en'
+      loadLocale(currentLang)
     })
 }
 
@@ -65,6 +67,7 @@ i18n.on('languageChanged', (lng) => {
     document.documentElement.dir = locale.dir
     document.documentElement.lang = lng
   }
+  loadLocale(lng)
 })
 
 export default i18n

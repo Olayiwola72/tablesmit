@@ -107,7 +107,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
             </button>
             {activeSub === 'bg' ? (
               <div className="border-t border-border px-3 py-2">
-                <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeBackground')}</p>
+                <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeColumnBackground')}</p>
                 <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
                 <hr className="my-2 border-border" />
                 <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeBackground')}</p>
@@ -150,7 +150,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               onClick={() => onToggleSub('rowColor')}
             >
               <PaintBucket size={14} className="text-text-muted" />
-              <span className="flex-1">{t('contextMenu.changeBackground')}</span>
+              <span className="flex-1">{t('contextMenu.changeRowBackground')}</span>
               <span className="text-text-muted">{activeSub === 'rowColor' ? '\u25B2' : '\u25BC'}</span>
             </button>
             {activeSub === 'rowColor' ? (
@@ -180,7 +180,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               onClick={() => onToggleSub('bg')}
             >
               <PaintBucket size={14} className="text-text-muted" />
-              <span className="flex-1">{t('contextMenu.changeBackground')}</span>
+              <span className="flex-1">{t('contextMenu.changeColumnBackground')}</span>
               <span className="text-text-muted">{activeSub === 'bg' ? '\u25B2' : '\u25BC'}</span>
             </button>
             {activeSub === 'bg' ? (

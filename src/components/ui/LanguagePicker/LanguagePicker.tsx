@@ -2,6 +2,7 @@ import { Check, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { LanguagePickerProps } from './LanguagePicker.types'
 import { LOCALES } from '../../../i18n/config'
+import { loadLocale } from '../../../i18n/i18n'
 import { Button } from '../Button/Button'
 import {
   DropdownMenu,
@@ -25,8 +26,11 @@ export function LanguagePicker({ align = 'end', onSelect }: LanguagePickerProps)
         {LOCALES.map((locale) => (
           <DropdownMenuItem
             key={locale.code}
-            onClick={() => {
-              i18n.changeLanguage(locale.code)
+            onClick={async () => {
+              if (locale.code !== i18n.language) {
+                await loadLocale(locale.code)
+                i18n.changeLanguage(locale.code)
+              }
               onSelect?.()
             }}
           >

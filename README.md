@@ -7,10 +7,14 @@ No account. No bloat. Free and open source.
 
 **[→ tablesmit.com](https://tablesmit.com)**
 
-![Tests](https://img.shields.io/badge/tests-403%20passing-4ade80?style=flat-square)
+> Now with LaTeX export — build your table visually, get publication-ready TeX output.
+
+![Tests](https://img.shields.io/badge/tests-1368%20passing-4ade80?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-60a5fa?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f59e0b?style=flat-square)
 ![Made in Nigeria](https://img.shields.io/badge/made%20in-Nigeria-1e40af?style=flat-square)
+
+[![Tablesmit — demo screenshot](public/og-image.png)](https://tablesmit.com)
 
 ---
 
@@ -56,7 +60,7 @@ It is a structured writing tool. You build a table, format it, and export it.
 - Copy as image or Excel data (TSV) to clipboard
 
 ### Other
-- Keyboard shortcuts (press `?` or `Ctrl+/` to see all)
+- Keyboard shortcuts (press `Ctrl+/` to see all)
 - AI features scaffolding (coming soon)
 - Works offline — PWA with service worker
 - No account required. No data leaves your browser.
@@ -87,10 +91,77 @@ React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Vitest · Playwri
 
 ---
 
+## Folder structure
+
+```
+tablesmit/
+├── public/
+│   ├── favicon.svg
+│   ├── og-image.png / og-image.svg
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   ├── fonts/                     # Self-hosted woff2 font files
+│   ├── icons/                     # PWA icons (192, 512)
+│   ├── launch/                    # Product Hunt + HN launch copy
+│   └── locales/                   # i18n JSON per language (ar, de, es, fr, ja, no, pt)
+│
+├── scripts/
+│   ├── md-to-blog-post.ts
+│   └── sitemap/
+│
+├── e2e/
+│   └── critical-path.spec.ts
+│
+├── .github/workflows/
+│   └── deploy-netlify.yml
+│
+├── src/
+│   ├── assets/
+│   ├── lib/                       # cn() helper (clsx + tailwind-merge)
+│   ├── components/
+│   │   ├── ui/                    # Primitives: Button, Logo, ErrorBoundary, etc.
+│   │   ├── layout/                # Navbar, Footer, Sidebar, MobileSheet
+│   │   └── features/              # TableGrid, ExportPanel, TableToolbar, etc.
+│   ├── pages/                     # Lazy-loaded per route
+│   ├── context/                   # TableContext, TableDataContext, TableSelectionContext
+│   ├── hooks/                     # useColumnResize, useExport, useTheme, etc.
+│   ├── services/                  # exportService (strategy pattern), blogService, importService
+│   ├── i18n/                      # i18next init, locale config, English JSON
+│   ├── utils/                     # tableUtils, mergeUtils, latexUtils, toast, etc.
+│   ├── types/                     # Shared table types (cell, merge, preset, state)
+│   ├── config/                    # siteConfig, changelog, presets, colorPalette, tableThemes
+│   ├── constants/
+│   ├── content/
+│   │   ├── blog/                  # Blog posts as .ts modules (auto-discovered)
+│   │   └── features/              # Feature pages as .json files (auto-discovered)
+│   ├── styles/globals.css
+│   ├── test/                      # All tests, mirroring src/ structure
+│   ├── App.tsx                    # Router + providers only
+│   └── main.tsx
+│
+├── tailwind.config.ts
+├── vite.config.ts
+├── vitest.config.ts
+├── playwright.config.ts
+├── tsconfig*.json
+├── postcss.config.js
+├── netlify.toml
+├── eslint.config.js
+├── .prettierrc
+├── .husky/
+├── CONTRIBUTING.md
+├── LICENSE
+└── package.json
+```
+
+All tests live in `src/test/` mirroring the source structure. Every page is lazy-loaded. Features panels within the table maker are also lazy-loaded.
+
+---
+
 ## Project status
 
 ```
-Tests:     403 passing — 42 test files
+Tests:     1368 passing — 140 test files
 Lint:      0 warnings — TypeScript strict
 Build:     clean — no errors
 Coverage:  lines 75%+ · functions 65%+ · branches 60%+
@@ -113,81 +184,38 @@ Check there first before changing component logic. Agents reading this repo: `si
 
 ## Writing a blog post
 
-The blog system is file-driven. Creating a post requires one action: add a `.ts` file to `src/content/blog/`.
-
-No code change. No registry update. The post appears automatically on the next build.
-
-### File format
+Drop a `.ts` file into `src/content/blog/`. The post appears automatically — no registry, no code change.
 
 ```ts
-// src/content/blog/your-post-slug.ts
-import type { BlogPost } from '../../types/blog.types'
+// src/content/blog/your-post.ts
+import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
-  slug:        'your-post-slug',
+  slug:        'your-post-slug',       // URL slug — kebab-case
   title:       'Your Post Title',
   date:        '2025-11-01',
-  description: 'One or two sentences. Used for SEO and card text. Max 160 chars.',
+  description: 'One or two sentences. Max 160 chars.',
   author:      'Your Name',
   tags:        ['tag-one', 'tag-two'],
   readTime:    4,
-  featured:    false,
+  featured:    false,                   // true pins to top of list
   content:     `## First heading
 
-Your Markdown content here. Standard Markdown — headings, lists, code blocks, tables.
+Your Markdown content here.
 
-Link to the app like this: [build your table](/).`,
+Link to the app: [build your table](/).`,
 }
 
 export default post
 ```
 
-### Rules
-
-- Filename = URL slug. Use the target keyword in kebab-case.
-- `content` is standard Markdown as a template literal string.
-- Start content with `## Heading 2` — the post title is already the H1.
-- Link to `/` at least once per post for internal SEO.
-- `featured: true` pins the post to the top of the blog list.
-- `readTime` — rough guide: 200 words per minute.
-
-### Quick workflow
-
-```bash
-# Write your post in Markdown first (easier than writing in a template literal)
-# Then commit the .ts file
-git add src/content/blog/your-post.ts
-git commit -m "content: add blog post — your post title"
-git push
-# GitHub Actions builds and deploys to Netlify. Post is live in minutes.
-```
+That's it. Commit and push — GitHub Actions builds and deploys to Netlify.
 
 ---
 
 ## Adding a feature page
 
-Feature pages live in `src/content/features/`. Each page is a `.json` file.
-Adding a page = creating one JSON file. No code change.
-
-```json
-{
-  "slug":            "your-feature",
-  "metaTitle":       "Feature Title — Tablesmit",
-  "metaDescription": "One sentence. Max 160 chars.",
-  "heroHeadline":    "One strong sentence.",
-  "heroSubtext":     "Supporting sentence expanding the headline.",
-  "icon":            "LucideIconName",
-  "benefits": [
-    { "icon": "LucideIconName", "heading": "Benefit", "body": "One or two sentences." }
-  ],
-  "steps": [
-    { "number": 1, "heading": "Step one", "body": "What the user does." }
-  ],
-  "useCases":        ["Use case one", "Use case two"],
-  "relatedFeatures": ["other-feature-slug"],
-  "relatedPost":     "blog-post-slug"
-}
-```
+Drop a `.json` file into `src/content/features/`. No code change. See `AGENTS.md` Section 59 for the full schema and examples.
 
 ---
 
