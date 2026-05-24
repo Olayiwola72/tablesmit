@@ -1,7 +1,8 @@
 import { useTranslation } from 'react-i18next'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { useState, useEffect, type ReactNode, type ComponentPropsWithoutRef } from 'react'
-import ReactMarkdown from 'react-markdown'
+import { useState, useEffect, type ReactNode, type ComponentPropsWithoutRef, type FC } from 'react'
+
+type MdComponent = FC<{ remarkPlugins: unknown[]; components: Record<string, unknown>; children: string }>
 import remarkGfm from 'remark-gfm'
 import { Helmet } from 'react-helmet-async'
 import { Copy, Check } from 'lucide-react'
@@ -60,6 +61,7 @@ export default function BlogPostPage(): ReactNode {
   const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
   const [post, setPost] = useState<BlogPost | undefined | null>(undefined)
+  const [Md, setMd] = useState<MdComponent | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -68,6 +70,16 @@ export default function BlogPostPage(): ReactNode {
     })
     return () => { cancelled = true }
   }, [slug])
+
+  useEffect(() => {
+    if (!post) return
+    let cancelled = false
+    import('react-markdown' as string).then(mod => {
+      if (cancelled) return
+      setMd(() => (mod as { default: MdComponent }).default)
+    })
+    return () => { cancelled = true }
+  }, [post])
 
   if (post === undefined) {
     return (
@@ -149,9 +161,13 @@ export default function BlogPostPage(): ReactNode {
                         prose-td:border prose-td:border-border prose-td:px-3 prose-td:py-2 prose-td:text-text-primary
                         prose-tr:nth-child(even) prose-td:bg-surface
                         prose-blockquote:border-l-primary prose-blockquote:text-text-secondary">
-          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
-            {post.content}
-          </ReactMarkdown>
+          {Md ? (
+            <Md remarkPlugins={[remarkGfm]} components={markdownComponents}>{post.content}</Md>
+          ) : (
+            <div className="flex items-center justify-center py-12">
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
+            </div>
+          )}
         </div>
 
         <div className="mt-16 rounded-md border border-border bg-surface p-6 text-center">

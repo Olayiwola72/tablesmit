@@ -52,37 +52,127 @@
   </url>
   <url>
     <loc>https://tablesmit.com/blog/best-table-tool-for-researchers</loc>
-    <lastmod>2026-04-04</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tablesmit.com/blog/copy-excel-table-to-web</loc>
-    <lastmod>2025-10-15</lastmod>
+    <lastmod>2026-04-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tablesmit.com/blog/free-online-table-makers-compared</loc>
-    <lastmod>2025-10-20</lastmod>
+    <lastmod>2026-05-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-copy-table-as-image</loc>
+    <lastmod>2026-04-08</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-create-tables-for-academic-papers</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-export-table-to-latex</loc>
+    <lastmod>2026-04-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tablesmit.com/blog/how-to-export-table-to-pdf</loc>
-    <lastmod>2025-10-25</lastmod>
+    <lastmod>2026-04-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-find-and-replace-in-table</loc>
+    <lastmod>2026-04-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-freeze-header-row-in-table</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-import-csv-into-online-table</loc>
+    <lastmod>2026-04-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-make-a-comparison-table</loc>
+    <lastmod>2026-05-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-make-a-pricing-table</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-make-a-schedule-table</loc>
+    <lastmod>2026-04-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tablesmit.com/blog/how-to-make-a-table-in-markdown</loc>
-    <lastmod>2025-10-10</lastmod>
+    <lastmod>2026-04-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tablesmit.com/blog/how-to-merge-cells-in-online-table</loc>
-    <lastmod>2025-11-01</lastmod>
+    <lastmod>2026-05-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-sort-table-columns</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-use-dark-mode-in-table-builder</loc>
+    <lastmod>2026-04-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-use-table-templates</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/offline-table-builder</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/table-column-formatting-guide</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/web-table-accessibility-guide</loc>
+    <lastmod>2026-03-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -152,6 +242,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tablesmit.com/features/excel-import</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tablesmit.com/features/find-replace</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -172,12 +267,27 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tablesmit.com/features/latex-export</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tablesmit.com/features/merge-cells</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tablesmit.com/features/offline</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tablesmit.com/features/pdf-export</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/features/smart-paste</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

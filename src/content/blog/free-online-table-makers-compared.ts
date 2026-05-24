@@ -3,12 +3,12 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 const post: BlogPost = {
   slug: 'free-online-table-makers-compared',
   title: '5 Free Online Table Makers Compared',
-  date: '2025-10-20',
+  date: '2026-05-05',
   description:
-    'Not all web table generators are built the same. We compare five free options on features that matter, from merge cells to export quality.',
+    'Not all web table generators are built the same. We compare five free options on what matters — merge cells, export quality, column formatting, and ease of use.',
   author: 'Olayiwola Akinnagbe',
   tags: ['comparison', 'tools', 'productivity'],
-  readTime: 7,
+  readTime: 8,
   featured: true,
   content: `## What makes a table maker worth using?
 
@@ -82,7 +82,8 @@ Tablesmit was built specifically for the use case the other tools miss: a writer
 - Column types: Text, Number, Currency, Percentage, Date
 - Table themes: Default, Minimal, Dark Header, Striped, Academic, Monochrome
 - Smart paste from Excel and Google Sheets — copies TSV automatically
-- Export to PDF, Excel, PNG, CSV — all from one toolbar
+- Export to PDF, Excel, PNG, JPEG, CSV, and LaTeX — all from one toolbar
+- **LaTeX export**: complete \`tabular\` environment, correct column alignment, escaped special characters, caption included — paste directly into Overleaf or any TeX editor
 - Import CSV and Excel files directly
 - Find and replace across all cells
 - Caption field with alignment controls
@@ -106,6 +107,7 @@ Tablesmit was built specifically for the use case the other tools miss: a writer
 | PDF export            | ✗   | ✓   | ✗            | ~      | ✓         |
 | Excel export          | ✗   | ✗   | ✓            | ✗      | ✓         |
 | CSV export            | ✗   | ✗   | ✓            | ✓      | ✓         |
+| LaTeX export          | ✓   | ✗   | ~            | ✗      | ✓         |
 | Smart paste from Excel| ✗   | ✗   | ~            | ✗      | ✓         |
 | Open source           | ✗   | ✗   | ✗            | ✗      | ✓         |
 
@@ -115,9 +117,9 @@ Tablesmit was built specifically for the use case the other tools miss: a writer
 
 ## Which one should you use?
 
-If you need LaTeX output, use Tables Generator. If you need format conversion, use TableConvert. If you need a workspace tool, use Notion.
+If you need only LaTeX code without a visual editor, Tables Generator still works. If you need format conversion between data formats, use TableConvert. If you need a workspace with ongoing structured data, use Notion.
 
-For everything else — a clean, structured, publication-ready table with real export options and no account required — [Tablesmit](/) is the right tool.`,
+For everything else — including LaTeX output with a proper visual editor, merge cells, drag-to-resize, and clean exports to PDF, Excel, PNG, and CSV — [Tablesmit](/) is the right tool. It is the only one on this list that lets you build a table the way you think, then export it in whatever format your work demands.`,
 }
 
 export default post

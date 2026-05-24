@@ -221,6 +221,8 @@
     "autoFitColumn": "Ajustar largura da coluna automaticamente",
     "autoFitRow": "Ajustar altura da linha automaticamente",
     "changeBackground": "Alterar cor de fundo da célula",
+    "changeColumnBackground": "Alterar cor de fundo da coluna",
+    "changeRowBackground": "Alterar cor de fundo da linha",
     "changeTextColor": "Alterar cor do texto",
     "changeColumnType": "Alterar tipo de coluna",
     "insertRowAbove": "Inserir linha acima",

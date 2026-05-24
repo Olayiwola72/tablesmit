@@ -1,0 +1,63 @@
+{
+  "slug": "latex-export",
+  "metaTitle": "Export Table to LaTeX Online — Free | Tablesmit",
+  "metaDescription": "Export any table to clean LaTeX code in one click. Get publication-ready LaTeX output for academic papers and journals. Free, no signup.",
+  "heroHeadline": "Build your table visually. Get clean LaTeX output.",
+  "heroSubtext": "No more writing LaTeX table syntax by hand. Build your table in Tablesmit, click Export, and get correctly formatted LaTeX code — ready to paste into your paper or thesis.",
+  "icon": "FileCode",
+  "benefits": [
+    {
+      "icon": "Code",
+      "heading": "Correct LaTeX syntax — every time",
+      "body": "The export generates valid tabular environments with proper column alignment, horizontal rules, and escaped special characters. No manual debugging of mismatched braces or broken ampersands."
+    },
+    {
+      "icon": "GraduationCap",
+      "heading": "Built for academic publishing",
+      "body": "LaTeX is the standard for mathematics, physics, economics, and computer science journals. Tablesmit's LaTeX export is designed for researchers who need their tables in publication-ready format without learning table syntax."
+    },
+    {
+      "icon": "AlignLeft",
+      "heading": "Column alignment preserved",
+      "body": "Text columns export as left-aligned (l). Number and Currency columns export as right-aligned (r). Percentage and centred content uses (c). The alignment follows your column types automatically."
+    },
+    {
+      "icon": "Shield",
+      "heading": "Special characters escaped",
+      "body": "Ampersands, underscores, percent signs, dollar signs, and other LaTeX-reserved characters are escaped automatically. Paste the output directly — no manual find-and-replace."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Build your table",
+      "body": "Set up your columns, add headers, fill in your data. Set column types — Text, Number, Currency — so the LaTeX alignment is generated correctly."
+    },
+    {
+      "number": 2,
+      "heading": "Click LaTeX in the Export panel",
+      "body": "Find the Export section in the right sidebar. Click LaTeX. The export generates immediately."
+    },
+    {
+      "number": 3,
+      "heading": "Paste into your document",
+      "body": "Copy the generated LaTeX code and paste it into your .tex file. The table renders correctly in any LaTeX distribution — pdfLaTeX, XeLaTeX, LuaLaTeX."
+    }
+  ],
+  "outputExample": {
+    "heading": "What the output looks like",
+    "description": "A four-column research data table with a header row exports as:",
+    "code": "\\begin{table}[h]\n  \\centering\n  \\caption{Comparison of study methodologies}\n  \\begin{tabular}{l l r r}\n    \\hline\n    Study & Method & Sample size & Effect size \\\\\n    \\hline\n    Smith et al. & RCT & 240 & 0.42 \\\\\n    Jones et al. & Cohort & 1{,}840 & 0.31 \\\\\n    Lee et al.   & Meta & 12{,}400 & 0.38 \\\\\n    \\hline\n  \\end{tabular}\n\\end{table}"
+  },
+  "useCases": [
+    "Exporting a data table from a research study into a journal submission formatted in LaTeX",
+    "Creating a methods comparison table for a thesis or dissertation without writing tabular syntax manually",
+    "Building a complex results table visually and exporting it for use in an Overleaf project",
+    "Converting an Excel or CSV dataset into a properly formatted LaTeX table for publication"
+  ],
+  "relatedFeatures": ["pdf-export", "csv-import", "custom-headers"],
+  "relatedPost": "how-to-export-table-to-latex",
+  "_codex_notes": {
+    "note": "outputExample is an additional field for this page. Render as a code block between the steps and use cases sections — dark background (bg-[#1e293b]), monospace font, syntax highlighting if available. The heading and description appear above the code block. This gives academics a preview of exactly what they will get before they try the tool."
+  }
+}

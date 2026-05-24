@@ -221,6 +221,8 @@
     "autoFitColumn": "Ajustar ancho de columna",
     "autoFitRow": "Ajustar alto de fila",
     "changeBackground": "Cambiar color de fondo de celda",
+    "changeColumnBackground": "Cambiar color de fondo de columna",
+    "changeRowBackground": "Cambiar color de fondo de fila",
     "changeTextColor": "Cambiar color de texto",
     "changeColumnType": "Cambiar tipo de columna",
     "insertRowAbove": "Insertar fila arriba",

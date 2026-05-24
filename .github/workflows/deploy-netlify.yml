@@ -46,9 +46,6 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Husky
-        run: npm run prepare
-
       - name: Test
         run: npm run test
 

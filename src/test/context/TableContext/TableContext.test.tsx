@@ -167,4 +167,35 @@ describe('TableContext', () => {
       expect(initialState.captionAlignment).toBe('center')
     })
   })
+
+  it('applyPreset sets caption from the preset label', () => {
+    const { result } = renderHook(() => useCombined(), { wrapper: Wrapper })
+    act(() =>
+      result.current.applyPreset({
+        id: 'test',
+        label: 'Research Notes',
+        rows: 3,
+        cols: 4,
+        headerStyle: 'first-row',
+        headers: ['A', 'B', 'C', 'D'],
+      }),
+    )
+    expect(result.current.caption).toBe('Research Notes')
+  })
+
+  it('applyPreset uses preset.caption over label when provided', () => {
+    const { result } = renderHook(() => useCombined(), { wrapper: Wrapper })
+    act(() =>
+      result.current.applyPreset({
+        id: 'test',
+        label: 'Research Notes',
+        caption: 'Custom Caption',
+        rows: 3,
+        cols: 4,
+        headerStyle: 'first-row',
+        headers: ['A', 'B', 'C', 'D'],
+      }),
+    )
+    expect(result.current.caption).toBe('Custom Caption')
+  })
 })

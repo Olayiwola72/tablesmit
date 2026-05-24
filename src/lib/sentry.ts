@@ -34,12 +34,6 @@ async function ensureLoaded(): Promise<SentryExports | null> {
   return lazySentry
 }
 
-export function initSentry(): void {
-  if (import.meta.env.PROD && import.meta.env.VITE_SENTRY_DSN) {
-    ensureLoaded()
-  }
-}
-
 export function captureException(error: Error, context?: Record<string, unknown>): void {
   if (!import.meta.env.PROD) {
     console.error('[ErrorBoundary]', error, context)

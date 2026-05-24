@@ -21,6 +21,26 @@ describe('importCsv', () => {
     const file = new File([large], 'large.csv', { type: 'text/csv' })
     await expect(importCsv(file)).rejects.toThrow('File too large')
   })
+
+  it('preserves column count when header exists but all data rows are empty', async () => {
+    const file = createFile('Name,Age,Country\n,,\n,,\n,,')
+    const result = await importCsv(file)
+    expect(result.rows).toBe(1)
+    expect(result.cols).toBe(3)
+    expect(result.cells[0][0].value).toBe('Name')
+    expect(result.cells[0][1].value).toBe('Age')
+    expect(result.cells[0][2].value).toBe('Country')
+  })
+
+  it('preserves header row when only empty data rows exist', async () => {
+    const file = createFile('Col1,Col2\n,\n,\n,')
+    const result = await importCsv(file)
+    expect(result.rows).toBe(1)
+    expect(result.cols).toBe(2)
+    expect(result.cells[0][0].value).toBe('Col1')
+    expect(result.cells[0][1].value).toBe('Col2')
+  })
+
 })
 
 describe('importExcel', () => {
@@ -33,6 +53,47 @@ describe('importExcel', () => {
   it('rejects files that are not valid XLSX', async () => {
     const file = createFile('not a valid xlsx', 'bad.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     await expect(importExcel(file)).rejects.toThrow('Could not read file')
+  })
+
+  it('preserves dimensions when importing a styled empty Excel file', async () => {
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    const ws = workbook.addWorksheet('Sheet1')
+
+    // Create a 5×4 grid where cells 1-4 have styled border + fill but are empty
+    for (let r = 1; r <= 5; r++) {
+      for (let c = 1; c <= 4; c++) {
+        const cell = ws.getCell(r, c)
+        cell.value = ''   // empty
+        cell.border = {
+          top:    { style: 'thin', color: { argb: 'FF1E40AF' } },
+          bottom: { style: 'thin', color: { argb: 'FF1E40AF' } },
+          left:   { style: 'thin', color: { argb: 'FF1E40AF' } },
+          right:  { style: 'thin', color: { argb: 'FF1E40AF' } },
+        }
+      }
+    }
+    // Style the first row as header
+    for (let c = 1; c <= 4; c++) {
+      ws.getCell(1, c).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF1E40AF' },
+      }
+      ws.getCell(1, c).font = { color: { argb: 'FFFFFFFF' }, bold: true }
+    }
+
+    const buffer = await workbook.xlsx.writeBuffer()
+    const file = new File([buffer], 'styled-empty.xlsx', {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    })
+    const result = await importExcel(file)
+    expect(result.rows).toBe(5)
+    expect(result.cols).toBe(4)
+    expect(result.headerColor).toBe('#1E40AF')
+    expect(result.headerStyle).toBe('first-row')
+    // All cells should be empty
+    result.cells.forEach((row) => row.forEach((cell) => expect(cell.value).toBe('')))
   })
 })
 

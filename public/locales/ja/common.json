@@ -221,6 +221,8 @@
     "autoFitColumn": "列幅を自動調整",
     "autoFitRow": "行高さを自動調整",
     "changeBackground": "セルの背景色を変更",
+    "changeColumnBackground": "列の背景色を変更",
+    "changeRowBackground": "行の背景色を変更",
     "changeTextColor": "文字色を変更",
     "changeColumnType": "列の種類を変更",
     "insertRowAbove": "上に行を挿入",

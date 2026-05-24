@@ -1,7 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import type { BlogPost } from '../../../services/blogService/blogService.types'
+import { act, render, screen, waitFor } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import BlogPostPage from '../../../pages/BlogPostPage/BlogPostPage'
 
 function renderPost(slug: string): void {
@@ -16,6 +17,14 @@ function renderPost(slug: string): void {
     </HelmetProvider>,
   )
 }
+
+vi.mock('../../../services/blogService/blogService', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../../../services/blogService/blogService')>()
+  return {
+    ...actual,
+    getPostBySlug: vi.fn(actual.getPostBySlug),
+  }
+})
 
 describe('BlogPostPage', () => {
   it('renders the post title as H1 for valid slug', async () => {
@@ -85,5 +94,27 @@ describe('BlogPostPage', () => {
       const link = document.querySelector('link[rel="canonical"]')
       expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog/how-to-make-a-table-in-markdown')
     })
+  })
+
+  it('lazy-loads react-markdown via dynamic import, not static import', async () => {
+    const { readFileSync } = await import('fs')
+    const content = readFileSync('src/pages/BlogPostPage/BlogPostPage.tsx', 'utf-8')
+    expect(content).toContain("import('react-markdown'")
+    expect(content).not.toContain("from 'react-markdown'")
+  })
+
+  it('shows loading spinner before post data resolves', async () => {
+    const { getPostBySlug } = await import('../../../services/blogService/blogService')
+    let resolvePost!: (value: BlogPost | undefined) => void
+    const deferred = new Promise<BlogPost | undefined>(resolve => { resolvePost = resolve })
+    vi.mocked(getPostBySlug).mockReturnValueOnce(deferred)
+
+    renderPost('how-to-make-a-table-in-markdown')
+
+    await waitFor(() => {
+      expect(document.querySelector('.animate-spin')).toBeInTheDocument()
+    })
+
+    await act(async () => { resolvePost(undefined) })
   })
 })
