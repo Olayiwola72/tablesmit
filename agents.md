@@ -7563,7 +7563,7 @@ on first render (zero network requests).
 
 ```
 CONTENT — must ship before any promotion:
-[x] Blog posts — 11 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
+[x] Blog posts — 21 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
 [x] Feature landing pages — system built + 27 JSON files live (Section 59)
 [x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
 [x] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)

@@ -10,11 +10,17 @@ npm run lint
 # Install git hooks (husky)
 npm run prepare
 
-# Run full test suite
-npm run test
-
 # Security audit
 npm run audit
 
-# Production build
-npm run build --if-present
+# Run full test suite
+npm run test
+
+# Prerender static HTML
+npm run prerender
+
+# Generate sitemap
+npm run generate-sitemap
+
+# Build production bundle
+npm run build
