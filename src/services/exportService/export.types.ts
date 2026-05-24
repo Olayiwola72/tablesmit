@@ -5,6 +5,7 @@ export type ExportFormat = 'pdf' | 'png' | 'jpeg' | 'excel' | 'csv' | 'latex'
 export interface ExportStyleOptions {
   headerColor: string
   headerTextColor: string
+  contentColor: string
   borderColor: string
   columnWidths: number[]
   altRowBg: string

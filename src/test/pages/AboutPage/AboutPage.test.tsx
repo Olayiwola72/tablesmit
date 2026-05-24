@@ -45,4 +45,24 @@ describe('AboutPage', () => {
     renderPage()
     expect(screen.getByText(/not a spreadsheet/i)).toBeInTheDocument()
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('About — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Learn about Tablesmit, the minimalist table builder for analytical writing. Built for writers, analysts, and researchers who need clean structured tables.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    renderPage()
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/about')
+  })
 })

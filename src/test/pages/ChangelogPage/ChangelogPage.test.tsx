@@ -64,4 +64,30 @@ describe('ChangelogPage', () => {
       expect(style.text).toMatch(/^text-/)
     }
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('Changelog — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Every release of Tablesmit, documented. See what is new, fixed, and improved in each version.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    renderPage()
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/changelog')
+  })
+
+  it('renders Back to Tablesmit link to home', () => {
+    renderPage()
+    const link = screen.getByRole('link', { name: /back to tablesmit/i })
+    expect(link).toHaveAttribute('href', '/')
+  })
 })

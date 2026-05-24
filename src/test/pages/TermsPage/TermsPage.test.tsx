@@ -44,4 +44,36 @@ describe('TermsPage', () => {
     renderPage()
     expect(screen.getByText('hello@tablesmit.com')).toBeInTheDocument()
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('Terms of Use — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Tablesmit Terms of Use. By using Tablesmit you agree to these terms.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    renderPage()
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/terms')
+  })
+
+  it('renders Back to Tablesmit link to home', () => {
+    renderPage()
+    const link = screen.getByRole('link', { name: /back to tablesmit/i })
+    expect(link).toHaveAttribute('href', '/')
+  })
+
+  it('renders cross-link to Privacy Policy page', () => {
+    renderPage()
+    const link = screen.getByRole('link', { name: /privacy policy/i })
+    expect(link).toHaveAttribute('href', '/privacy')
+  })
 })

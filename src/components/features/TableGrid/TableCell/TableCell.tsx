@@ -55,6 +55,7 @@ function TableCellRaw({
   onContextMenu,
   isFindMatch,
   isCurrentMatch,
+  isTableFocused = true,
 }: TableCellProps): ReactNode {
   const { t } = useTranslation()
   const CellTag = isHeaderCell(headerStyle, row, col) ? 'th' : 'td'
@@ -91,7 +92,8 @@ function TableCellRaw({
       className={cn(
         'relative min-w-20 p-0 align-top text-xs sm:text-sm',
         CellTag === 'th' ? 'font-semibold text-text-inverse' : 'font-normal text-text-primary',
-        selected && 'ring-2 ring-inset ring-primary',
+        selected && isTableFocused && 'ring-2 ring-inset ring-primary',
+        selected && !isTableFocused && 'ring-1 ring-inset ring-border',
         merge && 'bg-primary-light',
         isFindMatch && !isCurrentMatch && 'bg-accent-light',
         isCurrentMatch && 'ring-2 ring-accent',
@@ -171,5 +173,6 @@ export const TableCell = memo(TableCellRaw, (prev, next) => {
   }
   if (prev.isFindMatch !== next.isFindMatch) return false
   if (prev.isCurrentMatch !== next.isCurrentMatch) return false
+  if (prev.isTableFocused !== next.isTableFocused) return false
   return true
 })

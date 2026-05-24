@@ -45,4 +45,36 @@ describe('PrivacyPage', () => {
     expect(screen.getByText(/Contact/i)).toBeInTheDocument()
     expect(screen.getByText('hello@tablesmit.com')).toBeInTheDocument()
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('Privacy Policy — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Tablesmit Privacy Policy. We do not require an account and we do not store your table data on any server.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    renderPage()
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/privacy')
+  })
+
+  it('renders Back to Tablesmit link to home', () => {
+    renderPage()
+    const link = screen.getByRole('link', { name: /back to tablesmit/i })
+    expect(link).toHaveAttribute('href', '/')
+  })
+
+  it('renders cross-link to Terms of Use page', () => {
+    renderPage()
+    const link = screen.getByRole('link', { name: /terms of use/i })
+    expect(link).toHaveAttribute('href', '/terms')
+  })
 })

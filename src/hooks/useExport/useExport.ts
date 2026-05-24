@@ -60,6 +60,7 @@ export function useExport(): ExportApi {
         styles: {
           headerColor: stylesRef.current.headerColor,
           headerTextColor: themeConfig?.headerText ?? '#FFFFFF',
+          contentColor: stylesRef.current.contentColor,
           borderColor: stylesRef.current.borderColor,
           columnWidths: stylesRef.current.columnWidths,
           altRowBg: themeConfig?.altRowBg ?? '#FFFFFF',

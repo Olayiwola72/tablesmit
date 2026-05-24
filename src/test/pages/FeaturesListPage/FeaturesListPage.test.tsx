@@ -71,4 +71,30 @@ describe('FeaturesListPage', () => {
       })
     }
   })
+
+  it('sets correct document title after loading', async () => {
+    renderPage()
+    const allFeatures = await getAllFeatures()
+    await screen.findByText(allFeatures[0].heroHeadline)
+    expect(document.title).toBe('Features — Tablesmit')
+  })
+
+  it('sets correct meta description after loading', async () => {
+    renderPage()
+    const allFeatures = await getAllFeatures()
+    await screen.findByText(allFeatures[0].heroHeadline)
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Every feature you need to build clean, structured tables. Drag-to-resize, merge cells, custom headers, export to PDF and Excel.',
+    )
+  })
+
+  it('sets correct canonical URL after loading', async () => {
+    renderPage()
+    const allFeatures = await getAllFeatures()
+    await screen.findByText(allFeatures[0].heroHeadline)
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/features')
+  })
 })

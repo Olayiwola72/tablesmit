@@ -2,6 +2,13 @@ import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
 import { afterEach, vi } from 'vitest'
 
+// Polyfill requestAnimationFrame for jsdom (needed by react-helmet-async to flush DOM changes)
+globalThis.requestAnimationFrame = (cb: FrameRequestCallback): number => {
+  cb(0)
+  return 0
+}
+globalThis.cancelAnimationFrame = (): void => undefined
+
 // Polyfill ResizeObserver for jsdom (used by TableGrid to match caption width to table)
 globalThis.ResizeObserver = class ResizeObserver {
   observe() {}
@@ -19,6 +26,25 @@ vi.mock('react-i18next', () => {
     'testimonials.orReachOnX': 'or reach out on',
     'testimonials.sourceOn': 'on {{source}}',
     'meta.testimonialsTitle': 'Testimonials — Tablesmit',
+    'meta.testimonialsDescription': 'Hear from writers, analysts, researchers, and technical thinkers who use Tablesmit every day.',
+    'meta.aboutTitle': 'About — Tablesmit',
+    'meta.aboutDescription': 'Learn about Tablesmit, the minimalist table builder for analytical writing. Built for writers, analysts, and researchers who need clean structured tables.',
+    'meta.blogTitle': 'Blog — Tablesmit',
+    'meta.blogDescription': 'Writing about tables, structure, and analytical thinking. Guides on Markdown tables, CSV import, Excel copy-paste, and more.',
+    'meta.contactTitle': 'Contact — Tablesmit',
+    'meta.contactDescription': 'Get in touch with the Tablesmit team. Feature requests, bug reports, and feedback are always welcome.',
+    'meta.openSourceTitle': 'Open Source — Tablesmit',
+    'meta.openSourceDescription': 'Tablesmit is free and open source under the MIT license. Read the code, fork it, improve it, or adapt it for your own needs.',
+    'meta.changelogTitle': 'Changelog — Tablesmit',
+    'meta.changelogDescription': 'Every release of Tablesmit, documented. See what is new, fixed, and improved in each version.',
+    'meta.featuresTitle': 'Features — Tablesmit',
+    'meta.featuresDescription': 'Every feature you need to build clean, structured tables. Drag-to-resize, merge cells, custom headers, export to PDF and Excel.',
+    'meta.notFoundTitle': 'Page not found — Tablesmit',
+    'meta.notFoundDescription': 'Page not found. Let us get you back to building tables.',
+    'meta.privacyTitle': 'Privacy Policy — Tablesmit',
+    'meta.privacyDescription': 'Tablesmit Privacy Policy. We do not require an account and we do not store your table data on any server.',
+    'meta.termsTitle': 'Terms of Use — Tablesmit',
+    'meta.termsDescription': 'Tablesmit Terms of Use. By using Tablesmit you agree to these terms.',
     // grid
     'grid.tableEditor': 'Table editor',
     'grid.selectCell': 'Select cell {{id}}',

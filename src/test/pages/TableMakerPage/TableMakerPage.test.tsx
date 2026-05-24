@@ -21,4 +21,24 @@ describe('TableMakerPage', () => {
     render(<TableMakerPage />, { wrapper: Wrapper })
     expect(screen.getByText('Tables built for analytical writing.')).toBeInTheDocument()
   })
+
+  it('sets correct document title', () => {
+    render(<TableMakerPage />, { wrapper: Wrapper })
+    expect(document.title).toBe('Tablesmit — Tables, Your Way')
+  })
+
+  it('sets correct meta description', () => {
+    render(<TableMakerPage />, { wrapper: Wrapper })
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Build clean, structured tables with full control over headers, formatting, and export. Free. No signup. Export to PDF, Excel, CSV, or PNG.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    render(<TableMakerPage />, { wrapper: Wrapper })
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/')
+  })
 })

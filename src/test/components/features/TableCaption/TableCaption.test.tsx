@@ -99,6 +99,35 @@ describe('TableCaption', () => {
     expect(outerDiv.style.maxWidth).toBe('')
   })
 
+  it('shows Paste button in context menu', () => {
+    renderWithProviders(<TableCaption {...defaultProps} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    expect(screen.getByText('Paste')).toBeInTheDocument()
+  })
+
+  it('calls onChange with clipboard text when paste button is clicked', async () => {
+    const mockText = 'Pasted Caption Text'
+    const readText = vi.fn().mockResolvedValue(mockText)
+
+    const origClipboard = navigator.clipboard
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { readText, writeText: vi.fn() },
+      configurable: true,
+      writable: true,
+    })
+
+    const onChange = vi.fn()
+    renderWithProviders(<TableCaption {...defaultProps} onChange={onChange} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    const pasteBtn = screen.getByText('Paste')
+    expect(pasteBtn).toBeInTheDocument()
+    fireEvent.click(pasteBtn)
+    await vi.waitFor(() => { expect(readText).toHaveBeenCalled() })
+    expect(onChange).toHaveBeenCalledWith(mockText)
+
+    Object.defineProperty(navigator, 'clipboard', { value: origClipboard, configurable: true })
+  })
+
   it('shows color options in context menu', () => {
     renderWithProviders(<TableCaption {...defaultProps} />)
     fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))

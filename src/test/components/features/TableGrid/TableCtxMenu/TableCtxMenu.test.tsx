@@ -19,6 +19,7 @@ const tLabels = {
   insertColumnLeft: 'Insert column left',
   insertColumnRight: 'Insert column right',
   paste: 'Paste',
+  copy: 'Copy',
   noColor: 'No color',
 }
 
@@ -165,6 +166,29 @@ describe('TableCtxMenu', () => {
 
     await user.click(screen.getByText(tLabels.insertColumnRight))
     expect(insertColRight).toHaveBeenCalledWith(0)
+  })
+
+  it('copies cell value to clipboard on copy click', async () => {
+    const user = userEvent.setup()
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    const originalClipboard = navigator.clipboard
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText },
+      writable: true,
+      configurable: true,
+    })
+
+    const cellValue = 'test value'
+    render(<TableCtxMenu {...createProps({ cells: [[{ id: 'R0C0', value: cellValue, colSpan: 1, rowSpan: 1, isMerged: false, isHidden: false }]] })} />)
+    await user.click(screen.getByText(tLabels.copy))
+
+    expect(writeText).toHaveBeenCalledWith(cellValue)
+
+    Object.defineProperty(navigator, 'clipboard', {
+      value: originalClipboard,
+      writable: true,
+      configurable: true,
+    })
   })
 
   it('reads clipboard text and calls updateCell on paste', async () => {

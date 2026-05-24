@@ -63,4 +63,27 @@ describe('BlogPostPage', () => {
       ).toHaveAttribute('href', '/')
     })
   })
+
+  it('sets correct document title from post data', async () => {
+    renderPost('how-to-make-a-table-in-markdown')
+    await waitFor(() => {
+      expect(document.title).toMatch(/How to Make a Table in Markdown/)
+    })
+  })
+
+  it('sets correct meta description from post data', async () => {
+    renderPost('how-to-make-a-table-in-markdown')
+    await waitFor(() => {
+      const meta = document.querySelector('meta[name="description"]')
+      expect(meta).toHaveAttribute('content', expect.stringContaining('Markdown'))
+    })
+  })
+
+  it('sets canonical URL without double-slash', async () => {
+    renderPost('how-to-make-a-table-in-markdown')
+    await waitFor(() => {
+      const link = document.querySelector('link[rel="canonical"]')
+      expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog/how-to-make-a-table-in-markdown')
+    })
+  })
 })

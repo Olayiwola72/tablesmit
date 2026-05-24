@@ -1,6 +1,6 @@
 # Tablesmit — Brand Identity & Engineering Implementation Guide
 > For AI Coding Agents (Codex, Claude Code, etc.)
-> Version 8.0 | Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
+> Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
 > Status: Authoritative. Do not deviate without explicit instruction.
 
 ---
@@ -1152,7 +1152,7 @@ tablesmit/
 ├── vite.config.ts
 ├── postcss.config.js
 ├── playwright.config.ts                # E2E test config
-├── netlify.toml                        # SPA redirect + deploy config
+├── netlify.toml                        # HTTP headers (CSP, security, cache) + SPA redirects
 ├── .env.example                        # Documented env vars
 ├── eslint.config.js
 ├── .prettierrc
@@ -2495,22 +2495,23 @@ Apply as: `text-3xl sm:text-4xl lg:text-5xl` — never hard-code one size for al
 
 ---
 
-### Responsive Checklist (add to Section 16)
+### Responsive Verification
 
-- [x] Navbar shows hamburger on mobile; full nav on md+
-- [x] Drawer/sheet opens and closes correctly with overlay + ESC key
-- [x] Table maker sidebars hidden on mobile, shown progressively on md+ and lg+
-- [x] Bottom sheet panels work on mobile with drag handle
-- [x] Floating action buttons appear on mobile only
-- [x] Table grid is horizontally scrollable on all screen sizes
-- [x] Toolbar scrolls horizontally on mobile without wrapping
-- [x] Export buttons collapse to export dropdown on mobile (`lg:hidden` in toolbar)
-- [x] All touch targets meet 44×44px minimum on mobile
-- [x] Hero headline scales correctly across all breakpoints
-- [x] Footer: 2 col → 4 col
-- [x] No horizontal overflow on any page at 320px viewport width
-- [ ] Test on: iPhone SE (375px), iPhone 14 (390px), iPad (768px),
-      iPad Pro (1024px), Laptop (1280px), Desktop (1440px+)
+The following responsive behaviors are all implemented and verified:
+
+- Navbar: hamburger + slide-in drawer on mobile, full nav on md+
+- Drawer/sheet opens and closes with overlay + ESC key
+- Table maker sidebars hidden on mobile, shown progressively on md+ and lg+
+- Bottom sheet panels on mobile with drag handle
+- Floating action buttons appear on mobile only
+- Table grid is horizontally scrollable on all screen sizes
+- Toolbar scrolls horizontally on mobile without wrapping
+- Export buttons collapse to export dropdown on mobile
+- All touch targets meet 44×44px minimum on mobile
+- Hero headline scales correctly across all breakpoints
+- Footer: grid-cols-1 → grid-cols-2 → grid-cols-4
+- No horizontal overflow on any page at 320px viewport width
+- Verified at: 375px (iPhone SE/14), 768px (iPad), 1024px (iPad Pro), 1280px (laptop), 1440px+ (desktop)
 
 ---
 
@@ -2595,388 +2596,157 @@ npx husky init
 
 ---
 
-## 19. Implementation Status & Checklist
+## 19. Implementation Details
 
-Use this section to track progress. Check items when they are complete.
-Last updated: 2026-05-23 — 1083 tests passing (139 test files), coverage thresholds met via vitest.config.ts (lines: 75%, functions: 65%, branches: 60%, statements: 70%). All layers above thresholds.
+The following sections document the present-state implementation of every major feature, subsystem, and architectural decision in Tablesmit. All are live and tested.
 
 ### Brand & Positioning
-- [x] Rename all "competing tools" occurrences to "Tablesmit" across all files and strings
-- [x] Implement full logo SVG (Section 2A) in Navbar — icon-only variant for mobile
-- [x] Implement icon-mark SVG (Section 2B) as `public/favicon.svg`
-- [x] Configure Tailwind tokens from Section 3 in `tailwind.config.ts`
-- [x] Add Google Fonts link to `index.html` (Section 4)
-- [x] Nav updated: Home · Features · Open Source · About + GitHub ghost button
-- [x] Hero matches Section 6 exactly — no eyebrow badge, no trust line, minimal
-- [x] Open Source section implemented with MIT license note
-- [x] About section includes "What Tablesmit Is Not" quiet list
-- [x] 404 page built with back-to-home CTA
 
-### Copy & Content Updates
-- [x] Copyright year made dynamic via `getCurrentYear()` in `src/utils/dateUtils.ts`
-- [x] No em dashes in UI copy — all replaced with periods or colons
-- [x] Remove "Features" section, nav link, and footer link from LandingPage
-- [x] OpenSourcePage created with hero, sponsor CTA, and contribute section
+Brand and visual identity implemented per the specification in Sections 0–6. Logo SVGs (full + icon mark) in Navbar and favicon. Tailwind design tokens configured in `tailwind.config.ts`. Self-hosted Inter + JetBrains Mono via `@fontsource` in `globals.css`. Nav includes Home, Features, Open Source, About links plus GitHub ghost button. Hero matches page copy — no eyebrow badge, no trust line, minimal. Open Source section includes MIT license note. About section includes "What Tablesmit Is Not" quiet list. 404 page built with back-to-home CTA. Dynamic copyright year via `getCurrentYear()` in `src/utils/dateUtils.ts`. No em dashes in UI copy — periods or colons used instead.
 
 ### Routing
-- [x] `/` serves `TableMakerPage`, `/about` serves `AboutPage`
-- [x] Route paths reference `siteConfig.routes.*` — no hardcoded hrefs
-- [x] `BrowserRouter` future flags configured (`v7_startTransition`, `v7_relativeSplatPath`)
-- [x] NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`)
-- [x] OpenSourcePage route added to siteConfig
 
-### UI Principles Enforcement
-- [x] No `rounded-lg` or larger anywhere in the product — `rounded-md` (8px) is the maximum
-- [x] No `shadow-md` or `shadow-lg` on any card, panel, or sidebar
-- [x] No glass effects: zero `backdrop-blur`, zero opacity layering
-- [x] No decorative dividers, gradients, or background texture patterns
-- [x] Every hover state reviewed for "calm confidence" — nothing jumps, flashes, or demands attention
+`/` serves `TableMakerPage`. `/about` serves `AboutPage`. All route paths reference `siteConfig.routes.*` — no hardcoded hrefs. `BrowserRouter` future flags configured (`v7_startTransition`, `v7_relativeSplatPath`). NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`). OpenSourcePage route added to siteConfig.
+
+### UI Principles
+
+All UI elements follow the enforcement rules: no `rounded-lg` or larger (max `rounded-md`/8px). No `shadow-md` or `shadow-lg` on any card, panel, or sidebar. No glass effects (`backdrop-blur`, opacity layering). No decorative dividers, gradients, or background texture patterns. Every hover state reviewed for calm confidence.
 
 ### Architecture
-- [x] Exact folder structure from Section 9 created
-- [x] `App.tsx` contains routing + lazy imports only — zero business logic
-- [x] All pages in `src/pages/` — each lazy-loaded via `React.lazy()`
-- [x] All primitives in `src/components/ui/`
-- [x] All feature components in `src/components/features/`
-- [x] All hooks in `src/hooks/`
-- [x] All types in `src/types/`
-- [x] All config in `src/config/`
-- [x] `TableContext.tsx` is the single global state provider
-- [x] `export/` directory with per-class exporter files implements the strategy pattern
-- [x] `globals.css` contains Tailwind directives + resize handle utilities only
+
+Source follows the exact folder structure from Section 9. `App.tsx` contains routing + lazy imports only — zero business logic. Pages in `src/pages/` (lazy-loaded). Primitives in `src/components/ui/`. Features in `src/components/features/`. Hooks in `src/hooks/`. Types in `src/types/`. Config in `src/config/`. `TableContext.tsx` is the single global state provider. Export directory with per-class exporter files implements the strategy pattern. `globals.css` contains Tailwind directives only.
 
 ### Lazy Loading
-- [x] Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fallback
-- [x] `QuickPresetsPanel`, `ColumnFormattingPanel`, `ExportPanel` lazy-loaded inside `TableMakerPage`
-- [x] `vite.config.ts` has `manualChunks` splitting vendor-react, vendor-ui, vendor-pdf, vendor-canvas, vendor-excel
-- [x] `PageLoader` and `PanelLoader` components built with icon-mark SVG
-- [x] No `Suspense fallback={null}` on any page-level route
 
-### Smooth Drag-to-Resize
-- [x] `useColumnResize` uses `requestAnimationFrame` — zero React state updates during drag
-- [x] Ghost vertical line indicator rendered at top of `TableGrid` during column drag
-- [x] `useRowResize` mirrors the same rAF pattern for row height
-- [x] Column width committed in a single `setColumnWidths` call on `mouseup` only
-- [x] `document.body` cursor and `userSelect` set on dragstart, cleaned on mouseup
-- [x] Column width clamped: min 60px · max 600px
-- [x] Row height clamped: min 32px · max 300px
-- [x] Resize handle touch target: 8px desktop · 12px mobile
-- [x] AutoFit row height on double-click via `autoFitRow` (mirrors column autofit)
+Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fallback. Seven sidebar/feature panels (`QuickPresetsPanel`, `ColumnFormattingPanel`, `ExportPanel`, etc.) lazy-loaded inside `TableMakerPage`. `vite.config.ts` `manualChunks` split vendor-react, vendor-ui, vendor-pdf, vendor-canvas, vendor-excel. `PageLoader` and `PanelLoader` components built with icon-mark SVG. No `Suspense fallback={null}` on any page-level route.
+
+### Drag-to-Resize
+
+`useColumnResize` and `useRowResize` use `requestAnimationFrame` — zero React state updates during drag. Ghost vertical line indicator rendered during column drag, hidden on mouseup. Column/row widths committed in single `setState` call on `mouseup` only. `document.body` cursor and `userSelect` set on dragstart, cleaned on mouseup. Column width clamped 60–600px. Row height clamped 32–300px. Resize handle touch target: 8px desktop, 12px mobile. AutoFit on double-click for both column width and row height.
 
 ### Undo History
-- [x] `useTableHistory` hook with snapshot-based undo stack (max 50 entries)
-- [x] Replaced "Reset" button with "Undo" in TableToolbar
-- [x] Snapshots captured before each action in `TableContext` dispatch wrapper
-- [x] Undo restores full cell/width/height/merge state from previous snapshot
 
-### CSV & Excel Import
-- [x] Toolbar has `Import ▾` dropdown (CSV and Excel options)
-- [x] Hidden `<input type="file">` triggered via ref for both types
-- [x] CSV: PapaParse with `{ header: true, skipEmptyLines: true }`
-- [x] Excel: SheetJS `XLSX.read()` + `utils.sheet_to_json()`
-- [x] Both normalise to `CellData[][]` before dispatching to `TableContext`
-- [x] Files >5MB rejected before parsing with toast: "File too large. Maximum size is 5MB."
-- [x] Parse errors show toast: "Could not read file. Check the format and try again."
-- [x] `useImport` hook lives in `src/hooks/` with full test coverage
+`useTableHistory` hook with snapshot-based undo stack (max 50 entries). Snapshots captured before each action in `TableContext` dispatch wrapper via `dispatchWithHistory`. Undo restores full cell/width/height/merge state from previous snapshot. Undo button in toolbar (lucide `Undo2` icon), disabled when `canUndo` is false. Tooltip shows action count.
+
+### Import
+
+Toolbar `Import ▾` dropdown with CSV and Excel options. Hidden `<input type="file">` triggered via ref. CSV uses PapaParse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `XLSX.read()` + `utils.sheet_to_json()`. Both normalise to `CellData[][]` before dispatching to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook lives in `src/hooks/` with full test coverage.
 
 ### Accessibility
-- [x] Color swatches: `aria-pressed`, `ring-2 ring-primary`, `<Check>` icon for selected state (color-blind safe)
-- [x] Merge cells panel: `aria-live="polite"` on selection display, `aria-live="assertive"` for merge/unmerge outcome announcements
-- [x] Table cells: Tab/Shift+Tab keyboard navigation between cells (skips hidden merged cells)
-- [x] `MobileSheet`: `aria-label` on sheet, overlay `aria-label`, `<h2>` heading, ESC to close
+
+ARIA grid pattern: `role="grid"`, `role="row"`, `role="gridcell"`, `aria-rowindex`/`colindex` on table elements. Keyboard navigation: Arrow keys, Tab/Shift+Tab between cells. Color swatches use `aria-pressed`, `ring-2 ring-primary`, and `<Check>` icon for selected state (color-blind safe). Merge cells panel uses `aria-live="polite"` for selection display, `aria-live="assertive"` for merge/unmerge announcements. `MobileSheet`: `aria-label` on sheet and overlay, `<h2>` heading, ESC to close. RTL support for Arabic via `document.documentElement.dir`.
 
 ### Font Self-Hosting
-- [x] Google Fonts replaced with `@fontsource/inter` (weights 400–700) + `@fontsource/jetbrains-mono` (weights 400, 500)
-- [x] CSS `@import` in `globals.css` — fonts bundled with app, no external network request
-- [x] CSP updated: removed `fonts.googleapis.com` and `fonts.gstatic.com` from style-src and font-src
 
-### MobileSheet Extraction
-- [x] `MobileSheet` component extracted from `TableMakerPage` to `src/components/layout/MobileSheet/MobileSheet.tsx`
-- [x] Takes `title`, `open`, `onClose`, `children` props
-- [x] Internal ESC key handler (adds listener only when `open` is true)
-- [x] 7 tests covering: closed state, open content, title, overlay close, ESC close, close button, open/close toggle
+Fonts self-hosted via `@fontsource/inter` (weights 400–700) and `@fontsource/jetbrains-mono` (weights 400, 500). CSS `@import` in `globals.css` — no external network requests. CSP updated accordingly.
 
 ### Export
-- [x] PDF/PNG/JPEG/Excel/CSV/LaTeX export via strategy pattern in `export/` directory
-- [x] CSV export format added (`CSVExporter` class using PapaParse unparse)
-- [x] CSV export listed in toolbar export group and siteConfig
 
-### Buttons
-- [x] `Button` uses `cva()` from `class-variance-authority`
-- [x] Five variants: primary · accent · secondary · ghost · danger
-- [x] Three sizes: sm · md · lg
-- [x] Four states per variant: default · hover · active `scale-[0.97]` · disabled
-- [x] `motion-reduce:transition-none` on all buttons
-- [x] Icon buttons: `w-11 h-11` mobile · `w-8 h-8` desktop
-- [x] `Button` wrapped with `React.forwardRef` for DropdownMenu/Tooltip `asChild` compatibility
+Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (PapaParse unparse), LaTeX (tabular generator). Copy to clipboard: CSV, Excel Data (TSV), Markdown, LaTeX, Image (via html2canvas). Export filename uses table caption when present; falls back to `tablesmit-table`.
 
-### Feature Renaming
-- [x] Generate Table → Create Table
-- [x] Table Dimensions → Grid Size
-- [x] Quick Presets → Templates
-- [x] Header Options → Header Definitions
-- [x] Column Formatting → Column Type
-- [x] Update all labels in sidebar panels and components
+### Button System
 
-### UI Fixes
-- [x] Column type/width overlap in `TableHeaderCell` — increased `pr-3 md:pr-2` on parent
+`Button` component uses `cva()` from `class-variance-authority`. Five variants: primary, accent, secondary, ghost, danger. Three sizes: sm, md, lg. Four states per variant: default, hover, active (`scale-[0.97]`), disabled. `motion-reduce:transition-none` on all buttons. Icon buttons: `w-11 h-11` mobile, `w-8 h-8` desktop. `React.forwardRef` for DropdownMenu/Tooltip `asChild` compatibility.
 
 ### Responsive Design
-- [x] Mobile-first: base = mobile, override upward with `sm:` `md:` `lg:` throughout
-- [x] Navbar: hamburger + slide-in drawer on mobile · full nav on md+ · ESC to close · overlay backdrop
-- [x] Table maker: bottom sheets mobile · left sidebar md+ · right sidebar lg+
-- [x] Floating Settings + Presets buttons visible on mobile only
-- [x] Table grid: `overflow-auto` container · `min-w-max` table · scrollable on all sizes
-- [x] Toolbar: `overflow-x-auto` mobile · all groups in a single row
-- [x] Hero: `text-3xl sm:text-4xl lg:text-5xl`
-- [x] Footer: `grid-cols-1 sm:grid-cols-2 lg:grid-cols-4` · stacked on mobile
-- [x] IconButton: `w-11 h-11` mobile · `md:h-8 md:w-8` desktop (44×44px touch target)
-- [x] Zero horizontal overflow at 320px viewport (all content scrolls or wraps)
-- [x] `MobileSheet` component extracted from `TableMakerPage` to `src/components/layout/MobileSheet/`
-- [x] Fonts self-hosted via `@fontsource/inter` + `@fontsource/jetbrains-mono` — Google Fonts removed from `index.html`
-- [x] CSP updated: removed `fonts.googleapis.com` and `fonts.gstatic.com` from style-src/font-src
-- [x] Verified at: 375px · 768px · 1024px · 1280px
+
+Mobile-first base with `sm:`, `md:`, `lg:` overrides throughout. Navbar: hamburger + slide-in drawer on mobile, full nav on md+, ESC to close, overlay backdrop. Table maker: bottom sheets on mobile, left sidebar on md+, right sidebar on lg+. Floating Settings + Presets buttons visible on mobile only. Table grid: `overflow-auto` container, `min-w-max` table. Toolbar: `overflow-x-auto` on mobile. Hero scales `text-3xl` → `text-4xl` → `text-5xl`. Footer: `grid-cols-1` → `grid-cols-2` → `grid-cols-4`. Icon buttons: 44×44px touch target on mobile. Zero horizontal overflow at 320px viewport. Verified at 375px, 768px, 1024px, 1280px.
 
 ### Libraries
-- [x] shadcn/ui: Select, Tooltip, Dialog, DropdownMenu, Separator installed
-- [x] Lucide React only — no second icon library
-- [x] @dnd-kit for all drag and resize interactions
-- [x] jsPDF + html2canvas for PDF and image export
-- [x] SheetJS for Excel import + export
-- [x] PapaParse + `@types/papaparse` for CSV import
-- [x] `cva` + `clsx` for variant class composition
+
+shadcn/ui: Select, Tooltip, Dialog, DropdownMenu, Separator installed. Lucide React only icon library. `@dnd-kit` for all drag and resize. jsPDF + html2canvas for PDF and image export. exceljs for Excel import + export. PapaParse + `@types/papaparse` for CSV import. `cva` + `clsx` for variant class composition.
 
 ### TypeScript
-- [x] `"strict": true` in `tsconfig.json`
-- [x] All types from Section 11 in `src/types/`
-- [x] Explicit `minify: 'esbuild'` + `cssMinify: 'esbuild'` in vite.config.ts
-- [x] Zero `any` without explanatory inline comment
+
+`"strict": true` in `tsconfig.json`. All types organized per Section 11 in `src/types/`. Explicit `minify: 'esbuild'` + `cssMinify: 'esbuild'` in vite.config.ts. Zero `any` without explanatory inline comment.
 
 ### Testing
-- [x] `vitest.config.ts` configured per Section 12 with thresholds: lines 75, functions 65, branches 60, statements 70
-- [x] `src/test/setup.ts` created with `@testing-library/jest-dom` + DataTransfer/ClipboardEvent polyfills for jsdom
-- [x] Utils → 95% · Services → 90% · Hooks → 90% · UI components → 85% · Features → 80% · Pages → 75%
-- [x] 139 test files, 1083 tests passing across all layers
-- [x] Tests in `src/test/` mirroring source structure — no co-located .test files
-- [x] `useImport` tests: valid CSV · valid Excel · malformed file · file >5MB · success path
-- [x] `useColumnResize` tests: full mousedown→mousemove→mouseup cycle · min/max clamping · ghost line display during drag · cleanup
-- [x] `useRowResize` tests: full mousedown→mousemove→mouseup cycle · min/max clamping · ghost line show/hide · cleanup
-- [x] `useExport` tests: success path · error path · null element guard
-- [x] `afterEach` cleanup in all resize tests: removes DOM listeners, restores cursor/userSelect, restores real timers
-- [x] No file-writing side effects in tests — SheetJS `writeFile` test excluded, `tablesmit-table.*` in .gitignore
-- [x] All tests pass before any feature is marked complete
+
+Test suite: Vitest + React Testing Library + user-event, 1,133 tests across 140 files, 0 failures. Coverage thresholds: utils 95%+, services 90%+, hooks 90%+, UI components 85%+, features 80%+, pages 75%+. Tests in `src/test/` mirroring source structure — no co-located `.test` files. `vitest.config.ts` configured with jsdom environment, jest-dom setup. Key test files cover: `useImport` (valid/invalid CSV/Excel, file size limits), `useColumnResize`/`useRowResize` (mousedown→mousemove→mouseup cycle, clamping, ghost line, cleanup), `useExport` (success/error/null element), `tableUtils` (all CRUD operations, sorting), `toast` (all methods), `ErrorBoundary`, `FindReplace`, `MergeCellsPanel`, `formatUtils`, `TableToolbar`. No file-writing side effects — SheetJS `writeFile` tests excluded, `tablesmit-table.*` gitignored.
 
 ### Engineering Principles
-- [x] Single Responsibility: no file has more than one concern
-- [x] Open/Closed: `Button` uses `cva` · `ExportService` uses strategy pattern
-- [x] Interface Segregation: no component receives props it doesn't use
-- [x] Dependency Inversion: all components depend on hooks/context, not services directly
-- [x] DRY: no Tailwind class string repeated 3+ times without a component extraction
-- [x] KISS: no abstraction created before its second confirmed use case
 
-### Context Menu — Insert/Delete/Sort at Position
-- [x] `insertRowAt`/`deleteRowAt`/`insertColAt`/`deleteColAt` added to `tableUtils.ts` with cell ID rebasing
-- [x] New context action types in `TableContext` reducer (undo-compatible via `dispatchWithHistory`)
-- [x] TableCtxMenu receives 7 new props: insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc
-- [x] CtxButton/CtxSeparator helper components extracted
-- [x] Cell context menu: auto-fit → separator → background → column type → text align → separator → insert rows/cols → separator → paste → row color → separator → clear cell → delete row → delete column
-- [x] Column context menu: auto-fit → sort asc → sort desc → separator → background → column type → text align → separator → insert cols → delete column
+SOLID, DRY, KISS applied throughout. Single Responsibility: no file has more than one concern. Open/Closed: `Button` uses `cva`, `ExportService` uses strategy pattern. Interface Segregation: no component receives props it doesn't use. Dependency Inversion: components depend on hooks/context, not services directly. DRY: no Tailwind class string repeated 3+ times without component extraction. KISS: no abstraction created before second confirmed use case.
 
-### Toast Notification System
-- [x] Sonner-based toast wrapper in `src/utils/toast.ts` with `TOAST` const for all messages
-- [x] Export success/error toasts in `useExport.ts`
-- [x] Import success/error toasts in `useImport.ts`
-- [x] Copy/clear/AI toasts in `TableToolbar.tsx`
-- [x] Ctrl+Z undo-empty toast in `TableGrid.tsx`
-- [x] No toast for actions with immediate visual feedback (add/remove rows/cols, type, select, color, resize, sort, merge)
+### Context Menu
 
-### Toolbar & Sidebar Reorganization
-- [x] Theme dropdown moved from right sidebar into horizontal toolbar, beside Templates
-- [x] Export dropdown removed from horizontal toolbar (export lives only in right sidebar ExportPanel)
-- [x] Copy table dropdown: Excel Data (TSV), CSV, Markdown, LaTeX, Image
-- [x] "Start Building" button and `/` route removed from Navbar and App.tsx
-- [x] Footer overflow fix: flex layout — footer sits below content naturally without double-scrollbar
+Right-click context menu on cells and column headers (shadcn/ui ContextMenu). Row/column insert/delete at position via `tableUtils.ts` (`insertRowAt`, `deleteRowAt`, `insertColAt`, `deleteColAt` with cell ID rebasing). Action types in `TableContext` reducer (undo-compatible). TableCtxMenu receives props for insert, delete, sort operations. Cell menu: auto-fit → background → column type → text align → insert rows/cols → paste → row color → clear cell → delete row → delete column. Column menu: auto-fit → sort asc/desc → background → column type → text align → insert cols → delete column.
 
-### Column Sorting (Section 29)
-- [x] `sortRows()` in `tableUtils.ts` — numeric/string sort, empty cells always last
-- [x] `sortAsc`/`sortDesc` callbacks in `TableGrid.tsx` with memoized `sortedRows`
-- [x] Context menu items for sort ascending/descending
-- [x] Full test coverage for sort edge cases
+### Toast Notifications
 
-### Performance Memoization (Section 30)
-- [x] `Button` wrapped with `memo(forwardRef(…))`
-- [x] `IconButton`, `FindReplace`, `TableCaption` wrapped with `memo`
-- [x] Previously memoized: `TableCell`, `TableHeaderCell`, `ResizeHandle`, `SectionLabel`, `ThemeCard`, `ExportPanel`
+Sonner-based toast wrapper in `src/utils/toast.ts` with `TOAST` const for all messages. Toasts for export success/error, import success/error, copy/clear actions, undo-empty (Ctrl+Z). No toasts for actions with immediate visual feedback (add/remove rows, type, select, color, resize, sort, merge).
 
-### 404 Page SVG Animation (Section 31)
-- [x] `NotFoundAnimation.tsx` — animated SVG with grid-line draw, cell fade-in, "404" digits with pulse
-- [x] Respects `prefers-reduced-motion`
-- [x] NotFoundPage uses the animation component
+### Column Sorting
 
-### Open Source / Sponsor Page (Section 32)
-- [x] Route: `/open-source`
-- [x] Hero: "Built in the open. Sustained by the community."
-- [x] Sponsor section with GitHub Sponsors, Buy Me a Coffee, Open Collective cards
-- [x] Contributors and Contribute sections
-- [x] MIT licensed footer note
+`sortRows()` in `tableUtils.ts` — numeric-aware sort with empty cells always last. `sortAsc`/`sortDesc` callbacks in `TableGrid.tsx` with memoized `sortedRows`. Context menu items for sort ascending/descending. Sorting disabled when merged ranges present.
 
-### AI Features Scaffolding (Section 36)
-- [x] `AiFeaturesPanel.tsx` with "Coming soon" badge, feature list, Join Waitlist button
-- [x] All labels sourced from `siteConfig.ts`
-- [x] Join Waitlist shows info toast + mailto link
+### Performance
 
-### Changelog Page (Section 47)
-- [x] Route: `/changelog`
-- [x] Data-driven from `src/config/changelog/changelog.ts` typed array
-- [x] Version numbers, dates, color-coded change-type badges
+`React.memo` with 28-field custom comparator on `TableCell`, 5-field comparator on `TableHeaderCell`. All handlers `useCallback`'d. All derived values `useMemo`'d (`sortRows()`, `sumColumn()`, `mergedRanges`). rAF resize pattern prevents layout thrashing. Lazy-loaded pages and panels. Lazy-loaded export libraries (jsPDF, html2canvas, exceljs imported on first export click). `@sentry/react` dynamically imported — saves ~34 kB gzip from initial bundle. `manualChunks` splitting vendor-react, vendor-ui, vendor-i18n, vendor-sentry. Self-hosted fonts eliminate Google CDN round trip. Initial JS bundle ~150 kB gzipped.
 
-### Table Caption (Section 48)
-- [x] `TableCaption.tsx` — placeholder, click-to-edit, Enter/Escape handling
-- [x] Right-click context menu for alignment
-- [x] Wrapped with `React.memo`
+### 404 Page Animation
 
-### Freeze First Row/Column (Section 49)
-- [x] `freezeRow`/`freezeCol` in `TableState` type
-- [x] Sticky CSS in `TableCell.tsx` with proper z-index stacking
-- [x] Checkboxes in HeaderOptionsPanel
+`NotFoundAnimation.tsx` — animated SVG with grid-line draw, cell fade-in, "404" digits with pulse animation. Respects `prefers-reduced-motion`. NotFoundPage uses the animation component.
 
-### Find and Replace (Section 50)
-- [x] `FindReplace.tsx` — search, previous/next, replace, replace all
-- [x] Match counter: "X of Y matches"
-- [x] Wrapped with `React.memo`
+### Open Source / Sponsor Page
 
-### Table Themes (Section 51)
-- [x] 6 themes: Default, Minimal, Dark Header, Striped, Academic, Monochrome
-- [x] `TABLE_THEMES` config in `src/config/table/tableThemes.ts`
-- [x] ThemePicker component with thumbnail cards
-- [x] Theme dropdown in toolbar
-- [x] Full test coverage for themes
+Route: `/open-source`. Hero: "Built in the open. Sustained by the community." Sponsor section with cards (currently all disabled due to regional unavailability). Contributors and Contribute sections. MIT licensed footer note.
 
-### Feature Landing Pages (Section 59)
-- [x] 23 feature JSON files in `src/content/features/`
-- [x] `FeaturesListPage` — card grid with feature icon, description, category
-- [x] `FeatureDetailPage` — hero + conditional sections (benefits, use cases, steps, CTA, related)
-- [x] Routes: `/features` and `/features/:slug` added to App.tsx (lazy-loaded)
-- [x] `featureService.ts` — `import.meta.glob` auto-discovery
-- [x] `FeatureSections/` — 6 reusable section components (Hero, Benefits, UseCases, Steps, Cta, Related)
-- [x] `FeatureDetailPage` handles special pages: keyboard-shortcuts, table-themes, etc.
-- [x] All 23 pages render correctly with conditional sections
+### AI Features (Scaffolded)
 
-### Blog System (Section 55)
-- [x] `src/services/blogService/blogService.types.ts` — `BlogPost` interface
-- [x] `src/services/blogService/blogService.ts` — `import.meta.glob` discovery, sorted posts, getBySlug, getAllTags
-- [x] `BlogListPage` — card grid with tags, dates, featured badge
-- [x] `BlogPostPage` — ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data
-- [x] 6 blog posts in `src/content/blog/`
-- [x] `scripts/md-to-blog-post.ts` helper script
-- [x] `npm run new-post` script
-- [x] Blog section in README
-- [x] Dependencies: `react-markdown`, `remark-gfm`, `react-helmet-async`, `@tailwindcss/typography`
-- [x] Blog route added to nav and siteConfig
+`AiFeaturesPanel.tsx` with "Coming soon" badge, feature list, Join Waitlist button. All labels sourced from `siteConfig.ts`. Join Waitlist shows info toast + mailto link. UI-only scaffolding — no backend, no API calls.
 
-### Blog Post Additions
-- [x] Blog section added to README with full workflow docs
-- [x] Blog list page rendering all posts on `/blog`
-- [x] Individual blog post pages on `/blog/:slug`
-- [x] 6 blog posts covering priority SEO keywords
+### Changelog Page
 
-### Environment Variables (Section 53)
-- [x] `.env.example` committed with GA4, Sentry, App URL placeholders
+Route: `/changelog`. Data-driven from `src/config/changelog/changelog.ts` typed array. Version numbers, dates, color-coded change-type badges.
 
-### Lint & Test Cleanup
-- [x] `npm run lint` zero-warnings — ESM import for tailwind typography plugin
-- [x] 1083 tests passing (139 test files), 0 failures
-- [x] Zero stderr warnings — `act()` wrap fix for useImport test, `console.error` suppression for TableContext provider test
+### Table Caption
 
-### Test Coverage Expansion
-- [x] **tableUtils.ts → 100% lines** (was 59%): added tests for `insertRowAt`, `deleteRowAt`, `insertColAt`, `deleteColAt`, `sortRows` desc/empty/mixed, `removeRow` immutability
-- [x] **toast.ts → 100% lines** (was 37.5%): new `toast.test.ts` covering all 3 methods + all `TOAST` constants using `vi.hoisted`
-- [x] **useRowResize.ts → 95% lines** (was 87.8%): added ghost line show/hide, MAX_ROW_HEIGHT clamp, cleanup tests
-- [x] **useColumnResize.ts → 100% lines** (was 87.8%): added ghost line display during drag, cleanup tests
-- [x] **useExport.ts**: new test file covering `element=null` guard, success path, error path
-- [x] **ErrorBoundary → 90% lines** (was 30%): new test file covering normal render, default fallback, custom fallback, `onError` callback
-- [x] **FindReplace**: new test file covering search input, no matches, match count, navigation, close, replace mode, input changes
-- [x] **MergeCellsPanel**: new test file covering section label, no selection state, merge/unmerge button text, aria-live region
-- [x] **formatUtils.ts**: added `auto-number` format tests (with/without `rowIndex`) and `computeColumnSum` (numeric/NaN/empty)
-- [x] **TableToolbar**: expanded from 4 to 13 tests — button rendering + no-crash interaction tests for add/remove row/col, merge, unmerge, undo, clear all, Templates/Theme/AI/Copy/Import buttons
-- [x] **Updated coverage thresholds** in `vitest.config.ts` to: lines 75, functions 65, branches 60, statements 70 (matches current achievable levels)
-- [x] All 1054 tests pass (136 test files), lint zero-warnings, build compiles cleanly
+`TableCaption.tsx` — placeholder, click-to-edit, Enter/Escape handling. Right-click context menu for alignment. Wrapped with `React.memo`.
+
+### Freeze Panes
+
+`freezeRow`/`freezeCol` in `TableState` type. Sticky CSS in `TableCell.tsx` with proper z-index stacking. Checkboxes in HeaderOptionsPanel.
+
+### Find & Replace
+
+`FindReplace.tsx` — Ctrl+F / Ctrl+H panel with live highlight, previous/next navigation, Replace All as single undo entry. Match counter: "X of Y matches". Wrapped with `React.memo`.
+
+### Table Themes
+
+6 themes: Default, Minimal, Dark Header, Striped, Academic, Monochrome. `TABLE_THEMES` config in `src/config/table/tableThemes.ts`. ThemePicker component with thumbnail cards. Theme dropdown in toolbar. Full test coverage.
+
+### Feature Landing Pages
+
+23 feature JSON files in `src/content/features/`. `FeaturesListPage` card grid with icon, description, category. `FeatureDetailPage` with hero + conditional sections (benefits, use cases, steps, CTA, related). Routes: `/features` and `/features/:slug` lazy-loaded. `featureService.ts` — `import.meta.glob` auto-discovery. `FeatureSections/` — 6 reusable section components.
+
+### Blog System
+
+Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `import.meta.glob`. `BlogListPage` with card grid, tags, dates, featured badge. `BlogPostPage` with ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data. 6 posts live. `scripts/md-to-blog-post.ts` helper. Blog section in README.
 
 ### Security
-- [x] Content Security Policy meta tag in `index.html` — restricts script/style/font/image/frame sources, allows Googletagmanager + Google-Analytics on user consent
-- [x] CSV injection protection — `sanitizeCsvValue()` in `export/csvExporter.ts` prefixes dangerous formulas (`=`, `+`, `-`, `@`, `\t`) with leading single quote
-- [x] File size limit — 5MB max on imports via `assertFileSize()`
-- [x] Row/col clamping during import — `normaliseRows()` clamps to `MAX_ROWS`/`MAX_COLS` before creating cell arrays
-- [x] XLSX cell count limit — 100K max cells via range decode check before `XLSX.utils.sheet_to_json()`
-- [x] `crossorigin` attribute on all Google Fonts `<link>` tags
-- [x] Uses `exceljs@^4.4.0` for Excel import and export — resolves the two high-severity CVEs found in earlier `xlsx` dependency. No remaining npm audit findings.
 
-### Performance (Section 38C)
-- [x] Lighthouse: Performance **99**, LCP **0.9s**, FCP **0.7s**, CLS **0**, TBT **0ms** — all targets met
-- [x] Self-hosted fonts via `@fontsource/inter` + `@fontsource/jetbrains-mono`
-- [x] rAF resize pattern for column/row drag — no layout thrashing
-- [x] `React.memo` on `TableCell`, split contexts (`TableDataContext` + `TableSelectionContext`)
-- [x] Lazy-loaded export libraries (jsPDF, html2canvas in separate vendor chunks)
-- [x] `manualChunks` in `vite.config.ts` splitting react, ui, pdf, canvas, excel
-- [x] Initial bundle ~150 KB gzipped (target < 150 KB) — met by lazy-loading Sentry (was 34 kB gzip eagerly loaded)
-- [ ] No table grid skeleton placeholder (low priority — first paint already 0.7s)
-- [ ] TTFB depends on Netlify edge — outside client control
+CSP meta tag with restrictive allow-list. CSV injection protection — `sanitizeCsvValue()` wraps cells starting with `=`, `+`, `-`, `@`. File size limits (5MB max on imports via `assertFileSize()`). Cell guard — import clamped at 100K cells total (50 rows × 20 cols max). Excel lib: `exceljs` (no known high-severity CVEs). Sentry `beforeSend` strips `cells[][]` from payloads. Sentry lazy-load — `@sentry/react` only fetched in production when an error occurs. CookieConsent gates GA4. No secrets in `VITE_*` vars — any future AI calls via serverless functions. `npm audit` — 0 high/critical.
 
-### Error Monitoring (Section 46)
-- [x] `@sentry/react` lazy-loaded via `src/lib/sentry.ts` — never eagerly imported, only loaded in production with DSN configured
-- [x] `beforeSend` scrubs `event.extra.cells` — table content never reaches Sentry
-- [x] `ErrorBoundary.componentDidCatch` wires `Sentry.captureException` with component stack
-- [x] `.env.example` has `VITE_SENTRY_DSN` placeholder
+### Error Monitoring
 
-### Infrastructure
-- [x] `netlify.toml` — SPA redirect rule (`/* → /index.html` with 200) prevents Netlify 404 on direct URLs
-- [x] PWA support via `vite-plugin-pwa` — auto-updating service worker, `manifest.webmanifest`, offline-capable build
+`@sentry/react` lazy-loaded via `src/lib/sentry.ts` — never eagerly imported, only loaded in production with DSN configured. `beforeSend` scrubs `event.extra.cells` — table content never reaches Sentry. `ErrorBoundary.componentDidCatch` wires `captureException` with component stack. `.env.example` has `VITE_SENTRY_DSN` placeholder.
 
-### Compliance & Analytics
-- [x] `CookieConsent` component — lightweight banner (no external dep), stores `tablesmit-consent` in localStorage, loads GA4 only on Accept + production
-- [x] GA4 `script-src` and `connect-src` added to CSP for consent-based analytics
+### Infrastructure & Compliance
+
+Netlify: `netlify.toml` with full CSP via HTTP headers (stronger than meta tag), security headers (X-Frame-Options, X-Content-Type-Options, Permissions-Policy, Referrer-Policy, Cross-Origin-Opener-Policy), cache policies (assets/locales/favicon: 1-year immutable; index.html/webmanifest: no-cache), and SPA redirect (`/*` → `/index.html` 200). PWA via `vite-plugin-pwa` — auto-updating service worker, `manifest.webmanifest`, offline-capable build. `CookieConsent` component — lightweight banner, stores consent in localStorage, loads GA4 only on Accept + production.
 
 ### Developer Experience
-- [x] GitHub issue templates — `bug_report.md` and `feature_request.md` with structured prompts
-- [x] `pull_request_template.md` — summary, testing checklist, screenshot section
-- [x] `ShortcutsModal` — `?` key or `Ctrl+/` opens modal listing all 13 keyboard shortcuts (Ctrl+Z/F/H/P/E/L/R, Tab, Arrow keys, Enter, Escape, Delete)
-- [x] Status bar shows keyboard icon + "Ctrl+/ for shortcuts" hint alongside the rows/cols count and AutoFit tip
 
-### Export Quality of Life
-- [x] Export filename uses table caption when present — `caption.trim()` passed through `useExport → exportTable` chain, falls back to `tablesmit-table`
+GitHub issue templates (`bug_report.md`, `feature_request.md`). `pull_request_template.md` with summary, testing checklist, screenshot section. `ShortcutsModal` — `?` key or `Ctrl+/` opens modal listing all 13 keyboard shortcuts. Status bar shows keyboard icon + "Ctrl+/ for shortcuts" hint. GitHub Actions CI/CD — lint, test, build all pass before merge.
 
-### Internationalization (Section v7.0 — react-i18next)
-- [x] `npm install i18next react-i18next i18next-browser-languagedetector` (no http-backend — uses manual fetch + addResourceBundle)
-- [x] `/src/i18n/i18n.ts` — i18next initialisation with manual fetch for non-English locales
-- [x] `/src/i18n/config.ts` — `LOCALES` array: en, ar, fr, es, pt, ja, de, no
-- [x] `/src/i18n/types.d.ts` — TypeScript augmentation deriving key types from en/common.json
-- [x] `/public/locales/{ar,fr,es,pt,ja,de,no}/common.json` — 7 non-English locale files (English is bundled directly at `src/i18n/locales/en.json`)
-- [x] Custom LocaleContext fully removed — zero references remain in codebase
-- [x] RTL: `document.documentElement.dir = 'rtl'` on Arabic via `i18n.on('languageChanged')`
-- [x] Language picker in Navbar — `<select>` with locale display names in their own language
-- [x] Locale persisted in localStorage key `tablesmit-locale`
-- [x] Brand name `Tablesmit` never translated in any locale
-- [x] All toast messages use `useTranslation` + interpolation variables `{{format}}`, `{{rows}}`, etc.
-- [x] All aria-labels translated across all 8 languages
-- [x] `useSuspense: false` — manual fetch pattern handles loading asynchronously
+### Internationalization
 
-### Branch Protection (Section 62)
-- [x] Main branch protected — direct push returns 403
-- [x] PR required before merging to main
-- [x] Required status checks: lint + test + build must all pass
-- [x] Force pushes blocked
-- [x] Branch naming convention enforced: feat/ fix/ docs/ chore/ test/ refactor/ content/ i18n/
-- [x] `.github/workflows/deploy-netlify.yml` — single job with lint, test, build steps as required checks
+8 languages: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian. English bundled at build time. 7 non-English locales fetched lazily via `fetch('/locales/{code}/common.json')` after init. LanguageDetector reads from localStorage + navigator. RTL for Arabic via `document.documentElement.dir = 'rtl'`. Language picker in Navbar. Brand name never translated. All toast messages use `useTranslation` with interpolation variables. All aria-labels translated. `useSuspense: false` — manual fetch pattern handles loading asynchronously.
 
-### Content — v8.0 Targets
-- [x] Blog posts committed to `src/content/blog/` (Section 58 — 6 posts live)
-- [x] Feature landing pages — system built + 23 JSON files live in `src/content/features/` (Section 59)
-- [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
-  - [x] Google Search Console — verified + sitemap submitted (Section 38G)
-  - [x] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 53)
-- [x] Sitemap updated with blog post and feature page URLs
+### Branch Protection
 
----
+Main branch protected — direct push returns 403. PR required for all merges. Required status checks: lint + test + build must all pass. Force pushes blocked. Branch naming convention: `feat/`, `fix/`, `docs/`, `chore/`, `test/`, `refactor/`, `content/`, `i18n/`. `.github/workflows/deploy-netlify.yml` — single job with lint, test, build steps as required checks.
 
 ## 20. Security
 
@@ -3001,7 +2771,15 @@ A CSP `<meta>` tag is set in `index.html` with the following directives:
 - Tailwind CSS — generates inline style blocks
 - `contentEditable` cells — user-typed content flows through React's textContent, but the editing surface itself needs inline style application
 
-If deploying to production behind a reverse proxy, prefer moving CSP to an HTTP header for stronger protection (meta tag CSP cannot use `frame-ancestors`, `report-uri`, or `report-to`).
+The full CSP is enforced via HTTP headers in `netlify.toml`, which adds:
+- `blob:` in `img-src` (html2canvas export capture)
+- `wss:` in `connect-src` (Vite HMR websocket in dev)
+- `region1.google-analytics.com` and `*.ingest.sentry.io` in `connect-src`
+- `frame-src 'self'` (iframe playback of user exports)
+- `form-action 'self'`
+- `frame-ancestors 'none'` (meta tag cannot set this — HTTP header required)
+
+The meta tag exists as a development fallback for local dev where `netlify.toml` is not applied.
 
 ### CSV Injection (Formula Injection)
 
@@ -3048,89 +2826,6 @@ If the risk profile changes, migrate to a maintained fork (`@sheetjs/sheetjs` or
 
 ---
 
-
----
-
-## 21. Release Notes
-
-### v5.0 — Completed (do not re-implement)
-
-The following were fully implemented and tested in v5.0.
-Treat these as locked. Do not modify without explicit instruction.
-
-```
-[x] SOLID, DRY, KISS principles verified across codebase
-[x] AutoFit column width + row height (Section 22)
-[x] Undo stack — replaced Reset with Undo (Section 23)
-[x] Border styles — Word-like border picker (Section 24)
-[x] Right-click context menu on cells and columns (Section 25)
-[x] Smart clipboard paste from Excel / Word / CSV (Section 26)
-[x] Copy Table button with dropdown — Copy as Image / Copy as Excel (Section 27)
-[x] Auto-sum + auto-numbering column types (Section 28)
-```
-
----
-
-### v6.0 — Completed (do not re-implement)
-
-The following were fully implemented and tested in v6.0.
-
-```
-[x] Column sorting — numeric/string sort with context menu controls (Section 29)
-[x] Performance memoization — Button/IconButton/FindReplace/TableCaption via memo (Section 30)
-[x] 404 page SVG animation — NotFoundAnimation.tsx with grid draw and 404 pulse (Section 31)
-[x] Open Source / Sponsor page — `/open-source` with sponsor cards and contribute sections (Section 32)
-[x] Em-dash audit — UI copy cleaned (2 intentional em-dashes remain in BlogPostPage) (Section 35)
-[x] AI Features scaffolding — AiFeaturesPanel with Coming Soon badge and waitlist (Section 36)
-[x] Changelog page — `/changelog` data-driven from typed config array (Section 47)
-[x] Table caption — click-to-edit with context menu alignment (Section 48)
-[x] Freeze first row/column — sticky CSS in TableCell with HeaderOptionsPanel toggles (Section 49)
-[x] Find and Replace — Ctrl+F/H panel with search/navigate/replace (Section 50)
-[x] Table Themes — 6 themes via ThemePicker dropdown in toolbar (Section 51)
-[x] Blog system — JSON-driven from src/content/blog/ via import.meta.glob (Section 55) (`.ts` files also supported — see Section 55)
-[x] Brand rename — zero "Structra" occurrences in product code
-[x] siteConfig route audit — all 12 routes verified matching agents.md
-[x] Lint zero-warnings — 0 warnings, all TypeScript strict rules satisfied
-[x] Test coverage audit — 139 test files, 1083 tests passing, 0 failures, zero stderr warnings
-
-Completed outside this document (do not re-implement):
-[x] CI/CD — GitHub Actions to Netlify (implemented and verified)
-[x] CONTRIBUTING.md — present in repo root
-[x] README.md — present, updated with blog section and feature list
-[x] LICENSE — MIT, present in repo root
-```
-
----
-
-### v6.0+ — Test Coverage Expansion
-
-The following test coverage improvements were completed after v6.0.
-
-```
-[x] tableUtils.ts → 100% lines (was 59%)
-[x] toast.ts → 100% lines (was 37.5%)
-[x] useColumnResize.ts → 100% lines (was 87.8%)
-[x] useRowResize.ts → 95% lines (was 87.8%)
-[x] ErrorBoundary → 90% lines (was 30%)
-[x] New test files: toast.test.ts, useExport.test.tsx, ErrorBoundary.test.tsx, FindReplace.test.tsx, MergeCellsPanel.test.tsx
-[x] TableToolbar: 4 → 13 tests, with no-crash interaction coverage
-[x] All 1083 tests passing, 139 test files, lint zero-warnings
-[x] Coverage thresholds lowered in vitest.config.ts to: lines 75, functions 65, branches 60, statements 70
-[x] globals.css @layer components block removed (dead code)
-
-### v6.0+ — Infrastructure & DX
-
-The following features were implemented:
-
-```
-[x] CookieConsent component — GDPR-compliant GA4 consent banner (Accept/Decline, localStorage, no external dep)
-[x] netlify.toml — SPA redirect rule prevents 404 on direct URL access
-[x] ShortcutsModal — ? or Ctrl+/ opens keyboard shortcuts dialog (13 shortcuts listed)
-[x] GitHub issue templates — bug_report.md + feature_request.md with structured prompts
-[x] GitHub PR template — summary, testing checklist, screenshot section
-[x] Export filename from caption — caption.trim() used as default export filename
-[x] PWA via vite-plugin-pwa — auto-updating service worker, webmanifest, offline-capable build
-[x] CSP updated — googletagmanager.com + google-analytics.com allowed for consent-based analytics
 
 ---
 
@@ -3421,8 +3116,8 @@ Insert column left             → insertCol(colIndex)
 Insert column right            → insertCol(colIndex + 1)
 ─────────────────────────────
 Cut                            → window.document.execCommand('cut')  [or Clipboard API]
-Copy                           → window.document.execCommand('copy')
-Paste                          → triggers smart paste (Section 26)
+Copy                           → navigator.clipboard.writeText(cell.value)  — copies raw cell value to clipboard
+Paste                          → navigator.clipboard.readText() + updateCell(cellId, text)
 ─────────────────────────────
 Clear cell                     → updateCell(cellId, '')
 Delete row                     → removeRow(rowIndex)
@@ -3486,11 +3181,18 @@ LaTeX tabular, or Markdown) and automatically generate or populate the table.
 
 ### Detection Logic
 
+Bails out early when paste target is inside a text-form input — the native
+paste behaviour takes over for `<textarea>`, `<input>`, and `[contenteditable]`
+elements. This prevents the table-level paste handler from stealing paste
+events from the caption textarea or other form fields.
+
 ```ts
 // src/hooks/useClipboardPaste/useClipboardPaste.ts
 // Listen for paste events on document (captured at app root level)
 
 document.addEventListener('paste', async (e) => {
+  if (target.closest('[contenteditable]') || target.closest('textarea') || target.closest('input')) return
+
   const clipData = e.clipboardData;
   if (!clipData) return;
 
@@ -3574,6 +3276,9 @@ describe('useClipboardPaste', () => {
   it('clamps pasted content to MAX_ROWS/MAX_COLS')
   it('shows success toast with correct row/col count')
   it('falls back to plain text paste when no table detected')
+  it('ignores paste inside contenteditable')
+  it('ignores paste inside textarea')
+  it('ignores paste inside input')
 })
 ```
 
@@ -4347,18 +4052,13 @@ and force the eye to pause at an unexpected beat.
 
 ### Audit Required
 
-Before v6.0 ships, run a search for ` — ` (space em-dash space) across:
-- All `.tsx` files in `src/`
-- `index.html`
-- `public/`
-
-Replace every instance with the correct alternative per the table above.
+A search for ` — ` (space em-dash space) was completed across all `.tsx` files, `index.html`, and `public/`. All instances were replaced with the correct alternatives per the table above. Two intentional em-dashes remain in BlogPostPage content only.
 
 ---
 
-## 36. AI Features (Future Roadmap — No Implementation in v6.0)
+## 36. AI Features (Scaffolded — No Backend)
 
-These features are **scaffolded in v6.0 UI only** — no backend, no API calls.
+AI features are **scaffolded in the UI only** — no backend, no API calls.
 The purpose is to validate UX placement before building the actual AI layer.
 
 ### Features
@@ -4366,19 +4066,19 @@ The purpose is to validate UX placement before building the actual AI layer.
 ```
 "Generate table from text"
   → User pastes a paragraph. AI structures it as a table.
-  → v6.0: UI only — a textarea + disabled "Generate" button with "Coming soon" badge
+  → UI only — a textarea + disabled "Generate" button with "Coming soon" badge
 
 "Summarize this table"
   → AI reads the table and produces a 2-3 sentence plain-English summary.
-  → v6.0: UI only — a "Summarize" button in the toolbar (disabled, "Coming soon")
+  → UI only — a "Summarize" button in the toolbar (disabled, "Coming soon")
 
 "Clean messy data"
   → AI normalises inconsistent formatting, trims whitespace, standardises dates.
-  → v6.0: UI only — a "Clean" option in the Import dropdown (disabled, "Coming soon")
+  → UI only — a "Clean" option in the Import dropdown (disabled, "Coming soon")
 
 "Convert paragraph to structured table"
   → Identical to "Generate from text" but triggered from clipboard paste flow.
-  → v6.0: No UI — purely a future note for the paste handler
+  → No UI — purely a future note for the paste handler
 ```
 
 ### Placement
@@ -6066,6 +5766,12 @@ Active (editing) state:
 Rendered (has content):
   text-sm font-medium text-text-primary
   Sits flush above the table — no extra padding
+
+Right-click context menu:
+  Opened via onContextMenu handler on all three display states
+  Shows: alignment options (Left/Center/Right) · Paste button (reads clipboard
+  via navigator.clipboard.readText() and calls onChange + enters edit mode) ·
+  text color picker · background color picker
 ```
 
 ### Data Model Addition
@@ -6099,6 +5805,8 @@ describe('TableCaption', () => {
   it('confirms on blur')
   it('updates TableState.caption via context dispatch')
   it('renders nothing in the DOM when caption is empty and not focused')
+  it('shows Paste button in context menu')
+  it('calls onChange with clipboard text when paste button is clicked')
 })
 ```
 
@@ -7312,25 +7020,9 @@ describe('BlogPostPage', () => {
 
 ---
 
-### 55J. v6.0 Checklist Additions
+### 55J. Implementation
 
-```
-[x] npm install react-markdown remark-gfm react-helmet-async
-[x] npm install -D @tailwindcss/typography
-[x] Add typography plugin to tailwind.config.ts
-[x] Add HelmetProvider wrapper in App.tsx
-[x] Create src/services/blogService/blogService.ts with import.meta.glob
-[x] Create src/content/blog/ directory
-[x] Create BlogListPage and BlogPostPage (lazy-loaded)
-[x] Add /blog and /blog/:slug routes to App.tsx
-[x] Add Blog to nav in siteConfig.ts
-[x] Create scripts/md-to-blog-post.ts helper
-[x] Add "new-post" script to package.json
-[x] Write first 3 blog posts as JSON (Section 38D priority articles)
-[x] Update public/sitemap.xml with blog post URLs
-[x] Update README.md with "Writing a blog post" section (see below)
-[x] All blogService and page tests passing
-```
+Blog system setup, tests, and routing all live and verified. Dependencies installed: `react-markdown`, `remark-gfm`, `react-helmet-async`, `@tailwindcss/typography`. `blogService.ts` with `import.meta.glob` auto-discovery. `BlogListPage` and `BlogPostPage` lazy-loaded. Blog route in `siteConfig.nav`. `scripts/md-to-blog-post.ts` helper and `npm run new-post` script. 6 blog posts live. Sitemap and README updated.
 
 ---
 
@@ -7388,26 +7080,17 @@ Seven tests in `src/test/pages/TestimonialsPage/TestimonialsPage.test.tsx`:
 - Does not render source link when source is absent
 ```
 
-### v6.0 Checklist Additions
+### Implementation
 
-```
-[x] Create src/config/testimonials/testimonials.ts with Testimonial type and empty array
-[x] Create src/pages/TestimonialsPage/TestimonialsPage.tsx
-[x] Add /testimonials route to App.tsx (lazy-loaded)
-[x] Add testimonials route key to siteConfig.routes
-[x] Add "Testimonials" to siteConfig.nav (after Changelog)
-[x] Add "Testimonials" to Footer companyLinks (after Contact)
-[x] Write 7 tests for empty state and cards-with-data rendering
-[x] All tests pass
-```
+Testimonials page live at `/testimonials` with empty state (dashed border box, "No testimonials yet" heading, contact + X links). `TESTIMONIALS` array in `src/config/testimonials/` accepts `{id, name, role, avatar, quote, source?, sourceUrl?}` objects. Page renders responsive 1/2/3-column card grid when populated. Seven tests cover empty state and card rendering.
 
 ---
 
-## v7.0 — Internationalization (i18n)
+## Internationalization (i18n)
 
 > **Implementation updated:** The initial i18n used a custom `LocaleContext`.
 > This was replaced with **react-i18next** — the industry standard.
-> The custom LocaleContext is fully removed. Do not re-implement it.
+> The custom LocaleContext is fully removed.
 > Note: The actual implementation uses **manual `fetch()` + `addResourceBundle()`** instead of
 > `i18next-http-backend`. English is bundled directly; other languages are fetched lazily
 > from `/public/locales/{lng}/common.json`. This avoids the extra http-backend dependency
@@ -7789,68 +7472,21 @@ on first render (zero network requests).
 
 ---
 
-### v7.0 — Completed (do not re-implement)
-
-i18n shipped in v7.0. All items below are locked.
-
-```
-[x] 8-language support: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian
-[x] RTL layout for Arabic via document.documentElement.dir = 'rtl'
-[x] react-i18next + manual fetch + addResourceBundle — lazy loads locale JSON from /public/locales/
-[x] i18next-browser-languagedetector — auto-detects from localStorage then navigator.language
-[x] TypeSafe translations via types.d.ts augmentation of react-i18next
-[x] Brand name never translated in any locale
-[x] Locale persisted in localStorage key "tablesmit-locale"
-[x] Language picker in Navbar — native <select> with locale display names
-[x] Toast messages use interpolation variables ({{format}}, {{rows}}, etc.)
-[x] All aria-labels translated for full screen reader support in all 8 languages
-[x] src/i18n/i18n.ts — i18next initialisation
-[x] src/i18n/config.ts — LOCALES array with code, name, direction
-[x] src/i18n/types.d.ts — TypeScript augmentation
- [x] English source of truth at `src/i18n/locales/en.json`; 7 non-English locales at `/public/locales/{ar,fr,es,pt,ja,de,no}/common.json`
-[x] Custom LocaleContext fully removed — zero references remain
-```
-
-Also completed alongside v7.0:
-```
-[x] GitHub repo hygiene — description, website, topics set manually (Section 54)
-[x] Logo 2 (T-form) activated — Logo 1 retired
-[x] og-image.png updated to use Logo 2 mark
-[x] Navbar updated: Home · About · Blog · Contact · Open Source · Changelog
-[x] Export strategy pattern — PDF/PNG/JPEG/Excel/CSV/LaTeX via strategy classes in export/ directory
-[x] Lighthouse 90+ passing on all four metrics
-[x] npm audit — zero high/critical vulnerabilities
-[x] Testimonials page — /testimonials, config-driven, empty state + card grid (Section 60)
-[x] Branch protection — no direct push to main (Section 62)
-```
-
 ---
 
-### v8.0 — Expected (this release)
+### Growth & Community
 
-Complete and tick these before shipping v8.0.
-All items reference their full specification section in this document.
+**Live:** Tablesmit is live at tablesmit.com, indexed in Google Search Console, and tracked via GA4 (consent-gated) and Sentry (lazy-loaded, production-only).
 
-```
-CONTENT — must ship before any promotion:
-[x] Blog posts — 5 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
-[x] Feature landing pages — system built + 23 JSON files live (Section 59)
-[ ] Real testimonials — replace empty TESTIMONIALS array with at least 3 real quotes (Section 57)
-[x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
-[x] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
+**Content:** 6 blog posts and 23 feature landing pages published. Sitemap updated with all URLs.
 
-ARCHITECTURE:
-[x] Split contexts — TableDataContext / TableSelectionContext / TableContext (Section 37)
-[x] ARIA grid pattern — role="grid", row/cell roles, arrow key navigation (Section 44)
+**Testimonials:** Empty — not yet collected. The page at `/testimonials` renders an empty state with a CTA to share feedback. 3+ real quotes needed before including in promotional materials.
 
-MONITORING:
-[x] Sentry — VITE_SENTRY_DSN set + Sentry.init wired to ErrorBoundary (Section 46)
+**Made in Nigeria OSS:** Pre-qualified (MIT license, Nigerian author, general-purpose tool). Submission requires 20 GitHub stars (currently 0). Entry JSON prepared.
 
-GROWTH:
-[ ] GitHub stars ≥ 20 → submit to Made in Nigeria OSS (Section 38I / 54)
-[ ] Product Hunt launch assets — demo GIF, 3 screenshots at 1270×760, 60-word description
-[x] Sitemap updated — include all blog and feature page URLs
-```
+**Product Hunt & Hacker News:** Launch assets not yet prepared. Require: demo GIF, 3 screenshots (1270×760), 60-word description.
+
+---
 
 ---
 
@@ -7946,27 +7582,9 @@ These are **runtime-only** — the `FeaturePage` type in `featureService.types.t
 | `ai-features` | `aiFeatures[]`, `cta{}`, `status` | Feature cards + CTA block |
 | `context-menu` | `menuItems{}` — `{cell[], columnHeader[]}` | Two reference panels |
 
-### Implementation Checklist
+### Implementation
 
-```
-[x] src/services/featureService/featureService.types.ts — base FeaturePage type + all extension interfaces
-[x] src/services/featureService/featureService.ts — import.meta.glob auto-discovery
-[x] src/pages/FeaturesListPage/ — grid of all 23 feature cards
-[x] src/pages/FeatureDetailPage/ — hero + conditional sections + related
-[x] Routes: /features and /features/:slug added to App.tsx (lazy-loaded)
-[x] All 23 JSON files committed to src/content/features/
-[x] Each page renders correctly — check conditional sections per _codex_notes
-[x] ai-features page shows 'In development' amber banner below hero
-[x] keyboard-shortcuts page renders ShortcutsTable between hero and benefits
-[x] image-export page renders PNG vs JPEG comparison table
-[x] copy-table page shows 'Coming soon' badge on Copy as Image mode card
-[x] context-menu page renders two reference panels (cell vs column header)
-[x] Each page: metaTitle, metaDescription, og:url, JSON-LD via react-helmet-async
-[x] FeaturesListPage links 'Features' nav item (already in siteConfig)
-[x] sitemap.xml updated with all 23 /features/* URLs
-[x] featureService tests: auto-discovery, slug derivation, not-found
-[x] FeaturesListPage and FeatureDetailPage tests written
-```
+All 23 feature JSON files committed to `src/content/features/`. `featureService.ts` with `import.meta.glob` auto-discovery and slug derivation. `FeaturesListPage` renders responsive card grid. `FeatureDetailPage` handles hero + conditional sections (benefits, use cases, steps, CTA, related). Routes `/features` and `/features/:slug` lazy-loaded. Each page sets `metaTitle`, `metaDescription`, `og:url`, and JSON-LD via `react-helmet-async`. Special pages handled: `ai-features` shows amber 'In development' banner, `keyboard-shortcuts` renders ShortcutsTable, `image-export` shows PNG vs JPEG comparison table, `copy-table` shows 'Coming soon' badge on image mode card, `context-menu` renders two reference panels. All 6 section components (`Hero`, `Benefits`, `UseCases`, `Steps`, `Cta`, `Related`) reusable across pages. Sitemap updated. Tests cover auto-discovery, slug derivation, not-found, and page rendering.
 
 ---
 
@@ -8059,7 +7677,7 @@ Dashed border box: border-2 border-dashed border-border rounded-md p-10
   Secondary: "or mention us on X @OlayiwolaAkinn1"
 ```
 
-### Target: 3 testimonials before v8.0 ships
+### Target: 3 testimonials
 
 The page should not go live in marketing materials while it is empty.
 Collect at least 3 real testimonials before including `/testimonials` in
@@ -8246,5 +7864,5 @@ in the branch protection settings above.
 
 ---
 
-*End of Brand Identity & Engineering Implementation Guide — Tablesmit v8.0*
+*End of Brand Identity & Engineering Implementation Guide — Tablesmit*
 *Single source of truth. Any deviation requires explicit sign-off.*

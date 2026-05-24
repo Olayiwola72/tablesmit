@@ -83,6 +83,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   } = useColumnSort(cells, cols, mergedRanges)
 
   const [actualTableWidth, setActualTableWidth] = useState(0)
+  const [isTableFocused, setIsTableFocused] = useState(true)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const table = gridRef.current
@@ -92,6 +94,23 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
     })
     observer.observe(table)
     return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const onDocumentMouseDown = (event: globalThis.MouseEvent): void => {
+      const target = event.target as HTMLElement
+      if (containerRef.current?.contains(target)) {
+        if (target.closest('[data-table-caption]')) {
+          setIsTableFocused(false)
+        } else {
+          setIsTableFocused(true)
+        }
+      } else if (!target.closest('[data-ctx-menu]')) {
+        setIsTableFocused(false)
+      }
+    }
+    document.addEventListener('mousedown', onDocumentMouseDown)
+    return () => document.removeEventListener('mousedown', onDocumentMouseDown)
   }, [])
 
   const autoFitColumn = useCallback((columnIndex: number): void => {
@@ -224,7 +243,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   // navigateToCell and handleCellKeyDown provided by useTableGridKeyHandlers
 
   return (
-    <div className="relative h-full overflow-auto p-2 sm:p-4">
+    <div ref={containerRef} className="relative h-full overflow-auto p-2 sm:p-4">
       <TableHeaderRow
         cols={cols}
         columnWidths={columnWidths}
@@ -295,6 +314,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
                           onAutoFitRow={autoFitRow}
                           onColumnResizeStart={onColumnResizeStart}
                           onAutoFitColumn={autoFitColumn}
+                          isTableFocused={isTableFocused}
                           onKeyDown={handleCellKeyDown}
                           onContextMenu={handleCellContextMenu}
                         />
