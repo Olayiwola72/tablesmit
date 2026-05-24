@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { spawn } from 'node:child_process'
+import { spawn, execSync } from 'node:child_process'
 import { chromium } from 'playwright'
 
 const PORT = 4173
@@ -9,6 +9,7 @@ const ROOT = path.resolve(import.meta.dirname, '..')
 const DIST = path.resolve(ROOT, 'dist')
 const CONTENT_DIR = path.resolve(ROOT, 'src/content')
 const VITE_BIN = path.resolve(ROOT, 'node_modules', '.bin', 'vite')
+const SERVER_TIMEOUT = 90_000
 
 // ── Route discovery ──
 
@@ -56,6 +57,20 @@ function getAllRoutes(): string[] {
   return [...STATIC_ROUTES, ...getBlogRoutes(), ...getFeatureRoutes()]
 }
 
+// ── Playwright check ──
+
+function isPlaywrightAvailable(): boolean {
+  try {
+    execSync('npx playwright install --dry-run', {
+      stdio: 'ignore',
+      timeout: 10_000,
+    })
+    return true
+  } catch {
+    return false
+  }
+}
+
 // ── Server ──
 
 function startServer(): Promise<() => void> {
@@ -68,10 +83,10 @@ function startServer(): Promise<() => void> {
 
     const timeout = setTimeout(() => {
       server.kill()
-      reject(new Error('Server failed to start within 30 seconds'))
-    }, 30000)
+      reject(new Error('Server failed to start within 90 seconds'))
+    }, SERVER_TIMEOUT)
 
-    server.stdout.on('data', (data: Buffer) => {
+    function onData(data: Buffer) {
       const text = data.toString()
       if (text.includes('Local:')) {
         clearTimeout(timeout)
@@ -79,17 +94,10 @@ function startServer(): Promise<() => void> {
           server.kill()
         })
       }
-    })
+    }
 
-    server.stderr.on('data', (data: Buffer) => {
-      const text = data.toString()
-      if (text.includes('Local:')) {
-        clearTimeout(timeout)
-        resolve(() => {
-          server.kill()
-        })
-      }
-    })
+    server.stdout.on('data', onData)
+    server.stderr.on('data', onData)
 
     server.on('error', (err: Error) => {
       clearTimeout(timeout)
@@ -108,10 +116,17 @@ function startServer(): Promise<() => void> {
 // ── Prerender ──
 
 async function prerender(): Promise<void> {
+  if (!isPlaywrightAvailable()) {
+    console.warn('⚠ Playwright browsers not installed. Skipping prerender.')
+    console.warn('  Install with: npx playwright install chromium')
+    return
+  }
+
   const indexPath = path.join(DIST, 'index.html')
   if (!fs.existsSync(indexPath)) {
-    console.error('Build not found. Run `npm run build` first.')
-    process.exit(1)
+    console.warn('⚠ Build not found. Skipping prerender.')
+    console.warn('  Run `npm run build` first or ensure dist/ exists.')
+    return
   }
 
   const routes = getAllRoutes()
@@ -162,4 +177,6 @@ async function prerender(): Promise<void> {
   if (failCount > 0) process.exit(1)
 }
 
-prerender()
+prerender().catch((err) => {
+  console.warn(`⚠ Prerender skipped: ${err.message}`)
+})
