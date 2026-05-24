@@ -51,11 +51,33 @@ describe('BlogListPage', () => {
   it('displays read time and author on each card', async () => {
     renderPage()
     const posts = await getAllPosts()
-    // Wait for data to load
     await screen.findByText(posts[0].title)
     for (const post of posts) {
       const authorElements = screen.getAllByText(post.author)
       expect(authorElements.length).toBeGreaterThanOrEqual(1)
     }
+  })
+
+  it('sets correct document title after loading', async () => {
+    renderPage()
+    await screen.findByText(/writing about tables/i)
+    expect(document.title).toBe('Blog — Tablesmit')
+  })
+
+  it('sets correct meta description after loading', async () => {
+    renderPage()
+    await screen.findByText(/writing about tables/i)
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Writing about tables, structure, and analytical thinking. Guides on Markdown tables, CSV import, Excel copy-paste, and more.',
+    )
+  })
+
+  it('sets correct canonical URL after loading', async () => {
+    renderPage()
+    await screen.findByText(/writing about tables/i)
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog')
   })
 })

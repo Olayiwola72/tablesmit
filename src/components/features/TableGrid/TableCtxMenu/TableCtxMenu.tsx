@@ -1,4 +1,4 @@
-import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2 } from 'lucide-react'
+import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Copy, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2 } from 'lucide-react'
 import { useEffect, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ColumnFormat, TextAlign } from '@/types/table'
@@ -49,6 +49,15 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
       el.style.top = `${top}px`
     }
   })
+
+  const handleCopy = async (): Promise<void> => {
+    if (ctxMenu.type !== 'cell') return
+    try {
+      const value = cells[ctxMenu.row]?.[ctxMenu.col]?.value ?? ''
+      await navigator.clipboard.writeText(value)
+    } catch { /* Clipboard write not available */ }
+    onClose()
+  }
 
   const handlePaste = async (): Promise<void> => {
     try {
@@ -131,6 +140,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
 
           <CtxSeparator />
 
+          <CtxButton icon={<Copy size={14} className="text-text-muted" />} label={t('contextMenu.copy')} onClick={handleCopy} />
           <CtxButton icon={<Clipboard size={14} className="text-text-muted" />} label={t('contextMenu.paste')} onClick={handlePaste} />
 
           <div>

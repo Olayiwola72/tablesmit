@@ -84,4 +84,30 @@ describe('FeatureDetailPage', () => {
       ).toHaveAttribute('href', '/features')
     })
   })
+
+  it('sets correct document title from feature data', async () => {
+    renderFeature('excel-export')
+    await waitFor(() => {
+      expect(document.title).toBe('Export Table to Excel Online — Free | Tablesmit')
+    })
+  })
+
+  it('sets correct meta description from feature data', async () => {
+    renderFeature('excel-export')
+    await waitFor(() => {
+      const meta = document.querySelector('meta[name="description"]')
+      expect(meta).toHaveAttribute(
+        'content',
+        'Export any table to Excel (.xlsx) in one click. Build structured tables in Tablesmit and download clean Excel files instantly. Free, no signup required.',
+      )
+    })
+  })
+
+  it('sets canonical URL without double-slash', async () => {
+    renderFeature('excel-export')
+    await waitFor(() => {
+      const link = document.querySelector('link[rel="canonical"]')
+      expect(link).toHaveAttribute('href', 'https://tablesmit.com/features/excel-export')
+    })
+  })
 })

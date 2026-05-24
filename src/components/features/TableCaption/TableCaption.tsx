@@ -1,3 +1,4 @@
+import { Clipboard } from 'lucide-react'
 import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../../../lib/utils'
@@ -68,6 +69,14 @@ function TableCaptionRaw({
   }, [])
 
   const closeMenu = useCallback((): void => { setCtxMenu(null); setActivePicker(null) }, [])
+
+  const handlePaste = useCallback(async (): Promise<void> => {
+    try {
+      const text = await navigator.clipboard.readText()
+      if (text) { onChange(text); setEditing(true) }
+    } catch { /* Clipboard read not available */ }
+    closeMenu()
+  }, [onChange, closeMenu])
 
   const setAlign = useCallback((a: CaptionAlignment): void => {
     onAlignmentChange(a)
@@ -263,6 +272,15 @@ function TableCaptionRaw({
             {renderAlignmentOption('L', t('contextMenu.alignLeft'), 'left')}
             {renderAlignmentOption('E', t('contextMenu.alignCenter'), 'center')}
             {renderAlignmentOption('R', t('contextMenu.alignRight'), 'right')}
+            <div className="border-t border-border my-1" />
+            <button
+              type="button"
+              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-text-primary hover:bg-surface"
+              onClick={handlePaste}
+            >
+              <Clipboard size={14} className="text-text-muted" />
+              {t('contextMenu.paste')}
+            </button>
             <div className="border-t border-border my-1" />
             {renderColorPicker('text')}
             {renderColorPicker('bg')}

@@ -12,7 +12,7 @@ export function useClipboardPaste(
   useEffect(() => {
     const onPaste = async (event: globalThis.ClipboardEvent): Promise<void> => {
       const target = event.target
-      if (target instanceof HTMLElement && target.closest('[contenteditable]')) return
+      if (target instanceof HTMLElement && (target.closest('[contenteditable]') || target.closest('textarea') || target.closest('input'))) return
 
       const items = event.clipboardData?.items
       if (!items) return

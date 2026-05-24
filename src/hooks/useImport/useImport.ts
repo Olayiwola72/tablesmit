@@ -8,13 +8,24 @@ import type { ImportApi } from './useImport.types'
 
 export function useImport(): ImportApi {
   const [error, setError] = useState<string | null>(null)
-  const { setCells } = useTableContext()
+  const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setCaption, setContentColor, setBorderColor } = useTableContext()
 
   const importFile = async (file: File, kind: 'csv' | 'excel'): Promise<void> => {
     setError(null)
     try {
       const result = kind === 'csv' ? await importCsv(file) : await importExcel(file)
       setCells(result.cells)
+
+      if (result.caption) setCaption(result.caption)
+      if (result.headerColor) setHeaderColor(result.headerColor)
+      if (result.headerStyle) setHeaderStyle(result.headerStyle)
+      if (result.contentColor) setContentColor(result.contentColor)
+      if (result.borderColor) setBorderColor(result.borderColor)
+      if (result.cellColors) {
+        for (const [cellId, color] of Object.entries(result.cellColors)) {
+          setCellColor(cellId, color)
+        }
+      }
       const rows = result.cells.length
       const cols = result.cells[0]?.length ?? 0
       trackEvent('table_imported', { source: kind, rows, cols })

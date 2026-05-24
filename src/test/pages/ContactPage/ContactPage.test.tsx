@@ -39,4 +39,24 @@ describe('ContactPage', () => {
     renderPage()
     expect(screen.getByText(/Built with care/i)).toBeInTheDocument()
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('Contact — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Get in touch with the Tablesmit team. Feature requests, bug reports, and feedback are always welcome.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    renderPage()
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/contact')
+  })
 })

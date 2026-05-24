@@ -45,4 +45,24 @@ describe('OpenSourcePage', () => {
     const notes = screen.getAllByText(/MIT licensed/i)
     expect(notes.length).toBeGreaterThanOrEqual(1)
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('Open Source — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute(
+      'content',
+      'Tablesmit is free and open source under the MIT license. Read the code, fork it, improve it, or adapt it for your own needs.',
+    )
+  })
+
+  it('sets correct canonical URL', () => {
+    renderPage()
+    const link = document.querySelector('link[rel="canonical"]')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/open-source')
+  })
 })

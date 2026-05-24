@@ -94,6 +94,28 @@ describe('TableGrid', () => {
     expect(cellB).toHaveAttribute('aria-selected', 'true')
   })
 
+  // ── Table focus (isTableFocused) ──────────────────────────
+
+  it('shows focused selection ring when clicking a cell', async () => {
+    const user = userEvent.setup()
+    renderTableGrid()
+    const cell = getCell(0, 0)
+    await user.click(cell)
+    expect(cell.className).toContain('ring-primary')
+    expect(cell.className).not.toContain('ring-border')
+  })
+
+  it('shows dimmed selection ring after clicking outside the table', async () => {
+    const user = userEvent.setup()
+    renderTableGrid()
+    const cell = getCell(0, 0)
+    await user.click(cell)
+    expect(cell.className).toContain('ring-primary')
+
+    await user.click(document.body)
+    expect(cell.className).toContain('ring-border')
+  })
+
   // ── Column header sorting ────────────────────────────────
 
   it('does not error when clicking column header sort button', async () => {

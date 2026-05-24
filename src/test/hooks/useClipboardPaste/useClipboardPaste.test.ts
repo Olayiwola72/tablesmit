@@ -43,6 +43,38 @@ describe('useClipboardPaste', () => {
     document.body.removeChild(editable)
   })
 
+  it('ignores paste inside textarea', () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const textarea = document.createElement('textarea')
+    document.body.appendChild(textarea)
+
+    const event = new ClipboardEvent('paste', {
+      clipboardData: new DataTransfer(),
+      bubbles: true,
+    })
+    textarea.dispatchEvent(event)
+    expect(setCells).not.toHaveBeenCalled()
+    document.body.removeChild(textarea)
+  })
+
+  it('ignores paste inside input', () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    const input = document.createElement('input')
+    document.body.appendChild(input)
+
+    const event = new ClipboardEvent('paste', {
+      clipboardData: new DataTransfer(),
+      bubbles: true,
+    })
+    input.dispatchEvent(event)
+    expect(setCells).not.toHaveBeenCalled()
+    document.body.removeChild(input)
+  })
+
   it('parses LaTeX tabular from plain text clipboard', async () => {
     const setCells = vi.fn()
     renderHook(() => useClipboardPaste(setCells))

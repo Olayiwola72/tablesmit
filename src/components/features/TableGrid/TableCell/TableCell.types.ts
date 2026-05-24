@@ -32,4 +32,5 @@ export interface TableCellProps {
   onContextMenu: (row: number, col: number, event: React.MouseEvent) => void
   isFindMatch?: boolean
   isCurrentMatch?: boolean
+  isTableFocused?: boolean
 }

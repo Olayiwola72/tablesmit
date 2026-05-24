@@ -35,4 +35,15 @@ describe('NotFoundPage', () => {
     const svg = document.querySelector('svg')
     expect(svg).toBeInTheDocument()
   })
+
+  it('sets correct document title', () => {
+    renderPage()
+    expect(document.title).toBe('Page not found — Tablesmit')
+  })
+
+  it('sets correct meta description', () => {
+    renderPage()
+    const meta = document.querySelector('meta[name="description"]')
+    expect(meta).toHaveAttribute('content', 'Page not found. Let us get you back to building tables.')
+  })
 })

@@ -29,10 +29,10 @@ function resolveBg(
   styles: ExportStyleOptions | undefined,
   isHeader: boolean, altRowHex: string, headerHex: string, defaultBgHex: string,
 ): string {
+  if (isHeader) return headerHex
   if (styles?.cellColors?.[cellId]) return toArgb(styles.cellColors[cellId])
   if (styles?.rowColors?.[row]) return toArgb(styles.rowColors[row])
   if (styles?.columnColors?.[col]) return toArgb(styles.columnColors[col])
-  if (isHeader) return headerHex
   if (row % 2 === 1) return altRowHex
   return defaultBgHex
 }
@@ -56,6 +56,7 @@ export class ExcelExporter implements ExportStrategy {
 
     const headerHex = stylesObj ? toArgb(stylesObj.headerColor) : 'FF1E40AF'
     const headerTextHex = stylesObj ? toArgb(stylesObj.headerTextColor) : 'FFFFFFFF'
+    const contentTextHex = stylesObj ? toArgb(stylesObj.contentColor) : 'FF111827'
     const borderHex = stylesObj ? toArgb(stylesObj.borderColor) : 'FFE5E7EB'
     const altRowHex = stylesObj ? toArgb(stylesObj.altRowBg) : 'FFF9FAFB'
     const defaultBgHex = 'FFFFFFFF'
@@ -138,7 +139,7 @@ export class ExcelExporter implements ExportStrategy {
           name: 'Calibri',
           size: 11,
           bold: isHeader,
-          color: { argb: isHeader ? headerTextHex : 'FF111827' },
+          color: { argb: isHeader ? headerTextHex : contentTextHex },
         }
 
         xlCell.alignment = {
