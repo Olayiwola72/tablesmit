@@ -4,4 +4,5 @@ export interface CopyDropdownProps {
   onCopyMarkdown: () => void
   onCopyLatex: () => void
   onCopyImage: () => void
+  onCopyHtml: () => void
 }

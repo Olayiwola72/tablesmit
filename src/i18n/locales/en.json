@@ -144,7 +144,9 @@
     "clearAll": "Clear All",
     "undo": "Undo",
     "copy": "Copy",
+    "paste": "Paste",
     "copyImage": "Copy as Image",
+    "copyHtml": "Copy as HTML",
     "copyExcel": "Copy as Excel Data",
     "copyLatex": "Copy as LaTeX",
     "ai": "AI",
@@ -223,6 +225,9 @@
     "changeColumnBackground": "Change column background color",
     "changeRowBackground": "Change row background color",
     "changeTextColor": "Change text color",
+    "changeCellTextColor": "Change cell text color",
+    "changeHeaderTextColor": "Change header text color",
+    "changeRowTextColor": "Change row text color",
     "changeColumnType": "Change column type",
     "insertRowAbove": "Insert row above",
     "insertRowBelow": "Insert row below",
@@ -244,7 +249,10 @@
     "alignRight": "Align right",
     "captionTextColor": "Caption text color",
     "captionBackground": "Caption background",
-    "customColor": "Custom"
+    "captionItalic": "Italic",
+    "customColor": "Custom",
+    "close": "Close menu",
+    "table": "Table"
   },
   "panels": {
     "dimensions": "Grid Size",
@@ -259,11 +267,13 @@
     "findReplace": "Find & Replace"
   },
   "colorPanel": {
-    "headerColor": "Header color",
-    "contentColor": "Content color",
-    "noColor": "No color",
+    "headerColor": "Header Background Color",
+    "contentColor": "Row Content Color",
+    "clear": "Clear",
     "customColor": "Custom",
-    "swatch": "Color swatch {{label}}"
+    "swatch": "Color swatch {{label}}",
+    "rightClickHint": "Right-click a cell for more options",
+    "rightClickDetails": "Change cell, row, and header colors\nSet custom text colors on any cell or row\nAdjust column types, sorting, and alignment\nInsert, delete, copy, paste, and clear cells\nMerge cells together or unmerge them\nAuto-fit columns or rows to match content"
   },
   "borderPanel": {
     "noBorder": "No Border",
@@ -351,6 +361,7 @@
     "importError": "Could not read file. Check the format and try again.",
     "importTooLarge": "File too large. Maximum size is 5MB.",
     "copyImage": "Table copied as image.",
+    "copyHtml": "Table copied as HTML.",
     "copyLatex": "Table copied as LaTeX.",
     "copyData": "Table data copied. Paste into Excel or Google Sheets.",
     "pasteSuccess": "Table pasted. {{rows}} rows, {{cols}} columns.",
@@ -445,6 +456,7 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "copyTable": "Copy table",
+    "pasteTable": "Paste from clipboard",
     "importFile": "Import file",
     "exportTable": "Export table",
     "clearTable": "Clear all cells",

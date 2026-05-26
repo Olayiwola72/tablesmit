@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '../../../config/table/tableDefaults'
-import { isHeaderCell, useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
+import { useSelectedRange, useTableContext, useTableData } from '../../../context/TableContext'
 import { useColumnResize } from '../../../hooks/useColumnResize/useColumnResize'
 import { useRowResize } from '../../../hooks/useRowResize/useRowResize'
 import { useTableSelection } from '../../../hooks/useTableSelection/useTableSelection'
@@ -18,6 +18,7 @@ import type { CtxData } from './TableCtxMenu/TableCtxMenu.types'
 import { TableHeaderRow } from './TableHeaderRow/TableHeaderRow'
 import { SumRowFooter } from './SumRowFooter/SumRowFooter'
 import { PastingOverlay } from './PastingOverlay/PastingOverlay'
+import { TableSkeleton } from '../../ui/TableSkeleton/TableSkeleton'
 import type { TableGridProps } from './TableGrid.types'
 
 export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: TableGridProps): ReactNode {
@@ -40,6 +41,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
     columnColors,
     columnTextAlign,
     cellColors,
+    cellTextColors,
+    rowTextColors,
     cellTextAlign,
     freezeRow,
     freezeCol,
@@ -51,6 +54,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
     setRowColor,
     setColumnColor,
     setCellColor,
+    setCellTextColor,
+    setRowTextColor,
     setColumnTextAlign,
     setCellTextAlign,
     insertRowAt,
@@ -82,7 +87,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
     sortDisabled,
   } = useColumnSort(cells, cols, mergedRanges)
 
-  const [actualTableWidth, setActualTableWidth] = useState(0)
+  const [actualTableWidth, setActualTableWidth] = useState(() => columnWidths.reduce((sum, w) => sum + w, 0))
   const [isTableFocused, setIsTableFocused] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -163,10 +168,10 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   }, [setRowHeight])
 
   const handleCellBlur = useCallback((cellId: string, value: string, col: number, rowIdx: number): void => {
-    if (!isHeaderCell(headerStyle, rowIdx, col) && cells[rowIdx]?.[col]?.format !== 'auto-number') {
+    if (cells[rowIdx]?.[col]?.format !== 'auto-number') {
       updateCell(cellId, value)
     }
-  }, [headerStyle, cells, updateCell])
+  }, [cells, updateCell])
 
   const mergeAnchorMap = useMemo(() => {
     const map = new Map<string, (typeof mergedRanges)[number]>()
@@ -242,8 +247,19 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
 
   // navigateToCell and handleCellKeyDown provided by useTableGridKeyHandlers
 
+  const [skeletonVisible, setSkeletonVisible] = useState(true)
+
+  useEffect(() => {
+    const raf = requestAnimationFrame(() => {
+      const id = setTimeout(() => setSkeletonVisible(false), 350)
+      return () => clearTimeout(id)
+    })
+    return () => cancelAnimationFrame(raf)
+  }, [])
+
   return (
-    <div ref={containerRef} className="relative h-full overflow-auto p-2 sm:p-4">
+    <div ref={containerRef} className="relative overflow-auto p-2 sm:p-4">
+      <TableSkeleton rows={rows} cols={cols} visible={skeletonVisible} />
       <TableHeaderRow
         cols={cols}
         columnWidths={columnWidths}
@@ -309,6 +325,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
                           rowColor={rowColors[origRowIdx]}
                           columnColor={columnColors[colIndex] || ''}
                           cellColor={cellColors[cell.id] ?? ''}
+                          cellTextColor={cellTextColors[cell.id] ?? ''}
+                          rowTextColor={rowTextColors[origRowIdx] ?? ''}
                           textAlign={cellTextAlign[cell.id] || columnTextAlign[colIndex] || 'left'}
                           onRowResizeStart={onRowResizeStart}
                           onAutoFitRow={autoFitRow}
@@ -333,8 +351,11 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
         <TableCtxMenu
           ctxMenu={ctxMenu}
           activeSub={activeSub}
+          headerStyle={headerStyle}
           columnColors={columnColors}
           cellColors={cellColors}
+          cellTextColors={cellTextColors}
+          rowTextColors={rowTextColors}
           rowColors={rowColors}
           columnTextAlign={columnTextAlign}
           cellTextAlign={cellTextAlign}
@@ -344,6 +365,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
           autoFitColumn={autoFitColumn}
           setColumnColor={setColumnColor}
           setCellColor={setCellColor}
+          setCellTextColor={setCellTextColor}
+          setRowTextColor={setRowTextColor}
           setRowColor={setRowColor}
           setColumnFormat={setColumnFormat}
           setCellTextAlign={setCellTextAlign}

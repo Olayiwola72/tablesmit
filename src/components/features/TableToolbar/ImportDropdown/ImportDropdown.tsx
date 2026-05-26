@@ -2,6 +2,7 @@ import { ChevronDown, Upload } from 'lucide-react'
 import { useCallback, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useImport } from '../../../../hooks/useImport/useImport'
+import { toast } from '../../../../utils/toast/toast'
 import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
 
@@ -28,7 +29,7 @@ export function ImportDropdown(): ReactNode {
         <DropdownMenuContent>
           <DropdownMenuItem onClick={() => csvInputRef.current?.click()}>{t('toolbar.importCsv')}</DropdownMenuItem>
           <DropdownMenuItem onClick={() => excelInputRef.current?.click()}>{t('toolbar.importExcel')}</DropdownMenuItem>
-          <DropdownMenuItem disabled>{t('aiFeatures.cleanData')}</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => toast.info(t('toast.aiWaitlist'))}>{t('aiFeatures.cleanData')}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <input ref={csvInputRef} type="file" accept=".csv,text/csv" className="hidden" onChange={(event) => importFromInput('csv', event.target.files)} />

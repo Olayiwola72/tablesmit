@@ -143,7 +143,9 @@
     "clearAll": "مسح الكل",
     "undo": "تراجع",
     "copy": "نسخ",
+    "paste": "لصق",
     "copyImage": "نسخ كصورة",
+    "copyHtml": "نسخ كـ HTML",
     "copyExcel": "نسخ كبيانات Excel",
     "copyCsv": "نسخ كـ CSV",
     "copyMarkdown": "نسخ كـ Markdown",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "تغيير لون خلفية العمود",
     "changeRowBackground": "تغيير لون خلفية الصف",
     "changeTextColor": "تغيير لون النص",
+    "changeCellTextColor": "تغيير لون نص الخلية",
+    "changeHeaderTextColor": "تغيير لون نص الرأس",
+    "changeRowTextColor": "تغيير لون نص الصف",
     "changeColumnType": "تغيير نوع العمود",
     "insertRowAbove": "إدراج صف فوق",
     "insertRowBelow": "إدراج صف أسفل",
@@ -260,11 +265,13 @@
     "findReplace": "بحث واستبدال"
   },
   "colorPanel": {
-    "headerColor": "لون الرأس",
-    "contentColor": "لون المحتوى",
-    "noColor": "بلا لون",
+    "headerColor": "لون خلفية الرأس",
+    "contentColor": "لون محتوى الصفوف",
+    "clear": "مسح",
     "customColor": "مخصص",
-    "swatch": "عينة لون {{label}}"
+    "swatch": "عينة لون {{label}}",
+    "rightClickHint": "انقر بزر الماوس الأيمن على خلية لمزيد من الخيارات",
+    "rightClickDetails": "تغيير ألوان الخلايا والصفوف والرؤوس\nتعيين ألوان نص مخصصة لأي خلية أو صف\nضبط أنواع الأعمدة والفرز والمحاذاة\nإدراج وحذف ونسخ ولصق ومسح الخلايا\nدمج الخلايا أو فك الدمج\nضبط تلقائي لعرض الأعمدة والصفوف"
   },
   "borderPanel": {
     "noBorder": "بلا حدود",
@@ -351,6 +358,7 @@
     "importError": "تعذر قراءة الملف. تحقق من التنسيق وحاول مرة أخرى.",
     "importTooLarge": "الملف كبير جدًا. الحجم الأقصى هو 5MB.",
     "copyImage": "تم نسخ الجدول كصورة.",
+    "copyHtml": "تم نسخ الجدول كـ HTML.",
     "copyData": "تم نسخ بيانات الجدول. الصقها في Excel أو Google Sheets.",
     "pasteSuccess": "تم لصق الجدول. {{rows}} صفوف، {{cols}} أعمدة.",
     "pasteError": "تعذر قراءة الحافظة. حاول استيراد ملف بدلاً من ذلك.",
@@ -425,6 +433,7 @@
     "openMenu": "فتح القائمة",
     "closeMenu": "إغلاق القائمة",
     "copyTable": "نسخ الجدول",
+    "pasteTable": "لصق من الحافظة",
     "importFile": "استيراد ملف",
     "exportTable": "تصدير الجدول",
     "clearTable": "مسح جميع الخلايا",

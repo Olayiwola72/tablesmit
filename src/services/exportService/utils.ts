@@ -24,6 +24,36 @@ export function filenameWithExtension(filename: string | undefined, fallback: st
   return `${sanitizeFilename(filename ?? fallback, fallback)}.${extension}`
 }
 
+export function fixTableBordersForExport(doc: Document): void {
+  const table = doc.querySelector('table')
+  if (!table) return
+
+  table.style.borderCollapse = 'separate'
+  table.style.borderSpacing = '0'
+
+  const cells = table.querySelectorAll<HTMLElement>('td, th')
+  if (cells.length === 0) return
+
+  const firstCellBorder = cells[0].style.border
+  const hasBorder = firstCellBorder && firstCellBorder !== 'none' && firstCellBorder !== ''
+
+  if (hasBorder) {
+    cells.forEach((cell) => {
+      cell.style.border = 'none'
+      cell.style.borderRight = firstCellBorder
+      cell.style.borderBottom = firstCellBorder
+    })
+
+    const firstRowCells = table.querySelectorAll<HTMLElement>('tr:first-child td, tr:first-child th')
+    firstRowCells.forEach((cell) => { cell.style.borderTop = firstCellBorder })
+
+    table.querySelectorAll('tr').forEach((row) => {
+      const firstCell = row.querySelector<HTMLElement>('td, th')
+      if (firstCell) firstCell.style.borderLeft = firstCellBorder
+    })
+  }
+}
+
 export function downloadUrl(url: string, filename: string): void {
   const link = document.createElement('a')
   link.href = url

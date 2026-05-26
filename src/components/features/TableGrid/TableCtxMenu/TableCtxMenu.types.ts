@@ -8,8 +8,11 @@ export type CtxData =
 export interface TableCtxMenuProps {
   ctxMenu: NonNullable<CtxData>
   activeSub: string | null
+  headerStyle: string
   columnColors: Record<number, string>
   cellColors: Record<string, string>
+  cellTextColors: Record<string, string>
+  rowTextColors: Record<number, string>
   rowColors: Record<number, string>
   columnTextAlign: Record<number, string>
   cellTextAlign: Record<string, string>
@@ -19,6 +22,8 @@ export interface TableCtxMenuProps {
   autoFitColumn: (col: number) => void
   setColumnColor: (col: number, color: string) => void
   setCellColor: (cellId: string, color: string) => void
+  setCellTextColor: (cellId: string, color: string) => void
+  setRowTextColor: (row: number, color: string) => void
   setRowColor: (row: number, color: string) => void
   setColumnFormat: (col: number, format: ColumnFormat) => void
   setCellTextAlign: (cellId: string, align: TextAlign) => void

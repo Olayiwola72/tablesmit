@@ -19,6 +19,8 @@ function TableCaptionRaw({
   bgColor,
   onTextColorChange,
   onBgColorChange,
+  italic,
+  onItalicChange,
 }: TableCaptionProps): ReactNode {
   const { t } = useTranslation()
   const [editing, setEditing] = useState(false)
@@ -27,6 +29,7 @@ function TableCaptionRaw({
   const [captionH, setCaptionH] = useState(MIN_ROW_HEIGHT)
   const dragRef = useRef<HTMLDivElement>(null)
   const menuRef = useRef<HTMLDivElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
   const rafRef = useRef<number>()
 
   const onResizeStart = useCallback((e: React.MouseEvent): void => {
@@ -60,13 +63,28 @@ function TableCaptionRaw({
 
   const textColorStyle = textColor ? { color: textColor } : undefined
   const bgColorStyle = bgColor ? { backgroundColor: bgColor } : undefined
-  const combinedStyle = { ...textColorStyle, ...bgColorStyle }
+  const italicStyle = italic !== undefined ? { fontStyle: (italic ? 'italic' : 'normal') as 'italic' | 'normal' } : undefined
+  const combinedStyle = { ...textColorStyle, ...bgColorStyle, ...italicStyle }
 
   const handleContextMenu = useCallback((e: React.MouseEvent): void => {
     e.preventDefault()
     setActivePicker(null)
     setCtxMenu({ x: e.clientX, y: e.clientY })
   }, [])
+
+  useEffect(() => {
+    if (editing && textareaRef.current) {
+      const len = textareaRef.current.value.length
+      textareaRef.current.setSelectionRange(len, len)
+    }
+  }, [editing])
+
+  useEffect(() => {
+    const ta = textareaRef.current
+    if (!ta) return
+    ta.style.height = 'auto'
+    ta.style.height = `${Math.max(captionH, ta.scrollHeight)}px`
+  }, [value, captionH, editing])
 
   const closeMenu = useCallback((): void => { setCtxMenu(null); setActivePicker(null) }, [])
 
@@ -209,13 +227,14 @@ function TableCaptionRaw({
       return (
         <>
           <textarea
+            ref={textareaRef}
             value={value}
             name="table-caption"
             autoFocus
             placeholder={t('table.addCaption')}
-            rows={2}
+            rows={1}
             className={cn('w-full resize-none border-0 bg-transparent p-0 text-sm font-medium outline-none focus:ring-0', alignClass)}
-            style={{ minHeight: captionH, ...combinedStyle }}
+            style={combinedStyle}
             onChange={(event) => onChange(event.target.value)}
             onBlur={() => setEditing(false)}
             onContextMenu={handleContextMenu}
@@ -249,7 +268,7 @@ function TableCaptionRaw({
   }
 
   return (
-    <div className="relative" style={{ minHeight: captionH, ...combinedStyle, ...(tableWidth ? { width: tableWidth + (hasBorder !== false ? 1 : 0) } : {}) }}>
+    <div className="relative py-3 px-4" style={{ minHeight: captionH, ...combinedStyle, ...(tableWidth ? { width: tableWidth + (hasBorder !== false ? 1 : 0) } : {}) }}>
       {inputOrDisplay()}
       <div
         ref={dragRef}
@@ -284,6 +303,15 @@ function TableCaptionRaw({
             <div className="border-t border-border my-1" />
             {renderColorPicker('text')}
             {renderColorPicker('bg')}
+            <div className="border-t border-border my-1" />
+            <button
+              type="button"
+              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-text-primary hover:bg-surface"
+              onClick={() => { onItalicChange?.(!italic); closeMenu() }}
+            >
+              <span className="w-4">{italic ? '✓' : ''}</span>
+              {t('contextMenu.captionItalic')}
+            </button>
           </div>
         </>
       ) : null}

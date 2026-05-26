@@ -7,14 +7,10 @@ No account. No bloat. Free and open source.
 
 **[→ tablesmit.com](https://tablesmit.com)**
 
-> Now with LaTeX export — build your table visually, get publication-ready TeX output.
-
-![Tests](https://img.shields.io/badge/tests-1368%20passing-4ade80?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-1549%20passing-4ade80?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-60a5fa?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f59e0b?style=flat-square)
 ![Made in Nigeria](https://img.shields.io/badge/made%20in-Nigeria-1e40af?style=flat-square)
-
-[![Tablesmit — demo screenshot](public/og-image.png)](https://tablesmit.com)
 
 ---
 
@@ -22,47 +18,50 @@ No account. No bloat. Free and open source.
 
 Tablesmit is a browser-based table editor built for writers, analysts, and researchers who need clean, structured tables — not a spreadsheet.
 
-**Tablesmit is not** a spreadsheet, a database, or a Notion competitor.
-It is a structured writing tool. You build a table, format it, and export it.
+**Tablesmit is not** a spreadsheet, a database, or a Notion competitor. It is a structured writing tool. You build a table, format it, and export it.
 
 ---
 
 ## Features
 
 ### Layout and structure
-- Drag-to-resize columns and rows (smooth, 60fps)
-- Auto-fit column width on double-click
+- Drag-to-resize columns and rows (smooth, 60fps via `requestAnimationFrame`)
+- Auto-fit column width / row height on double-click
 - Merge and unmerge cells — any rectangular range
-- Freeze first row and/or first column
-- Table caption with left, center, right alignment
+- Freeze first row and/or first column (sticky CSS)
+- Table caption with left, center, right alignment and custom colours
 
 ### Formatting
 - 6 table themes: Default, Minimal, Dark Header, Striped, Academic, Monochrome
 - Custom header colours and content colours
-- Column types: Text, Number, Currency, Percentage, Date
-- Auto-sum and auto-numbering for numeric columns
-- Word-style border picker: all borders, inside, outside, dashed, dotted, double
-- Dark mode with system preference detection
+- Column types: Text, Number, Currency, Percentage, Date, Sum, Auto-number
+- Auto-sum footer row for numeric columns
+- Word-style border picker: all, inside, outside, top, bottom, left, right — plus dashed, dotted, double, thick box
+- Dark mode with system preference detection + manual toggle
 
 ### Data and editing
-- Smart clipboard paste — Ctrl+V reads Excel, Word, and CSV clipboard content automatically
-- Import: CSV and Excel files
-- Column sorting — numeric-aware, empty cells to bottom
-- Right-click context menu on cells and columns
+- Smart clipboard paste — Ctrl+V reads Excel, Word, CSV, Markdown pipes, and LaTeX tabular automatically
+- Import: CSV (PapaParse) and Excel (exceljs)
+- Export: PDF, PNG, JPEG, Excel (.xlsx), CSV, LaTeX (.tex)
+- Copy: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (PNG)
+- Column sorting — numeric-aware, empty cells to bottom, disabled when merged ranges present
+- Right-click context menu on cells and column headers
 - Find and replace across all cells (Ctrl+F / Ctrl+H)
-- Undo stack — Ctrl+Z with depth indicator
+- Undo stack — Ctrl+Z with 50-entry depth
 
-### Export
-- PDF — table only, no browser chrome
-- Excel (.xlsx) — native format with merged cells preserved
-- PNG and JPEG — high-resolution image
-- CSV — clean, sanitised output
-- Copy as image or Excel data (TSV) to clipboard
+### Accessibility
+- Full ARIA grid pattern (`role="grid"`, `role="gridcell"`, `aria-colindex`, etc.)
+- Keyboard navigation via Arrow keys, Tab, Enter, Escape
+- Live region announcements for structural changes
+- `prefers-reduced-motion` respected throughout
+- 4.5:1 minimum contrast on all text
 
 ### Other
-- Keyboard shortcuts (press `Ctrl+/` to see all)
-- AI features scaffolding (coming soon)
-- Works offline — PWA with service worker
+- Internationalisation: 8 languages (English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian)
+- RTL support for Arabic
+- Keyboard shortcuts — press `?` or `Ctrl+/` to see all 13
+- Offline-capable PWA with auto-updating service worker
+- 27 feature landing pages, 21 blog posts
 - No account required. No data leaves your browser.
 
 ---
@@ -87,7 +86,27 @@ Open [http://localhost:5173](http://localhost:5173)
 
 ## Tech stack
 
-React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Vitest · Playwright
+| Layer | Technology |
+|---|---|
+| Framework | React 18 + Vite |
+| Language | TypeScript — `strict: true` |
+| Styling | Tailwind CSS v3 + `@tailwindcss/typography` |
+| Components | shadcn/ui (Radix primitives) |
+| Icons | Lucide React |
+| Drag / Resize | `@dnd-kit/core` + `@dnd-kit/utilities` |
+| Export | jsPDF + html2canvas (PDF/PNG), exceljs (Excel), PapaParse (CSV) |
+| Import | PapaParse (CSV), exceljs (Excel) |
+| Testing | Vitest + React Testing Library + `@testing-library/user-event` |
+| E2E | Playwright |
+| Routing | React Router v6 (lazy-loaded pages) |
+| i18n | i18next + react-i18next + `i18next-browser-languagedetector` |
+| Markdown | react-markdown + remark-gfm |
+| SEO | react-helmet-async (per-page meta, JSON-LD) |
+| Error monitoring | Sentry (lazy-loaded, production only) |
+| Toast | sonner |
+| Button variants | class-variance-authority + clsx |
+| PWA | vite-plugin-pwa |
+| Git hooks | husky + lint-staged |
 
 ---
 
@@ -100,72 +119,77 @@ tablesmit/
 │   ├── og-image.png / og-image.svg
 │   ├── robots.txt
 │   ├── sitemap.xml
-│   ├── fonts/                     # Self-hosted woff2 font files
-│   ├── icons/                     # PWA icons (192, 512)
-│   ├── launch/                    # Product Hunt + HN launch copy
-│   └── locales/                   # i18n JSON per language (ar, de, es, fr, ja, no, pt)
+│   ├── fonts/                       # Self-hosted Inter + JetBrains Mono woff2
+│   ├── icons/                       # PWA icons (192, 512)
+│   ├── launch/                      # Product Hunt + HN launch copy
+│   └── locales/                     # i18n JSON per language (ar, de, es, fr, ja, no, pt)
 │
 ├── scripts/
-│   ├── md-to-blog-post.ts
-│   └── sitemap/
+│   ├── prerender.ts                  # Playwright-based static HTML generation
+│   ├── md-to-blog-post.ts            # .md → blog .ts file converter
+│   └── sitemap/gen-sitemap.ts        # Sitemap generator
 │
 ├── e2e/
 │   └── critical-path.spec.ts
 │
 ├── .github/workflows/
-│   └── deploy-netlify.yml
+│   └── deploy-netlify.yml            # CI/CD: lint → test → build → deploy
 │
 ├── src/
 │   ├── assets/
-│   ├── lib/                       # cn() helper (clsx + tailwind-merge)
+│   │   └── logo.svg                  # Full logo SVG (reference only — rendered as React component)
+│   ├── lib/
+│   │   └── utils.ts                  # cn() helper (clsx + tailwind-merge)
 │   ├── components/
-│   │   ├── ui/                    # Primitives: Button, Logo, ErrorBoundary, etc.
-│   │   ├── layout/                # Navbar, Footer, Sidebar, MobileSheet
-│   │   └── features/              # TableGrid, ExportPanel, TableToolbar, etc.
-│   ├── pages/                     # Lazy-loaded per route
-│   ├── context/                   # TableContext, TableDataContext, TableSelectionContext
-│   ├── hooks/                     # useColumnResize, useExport, useTheme, etc.
-│   ├── services/                  # exportService (strategy pattern), blogService, importService
-│   ├── i18n/                      # i18next init, locale config, English JSON
-│   ├── utils/                     # tableUtils, mergeUtils, latexUtils, toast, etc.
-│   ├── types/                     # Shared table types (cell, merge, preset, state)
-│   ├── config/                    # siteConfig, changelog, presets, colorPalette, tableThemes
+│   │   ├── ui/                       # Reusable primitives: Button, Logo, ErrorBoundary, IconButton, Tooltip, DropdownMenu, SectionLabel, TableSkeleton, etc.
+│   │   ├── layout/                   # Navbar, Footer, Sidebar, MobileSheet, PageWrapper
+│   │   └── features/                 # Domain components: TableGrid, ExportPanel, TableToolbar, BorderPanel, FindReplace, TableCaption, ThemePicker, etc.
+│   ├── pages/                        # 12 lazy-loaded pages (About, Blog, Contact, Contact, Features, OpenSource, Privacy, Terms, Changelog, Testimonials, 404)
+│   ├── context/                      # TableContext (cells) + TableSelectionContext (selection) + TableProvider (everything else) — split to minimise re-renders
+│   ├── hooks/                        # 15 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, etc.
+│   ├── services/                     # exportService (strategy pattern), importService, blogService, featureService
+│   ├── i18n/                         # i18next init, locale config, English JSON source of truth
+│   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, cell, toast, analytics, dateUtils
+│   ├── types/                        # Shared table types: CellData, MergeRange, HeaderStyle, TableTheme, PresetDefinition, etc.
+│   ├── config/                       # siteConfig (SSoT), changelog, presets, colorPalette, tableThemes, export config, testimonials
 │   ├── constants/
 │   ├── content/
-│   │   ├── blog/                  # Blog posts as .ts modules (auto-discovered)
-│   │   └── features/              # Feature pages as .json files (auto-discovered)
-│   ├── styles/globals.css
-│   ├── test/                      # All tests, mirroring src/ structure
-│   ├── App.tsx                    # Router + providers only
-│   └── main.tsx
+│   │   ├── blog/                     # 21 blog posts as .ts modules (auto-discovered via import.meta.glob)
+│   │   └── features/                 # 27 feature pages as .json (auto-discovered)
+│   ├── styles/globals.css            # Tailwind directives + @font-face + print styles + dark mode
+│   ├── test/                         # 143 test files mirroring src/ structure
+│   ├── App.tsx                       # Router + providers only — zero business logic
+│   ├── main.tsx                      # ReactDOM root + Sonner Toaster
+│   ├── pwa.ts                        # Service worker registration
+│   └── index.scss                    # SCSS entry
 │
 ├── tailwind.config.ts
-├── vite.config.ts
-├── vitest.config.ts
+├── vite.config.ts                    # manualChunks for vendor splitting
+├── vitest.config.ts                  # jsdom environment, coverage thresholds
 ├── playwright.config.ts
 ├── tsconfig*.json
 ├── postcss.config.js
-├── netlify.toml
-├── eslint.config.js
-├── .prettierrc
+├── netlify.toml                      # CSP, security headers, SPA redirects
+├── eslint.config.js                  # Flat config with recommended presets only
 ├── .husky/
 ├── CONTRIBUTING.md
 ├── LICENSE
 └── package.json
 ```
 
-All tests live in `src/test/` mirroring the source structure. Every page is lazy-loaded. Features panels within the table maker are also lazy-loaded.
+Every page is lazy-loaded. Heavy feature panels within the table maker are also lazy-loaded. All tests live in `src/test/` mirroring source structure — no co-located `.test` files.
 
 ---
 
 ## Project status
 
 ```
-Tests:     1368 passing — 140 test files
-Lint:      0 warnings — TypeScript strict
-Build:     clean — no errors
-Coverage:  lines 75%+ · functions 65%+ · branches 60%+
+Tests:     1549 passing — 144 test files
+Lint:      TypeScript strict — zero custom rules
+Build:     clean — code-split chunks < 150 KB gzipped initial
 PWA:       offline-capable with auto-updating service worker
+Coverage:  utils 95%+ · services 90%+ · hooks 90%+ · components 80%+
+Lighthouse Performance: 99 — LCP 0.9s, CLS 0
 ```
 
 ---
@@ -178,7 +202,7 @@ All product decisions — brand name, routes, nav links, export formats, colour 
 src/config/siteConfig.ts
 ```
 
-Check there first before changing component logic. Agents reading this repo: `siteConfig.ts` is the single source of truth for anything brand or route related.
+Check there first before changing component logic. `siteConfig.ts` is the single source of truth for anything brand or route related.
 
 ---
 
@@ -215,7 +239,7 @@ That's it. Commit and push — GitHub Actions builds and deploys to Netlify.
 
 ## Adding a feature page
 
-Drop a `.json` file into `src/content/features/`. No code change. See `AGENTS.md` Section 59 for the full schema and examples.
+Drop a `.json` file into `src/content/features/`. The slug is derived from the filename or the `slug` field. See `AGENTS.md` Section 59 for schema details.
 
 ---
 
@@ -225,9 +249,9 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for full guidelines.
 
 Quick summary:
 - Open an issue before starting large changes
-- Run `npm test` — all tests must pass
+- No direct pushes to `main` — all changes go through PRs
+- Run `npm test` — all 1549 tests must pass
 - Run `npm run lint` — zero warnings
-- No `console.log` in production code
 - Write tests for new features
 
 ```bash
@@ -235,12 +259,12 @@ Quick summary:
 npm test
 
 # Run tests with coverage
-npm run test:coverage
+npx vitest run --coverage
 
 # Run lint
 npm run lint
 
-# Build
+# Build (generates sitemap + prerenders routes)
 npm run build
 ```
 
@@ -261,7 +285,7 @@ See `.env.example` for all available variables. Never commit `.env`.
 ## Deployment
 
 Tablesmit deploys to Netlify via GitHub Actions on push to `main`.
-The pipeline runs lint, tests, and build before deploying.
+The pipeline runs lint, test, and build before deploying.
 
 Required Netlify environment variables:
 - `VITE_GA4_MEASUREMENT_ID`

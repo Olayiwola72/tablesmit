@@ -19,7 +19,7 @@ export const siteConfig = {
   exportFileBaseName: 'tablesmit-table',
   exports: exportFormats,
   colors: {
-    defaultHeader: '#1E293B',
+    defaultHeader: '#ffffff',
     defaultContent: '#111827',
     header: headerColorSwatches,
     content: contentColorSwatches,

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { CaptionAlignment } from '../../components/features/TableCaption/TableCaption.types'
 import { isTableEmpty } from '../../utils/tableUtils/tableUtils'
 import { toast } from '../../utils/toast/toast'
+import { fixTableBordersForExport } from '../../services/exportService/utils'
 import type { CellData } from '@/types/table'
 
 export function useTableCopyShortcut(
@@ -35,7 +36,14 @@ export function useTableCopyShortcut(
         if (!el) return
 
         import('html2canvas').then(({ default: html2canvas }) => {
-          html2canvas(el, { backgroundColor: '#ffffff', scale: 2, useCORS: true }).then(
+          html2canvas(el, {
+            backgroundColor: '#ffffff',
+            scale: 2,
+            useCORS: true,
+            onclone: (clonedDoc: Document): void => {
+              fixTableBordersForExport(clonedDoc)
+            },
+          }).then(
             (canvas) => {
               canvas.toBlob((blob) => {
                 if (!blob) return

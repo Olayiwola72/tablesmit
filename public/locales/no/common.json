@@ -143,7 +143,9 @@
     "clearAll": "Tøm alt",
     "undo": "Angre",
     "copy": "Kopier",
+    "paste": "Lim inn",
     "copyImage": "Kopier som bilde",
+    "copyHtml": "Kopier som HTML",
     "copyExcel": "Kopier som Excel-data",
     "copyCsv": "Kopier som CSV",
     "copyMarkdown": "Kopier som Markdown",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "Endre kolonnebakgrunnsfarge",
     "changeRowBackground": "Endre radbakgrunnsfarge",
     "changeTextColor": "Endre tekstfarge",
+    "changeCellTextColor": "Endre celle tekstfarge",
+    "changeHeaderTextColor": "Endre topptekst farge",
+    "changeRowTextColor": "Endre radtekstfarge",
     "changeColumnType": "Endre kolonnetype",
     "insertRowAbove": "Sett inn rad over",
     "insertRowBelow": "Sett inn rad under",
@@ -260,11 +265,13 @@
     "findReplace": "Finn og erstatt"
   },
   "colorPanel": {
-    "headerColor": "Overskriftfarge",
-    "contentColor": "Innholdsfarge",
-    "noColor": "Ingen farge",
+    "headerColor": "Overskrift bakgrunnsfarge",
+    "contentColor": "Radinnholdsfarge",
+    "clear": "Fjern",
     "customColor": "Egendefinert",
-    "swatch": "Fargeprøve {{label}}"
+    "swatch": "Fargeprøve {{label}}",
+    "rightClickHint": "Høyreklikk på en celle for flere alternativer",
+    "rightClickDetails": "Endre celle-, rad- og topptekstfarger\nSett egendefinerte tekstfarger på celle eller rad\nJuster kolonnetyper, sortering og justering\nSett inn, slett, kopier, lim inn og tøm celler\nSlå sammen celler eller opphev sammenslåing\nAutotilpass kolonne- eller radbredde"
   },
   "borderPanel": {
     "noBorder": "Ingen kant",
@@ -351,6 +358,7 @@
     "importError": "Kunne ikke lese filen. Sjekk formatet og prøv igjen.",
     "importTooLarge": "Filen er for stor. Maksimal størrelse er 5 MB.",
     "copyImage": "Tabell kopiert som bilde.",
+    "copyHtml": "Tabell kopiert som HTML.",
     "copyData": "Tabelldata kopiert. Lim inn i Excel eller Google Sheets.",
     "pasteSuccess": "Tabell limt inn. {{rows}} rader, {{cols}} kolonner.",
     "pasteError": "Kunne ikke lese utklippstavlen. Prøv å importere en fil i stedet.",
@@ -425,6 +433,7 @@
     "openMenu": "Åpne meny",
     "closeMenu": "Lukk meny",
     "copyTable": "Kopier tabell",
+    "pasteTable": "Lim inn fra utklippstavlen",
     "importFile": "Importer fil",
     "exportTable": "Eksporter tabell",
     "clearTable": "Tøm alle celler",

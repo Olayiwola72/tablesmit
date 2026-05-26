@@ -143,7 +143,9 @@
     "clearAll": "Alle löschen",
     "undo": "Rückgängig",
     "copy": "Kopieren",
+    "paste": "Einfügen",
     "copyImage": "Als Bild kopieren",
+    "copyHtml": "Als HTML kopieren",
     "copyExcel": "Als Excel-Daten kopieren",
     "copyCsv": "Als CSV kopieren",
     "copyMarkdown": "Als Markdown kopieren",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "Spaltenhintergrundfarbe ändern",
     "changeRowBackground": "Zeilenhintergrundfarbe ändern",
     "changeTextColor": "Textfarbe ändern",
+    "changeCellTextColor": "Zelltextfarbe ändern",
+    "changeHeaderTextColor": "Kopfzeilentextfarbe ändern",
+    "changeRowTextColor": "Zeilentextfarbe ändern",
     "changeColumnType": "Spaltentyp ändern",
     "insertRowAbove": "Zeile darüber einfügen",
     "insertRowBelow": "Zeile darunter einfügen",
@@ -260,11 +265,13 @@
     "findReplace": "Suchen & Ersetzen"
   },
   "colorPanel": {
-    "headerColor": "Kopfzeilenfarbe",
-    "contentColor": "Inhaltsfarbe",
-    "noColor": "Keine Farbe",
+    "headerColor": "Kopfzeilen-Hintergrundfarbe",
+    "contentColor": "Zeileninhaltsfarbe",
+    "clear": "Löschen",
     "customColor": "Benutzerdefiniert",
-    "swatch": "Farbfeld {{label}}"
+    "swatch": "Farbfeld {{label}}",
+    "rightClickHint": "Rechtsklick auf eine Zelle für weitere Optionen",
+    "rightClickDetails": "Zellen-, Zeilen- und Kopfzeilenfarben ändern\nTextfarben für einzelne Zellen oder ganze Zeilen festlegen\nSpaltentypen, Sortierung und Ausrichtung anpassen\nZellen einfügen, löschen, kopieren, einfügen und leeren\nZellen zusammenführen oder trennen\nSpalten- oder Zeilengröße automatisch anpassen"
   },
   "borderPanel": {
     "noBorder": "Kein Rahmen",
@@ -351,6 +358,7 @@
     "importError": "Datei konnte nicht gelesen werden. Überprüfen Sie das Format und versuchen Sie es erneut.",
     "importTooLarge": "Datei zu groß. Die maximale Größe beträgt 5MB.",
     "copyImage": "Tabelle als Bild kopiert.",
+    "copyHtml": "Tabelle als HTML kopiert.",
     "copyData": "Tabellendaten kopiert. In Excel oder Google Sheets einfügen.",
     "pasteSuccess": "Tabelle eingefügt. {{rows}} Zeilen, {{cols}} Spalten.",
     "pasteError": "Zwischenablage konnte nicht gelesen werden. Versuchen Sie stattdessen, eine Datei zu importieren.",
@@ -425,6 +433,7 @@
     "openMenu": "Menü öffnen",
     "closeMenu": "Menü schließen",
     "copyTable": "Tabelle kopieren",
+    "pasteTable": "Aus Zwischenablage einfügen",
     "importFile": "Datei importieren",
     "exportTable": "Tabelle exportieren",
     "clearTable": "Alle Zellen leeren",

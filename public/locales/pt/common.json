@@ -143,7 +143,9 @@
     "clearAll": "Limpar Tudo",
     "undo": "Desfazer",
     "copy": "Copiar",
+    "paste": "Colar",
     "copyImage": "Copiar como Imagem",
+    "copyHtml": "Copiar como HTML",
     "copyExcel": "Copiar como Dados do Excel",
     "copyCsv": "Copiar como CSV",
     "copyMarkdown": "Copiar como Markdown",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "Alterar cor de fundo da coluna",
     "changeRowBackground": "Alterar cor de fundo da linha",
     "changeTextColor": "Alterar cor do texto",
+    "changeCellTextColor": "Alterar cor do texto da célula",
+    "changeHeaderTextColor": "Alterar cor do texto do cabeçalho",
+    "changeRowTextColor": "Alterar cor do texto da linha",
     "changeColumnType": "Alterar tipo de coluna",
     "insertRowAbove": "Inserir linha acima",
     "insertRowBelow": "Inserir linha abaixo",
@@ -260,11 +265,13 @@
     "findReplace": "Localizar e Substituir"
   },
   "colorPanel": {
-    "headerColor": "Cor do cabeçalho",
-    "contentColor": "Cor do conteúdo",
-    "noColor": "Sem cor",
+    "headerColor": "Cor de fundo do cabeçalho",
+    "contentColor": "Cor do conteúdo da linha",
+    "clear": "Limpar",
     "customColor": "Personalizado",
-    "swatch": "Amostra de cor {{label}}"
+    "swatch": "Amostra de cor {{label}}",
+    "rightClickHint": "Clique com o botão direito em uma célula para mais opções",
+    "rightClickDetails": "Altere cores de células, linhas e cabeçalhos\nDefina cores de texto em qualquer célula ou linha\nAjuste tipos de coluna, classificação e alinhamento\nInsira, exclua, copie, cole e limpe células\nMescle células ou desfaça a mesclagem\nAjuste automático da largura de colunas e linhas"
   },
   "borderPanel": {
     "noBorder": "Sem Borda",
@@ -351,6 +358,7 @@
     "importError": "Não foi possível ler o arquivo. Verifique o formato e tente novamente.",
     "importTooLarge": "Arquivo muito grande. O tamanho máximo é 5MB.",
     "copyImage": "Tabela copiada como imagem.",
+    "copyHtml": "Tabela copiada como HTML.",
     "copyData": "Dados da tabela copiados. Cole no Excel ou Google Planilhas.",
     "pasteSuccess": "Tabela colada. {{rows}} linhas, {{cols}} colunas.",
     "pasteError": "Não foi possível ler a área de transferência. Tente importar um arquivo.",
@@ -425,6 +433,7 @@
     "openMenu": "Abrir menu",
     "closeMenu": "Fechar menu",
     "copyTable": "Copiar tabela",
+    "pasteTable": "Colar da área de transferência",
     "importFile": "Importar arquivo",
     "exportTable": "Exportar tabela",
     "clearTable": "Limpar todas as células",

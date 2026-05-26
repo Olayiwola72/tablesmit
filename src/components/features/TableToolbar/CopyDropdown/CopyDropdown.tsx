@@ -1,11 +1,11 @@
-import { ChevronDown, Copy } from 'lucide-react'
+import { ChevronDown, Code, Copy, FileText, Image, Table2 } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CopyDropdownProps } from './CopyDropdown.types'
 import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
 
-export function CopyDropdown({ onCopyExcelData, onCopyCsv, onCopyMarkdown, onCopyLatex, onCopyImage }: CopyDropdownProps): ReactNode {
+export function CopyDropdown({ onCopyExcelData, onCopyCsv, onCopyMarkdown, onCopyLatex, onCopyImage, onCopyHtml }: CopyDropdownProps): ReactNode {
   const { t } = useTranslation()
 
   return (
@@ -16,11 +16,12 @@ export function CopyDropdown({ onCopyExcelData, onCopyCsv, onCopyMarkdown, onCop
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem onClick={onCopyExcelData}>{t('toolbar.copyExcel')}</DropdownMenuItem>
-        <DropdownMenuItem onClick={onCopyCsv}>{t('toolbar.copyCsv', 'Copy as CSV')}</DropdownMenuItem>
-        <DropdownMenuItem onClick={onCopyMarkdown}>{t('toolbar.copyMarkdown', 'Copy as Markdown')}</DropdownMenuItem>
-        <DropdownMenuItem onClick={onCopyLatex}>{t('toolbar.copyLatex', 'Copy as LaTeX')}</DropdownMenuItem>
-        <DropdownMenuItem onClick={onCopyImage}>{t('toolbar.copyImage')}</DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopyExcelData}><Table2 size={14} className="text-emerald-600" aria-hidden="true" /> {t('toolbar.copyExcel')}</DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopyCsv}><FileText size={14} className="text-cyan-600" aria-hidden="true" /> {t('toolbar.copyCsv', 'Copy as CSV')}</DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopyMarkdown}><Code size={14} className="text-info" aria-hidden="true" /> {t('toolbar.copyMarkdown', 'Copy as Markdown')}</DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopyLatex}><Code size={14} className="text-primary" aria-hidden="true" /> {t('toolbar.copyLatex', 'Copy as LaTeX')}</DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopyImage}><Image size={14} className="text-rose-600" aria-hidden="true" /> {t('toolbar.copyImage')}</DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopyHtml}><Code size={14} className="text-text-muted" aria-hidden="true" /> {t('toolbar.copyHtml', 'Copy as HTML')}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

@@ -213,7 +213,7 @@ const config: Config = {
         },
         accent: {
           DEFAULT: '#B45309',
-          hover: '#D97706',
+          hover: '#92400E',
           light: '#FFFBEB',
         },
         surface: '#F9FAFB',
@@ -289,7 +289,7 @@ export default config
 
 ## 4. Typography
 
-Loaded in `index.html` (via preload) and `globals.css` (via @fontsource — self-hosted, no external requests):
+Loaded in `index.html` (via preload) and `globals.css` (via raw `@font-face` — self-hosted, no external requests):
 
 Font files are preloaded in `index.html` to prevent late font swap:
 ```html
@@ -390,7 +390,7 @@ PRIMARY
 ACCENT  (Create Table — one instance only)
   Default:  bg-accent text-white px-5 py-2.5
   Hover:    hover:bg-accent-hover hover:shadow-md
-  Active:   active:bg-[#b45309] active:scale-[0.97] active:shadow-none
+  Active:   active:bg-[#78350F] active:scale-[0.97] active:shadow-none
 
 SECONDARY / OUTLINE
   Default:  bg-transparent border border-border text-text-primary px-5 py-2.5
@@ -469,12 +469,16 @@ Groups separated by: <div class="w-px h-5 bg-border mx-1" />
 Groups:
   1. Templates ▾ (DropdownMenu)                          (secondary button)
        └─ Research Notes · Feature Matrix · Content Tracker · Budget Summary · Q1 Performance
-  2. Add Row · Add Column · Remove Row · Remove Column   (ghost buttons)
-  3. Merge · Unmerge                                     (ghost buttons)
-  4. Import ▾ (DropdownMenu)                             (secondary button)
-       └─ Import from CSV
-       └─ Import from Excel
-  5. Clear All · Undo                                    (danger / ghost)
+  2. Theme ▾ (DropdownMenu)                              (secondary button)
+  3. Add Row · Add Column · Remove Row · Remove Column   (ghost buttons)
+  4. Merge · Unmerge                                     (ghost buttons)
+  5. AI ✦                                                (ghost button, "Coming soon")
+  6. Copy ▾ (DropdownMenu)                               (secondary button)
+       └─ Copy as Excel Data · Copy as CSV · Copy as Markdown · Copy as LaTeX · Copy as Image · Copy as HTML
+  7. Paste                                                (secondary button, auto-detect)
+  8. Import ▾ (DropdownMenu)                             (secondary button)
+       └─ Import from CSV · Import from Excel · Clean Data (Coming soon)
+  9. Clear All · Undo                                    (danger / ghost)
   (Export lives in the right sidebar ExportPanel — not in the toolbar)
 ```
 
@@ -806,7 +810,7 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
 | Unit Testing      | **Vitest + React Testing Library + @testing-library/user-event**  | –                                   |
 | E2E Testing       | **Playwright**                                                    | Tests in `e2e/`                     |
 | Routing           | **React Router v6**                                               | –                                   |
-| Fonts             | **@fontsource/inter + @fontsource/jetbrains-mono**                | Self-hosted, no external requests   |
+| Fonts             | **`@font-face` blocks in `globals.css`**                          | Self-hosted, no external requests   |
 | Toast             | **sonner**                                                        | –                                   |
 | Markdown/Blog     | **react-markdown + remark-gfm**                                   | Blog content rendering              |
 | Meta/SEO          | **react-helmet-async**                                            | Per-page meta tags, JSON-LD         |
@@ -908,8 +912,13 @@ tablesmit/
 │   │   │   │   └── PaginationNav.tsx
 │   │   │   ├── PanelLoader/
 │   │   │   │   └── PanelLoader.tsx
+│   │   │   ├── MoreOptionsAccordion/
+│   │   │   │   ├── MoreOptionsAccordion.tsx
+│   │   │   │   └── MoreOptionsAccordion.types.ts
 │   │   │   ├── SectionLabel/
 │   │   │   │   └── SectionLabel.tsx
+│   │   │   ├── TableSkeleton/
+│   │   │   │   └── TableSkeleton.tsx
 │   │   │   └── Tooltip/                 # shadcn/ui wrapper
 │   │   │       └── Tooltip.tsx
 │   │   │
@@ -1123,7 +1132,7 @@ tablesmit/
 │   │   │   ├── how-to-export-table-to-pdf.ts
 │   │   │   ├── how-to-make-a-table-in-markdown.ts
 │   │   │   └── how-to-merge-cells-in-online-table.ts
-│   │   └── features/                   # 23 feature page JSON definitions
+│   │   └── features/                   # 27 feature page JSON definitions
 │   │
 │   ├── styles/
 │   │   └── globals.css                 # Tailwind directives + print styles
@@ -1163,7 +1172,6 @@ tablesmit/
 ├── netlify.toml                        # HTTP headers (CSP, security, cache) + SPA redirects
 ├── .env.example                        # Documented env vars
 ├── eslint.config.js
-├── .prettierrc
 ├── .husky/                             # pre-commit hook
 ├── CONTRIBUTING.md
 ├── README.md
@@ -1360,12 +1368,48 @@ export default defineConfig({
 
 ### `src/styles/globals.css`
 ```css
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
-@import '@fontsource/jetbrains-mono/400.css';
-@import '@fontsource/jetbrains-mono/500.css';
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/inter-latin-400-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/inter-latin-500-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url(/fonts/inter-latin-600-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(/fonts/inter-latin-700-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(/fonts/jetbrains-mono-latin-400-normal.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2');
+}
 
 @tailwind base;
 @tailwind components;
@@ -1373,11 +1417,13 @@ export default defineConfig({
 
 @layer base {
   :root {
-    /* text-text-muted — passes WCAG AA 4.7:1 on white (#FFF) */
+    --color-text-primary: 17 24 39;
+    --color-text-secondary: 107 114 128;
     --color-text-muted: 102 117 136;
   }
   .dark {
-    /* text-text-muted — passes WCAG AA 5.1:1 on dark bg (#0F172A) */
+    --color-text-primary: 241 245 249;
+    --color-text-secondary: 148 163 184;
     --color-text-muted: 156 163 175;
   }
 
@@ -1387,7 +1433,7 @@ export default defineConfig({
   body {
     @apply m-0 min-w-[320px] bg-white font-sans text-text-primary antialiased dark:bg-slate-900 dark:text-slate-100;
   }
-  #root { @apply flex min-h-full flex-col; }
+  #root { @apply flex min-h-dvh flex-col; }
   h1, h2, h3, p { @apply mt-0; }
   button, input, select, textarea { letter-spacing: 0; }
   :focus-visible {
@@ -1430,6 +1476,8 @@ export default defineConfig({
 
   th, [data-header-row] td {
     background-color: #F1F5F9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   tr { break-inside: avoid; }
@@ -2611,7 +2659,7 @@ The following sections document the present-state implementation of every major 
 
 ### Brand & Positioning
 
-Brand and visual identity implemented per the specification in Sections 0–6. Logo SVGs (full + icon mark) in Navbar and favicon. Tailwind design tokens configured in `tailwind.config.ts`. Self-hosted Inter + JetBrains Mono via `@fontsource` in `globals.css`. Nav includes Home, Features, Open Source, About links plus GitHub ghost button. Hero matches page copy — no eyebrow badge, no trust line, minimal. Open Source section includes MIT license note. About section includes "What Tablesmit Is Not" quiet list. 404 page built with back-to-home CTA. Dynamic copyright year via `getCurrentYear()` in `src/utils/dateUtils.ts`. No em dashes in UI copy — periods or colons used instead.
+Brand and visual identity implemented per the specification in Sections 0–6. Logo SVGs (full + icon mark) in Navbar and favicon. Tailwind design tokens configured in `tailwind.config.ts`. Self-hosted Inter + JetBrains Mono via raw `@font-face` in `globals.css`. Nav includes Home, Features, Open Source, About links plus GitHub ghost button. Hero matches page copy — no eyebrow badge, no trust line, minimal. Open Source section includes MIT license note. About section includes "What Tablesmit Is Not" quiet list. 404 page built with back-to-home CTA. Dynamic copyright year via `getCurrentYear()` in `src/utils/dateUtils.ts`. No em dashes in UI copy — periods or colons used instead.
 
 ### Routing
 
@@ -2639,7 +2687,7 @@ Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fal
 
 ### Import
 
-Toolbar `Import ▾` dropdown with CSV and Excel options. Hidden `<input type="file">` triggered via ref. CSV uses PapaParse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `XLSX.read()` + `utils.sheet_to_json()`. Both normalise to `CellData[][]` before dispatching to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook lives in `src/hooks/` with full test coverage.
+Toolbar `Import ▾` dropdown with CSV and Excel options. Hidden `<input type="file">` triggered via ref. CSV uses PapaParse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `Workbook.xlsx.readBuffer()` — reads `worksheet.eachRow` then processes caption (first row detected when merged across all columns), trimmed leading empty columns, and normalises via `normaliseRows()`. Merge detection reads `worksheet.model.merges` after `eachRow`, parses each range with `excelColToNum`/`parseExcelAddress`, converts to data-space coordinates (accounting for caption skip and column trim), clamps merges spanning caption+data rows, and applies them via `applyMergesToCells()`. Caption styling (bgColor, textColor, italic, alignment) is captured from the caption cell before the row is skipped. Helper functions `excelColToNum` and `parseExcelAddress` parse cell references without modifying the worksheet model. Both import paths normalise to `CellData[][]` with `mergedRanges`, then dispatch to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook destructures `setCaptionTextColor`/`setCaptionBgColor` from context. Full test coverage including merged cells and caption styling.
 
 ### Accessibility
 
@@ -2647,11 +2695,11 @@ ARIA grid pattern: `role="grid"`, `role="row"`, `role="gridcell"`, `aria-rowinde
 
 ### Font Self-Hosting
 
-Fonts self-hosted via `@fontsource/inter` (weights 400–700) and `@fontsource/jetbrains-mono` (weights 400, 500). CSS `@import` in `globals.css` — no external network requests. CSP updated accordingly.
+Fonts self-hosted via raw `@font-face` blocks in `globals.css` (weights 400–700 for Inter, 400–500 for JetBrains Mono) — no external network requests. CSP updated accordingly.
 
 ### Export
 
-Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (PapaParse unparse), LaTeX (tabular generator). Copy to clipboard: CSV, Excel Data (TSV), Markdown, LaTeX, Image (via html2canvas). Export filename uses table caption when present; falls back to `tablesmit-table`.
+Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (PapaParse unparse), LaTeX (tabular generator). Copy to clipboard: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (via html2canvas). Export filename uses table caption when present; falls back to `tablesmit-table`.
 
 ### Button System
 
@@ -2671,7 +2719,7 @@ shadcn/ui: Select, Tooltip, Dialog, DropdownMenu, Separator installed. Lucide Re
 
 ### Testing
 
-Test suite: Vitest + React Testing Library + user-event, 1,394 tests across 142 files, 0 failures. Coverage thresholds: utils 95%+, services 90%+, hooks 90%+, UI components 85%+, features 80%+, pages 75%+. Tests in `src/test/` mirroring source structure — no co-located `.test` files. `vitest.config.ts` configured with jsdom environment, jest-dom setup. Key test files cover: `useImport` (valid/invalid CSV/Excel, file size limits), `useColumnResize`/`useRowResize` (mousedown→mousemove→mouseup cycle, clamping, ghost line, cleanup), `useExport` (success/error/null element), `tableUtils` (all CRUD operations, sorting), `toast` (all methods), `ErrorBoundary`, `FindReplace`, `MergeCellsPanel`, `formatUtils`, `TableToolbar`, `scripts/md-to-blog-post` (`parseFrontmatter` — valid/missing/empty/edge-case frontmatter), `scripts/sitemap/generate-sitemap` (`generateXml` — XML structure, static/blog/feature entries via dependency-injected callbacks). No file-writing side effects — SheetJS `writeFile` tests excluded, `tablesmit-table.*` gitignored.
+Test suite: Vitest + React Testing Library + user-event, 1,530 tests across 143 files, 0 failures. Coverage thresholds: utils 95%+, services 90%+, hooks 90%+, UI components 85%+, features 80%+, pages 75%+. Tests in `src/test/` mirroring source structure — no co-located `.test` files. `vitest.config.ts` configured with jsdom environment, jest-dom setup. Key test files cover: `useImport` (valid/invalid CSV/Excel, file size limits, merged cells detection, caption styling capture), `useColumnResize`/`useRowResize` (mousedown→mousemove→mouseup cycle, clamping, ghost line, cleanup), `useExport` (success/error/null element), `tableUtils` (all CRUD operations, sorting), `toast` (all methods including warning), `useClipboardPaste` (CSV with quoted commas, HTML table parsing, LaTeX, Markdown, TSV/CSV fallback), `ErrorBoundary`, `FindReplace`, `MergeCellsPanel`, `formatUtils`, `TableToolbar`, `scripts/md-to-blog-post` (`parseFrontmatter` — valid/missing/empty/edge-case frontmatter), `scripts/sitemap/generate-sitemap` (`generateXml` — XML structure, static/blog/feature entries via dependency-injected callbacks). No file-writing side effects — SheetJS `writeFile` tests excluded, `tablesmit-table.*` gitignored.
 
 ### Engineering Principles
 
@@ -2683,7 +2731,7 @@ Right-click context menu on cells and column headers (shadcn/ui ContextMenu). Ro
 
 ### Toast Notifications
 
-Sonner-based toast wrapper in `src/utils/toast.ts` with `TOAST` const for all messages. Toasts for export success/error, import success/error, copy/clear actions, undo-empty (Ctrl+Z). No toasts for actions with immediate visual feedback (add/remove rows, type, select, color, resize, sort, merge).
+Sonner-based toast wrapper in `src/utils/toast.ts` with `TOAST` const for all messages. Custom Lucide icons per type (`CheckCircle2` for success, `Info` for info, `AlertTriangle` for warning, `XCircle` for error) configured in `<Toaster icons={{...}}>`. Per-type background colors via Tailwind (`bg-success-light`, `bg-danger-light`, `bg-info-light`, amber tint for warning) applied through `toastOptions.classNames`. Toasts for export success/error, import success/error, copy/clear actions, undo-empty (Ctrl+Z). No toasts for actions with immediate visual feedback (add/remove rows, type, select, color, resize, sort, merge).
 
 ### Column Sorting
 
@@ -2737,16 +2785,16 @@ Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `impo
 
 ### Performance (Section 38C)
 - [x] Lighthouse: Performance **99**, LCP **0.9s**, FCP **0.7s**, CLS **0**, TBT **0ms** — all targets met
-- [x] Self-hosted fonts via `@fontsource/inter` + `@fontsource/jetbrains-mono`
+- [x] Self-hosted fonts via raw `@font-face` blocks in `globals.css`
 - [x] rAF resize pattern for column/row drag — no layout thrashing
 - [x] `React.memo` on `TableCell`, split contexts (`TableDataContext` + `TableSelectionContext`)
 - [x] Lazy-loaded export libraries (jsPDF, html2canvas in separate vendor chunks)
 - [x] `manualChunks` in `vite.config.ts` splitting react, ui, pdf, canvas, excel
 - [x] Initial bundle ~150 KB gzipped (target < 150 KB) — met by deferring Sentry (458 kB / 156 kB gzip) + react-markdown (113 kB / 35 kB gzip) + export libraries
 - [x] `react-markdown` lazily imported in BlogPostPage — 113 kB (35 kB gzip) deferred from route chunk to content-render path
-- [x] JetBrains Mono 400/500 preloaded via `<link rel="preload">` in `index.html` — eliminates late font swap on `font-mono` cells
+- [x] JetBrains Mono 400/500 loaded lazily via `@font-face font-display: swap` only — preload removed from `index.html` since `font-mono` is optional (monospace column type)
 - [x] Ahrefs analytics preconnected via `<link rel="preconnect">` in `index.html` — removes DNS + TCP round trip
-- [ ] No table grid skeleton placeholder (low priority — first paint already 0.7s)
+- [x] `TableSkeleton` component at `src/components/ui/TableSkeleton/TableSkeleton.tsx` — gradient-shimmer pulsing grid covering the table during initial ~350ms render window; fades via opacity transition (zero CLS); header row uses primary-colored shimmer
 - [ ] TTFB depends on Netlify edge — outside client control
 
 ### Error Monitoring (Section 46)
@@ -2839,7 +2887,7 @@ This only affects CSV export. Excel export (SheetJS) handles this differently �
 | Worksheet dimensions preservation | `importService.ts:normaliseRows` accepts `minRows`/`minCols` | Preserves empty styled Excel worksheets |
 | Secondary row/col clamp  | `TableContext.tsx` reducer        | `MAX_ROWS` (50) / `MAX_COLS` (20)      |
 
-The XLSX cell count limit (`MAX_XLSX_CELLS = 100_000`) is enforced before the full parse to prevent zip-bomb-style denial of service. The SheetJS `decode_range` call extracts the reference range from the sheet metadata without loading all cell data into memory.
+The XLSX cell count limit (`MAX_XLSX_CELLS = 100_000`) is enforced before the full parse to prevent zip-bomb-style denial of service. Merge ranges are read from `worksheet.model.merges` after `eachRow` — no cell-by-cell merge traversal needed.
 
 ### External Resources
 
@@ -3211,71 +3259,83 @@ When the user pastes (Ctrl+V / Cmd+V) into the table — or into an empty state 
 detect if the clipboard contains a structured table (from Excel, Word, CSV,
 LaTeX tabular, or Markdown) and automatically generate or populate the table.
 
-### Detection Logic
+### Architecture
 
-Bails out early when paste target is inside a text-form input — the native
-paste behaviour takes over for `<textarea>`, `<input>`, and `[contenteditable]`
-elements. This prevents the table-level paste handler from stealing paste
-events from the caption textarea or other form fields.
+The paste system has **two entry points** that converge on a shared parser:
 
-```ts
-// src/hooks/useClipboardPaste/useClipboardPaste.ts
-// Listen for paste events on document (captured at app root level)
+1. **Global Ctrl+V listener** (`useClipboardPaste` hook) — `document.addEventListener('paste', ...)`
+2. **Toolbar Paste button** (`handlePaste` in `TableToolbar.tsx`) — reads clipboard via `navigator.clipboard.read()`
 
-document.addEventListener('paste', async (e) => {
-  if (target.closest('[contenteditable]') || target.closest('textarea') || target.closest('input')) return
+Both call `handlePasteData(text, html, setCells)`, which delegates to `parseClipboardContent(text, html)`.
 
-  const clipData = e.clipboardData;
-  if (!clipData) return;
+### Detection Priority (`parseClipboardContent` — `src/hooks/useClipboardPaste/useClipboardPaste.ts`)
 
-  // Priority order:
-  // 1. HTML table (from Excel/Word — richest data)
-  const html  = clipData.getData('text/html');
-  if (html && containsTable(html)) {
-    return handleHtmlTablePaste(html);
-  }
+```
+1. HTML table (from Excel/Word — richest data)
+   → DOMParser parses <table>, reads inline styles (bg, text color, align,
+   borders, colspan/rowspan), data-* attributes (header color, themes, caption
+   colors), <caption> element, and merged ranges from colspan/rowspan.
+   → Caption row detection: <tr data-caption-row="true"> is filtered out so
+   it does not appear in pasted row data. This attribute is set by
+   buildExcelHtml() to prevent the caption row from being re-imported as
+   data during internal copy/paste round-trips.
 
-  // 2. LaTeX tabular (\begin{tabular} ... \end{tabular})
-  const text = clipData.getData('text/plain');
-  if (text && /\\\\begin\\{tabular}/.test(text)) {
-    return handleLatexPaste(text);
-  }
+2. LaTeX tabular (\begin{tabular} ... \end{tabular})
+   → Detected via text.includes('\\begin{tabular}')
+   → Parsed by parseLatexTabular() — strips \hline, \textbf, column specifiers,
+   and LaTeX escapes (\%, \$, \_, etc.)
 
-  // 3. Markdown table (contains pipe-and-dash separator row)
-  if (text && text.includes('|')) {
-    const { parseMarkdownTable } = await import('../../utils/markdownUtils/markdownToCells');
-    const mdRows = parseMarkdownTable(text);
-    if (mdRows) return handleTablePaste(mdRows, 'Markdown');
-  }
+3. Markdown pipe table (| Header | Header | / | --- | --- | / | Cell | Cell |)
+   → Detected via text.includes('|') + pipe-separator row detection
+   → Parsed by parseMarkdownTable() — finds separator row with dashes,
+   extracts header + body rows, normalises column count, trims whitespace
 
-  // 4. TSV (tab-separated — Excel default plain text format)
-  if (text && text.includes('\t')) {
-    return handleTsvPaste(text);
-  }
+4. TSV (tab-separated — Excel default plain text format)
+   → Detected via includes('\t'), split on tabs
 
-  // 5. CSV (comma-separated plain text)
-  if (text && text.includes(',')) {
-    return handleCsvPaste(text);
-  }
+5. CSV (comma-separated)
+   → Parsed via PapaParse with { header: false, skipEmptyLines: true }
+   → Correctly handles quoted values containing commas (e.g. "$10,000")
 
-  // 6. Plain text — paste into focused cell only (default browser behavior)
-});
+6. Plain text — returns null, no action taken (only HTML-textable cases
+   with multiple rows/columns produce a PasteResult)
 ```
 
-### HTML Table Parsing
+### Guard Conditions
 
-```ts
-// Parse <table> from clipboard HTML using DOMParser — no regex
-function parseHtmlTable(html: string): string[][] {
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  const rows = Array.from(doc.querySelectorAll('tr'));
-  return rows.map(row =>
-    Array.from(row.querySelectorAll('td, th')).map(cell =>
-      (cell as HTMLElement).innerText.trim()
-    )
-  );
-}
+The global paste listener (`useClipboardPaste` hook) skips interception in these cases:
+
 ```
+- Target is inside <textarea> or <input> — native paste wins
+- Target is inside [contenteditable] AND clipboard has no text/html —
+  lets the cell's native handler deal with plain text
+- All other cases: event.preventDefault(), reads clipboard, calls
+  handlePasteData
+```
+
+### ContentEditable Cell Paste
+
+When the user is editing a cell (contentEditable) and pastes:
+- **With HTML table data** (e.g., from Excel): intercepted, auto-detected, table replaced
+- **With plain text only**: native paste inserts raw text into the cell — this is by design
+
+### Copy Buffer (Internal Round-Trip)
+
+For internal copy/paste (Copy as Excel Data → Paste), `handlePasteData` checks a
+`getCopyBuffer()` for matching TSV content. If found, it merges the stored styles
+(cell colors, merged ranges, column widths) with any styles parsed from the HTML.
+This preserves formatting during internal round-trips. `clearCopyBuffer()` is called
+after each paste to prevent stale data from a previous paste affecting future ones.
+
+### Caption Handling in Excel Round-Trip
+
+When copying as "Excel Data" (TSV), the table renders via `buildExcelHtml()` which
+includes the caption as a `<tr data-caption-row="true"><td colspan="N">caption</td></tr>`
+for Excel compatibility. On paste:
+- **Excel** ignores the `data-caption-row` attribute and renders the caption row normally
+- **Tablesmit's parser** (`parseClipboardContent`) filters out `<tr data-caption-row="true">`
+  before mapping remaining rows as cell data, preventing caption duplication
+- The caption text is preserved via the `<table data-caption="...">` attribute
 
 ### UX
 
@@ -3283,12 +3343,12 @@ function parseHtmlTable(html: string): string[][] {
 If table currently has no data (empty state):
   → Generate new table from clipboard dimensions + content
 
-If table has existing data and user right-click-pastes into a cell:
-  → Insert clipboard content starting from that cell (Excel paste behavior)
+If table has existing data and user pastes:
+  → Replace entire table with pasted content (including caption, styles, merged cells)
   → Expand table if clipboard content exceeds current dimensions
 
 Show a non-blocking toast on success:
-  "Table pasted from clipboard. 5 rows, 3 columns."
+  "Table pasted. 5 rows, 3 columns."
 
 Show toast on failure:
   "Could not read clipboard data. Try importing a file instead."
@@ -3297,20 +3357,49 @@ Show toast on failure:
 ### Tests Required
 
 ```ts
-describe('useClipboardPaste', () => {
-  it('detects HTML table in clipboard and calls handleHtmlTablePaste')
-  it('detects LaTeX tabular and calls handleLatexPaste')
-  it('detects Markdown table and calls handleTablePaste')
-  it('detects TSV content and calls handleTsvPaste')
-  it('detects CSV content and calls handleCsvPaste')
-  it('parses an HTML table to a 2D string array correctly')
-  it('handles merged cells in HTML table gracefully')
-  it('clamps pasted content to MAX_ROWS/MAX_COLS')
-  it('shows success toast with correct row/col count')
-  it('falls back to plain text paste when no table detected')
-  it('ignores paste inside contenteditable')
+describe('useClipboardPaste (hook)', () => {
+  it('returns pasting false initially')
+  it('adds and removes paste event listener on mount/unmount')
+  it('ignores paste inside contenteditable when clipboard has no HTML')
+  it('processes HTML table paste inside contenteditable')
   it('ignores paste inside textarea')
   it('ignores paste inside input')
+  it('parses LaTeX tabular from plain text clipboard')
+  it('parses LaTeX tabular with \textbf headers')
+  it('parses a Markdown table from plain text clipboard')
+  it('parses Markdown table with alignment colons')
+  it('falls through to TSV/CSV when Markdown has no pipe-separator line')
+  it('falls through to TSV/CSV when LaTeX is not tabular')
+  it('handles CSV with quoted values containing commas')
+  it('clamps large clipboard tables before setting cells')
+})
+
+describe('parseClipboardContent — HTML parsing (inline styles + data-*)', () => {
+  it('reads cell background-color from inline style')
+  it('reads cell color and text-align from inline style')
+  it('reads caption from <caption> element')
+  it('reads caption text color/italic/bg/alignment from <caption> inline style')
+  it('reads header-color/header-style from data-* attributes')
+  it('reads border-style/border-color from data-* attributes')
+  it('reads theme/content-color/content-bg-color from data-* attributes')
+  it('reads data-caption as fallback when no <caption> element')
+  it('reads data-caption-* style attributes')
+  it('skips <tr> with data-caption-row="true" attribute')
+})
+
+describe('Round-trip: buildHtmlTable → parseClipboardContent', () => {
+  it('preserves cell values, background colors, header color and style')
+  it('preserves border style and color')
+  it('preserves content color and bg')
+  it('preserves caption text and caption styles')
+  it('preserves all styles in a full round-trip')
+})
+
+describe('Round-trip: buildExcelHtml → parseClipboardContent (caption dedup)', () => {
+  it('marks caption <tr> with data-caption-row="true" in generated HTML')
+  it('does not include caption <tr> data in pasted rows')
+  it('preserves caption and all data rows after round-trip')
+  it('does not leak caption text into the row data')
 })
 ```
 
@@ -3318,7 +3407,7 @@ describe('useClipboardPaste', () => {
 
 ## 27. Copy Table Button
 
-A **Copy** button in the toolbar with a dropdown arrow revealing five modes.
+A **Copy** button in the toolbar with a dropdown arrow revealing six modes.
 
 ### UI
 
@@ -3333,6 +3422,7 @@ Dropdown:
   Copy as CSV             → comma-separated string to clipboard
   Copy as Markdown        → generates pipe-table to clipboard
   Copy as LaTeX           → generates \begin{tabular} to clipboard
+  Copy as HTML            → generates an HTML <table> string to clipboard
   Copy as Image           → renders table to canvas via html2canvas, copies to clipboard as PNG
 ```
 
@@ -3381,6 +3471,16 @@ const copyAsLatex = async (headerStyle?: string) => {
   toast('Table copied as LaTeX.');
 };
 
+// Copy as HTML
+const copyAsHtml = async () => {
+  const { buildHtmlTable } = await import('../../hooks/useCopyTable/useCopyTable');
+  const html = buildHtmlTable(cells, caption, headerColor, headerStyle, contentColor, contentBgColor, borderStyle, borderColor, theme);
+  await navigator.clipboard.write([
+    new ClipboardItem({ 'text/html': new Blob([html], { type: 'text/html' }) }),
+  ]);
+  toast('Table copied as HTML.');
+};
+
 // Copy as Image
 const copyAsImage = async () => {
   const { default: html2canvas } = await import('html2canvas');
@@ -3401,51 +3501,7 @@ describe('copyTable', () => {
   it('copyAsCsv produces correctly quoted CSV')
   it('copyAsMarkdown generates valid pipe-table')
   it('copyAsLatex generates valid LaTeX tabular')
-  it('copyAsImage calls html2canvas and navigator.clipboard.write')
-  it('shows correct toast message on success')
-  it('shows error toast if clipboard write fails')
-})
-```
-Toolbar right side (before export group):
-
-[Copy ▾]    ← secondary button with ChevronDown icon
-
-Dropdown:
-  Copy as Image          → renders table to canvas via html2canvas, copies to clipboard
-  Copy Excel Data        → copies TSV string to clipboard (pastes into Excel as table)
-```
-
-### Implementation
-
-```ts
-// Copy as Image
-const copyAsImage = async (tableRef: HTMLElement) => {
-  const canvas = await html2canvas(tableRef, { scale: 2, useCORS: true });
-  canvas.toBlob(blob => {
-    if (!blob) return;
-    navigator.clipboard.write([
-      new ClipboardItem({ 'image/png': blob })
-    ]);
-  }, 'image/png');
-  toast('Table copied as image.');
-};
-
-// Copy Excel Data (TSV)
-const copyAsExcelData = (cells: CellData[][]) => {
-  const tsv = cells
-    .map(row => row.filter(c => !c.isHidden).map(c => c.value).join('\t'))
-    .join('\n');
-  navigator.clipboard.writeText(tsv);
-  toast('Table data copied. Paste into Excel or Google Sheets.');
-};
-```
-
-### Tests Required
-
-```ts
-describe('copyTable', () => {
-  it('copyAsExcelData produces correct TSV string')
-  it('copyAsExcelData skips hidden (merged) cells')
+  it('copyAsHtml generates HTML table string with data-* attributes')
   it('copyAsImage calls html2canvas and navigator.clipboard.write')
   it('shows correct toast message on success')
   it('shows error toast if clipboard write fails')
@@ -4539,7 +4595,7 @@ Google uses Core Web Vitals as a direct ranking factor. These are non-negotiable
 LCP:
   - Preload hero image/screenshot: <link rel="preload" as="image" href="/screenshot.webp">
   - Convert all images to WebP
-  - Self-host fonts (already done via @fontsource) — eliminates CDN round trip
+  - Self-host fonts via raw `@font-face` in `globals.css` — eliminates CDN round trip
   - Use Vite's manualChunks to keep initial bundle under 150KB gzipped
 
 INP (most critical for a table editor):
@@ -5161,18 +5217,27 @@ Accessible, animated, lightweight (~3KB), zero configuration.
 ```tsx
 // src/main.tsx — add Toaster once at app root
 import { Toaster } from 'sonner';
+import { CheckCircle2, XCircle, Info, AlertTriangle } from 'lucide-react';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
     <Toaster
       position="bottom-right"
+      icons={{
+        success: <CheckCircle2 size={18} />,
+        info: <Info size={18} />,
+        warning: <AlertTriangle size={18} />,
+        error: <XCircle size={18} />,
+      }}
       toastOptions={{
         duration: 3000,
         classNames: {
           toast:   'font-sans text-sm',
-          success: 'border-l-4 border-success',
-          error:   'border-l-4 border-danger',
+          success: 'border-l-4 border-success bg-success-light',
+          error:   'border-l-4 border-danger bg-danger-light',
+          info:    'border-l-4 border-info bg-info-light',
+          warning: 'border-l-4 border-[#F59E0B] bg-[#FFFBEB]',
         },
       }}
     />
@@ -5192,7 +5257,8 @@ import { toast as sonnerToast } from 'sonner';
 export const toast = {
   success: (msg: string) => sonnerToast.success(msg),
   error:   (msg: string) => sonnerToast.error(msg),
-  info:    (msg: string) => sonnerToast(msg),
+  info:    (msg: string) => sonnerToast.info(msg),
+  warning: (msg: string) => sonnerToast.warning(msg),
 };
 
 // Export messages as constants — no magic strings in components
@@ -5249,11 +5315,7 @@ npx lint-staged
 {
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "eslint --fix --max-warnings=0",
-      "prettier --write"
-    ],
-    "src/**/*.{css,scss}": [
-      "prettier --write"
+      "eslint --fix --max-warnings=0"
     ]
   },
   "scripts": {
@@ -5269,27 +5331,13 @@ npx lint-staged
    → --max-warnings=0 means zero tolerance — warnings are errors
    → --fix auto-corrects fixable issues (imports, formatting)
 
-2. Prettier formats all staged files
-   → No more "fix formatting" commits
-
-3. If lint fails: commit is aborted, errors shown in terminal
+2. If lint fails: commit is aborted, errors shown in terminal
    → Developer fixes before committing — not after pushing
 ```
 
-### `.eslintrc` baseline rules to add (if not already present)
+### ESLint Configuration
 
-```json
-{
-  "rules": {
-    "no-console": "error",
-    "no-debugger": "error",
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-unused-vars": "error",
-    "react-hooks/exhaustive-deps": "error",
-    "react-hooks/rules-of-hooks": "error"
-  }
-}
-```
+ESLint uses the `typescript-eslint` flat config format with recommended presets only — no custom rules. The config extends `js.configs.recommended`, `tseslint.configs.recommended`, and `reactHooks.configs.flat.recommended`. `no-console` and `no-debugger` are not set as errors since Vite and dev tooling generate legitimate console output.
 
 ---
 
@@ -5333,7 +5381,7 @@ const config: Config = {
     --color-primary-hover:  #60A5FA;
     --color-primary-light:  #1E3A5F;
     --color-accent:         #F59E0B;   /* unchanged — amber works on dark */
-    --color-accent-hover:   #D97706;
+    --color-accent-hover:   #92400E;
   }
 }
 ```
@@ -5545,7 +5593,6 @@ the browser prints the full app chrome (navbar, sidebars, toolbar).
     width: 100%;
     border-collapse: collapse;
     font-size: 11pt;
-    font-family: 'Inter', Georgia, serif;
   }
 
   /* Preserve cell borders in print */
@@ -6425,7 +6472,6 @@ export const SITE_CONFIG = {
     terms:         '/terms',
     changelog:     '/changelog',
     testimonials:  '/testimonials',
-    notFound:      '*',
   },
 
   // Nav — sourced from here, not hardcoded in components
@@ -7527,6 +7573,7 @@ import './i18n/i18n';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Toaster } from 'sonner'
+import { CheckCircle2, XCircle, Info, AlertTriangle } from 'lucide-react'
 import App from './App.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -7534,12 +7581,20 @@ createRoot(document.getElementById('root')!).render(
     <App />
     <Toaster
       position="bottom-right"
+      icons={{
+        success: <CheckCircle2 size={18} />,
+        info: <Info size={18} />,
+        warning: <AlertTriangle size={18} />,
+        error: <XCircle size={18} />,
+      }}
       toastOptions={{
         duration: 3000,
         classNames: {
           toast: 'font-sans text-sm',
-          success: 'border-l-4 border-success',
-          error: 'border-l-4 border-danger',
+          success: 'border-l-4 border-success bg-success-light',
+          error: 'border-l-4 border-danger bg-danger-light',
+          info: 'border-l-4 border-info bg-info-light',
+          warning: 'border-l-4 border-[#F59E0B] bg-[#FFFBEB]',
         },
       }}
     />
@@ -7627,7 +7682,7 @@ CONTENT — must ship before any promotion:
 
 ## 59. Feature Landing Pages — Content Specification
 
-23 JSON files cover every visible UI feature. All files live at `src/content/features/`.
+27 JSON files cover every visible UI feature. All files live at `src/content/features/`.
 The system architecture (auto-discovery via `import.meta.glob`) mirrors the blog system in Section 56.
 
 ### Complete Feature Pages List
@@ -7656,6 +7711,10 @@ The system architecture (auto-discovery via `import.meta.glob`) mirrors the blog
 | `dark-mode.json` | /features/dark-mode | dark mode table builder | ✅ Ready |
 | `auto-sum.json` | /features/auto-sum | auto sum table column online | ✅ Ready |
 | `context-menu.json` | /features/context-menu | right click table context menu | ✅ Ready |
+| `excel-import.json` | /features/excel-import | import excel to table online | ✅ Ready |
+| `latex-export.json` | /features/latex-export | export table to latex | ✅ Ready |
+| `offline.json` | /features/offline | offline table builder | ✅ Ready |
+| `smart-paste.json` | /features/smart-paste | smart paste from excel | ✅ Ready |
 | `undo.json` | /features/undo | undo table editing online | ✅ Ready |
 
 ### Schema Extensions Required
@@ -7677,7 +7736,7 @@ These are **runtime-only** — the `FeaturePage` type in `featureService.types.t
 
 ### Implementation
 
-All 23 feature JSON files committed to `src/content/features/`. `featureService.ts` with `import.meta.glob` auto-discovery and slug derivation. `FeaturesListPage` renders responsive card grid. `FeatureDetailPage` handles hero + conditional sections (benefits, use cases, steps, CTA, related). Routes `/features` and `/features/:slug` lazy-loaded. Each page sets `metaTitle`, `metaDescription`, `og:url`, and JSON-LD via `react-helmet-async`. Special pages handled: `ai-features` shows amber 'In development' banner, `keyboard-shortcuts` renders ShortcutsTable, `image-export` shows PNG vs JPEG comparison table, `copy-table` shows 'Coming soon' badge on image mode card, `context-menu` renders two reference panels. All 6 section components (`Hero`, `Benefits`, `UseCases`, `Steps`, `Cta`, `Related`) reusable across pages. Sitemap updated. Tests cover auto-discovery, slug derivation, not-found, and page rendering.
+All 27 feature JSON files committed to `src/content/features/`. `featureService.ts` with `import.meta.glob` auto-discovery and slug derivation. `FeaturesListPage` renders responsive card grid. `FeatureDetailPage` handles hero + conditional sections (benefits, use cases, steps, CTA, related). Routes `/features` and `/features/:slug` lazy-loaded. Each page sets `metaTitle`, `metaDescription`, `og:url`, and JSON-LD via `react-helmet-async`. Special pages handled: `ai-features` shows amber 'In development' banner, `keyboard-shortcuts` renders ShortcutsTable, `image-export` shows PNG vs JPEG comparison table, `copy-table` shows 'Coming soon' badge on image mode card, `context-menu` renders two reference panels. All 6 section components (`Hero`, `Benefits`, `UseCases`, `Steps`, `Cta`, `Related`) reusable across pages. Sitemap updated. Tests cover auto-discovery, slug derivation, not-found, and page rendering.
 
 ---
 

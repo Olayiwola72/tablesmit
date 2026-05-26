@@ -9,7 +9,7 @@ function fakeState(overrides: Partial<TableState> = {}): TableState {
     columnWidths: [],
     rowHeights: [],
     mergedRanges: [],
-    headerStyle: 'none',
+    headerStyle: 'first-row',
     headerColor: '#1E40AF',
     contentColor: '#111827',
     borderStyle: 'solid',

@@ -36,7 +36,7 @@ export function AboutPage(): ReactNode {
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="accent" size="lg">
-            <Link to={routes.home}>{t('hero.cta')}</Link>
+            <Link to={routes.home} state={{ freshTable: true }}>{t('hero.cta')}</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">

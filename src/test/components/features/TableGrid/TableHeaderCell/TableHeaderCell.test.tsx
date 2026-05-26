@@ -113,8 +113,4 @@ describe('TableHeaderCell', () => {
     expect(screen.getByRole('button', { name: siteConfig.labels.autoFitColumn })).toBeInTheDocument()
   })
 
-  it('renders ChevronDown icon', () => {
-    const { container } = render(<TableHeaderCell {...createProps()} />)
-    expect(container.querySelector('.lucide-chevron-down')).toBeInTheDocument()
-  })
 })

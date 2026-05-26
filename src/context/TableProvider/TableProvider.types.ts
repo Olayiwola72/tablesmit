@@ -1,6 +1,7 @@
 import type { CellData, HeaderStyle, MergeRange, SelectionRange, TableTheme, TextAlign, BorderStyle, ColumnFormat } from '../../types/table'
 import type { CaptionAlignment } from '../TableState/TableState.types'
 import type { PresetDefinition } from '../../types/table'
+import type { CellsStyleMeta } from '../TableReducer/TableReducer.types'
 
 export interface TableStateFields {
   rows: number
@@ -19,6 +20,8 @@ export interface TableStateFields {
   columnColors: string[]
   columnTextAlign: TextAlign[]
   cellColors: Record<string, string>
+  cellTextColors: Record<string, string>
+  rowTextColors: Record<number, string>
   cellTextAlign: Record<string, string>
   freezeRow: boolean
   freezeCol: boolean
@@ -26,11 +29,12 @@ export interface TableStateFields {
   captionAlignment: CaptionAlignment
   captionTextColor: string
   captionBgColor: string
+  captionItalic: boolean
 }
 
 export interface TableActions {
+  setCells: (cells: CellData[][], mergedRanges?: MergeRange[], styles?: CellsStyleMeta) => void
   generateTable: (rows: number, cols: number) => void
-  setCells: (cells: CellData[][]) => void
   updateCell: (cellId: string, value: string) => void
   addRow: () => void
   insertRowAt: (index: number) => void
@@ -56,6 +60,8 @@ export interface TableActions {
   setRowColor: (row: number, color: string) => void
   setColumnColor: (col: number, color: string) => void
   setCellColor: (cellId: string, color: string) => void
+  setCellTextColor: (cellId: string, color: string) => void
+  setRowTextColor: (row: number, color: string) => void
   setColumnTextAlign: (col: number, align: TextAlign) => void
   setCellTextAlign: (cellId: string, align: TextAlign) => void
   applyPreset: (preset: PresetDefinition) => void
@@ -69,6 +75,7 @@ export interface TableActions {
   setCaptionAlignment: (alignment: CaptionAlignment) => void
   setCaptionTextColor: (color: string) => void
   setCaptionBgColor: (color: string) => void
+  setCaptionItalic: (italic: boolean) => void
 }
 
 export type TableContextValue = TableStateFields & TableActions

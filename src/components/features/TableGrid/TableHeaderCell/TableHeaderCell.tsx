@@ -1,5 +1,5 @@
 import { memo, type ReactNode } from 'react'
-import { ArrowDown, ArrowUp, ArrowUpDown, ChevronDown } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { siteConfig } from '../../../../config/siteConfig'
 import type { ColumnFormat } from '../../../../types/table'
@@ -21,7 +21,7 @@ function TableHeaderCellRaw({
   const { t } = useTranslation()
   return (
     <div
-      className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface pl-2 pr-3 py-1 md:pr-2"
+      className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface pl-2 pr-2 py-1"
       onContextMenu={(event) => onContextMenu(index, event)}
     >
       <label className="flex items-center gap-1 text-xs font-medium text-text-secondary">
@@ -60,7 +60,6 @@ function TableHeaderCellRaw({
           ))}
         </select>
       </label>
-      <ChevronDown size={13} aria-hidden="true" className="text-text-muted" data-export-hide data-print-hide />
       <div data-print-hide className="contents">
         <ResizeHandle
           axis="column"

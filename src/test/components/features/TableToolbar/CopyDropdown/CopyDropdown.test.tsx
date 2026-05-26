@@ -12,6 +12,7 @@ describe('CopyDropdown', () => {
         onCopyMarkdown={vi.fn()}
         onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
+        onCopyHtml={vi.fn()}
       />,
     )
     expect(screen.getByRole('button', { name: /copy/i })).toBeInTheDocument()
@@ -26,6 +27,7 @@ describe('CopyDropdown', () => {
         onCopyMarkdown={vi.fn()}
         onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
+        onCopyHtml={vi.fn()}
       />,
     )
     await user.click(screen.getByRole('button', { name: /copy/i }))
@@ -34,6 +36,7 @@ describe('CopyDropdown', () => {
     expect(screen.getByText('Copy as Markdown')).toBeInTheDocument()
     expect(screen.getByText('Copy as LaTeX')).toBeInTheDocument()
     expect(screen.getByText('Copy as Image')).toBeInTheDocument()
+    expect(screen.getByText('Copy as HTML')).toBeInTheDocument()
   })
 
   it('calls onCopyExcelData when Excel Data menu item is clicked', async () => {
@@ -46,6 +49,7 @@ describe('CopyDropdown', () => {
         onCopyMarkdown={vi.fn()}
         onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
+        onCopyHtml={vi.fn()}
       />,
     )
     await user.click(screen.getByRole('button', { name: /copy/i }))
@@ -63,6 +67,7 @@ describe('CopyDropdown', () => {
         onCopyMarkdown={vi.fn()}
         onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
+        onCopyHtml={vi.fn()}
       />,
     )
     await user.click(screen.getByRole('button', { name: /copy/i }))
@@ -80,6 +85,7 @@ describe('CopyDropdown', () => {
         onCopyMarkdown={onCopyMarkdown}
         onCopyLatex={vi.fn()}
         onCopyImage={vi.fn()}
+        onCopyHtml={vi.fn()}
       />,
     )
     await user.click(screen.getByRole('button', { name: /copy/i }))
@@ -97,10 +103,29 @@ describe('CopyDropdown', () => {
         onCopyMarkdown={vi.fn()}
         onCopyLatex={vi.fn()}
         onCopyImage={onCopyImage}
+        onCopyHtml={vi.fn()}
       />,
     )
     await user.click(screen.getByRole('button', { name: /copy/i }))
     await user.click(screen.getByText('Copy as Image'))
     expect(onCopyImage).toHaveBeenCalledOnce()
+  })
+
+  it('calls onCopyHtml when HTML menu item is clicked', async () => {
+    const user = userEvent.setup()
+    const onCopyHtml = vi.fn()
+    render(
+      <CopyDropdown
+        onCopyExcelData={vi.fn()}
+        onCopyCsv={vi.fn()}
+        onCopyMarkdown={vi.fn()}
+        onCopyLatex={vi.fn()}
+        onCopyImage={vi.fn()}
+        onCopyHtml={onCopyHtml}
+      />,
+    )
+    await user.click(screen.getByRole('button', { name: /copy/i }))
+    await user.click(screen.getByText('Copy as HTML'))
+    expect(onCopyHtml).toHaveBeenCalledOnce()
   })
 })

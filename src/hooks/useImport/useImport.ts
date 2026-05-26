@@ -8,15 +8,17 @@ import type { ImportApi } from './useImport.types'
 
 export function useImport(): ImportApi {
   const [error, setError] = useState<string | null>(null)
-  const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setCaption, setContentColor, setBorderColor } = useTableContext()
+  const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setCaption, setContentColor, setBorderColor, setCaptionTextColor, setCaptionBgColor } = useTableContext()
 
   const importFile = async (file: File, kind: 'csv' | 'excel'): Promise<void> => {
     setError(null)
     try {
       const result = kind === 'csv' ? await importCsv(file) : await importExcel(file)
-      setCells(result.cells)
+      setCells(result.cells, result.mergedRanges)
 
       if (result.caption) setCaption(result.caption)
+      if (result.captionTextColor) setCaptionTextColor(result.captionTextColor)
+      if (result.captionBgColor) setCaptionBgColor(result.captionBgColor)
       if (result.headerColor) setHeaderColor(result.headerColor)
       if (result.headerStyle) setHeaderStyle(result.headerStyle)
       if (result.contentColor) setContentColor(result.contentColor)

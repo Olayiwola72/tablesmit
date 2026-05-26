@@ -1,6 +1,6 @@
 import type { ExportOptions, ExportStrategy } from '../export.types'
 import { siteConfig } from '../../../config/siteConfig'
-import { filenameWithExtension } from '../utils'
+import { filenameWithExtension, fixTableBordersForExport } from '../utils'
 
 export class PDFExporter implements ExportStrategy {
   async export(element: HTMLElement, options: ExportOptions): Promise<void> {
@@ -20,6 +20,7 @@ export class PDFExporter implements ExportStrategy {
           useCORS: true,
           onclone: (clonedDoc: Document): void => {
             clonedDoc.querySelectorAll('[data-export-hide]').forEach(el => el.remove())
+            fixTableBordersForExport(clonedDoc)
             const style = clonedDoc.createElement('style')
             style.textContent = '[class*="hover\\:"] { transition: none !important; }'
             clonedDoc.head.appendChild(style)

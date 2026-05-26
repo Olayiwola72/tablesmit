@@ -17,8 +17,8 @@ describe('TableState', () => {
     expect(initialState.selectedRange).toBeNull()
   })
 
-  it('initialState has default header style of none', () => {
-    expect(initialState.headerStyle).toBe('none')
+  it('initialState has default header style of first-row', () => {
+    expect(initialState.headerStyle).toBe('first-row')
   })
 
   it('initialState cell values are empty strings', () => {

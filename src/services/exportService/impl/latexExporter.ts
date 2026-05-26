@@ -1,6 +1,7 @@
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
 import { siteConfig } from '../../../config/siteConfig'
 import { downloadUrl, filenameWithExtension } from '../utils'
+import { getEffectiveColSpan } from '../../../utils/mergeUtils/mergeUtils'
 
 function escapeLatex(value: string): string {
   return value
@@ -69,10 +70,10 @@ export class LatexExporter implements ExportStrategy {
 
     lines.push(`\\begin{tabular}{${alignStr}}`)
 
-    const isHeader = (row: number, col: number): boolean => {
-      if (headerStyle === 'both') return row === 0 || col === 0
+    const isHeader = (row: number, col: number, colSpan = 1): boolean => {
+      if (headerStyle === 'both') return row === 0 || (col === 0 && colSpan === 1)
       if (headerStyle === 'first-row') return row === 0
-      if (headerStyle === 'first-column') return col === 0
+      if (headerStyle === 'first-column') return col === 0 && colSpan === 1
       return false
     }
 
@@ -101,7 +102,8 @@ export class LatexExporter implements ExportStrategy {
 
         let value = escapeLatex(cell.value)
 
-        if (isHeader(r, c)) {
+        const cs = getEffectiveColSpan(r, c, options.mergedRanges ?? [], cell.colSpan)
+        if (isHeader(r, c, cs)) {
           value = `\\textbf{${value}}`
         }
 

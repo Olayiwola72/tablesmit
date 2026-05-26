@@ -1,10 +1,29 @@
-import type { CellData, ColumnFormat, HeaderStyle, SelectionRange, TableTheme, TextAlign, BorderStyle } from '../../types/table'
+import type { CellData, ColumnFormat, HeaderStyle, MergeRange, SelectionRange, TableTheme, TextAlign, BorderStyle } from '../../types/table'
 import type { CaptionAlignment, TableState } from '../TableState/TableState.types'
 import type { PresetDefinition } from '../../types/table'
 
+export interface CellsStyleMeta {
+  caption?: string
+  captionTextColor?: string
+  captionBgColor?: string
+  captionAlignment?: string
+  captionItalic?: boolean
+  cellColors?: Record<string, string>
+  cellTextColors?: Record<string, string>
+  cellTextAlign?: Record<string, string>
+  columnWidths?: number[]
+  headerColor?: string
+  headerStyle?: string
+  contentColor?: string
+  contentBgColor?: string
+  theme?: string
+  borderStyle?: string
+  borderColor?: string
+}
+
 export type TableAction =
   | { type: 'generate'; rows: number; cols: number }
-  | { type: 'setCells'; cells: CellData[][] }
+  | { type: 'setCells'; cells: CellData[][]; mergedRanges?: MergeRange[]; styles?: CellsStyleMeta }
   | { type: 'updateCell'; cellId: string; value: string }
   | { type: 'addRow' }
   | { type: 'insertRowAt'; index: number }
@@ -30,6 +49,8 @@ export type TableAction =
   | { type: 'setRowColor'; row: number; color: string }
   | { type: 'setColumnColor'; col: number; color: string }
   | { type: 'setCellColor'; cellId: string; color: string }
+  | { type: 'setCellTextColor'; cellId: string; color: string }
+  | { type: 'setRowTextColor'; row: number; color: string }
   | { type: 'setColumnTextAlign'; col: number; align: TextAlign }
   | { type: 'setCellTextAlign'; cellId: string; align: TextAlign }
   | { type: 'setFreezeRow'; freeze: boolean }
@@ -41,3 +62,4 @@ export type TableAction =
   | { type: 'setCaptionAlignment'; alignment: CaptionAlignment }
   | { type: 'setCaptionTextColor'; color: string }
   | { type: 'setCaptionBgColor'; color: string }
+  | { type: 'setCaptionItalic'; italic: boolean }

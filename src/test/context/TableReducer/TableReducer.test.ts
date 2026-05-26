@@ -15,6 +15,42 @@ describe('TableReducer', () => {
     expect(next.cells[0]).toHaveLength(4)
   })
 
+  it('setCells resets headerStyle, headerColor and theme', () => {
+    const styled = reducer(initialState, { type: 'setHeaderStyle', headerStyle: 'none' })
+    const colored = reducer(styled, { type: 'setHeaderColor', color: '#ff0000' })
+    const dark = reducer(colored, { type: 'setTheme', theme: 'dark-header' })
+    expect(dark.headerStyle).toBe('first-row')
+    expect(dark.headerColor).toBe('#1E293B')
+    expect(dark.theme).toBe('dark-header')
+    const cells = generateEmptyTable(3, 3)
+    const next = reducer(dark, { type: 'setCells', cells })
+    expect(next.headerStyle).toBe('first-row')
+    expect(next.headerColor).not.toBe('#ff0000')
+  })
+
+  it('setCells resets cellTextColors', () => {
+    const colored = reducer(initialState, { type: 'setCellTextColor', cellId: 'R0C0', color: '#ff0000' })
+    expect(colored.cellTextColors).toEqual({ R0C0: '#ff0000' })
+    const cells = generateEmptyTable(3, 3)
+    const next = reducer(colored, { type: 'setCells', cells })
+    expect(next.cellTextColors).toEqual({})
+  })
+
+  it('setCells clears caption', () => {
+    const withCaption = reducer(initialState, { type: 'setCaption', caption: 'My Table' })
+    expect(withCaption.caption).toBe('My Table')
+    const cells = generateEmptyTable(3, 3)
+    const next = reducer(withCaption, { type: 'setCells', cells })
+    expect(next.caption).toBe('')
+  })
+
+  it('setCells resets mergedRanges and selectedRange', () => {
+    const cells = generateEmptyTable(3, 3)
+    const next = reducer(initialState, { type: 'setCells', cells })
+    expect(next.mergedRanges).toEqual([])
+    expect(next.selectedRange).toBeNull()
+  })
+
   it('processes UPDATE_CELL action', () => {
     const next = reducer(initialState, { type: 'updateCell', cellId: 'R0C0', value: 'test' })
     expect(next.cells[0][0].value).toBe('test')
@@ -91,6 +127,40 @@ describe('TableReducer', () => {
     expect(next.cols).toBeLessThanOrEqual(20)
   })
 
+  it('generate clears header cell values', () => {
+    const withHeaders = reducer(initialState, { type: 'updateCell', cellId: 'R0C0', value: 'Product' })
+    const withHeaders2 = reducer(withHeaders, { type: 'updateCell', cellId: 'R0C1', value: 'Price' })
+    expect(withHeaders2.cells[0][0].value).toBe('Product')
+    expect(withHeaders2.cells[0][1].value).toBe('Price')
+    const next = reducer(withHeaders2, { type: 'generate', rows: 5, cols: 5 })
+    expect(next.cells[0][0].value).toBe('')
+    expect(next.cells[0][1].value).toBe('')
+  })
+
+  it('generate clears caption', () => {
+    const withCaption = reducer(initialState, { type: 'setCaption', caption: 'My Table' })
+    expect(withCaption.caption).toBe('My Table')
+    const next = reducer(withCaption, { type: 'generate', rows: 3, cols: 3 })
+    expect(next.caption).toBe('')
+  })
+
+  it('generate clears caption text color and bg color', () => {
+    const colored = reducer(initialState, { type: 'setCaptionTextColor', color: '#ff0000' })
+    const withBg = reducer(colored, { type: 'setCaptionBgColor', color: '#eee' })
+    expect(withBg.captionTextColor).toBe('#ff0000')
+    expect(withBg.captionBgColor).toBe('#eee')
+    const next = reducer(withBg, { type: 'generate', rows: 3, cols: 3 })
+    expect(next.captionTextColor).toBe('')
+    expect(next.captionBgColor).toBe('')
+  })
+
+  it('generate resets captionAlignment to center', () => {
+    const leftAlign = reducer(initialState, { type: 'setCaptionAlignment', alignment: 'left' })
+    expect(leftAlign.captionAlignment).toBe('left')
+    const next = reducer(leftAlign, { type: 'generate', rows: 3, cols: 3 })
+    expect(next.captionAlignment).toBe('center')
+  })
+
   it('rejects addRow when at MAX_ROWS', () => {
     const big = reducer(initialState, { type: 'generate', rows: 50, cols: 5 })
     const next = reducer(big, { type: 'addRow' })
@@ -132,6 +202,50 @@ describe('TableReducer', () => {
       expect(next.headerColor).toBe(themeConfig.headerBg)
       expect(next.borderColor).toBe(themeConfig.borderColor)
     }
+  })
+
+  it('processes SET_CAPTION_ITALIC action to true', () => {
+    const next = reducer(initialState, { type: 'setCaptionItalic', italic: true })
+    expect(next.captionItalic).toBe(true)
+  })
+
+  it('processes SET_CAPTION_ITALIC action to false', () => {
+    const enabled = reducer(initialState, { type: 'setCaptionItalic', italic: true })
+    expect(enabled.captionItalic).toBe(true)
+    const next = reducer(enabled, { type: 'setCaptionItalic', italic: false })
+    expect(next.captionItalic).toBe(false)
+  })
+
+  it('setCells resets captionItalic to false', () => {
+    const enabled = reducer(initialState, { type: 'setCaptionItalic', italic: true })
+    expect(enabled.captionItalic).toBe(true)
+    const cells = generateEmptyTable(3, 3)
+    const next = reducer(enabled, { type: 'setCells', cells })
+    expect(next.captionItalic).toBe(false)
+  })
+
+  it('generate resets captionItalic to false', () => {
+    const enabled = reducer(initialState, { type: 'setCaptionItalic', italic: true })
+    expect(enabled.captionItalic).toBe(true)
+    const next = reducer(enabled, { type: 'generate', rows: 3, cols: 3 })
+    expect(next.captionItalic).toBe(false)
+  })
+
+  it('applyPreset resets captionItalic to false', () => {
+    const enabled = reducer(initialState, { type: 'setCaptionItalic', italic: true })
+    expect(enabled.captionItalic).toBe(true)
+    const next = reducer(enabled, {
+      type: 'applyPreset',
+      preset: { id: 'test', label: 'Test', rows: 3, cols: 3, headerStyle: 'first-row', headers: [] },
+    })
+    expect(next.captionItalic).toBe(false)
+  })
+
+  it('clearAll resets captionItalic to false', () => {
+    const enabled = reducer(initialState, { type: 'setCaptionItalic', italic: true })
+    expect(enabled.captionItalic).toBe(true)
+    const next = reducer(enabled, { type: 'clearAll' })
+    expect(next.captionItalic).toBe(false)
   })
 
   it('returns state unchanged for unknown action type', () => {

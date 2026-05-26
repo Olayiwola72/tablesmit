@@ -22,7 +22,7 @@ const tLabels = {
   insertColumnRight: 'Insert column right',
   paste: 'Paste',
   copy: 'Copy',
-  noColor: 'No color',
+  noColor: 'Clear',
 }
 
 function createProps(overrides: Partial<TableCtxMenuProps> = {}): TableCtxMenuProps {
