@@ -1,4 +1,4 @@
-# npx lint-staged
+npx lint-staged
 
 # Regenerate prerendered HTML when content pages change
 if git diff --cached --name-only | grep -q "^src/content/"; then
@@ -8,4 +8,4 @@ if git diff --cached --name-only | grep -q "^src/content/"; then
   git add "$PRERENDER_DIR/"
 fi
 
-# npm ci && npm run lint && npm run test -- --run && npm run build
+npm ci && npm run lint && npm run test -- --run && npm run build
