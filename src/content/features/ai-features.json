@@ -86,7 +86,7 @@
     "buttonLink": "/contact"
   },
   "relatedFeatures": ["find-replace", "column-types", "copy-table"],
-  "relatedPost": "best-table-tool-for-researchers",
+  "relatedPost": "ai-table-generator-features",
   "_codex_notes": {
     "note": "This page has status: 'coming-soon' at the top level. Render a prominent amber 'In development' banner below the hero. The aiFeatures array renders as a 2×2 card grid (or stacked on mobile). Each card: icon, name, status badge, description, and example (in a styled blockquote or code-like box). The cta object renders as a callout section at the bottom of the page before related features. Do not render the standard steps section for this page — replace with the cta section."
   }

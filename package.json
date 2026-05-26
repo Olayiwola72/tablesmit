@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build",
+    "build": "npm run generate-sitemap && vite build && cp -r $npm_package_config_prerenderDir/. dist/",
     "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
     "lint": "eslint .",
     "audit": "npm audit",
@@ -14,13 +14,16 @@
     "analyze": "ANALYZE=true npm run build",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "prerender": "npx tsx scripts/prerender.ts",
+    "prerender": "npx tsx scripts/prerender.ts --out-dir $npm_package_config_prerenderDir",
     "new-post": "npx tsx scripts/md-to-blog-post.ts",
     "prepare": "husky"
   },
   "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
   "overrides": {
     "uuid": "11.1.1"
+  },
+  "config": {
+    "prerenderDir": "prerendered"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

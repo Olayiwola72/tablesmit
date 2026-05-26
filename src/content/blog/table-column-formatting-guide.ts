@@ -71,6 +71,7 @@ CSV export ignores column types — CSV is a plain-text format with no formattin
 Types are safe to change at any point. Switching from Text to Number does not erase your data — it only changes how the existing values are displayed. If a value cannot be interpreted as a number, it displays as-is and is ignored in calculations.
 
 Open [Tablesmit](/) and select any column in your table, then open the Column Formatting panel to try the available types.`,
+  relatedFeature: 'column-types',
 }
 
 export default post

@@ -51,5 +51,5 @@
     "Bringing legacy Excel data into Tablesmit to merge cells and apply proper column types"
   ],
   "relatedFeatures": ["csv-import", "smart-paste", "excel-export"],
-  "relatedPost": "copy-excel-table-to-web"
+  "relatedPost": "how-to-import-excel-files-online-table"
 }

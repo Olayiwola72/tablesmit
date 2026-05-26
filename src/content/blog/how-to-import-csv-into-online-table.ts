@@ -71,6 +71,7 @@ For smaller amounts of data, copying from a spreadsheet and pasting directly int
 After editing the imported data, you can export it back to CSV with the same structure. This round-trip workflow — import, clean, format, export — is useful for preparing data that needs to be shared with people who use different tools.
 
 Import your CSV file into [Tablesmit](/) — click Import in the toolbar and select your file.`,
+  relatedFeature: 'csv-import',
 }
 
 export default post

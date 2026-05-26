@@ -7,10 +7,10 @@ import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 function ExportPanelRaw({
   onExport,
-  isExporting,
+  exportingFormat,
 }: {
   onExport: (format: ExportFormat) => void
-  isExporting: boolean
+  exportingFormat: ExportFormat | null
 }): ReactNode {
   const { t } = useTranslation()
 
@@ -19,7 +19,7 @@ function ExportPanelRaw({
       <SectionLabel>{t('panels.export')}</SectionLabel>
       <div className="grid grid-cols-2 gap-2">
         {exportFormats.map((item) => (
-          <Button key={item.format} variant="secondary" size="sm" isLoading={isExporting} onClick={() => onExport(item.format)}>
+          <Button key={item.format} variant="secondary" size="sm" isLoading={exportingFormat === item.format} onClick={() => onExport(item.format)}>
             {t(`export.${item.format}`)}
           </Button>
         ))}

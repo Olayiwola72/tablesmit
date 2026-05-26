@@ -83,6 +83,13 @@
     "nextAria": "Aller à la page suivante",
     "pageAria": "Aller à la page {{number}}"
   },
+  "search": {
+    "ariaLabel": "Rechercher",
+    "placeholder": "Rechercher\u2026",
+    "clear": "Effacer la recherche",
+    "noResults": "Aucun résultat ne correspond à votre recherche.",
+    "resultsCount": "Affichage de {{count}} sur {{total}} résultats"
+  },
   "blog": {
     "heading": "Des articles sur les tableaux, la structure et la pensée analytique.",
     "featured": "À la une",
@@ -407,6 +414,7 @@
     "subtext": "Tout ce dont vous avez besoin pour créer des tableaux structurés et propres.",
     "learnMore": "En savoir plus",
     "emptyState": "Aucune fonctionnalité répertoriée pour le moment.",
+    "searchPlaceholder": "Rechercher des fonctionnalités par nom ou description\u2026",
     "backToFeatures": "Retour aux fonctionnalités",
     "benefits": "Avantages",
     "howItWorks": "Comment ça marche",

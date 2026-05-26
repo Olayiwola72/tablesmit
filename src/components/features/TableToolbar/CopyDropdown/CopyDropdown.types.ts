@@ -5,4 +5,5 @@ export interface CopyDropdownProps {
   onCopyLatex: () => void
   onCopyImage: () => void
   onCopyHtml: () => void
+  isCopyingImage?: boolean
 }

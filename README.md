@@ -14,6 +14,12 @@ No account. No bloat. Free and open source.
 
 ---
 
+<p align="center">
+  <img src="./public/launch/tablesmit_demo_light_mode.png" alt="Tablesmit demo — building a comparison table" width="700">
+</p>
+
+---
+
 ## What is Tablesmit?
 
 Tablesmit is a browser-based table editor built for writers, analysts, and researchers who need clean, structured tables — not a spreadsheet.
@@ -125,7 +131,7 @@ tablesmit/
 │   └── locales/                     # i18n JSON per language (ar, de, es, fr, ja, no, pt)
 │
 ├── scripts/
-│   ├── prerender.ts                  # Playwright-based static HTML generation
+│   ├── prerender.ts                  # Playwright-based prerender — run locally before content commits
 │   ├── md-to-blog-post.ts            # .md → blog .ts file converter
 │   └── sitemap/gen-sitemap.ts        # Sitemap generator
 │
@@ -146,18 +152,18 @@ tablesmit/
 │   │   └── features/                 # Domain components: TableGrid, ExportPanel, TableToolbar, BorderPanel, FindReplace, TableCaption, ThemePicker, etc.
 │   ├── pages/                        # 12 lazy-loaded pages (About, Blog, Contact, Contact, Features, OpenSource, Privacy, Terms, Changelog, Testimonials, 404)
 │   ├── context/                      # TableContext (cells) + TableSelectionContext (selection) + TableProvider (everything else) — split to minimise re-renders
-│   ├── hooks/                        # 15 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, etc.
+│   ├── hooks/                        # 17 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, useBlogSearch, useFeatureSearch, etc.
 │   ├── services/                     # exportService (strategy pattern), importService, blogService, featureService
 │   ├── i18n/                         # i18next init, locale config, English JSON source of truth
-│   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, cell, toast, analytics, dateUtils
+│   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, searchUtils, cell, toast, analytics, dateUtils
 │   ├── types/                        # Shared table types: CellData, MergeRange, HeaderStyle, TableTheme, PresetDefinition, etc.
 │   ├── config/                       # siteConfig (SSoT), changelog, presets, colorPalette, tableThemes, export config, testimonials
 │   ├── constants/
 │   ├── content/
-│   │   ├── blog/                     # 21 blog posts as .ts modules (auto-discovered via import.meta.glob)
-│   │   └── features/                 # 27 feature pages as .json (auto-discovered)
+│   │   ├── blog/                     # 34 blog posts as .ts modules (auto-discovered via import.meta.glob)
+│   │   └── features/                 # 30 feature pages as .json (auto-discovered)
 │   ├── styles/globals.css            # Tailwind directives + @font-face + print styles + dark mode
-│   ├── test/                         # 143 test files mirroring src/ structure
+│   ├── test/                         # 148 test files mirroring src/ structure
 │   ├── App.tsx                       # Router + providers only — zero business logic
 │   ├── main.tsx                      # ReactDOM root + Sonner Toaster
 │   ├── pwa.ts                        # Service worker registration
@@ -264,8 +270,11 @@ npx vitest run --coverage
 # Run lint
 npm run lint
 
-# Build (generates sitemap + prerenders routes)
+# Build (generates sitemap + bundles app + copies prerendered content)
 npm run build
+
+# Prerender static HTML for content pages (run locally before content commits)
+npm run prerender
 ```
 
 ---
@@ -281,6 +290,33 @@ cp .env.example .env
 See `.env.example` for all available variables. Never commit `.env`.
 
 ---
+
+## Prerendering content pages
+
+Content pages (About, Blog, Features, etc.) are prerendered as static HTML for
+SEO and social previews. The homepage stays as a live SPA.
+
+**Local workflow:**
+
+```bash
+# After adding or editing blog posts, feature pages, or any content:
+npm run prerender
+
+# This generates static HTML into prerendered/ using Playwright.
+# Commit prerendered/ alongside your content changes.
+```
+
+**How it works:**
+
+```
+npm run prerender           → Playwright visits routes, writes HTML to prerendered/
+git add prerendered/         → prerendered content is committed to git
+npm run build                → vite build + copies prerendered/ into dist/
+Netlify deploy               → content pages served as static HTML
+```
+
+The homepage (`/`) is never prerendered — it remains an interactive SPA.
+The `prerendered/` folder is committed to git so CI never needs Playwright.
 
 ## Deployment
 

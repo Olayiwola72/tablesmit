@@ -25,9 +25,11 @@ describe('Button', () => {
     expect(onClick).not.toHaveBeenCalled()
   })
 
-  it('sets aria-busy when isLoading', () => {
+  it('sets aria-busy and renders spinner when isLoading', () => {
     render(<Button variant="primary" isLoading>Go</Button>)
-    expect(screen.getByRole('button')).toHaveAttribute('aria-busy', 'true')
+    const button = screen.getByRole('button')
+    expect(button).toHaveAttribute('aria-busy', 'true')
+    expect(button.querySelector('svg.animate-spin')).toBeInTheDocument()
   })
 
   it('forwards className', () => {

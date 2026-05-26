@@ -50,4 +50,17 @@ describe('all blog posts', () => {
       expect(post.description.length).toBeLessThanOrEqual(160)
     }
   })
+
+  it('relatedFeature references an existing feature page slug when present', () => {
+    const features = ['merge-cells', 'pdf-export', 'latex-export', 'freeze-panes', 'column-sorting',
+      'find-replace', 'csv-import', 'copy-table', 'templates', 'dark-mode', 'offline', 'column-types',
+      'border-styles', 'context-menu', 'custom-headers', 'excel-import', 'table-caption', 'table-themes',
+      'undo', 'auto-sum', 'drag-to-resize', 'image-export', 'keyboard-shortcuts', 'ai-features',
+      'markdown-table', 'academic-tables', 'accessible-tables', 'smart-paste']
+    for (const post of posts) {
+      if (post.relatedFeature) {
+        expect(features).toContain(post.relatedFeature)
+      }
+    }
+  })
 })

@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button/Button'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { siteConfig } from '../../config/siteConfig'
 
 const { brand, routes } = siteConfig
@@ -27,6 +28,12 @@ export function AboutPage(): ReactNode {
         <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.about}`} />
       </Helmet>
       <main className="bg-white">
+      <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumb segments={[
+          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.about') },
+        ]} />
+      </div>
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <h1 className="mx-auto max-w-3xl text-3xl font-bold leading-tight text-text-primary sm:text-4xl lg:text-5xl">
           {t('hero.headline')}

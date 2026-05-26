@@ -3,18 +3,38 @@ import path from 'node:path'
 import { spawn, execSync } from 'node:child_process'
 import { chromium } from 'playwright'
 
+function readPackageConfig(): { prerenderDir: string } {
+  try {
+    const pkgPath = path.resolve(import.meta.dirname, '..', 'package.json')
+    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf-8'))
+    return { prerenderDir: pkg.config?.prerenderDir ?? 'prerendered' }
+  } catch {
+    return { prerenderDir: 'prerendered' }
+  }
+}
+
+export const PRERENDER_OUT_DIR = readPackageConfig().prerenderDir
+
 const PORT = 4173
 const BASE_URL = `http://localhost:${PORT}`
 const ROOT = path.resolve(import.meta.dirname, '..')
-const DIST = path.resolve(ROOT, 'dist')
 const CONTENT_DIR = path.resolve(ROOT, 'src/content')
 const VITE_BIN = path.resolve(ROOT, 'node_modules', '.bin', 'vite')
 const SERVER_TIMEOUT = 90_000
 
+// ── CLI arg parsing ──
+
+export function parseArgs(argv: string[]): { outDir: string } {
+  const idx = argv.indexOf('--out-dir')
+  if (idx !== -1 && idx + 1 < argv.length) {
+    return { outDir: path.resolve(ROOT, argv[idx + 1]) }
+  }
+  return { outDir: path.resolve(ROOT, PRERENDER_OUT_DIR) }
+}
+
 // ── Route discovery ──
 
-const STATIC_ROUTES: string[] = [
-  '/',
+export const STATIC_ROUTES: string[] = [
   '/about',
   '/open-source',
   '/blog',
@@ -26,25 +46,32 @@ const STATIC_ROUTES: string[] = [
   '/testimonials',
 ]
 
-function getBlogRoutes(): string[] {
-  const blogDir = path.join(CONTENT_DIR, 'blog')
-  if (!fs.existsSync(blogDir)) return []
-  return fs
-    .readdirSync(blogDir)
+export function getBlogRoutes(
+  contentDir: string,
+  exists: (p: string) => boolean,
+  readDir: (p: string) => string[],
+): string[] {
+  const blogDir = path.join(contentDir, 'blog')
+  if (!exists(blogDir)) return []
+  return readDir(blogDir)
     .filter((f) => f.endsWith('.ts'))
     .map((f) => `/blog/${f.replace(/\.ts$/, '')}`)
 }
 
-function getFeatureRoutes(): string[] {
-  const featuresDir = path.join(CONTENT_DIR, 'features')
-  if (!fs.existsSync(featuresDir)) return []
-  return fs
-    .readdirSync(featuresDir)
+export function getFeatureRoutes(
+  contentDir: string,
+  exists: (p: string) => boolean,
+  readDir: (p: string) => string[],
+  readFile: (p: string) => string,
+): string[] {
+  const featuresDir = path.join(contentDir, 'features')
+  if (!exists(featuresDir)) return []
+  return readDir(featuresDir)
     .filter((f) => f.endsWith('.json'))
     .map((f) => {
       const filePath = path.join(featuresDir, f)
       try {
-        const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as Record<string, unknown>
+        const raw = JSON.parse(readFile(filePath)) as Record<string, unknown>
         const slug = typeof raw.slug === 'string' ? raw.slug : f.replace(/\.json$/, '')
         return `/features/${slug}`
       } catch {
@@ -53,8 +80,17 @@ function getFeatureRoutes(): string[] {
     })
 }
 
-function getAllRoutes(): string[] {
-  return [...STATIC_ROUTES, ...getBlogRoutes(), ...getFeatureRoutes()]
+export function getAllRoutes(
+  contentDir: string,
+  exists: (p: string) => boolean,
+  readDir: (p: string) => string[],
+  readFile: (p: string) => string,
+): string[] {
+  return [
+    ...STATIC_ROUTES,
+    ...getBlogRoutes(contentDir, exists, readDir),
+    ...getFeatureRoutes(contentDir, exists, readDir, readFile),
+  ]
 }
 
 // ── Playwright check ──
@@ -122,15 +158,18 @@ async function prerender(): Promise<void> {
     return
   }
 
-  const indexPath = path.join(DIST, 'index.html')
+  const { outDir } = parseArgs(process.argv)
+  const buildDir = path.resolve(ROOT, 'dist')
+  const indexPath = path.join(buildDir, 'index.html')
+
   if (!fs.existsSync(indexPath)) {
     console.warn('⚠ Build not found. Skipping prerender.')
     console.warn('  Run `npm run build` first or ensure dist/ exists.')
     return
   }
 
-  const routes = getAllRoutes()
-  console.log(`Prerendering ${routes.length} routes with Chromium…`)
+  const routes = getAllRoutes(CONTENT_DIR, (p) => fs.existsSync(p), (p) => fs.readdirSync(p), (p) => fs.readFileSync(p, 'utf-8'))
+  console.log(`Prerendering ${routes.length} routes to ${outDir}…`)
 
   console.log('Starting vite preview server…')
   const stopServer = await startServer()
@@ -153,8 +192,8 @@ async function prerender(): Promise<void> {
 
       const outputPath =
         route === '/'
-          ? path.join(DIST, 'index.html')
-          : path.join(DIST, route.slice(1), 'index.html')
+          ? path.join(outDir, 'index.html')
+          : path.join(outDir, route.slice(1), 'index.html')
 
       fs.mkdirSync(path.dirname(outputPath), { recursive: true })
       fs.writeFileSync(outputPath, html, 'utf-8')
@@ -177,6 +216,9 @@ async function prerender(): Promise<void> {
   if (failCount > 0) process.exit(1)
 }
 
-prerender().catch((err) => {
-  console.warn(`⚠ Prerender skipped: ${err.message}`)
-})
+// ── CLI entry ──
+if (!process.env.VITEST) {
+  prerender().catch((err: Error) => {
+    console.warn(`⚠ Prerender skipped: ${err.message}`)
+  })
+}

@@ -89,7 +89,7 @@
     "Using Monochrome theme for tables that will appear in a printed or black-and-white document"
   ],
   "relatedFeatures": ["custom-headers", "pdf-export", "border-styles"],
-  "relatedPost": "best-table-tool-for-researchers",
+  "relatedPost": "how-to-apply-table-themes",
   "_codex_notes": {
     "note": "The 'themes' array is additional data specific to this page. In FeatureDetailPage, if page.themes exists, render a ThemePreviewGrid component between the benefits and steps sections. Each theme card shows: name, description, bestFor, and a small SVG thumbnail preview of the theme's visual style (header colour, row treatment)."
   }

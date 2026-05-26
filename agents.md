@@ -856,7 +856,7 @@ tablesmit/
 │       └── no/common.json
 │
 ├── scripts/
-│   ├── prerender.ts                    # Playwright-based prerender for SEO
+│   ├── prerender.ts                    # Playwright-based prerender — run locally, output to prere­ndered/
 │   ├── md-to-blog-post.ts              # Helper: .md → blog JSON
 │   └── sitemap/
 │       ├── generate-sitemap.ts
@@ -970,6 +970,9 @@ tablesmit/
 │   │       │   └── MobileFloatingActions.tsx
 │   │       ├── QuickPresetsPanel/
 │   │       │   └── QuickPresetsPanel.tsx
+│   │       ├── SearchBar/
+│   │       │   ├── SearchBar.tsx
+│   │       │   └── SearchBar.types.ts
 │   │       ├── ShortcutsModal/
 │   │       │   └── ShortcutsModal.tsx
 │   │       ├── StatusBar/
@@ -1049,11 +1052,13 @@ tablesmit/
 │   │   # no index.ts — contexts imported directly from their .tsx files
 │   │
 │   ├── hooks/                           # Each in own directory with optional .types.ts
+│   │   ├── useBlogSearch/
 │   │   ├── useClipboardPaste/
 │   │   ├── useColumnResize/
 │   │   ├── useColumnSort/
 │   │   ├── useCopyTable/
 │   │   ├── useExport/
+│   │   ├── useFeatureSearch/
 │   │   ├── useFindReplace/
 │   │   ├── useImport/
 │   │   ├── useMergeCells/
@@ -1099,6 +1104,7 @@ tablesmit/
 │   │   ├── latexUtils/                  # cellsToLatex() — cells → LaTeX tabular string; parseLatexTabular() — LaTeX → string[][]
 │   │   ├── markdownUtils/               # parseMarkdownTable() — detects and parses Markdown pipe tables → string[][]
 │   │   ├── mergeUtils/                  # Merge range math
+│   │   ├── searchUtils/                 # searchItems() — generic search utility with boost-field ranking
 │   │   ├── tableUtils/                  # Pure table transformation functions
 │   │   └── toast/                       # Sonner toast wrapper + TOAST consts
 │   │
@@ -1125,14 +1131,8 @@ tablesmit/
 │   │   └── keys.ts                     # Keyboard key constants
 │   │
 │   ├── content/
-│   │   ├── blog/                       # Auto-discovered via import.meta.glob
-│   │   │   ├── best-table-tool-for-researchers.ts
-│   │   │   ├── copy-excel-table-to-web.ts
-│   │   │   ├── free-online-table-makers-compared.ts
-│   │   │   ├── how-to-export-table-to-pdf.ts
-│   │   │   ├── how-to-make-a-table-in-markdown.ts
-│   │   │   └── how-to-merge-cells-in-online-table.ts
-│   │   └── features/                   # 27 feature page JSON definitions
+│   │   ├── blog/                       # 34 posts — auto-discovered via import.meta.glob (see Section 58)
+│   │   └── features/                   # 30 feature page JSON definitions
 │   │
 │   ├── styles/
 │   │   └── globals.css                 # Tailwind directives + print styles
@@ -1145,18 +1145,18 @@ tablesmit/
 │   │   ├── App.test.tsx
 │   │   ├── config/                     # 8 test files
 │   │   ├── constants/                  # keys.test.ts
-│   │   ├── content/                    # blog.test.ts, features.test.ts
+│   │   ├── content/                    # 4 test files (blog.test.ts, features.test.ts, search tests)
 │   │   ├── context/                    # 6 test files (TableContext, TableProvider, TableReducer, etc.)
-│   │   ├── hooks/                      # 15 test files (all hooks tested)
+│   │   ├── hooks/                      # 17 test files (all hooks tested)
 │   │   ├── i18n/                       # config.test.ts, i18n.test.ts
 │   │   ├── lib/                        # utils.test.ts (cn() tests)
-│   │   ├── pages/                      # 13 test files (every page tested)
-│   │   ├── services/                   # 12 test files (all services)
+│   │   ├── pages/                      # 15 test files (every page tested)
+│   │   ├── services/                   # 14 test files (all services)
 │   │   ├── components/
 │   │   │   ├── ui/                     # 16 test files (every UI component)
 │   │   │   ├── layout/                 # 6 test files (every layout component)
-│   │   │   └── features/               # 45 test files (every feature component)
-│   │   └── utils/                      # 11 test files (every util)
+│   │   │   └── features/               # 48 test files (every feature component)
+│   │   └── utils/                      # 13 test files (every util)
 │   │
 │   ├── App.tsx                         # Router + providers only. Zero business logic.
 │   └── main.tsx                        # ReactDOM.createRoot + Sentry + Toaster.
@@ -2775,11 +2775,11 @@ Route: `/changelog`. Data-driven from `src/config/changelog/changelog.ts` typed 
 
 ### Feature Landing Pages
 
-23 feature JSON files in `src/content/features/`. `FeaturesListPage` card grid with icon, description, category. `FeatureDetailPage` with hero + conditional sections (benefits, use cases, steps, CTA, related). Routes: `/features` and `/features/:slug` lazy-loaded. `featureService.ts` — `import.meta.glob` auto-discovery. `FeatureSections/` — 6 reusable section components.
+30 feature JSON files in `src/content/features/`. `FeaturesListPage` card grid with icon, description, category. `FeatureDetailPage` with hero + conditional sections (benefits, use cases, steps, CTA, related). Routes: `/features` and `/features/:slug` lazy-loaded. `featureService.ts` — `import.meta.glob` auto-discovery. `FeatureSections/` — 6 reusable section components.
 
 ### Blog System
 
-Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `import.meta.glob`. `BlogListPage` with card grid, tags, dates, featured badge (paginated at 6 per page via `ITEMS_PER_PAGE`). `BlogPostPage` with ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data. 21 posts live. `scripts/md-to-blog-post.ts` helper. Blog section in README.
+Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `import.meta.glob`. `BlogListPage` with card grid, tags, dates, featured badge (paginated at 6 per page via `ITEMS_PER_PAGE`). `BlogPostPage` with ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data. 34 posts live. `scripts/md-to-blog-post.ts` helper. Blog section in README.
 
 ### Security
 
@@ -2818,8 +2818,8 @@ GitHub issue templates (`bug_report.md`, `feature_request.md`). `pull_request_te
 8 languages: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian. English bundled at build time (`src/i18n/locales/en.json` — zero network requests). Other locales served from `public/locales/{code}/common.json` as static assets. Only the detected language is fetched eagerly on init; all others are fetched lazily on language switch. `hasResourceBundle()` guards against re-fetching already-loaded locales. RTL for Arabic via `document.documentElement.dir = 'rtl'`. Language picker in Navbar. Brand name never translated. All toast messages use `useTranslation` with interpolation variables. All aria-labels translated. `useSuspense: false` — manual fetch pattern handles loading asynchronously.
 
 ### Content — v8.0 Targets
-- [x] Blog posts committed to `src/content/blog/` (Section 58 — 21 posts live)
-- [x] Feature landing pages — system built + 27 JSON files live in `src/content/features/` (Section 59)
+- [x] Blog posts committed to `src/content/blog/` (Section 58 — 34 posts live)
+- [x] Feature landing pages — system built + 30 JSON files live in `src/content/features/` (Section 59)
 - [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
   - [x] Google Search Console — verified + sitemap submitted (Section 38G)
   - [x] Netlify env vars — `VITE_GA4_MEASUREMENT_ID` and `VITE_SENTRY_DSN` set in dashboard (Section 53)
@@ -7614,12 +7614,12 @@ on first render (zero network requests).
 
 **Live:** Tablesmit is live at tablesmit.com, indexed in Google Search Console, and tracked via GA4 (consent-gated) and Sentry (lazy-loaded, production-only).
 
-**Content:** 21 blog posts and 27 feature landing pages published. Sitemap updated with all URLs.
+**Content:** 34 blog posts and 30 feature landing pages published. Sitemap updated with all URLs.
 
 ```
 CONTENT — must ship before any promotion:
-[x] Blog posts — 21 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
-[x] Feature landing pages — system built + 27 JSON files live (Section 59)
+[x] Blog posts — 34 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
+[x] Feature landing pages — system built + 30 JSON files live (Section 59)
 [x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
 [x] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
 ```
@@ -7636,15 +7636,28 @@ CONTENT — must ship before any promotion:
 
 ## 58. Blog Posts — Content Specification
 
-21 posts live in `src/content/blog/`. All follow the TypeScript `BlogPost` format described in Section 56.
+34 posts live in `src/content/blog/`. All follow the TypeScript `BlogPost` format described in Section 56.
 
 ### All Posts (newest first)
 
 | Date | Slug | Featured |
 |---|---|---|
+| 2026-06-01 | `how-to-add-table-borders-online` | |
+| 2026-05-31 | `how-to-use-right-click-table-editor` | |
+| 2026-05-30 | `how-to-customize-table-headers-online` | |
+| 2026-05-29 | `how-to-import-excel-files-online-table` | |
+| 2026-05-28 | `how-to-add-caption-to-table` | |
+| 2026-05-27 | `how-to-apply-table-themes` | |
+| 2026-05-26 | `how-to-undo-table-editing-online` | |
+| 2026-05-25 | `how-to-auto-sum-columns-table` | |
+| 2026-05-24 | `how-to-resize-table-columns-rows` | |
+| 2026-05-23 | `how-to-export-table-as-image` | |
 | 2026-05-23 | `how-to-make-a-pricing-table` | |
 | 2026-05-22 | `table-column-formatting-guide` | |
+| 2026-05-22 | `table-builder-keyboard-shortcuts-guide` | ✅ |
 | 2026-05-21 | `offline-table-builder` | |
+| 2026-05-21 | `ai-table-generator-features` | |
+| 2026-05-20 | `markdown-table-generator-online` | |
 | 2026-05-15 | `how-to-merge-cells-in-online-table` | |
 | 2026-05-14 | `best-table-tool-for-researchers` | ✅ |
 | 2026-05-11 | `how-to-freeze-header-row-in-table` | |
@@ -7682,39 +7695,42 @@ CONTENT — must ship before any promotion:
 
 ## 59. Feature Landing Pages — Content Specification
 
-27 JSON files cover every visible UI feature. All files live at `src/content/features/`.
+30 JSON files cover every visible UI feature. All files live at `src/content/features/`.
 The system architecture (auto-discovery via `import.meta.glob`) mirrors the blog system in Section 56.
 
 ### Complete Feature Pages List
 
 | Filename | Route | Target keyword | Status |
-|---|---|---|---|
-| `excel-export.json` | /features/excel-export | export table to excel online | ✅ Ready |
-| `pdf-export.json` | /features/pdf-export | export table to pdf online | ✅ Ready |
-| `csv-import.json` | /features/csv-import | import csv to table online | ✅ Ready |
+|---|---|---|---|---|
+| `academic-tables.json` | /features/academic-tables | academic table maker for research | ✅ Ready |
+| `accessible-tables.json` | /features/accessible-tables | accessible online table builder | ✅ Ready |
+| `ai-features.json` | /features/ai-features | ai table generator | ✅ Ready |
+| `auto-sum.json` | /features/auto-sum | auto sum table column online | ✅ Ready |
+| `border-styles.json` | /features/border-styles | table border styles online | ✅ Ready |
+| `column-sorting.json` | /features/column-sorting | sort table columns online | ✅ Ready |
+| `column-types.json` | /features/column-types | table column formatting online | ✅ Ready |
+| `context-menu.json` | /features/context-menu | right click table context menu | ✅ Ready |
+| `copy-table.json` | /features/copy-table | copy table as image | ✅ Ready |
 | `csv-export.json` | /features/csv-export | export table to csv online | ✅ Ready |
-| `image-export.json` | /features/image-export | export table as image png | ✅ Ready |
-| `merge-cells.json` | /features/merge-cells | merge cells online table | ✅ Ready |
+| `csv-import.json` | /features/csv-import | import csv to table online | ✅ Ready |
 | `custom-headers.json` | /features/custom-headers | custom table headers online | ✅ Ready |
+| `dark-mode.json` | /features/dark-mode | dark mode table builder | ✅ Ready |
 | `drag-to-resize.json` | /features/drag-to-resize | resize table columns online | ✅ Ready |
+| `excel-export.json` | /features/excel-export | export table to excel online | ✅ Ready |
+| `excel-import.json` | /features/excel-import | import excel to table online | ✅ Ready |
+| `find-replace.json` | /features/find-replace | find and replace in table | ✅ Ready |
+| `freeze-panes.json` | /features/freeze-panes | freeze header row online | ✅ Ready |
+| `image-export.json` | /features/image-export | export table as image png | ✅ Ready |
 | `keyboard-shortcuts.json` | /features/keyboard-shortcuts | table builder keyboard shortcuts | ✅ Ready |
+| `latex-export.json` | /features/latex-export | export table to latex | ✅ Ready |
+| `markdown-table.json` | /features/markdown-table | markdown table generator online | ✅ Ready |
+| `merge-cells.json` | /features/merge-cells | merge cells online table | ✅ Ready |
+| `offline.json` | /features/offline | offline table builder | ✅ Ready |
+| `pdf-export.json` | /features/pdf-export | export table to pdf online | ✅ Ready |
+| `smart-paste.json` | /features/smart-paste | smart paste from excel | ✅ Ready |
+| `table-caption.json` | /features/table-caption | table title caption field | ✅ Ready |
 | `table-themes.json` | /features/table-themes | table styles online | ✅ Ready |
 | `templates.json` | /features/templates | table templates online free | ✅ Ready |
-| `border-styles.json` | /features/border-styles | table border styles online | ✅ Ready |
-| `freeze-panes.json` | /features/freeze-panes | freeze header row online | ✅ Ready |
-| `copy-table.json` | /features/copy-table | copy table as image | ✅ Ready |
-| `find-replace.json` | /features/find-replace | find and replace in table | ✅ Ready |
-| `column-types.json` | /features/column-types | table column formatting online | ✅ Ready |
-| `table-caption.json` | /features/table-caption | table title caption field | ✅ Ready |
-| `column-sorting.json` | /features/column-sorting | sort table columns online | ✅ Ready |
-| `ai-features.json` | /features/ai-features | ai table generator | ✅ Ready |
-| `dark-mode.json` | /features/dark-mode | dark mode table builder | ✅ Ready |
-| `auto-sum.json` | /features/auto-sum | auto sum table column online | ✅ Ready |
-| `context-menu.json` | /features/context-menu | right click table context menu | ✅ Ready |
-| `excel-import.json` | /features/excel-import | import excel to table online | ✅ Ready |
-| `latex-export.json` | /features/latex-export | export table to latex | ✅ Ready |
-| `offline.json` | /features/offline | offline table builder | ✅ Ready |
-| `smart-paste.json` | /features/smart-paste | smart paste from excel | ✅ Ready |
 | `undo.json` | /features/undo | undo table editing online | ✅ Ready |
 
 ### Schema Extensions Required
@@ -7736,7 +7752,7 @@ These are **runtime-only** — the `FeaturePage` type in `featureService.types.t
 
 ### Implementation
 
-All 27 feature JSON files committed to `src/content/features/`. `featureService.ts` with `import.meta.glob` auto-discovery and slug derivation. `FeaturesListPage` renders responsive card grid. `FeatureDetailPage` handles hero + conditional sections (benefits, use cases, steps, CTA, related). Routes `/features` and `/features/:slug` lazy-loaded. Each page sets `metaTitle`, `metaDescription`, `og:url`, and JSON-LD via `react-helmet-async`. Special pages handled: `ai-features` shows amber 'In development' banner, `keyboard-shortcuts` renders ShortcutsTable, `image-export` shows PNG vs JPEG comparison table, `copy-table` shows 'Coming soon' badge on image mode card, `context-menu` renders two reference panels. All 6 section components (`Hero`, `Benefits`, `UseCases`, `Steps`, `Cta`, `Related`) reusable across pages. Sitemap updated. Tests cover auto-discovery, slug derivation, not-found, and page rendering.
+All 30 feature JSON files committed to `src/content/features/`. `featureService.ts` with `import.meta.glob` auto-discovery and slug derivation. `FeaturesListPage` renders responsive card grid. `FeatureDetailPage` handles hero + conditional sections (benefits, use cases, steps, CTA, related). Routes `/features` and `/features/:slug` lazy-loaded. Each page sets `metaTitle`, `metaDescription`, `og:url`, and JSON-LD via `react-helmet-async`. Special pages handled: `ai-features` shows amber 'In development' banner, `keyboard-shortcuts` renders ShortcutsTable, `image-export` shows PNG vs JPEG comparison table, `copy-table` shows 'Coming soon' badge on image mode card, `context-menu` renders two reference panels. All 6 section components (`Hero`, `Benefits`, `UseCases`, `Steps`, `Cta`, `Related`) reusable across pages. Sitemap updated. Tests cover auto-discovery, slug derivation, not-found, and page rendering.
 
 ---
 
@@ -7834,6 +7850,113 @@ Dashed border box: border-2 border-dashed border-border rounded-md p-10
 The page should not go live in marketing materials while it is empty.
 Collect at least 3 real testimonials before including `/testimonials` in
 any Product Hunt or Hacker News launch materials.
+
+---
+
+## 61. Blog & Feature Search
+
+Search across blog posts and feature pages with live filtering and category/boost-field ranking.
+
+### Components
+
+#### SearchBar (`src/components/features/SearchBar/`)
+
+A reusable search input with: debounced input (200ms), clear button, search icon, and
+optional placeholder text. Renders `SearchBar.types.ts` props interface:
+- `query: string` — current search value
+- `onQueryChange: (q: string) => void` — debounced callback
+- `placeholder?: string` — custom placeholder
+- `resultsCount?: number` — displayed as "N results" badge
+
+### Hooks
+
+#### `useBlogSearch` (`src/hooks/useBlogSearch/`)
+
+Filters the blog post list client-side:
+- `searchQuery` + `setSearchQuery` state
+- `filteredPosts` — `useMemo` that filters `getAllPosts()` by title, description, tags, and content
+- Match count returned as `resultsCount`
+- Case-insensitive, trims query, returns full array when query is empty
+
+#### `useFeatureSearch` (`src/hooks/useFeatureSearch/`)
+
+Filters feature pages client-side:
+- Same API as `useBlogSearch` but operates on `getAllFeatures()`
+- Searches title, description, and slug fields
+- Boost-field ranking: title matches rank higher than description matches, which rank higher than slug matches
+- Uses `searchItems()` from `src/utils/searchUtils/` for the ranking
+
+### Utility
+
+#### `searchUtils` (`src/utils/searchUtils/`)
+
+Generic search utility with boost-field ranking:
+```ts
+function searchItems<T>(
+  items: T[],
+  query: string,
+  fields: { field: keyof T; weight: number }[]
+): T[]
+```
+- `fields` array specifies which fields to search and their relative weight
+- `weight: 3` = title (highest), `weight: 2` = description, `weight: 1` = slug/tags
+- Case-insensitive substring matching
+- Returns items sorted by cumulative score (highest first)
+- Items with zero score are excluded from results
+
+### Integration
+
+- `BlogListPage` uses `useBlogSearch` to filter posts as user types in `SearchBar`
+- `FeaturesListPage` uses `useFeatureSearch` similarly
+- `SearchBar` placed above the card grid on both pages
+- Empty search shows all items (no filter applied)
+- When query is non-empty and results are empty: "No results found" empty state
+
+### Tests Required (8 test files)
+```ts
+// src/test/hooks/useBlogSearch.test.ts
+describe('useBlogSearch', () => {
+  it('returns all posts when query is empty')
+  it('filters by title match')
+  it('filters by description match')
+  it('filters by tag match')
+  it('filters by content match')
+  it('is case-insensitive')
+  it('trim whitespace from query')
+  it('match count is zero when no results')
+})
+
+// src/test/hooks/useFeatureSearch.test.ts
+describe('useFeatureSearch', () => {
+  it('returns all features when query is empty')
+  it('filters by title match')
+  it('filters by description match')
+  it('title matches rank higher than description matches')
+  it('description matches rank higher than slug matches')
+})
+
+// src/test/utils/searchUtils.test.ts
+describe('searchItems', () => {
+  it('returns all items for empty query')
+  it('filters items matching any field')
+  it('scores title matches higher than other fields')
+  it('returns empty array when no matches')
+  it('handles case-insensitive matching')
+  it('handles query with leading/trailing whitespace')
+  it('returns items sorted by score descending')
+})
+
+// src/test/components/features/SearchBar/SearchBar.test.tsx
+describe('SearchBar', () => {
+  it('renders with placeholder text')
+  it('calls onQueryChange on user input')
+  it('debounces input by 200ms')
+  it('shows clear button when query is non-empty')
+  it('clears input on clear button click')
+  it('shows results count badge')
+  it('calls onQueryChange with empty string on clear')
+})
+```
 
 ---
 
@@ -8024,9 +8147,9 @@ in the branch protection settings above.
 {
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && npx tsx scripts/prerender.ts",
+    "build": "npm run generate-sitemap && vite build && cp -r prerendered/. dist/",
     "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
-    "prerender": "npx tsx scripts/prerender.ts",
+    "prerender": "npx tsx scripts/prerender.ts --out-dir prerendered",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
@@ -8041,7 +8164,7 @@ in the branch protection settings above.
 
 2. **`vite build`** — Compiles the app via esbuild (not tsc). Vite's rolldown bundler generates code-split chunks per route, per vendor library, and per locale. `manualChunks` splits vendor-react, vendor-ui, vendor-i18n, vendor-sentry, vendor-pdf, vendor-canvas, vendor-excel. Output to `dist/`.
 
-3. **`prerender`** — Playwright-based static HTML generation. Starts `vite preview`, visits every route (static + blog + features), waits for `#root` to render, and saves the full HTML to `dist/{route}/index.html`. Produces 48+ prerendered HTML files with real content (no SPA fallback needed for these routes).
+3. **`cp -r prerendered/. dist/`** — Copies prerendered content pages (About, Blog, Features, etc.) from the committed `prerendered/` folder into `dist/`. These are static HTML files generated locally via Playwright. The homepage (`/`) is not prerendered — it remains the interactive SPA.
 
 ### Why `tsc -b` Is Not in the Build Chain
 
@@ -8052,13 +8175,17 @@ in the branch protection settings above.
 After a successful build, verify with:
 
 ```bash
-# Check prerendered route files exist
+# Check prerendered route files exist (not counting homepage)
 find dist -name "index.html" -not -path "dist/index.html" | wc -l
-# Should output 47 (48 total routes including root)
+# Should output N (static - 1 + blog + feature pages)
 
 # Check content is real HTML (not SPA shell)
 head -3 dist/about/index.html
 # Should show <!DOCTYPE html> with prerendered content
+
+# Check homepage is still SPA
+head -3 dist/index.html
+# Should contain <script> — not prerendered
 ```
 
 ### Netlify SPA Fallback
@@ -8067,53 +8194,91 @@ Prerendered files are served directly by Netlify (since the file exists at the e
 
 ---
 
-## 65. Playwright Prerender
+## 65. Prerender Architecture
 
 ### Purpose
 
-Generate static HTML for every route at build time. Improves SEO (search engines receive fully rendered HTML instantly), Lighthouse LCP (no JS waterfall to render content), and social previews (Open Graph tags are present in the initial HTML).
+Generate static HTML for content pages at build time. Improves SEO (search engines receive fully rendered HTML instantly), Lighthouse LCP (no JS waterfall to render content), and social previews (Open Graph tags are present in the initial HTML).
+
+The homepage (`/`) is **never prerendered** — it is a heavy interactive SPA (TableMakerPage) and prerendering would cause hydration flicker with `localStorage`-driven state (theme, locale, saved tables).
 
 ### Design Decisions
 
 | Decision | Choice | Rationale |
 |---|---|---|
 | Library | **Playwright** (already in devDependencies) | Avoids adding Puppeteer (~300 MB). Playwright is already installed for E2E tests. |
-| Timing | **Build-time** via `npm run build` | Prerendered HTML is deployed alongside the JS app. No server-side rendering infrastructure needed. |
-| Route discovery | **Filesystem scan** | Blog slugs derived from `src/content/blog/*.ts` filenames. Feature slugs from `src/content/features/*.json` (reads `slug` field, falls back to filename). Static routes defined in an array. |
+| Timing | **Pre-commit, not CI** | Playwright needs browsers (~150 MB installed). CI does not download them. Prerendered HTML is committed to git. |
+| Output folder | `prerendered/` | Committed to git (unlike `dist/` which is gitignored). CI copies `prerendered/` into `dist/` at build time via `cp -r prerendered/. dist/`. |
+| Route discovery | **Filesystem scan** (DI-injectable for tests) | Blog slugs derived from `src/content/blog/*.ts` filenames. Feature slugs from `src/content/features/*.json`. Static routes defined in an array. |
 | Server | **`vite preview`** (spawned as child process) | Serves the exact production build. No separate server config or middleware needed. |
-| Output | `dist/{route}/index.html` | Standard static hosting convention. Netlify serves these directly. |
 
 ### Architecture
 
 ```
-npm run build
-  → generate-sitemap   (discovers all routes)
-  → vite build         (bundles app to dist/)
-  → prerender          (starts vite preview, visits all routes, saves HTML)
+Local (when content changes):
+  npm run prere nder
+    → starts vite preview (serving dist/)
+    → visits all content routes in headless Chromium
+    → saves HTML to prerendered/{route}/index.html
+    → prerendered/ is committed to git
+
+CI (every push):
+  npm run build
+    → generate-sitemap (route discovery)
+    → vite build (app bundle to dist/)
+    → cp -r prere  ndered/. dist/ (copies committed prerendered HTML)
+    → deploy dist/ to Netlify
 
 scripts/prerender.ts:
-  1. getAllRoutes()   → STATIC_ROUTES + blog filenames + feature slugs
-  2. startServer()    → spawns "vite preview --port 4173 --strictPort"
-  3. For each route:
+  1. parseArgs() → reads --out-dir (default: dist)
+  2. getAllRoutes() → STATIC_ROUTES + blog filenames + feature slugs
+  3. startServer() → spawns "vite preview --port 4173 --strictPort"
+  4. For each route:
      a. chromium.launch() → headless browser
      b. page.goto(url, { waitUntil: 'networkidle' })
      c. waitForSelector('#root') + 500ms settle
      d. page.content() → HTML string
-     e. fs.writeFileSync(dist/{route}/index.html, html)
-  4. browser.close() + stopServer()
+     e. fs.writeFileSync(outDir/{route}/index.html, html)
+  5. browser.close() + stopServer()
 ```
 
 ### Route Categories
 
 | Category | Count | Discovery method |
 |---|---|---|
-| Static | 10 | Hardcoded array in `scripts/prerender.ts` |
+| Static (content) | 9 | Hardcoded array in `scripts/prerender.ts` (homepage excluded) |
 | Blog posts | Variable | `fs.readdirSync(src/content/blog/*.ts)` → `slug = filename minus .ts` |
-| Feature pages | 23 | `JSON.parse(slug field from src/content/features/*.json)` → falls back to filename |
+| Feature pages | 30 | `JSON.parse(slug field from src/content/features/*.json)` → falls back to filename |
+
+### Local Workflow
+
+```bash
+# Normal development
+npm run dev
+
+# After adding or editing content (blog posts, feature pages, etc.):
+npm run prerender        # generates static HTML into prere  ndered/
+git add prere  ndered/    # commit prerendered content alongside source changes
+git commit -m "content: add new blog post"
+git push
+
+# CI handles the rest — no Playwright needed in CI
+```
+
+### Pre-commit Hook
+
+A `.husky/pre-commit` hook can auto-run the prerender when `src/content/` changes:
+
+```sh
+if git diff --cached --name-only | grep -q "^src/content/"; then
+  npx tsx scripts/prerender.ts --out-dir prere  ndered
+  git add prere  ndered/
+fi
+```
 
 ### Adding a New Route
 
-**Static route:** Add the path to the `STATIC_ROUTES` array in `scripts/prerender.ts`.
+**Static route:** Add the path to the `STATIC_ROUTES` array in `scripts/prerender.ts` (do NOT add `/` — homepage is never prerendered).
 
 **Blog post:** Create a `.ts` file in `src/content/blog/`. The filename becomes the slug automatically — no prerender script change needed.
 
@@ -8122,16 +8287,18 @@ scripts/prerender.ts:
 ### Error Handling
 
 - Routes that fail to render (timeout, browser crash) are logged with the error message; the script continues to the next route.
-- After all routes are attempted, the script exits with code 1 if any failures occurred, causing the build to fail in CI.
+- After all routes are attempted, the script exits with code 1 if any failures occurred.
 - The `vite preview` server is killed via the `stopServer` callback in all cases (success, failure, or exception).
 
 ### Tests
 
-Manual verification only (no automated test for the prerender script itself):
+Route discovery and CLI parsing are pure functions tested in `src/test/scripts/prerender/prerender.test.ts` (15 tests). The Playwright-based render step is tested only in `build.sh` (local CI-style script):
+
 ```bash
 npm run build
-# Check: find dist -name "index.html" | wc -l  should equal route count + 1
+# Check: find dist -name "index.html" -not -path "dist/index.html" | wc -l  should equal route count
 # Sample: head -5 dist/about/index.html  should show prerendered <!DOCTYPE html>
+# Sample: head -3 dist/index.html  should contain <script> (SPA, not prerendered)
 ```
 
 ---

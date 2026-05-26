@@ -73,6 +73,7 @@ The sun-and-moon toggle icon is labelled with an aria-label that reads "Switch t
 ## Try it
 
 Open [Tablesmit](/) and click the moon icon in the top navigation bar. The interface switches to dark mode. Click again to switch back.`,
+  relatedFeature: 'dark-mode',
 }
 
 export default post

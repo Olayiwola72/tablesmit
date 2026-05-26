@@ -17,7 +17,7 @@ function renderPage(): void {
 describe('PrivacyPage', () => {
   it('renders heading', () => {
     renderPage()
-    expect(screen.getByText(/Privacy Policy/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Privacy Policy/i, level: 1 })).toBeInTheDocument()
   })
 
   it('renders last updated line', () => {
@@ -66,9 +66,9 @@ describe('PrivacyPage', () => {
     expect(link).toHaveAttribute('href', 'https://tablesmit.com/privacy')
   })
 
-  it('renders Back to Tablesmit link to home', () => {
+  it('renders breadcrumb home link', () => {
     renderPage()
-    const link = screen.getByRole('link', { name: /back to tablesmit/i })
+    const link = screen.getByRole('link', { name: /^home$/i })
     expect(link).toHaveAttribute('href', '/')
   })
 

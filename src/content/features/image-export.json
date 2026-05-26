@@ -61,7 +61,7 @@
     ]
   },
   "relatedFeatures": ["pdf-export", "copy-table", "table-themes"],
-  "relatedPost": "how-to-export-table-to-pdf",
+  "relatedPost": "how-to-export-table-as-image",
   "_codex_notes": {
     "note": "comparison is an additional field for this page. Render as a clean two-column comparison table between the steps and use cases sections. This is the one feature page where a table inside the page makes complete sense — use Tablesmit's own table aesthetic to render it."
   }

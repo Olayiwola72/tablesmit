@@ -27,12 +27,12 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
   const presets = usePresets()
-  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, copyAsHtml } = useCopyTable(
+  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, copyAsHtml, isCopying } = useCopyTable(
     cells, tableRef, table.caption, table.columnWidths, table.cellColors, table.cellTextColors, table.cellTextAlign,
     table.mergedRanges, table.headerColor, table.headerStyle, table.contentColor, table.contentBgColor, table.theme,
     table.borderStyle, table.borderColor, table.captionTextColor, table.captionBgColor, table.captionAlignment, table.captionItalic,
   )
-  const { exportAs, isExporting } = useExport()
+  const { exportAs, exportingFormat } = useExport()
 
   const { t } = useTranslation()
 
@@ -117,6 +117,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         onCopyLatex={() => copyAsLatex(table.headerStyle)}
         onCopyImage={copyAsImage}
         onCopyHtml={copyAsHtml}
+        isCopyingImage={isCopying}
       />
 
       <Button variant="secondary" size="sm" onClick={handlePaste} aria-label={t('aria.pasteTable')}>
@@ -129,7 +130,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border lg:hidden" />
 
-      <MobileExportDropdown isExporting={isExporting} onExport={(format, el) => exportAs(format, el ?? null)} tableRef={tableRef} />
+      <MobileExportDropdown isExporting={exportingFormat !== null} onExport={(format, el) => exportAs(format, el ?? null)} tableRef={tableRef} />
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 

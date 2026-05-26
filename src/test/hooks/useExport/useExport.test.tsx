@@ -17,16 +17,16 @@ describe('useExport', () => {
     vi.restoreAllMocks()
   })
 
-  it('returns isExporting false and exportAs function', () => {
+  it('returns exportingFormat null and exportAs function', () => {
     const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
-    expect(result.current.isExporting).toBe(false)
+    expect(result.current.exportingFormat).toBeNull()
     expect(typeof result.current.exportAs).toBe('function')
   })
 
   it('does nothing when element is null', async () => {
     const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
     await result.current.exportAs('pdf', null)
-    expect(result.current.isExporting).toBe(false)
+    expect(result.current.exportingFormat).toBeNull()
   })
 
   it('exports successfully and shows success toast', async () => {
@@ -35,7 +35,7 @@ describe('useExport', () => {
     const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
     const el = document.createElement('div')
     await result.current.exportAs('pdf', el)
-    await waitFor(() => expect(result.current.isExporting).toBe(false))
+    await waitFor(() => expect(result.current.exportingFormat).toBeNull())
     expect(exportTable).toHaveBeenCalledOnce()
     expect(el.classList.contains('is-exporting')).toBe(false)
   })
@@ -46,7 +46,7 @@ describe('useExport', () => {
     const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
     const el = document.createElement('div')
     await result.current.exportAs('png', el)
-    await waitFor(() => expect(result.current.isExporting).toBe(false))
+    await waitFor(() => expect(result.current.exportingFormat).toBeNull())
     expect(el.classList.contains('is-exporting')).toBe(false)
   })
 })

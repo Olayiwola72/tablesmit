@@ -8,4 +8,5 @@ export interface BlogPost {
   readTime: number
   featured: boolean
   content: string
+  relatedFeature?: string
 }

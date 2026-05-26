@@ -56,5 +56,5 @@
     "Searching a large contact table for a specific city or department name"
   ],
   "relatedFeatures": ["keyboard-shortcuts", "column-sorting", "merge-cells"],
-  "relatedPost": "how-to-make-a-table-in-markdown"
+  "relatedPost": "how-to-find-and-replace-in-table"
 }

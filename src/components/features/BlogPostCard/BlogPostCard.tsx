@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import type { BlogPostCardProps } from './BlogPostCard.types'
+import { LearnMoreLink } from '../../ui/LearnMoreLink/LearnMoreLink'
 import { formatDate } from '../../../utils/formatDate/formatDate'
 import { siteConfig } from '../../../config/siteConfig'
 
@@ -25,6 +26,9 @@ export function BlogPostCard({ post }: BlogPostCardProps): ReactNode {
       <p className="mb-4 text-sm leading-relaxed text-text-secondary">
         {post.description}
       </p>
+      <div className="mb-3">
+        <LearnMoreLink label={t('blog.learnMore')} />
+      </div>
       <div className="flex items-center gap-3 text-xs text-text-muted">
         <span>{t('blog.minRead', { count: post.readTime })}</span>
         <span>·</span>
