@@ -5,15 +5,15 @@ describe('STATIC_PAGES', () => {
   it('includes all expected static routes', () => {
     const locs = STATIC_PAGES.map((p) => p.loc)
     expect(locs).toContain('/')
-    expect(locs).toContain('/about')
-    expect(locs).toContain('/open-source')
-    expect(locs).toContain('/blog')
-    expect(locs).toContain('/features')
-    expect(locs).toContain('/contact')
-    expect(locs).toContain('/privacy')
-    expect(locs).toContain('/terms')
-    expect(locs).toContain('/changelog')
-    expect(locs).toContain('/testimonials')
+    expect(locs).toContain('/about/')
+    expect(locs).toContain('/open-source/')
+    expect(locs).toContain('/blog/')
+    expect(locs).toContain('/features/')
+    expect(locs).toContain('/contact/')
+    expect(locs).toContain('/privacy/')
+    expect(locs).toContain('/terms/')
+    expect(locs).toContain('/changelog/')
+    expect(locs).toContain('/testimonials/')
   })
 
   it('homepage has weekly changefreq and priority 1.0', () => {
@@ -34,11 +34,11 @@ describe('generateXml', () => {
   it('generates a url block for each entry', () => {
     const entries = [
       { loc: '/', changefreq: 'weekly', priority: '1.0' },
-      { loc: '/about', changefreq: 'monthly', priority: '0.7' },
+      { loc: '/about/', changefreq: 'monthly', priority: '0.7' },
     ]
     const xml = generateXml(entries)
     expect(xml).toContain('<loc>https://tablesmit.com/</loc>')
-    expect(xml).toContain('<loc>https://tablesmit.com/about</loc>')
+    expect(xml).toContain('<loc>https://tablesmit.com/about/</loc>')
     expect(xml).toContain('<changefreq>weekly</changefreq>')
     expect(xml).toContain('<changefreq>monthly</changefreq>')
     expect(xml).toContain('<priority>1.0</priority>')
@@ -47,13 +47,13 @@ describe('generateXml', () => {
 
   it('includes lastmod tag when present on an entry', () => {
     const entries = [
-      { loc: '/blog/post-1', changefreq: 'monthly', priority: '0.7', lastmod: '2025-09-15' },
-      { loc: '/features/excel-export', changefreq: 'monthly', priority: '0.7' },
+      { loc: '/blog/post-1/', changefreq: 'monthly', priority: '0.7', lastmod: '2025-09-15' },
+      { loc: '/features/excel-export/', changefreq: 'monthly', priority: '0.7' },
     ]
     const xml = generateXml(entries)
     expect(xml).toContain('<lastmod>2025-09-15</lastmod>')
     // Entry without lastmod should not have <lastmod>
-    const lines = xml.split('\n').filter((l) => l.includes('/features/excel-export'))
+    const lines = xml.split('\n').filter((l) => l.includes('/features/excel-export/'))
     expect(lines.some((l) => l.includes('<lastmod>'))).toBe(false)
   })
 
@@ -93,9 +93,9 @@ describe('getAllEntries', () => {
       (p) => p.includes('blog'),
       (p) => (p.includes('blog') ? ['hello-world.ts'] : []),
     )
-    const blogPostEntries = entries.filter((e) => e.loc.startsWith('/blog/'))
+    const blogPostEntries = entries.filter((e) => e.loc.startsWith('/blog/') && e.loc !== '/blog/')
     expect(blogPostEntries).toHaveLength(1)
-    expect(blogPostEntries[0]!.loc).toBe('/blog/hello-world')
+    expect(blogPostEntries[0]!.loc).toBe('/blog/hello-world/')
     expect(blogPostEntries[0]!.lastmod).toBe('2025-10-01')
   })
 
@@ -118,10 +118,10 @@ describe('getAllEntries', () => {
         return []
       },
     )
-    const featureEntries = entries.filter((e) => e.loc.startsWith('/features/'))
+    const featureEntries = entries.filter((e) => e.loc.startsWith('/features/') && e.loc !== '/features/')
     expect(featureEntries).toHaveLength(2)
-    expect(featureEntries[0]!.loc).toBe('/features/excel-export')
-    expect(featureEntries[1]!.loc).toBe('/features/pdf-export')
+    expect(featureEntries[0]!.loc).toBe('/features/excel-export/')
+    expect(featureEntries[1]!.loc).toBe('/features/pdf-export/')
   })
 
   it('returns static + blog + feature entries combined', () => {
@@ -148,7 +148,7 @@ describe('getAllEntries', () => {
       },
     )
     expect(entries.length).toBe(STATIC_PAGES.length + 1 + 1)
-    expect(entries.filter((e) => e.loc.startsWith('/blog/'))).toHaveLength(1)
-    expect(entries.filter((e) => e.loc.startsWith('/features/'))).toHaveLength(1)
+    expect(entries.filter((e) => e.loc.startsWith('/blog/') && e.loc !== '/blog/')).toHaveLength(1)
+    expect(entries.filter((e) => e.loc.startsWith('/features/') && e.loc !== '/features/')).toHaveLength(1)
   })
 })
