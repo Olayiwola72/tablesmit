@@ -39,10 +39,10 @@ describe('FeatureRelatedSection', () => {
   it('links each card to the correct /features/:slug route', () => {
     renderSection()
     const link1 = screen.getByRole('link', { name: /export to pdf/i })
-    expect(link1).toHaveAttribute('href', '/features/pdf-export')
+    expect(link1).toHaveAttribute('href', '/features/pdf-export/')
 
     const link2 = screen.getByRole('link', { name: /import csv/i })
-    expect(link2).toHaveAttribute('href', '/features/csv-import')
+    expect(link2).toHaveAttribute('href', '/features/csv-import/')
   })
 
   it('renders the section heading', () => {
@@ -54,6 +54,6 @@ describe('FeatureRelatedSection', () => {
     renderSection([{ slug: 'merge-cells', heroHeadline: 'Merge Cells', heroSubtext: 'Combine cells easily.' }])
     expect(screen.getByText('Merge Cells')).toBeInTheDocument()
     expect(screen.getByText('Combine cells easily.')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /merge cells/i })).toHaveAttribute('href', '/features/merge-cells')
+    expect(screen.getByRole('link', { name: /merge cells/i })).toHaveAttribute('href', '/features/merge-cells/')
   })
 })

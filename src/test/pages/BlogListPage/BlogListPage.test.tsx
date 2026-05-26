@@ -41,7 +41,7 @@ describe('BlogListPage', () => {
     await screen.findByText(pagePosts[0].title)
     for (const post of pagePosts) {
       const links = screen.getAllByRole('link')
-      const cardLink = links.find(l => l.getAttribute('href') === `/blog/${post.slug}`)
+      const cardLink = links.find(l => l.getAttribute('href') === `/blog/${post.slug}/`)
       expect(cardLink).toBeDefined()
       expect(cardLink).toHaveTextContent(post.title)
     }
@@ -78,6 +78,6 @@ describe('BlogListPage', () => {
     renderPage()
     await screen.findByText(/writing about tables/i)
     const link = document.querySelector('link[rel="canonical"]')
-    expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog/')
   })
 })

@@ -11,7 +11,7 @@ export function BlogPostCard({ post }: BlogPostCardProps): ReactNode {
 
   return (
     <Link
-      to={`${siteConfig.routes.blog}/${post.slug}`}
+      to={`${siteConfig.routes.blog}${post.slug}/`}
       className="block rounded-md border border-border p-6 transition-colors duration-150 hover:border-primary"
     >
       {post.featured && (

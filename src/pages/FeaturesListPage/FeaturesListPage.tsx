@@ -85,7 +85,7 @@ export default function FeaturesListPage(): ReactNode {
               {pageFeatures.map(feature => (
                 <Link
                   key={feature.slug}
-                  to={`${siteConfig.routes.features}/${feature.slug}`}
+                  to={`${siteConfig.routes.features}${feature.slug}/`}
                   className="block rounded-md border border-border p-6 transition-all duration-150 hover:border-primary hover:shadow-sm"
                 >
                   <h2 className="mb-2 text-xl font-semibold text-text-primary">

@@ -31,7 +31,7 @@ describe('FeatureHeroSection', () => {
     renderSection()
     const link = screen.getByRole('link', { name: /back to features/i })
     expect(link).toBeInTheDocument()
-    expect(link).toHaveAttribute('href', '/features')
+    expect(link).toHaveAttribute('href', '/features/')
   })
 
   it('renders inside a header element', () => {

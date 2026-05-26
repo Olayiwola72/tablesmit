@@ -54,7 +54,7 @@ export default function FeatureDetailPage(): ReactNode {
 
   if (!feature) return <Navigate to={siteConfig.routes.features} replace />
 
-  const featureUrl = `${siteConfig.brand.url}${siteConfig.routes.features}/${feature.slug}`
+  const featureUrl = `${siteConfig.brand.url}${siteConfig.routes.features}${feature.slug}/`
 
   return (
     <>

@@ -1,5 +1,5 @@
-import { lazy, Suspense, type ReactNode } from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { lazy, Suspense, useEffect, type ReactNode } from 'react'
+import { BrowserRouter, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { Footer } from './components/layout/Footer/Footer'
 import { Navbar } from './components/layout/Navbar/Navbar'
@@ -9,6 +9,19 @@ import { BackToTop } from './components/ui/BackToTop/BackToTop'
 import { PageLoader } from './components/ui/PageLoader/PageLoader'
 import { TooltipProvider } from './components/ui/Tooltip/Tooltip'
 import { siteConfig } from './config/siteConfig'
+
+function TrailingSlashNormalizer() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (pathname !== '/' && !pathname.endsWith('/') && !pathname.includes('.')) {
+      navigate(pathname + '/', { replace: true })
+    }
+  }, [pathname, navigate])
+
+  return null
+}
 
 const TableMakerPage = lazy(() => import('./pages/TableMakerPage/TableMakerPage'))
 const AboutPage = lazy(() => import('./pages/AboutPage/AboutPage'))
@@ -42,6 +55,7 @@ export default function App(): ReactNode {
             <CookieConsent />
             <div className="flex flex-1 flex-col min-h-[calc(100vh-60px)]">
               <Suspense fallback={<PageLoader />}>
+                <TrailingSlashNormalizer />
                 <Routes>
                   <Route
                     path={siteConfig.routes.home}

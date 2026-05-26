@@ -26,7 +26,7 @@ describe('TestimonialEmptyState', () => {
     renderEmptyState()
     const link = screen.getByText(/Share your experience/i)
     expect(link).toBeInTheDocument()
-    expect(link.closest('a')).toHaveAttribute('href', '/contact')
+    expect(link.closest('a')).toHaveAttribute('href', '/contact/')
   })
 
   it('renders Twitter link', () => {
