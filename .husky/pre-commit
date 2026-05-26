@@ -9,7 +9,11 @@ if git diff --cached --name-only | grep -qE "^src/content/|^scripts/prerender\.t
 fi
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 npm run lint && npm run test -- --run && npm run build
 =======
 npm ci && npm run lint && npm run test -- --run && npm run build
 >>>>>>> c6733b9 (prerender)
+=======
+npm run lint && npm run test -- --run && npm run build
+>>>>>>> 419cf5b (feature/fix-redirect-urls)
