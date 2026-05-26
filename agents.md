@@ -7731,6 +7731,21 @@ The system architecture (auto-discovery via `import.meta.glob`) mirrors the blog
 | `table-caption.json` | /features/table-caption | table title caption field | ✅ Ready |
 | `table-themes.json` | /features/table-themes | table styles online | ✅ Ready |
 | `templates.json` | /features/templates | table templates online free | ✅ Ready |
+| `border-styles.json` | /features/border-styles | table border styles online | ✅ Ready |
+| `freeze-panes.json` | /features/freeze-panes | freeze header row online | ✅ Ready |
+| `copy-table.json` | /features/copy-table | copy table as image | ✅ Ready |
+| `find-replace.json` | /features/find-replace | find and replace in table | ✅ Ready |
+| `column-types.json` | /features/column-types | table column formatting online | ✅ Ready |
+| `table-caption.json` | /features/table-caption | table title caption field | ✅ Ready |
+| `column-sorting.json` | /features/column-sorting | sort table columns online | ✅ Ready |
+| `ai-features.json` | /features/ai-features | ai table generator | ✅ Ready |
+| `dark-mode.json` | /features/dark-mode | dark mode table builder | ✅ Ready |
+| `auto-sum.json` | /features/auto-sum | auto sum table column online | ✅ Ready |
+| `context-menu.json` | /features/context-menu | right click table context menu | ✅ Ready |
+| `excel-import.json` | /features/excel-import | import excel to table online | ✅ Ready |
+| `latex-export.json` | /features/latex-export | export table to latex | ✅ Ready |
+| `offline.json` | /features/offline | offline table builder | ✅ Ready |
+| `smart-paste.json` | /features/smart-paste | smart paste from excel | ✅ Ready |
 | `undo.json` | /features/undo | undo table editing online | ✅ Ready |
 
 ### Schema Extensions Required
