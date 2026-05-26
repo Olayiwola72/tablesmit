@@ -192,7 +192,7 @@ async function prerender(): Promise<void> {
       const outputPath =
         route === '/'
           ? path.join(outDir, 'index.html')
-          : path.join(outDir, route.slice(1), 'index.html')
+          : path.join(outDir, route.slice(1) + '.html')
 
       fs.mkdirSync(path.dirname(outputPath), { recursive: true })
       fs.writeFileSync(outputPath, html, 'utf-8')
