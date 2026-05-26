@@ -5,11 +5,18 @@ import { TESTIMONIALS } from '../../config/testimonials/testimonials'
 import { siteConfig } from '../../config/siteConfig'
 import { TestimonialCard } from '../../components/features/TestimonialCard/TestimonialCard'
 import { TestimonialEmptyState } from '../../components/features/TestimonialEmptyState/TestimonialEmptyState'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 
 export function TestimonialsPage(): ReactNode {
   const { t } = useTranslation()
   return (
     <main>
+      <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumb segments={[
+          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.testimonials') },
+        ]} />
+      </div>
       <Helmet>
         <title>{t('meta.testimonialsTitle')}</title>
         <meta name="description" content={t('meta.testimonialsDescription')} />

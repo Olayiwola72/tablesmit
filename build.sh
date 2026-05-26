@@ -16,9 +16,6 @@ npm run audit
 # Run full test suite
 npm run test
 
-# Prerender static HTML
-npm run prerender
-
 # Generate sitemap
 npm run generate-sitemap
 

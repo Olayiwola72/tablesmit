@@ -51,5 +51,5 @@
     "Cleaning and reformatting legacy CSV data before sharing"
   ],
   "relatedFeatures": ["excel-export", "merge-cells"],
-  "relatedPost": "copy-excel-table-to-web"
+  "relatedPost": "how-to-import-csv-into-online-table"
 }

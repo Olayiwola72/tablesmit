@@ -88,7 +88,7 @@
     "Using Date type so a chronological column sorts correctly rather than alphabetically"
   ],
   "relatedFeatures": ["column-sorting", "templates", "excel-export"],
-  "relatedPost": "best-table-tool-for-researchers",
+  "relatedPost": "table-column-formatting-guide",
   "_codex_notes": {
     "note": "columnTypes is an additional array for this page. Render as a 5-card type reference grid between benefits and steps. Each card: icon, name, description, example value shown in a small styled cell preview. The example should be right-aligned for Number/Currency/Percentage, left-aligned for Text, centre-aligned for Date."
   }

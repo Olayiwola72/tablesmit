@@ -83,6 +83,13 @@
     "nextAria": "Zur nächsten Seite",
     "pageAria": "Zu Seite {{number}}"
   },
+  "search": {
+    "ariaLabel": "Suche",
+    "placeholder": "Suchen\u2026",
+    "clear": "Suche löschen",
+    "noResults": "Keine Ergebnisse gefunden.",
+    "resultsCount": "{{count}} von {{total}} Ergebnissen"
+  },
   "blog": {
     "heading": "Beiträge über Tabellen, Struktur und analytisches Denken.",
     "featured": "Hervorgehoben",
@@ -407,6 +414,7 @@
     "subtext": "Alles, was Sie brauchen, um saubere, strukturierte Tabellen zu erstellen.",
     "learnMore": "Mehr erfahren",
     "emptyState": "Noch keine Funktionen aufgelistet.",
+    "searchPlaceholder": "Funktionen nach Namen oder Beschreibung durchsuchen\u2026",
     "backToFeatures": "Zurück zu Funktionen",
     "benefits": "Vorteile",
     "howItWorks": "So funktioniert es",

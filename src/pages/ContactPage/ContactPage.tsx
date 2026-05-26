@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button/Button'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { siteConfig } from '../../config/siteConfig'
 
 const { brand } = siteConfig
@@ -51,6 +52,10 @@ function renderContent(t: (key: string) => string): ReactNode {
 
   return (
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <Breadcrumb segments={[
+        { label: t('nav.home'), to: siteConfig.routes.home },
+        { label: t('nav.contact') },
+      ]} />
       <section className="mx-auto max-w-narrow text-center">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">{t('contact.heading')}</h1>
         <p className="mt-4 text-base leading-relaxed text-text-secondary">

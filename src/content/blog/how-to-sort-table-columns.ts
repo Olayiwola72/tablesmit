@@ -72,6 +72,7 @@ This means you can experiment with sorting without worrying about losing the ori
 - Preparing data before exporting — a sorted table reads more clearly in PDF or Excel
 
 Open [Tablesmit](/) and click any column header icon to try ascending and descending sort on your data.`,
+  relatedFeature: 'column-sorting',
 }
 
 export default post

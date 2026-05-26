@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button/Button'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { siteConfig } from '../../config/siteConfig'
 
 const { brand, sponsors } = siteConfig
@@ -20,6 +21,12 @@ export function OpenSourcePage(): ReactNode {
         <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.openSource}`} />
       </Helmet>
       <main>
+      <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
+        <Breadcrumb segments={[
+          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.openSource') },
+        ]} />
+      </div>
       <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl lg:text-5xl">
           {t('openSource.heading')}

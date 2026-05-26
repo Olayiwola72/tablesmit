@@ -170,7 +170,7 @@
     "Anyone who wants to export a finished table instantly with a single keypress"
   ],
   "relatedFeatures": ["find-replace", "excel-export", "pdf-export"],
-  "relatedPost": "best-table-tool-for-researchers",
+  "relatedPost": "table-builder-keyboard-shortcuts-guide",
 
   "_codex_notes": {
     "schema_extension": "This page uses a 'shortcuts' field not present in the base FeaturePage type. Extend the type as shown below and handle it in FeatureDetailPage.",

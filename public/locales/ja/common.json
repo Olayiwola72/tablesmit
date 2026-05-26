@@ -83,6 +83,13 @@
     "nextAria": "次のページへ",
     "pageAria": "ページ{{number}}へ"
   },
+  "search": {
+    "ariaLabel": "検索",
+    "placeholder": "検索\u2026",
+    "clear": "検索をクリア",
+    "noResults": "検索結果が見つかりませんでした。",
+    "resultsCount": "{{total}}件中{{count}}件を表示"
+  },
   "blog": {
     "heading": "テーブル、構造、分析的思考について。",
     "featured": "注目",
@@ -407,6 +414,7 @@
     "subtext": "クリーンで構造化されたテーブルを作成するために必要なすべて。",
     "learnMore": "もっと詳しく",
     "emptyState": "まだ機能はリストされていません。",
+    "searchPlaceholder": "名前または説明で機能を検索\u2026",
     "backToFeatures": "機能に戻る",
     "benefits": "利点",
     "howItWorks": "使い方",

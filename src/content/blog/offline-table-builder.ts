@@ -82,6 +82,7 @@ This is by design. Tablesmit processes all data locally: imports, exports, clipb
 The researchers and writers who need tables most are often the ones who do their best work away from a desk and away from a reliable connection.
 
 [Open Tablesmit](/) — then take it anywhere you go.`,
+  relatedFeature: 'offline',
 }
 
 export default post

@@ -17,7 +17,7 @@ function renderPage(): void {
 describe('TermsPage', () => {
   it('renders heading', () => {
     renderPage()
-    expect(screen.getByText(/Terms of Use/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /Terms of Use/i, level: 1 })).toBeInTheDocument()
   })
 
   it('renders last updated line', () => {
@@ -65,9 +65,9 @@ describe('TermsPage', () => {
     expect(link).toHaveAttribute('href', 'https://tablesmit.com/terms')
   })
 
-  it('renders Back to Tablesmit link to home', () => {
+  it('renders breadcrumb home link', () => {
     renderPage()
-    const link = screen.getByRole('link', { name: /back to tablesmit/i })
+    const link = screen.getByRole('link', { name: /^home$/i })
     expect(link).toHaveAttribute('href', '/')
   })
 

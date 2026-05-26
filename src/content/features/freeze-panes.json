@@ -51,5 +51,5 @@
     "Entering data into a long schedule or inventory table without losing track of which column is which"
   ],
   "relatedFeatures": ["custom-headers", "drag-to-resize", "table-themes"],
-  "relatedPost": "best-table-tool-for-researchers"
+  "relatedPost": "how-to-freeze-header-row-in-table"
 }

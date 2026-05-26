@@ -48,4 +48,15 @@ describe('all feature pages', () => {
       expect(feature.metaDescription.length).toBeLessThanOrEqual(160)
     }
   })
+
+  it('relatedPost references a valid blog post slug when present', async () => {
+    const { getAllPosts } = await import('../../../services/blogService/blogService')
+    const posts = await getAllPosts()
+    const postSlugs = new Set(posts.map(p => p.slug))
+    for (const feature of features) {
+      if (feature.relatedPost) {
+        expect(postSlugs.has(feature.relatedPost)).toBe(true)
+      }
+    }
+  })
 })

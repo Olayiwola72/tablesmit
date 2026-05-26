@@ -1,0 +1,56 @@
+{
+  "slug": "academic-tables",
+  "metaTitle": "Academic Table Maker for Research Papers — Free | Tablesmit",
+  "metaDescription": "Build publication-ready tables for academic papers. APA-compatible headers, table captions, column formatting, and export to LaTeX and PDF. Free, no signup.",
+  "heroHeadline": "Research-grade tables, no spreadsheet required.",
+  "heroSubtext": "Format your data for journal submission, thesis chapters, and conference papers. Captions, column types, academic themes, and LaTeX export — all in one browser tab.",
+  "icon": "GraduationCap",
+  "benefits": [
+    {
+      "icon": "Heading",
+      "heading": "Table captions and titles",
+      "body": "Add a caption above your table with alignment options. Essential for APA and MLA style guides. Exports to LaTeX as caption{} and to Word as a styled caption row."
+    },
+    {
+      "icon": "Palette",
+      "heading": "Academic theme built in",
+      "body": "The Academic theme applies a grey header, double top border, and clean body styling — matching common journal formatting guidelines. One click, consistent output."
+    },
+    {
+      "icon": "FileText",
+      "heading": "LaTeX export",
+      "body": "Export to LaTeX tabular format with booktabs-compatible rules. Your table goes directly into your .tex document — no manual conversion or reformatting needed."
+    },
+    {
+      "icon": "Columns3",
+      "heading": "Column types for research data",
+      "body": "Set columns to Number, Currency, Percentage, or Date. Auto-sum numeric columns. Auto-number participant IDs or observation sequences."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Import or build your table",
+      "body": "Import from Excel or CSV, or build from scratch. Set your column types (Number, Text, Currency) to match your data."
+    },
+    {
+      "number": 2,
+      "heading": "Apply academic formatting",
+      "body": "Add a caption. Choose the Academic theme. Set header style to Both if your table has row headers. Adjust column widths for readability."
+    },
+    {
+      "number": 3,
+      "heading": "Export for publication",
+      "body": "Export to LaTeX for journal submission, PDF for review, or CSV for data sharing. The caption and column formatting are preserved in every format."
+    }
+  ],
+  "useCases": [
+    "Building data tables for journal articles and conference papers",
+    "Creating appendix tables for thesis and dissertation submissions",
+    "Formatting survey results and statistical summaries for publication",
+    "Converting research spreadsheets into publication-ready tables",
+    "Exporting clean LaTeX tabular code for academic manuscripts"
+  ],
+  "relatedFeatures": ["latex-export", "table-caption", "table-themes", "column-types"],
+  "relatedPost": "how-to-create-tables-for-academic-papers"
+}

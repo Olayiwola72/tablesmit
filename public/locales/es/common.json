@@ -83,6 +83,13 @@
     "nextAria": "Ir a la página siguiente",
     "pageAria": "Ir a la página {{number}}"
   },
+  "search": {
+    "ariaLabel": "Buscar",
+    "placeholder": "Buscar\u2026",
+    "clear": "Limpiar búsqueda",
+    "noResults": "No hay resultados que coincidan con tu búsqueda.",
+    "resultsCount": "Mostrando {{count}} de {{total}} resultados"
+  },
   "blog": {
     "heading": "Escribiendo sobre tablas, estructura y pensamiento analítico.",
     "featured": "Destacado",
@@ -407,6 +414,7 @@
     "subtext": "Todo lo que necesitas para crear tablas limpias y estructuradas.",
     "learnMore": "Más información",
     "emptyState": "No hay funcionalidades listadas todavía.",
+    "searchPlaceholder": "Buscar funciones por nombre o descripción\u2026",
     "backToFeatures": "Volver a Funcionalidades",
     "benefits": "Beneficios",
     "howItWorks": "Cómo funciona",

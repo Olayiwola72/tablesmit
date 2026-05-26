@@ -83,6 +83,13 @@
     "nextAria": "Gå til neste side",
     "pageAria": "Gå til side {{number}}"
   },
+  "search": {
+    "ariaLabel": "Søk",
+    "placeholder": "Søk\u2026",
+    "clear": "Tøm søk",
+    "noResults": "Ingen resultater fant ditt søk.",
+    "resultsCount": "Viser {{count}} av {{total}} resultater"
+  },
   "blog": {
     "heading": "Skriver om tabeller, struktur og analytisk tenkning.",
     "featured": "Utvalgt",
@@ -407,6 +414,7 @@
     "subtext": "Alt du trenger for å bygge rene, strukturerte tabeller.",
     "learnMore": "Les mer",
     "emptyState": "Ingen funksjoner oppført ennå.",
+    "searchPlaceholder": "Søk etter funksjoner etter navn eller beskrivelse\u2026",
     "backToFeatures": "Tilbake til funksjoner",
     "benefits": "Fordeler",
     "howItWorks": "Slik fungerer det",

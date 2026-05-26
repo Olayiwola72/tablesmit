@@ -1,0 +1,56 @@
+{
+  "slug": "accessible-tables",
+  "metaTitle": "Accessible Online Table Builder — WCAG Compliant | Tablesmit",
+  "metaDescription": "Tablesmit implements the WAI-ARIA grid pattern, keyboard navigation, and screen reader announcements. Build tables everyone can use with confidence.",
+  "heroHeadline": "Tables for everyone.",
+  "heroSubtext": "Built-in WAI-ARIA grid pattern, full keyboard navigation, and screen reader announcements make Tablemit's editor usable by people who rely on assistive technology.",
+  "icon": "Accessibility",
+  "benefits": [
+    {
+      "icon": "Grid3x3",
+      "heading": "WAI-ARIA grid pattern",
+      "body": "The table uses role=\"grid\", role=\"row\", role=\"gridcell\", aria-rowindex, and aria-colindex. Screen readers navigate the table correctly — not as a flat block of text."
+    },
+    {
+      "icon": "Keyboard",
+      "heading": "Full keyboard navigation",
+      "body": "Navigate cells with Arrow keys, Tab, and Shift+Tab. Enter edit mode with Enter, exit with Escape. No mouse required for any table operation."
+    },
+    {
+      "icon": "Bell",
+      "heading": "Screen reader announcements",
+      "body": "Structural changes (row added, cells merged) are announced via aria-live=\"polite\" regions. Users of assistive technology always know what changed."
+    },
+    {
+      "icon": "Palette",
+      "heading": "Colour-independent selection",
+      "body": "Selected cells show a ring indicator (ring-2 ring-primary) in addition to colour. Color swatches use aria-pressed and checkmark icons — never colour alone."
+    }
+  ],
+  "steps": [
+    {
+      "number": 1,
+      "heading": "Navigate by keyboard",
+      "body": "Use Arrow keys to move between cells. Tab moves to the next cell, Shift+Tab moves backward. The focused cell has a visible ring."
+    },
+    {
+      "number": 2,
+      "heading": "Edit with screen reader on",
+      "body": "Tablesmit announces row and column counts, cell positions, and structural changes. Merged cells report aria-colspan and aria-rowspan for accurate navigation."
+    },
+    {
+      "number": 3,
+      "heading": "Export accessible formats",
+      "body": "HTML export preserves ARIA attributes. PDF export includes tagged table structure. LaTeX export produces accessible tabular environments."
+    }
+  ],
+  "useCases": [
+    "Building tables that must meet WCAG 2.1 AA compliance standards",
+    "Creating government and public sector documents with accessibility requirements",
+    "Publishing data tables on websites that serve users of assistive technology",
+    "Developing educational materials for inclusive classroom environments",
+    "Ensuring research data is accessible to all readers regardless of ability"
+  ],
+  "relatedFeatures": ["keyboard-shortcuts", "export-pdf", "latex-export"],
+  "relatedPost": "web-table-accessibility-guide"
+}

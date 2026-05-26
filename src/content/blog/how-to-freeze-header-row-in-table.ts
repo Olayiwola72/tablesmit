@@ -60,6 +60,7 @@ The frozen area is purely CSS-based (position: sticky on the relevant cells). Th
 ## Try it
 
 Open [Tablesmit](/), create a table with at least fifteen rows, and toggle the freeze header option. Scroll and see the headers stay in place.`,
+  relatedFeature: 'freeze-panes',
 }
 
 export default post

@@ -77,6 +77,7 @@ It does not include:
 | JPEG (file) | Web pages where file size matters more than perfect text rendering |
 
 Copy your table as an image — click Copy in the toolbar and select Copy as Image, then paste it where you need it.`,
+  relatedFeature: 'copy-table',
 }
 
 export default post

@@ -74,6 +74,7 @@ The exported file contains:
 ---
 
 Your table, clean and complete, in PDF — [build it in Tablesmit](/).`,
+  relatedFeature: 'pdf-export',
 }
 
 export default post

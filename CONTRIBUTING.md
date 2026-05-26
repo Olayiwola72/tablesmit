@@ -98,7 +98,7 @@ GitHub Actions runs on every push and pull request:
 2. **lint** — `npm run lint`
 3. **test** — `npm run test`
 4. **audit** — `npm run audit` (checks for dependency vulnerabilities)
-5. **build** — `npm run build` (generates sitemap, bundles with Vite, prerenders static HTML)
+5. **build** — `npm run build` (generates sitemap, bundles with Vite, copies prerendered content pages into the bundle)
 6. **deploy** — (main pushes only) triggers Netlify deploy
 
 All checks must pass before a PR can be merged. Branch protection is enforced at the GitHub level.

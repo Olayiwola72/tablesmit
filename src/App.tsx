@@ -7,7 +7,6 @@ import { CookieConsent } from './components/ui/CookieConsent/CookieConsent'
 import { ErrorBoundary } from './components/ui/ErrorBoundary/ErrorBoundary'
 import { BackToTop } from './components/ui/BackToTop/BackToTop'
 import { PageLoader } from './components/ui/PageLoader/PageLoader'
-import { PanelLoader } from './components/ui/PanelLoader/PanelLoader'
 import { TooltipProvider } from './components/ui/Tooltip/Tooltip'
 import { siteConfig } from './config/siteConfig'
 
@@ -37,7 +36,7 @@ export default function App(): ReactNode {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
-            <Suspense fallback={<PanelLoader />}>
+            <Suspense fallback={null}>
               <ShortcutsModal />
             </Suspense>
             <CookieConsent />

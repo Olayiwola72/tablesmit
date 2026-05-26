@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast } from '../../utils/toast/toast'
 import { trackEvent } from '../../utils/analytics/analytics'
@@ -275,6 +275,7 @@ export function useCopyTable(
   captionAlignment?: string,
   captionItalic?: boolean,
 ) {
+  const [isCopying, setIsCopying] = useState(false)
   const { t } = useTranslation()
 
   const copyAsCsv = useCallback(async (): Promise<void> => {
@@ -376,6 +377,7 @@ export function useCopyTable(
   }, [cells, caption, t])
 
   const copyAsImage = useCallback(async (): Promise<void> => {
+    setIsCopying(true)
     try {
       const el = tableRef.current?.querySelector('table')
       if (!el) return
@@ -395,6 +397,8 @@ export function useCopyTable(
       toast.success(t('toast.copyImage'))
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
+    } finally {
+      setIsCopying(false)
     }
   }, [tableRef, t])
 
@@ -436,5 +440,5 @@ export function useCopyTable(
     }
   }, [cells, caption, columnWidths, cellColors, cellTextColors, cellTextAlign, mergedRanges, headerColor, headerStyle, contentColor, contentBgColor, borderStyle, borderColor, captionTextColor, captionBgColor, captionAlignment, captionItalic, theme, t])
 
-  return { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsImage, copyAsLatex, copyAsHtml }
+  return { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsImage, copyAsLatex, copyAsHtml, isCopying }
 }

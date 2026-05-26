@@ -84,6 +84,13 @@
     "nextAria": "Go to next page",
     "pageAria": "Go to page {{number}}"
   },
+  "search": {
+    "ariaLabel": "Search",
+    "placeholder": "Search\u2026",
+    "clear": "Clear search",
+    "noResults": "No results match your search.",
+    "resultsCount": "Showing {{count}} of {{total}} results"
+  },
   "blog": {
     "heading": "Writing about tables, structure, and analytical thinking.",
     "featured": "Featured",
@@ -94,7 +101,14 @@
     "empty": "No posts yet. Check back soon.",
     "copiedToClipboard": "Copied to clipboard",
     "failedToCopy": "Failed to copy",
-    "copyCode": "Copy code"
+    "copyCode": "Copy code",
+    "search": "Search blog posts",
+    "searchPlaceholder": "Search posts by title, content, or tags\u2026",
+    "clearSearch": "Clear search",
+    "noResults": "No posts match your search.",
+    "resultsCount": "Showing {{count}} of {{total}} posts",
+    "learnMore": "Read more",
+    "browsePosts": "Browse other posts"
   },
   "notFound": {
     "heading": "Page not found.",
@@ -421,6 +435,7 @@
     "subtext": "Every feature you need to build clean, structured tables.",
     "learnMore": "Learn more",
     "emptyState": "No features listed yet.",
+    "searchPlaceholder": "Search features by name or description\u2026",
     "backToFeatures": "Back to Features",
     "benefits": "Benefits",
     "howItWorks": "How it works",

@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { describe, expect, it } from 'vitest'
 import { OpenSourcePage } from '../../../pages/OpenSourcePage/OpenSourcePage'
@@ -6,7 +7,9 @@ import { OpenSourcePage } from '../../../pages/OpenSourcePage/OpenSourcePage'
 function renderPage(): void {
   render(
     <HelmetProvider>
-      <OpenSourcePage />
+      <MemoryRouter>
+        <OpenSourcePage />
+      </MemoryRouter>
     </HelmetProvider>,
   )
 }

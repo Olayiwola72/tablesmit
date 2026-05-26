@@ -99,7 +99,7 @@
     "Setting a double bottom border on the header row for academic table formatting"
   ],
   "relatedFeatures": ["table-themes", "custom-headers", "merge-cells"],
-  "relatedPost": "best-table-tool-for-researchers",
+  "relatedPost": "how-to-add-table-borders-online",
   "_codex_notes": {
     "note": "borderTypes and borderStyles are additional arrays for this page. Render them as two small reference grids in the page body — borderTypes as an icon grid (each showing a miniature table preview of the border pattern), borderStyles as a simple 4-item row showing each stroke style visually."
   }

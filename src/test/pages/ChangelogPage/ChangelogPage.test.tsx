@@ -85,9 +85,9 @@ describe('ChangelogPage', () => {
     expect(link).toHaveAttribute('href', 'https://tablesmit.com/changelog')
   })
 
-  it('renders Back to Tablesmit link to home', () => {
+  it('renders breadcrumb home link', () => {
     renderPage()
-    const link = screen.getByRole('link', { name: /back to tablesmit/i })
+    const link = screen.getByRole('link', { name: /^home$/i })
     expect(link).toHaveAttribute('href', '/')
   })
 })

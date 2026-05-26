@@ -1,4 +1,4 @@
-import { useState, useEffect, type ReactNode } from 'react'
+import { useState, useEffect, useCallback, type ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -7,6 +7,10 @@ import { getAllFeatures } from '../../services/featureService/featureService'
 import { siteConfig } from '../../config/siteConfig'
 import { ITEMS_PER_PAGE } from '../../config/table/tableDefaults'
 import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
+import { SearchBar } from '../../components/features/SearchBar/SearchBar'
+import { LearnMoreLink } from '../../components/ui/LearnMoreLink/LearnMoreLink'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { useFeatureSearch } from '../../hooks/useFeatureSearch/useFeatureSearch'
 
 export default function FeaturesListPage(): ReactNode {
   const { t } = useTranslation()
@@ -16,6 +20,16 @@ export default function FeaturesListPage(): ReactNode {
   useEffect(() => {
     getAllFeatures().then(all => setFeatures(all))
   }, [])
+
+  const { query, setQuery, results, totalResults } = useFeatureSearch(features ?? [])
+
+  const handleSearchChange = useCallback(
+    (q: string) => {
+      setQuery(q)
+      setPage(1)
+    },
+    [setQuery],
+  )
 
   if (features === null) {
     return (
@@ -29,9 +43,9 @@ export default function FeaturesListPage(): ReactNode {
     )
   }
 
-  const totalPages = Math.max(1, Math.ceil(features.length / ITEMS_PER_PAGE))
+  const totalPages = Math.max(1, Math.ceil(results.length / ITEMS_PER_PAGE))
   const start = (page - 1) * ITEMS_PER_PAGE
-  const pageFeatures = features.slice(start, start + ITEMS_PER_PAGE)
+  const pageFeatures = results.slice(start, start + ITEMS_PER_PAGE)
 
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
@@ -44,6 +58,10 @@ export default function FeaturesListPage(): ReactNode {
         <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.features}`} />
       </Helmet>
       <div className="mx-auto max-w-content">
+        <Breadcrumb segments={[
+          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.features') },
+        ]} />
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
             {t('features.heading')}
@@ -53,33 +71,40 @@ export default function FeaturesListPage(): ReactNode {
           </p>
         </header>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {pageFeatures.map(feature => (
-            <Link
-              key={feature.slug}
-              to={`${siteConfig.routes.features}/${feature.slug}`}
-              className="block rounded-md border border-border p-6 transition-all duration-150 hover:border-primary hover:shadow-sm"
-            >
-              <h2 className="mb-2 text-xl font-semibold text-text-primary">
-                {feature.heroHeadline}
-              </h2>
-              <p className="mb-4 text-sm leading-relaxed text-text-secondary">
-                {feature.heroSubtext}
-              </p>
-              <span className="text-sm font-medium text-primary">
-                {t('features.learnMore')} &rarr;
-              </span>
-            </Link>
-          ))}
-        </div>
+        <SearchBar
+          query={query}
+          onQueryChange={handleSearchChange}
+        totalResults={totalResults}
+        totalItems={features.length}
+          placeholder={t('features.searchPlaceholder')}
+        />
 
-        <PaginationNav currentPage={page} totalPages={totalPages} onPageChange={setPage} />
-
-        {features.length === 0 && (
+        {pageFeatures.length > 0 ? (
+          <>
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+              {pageFeatures.map(feature => (
+                <Link
+                  key={feature.slug}
+                  to={`${siteConfig.routes.features}/${feature.slug}`}
+                  className="block rounded-md border border-border p-6 transition-all duration-150 hover:border-primary hover:shadow-sm"
+                >
+                  <h2 className="mb-2 text-xl font-semibold text-text-primary">
+                    {feature.heroHeadline}
+                  </h2>
+                  <p className="mb-4 text-sm leading-relaxed text-text-secondary">
+                    {feature.heroSubtext}
+                  </p>
+                  <LearnMoreLink label={t('features.learnMore')} />
+                </Link>
+              ))}
+            </div>
+            <PaginationNav currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+          </>
+        ) : !query && features.length === 0 ? (
           <p className="py-20 text-center text-sm text-text-muted">
             {t('features.emptyState')}
           </p>
-        )}
+        ) : null}
       </div>
     </main>
   )

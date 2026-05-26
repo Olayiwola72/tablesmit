@@ -80,7 +80,7 @@
     "Changing a specific cell's background colour to highlight an anomaly"
   ],
   "relatedFeatures": ["keyboard-shortcuts", "column-sorting", "drag-to-resize"],
-  "relatedPost": "free-online-table-makers-compared",
+  "relatedPost": "how-to-use-right-click-table-editor",
   "_codex_notes": {
     "note": "menuItems is an additional field with 'cell' and 'columnHeader' arrays. Render as two reference panels side by side (or stacked on mobile) — 'On a cell' and 'On a column header'. Each panel is a simple list with label bold and description in text-text-secondary. This replaces the standard steps section — render steps after the menu reference panels."
   }

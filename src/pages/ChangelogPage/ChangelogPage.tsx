@@ -1,9 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 import type { ChangelogEntry } from '../../config/changelog/changelog.types'
 import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { siteConfig } from '../../config/siteConfig'
 
 export function ChangelogPage(): ReactNode {
@@ -18,6 +18,10 @@ export function ChangelogPage(): ReactNode {
         <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.changelog}`} />
       </Helmet>
       <main className="mx-auto max-w-narrow px-4 py-16">
+        <Breadcrumb segments={[
+          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.changelog') },
+        ]} />
       <h1 className="text-3xl font-bold text-text-primary">{t('nav.changelog')}</h1>
       <p className="mt-3 text-base text-text-secondary">
         {t('changelogDescription')}
@@ -46,14 +50,6 @@ export function ChangelogPage(): ReactNode {
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <Link
-          to={siteConfig.routes.home}
-          className="text-sm font-semibold text-primary hover:underline"
-        >
-          &larr; Back to Tablesmit
-        </Link>
-      </div>
     </main>
     </>
   )

@@ -97,6 +97,7 @@ Merged cells export correctly across all formats:
 - **CSV** — merge information cannot be represented in CSV; the anchor cell's value is written and merged cells are empty
 
 [Build your table in Tablesmit](/) — merge cells included.`,
+  relatedFeature: 'merge-cells',
 }
 
 export default post

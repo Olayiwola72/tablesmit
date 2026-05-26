@@ -67,7 +67,7 @@ describe('FeaturesListPage', () => {
     await screen.findByText(allFeatures[0].heroHeadline)
     if (allFeatures.length > ITEMS_PER_PAGE) {
       await waitFor(() => {
-        expect(screen.getByRole('navigation')).toBeInTheDocument()
+        expect(screen.getByRole('navigation', { name: /pagination/i })).toBeInTheDocument()
       })
     }
   })

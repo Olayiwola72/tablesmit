@@ -8,10 +8,12 @@ import type { ImportApi } from './useImport.types'
 
 export function useImport(): ImportApi {
   const [error, setError] = useState<string | null>(null)
+  const [isImporting, setIsImporting] = useState(false)
   const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setCaption, setContentColor, setBorderColor, setCaptionTextColor, setCaptionBgColor } = useTableContext()
 
   const importFile = async (file: File, kind: 'csv' | 'excel'): Promise<void> => {
     setError(null)
+    setIsImporting(true)
     try {
       const result = kind === 'csv' ? await importCsv(file) : await importExcel(file)
       setCells(result.cells, result.mergedRanges)
@@ -36,8 +38,10 @@ export function useImport(): ImportApi {
       const message = caught instanceof Error ? caught.message : siteConfig.messages.importParseError
       setError(message)
       toast.error(TOAST.IMPORT_ERROR)
+    } finally {
+      setIsImporting(false)
     }
   }
 
-  return { error, importFile }
+  return { error, isImporting, importFile }
 }

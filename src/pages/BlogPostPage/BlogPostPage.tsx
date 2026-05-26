@@ -7,10 +7,13 @@ import remarkGfm from 'remark-gfm'
 import { Helmet } from 'react-helmet-async'
 import { Copy, Check } from 'lucide-react'
 import type { BlogPost } from '../../services/blogService/blogService.types'
-import { getPostBySlug } from '../../services/blogService/blogService'
+import { getPostBySlug, getAllPosts } from '../../services/blogService/blogService'
 import { formatDate } from '../../utils/formatDate/formatDate'
 import { siteConfig } from '../../config/siteConfig'
 import { toast } from '../../utils/toast/toast'
+import { SearchBar } from '../../components/features/SearchBar/SearchBar'
+import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { useBlogSearch } from '../../hooks/useBlogSearch/useBlogSearch'
 
 function extractText(node: ReactNode): string {
   if (typeof node === 'string') return node
@@ -61,7 +64,10 @@ export default function BlogPostPage(): ReactNode {
   const { t } = useTranslation()
   const { slug } = useParams<{ slug: string }>()
   const [post, setPost] = useState<BlogPost | undefined | null>(undefined)
+  const [allPosts, setAllPosts] = useState<BlogPost[]>([])
   const [Md, setMd] = useState<MdComponent | null>(null)
+
+  const { query, setQuery, results, totalResults } = useBlogSearch(allPosts)
 
   useEffect(() => {
     let cancelled = false
@@ -70,6 +76,10 @@ export default function BlogPostPage(): ReactNode {
     })
     return () => { cancelled = true }
   }, [slug])
+
+  useEffect(() => {
+    getAllPosts().then(posts => setAllPosts(posts))
+  }, [])
 
   useEffect(() => {
     if (!post) return
@@ -114,12 +124,11 @@ export default function BlogPostPage(): ReactNode {
       </Helmet>
 
       <article className="mx-auto max-w-narrow px-4 py-16">
-        <Link
-          to={siteConfig.routes.blog}
-          className="mb-8 inline-flex items-center gap-1 text-sm text-text-muted hover:text-primary"
-        >
-          &larr; {t('blog.backToBlog')}
-        </Link>
+        <Breadcrumb segments={[
+          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.blog'), to: siteConfig.routes.blog },
+          { label: post.title },
+        ]} />
         <header className="mb-10">
           <div className="mb-4 flex items-center gap-2 text-xs text-text-muted">
             <Link to={siteConfig.routes.blog} className="hover:text-primary">Blog</Link>
@@ -182,6 +191,40 @@ export default function BlogPostPage(): ReactNode {
           </Link>
         </div>
       </article>
+
+      {allPosts.length > 0 && (
+        <section className="mx-auto max-w-narrow border-t border-border px-4 pb-16 pt-12">
+          <h2 className="mb-6 text-xl font-semibold text-text-primary">
+            {t('blog.browsePosts')}
+          </h2>
+          <SearchBar
+            query={query}
+            onQueryChange={setQuery}
+            totalResults={totalResults}
+            totalItems={allPosts.length}
+            placeholder={t('blog.searchPlaceholder')}
+          />
+          {query && results.length > 0 && (
+            <div className="mt-4 space-y-3">
+              {results.map(other => (
+                <Link
+                  key={other.slug}
+                  to={`${siteConfig.routes.blog}/${other.slug}`}
+                  className={`block rounded-md border p-4 transition-colors duration-150 hover:border-primary ${
+                    other.slug === slug ? 'border-primary bg-primary-light' : 'border-border'
+                  }`}
+                >
+                  <h3 className="text-sm font-semibold text-text-primary">{other.title}</h3>
+                  <p className="mt-1 text-xs text-text-muted line-clamp-2">{other.description}</p>
+                </Link>
+              ))}
+            </div>
+          )}
+          {query && results.length === 0 && (
+            <p className="mt-4 text-center text-sm text-text-muted">{t('blog.noResults')}</p>
+          )}
+        </section>
+      )}
     </>
   )
 }

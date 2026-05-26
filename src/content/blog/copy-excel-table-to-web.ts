@@ -73,6 +73,7 @@ For comma-separated content, use the **Import → Import from CSV** option in th
 | Excel file      | Toolbar → Import → Excel      |
 
 Stop rebuilding tables manually. [Open Tablesmit](/) and paste your Excel data directly.`,
+  relatedFeature: 'smart-paste',
 }
 
 export default post

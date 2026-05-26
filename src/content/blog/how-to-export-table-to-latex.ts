@@ -100,6 +100,7 @@ The rule of thumb: if you would reach for Excel to build the data, you should re
 For researchers who work primarily in LaTeX — mathematics, physics, economics, computer science, linguistics — having a visual table editor that exports directly to LaTeX changes the workflow in a meaningful way. You can share the table with non-LaTeX colleagues for review (export as PDF or Excel), make changes in a visual interface, and re-export to LaTeX without touching the code.
 
 [Build your LaTeX table in Tablesmit](/) — no syntax required.`,
+  relatedFeature: 'latex-export',
 }
 
 export default post

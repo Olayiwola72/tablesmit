@@ -108,6 +108,7 @@ Tablesmit does not yet support table notes natively. Include them as a separate 
 - Abbreviations used in the table are defined in the text or a note
 
 Build your next research table in [Tablesmit](/) — apply the Academic theme, set your column types, and export to the format your journal requires.`,
+  relatedFeature: 'academic-tables',
 }
 
 export default post

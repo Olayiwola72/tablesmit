@@ -75,6 +75,7 @@ The template is a starting point, not a constraint.
 Templates are loaded from a configuration file and are not yet user-editable within the UI. If you have a recurring table structure, you can duplicate an existing table by exporting it and re-importing it as a starting point for the next one.
 
 Open [Tablesmit](/), click the Templates button, and pick the one that fits your next table.`,
+  relatedFeature: 'templates',
 }
 
 export default post

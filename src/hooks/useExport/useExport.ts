@@ -9,7 +9,7 @@ import { trackEvent } from '../../utils/analytics/analytics'
 import type { ExportApi } from './useExport.types'
 
 export function useExport(): ExportApi {
-  const [isExporting, setIsExporting] = useState(false)
+  const [exportingFormat, setExportingFormat] = useState<ExportFormat | null>(null)
   const { cells } = useTableData()
   const {
     headerStyle, mergedRanges, headerColor, contentColor, borderColor,
@@ -40,7 +40,7 @@ export function useExport(): ExportApi {
 
   const exportAs = async (format: ExportFormat, element: HTMLElement | null, caption?: string, captionTextColor?: string, captionBgColor?: string, captionAlignment?: 'left' | 'center' | 'right', captionItalic?: boolean): Promise<void> => {
     if (!element) return
-    setIsExporting(true)
+    setExportingFormat(format)
     element.classList.add('is-exporting')
     await new Promise((resolve) => requestAnimationFrame(resolve))
 
@@ -80,9 +80,9 @@ export function useExport(): ExportApi {
       toast.error(TOAST.EXPORT_ERROR)
     } finally {
       element.classList.remove('is-exporting')
-      setIsExporting(false)
+      setExportingFormat(null)
     }
   }
 
-  return { isExporting, exportAs }
+  return { exportingFormat, exportAs }
 }

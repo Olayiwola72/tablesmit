@@ -112,6 +112,7 @@ Tablesmit implements the full ARIA grid pattern, keyboard navigation, proper col
 If you encounter an accessibility issue while using Tablesmit, the contact page is the best place to report it — specific feedback helps prioritise fixes.
 
 Build an accessible table in [Tablesmit](/) — the grid pattern and keyboard navigation are active from the first cell.`,
+  relatedFeature: 'accessible-tables',
 }
 
 export default post

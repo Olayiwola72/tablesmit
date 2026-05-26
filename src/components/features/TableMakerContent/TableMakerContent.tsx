@@ -1,7 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
-import { ChevronRight, Clipboard, Code, Copy, FileText, Image, Table, Trash2, X } from 'lucide-react'
+import { ChevronRight, Clipboard, Code, Copy, FileText, Image, Loader2, Table, Trash2, X } from 'lucide-react'
 import { useTableContext, useTableData } from '../../../context/TableContext'
 import { DEFAULT_ROWS, DEFAULT_COLS } from '../../../config/table/tableDefaults'
 
@@ -45,11 +45,11 @@ export function TableMakerContent(): ReactNode {
       window.history.replaceState({}, document.title)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  const { exportAs, isExporting } = useExport()
+  const { exportAs, exportingFormat } = useExport()
   const { t } = useTranslation()
   const [activeSheet, setActiveSheet] = useState<'settings' | 'presets' | null>(null)
   const tableWidth = useMemo(() => columnWidths.reduce((sum, w) => sum + w, 0), [columnWidths])
-  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage } = useCopyTable(
+  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, isCopying } = useCopyTable(
     cells, tableRef, caption, columnWidths, cellColors, cellTextColors, cellTextAlign,
     mergedRanges, headerColor, headerStyle, contentColor, contentBgColor, theme,
     borderStyle, borderColor, captionTextColor, captionBgColor, captionAlignment, captionItalic,
@@ -216,8 +216,8 @@ export function TableMakerContent(): ReactNode {
                         <Code size={14} className="text-primary" />
                         {t('toolbar.copyLatex', 'Copy as LaTeX')}
                       </button>
-                      <button type="button" className="flex w-full items-center gap-2 pl-8 pr-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface" onClick={() => { closeWsCtx(); void copyAsImage() }}>
-                        <Image size={14} className="text-rose-600" />
+                      <button type="button" className="flex w-full items-center gap-2 pl-8 pr-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface" disabled={isCopying} onClick={() => { closeWsCtx(); void copyAsImage() }}>
+                        {isCopying ? <Loader2 size={14} className="animate-spin text-rose-600" /> : <Image size={14} className="text-rose-600" />}
                         {t('toolbar.copyImage')}
                       </button>
                     </div>
@@ -274,7 +274,7 @@ export function TableMakerContent(): ReactNode {
 
         <aside aria-label="Table editing controls" className="hidden w-sidebar-right flex-none flex-col gap-8 overflow-y-auto border-l border-border bg-surface p-6 lg:flex" data-sidebar-right>
           <Suspense fallback={<PanelLoader />}>
-            <ExportPanel onExport={handleExport} isExporting={isExporting} />
+            <ExportPanel onExport={handleExport} exportingFormat={exportingFormat} />
             <BorderPanel />
             <MergeCellsPanel />
             <AiFeaturesPanel />
@@ -296,7 +296,7 @@ export function TableMakerContent(): ReactNode {
         ) : (
           <Suspense fallback={<PanelLoader />}>
             <div className="space-y-8">
-              <ExportPanel onExport={handleExport} isExporting={isExporting} />
+              <ExportPanel onExport={handleExport} exportingFormat={exportingFormat} />
               <BorderPanel />
               <MergeCellsPanel />
               <AiFeaturesPanel />

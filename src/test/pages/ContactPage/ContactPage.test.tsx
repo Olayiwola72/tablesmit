@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { describe, expect, it } from 'vitest'
 import { ContactPage } from '../../../pages/ContactPage/ContactPage'
@@ -6,7 +7,9 @@ import { ContactPage } from '../../../pages/ContactPage/ContactPage'
 function renderPage(): void {
   render(
     <HelmetProvider>
-      <ContactPage />
+      <MemoryRouter>
+        <ContactPage />
+      </MemoryRouter>
     </HelmetProvider>,
   )
 }

@@ -67,6 +67,7 @@ The find and replace operates on cell values only. It does not search column hea
 - Cleaning imported data where the same value appears in many cells
 
 Open [Tablesmit](/), press Ctrl+F, and search your table data.`,
+  relatedFeature: 'find-replace',
 }
 
 export default post

@@ -91,6 +91,7 @@ For static site generators and documentation tools (Hugo, Jekyll, Docusaurus, Mk
 ## The markdown table generator that does the work
 
 The fastest Markdown table generator is not a syntax cheat sheet — it is a visual editor that produces clean output in whatever format you need. [Build your table in Tablesmit](/) and stop counting pipes.`,
+  relatedFeature: 'markdown-table',
 }
 
 export default post
