@@ -1,8 +1,26 @@
+import fs from 'node:fs'
 import react from '@vitejs/plugin-react'
 import path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import { visualizer } from 'rollup-plugin-visualizer'
+
+function prerenderPlugin(): Plugin {
+  const prerenderDir = process.env.npm_package_config_prerenderDir ?? 'prerendered'
+  return {
+    name: 'copy-prerendered',
+    closeBundle() {
+      const src = prerenderDir
+      const dest = 'dist'
+      if (!fs.existsSync(src)) {
+        console.warn(`[prerender] Source directory "${src}" not found — skipping`)
+        return
+      }
+      fs.cpSync(src, dest, { recursive: true, dereference: true })
+      console.log(`[prerender] Copied "${src}" → "${dest}"`)
+    },
+  }
+}
 
 function isPackage(id: string, packageName: string): boolean {
   return id.replaceAll('\\', '/').includes(`/node_modules/${packageName}/`)
@@ -12,6 +30,7 @@ const isAnalyze = process.env.ANALYZE === 'true'
 
 export default defineConfig({
   plugins: [
+    prerenderPlugin(),
     react(),
     ...(isAnalyze
       ? [visualizer({

@@ -1,3 +1,7 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -36,18 +40,6 @@
 [[redirects]]
   from = "/sitemap.xml"
   to = "/sitemap.xml"
-  status = 200
-  force = true
-
-# Silent rewrite: strip trailing slashes before any other processing.
-# Overrides Netlify's built-in 301 trailing-slash normalization,
-# which would otherwise 301-redirect prerendered content pages.
-# When assets or actual files have trailing slashes they use the SPA
-# as a fallback with status 200. `force = true` ensures this rule has
-# the highest priority, including over Netlify's default behaviour.
-[[redirects]]
-  from = "/*/"
-  to = "/:splat"
   status = 200
   force = true
 

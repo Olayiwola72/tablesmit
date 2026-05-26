@@ -192,7 +192,7 @@ async function prerender(): Promise<void> {
       const outputPath =
         route === '/'
           ? path.join(outDir, 'index.html')
-          : path.join(outDir, route.slice(1) + '.html')
+          : path.join(outDir, route.slice(1), 'index.html')
 
       fs.mkdirSync(path.dirname(outputPath), { recursive: true })
       fs.writeFileSync(outputPath, html, 'utf-8')
@@ -210,15 +210,6 @@ async function prerender(): Promise<void> {
 
   await browser.close()
   stopServer()
-
-  // Write Netlify _redirects — silent rewrites so trailing-slash URLs
-  // serve prerendered content without a 301 redirect.
-  const redirects = routes
-    .filter((r) => r !== '/')
-    .map((r) => `${r}/  ${r}  200`)
-    .join('\n')
-  fs.writeFileSync(path.join(outDir, '_redirects'), redirects + '\n', 'utf-8')
-  console.log(`  ✓ _redirects (${routes.length - 1} rules)`)
 
   console.log(`\nDone — ${successCount} succeeded, ${failCount} failed`)
   if (failCount > 0) process.exit(1)

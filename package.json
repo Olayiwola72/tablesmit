@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && cp -r $npm_package_config_prerenderDir/. dist/",
+    "build": "npm run generate-sitemap && vite build",
     "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
     "lint": "eslint .",
     "audit": "npm audit",
