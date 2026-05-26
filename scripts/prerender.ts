@@ -107,20 +107,6 @@ function isPlaywrightAvailable(): boolean {
   }
 }
 
-// ── Playwright check ──
-
-function isPlaywrightAvailable(): boolean {
-  try {
-    execSync('npx playwright install --dry-run', {
-      stdio: 'ignore',
-      timeout: 10_000,
-    })
-    return true
-  } catch {
-    return false
-  }
-}
-
 // ── Server ──
 
 function startServer(): Promise<() => void> {

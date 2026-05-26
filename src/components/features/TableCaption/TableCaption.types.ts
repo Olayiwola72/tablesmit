@@ -16,4 +16,6 @@ export interface TableCaptionProps {
   bgColor?: string
   onTextColorChange?: (color: string) => void
   onBgColorChange?: (color: string) => void
+  italic?: boolean
+  onItalicChange?: (italic: boolean) => void
 }
