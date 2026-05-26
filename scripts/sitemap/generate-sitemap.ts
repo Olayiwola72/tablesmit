@@ -4,21 +4,17 @@ import type { UrlEntry } from './sitemap.types'
 
 const SITE_URL = 'https://tablesmit.com'
 
-function slash(url: string): string {
-  return url === '/' ? url : `${url}/`
-}
-
 export const STATIC_PAGES: UrlEntry[] = [
   { loc: '/', changefreq: 'weekly', priority: '1.0' },
-  { loc: slash('/about'), changefreq: 'monthly', priority: '0.7' },
-  { loc: slash('/open-source'), changefreq: 'monthly', priority: '0.7' },
-  { loc: slash('/blog'), changefreq: 'weekly', priority: '0.8' },
-  { loc: slash('/features'), changefreq: 'weekly', priority: '0.8' },
-  { loc: slash('/contact'), changefreq: 'monthly', priority: '0.6' },
-  { loc: slash('/privacy'), changefreq: 'yearly', priority: '0.4' },
-  { loc: slash('/terms'), changefreq: 'yearly', priority: '0.4' },
-  { loc: slash('/changelog'), changefreq: 'monthly', priority: '0.6' },
-  { loc: slash('/testimonials'), changefreq: 'monthly', priority: '0.6' },
+  { loc: '/about/', changefreq: 'monthly', priority: '0.7' },
+  { loc: '/open-source/', changefreq: 'monthly', priority: '0.7' },
+  { loc: '/blog/', changefreq: 'weekly', priority: '0.8' },
+  { loc: '/features/', changefreq: 'weekly', priority: '0.8' },
+  { loc: '/contact/', changefreq: 'monthly', priority: '0.6' },
+  { loc: '/privacy/', changefreq: 'yearly', priority: '0.4' },
+  { loc: '/terms/', changefreq: 'yearly', priority: '0.4' },
+  { loc: '/changelog/', changefreq: 'monthly', priority: '0.6' },
+  { loc: '/testimonials/', changefreq: 'monthly', priority: '0.6' },
 ]
 
 export function getBlogPosts(contentDir: string, readFile: (p: string) => string, exists: (p: string) => boolean, readDir: (p: string) => string[]): UrlEntry[] {

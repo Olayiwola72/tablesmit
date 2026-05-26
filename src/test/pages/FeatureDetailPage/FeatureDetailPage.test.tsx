@@ -81,7 +81,7 @@ describe('FeatureDetailPage', () => {
     await waitFor(() => {
       expect(
         screen.getByRole('link', { name: /back to features/i }),
-      ).toHaveAttribute('href', '/features')
+      ).toHaveAttribute('href', '/features/')
     })
   })
 
@@ -107,7 +107,7 @@ describe('FeatureDetailPage', () => {
     renderFeature('excel-export')
     await waitFor(() => {
       const link = document.querySelector('link[rel="canonical"]')
-      expect(link).toHaveAttribute('href', 'https://tablesmit.com/features/excel-export')
+      expect(link).toHaveAttribute('href', 'https://tablesmit.com/features/excel-export/')
     })
   })
 })

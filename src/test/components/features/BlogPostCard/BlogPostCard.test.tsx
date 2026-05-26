@@ -59,7 +59,7 @@ describe('BlogPostCard', () => {
   it('links to the correct blog post slug', () => {
     renderCard(basePost)
     const link = screen.getByRole('link')
-    expect(link).toHaveAttribute('href', '/blog/test-post')
+    expect(link).toHaveAttribute('href', '/blog/test-post/')
   })
 
   it('renders read time', () => {

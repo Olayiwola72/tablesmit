@@ -56,7 +56,7 @@ describe('TestimonialsPage', () => {
     renderPage()
     const link = screen.getByRole('link', { name: /share your experience/i })
     expect(link).toBeInTheDocument()
-    expect(link).toHaveAttribute('href', '/contact')
+    expect(link).toHaveAttribute('href', '/contact/')
   })
 
   it('shows email reach-out in empty state', () => {

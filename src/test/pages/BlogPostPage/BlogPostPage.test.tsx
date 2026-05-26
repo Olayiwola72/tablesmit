@@ -92,7 +92,7 @@ describe('BlogPostPage', () => {
     renderPost('how-to-make-a-table-in-markdown')
     await waitFor(() => {
       const link = document.querySelector('link[rel="canonical"]')
-      expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog/how-to-make-a-table-in-markdown')
+      expect(link).toHaveAttribute('href', 'https://tablesmit.com/blog/how-to-make-a-table-in-markdown/')
     })
   })
 

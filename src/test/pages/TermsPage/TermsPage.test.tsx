@@ -62,7 +62,7 @@ describe('TermsPage', () => {
   it('sets correct canonical URL', () => {
     renderPage()
     const link = document.querySelector('link[rel="canonical"]')
-    expect(link).toHaveAttribute('href', 'https://tablesmit.com/terms')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/terms/')
   })
 
   it('renders breadcrumb home link', () => {
@@ -74,6 +74,6 @@ describe('TermsPage', () => {
   it('renders cross-link to Privacy Policy page', () => {
     renderPage()
     const link = screen.getByRole('link', { name: /privacy policy/i })
-    expect(link).toHaveAttribute('href', '/privacy')
+    expect(link).toHaveAttribute('href', '/privacy/')
   })
 })

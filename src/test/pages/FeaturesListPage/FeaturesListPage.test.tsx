@@ -43,7 +43,7 @@ describe('FeaturesListPage', () => {
     await screen.findByText(firstPage[0].heroHeadline)
     for (const feature of firstPage) {
       const links = screen.getAllByRole('link')
-      const cardLink = links.find(l => l.getAttribute('href') === `/features/${feature.slug}`)
+      const cardLink = links.find(l => l.getAttribute('href') === `/features/${feature.slug}/`)
       expect(cardLink).toBeDefined()
       expect(cardLink).toHaveTextContent(feature.heroHeadline)
     }
@@ -95,6 +95,6 @@ describe('FeaturesListPage', () => {
     const allFeatures = await getAllFeatures()
     await screen.findByText(allFeatures[0].heroHeadline)
     const link = document.querySelector('link[rel="canonical"]')
-    expect(link).toHaveAttribute('href', 'https://tablesmit.com/features')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/features/')
   })
 })

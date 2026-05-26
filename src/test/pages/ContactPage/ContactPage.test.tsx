@@ -60,6 +60,6 @@ describe('ContactPage', () => {
   it('sets correct canonical URL', () => {
     renderPage()
     const link = document.querySelector('link[rel="canonical"]')
-    expect(link).toHaveAttribute('href', 'https://tablesmit.com/contact')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/contact/')
   })
 })

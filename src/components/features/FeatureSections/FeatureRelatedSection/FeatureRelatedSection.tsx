@@ -16,7 +16,7 @@ export function FeatureRelatedSection({ relatedFeatures }: FeatureRelatedSection
         {relatedFeatures.map((rf) => (
           <Link
             key={rf.slug}
-            to={`${siteConfig.routes.features}/${rf.slug}`}
+            to={`${siteConfig.routes.features}${rf.slug}/`}
             className="rounded-md border border-border p-4 transition-colors hover:border-primary"
           >
             <h3 className="text-sm font-semibold text-text-primary">{rf.heroHeadline}</h3>

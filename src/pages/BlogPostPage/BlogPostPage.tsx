@@ -101,7 +101,7 @@ export default function BlogPostPage(): ReactNode {
 
   if (!post) return <Navigate to={siteConfig.routes.blog} replace />
 
-  const postUrl = `${siteConfig.brand.url}${siteConfig.routes.blog}/${post.slug}`
+  const postUrl = `${siteConfig.brand.url}${siteConfig.routes.blog}${post.slug}/`
 
   return (
     <>
@@ -209,7 +209,7 @@ export default function BlogPostPage(): ReactNode {
               {results.map(other => (
                 <Link
                   key={other.slug}
-                  to={`${siteConfig.routes.blog}/${other.slug}`}
+                  to={`${siteConfig.routes.blog}${other.slug}/`}
                   className={`block rounded-md border p-4 transition-colors duration-150 hover:border-primary ${
                     other.slug === slug ? 'border-primary bg-primary-light' : 'border-border'
                   }`}

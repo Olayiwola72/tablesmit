@@ -82,7 +82,7 @@ describe('ChangelogPage', () => {
   it('sets correct canonical URL', () => {
     renderPage()
     const link = document.querySelector('link[rel="canonical"]')
-    expect(link).toHaveAttribute('href', 'https://tablesmit.com/changelog')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/changelog/')
   })
 
   it('renders breadcrumb home link', () => {

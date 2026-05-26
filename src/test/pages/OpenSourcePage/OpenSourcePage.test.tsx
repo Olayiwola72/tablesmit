@@ -66,6 +66,6 @@ describe('OpenSourcePage', () => {
   it('sets correct canonical URL', () => {
     renderPage()
     const link = document.querySelector('link[rel="canonical"]')
-    expect(link).toHaveAttribute('href', 'https://tablesmit.com/open-source')
+    expect(link).toHaveAttribute('href', 'https://tablesmit.com/open-source/')
   })
 })
