@@ -1,6 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { spawn, execSync } from 'node:child_process'
+import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
 
 function readPackageConfig(): { prerenderDir: string } {
@@ -16,7 +16,6 @@ function readPackageConfig(): { prerenderDir: string } {
 export const PRERENDER_OUT_DIR = readPackageConfig().prerenderDir
 
 const PORT = 4173
-const BASE_URL = `http://localhost:${PORT}`
 const ROOT = path.resolve(import.meta.dirname, '..')
 const CONTENT_DIR = path.resolve(ROOT, 'src/content')
 const VITE_BIN = path.resolve(ROOT, 'node_modules', '.bin', 'vite')
@@ -95,12 +94,10 @@ export function getAllRoutes(
 
 // ── Playwright check ──
 
-function isPlaywrightAvailable(): boolean {
+async function isPlaywrightAvailable(): Promise<boolean> {
   try {
-    execSync('npx playwright install --dry-run', {
-      stdio: 'ignore',
-      timeout: 10_000,
-    })
+    const browser = await chromium.launch({ headless: true })
+    await browser.close()
     return true
   } catch {
     return false
@@ -109,9 +106,9 @@ function isPlaywrightAvailable(): boolean {
 
 // ── Server ──
 
-function startServer(): Promise<() => void> {
+function startServer(): Promise<{ baseUrl: string; stop: () => void }> {
   return new Promise((resolve, reject) => {
-    const server = spawn(VITE_BIN, ['preview', '--port', String(PORT), '--strictPort'], {
+    const server = spawn(VITE_BIN, ['preview', '--port', String(PORT)], {
       cwd: ROOT,
       stdio: 'pipe',
       env: { ...process.env, BROWSER: 'none' },
@@ -124,10 +121,12 @@ function startServer(): Promise<() => void> {
 
     function onData(data: Buffer) {
       const text = data.toString()
-      if (text.includes('Local:')) {
+      const match = text.match(/Local:\s+(https?:\/\/[^\s]+)/)
+      if (match) {
         clearTimeout(timeout)
-        resolve(() => {
-          server.kill()
+        resolve({
+          baseUrl: match[1].replace(/\/$/, ''),
+          stop: () => { server.kill() },
         })
       }
     }
@@ -152,7 +151,7 @@ function startServer(): Promise<() => void> {
 // ── Prerender ──
 
 async function prerender(): Promise<void> {
-  if (!isPlaywrightAvailable()) {
+  if (!(await isPlaywrightAvailable())) {
     console.warn('⚠ Playwright browsers not installed. Skipping prerender.')
     console.warn('  Install with: npx playwright install chromium')
     return
@@ -172,15 +171,15 @@ async function prerender(): Promise<void> {
   console.log(`Prerendering ${routes.length} routes to ${outDir}…`)
 
   console.log('Starting vite preview server…')
-  const stopServer = await startServer()
-  console.log(`Server ready at ${BASE_URL}`)
+  const { baseUrl, stop: stopServer } = await startServer()
+  console.log(`Server ready at ${baseUrl}`)
 
   const browser = await chromium.launch({ headless: true })
   let successCount = 0
   let failCount = 0
 
   for (const route of routes) {
-    const url = `${BASE_URL}${route}`
+    const url = `${baseUrl}${route}`
     const page = await browser.newPage({ viewport: { width: 1280, height: 720 } })
 
     try {
@@ -219,6 +218,7 @@ async function prerender(): Promise<void> {
 // ── CLI entry ──
 if (!process.env.VITEST) {
   prerender().catch((err: Error) => {
-    console.warn(`⚠ Prerender skipped: ${err.message}`)
+    console.error(`✗ Prerender failed: ${err.message}`)
+    process.exit(1)
   })
 }
