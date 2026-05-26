@@ -11,12 +11,16 @@ import {
 import { TABLE_THEMES } from '../../config/table/tableThemes'
 import { siteConfig } from '../../config/siteConfig'
 import type {
+  CaptionAlignment,
+  TableState,
+} from '../TableState/TableState.types'
+import type {
   CellData,
   HeaderStyle,
   MergeRange,
+  TableTheme,
   TextAlign,
 } from '../../types/table'
-import type { TableState } from '../TableState/TableState.types'
 import { buildMergeKey, rangeFromSelection, isSingleCellRange, normalizeSelection } from '../../utils/mergeUtils/mergeUtils'
 import {
   addColumn as addColumnToCells,
@@ -45,6 +49,55 @@ function removeInvalidMerges(ranges: MergeRange[], rows: number, cols: number): 
 
 export function reducer(state: TableState, action: TableAction): TableState {
   switch (action.type) {
+    case 'setCells': {
+      const newCells = action.cells
+      const rows = newCells.length
+      const cols = newCells[0]?.length ?? 0
+      const s = action.styles
+      return {
+        ...state,
+        cells: newCells,
+        rows,
+        cols,
+        headerStyle: (s?.headerStyle as HeaderStyle) ?? ('first-row' as HeaderStyle),
+        headerColor: s?.headerColor ?? siteConfig.colors.defaultHeader,
+        contentColor: s?.contentColor ?? siteConfig.colors.defaultContent,
+        contentBgColor: s?.contentBgColor ?? '',
+        borderStyle: (s?.borderStyle as TableState['borderStyle']) ?? DEFAULT_BORDER_STYLE,
+        borderColor: s?.borderColor ?? DEFAULT_BORDER_COLOR,
+        theme: (s?.theme as TableTheme) ?? ('default' as TableTheme),
+        freezeRow: false,
+        freezeCol: false,
+        caption: s?.caption ?? '',
+        captionAlignment: (s?.captionAlignment as CaptionAlignment) ?? ('center' as CaptionAlignment),
+        captionTextColor: s?.captionTextColor ?? '',
+        captionBgColor: s?.captionBgColor ?? '',
+        captionItalic: s?.captionItalic ?? false,
+        columnWidths: s?.columnWidths
+          ? Array.from({ length: cols }, (_, i) => s.columnWidths![i] ?? DEFAULT_COLUMN_WIDTH)
+          : state.columnWidths.slice(0, cols).concat(
+              Array.from({ length: Math.max(0, cols - state.columnWidths.length) }, () => DEFAULT_COLUMN_WIDTH),
+            ),
+        rowHeights: state.rowHeights.slice(0, rows).concat(
+          Array.from({ length: Math.max(0, rows - state.rowHeights.length) }, () => DEFAULT_ROW_HEIGHT),
+        ),
+        rowColors: state.rowColors.slice(0, rows).concat(
+          Array.from({ length: Math.max(0, rows - state.rowColors.length) }, () => ''),
+        ),
+        columnColors: state.columnColors.slice(0, cols).concat(
+          Array.from({ length: Math.max(0, cols - state.columnColors.length) }, () => ''),
+        ),
+        columnTextAlign: state.columnTextAlign.slice(0, cols).concat(
+          Array.from({ length: Math.max(0, cols - state.columnTextAlign.length) }, () => 'left' as TextAlign),
+        ),
+        cellColors: s?.cellColors ?? {},
+        cellTextColors: s?.cellTextColors ?? {},
+        rowTextColors: {},
+        cellTextAlign: s?.cellTextAlign ?? {},
+        mergedRanges: action.mergedRanges ?? [],
+        selectedRange: null,
+      }
+    }
     case 'generate': {
       const rows = clamp(action.rows, 1, MAX_ROWS)
       const cols = clamp(action.cols, 1, MAX_COLS)
@@ -55,7 +108,7 @@ export function reducer(state: TableState, action: TableAction): TableState {
         cells: generateEmptyTable(rows, cols),
         columnWidths: Array.from({ length: cols }, () => DEFAULT_COLUMN_WIDTH),
         rowHeights: Array.from({ length: rows }, () => DEFAULT_ROW_HEIGHT),
-        headerStyle: 'none' as HeaderStyle,
+        headerStyle: 'first-row' as HeaderStyle,
         headerColor: siteConfig.colors.defaultHeader,
         contentColor: siteConfig.colors.defaultContent,
         contentBgColor: '',
@@ -65,27 +118,16 @@ export function reducer(state: TableState, action: TableAction): TableState {
         columnColors: Array.from({ length: cols }, () => ''),
         columnTextAlign: Array.from({ length: cols }, () => 'left'),
         cellColors: {},
+        cellTextColors: {},
+        rowTextColors: {},
         cellTextAlign: {},
         mergedRanges: [],
         selectedRange: null,
-      }
-    }
-    case 'setCells': {
-      const rows = clamp(action.cells.length, 1, MAX_ROWS)
-      const cols = clamp(action.cells[0]?.length ?? 1, 1, MAX_COLS)
-      return {
-        ...state,
-        rows,
-        cols,
-        cells: action.cells.slice(0, rows).map((row) => row.slice(0, cols)),
-        columnWidths: Array.from({ length: cols }, (_, col) => state.columnWidths[col] ?? DEFAULT_COLUMN_WIDTH),
-        rowHeights: Array.from({ length: rows }, (_, row) => state.rowHeights[row] ?? DEFAULT_ROW_HEIGHT),
-        columnColors: Array.from({ length: cols }, (_, col) => state.columnColors[col] ?? ''),
-        columnTextAlign: Array.from({ length: cols }, (_, col) => state.columnTextAlign[col] ?? 'left'),
-        cellColors: {},
-        cellTextAlign: {},
-        mergedRanges: [],
-        selectedRange: null,
+        caption: '',
+        captionAlignment: 'center',
+        captionTextColor: '',
+        captionBgColor: '',
+        captionItalic: false,
       }
     }
     case 'updateCell':
@@ -213,9 +255,12 @@ export function reducer(state: TableState, action: TableAction): TableState {
         columnColors: Array.from({ length: DEFAULT_COLS }, () => ''),
         columnTextAlign: Array.from({ length: DEFAULT_COLS }, () => 'left' as TextAlign),
         cellColors: {},
+        cellTextColors: {},
+        rowTextColors: {},
         cellTextAlign: {},
         mergedRanges: [],
         selectedRange: null,
+        captionItalic: false,
       }
     case 'setHeaderStyle':
       return { ...state, headerStyle: action.headerStyle }
@@ -278,6 +323,16 @@ export function reducer(state: TableState, action: TableAction): TableState {
         ...state,
         cellColors: { ...state.cellColors, [action.cellId]: action.color },
       }
+    case 'setCellTextColor':
+      return {
+        ...state,
+        cellTextColors: { ...state.cellTextColors, [action.cellId]: action.color },
+      }
+    case 'setRowTextColor':
+      return {
+        ...state,
+        rowTextColors: { ...state.rowTextColors, [action.row]: action.color },
+      }
     case 'setColumnFormat':
       return {
         ...state,
@@ -322,12 +377,15 @@ export function reducer(state: TableState, action: TableAction): TableState {
         columnColors: Array.from({ length: action.preset.cols }, () => ''),
         columnTextAlign: Array.from({ length: action.preset.cols }, () => 'left' as TextAlign),
         cellColors: {},
+        cellTextColors: {},
+        rowTextColors: {},
         cellTextAlign: {},
         mergedRanges: (action.preset.mergedRanges ?? []).map((r) => ({
           ...r,
           key: buildMergeKey(r.startRow, r.startCol, r.endRow, r.endCol),
         })),
         selectedRange: null,
+        captionItalic: false,
       }
     }
     case 'UNDO':
@@ -340,6 +398,8 @@ export function reducer(state: TableState, action: TableAction): TableState {
       return { ...state, captionTextColor: action.color }
     case 'setCaptionBgColor':
       return { ...state, captionBgColor: action.color }
+    case 'setCaptionItalic':
+      return { ...state, captionItalic: action.italic }
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Copy, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2 } from 'lucide-react'
+import { AlignCenter, AlignLeft, AlignRight, ArrowDown, ArrowUp, Clipboard, Copy, Eraser, PaintBucket, Plus, Ruler, TextSelect, Trash2, Type } from 'lucide-react'
 import { useEffect, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ColumnFormat, TextAlign } from '@/types/table'
@@ -30,9 +30,10 @@ function CtxSeparator(): ReactNode {
   return <div className="border-t border-border my-1" />
 }
 
-export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
+export function TableCtxMenu({ ctxMenu, activeSub, headerStyle, columnColors, cellColors, cellTextColors, rowTextColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setCellTextColor, setRowTextColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
   const { t } = useTranslation()
   const menuRef = useRef<HTMLDivElement>(null)
+  const isHeaderRow = ctxMenu.type === 'cell' && (headerStyle === 'first-row' || headerStyle === 'both') && ctxMenu.row === 0
 
   useEffect(() => {
     const el = menuRef.current
@@ -85,44 +86,102 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
       {/* Shared: auto-fit */}
       {ctxMenu.type === 'column' ? (
         <>
-          <CtxButton icon={<Ruler size={14} className="text-text-muted" />} label={t('contextMenu.autoFitColumn')} onClick={() => { autoFitColumn(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<ArrowUp size={14} className="text-text-muted" />} label={t('contextMenu.sortAscending')} onClick={() => { sortAsc(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<ArrowDown size={14} className="text-text-muted" />} label={t('contextMenu.sortDescending')} onClick={() => { sortDesc(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Ruler size={14} className="text-primary" />} label={t('contextMenu.autoFitColumn')} onClick={() => { autoFitColumn(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<ArrowUp size={14} className="text-info" />} label={t('contextMenu.sortAscending')} onClick={() => { sortAsc(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<ArrowDown size={14} className="text-info" />} label={t('contextMenu.sortDescending')} onClick={() => { sortDesc(ctxMenu.col); onClose() }} />
         </>
       ) : (
         <>
-          <CtxButton icon={<Ruler size={14} className="text-text-muted" />} label={t('contextMenu.autoFitColumn')} onClick={() => { autoFitColumn(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Ruler size={14} className="text-primary" />} label={t('contextMenu.autoFitColumn')} onClick={() => { autoFitColumn(ctxMenu.col); onClose() }} />
 
           <CtxSeparator />
 
-          <div>
-            <button
-              type="button"
-              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
-              onClick={() => onToggleSub('bg')}
-            >
-              <PaintBucket size={14} className="text-text-muted" />
-              <span className="flex-1">{t('contextMenu.changeBackground')}</span>
-              <span className="text-text-muted">{activeSub === 'bg' ? '\u25B2' : '\u25BC'}</span>
-            </button>
-            {activeSub === 'bg' ? (
-              <div className="border-t border-border px-3 py-2">
-                <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeColumnBackground')}</p>
-                <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
-                <hr className="my-2 border-border" />
-                <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeBackground')}</p>
-                <CtxColorSubmenu current={cellColors[`R${ctxMenu.row}C${ctxMenu.col}`] ?? ''} onChange={(c) => setCellColor(`R${ctxMenu.row}C${ctxMenu.col}`, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
-              </div>
-            ) : null}
-          </div>
+          {!isHeaderRow ? (
+            <div>
+              <button
+                type="button"
+                className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
+                onClick={() => onToggleSub('bg')}
+              >
+                <PaintBucket size={14} className="text-success" />
+                <span className="flex-1">{t('contextMenu.changeBackground')}</span>
+                <span className="text-text-muted">{activeSub === 'bg' ? '\u25B2' : '\u25BC'}</span>
+              </button>
+              {activeSub === 'bg' ? (
+                <div className="border-t border-border px-3 py-2">
+                  <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeColumnBackground')}</p>
+                  <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.clear')} />
+                  <hr className="my-2 border-border" />
+                  <p className="mb-1.5 text-xs font-medium text-text-secondary">{t('contextMenu.changeBackground')}</p>
+                  <CtxColorSubmenu current={cellColors[`R${ctxMenu.row}C${ctxMenu.col}`] ?? ''} onChange={(c) => setCellColor(`R${ctxMenu.row}C${ctxMenu.col}`, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.clear')} />
+                </div>
+              ) : null}
+            </div>
+          ) : null}
 
+          {/* Change row background — grouped with other color items */}
+          {!isHeaderRow ? (
+            <div>
+              <button
+                type="button"
+                className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
+                onClick={() => onToggleSub('rowColor')}
+              >
+                <PaintBucket size={14} className="text-info" />
+                <span className="flex-1">{t('contextMenu.changeRowBackground')}</span>
+                <span className="text-text-muted">{activeSub === 'rowColor' ? '\u25B2' : '\u25BC'}</span>
+              </button>
+              {activeSub === 'rowColor' ? (
+                <div className="border-t border-border px-3 py-2">
+                  <CtxColorSubmenu current={rowColors[ctxMenu.row] || ''} onChange={(c) => setRowColor(ctxMenu.row, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.clear')} />
+                </div>
+              ) : null}
+            </div>
+          ) : null}
+
+          {/* Cell text color — individual cell override */}
+          <div>
+              <button
+                type="button"
+                className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
+                onClick={() => onToggleSub('cellTextColor')}
+              >
+                <Type size={14} className="text-info" />
+                <span className="flex-1">{t('contextMenu.changeCellTextColor')}</span>
+                <span className="text-text-muted">{activeSub === 'cellTextColor' ? '\u25B2' : '\u25BC'}</span>
+              </button>
+              {activeSub === 'cellTextColor' ? (
+                <div className="border-t border-border px-3 py-2">
+                  <CtxColorSubmenu current={cellTextColors[`R${ctxMenu.row}C${ctxMenu.col}`] ?? ''} onChange={(c) => setCellTextColor(`R${ctxMenu.row}C${ctxMenu.col}`, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.clear')} />
+                </div>
+              ) : null}
+            </div>
+
+          {/* Row text color — header row or regular row */}
           <div>
             <button
               type="button"
               className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
-              onClick={() => onToggleSub('type')}
+              onClick={() => onToggleSub('rowTextColor')}
             >
-              <TextSelect size={14} className="text-text-muted" />
+              <Type size={14} className="text-info" />
+              <span className="flex-1">{isHeaderRow ? t('contextMenu.changeHeaderTextColor') : t('contextMenu.changeRowTextColor')}</span>
+              <span className="text-text-muted">{activeSub === 'rowTextColor' ? '\u25B2' : '\u25BC'}</span>
+            </button>
+            {activeSub === 'rowTextColor' ? (
+              <div className="border-t border-border px-3 py-2">
+                <CtxColorSubmenu current={rowTextColors[ctxMenu.row] ?? ''} onChange={(c) => setRowTextColor(ctxMenu.row, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.clear')} />
+                </div>
+              ) : null}
+            </div>
+
+            <div>
+              <button
+                type="button"
+                className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
+                onClick={() => onToggleSub('type')}
+              >
+                <TextSelect size={14} className="text-primary" />
               <span className="flex-1">{t('contextMenu.changeColumnType')}</span>
               <span className="text-xs text-text-muted">{cells[0]?.[ctxMenu.col]?.format ?? 'text'}</span>
             </button>
@@ -133,38 +192,21 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
 
           <CtxSeparator />
 
-          <CtxButton icon={<Plus size={14} className="text-text-muted" />} label={t('contextMenu.insertRowAbove')} onClick={() => { insertRowAbove(ctxMenu.row); onClose() }} />
-          <CtxButton icon={<Plus size={14} className="text-text-muted" />} label={t('contextMenu.insertRowBelow')} onClick={() => { insertRowBelow(ctxMenu.row); onClose() }} />
-          <CtxButton icon={<Plus size={14} className="text-text-muted" />} label={t('contextMenu.insertColumnLeft')} onClick={() => { insertColLeft(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<Plus size={14} className="text-text-muted" />} label={t('contextMenu.insertColumnRight')} onClick={() => { insertColRight(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Plus size={14} className="text-success" />} label={t('contextMenu.insertRowAbove')} onClick={() => { insertRowAbove(ctxMenu.row); onClose() }} />
+          <CtxButton icon={<Plus size={14} className="text-success" />} label={t('contextMenu.insertRowBelow')} onClick={() => { insertRowBelow(ctxMenu.row); onClose() }} />
+          <CtxButton icon={<Plus size={14} className="text-success" />} label={t('contextMenu.insertColumnLeft')} onClick={() => { insertColLeft(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Plus size={14} className="text-success" />} label={t('contextMenu.insertColumnRight')} onClick={() => { insertColRight(ctxMenu.col); onClose() }} />
 
           <CtxSeparator />
 
-          <CtxButton icon={<Copy size={14} className="text-text-muted" />} label={t('contextMenu.copy')} onClick={handleCopy} />
-          <CtxButton icon={<Clipboard size={14} className="text-text-muted" />} label={t('contextMenu.paste')} onClick={handlePaste} />
-
-          <div>
-            <button
-              type="button"
-              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
-              onClick={() => onToggleSub('rowColor')}
-            >
-              <PaintBucket size={14} className="text-text-muted" />
-              <span className="flex-1">{t('contextMenu.changeRowBackground')}</span>
-              <span className="text-text-muted">{activeSub === 'rowColor' ? '\u25B2' : '\u25BC'}</span>
-            </button>
-            {activeSub === 'rowColor' ? (
-              <div className="border-t border-border px-3 py-2">
-                <CtxColorSubmenu current={rowColors[ctxMenu.row] || ''} onChange={(c) => setRowColor(ctxMenu.row, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
-              </div>
-            ) : null}
-          </div>
+          <CtxButton icon={<Copy size={14} className="text-primary" />} label={t('contextMenu.copy')} onClick={handleCopy} />
+          <CtxButton icon={<Clipboard size={14} className="text-primary" />} label={t('contextMenu.paste')} onClick={handlePaste} />
 
           <CtxSeparator />
 
-          <CtxButton icon={<Eraser size={14} className="text-text-muted" />} label={t('contextMenu.clearCell')} onClick={() => { updateCell(`R${ctxMenu.row}C${ctxMenu.col}`, ''); onClose() }} />
-          <CtxButton icon={<Trash2 size={14} className="text-text-muted" />} label={t('contextMenu.deleteRow')} onClick={() => { deleteRowAt(ctxMenu.row); onClose() }} />
-          <CtxButton icon={<Trash2 size={14} className="text-text-muted" />} label={t('contextMenu.deleteColumn')} onClick={() => { deleteColAt(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Eraser size={14} className="text-accent" />} label={t('contextMenu.clearCell')} onClick={() => { updateCell(`R${ctxMenu.row}C${ctxMenu.col}`, ''); onClose() }} />
+          <CtxButton icon={<Trash2 size={14} className="text-danger" />} label={t('contextMenu.deleteRow')} onClick={() => { deleteRowAt(ctxMenu.row); onClose() }} />
+          <CtxButton icon={<Trash2 size={14} className="text-danger" />} label={t('contextMenu.deleteColumn')} onClick={() => { deleteColAt(ctxMenu.col); onClose() }} />
         </>
       )}
 
@@ -179,13 +221,13 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
               onClick={() => onToggleSub('bg')}
             >
-              <PaintBucket size={14} className="text-text-muted" />
+              <PaintBucket size={14} className="text-success" />
               <span className="flex-1">{t('contextMenu.changeColumnBackground')}</span>
               <span className="text-text-muted">{activeSub === 'bg' ? '\u25B2' : '\u25BC'}</span>
             </button>
             {activeSub === 'bg' ? (
               <div className="border-t border-border px-3 py-2">
-                <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.noColor')} />
+                <CtxColorSubmenu current={columnColors[ctxMenu.col] || ''} onChange={(c) => setColumnColor(ctxMenu.col, c)} onClose={onClose} customLabel={t('colorPanel.customColor')} removeColorLabel={t('colorPanel.clear')} />
               </div>
             ) : null}
           </div>
@@ -196,7 +238,7 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
               className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-xs text-text-primary hover:bg-surface"
               onClick={() => onToggleSub('type')}
             >
-              <TextSelect size={14} className="text-text-muted" />
+              <TextSelect size={14} className="text-primary" />
               <span className="flex-1">{t('contextMenu.changeColumnType')}</span>
               <span className="text-xs text-text-muted">{cells[0]?.[ctxMenu.col]?.format ?? 'text'}</span>
             </button>
@@ -222,9 +264,9 @@ export function TableCtxMenu({ ctxMenu, activeSub, columnColors, cellColors, row
 
           <CtxSeparator />
 
-          <CtxButton icon={<Plus size={14} className="text-text-muted" />} label={t('contextMenu.insertColumnLeft')} onClick={() => { insertColLeft(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<Plus size={14} className="text-text-muted" />} label={t('contextMenu.insertColumnRight')} onClick={() => { insertColRight(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<Trash2 size={14} className="text-text-muted" />} label={t('contextMenu.deleteColumn')} onClick={() => { deleteColAt(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Plus size={14} className="text-success" />} label={t('contextMenu.insertColumnLeft')} onClick={() => { insertColLeft(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Plus size={14} className="text-success" />} label={t('contextMenu.insertColumnRight')} onClick={() => { insertColRight(ctxMenu.col); onClose() }} />
+          <CtxButton icon={<Trash2 size={14} className="text-danger" />} label={t('contextMenu.deleteColumn')} onClick={() => { deleteColAt(ctxMenu.col); onClose() }} />
         </>
       ) : null}
     </div>

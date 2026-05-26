@@ -4,6 +4,8 @@ const mockModule = vi.hoisted(() => {
   const mockFn = vi.fn() as unknown as Record<string, ReturnType<typeof vi.fn>>
   mockFn.success = vi.fn()
   mockFn.error = vi.fn()
+  mockFn.info = vi.fn()
+  mockFn.warning = vi.fn()
   return { mockFn }
 })
 
@@ -22,9 +24,14 @@ describe('toast', () => {
     expect(mockModule.mockFn.error).toHaveBeenCalledWith('Something broke.')
   })
 
-  it('info calls sonner.toast function with the message', () => {
+  it('info calls sonner.info with the message', () => {
     toast.info('Heads up.')
-    expect(mockModule.mockFn).toHaveBeenCalledWith('Heads up.')
+    expect(mockModule.mockFn.info).toHaveBeenCalledWith('Heads up.')
+  })
+
+  it('warning calls sonner.warning with the message', () => {
+    toast.warning('Careful.')
+    expect(mockModule.mockFn.warning).toHaveBeenCalledWith('Careful.')
   })
 })
 

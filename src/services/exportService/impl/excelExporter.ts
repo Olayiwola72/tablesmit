@@ -2,6 +2,7 @@ import type { CellData, BorderStyle as TbBorderStyle } from '../../../types/tabl
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
 import { siteConfig } from '../../../config/siteConfig'
 import { downloadUrl, filenameWithExtension } from '../utils'
+import { getEffectiveColSpan, getMergeAtCoord } from '../../../utils/mergeUtils/mergeUtils'
 import { isHeaderCell } from '../../../context/TableContext'
 
 type ExceljsBorderStyle = 'thin' | 'dotted' | 'dashed' | 'double'
@@ -82,7 +83,7 @@ export class ExcelExporter implements ExportStrategy {
       captionCell.font = {
         name: 'Calibri',
         size: 12,
-        italic: true,
+        italic: options.captionItalic ?? true,
         color: { argb: options.captionTextColor ? toArgb(options.captionTextColor) : 'FF6B7280' },
       }
       if (options.captionBgColor) {
@@ -118,10 +119,16 @@ export class ExcelExporter implements ExportStrategy {
     // ── Data rows + cell styling ──
     cellsData.forEach((row, rowIndex) => {
       row.forEach((cell, colIndex) => {
+        // Skip non-anchor cells in a merged range — writing their value
+        // would overwrite the anchor cell's value in exceljs (shared model).
+        const merge = getMergeAtCoord(rowIndex, colIndex, options.mergedRanges ?? [])
+        if (merge && (rowIndex !== merge.startRow || colIndex !== merge.startCol)) return
+
         const excelRow = rowIndex + dataStartRow
         const excelCol = colIndex + 1
         const cellId = makeCellId(rowIndex, colIndex)
-        const isHeader = isHeaderCell(options.headerStyle ?? 'none', rowIndex, colIndex)
+        const cs = getEffectiveColSpan(rowIndex, colIndex, options.mergedRanges ?? [], cell.colSpan ?? 1)
+        const isHeader = isHeaderCell(options.headerStyle ?? 'none', rowIndex, colIndex, cs)
 
         const xlCell = worksheet.getCell(excelRow, excelCol)
         xlCell.value = cell.value

@@ -21,8 +21,10 @@ function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return <TableProvider>{children}</TableProvider>
 }
 
-function getCell(row: number, col: number, cols: number = DEFAULT_COLS): HTMLElement {
-  return screen.getAllByRole('gridcell')[row * cols + col]
+function getCell(row: number, col: number): HTMLElement {
+  const el = document.querySelector(`[data-cell-id="R${row}C${col}"]`)
+  if (!el) throw new Error(`Cell R${row}C${col} not found`)
+  return el as HTMLElement
 }
 
 function renderTableGrid(props: Record<string, unknown> = {}): { tableRef: React.RefObject<HTMLDivElement | null> } {
@@ -51,9 +53,10 @@ describe('TableGrid', () => {
     expect(screen.getAllByRole('row')).toHaveLength(DEFAULT_ROWS)
   })
 
-  it('renders 25 cells with role="gridcell"', () => {
+  it('renders 25 cells with gridcell or columnheader role', () => {
     renderTableGrid()
-    expect(screen.getAllByRole('gridcell')).toHaveLength(DEFAULT_ROWS * DEFAULT_COLS)
+    const allCells = document.querySelectorAll('[data-cell-id]')
+    expect(allCells).toHaveLength(DEFAULT_ROWS * DEFAULT_COLS)
   })
 
   it('renders column header sort buttons labelled C1 through C5', () => {
@@ -105,7 +108,7 @@ describe('TableGrid', () => {
     expect(cell.className).not.toContain('ring-border')
   })
 
-  it('shows dimmed selection ring after clicking outside the table', async () => {
+  it('removes selection ring after clicking outside the table', async () => {
     const user = userEvent.setup()
     renderTableGrid()
     const cell = getCell(0, 0)
@@ -113,7 +116,8 @@ describe('TableGrid', () => {
     expect(cell.className).toContain('ring-primary')
 
     await user.click(document.body)
-    expect(cell.className).toContain('ring-border')
+    expect(cell.className).not.toContain('ring-primary')
+    expect(cell.className).not.toContain('ring-border')
   })
 
   // ── Column header sorting ────────────────────────────────
@@ -428,7 +432,28 @@ describe('TableGrid', () => {
 
   it('renders with empty findMatches and currentFindMatch without error', () => {
     renderTableGrid({ findMatches: [] as Array<{ row: number; col: number }>, currentFindMatch: null })
-    expect(screen.getAllByRole('gridcell')).toHaveLength(DEFAULT_ROWS * DEFAULT_COLS)
+    const allCells = document.querySelectorAll('[data-cell-id]')
+    expect(allCells).toHaveLength(DEFAULT_ROWS * DEFAULT_COLS)
+  })
+
+  // ── Header cell edits persist ────────────────────────────
+
+  it('saves typed value in header cell (R0C0) on blur', async () => {
+    const user = userEvent.setup()
+    renderTableGrid()
+
+    const cell = getCell(0, 0)
+    const editable = cell.querySelector<HTMLElement>('[contenteditable]')
+    expect(editable).not.toBeNull()
+    expect(editable!.textContent).toBe('')
+
+    await user.click(editable!)
+    await user.keyboard('Product')
+    fireEvent.blur(editable!)
+
+    const cellAfterBlur = getCell(0, 0)
+    const editableAfter = cellAfterBlur.querySelector<HTMLElement>('[contenteditable]')
+    expect(editableAfter!.textContent).toBe('Product')
   })
 
   // ── Pasted cells replace the table ───────────────────────
@@ -459,7 +484,13 @@ describe('TableGrid', () => {
     const rows = screen.getAllByRole('row')
     expect(rows).toHaveLength(DEFAULT_ROWS)
 
-    const firstRowCells = rows[0]?.querySelectorAll('[role="gridcell"]')
+    const firstRowCells = rows[0]?.querySelectorAll('[role="columnheader"]')
     expect(firstRowCells).toHaveLength(DEFAULT_COLS)
+  })
+
+  it('renders the TableSkeleton component inside the grid', () => {
+    renderTableGrid()
+    const skeleton = document.querySelector('[data-testid="table-skeleton"]')
+    expect(skeleton).toBeInTheDocument()
   })
 })

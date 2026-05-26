@@ -40,6 +40,8 @@ function TableCellRaw({
   rowColor,
   columnColor,
   cellColor,
+  cellTextColor,
+  rowTextColor,
   textAlign,
   rowHeight,
   merge,
@@ -58,7 +60,8 @@ function TableCellRaw({
   isTableFocused = true,
 }: TableCellProps): ReactNode {
   const { t } = useTranslation()
-  const CellTag = isHeaderCell(headerStyle, row, col) ? 'th' : 'td'
+  const effectiveColSpan = merge ? (merge.endCol - merge.startCol + 1) : cell.colSpan
+  const CellTag = isHeaderCell(headerStyle, row, col, effectiveColSpan) ? 'th' : 'td'
   const selected = selectedRange ? isCellInMergeRange(cell.id, { ...normalizeSelection(selectedRange) }) : false
   const displayValue = formatCellValue(cell.value, cell.format ?? 'text', row)
   const isFormula = (cell.format ?? 'text') === 'auto-number' || (cell.format ?? 'text') === 'sum'
@@ -75,6 +78,10 @@ function TableCellRaw({
 
   const handlePaste = (event: ReactClipboardEvent<HTMLDivElement>): void => {
     if (isFormula) return
+    // If clipboard has HTML content, the document-level handler will process the full table
+    for (const item of event.clipboardData.items) {
+      if (item.type === 'text/html') return
+    }
     const text = event.clipboardData.getData('text/plain')
     if (!text) return
     event.preventDefault()
@@ -93,8 +100,6 @@ function TableCellRaw({
         'relative min-w-20 p-0 align-top text-xs sm:text-sm',
         CellTag === 'th' ? 'font-semibold text-text-inverse' : 'font-normal text-text-primary',
         selected && isTableFocused && 'ring-2 ring-inset ring-primary',
-        selected && !isTableFocused && 'ring-1 ring-inset ring-border',
-        merge && 'bg-primary-light',
         isFindMatch && !isCurrentMatch && 'bg-accent-light',
         isCurrentMatch && 'ring-2 ring-accent',
         stickyClasses,
@@ -103,7 +108,7 @@ function TableCellRaw({
         height: rowHeight,
         border: borderStyle === 'none' ? 'none' : `1px ${borderStyle} ${borderColor}`,
         backgroundColor: effectiveBg,
-        color: CellTag === 'th' ? headerTextColor : contentColor,
+        color: cellTextColor || rowTextColor || (CellTag === 'th' ? headerTextColor : contentColor),
         textAlign: textAlign as React.CSSProperties['textAlign'],
       }}
       data-cell-id={cell.id}
@@ -162,6 +167,8 @@ export const TableCell = memo(TableCellRaw, (prev, next) => {
   if (prev.rowColor !== next.rowColor) return false
   if (prev.columnColor !== next.columnColor) return false
   if (prev.cellColor !== next.cellColor) return false
+  if (prev.cellTextColor !== next.cellTextColor) return false
+  if (prev.rowTextColor !== next.rowTextColor) return false
   if (prev.textAlign !== next.textAlign) return false
   if (prev.rowHeight !== next.rowHeight) return false
   if (prev.columnWidth !== next.columnWidth) return false

@@ -17,9 +17,9 @@ export function parseCellId(cellId: string): CellCoordinate {
   }
 }
 
-export function isHeaderCell(headerStyle: HeaderStyle, row: number, col: number): boolean {
-  if (headerStyle === 'both') return row === 0 || col === 0
+export function isHeaderCell(headerStyle: HeaderStyle, row: number, col: number, colSpan = 1): boolean {
+  if (headerStyle === 'both') return row === 0 || (col === 0 && colSpan === 1)
   if (headerStyle === 'first-row') return row === 0
-  if (headerStyle === 'first-column') return col === 0
+  if (headerStyle === 'first-column') return col === 0 && colSpan === 1
   return false
 }

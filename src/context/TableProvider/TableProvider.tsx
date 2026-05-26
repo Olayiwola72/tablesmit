@@ -76,8 +76,8 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
 
   const actions = useMemo<TableActions>(
     () => ({
+      setCells: (cells, mergedRanges, styles) => dispatchWithHistory({ type: 'setCells', cells, mergedRanges, styles }),
       generateTable: (rows, cols) => dispatchWithHistory({ type: 'generate', rows, cols }),
-      setCells: (cells) => dispatchWithHistory({ type: 'setCells', cells }),
       updateCell: (cellId, value) => dispatchWithHistory({ type: 'updateCell', cellId, value }),
       addRow: () => dispatchWithHistory({ type: 'addRow' }),
       insertRowAt: (index) => dispatchWithHistory({ type: 'insertRowAt', index }),
@@ -103,6 +103,8 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       setRowColor: (row, color) => dispatchWithHistory({ type: 'setRowColor', row, color }),
       setColumnColor: (col, color) => dispatchWithHistory({ type: 'setColumnColor', col, color }),
       setCellColor: (cellId, color) => dispatchWithHistory({ type: 'setCellColor', cellId, color }),
+      setCellTextColor: (cellId, color) => dispatchWithHistory({ type: 'setCellTextColor', cellId, color }),
+      setRowTextColor: (row, color) => dispatchWithHistory({ type: 'setRowTextColor', row, color }),
       setColumnTextAlign: (col, align) => dispatchWithHistory({ type: 'setColumnTextAlign', col, align }),
       setCellTextAlign: (cellId, align) => dispatchWithHistory({ type: 'setCellTextAlign', cellId, align }),
       applyPreset: (preset) => dispatchWithHistory({ type: 'applyPreset', preset }),
@@ -113,6 +115,7 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       setCaptionAlignment: (alignment) => dispatch({ type: 'setCaptionAlignment', alignment }),
       setCaptionTextColor: (color) => dispatch({ type: 'setCaptionTextColor', color }),
       setCaptionBgColor: (color) => dispatch({ type: 'setCaptionBgColor', color }),
+      setCaptionItalic: (italic) => dispatch({ type: 'setCaptionItalic', italic }),
       undo,
       canUndo,
       historyDepth,
@@ -145,6 +148,8 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       columnColors: state.columnColors,
       columnTextAlign: state.columnTextAlign,
       cellColors: state.cellColors,
+      cellTextColors: state.cellTextColors,
+      rowTextColors: state.rowTextColors,
       cellTextAlign: state.cellTextAlign,
       freezeRow: state.freezeRow,
       freezeCol: state.freezeCol,
@@ -152,6 +157,7 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       captionAlignment: state.captionAlignment,
       captionTextColor: state.captionTextColor,
       captionBgColor: state.captionBgColor,
+      captionItalic: state.captionItalic,
       ...actions,
     }),
     [
@@ -171,6 +177,8 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       state.columnColors,
       state.columnTextAlign,
       state.cellColors,
+      state.cellTextColors,
+      state.rowTextColors,
       state.cellTextAlign,
       state.freezeRow,
       state.freezeCol,
@@ -178,6 +186,7 @@ export function TableProvider({ children }: { children: ReactNode }): ReactNode 
       state.captionAlignment,
       state.captionTextColor,
       state.captionBgColor,
+      state.captionItalic,
       actions,
     ],
   )

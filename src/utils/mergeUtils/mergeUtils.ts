@@ -41,3 +41,14 @@ export function isRangeAnchor(cellId: string, range: MergeRange): boolean {
   const { row, col } = parseCellId(cellId)
   return row === range.startRow && col === range.startCol
 }
+
+export function getMergeAtCoord(row: number, col: number, ranges: MergeRange[]): MergeRange | undefined {
+  return ranges.find((r) => row >= r.startRow && row <= r.endRow && col >= r.startCol && col <= r.endCol)
+}
+
+export function getEffectiveColSpan(row: number, col: number, ranges: MergeRange[], defaultColSpan = 1): number {
+  const merge = getMergeAtCoord(row, col, ranges)
+  if (!merge) return defaultColSpan
+  if (row !== merge.startRow || col !== merge.startCol) return 1
+  return merge.endCol - merge.startCol + 1
+}

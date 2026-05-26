@@ -143,7 +143,9 @@
     "clearAll": "すべてクリア",
     "undo": "元に戻す",
     "copy": "コピー",
+    "paste": "貼り付け",
     "copyImage": "画像としてコピー",
+    "copyHtml": "HTMLとしてコピー",
     "copyExcel": "Excelデータとしてコピー",
     "copyCsv": "CSVとしてコピー",
     "copyMarkdown": "Markdownとしてコピー",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "列の背景色を変更",
     "changeRowBackground": "行の背景色を変更",
     "changeTextColor": "文字色を変更",
+    "changeCellTextColor": "セルの文字色を変更",
+    "changeHeaderTextColor": "ヘッダーの文字色を変更",
+    "changeRowTextColor": "行の文字色を変更",
     "changeColumnType": "列の種類を変更",
     "insertRowAbove": "上に行を挿入",
     "insertRowBelow": "下に行を挿入",
@@ -260,11 +265,13 @@
     "findReplace": "検索と置換"
   },
   "colorPanel": {
-    "headerColor": "ヘッダーの色",
-    "contentColor": "コンテンツの色",
-    "noColor": "色なし",
+    "headerColor": "ヘッダー背景色",
+    "contentColor": "行コンテンツの色",
+    "clear": "クリア",
     "customColor": "カスタム",
-    "swatch": "色見本 {{label}}"
+    "swatch": "色見本 {{label}}",
+    "rightClickHint": "セルを右クリックしてその他のオプション",
+    "rightClickDetails": "セル・行・ヘッダーの背景色を変更\nセルや行の文字色をカスタマイズ\n列の種類、並べ替え、配置を調整\nセルの挿入、削除、コピー、貼り付け、クリア\nセルを結合、または結合を解除\n列や行の幅を内容に合わせて自動調整"
   },
   "borderPanel": {
     "noBorder": "枠線なし",
@@ -351,6 +358,7 @@
     "importError": "ファイルを読み込めませんでした。形式を確認してからもう一度お試しください。",
     "importTooLarge": "ファイルが大きすぎます。最大サイズは5MBです。",
     "copyImage": "テーブルを画像としてコピーしました。",
+    "copyHtml": "テーブルをHTMLとしてコピーしました。",
     "copyData": "テーブルデータをコピーしました。ExcelやGoogle Sheetsに貼り付けてください。",
     "pasteSuccess": "テーブルを貼り付けました。{{rows}}行、{{cols}}列。",
     "pasteError": "クリップボードを読み取れませんでした。代わりにファイルをインポートしてみてください。",
@@ -425,6 +433,7 @@
     "openMenu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
     "copyTable": "テーブルをコピー",
+    "pasteTable": "クリップボードから貼り付け",
     "importFile": "ファイルをインポート",
     "exportTable": "テーブルをエクスポート",
     "clearTable": "すべてのセルをクリア",

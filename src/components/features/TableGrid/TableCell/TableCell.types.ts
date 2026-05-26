@@ -17,6 +17,8 @@ export interface TableCellProps {
   rowColor: string
   columnColor: string
   cellColor: string
+  cellTextColor?: string
+  rowTextColor?: string
   textAlign: string
   rowHeight: number
   columnWidth: number

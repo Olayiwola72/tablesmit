@@ -1,14 +1,19 @@
-import { Palette } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { MousePointer2, Palette } from 'lucide-react'
+import { useMemo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { headerColorSwatches, contentColorSwatches } from '../../../config/colorPalette/colorPalette'
 import { useTableContext } from '../../../context/TableContext'
+import { MoreOptionsAccordion } from '../../ui/MoreOptionsAccordion/MoreOptionsAccordion'
 import { ColorSwatch } from '../../ui/ColorSwatch/ColorSwatch'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function ColorPanel(): ReactNode {
   const { t } = useTranslation()
   const table = useTableContext()
+
+  const featureTags = useMemo(() => {
+    return t('colorPanel.rightClickDetails', '').split('\n').filter(Boolean)
+  }, [t])
 
   return (
     <section>
@@ -33,7 +38,7 @@ export function ColorPanel(): ReactNode {
           ))}
         </div>
         <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
-          {t('colorPanel.noColor')}
+          {t('colorPanel.clear')}
           <input type="color" name="row-bg-color" value={table.contentBgColor || '#ffffff'} onChange={(event) => table.setContentBgColor(event.target.value)} />
         </label>
         {table.contentBgColor ? (
@@ -42,10 +47,19 @@ export function ColorPanel(): ReactNode {
             className="w-full rounded-sm px-2 py-1.5 text-xs text-text-secondary hover:bg-danger hover:text-white transition-colors"
             onClick={() => table.setContentBgColor('')}
           >
-            {t('colorPanel.noColor')}
+            {t('colorPanel.clear')}
           </button>
         ) : null}
       </div>
+      <MoreOptionsAccordion icon={MousePointer2} label={t('colorPanel.rightClickHint')}>
+        <div className="flex flex-wrap gap-1.5">
+          {featureTags.map((line) => (
+            <span key={line} className="inline-block rounded-sm bg-surface px-2 py-0.5 text-[11px] text-text-muted">
+              {line}
+            </span>
+          ))}
+        </div>
+      </MoreOptionsAccordion>
     </section>
   )
 }

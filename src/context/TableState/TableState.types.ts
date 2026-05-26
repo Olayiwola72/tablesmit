@@ -20,6 +20,8 @@ export interface TableState {
   columnColors: string[]
   columnTextAlign: TextAlign[]
   cellColors: Record<string, string>
+  cellTextColors: Record<string, string>
+  rowTextColors: Record<number, string>
   cellTextAlign: Record<string, string>
   selectedRange: SelectionRange | null
   rows: number
@@ -30,4 +32,5 @@ export interface TableState {
   captionAlignment: CaptionAlignment
   captionTextColor: string
   captionBgColor: string
+  captionItalic: boolean
 }

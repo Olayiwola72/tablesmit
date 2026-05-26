@@ -166,6 +166,64 @@ describe('ExcelExporter', () => {
     expect(downloadUrl).toHaveBeenCalledOnce()
   })
 
+  it('defaults caption italic to true when captionItalic is not provided', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    const captionCell = worksheet.getCell(1, 1)
+    expect(captionCell.font?.italic).toBe(true)
+  })
+
+  it('sets caption italic to false when captionItalic is false', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+      captionItalic: false,
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    const captionCell = worksheet.getCell(1, 1)
+    // exceljs omits `italic: false` from serialised XML (default value),
+    // so reading back returns undefined rather than false.
+    expect(captionCell.font?.italic).not.toBe(true)
+  })
+
+  it('sets caption italic to true when captionItalic is true', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[makeCell('Data')]],
+      caption: 'My Caption',
+      captionItalic: true,
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    const captionCell = worksheet.getCell(1, 1)
+    expect(captionCell.font?.italic).toBe(true)
+  })
+
   it('applies merged ranges', async () => {
     await new ExcelExporter().export(el(), {
       format: 'excel',
@@ -175,6 +233,124 @@ describe('ExcelExporter', () => {
       ],
     })
     expect(downloadUrl).toHaveBeenCalledOnce()
+  })
+
+  it('preserves merged anchor cell value when non-anchor cell has isHidden', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[
+        makeCell('Merged Header', { isMerged: true, colSpan: 2, rowSpan: 1 }),
+        makeCell('', { isHidden: true }),
+      ]],
+      mergedRanges: [
+        { key: 'R0C0:R0C1', startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      ],
+      headerStyle: 'first-row',
+      styles: {
+        headerColor: '#1E40AF', headerTextColor: '#FFFFFF', borderColor: '#E5E7EB',
+        columnWidths: [], altRowBg: '#F9FAFB', contentColor: '#111827',
+        contentBgColor: '#FFFFFF', rowColors: [], columnColors: [], cellColors: {},
+        columnTextAlign: ['left'], cellTextAlign: {}, borderStyle: 'solid',
+      },
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    expect(worksheet.getCell(1, 1).value).toBe('Merged Header')
+  })
+
+  it('preserves merged anchor cell value without isHidden on non-anchor cell', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[
+        makeCell('Merged Header', { isMerged: true, colSpan: 2, rowSpan: 1 }),
+        makeCell(''),
+      ]],
+      mergedRanges: [
+        { key: 'R0C0:R0C1', startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      ],
+      headerStyle: 'first-row',
+      styles: {
+        headerColor: '#1E40AF', headerTextColor: '#FFFFFF', borderColor: '#E5E7EB',
+        columnWidths: [], altRowBg: '#F9FAFB', contentColor: '#111827',
+        contentBgColor: '#FFFFFF', rowColors: [], columnColors: [], cellColors: {},
+        columnTextAlign: ['left'], cellTextAlign: {}, borderStyle: 'solid',
+      },
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    expect(worksheet.getCell(1, 1).value).toBe('Merged Header')
+  })
+
+  it('preserves merged anchor cell value in multi-row merged range', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[
+        makeCell('Merged Title', { isMerged: true, colSpan: 2, rowSpan: 2 }),
+        makeCell(''),
+      ], [
+        makeCell(''),
+        makeCell(''),
+      ]],
+      mergedRanges: [
+        { key: 'R0C0:R1C1', startRow: 0, startCol: 0, endRow: 1, endCol: 1 },
+      ],
+      styles: {
+        headerColor: '#1E40AF', headerTextColor: '#FFFFFF', borderColor: '#E5E7EB',
+        columnWidths: [], altRowBg: '#F9FAFB', contentColor: '#111827',
+        contentBgColor: '#FFFFFF', rowColors: [], columnColors: [], cellColors: {},
+        columnTextAlign: ['left', 'left'], cellTextAlign: {}, borderStyle: 'solid',
+      },
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    expect(worksheet.getCell(1, 1).value).toBe('Merged Title')
+  })
+
+  it('preserves merged anchor cell value with caption shift', async () => {
+    mockIsHeaderCell.mockReturnValue(false)
+    const createObjectUrlSpy = vi.spyOn(URL, 'createObjectURL')
+    await new ExcelExporter().export(el(), {
+      format: 'excel',
+      cells: [[
+        makeCell('Merged', { isMerged: true, colSpan: 2, rowSpan: 1 }),
+        makeCell(''),
+      ]],
+      caption: 'Table Caption',
+      mergedRanges: [
+        { key: 'R0C0:R0C1', startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      ],
+      styles: {
+        headerColor: '#1E40AF', headerTextColor: '#FFFFFF', borderColor: '#E5E7EB',
+        columnWidths: [], altRowBg: '#F9FAFB', contentColor: '#111827',
+        contentBgColor: '#FFFFFF', rowColors: [], columnColors: [], cellColors: {},
+        columnTextAlign: ['left'], cellTextAlign: {}, borderStyle: 'solid',
+      },
+    })
+    const blob = createObjectUrlSpy.mock.calls[0][0] as Blob
+    const buffer = await blob.arrayBuffer()
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    await workbook.xlsx.load(buffer)
+    const worksheet = workbook.getWorksheet(1)!
+    expect(worksheet.getCell(2, 1).value).toBe('Merged')
   })
 
   it('applies cellColors background to individual cells', async () => {

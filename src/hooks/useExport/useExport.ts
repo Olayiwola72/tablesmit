@@ -38,7 +38,7 @@ export function useExport(): ExportApi {
     rowColors, columnColors, columnTextAlign, cellColors, cellTextAlign,
   ])
 
-  const exportAs = async (format: ExportFormat, element: HTMLElement | null, caption?: string, captionTextColor?: string, captionBgColor?: string, captionAlignment?: 'left' | 'center' | 'right'): Promise<void> => {
+  const exportAs = async (format: ExportFormat, element: HTMLElement | null, caption?: string, captionTextColor?: string, captionBgColor?: string, captionAlignment?: 'left' | 'center' | 'right', captionItalic?: boolean): Promise<void> => {
     if (!element) return
     setIsExporting(true)
     element.classList.add('is-exporting')
@@ -54,6 +54,7 @@ export function useExport(): ExportApi {
         captionTextColor: captionTextColor?.trim() || undefined,
         captionBgColor: captionBgColor?.trim() || undefined,
         captionAlignment,
+        captionItalic,
         cells: cellsRef.current,
         headerStyle: styleRef.current,
         mergedRanges: mergedRef.current,

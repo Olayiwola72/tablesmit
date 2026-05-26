@@ -8,7 +8,10 @@ export const toast = {
     sonnerToast.error(message)
   },
   info: (message: string): void => {
-    sonnerToast(message)
+    sonnerToast.info(message)
+  },
+  warning: (message: string): void => {
+    sonnerToast.warning(message)
   },
 }
 

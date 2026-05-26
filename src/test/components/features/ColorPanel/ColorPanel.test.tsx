@@ -39,6 +39,6 @@ describe('ColorPanel', () => {
 
   it('renders row background color input', () => {
     render(<ColorPanel />, { wrapper: Wrapper })
-    expect(screen.getByDisplayValue('#ffffff')).toBeInTheDocument()
+    expect(screen.getAllByDisplayValue('#ffffff').length).toBeGreaterThan(0)
   })
 })

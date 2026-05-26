@@ -1,12 +1,14 @@
 import {
+  ClipboardCopy,
   Sparkles,
   Trash2,
 } from 'lucide-react'
 import { useMemo, type ReactNode, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast } from '../../../utils/toast/toast'
+import { toast, TOAST } from '../../../utils/toast/toast'
 import { usePresets } from '../../../config/presets'
 import { useTableContext, useTableData, useSelectedRange } from '../../../context/TableContext'
+import { handlePasteData } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { isSingleCellRange } from '../../../utils/mergeUtils/mergeUtils'
 import { useCopyTable } from '../../../hooks/useCopyTable/useCopyTable'
 import { useExport } from '../../../hooks/useExport/useExport'
@@ -25,7 +27,11 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
   const presets = usePresets()
-  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage } = useCopyTable(cells, tableRef)
+  const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, copyAsHtml } = useCopyTable(
+    cells, tableRef, table.caption, table.columnWidths, table.cellColors, table.cellTextColors, table.cellTextAlign,
+    table.mergedRanges, table.headerColor, table.headerStyle, table.contentColor, table.contentBgColor, table.theme,
+    table.borderStyle, table.borderColor, table.captionTextColor, table.captionBgColor, table.captionAlignment, table.captionItalic,
+  )
   const { exportAs, isExporting } = useExport()
 
   const { t } = useTranslation()
@@ -33,6 +39,37 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   const canMerge = useMemo(
     () => selectedRange !== null && !isSingleCellRange(selectedRange),
     [selectedRange],
+  )
+
+  const handlePaste = useMemo(
+    () => async (): Promise<void> => {
+      try {
+        const items = await navigator.clipboard.read()
+        let html = ''
+        let text = ''
+        for (const item of items) {
+          if (item.types.includes('text/html')) {
+            const blob = await item.getType('text/html')
+            html = await blob.text()
+          }
+          if (item.types.includes('text/plain')) {
+            const blob = await item.getType('text/plain')
+            text = await blob.text()
+          }
+        }
+        if (!text && !html) {
+          text = await navigator.clipboard.readText()
+        }
+        const result = await handlePasteData(text, html || null, table.setCells)
+        if (result) {
+          toast.success(TOAST.PASTE_SUCCESS(result.rowCount, result.colCount))
+          trackEvent('table_pasted', { rows: result.rowCount, cols: result.colCount })
+        }
+      } catch {
+        toast.error(TOAST.PASTE_ERROR)
+      }
+    },
+    [table],
   )
 
   return (
@@ -79,7 +116,12 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         onCopyMarkdown={copyAsMarkdown}
         onCopyLatex={() => copyAsLatex(table.headerStyle)}
         onCopyImage={copyAsImage}
+        onCopyHtml={copyAsHtml}
       />
+
+      <Button variant="secondary" size="sm" onClick={handlePaste} aria-label={t('aria.pasteTable')}>
+        <ClipboardCopy size={14} aria-hidden="true" /> {t('toolbar.paste')}
+      </Button>
 
       <div className="mx-1 h-5 w-px shrink-0 bg-border" />
 

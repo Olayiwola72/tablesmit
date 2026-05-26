@@ -143,7 +143,9 @@
     "clearAll": "Tout effacer",
     "undo": "Annuler",
     "copy": "Copier",
+    "paste": "Coller",
     "copyImage": "Copier comme image",
+    "copyHtml": "Copier en HTML",
     "copyExcel": "Copier comme données Excel",
     "copyCsv": "Copier en CSV",
     "copyMarkdown": "Copier en Markdown",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "Changer la couleur de fond de la colonne",
     "changeRowBackground": "Changer la couleur de fond de la ligne",
     "changeTextColor": "Changer la couleur du texte",
+    "changeCellTextColor": "Changer la couleur du texte de la cellule",
+    "changeHeaderTextColor": "Changer la couleur du texte de l'en-tête",
+    "changeRowTextColor": "Changer la couleur du texte de la ligne",
     "changeColumnType": "Changer le type de colonne",
     "insertRowAbove": "Insérer une ligne au-dessus",
     "insertRowBelow": "Insérer une ligne en dessous",
@@ -260,11 +265,13 @@
     "findReplace": "Rechercher & Remplacer"
   },
   "colorPanel": {
-    "headerColor": "Couleur d'en-tête",
-    "contentColor": "Couleur du contenu",
-    "noColor": "Aucune couleur",
+    "headerColor": "Couleur de fond d'en-tête",
+    "contentColor": "Couleur du contenu des lignes",
+    "clear": "Effacer",
     "customColor": "Personnalisée",
-    "swatch": "Échantillon de couleur {{label}}"
+    "swatch": "Échantillon de couleur {{label}}",
+    "rightClickHint": "Faites un clic droit sur une cellule pour plus d'options",
+    "rightClickDetails": "Changez la couleur des cellules, lignes et en-têtes\nDéfinissez une couleur de texte pour une cellule ou une ligne\nAjustez le type, le tri et l'alignement des colonnes\nInsérez, supprimez, copiez, collez et effacez des cellules\nFusionnez des cellules ou annulez leur fusion\nAjustez automatiquement la largeur des colonnes et lignes"
   },
   "borderPanel": {
     "noBorder": "Aucune bordure",
@@ -351,6 +358,7 @@
     "importError": "Impossible de lire le fichier. Vérifiez le format et réessayez.",
     "importTooLarge": "Fichier trop volumineux. La taille maximale est de 5 Mo.",
     "copyImage": "Tableau copié comme image.",
+    "copyHtml": "Table copiée en HTML.",
     "copyData": "Données du tableau copiées. Collez dans Excel ou Google Sheets.",
     "pasteSuccess": "Tableau collé. {{rows}} lignes, {{cols}} colonnes.",
     "pasteError": "Impossible de lire le presse-papiers. Essayez plutôt d'importer un fichier.",
@@ -425,6 +433,7 @@
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "copyTable": "Copier le tableau",
+    "pasteTable": "Coller depuis le presse-papiers",
     "importFile": "Importer un fichier",
     "exportTable": "Exporter le tableau",
     "clearTable": "Effacer toutes les cellules",

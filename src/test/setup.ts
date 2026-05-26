@@ -194,7 +194,10 @@ vi.mock('react-i18next', () => {
     'contextMenu.alignRight': 'Align right',
     'contextMenu.captionTextColor': 'Caption text color',
     'contextMenu.captionBackground': 'Caption background',
+    'contextMenu.captionItalic': 'Italic',
     'contextMenu.customColor': 'Custom',
+    'contextMenu.close': 'Close menu',
+    'contextMenu.table': 'Table',
     // panels
     'panels.dimensions': 'Grid Size',
     'panels.headerOptions': 'Header Definitions',
@@ -209,7 +212,7 @@ vi.mock('react-i18next', () => {
     // colorPanel
     'colorPanel.headerColor': 'Header color',
     'colorPanel.contentColor': 'Content color',
-    'colorPanel.noColor': 'No color',
+    'colorPanel.clear': 'Clear',
     'colorPanel.customColor': 'Custom',
     // borderPanel
     'borderPanel.noBorder': 'No Border',

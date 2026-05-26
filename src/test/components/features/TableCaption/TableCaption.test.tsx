@@ -172,6 +172,15 @@ describe('TableCaption', () => {
     expect(onBgColorChange).toHaveBeenCalledWith('#0f766e')
   })
 
+  it('places cursor at the end of the text when entering edit mode', async () => {
+    const user = userEvent.setup()
+    renderWithProviders(<TableCaption {...defaultProps} value="Existing caption" />)
+    await user.click(screen.getByText('Existing caption'))
+    const textarea = screen.getByRole('textbox') as HTMLTextAreaElement
+    expect(textarea.selectionStart).toBe(16)
+    expect(textarea.selectionEnd).toBe(16)
+  })
+
   it('applies textColor style to displayed caption', () => {
     renderWithProviders(<TableCaption {...defaultProps} value="Colored Caption" textColor="#DC2626" />)
     const el = screen.getByText('Colored Caption')
@@ -192,6 +201,49 @@ describe('TableCaption', () => {
     expect(screen.getByLabelText('Custom')).toBeInTheDocument()
   })
 
+  it('shows Italic toggle in context menu', () => {
+    renderWithProviders(<TableCaption {...defaultProps} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    expect(screen.getByText('Italic')).toBeInTheDocument()
+  })
+
+  it('calls onItalicChange when Italic toggle is clicked', async () => {
+    const onItalicChange = vi.fn()
+    const user = userEvent.setup()
+    renderWithProviders(<TableCaption {...defaultProps} onItalicChange={onItalicChange} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    await user.click(screen.getByText('Italic'))
+    expect(onItalicChange).toHaveBeenCalledWith(true)
+  })
+
+  it('shows checkmark when italic is true', () => {
+    renderWithProviders(<TableCaption {...defaultProps} italic={true} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    const italicBtn = screen.getByText('Italic')
+    expect(italicBtn.querySelector('span')?.textContent).toBe('✓')
+  })
+
+  it('applies italic fontStyle when italic is true', () => {
+    renderWithProviders(<TableCaption {...defaultProps} value="Italic Caption" italic={true} />)
+    const el = screen.getByText('Italic Caption')
+    expect(el.style.fontStyle).toBe('italic')
+  })
+
+  it('does not apply italic fontStyle when italic is false', () => {
+    renderWithProviders(<TableCaption {...defaultProps} value="Normal Caption" italic={false} />)
+    const el = screen.getByText('Normal Caption')
+    expect(el.style.fontStyle).toBe('normal')
+  })
+
+  it('calls onItalicChange with false when Italic toggle is clicked while already italic', async () => {
+    const onItalicChange = vi.fn()
+    const user = userEvent.setup()
+    renderWithProviders(<TableCaption {...defaultProps} italic={true} onItalicChange={onItalicChange} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    await user.click(screen.getByText('Italic'))
+    expect(onItalicChange).toHaveBeenCalledWith(false)
+  })
+
   it('calls onTextColorChange from custom color input', async () => {
     const onTextColorChange = vi.fn()
     const user = userEvent.setup()
@@ -201,5 +253,56 @@ describe('TableCaption', () => {
     const customInput = screen.getByLabelText('Custom')
     fireEvent.change(customInput, { target: { value: '#ff0000' } })
     expect(onTextColorChange).toHaveBeenCalledWith('#ff0000')
+  })
+
+  describe('auto-resize', () => {
+    function Wrapper({ value = '', captionH }: { value?: string; captionH?: number }) {
+      return (
+        <TooltipProvider>
+          <TableCaption {...defaultProps} value={value} captionH={captionH} />
+        </TooltipProvider>
+      )
+    }
+
+    async function setupWithRerender() {
+      const user = userEvent.setup()
+      const renderResult = render(Wrapper({}))
+      await user.click(screen.getByText('Add a table title or caption (optional)'))
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement
+      return { ...renderResult, textarea, user }
+    }
+
+    it('sets initial height to captionH on mount', async () => {
+      const { textarea } = await setupWithRerender()
+      expect(Number.parseInt(textarea.style.height)).toBeGreaterThanOrEqual(32)
+    })
+
+    it('sets height to scrollHeight when content exceeds captionH', async () => {
+      const { textarea, rerender } = await setupWithRerender()
+      Object.defineProperty(textarea, 'scrollHeight', { value: 150, configurable: true })
+      rerender(Wrapper({ value: 'Line 1\nLine 2\nLine 3' }))
+      await vi.waitFor(() => expect(textarea.style.height).toBe('150px'))
+    })
+
+    it('keeps height at captionH when scrollHeight is smaller', async () => {
+      const { textarea, rerender } = await setupWithRerender()
+      Object.defineProperty(textarea, 'scrollHeight', { value: 12, configurable: true })
+      rerender(Wrapper({ value: 'short text' }))
+      await vi.waitFor(() => expect(Number.parseInt(textarea.style.height)).toBeGreaterThanOrEqual(32))
+    })
+
+    it('updates height when captionH changes via resize handle drag', async () => {
+      const user = userEvent.setup()
+      render(Wrapper({}))
+      await user.click(screen.getByText('Add a table title or caption (optional)'))
+      const textarea = screen.getByRole('textbox') as HTMLTextAreaElement
+      Object.defineProperty(textarea, 'scrollHeight', { value: 30, configurable: true })
+      await vi.waitFor(() => expect(textarea.style.height).toBe('32px'))
+      const handle = screen.getByRole('separator', { name: /resize caption height/i })
+      fireEvent.mouseDown(handle, { clientY: 0 })
+      fireEvent.mouseMove(document, { clientY: 68 })
+      fireEvent.mouseUp(document)
+      await vi.waitFor(() => expect(textarea.style.height).toBe('100px'))
+    })
   })
 })

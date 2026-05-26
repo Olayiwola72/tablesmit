@@ -1,9 +1,10 @@
 import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { siteConfig } from '../../../config/siteConfig'
 import { KEY_ESCAPE } from '../../../constants/keys'
+import { cn } from '../../../lib/utils'
 import { Button } from '../../ui/Button/Button'
 import { IconButton } from '../../ui/IconButton/IconButton'
 import { LanguagePicker } from '../../ui/LanguagePicker/LanguagePicker'
@@ -14,6 +15,7 @@ const { brand, routes } = siteConfig
 
 export function Navbar(): ReactNode {
   const { t } = useTranslation()
+  const { pathname } = useLocation()
   const [isOpen, setIsOpen] = useState(false)
   const { theme, toggle } = useTheme()
   const logoTheme = theme === 'dark' ? 'dark' : 'light'
@@ -36,15 +38,21 @@ export function Navbar(): ReactNode {
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-6 md:flex">
-          {siteConfig.nav.map((item) => (
-            <Link
-              key={item.label}
-              to={siteConfig.routes[item.route]}
-              className="text-sm font-medium text-text-secondary transition-colors hover:text-primary"
-            >
-              {t(`nav.${item.route}`, item.label)}
-            </Link>
-          ))}
+          {siteConfig.nav.map((item) => {
+            const isActive = pathname === siteConfig.routes[item.route]
+            return (
+              <Link
+                key={item.label}
+                to={siteConfig.routes[item.route]}
+                className={cn(
+                  'text-sm font-medium transition-colors hover:text-primary',
+                  isActive ? 'border-b-2 border-primary pb-1 text-primary font-semibold' : 'text-text-secondary',
+                )}
+              >
+                {t(`nav.${item.route}`, item.label)}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
@@ -87,16 +95,22 @@ export function Navbar(): ReactNode {
               />
             </div>
             <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
-              {siteConfig.nav.map((item) => (
-                <Link
-                  key={item.label}
-                  to={siteConfig.routes[item.route]}
-                  className="text-base font-medium text-text-primary"
-                  onClick={() => setIsOpen(false)}
-                >
-                  {t(`nav.${item.route}`, item.label)}
-                </Link>
-              ))}
+              {siteConfig.nav.map((item) => {
+                const isActive = pathname === siteConfig.routes[item.route]
+                return (
+                  <Link
+                    key={item.label}
+                    to={siteConfig.routes[item.route]}
+                    className={cn(
+                      'text-base font-medium transition-colors',
+                      isActive ? 'text-primary font-semibold' : 'text-text-primary',
+                    )}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {t(`nav.${item.route}`, item.label)}
+                  </Link>
+                )
+              })}
               <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border dark:border-slate-700">
                 <LanguagePicker align="start" onSelect={() => setIsOpen(false)} />
                 <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>

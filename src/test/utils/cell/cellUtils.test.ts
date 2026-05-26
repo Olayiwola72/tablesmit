@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { buildCellId, parseCellId } from '../../../utils/cell/cellUtils'
+import { buildCellId, isHeaderCell, parseCellId } from '../../../utils/cell/cellUtils'
 
 describe('buildCellId', () => {
   it('encodes row and col into R{row}C{col} format', () => {
@@ -25,5 +25,50 @@ describe('parseCellId', () => {
 
   it('round-trips with buildCellId', () => {
     expect(parseCellId(buildCellId(7, 3))).toEqual({ row: 7, col: 3 })
+  })
+})
+
+describe('isHeaderCell', () => {
+  it('returns false when headerStyle is "none"', () => {
+    expect(isHeaderCell('none', 0, 0)).toBe(false)
+    expect(isHeaderCell('none', 0, 1)).toBe(false)
+  })
+
+  it('returns true for first row when headerStyle is "first-row"', () => {
+    expect(isHeaderCell('first-row', 0, 0)).toBe(true)
+    expect(isHeaderCell('first-row', 0, 3)).toBe(true)
+    expect(isHeaderCell('first-row', 1, 0)).toBe(false)
+  })
+
+  it('returns true for first column cell with colSpan 1 when headerStyle is "first-column"', () => {
+    expect(isHeaderCell('first-column', 1, 0)).toBe(true)
+    expect(isHeaderCell('first-column', 0, 0)).toBe(true)
+  })
+
+  it('returns false for merged cell spanning multiple columns in first column', () => {
+    expect(isHeaderCell('first-column', 0, 0, 4)).toBe(false)
+    expect(isHeaderCell('first-column', 0, 0, 2)).toBe(false)
+  })
+
+  it('returns false for non-first-column cells in first-column mode', () => {
+    expect(isHeaderCell('first-column', 0, 1)).toBe(false)
+    expect(isHeaderCell('first-column', 2, 3)).toBe(false)
+  })
+
+  it('returns true for first row regardless of colSpan in "both" mode', () => {
+    expect(isHeaderCell('both', 0, 0, 4)).toBe(true)
+    expect(isHeaderCell('both', 0, 2, 1)).toBe(true)
+  })
+
+  it('returns true for first column cell with colSpan 1 in "both" mode', () => {
+    expect(isHeaderCell('both', 3, 0)).toBe(true)
+  })
+
+  it('returns false for merged first-column cell in "both" mode', () => {
+    expect(isHeaderCell('both', 3, 0, 3)).toBe(false)
+  })
+
+  it('defaults colSpan to 1 when not provided', () => {
+    expect(isHeaderCell('first-column', 1, 0)).toBe(true)
   })
 })

@@ -19,7 +19,7 @@ export const initialState: TableState = {
   columnWidths: Array.from({ length: DEFAULT_COLS }, () => DEFAULT_COLUMN_WIDTH),
   rowHeights: Array.from({ length: DEFAULT_ROWS }, () => DEFAULT_ROW_HEIGHT),
   mergedRanges: [],
-  headerStyle: 'none',
+  headerStyle: 'first-row',
   headerColor: siteConfig.colors.defaultHeader,
   contentColor: siteConfig.colors.defaultContent,
   borderStyle: DEFAULT_BORDER_STYLE,
@@ -30,6 +30,8 @@ export const initialState: TableState = {
   columnColors: Array.from({ length: DEFAULT_COLS }, () => ''),
   columnTextAlign: Array.from({ length: DEFAULT_COLS }, () => 'left' as TextAlign),
   cellColors: {},
+  cellTextColors: {},
+  rowTextColors: {},
   cellTextAlign: {},
   selectedRange: null,
   freezeRow: false,
@@ -40,4 +42,5 @@ export const initialState: TableState = {
   captionAlignment: 'center' as CaptionAlignment,
   captionTextColor: '',
   captionBgColor: '',
+  captionItalic: false,
 }

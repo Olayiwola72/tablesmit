@@ -8,17 +8,14 @@
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Preconnect to critical origins -->
-    <link rel="preconnect" href="https://*.ingest.sentry.io" />
-    <link rel="dns-prefetch" href="https://*.ingest.sentry.io" />
+    <!-- Preconnect to analytics (the only third-party origin on every page) -->
     <link rel="preconnect" href="https://analytics.ahrefs.com" />
 
-    <!-- Preload only the fonts needed for initial paint — Inter 400/500/600 + JetBrains Mono 400/500 for body + code -->
+    <!-- Preload only the body font needed for initial paint — Inter 400/500/600 -->
+    <!-- JetBrains Mono is used for monospace cells only; loaded lazily via @font-face swap -->
     <link rel="preload" href="/fonts/inter-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/inter-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preload" href="/fonts/jetbrains-mono-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 
     <title>Tablesmit - Tables, Your Way</title>
     <meta

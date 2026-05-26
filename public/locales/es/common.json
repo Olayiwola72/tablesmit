@@ -143,7 +143,9 @@
     "clearAll": "Limpiar todo",
     "undo": "Deshacer",
     "copy": "Copiar",
+    "paste": "Pegar",
     "copyImage": "Copiar como imagen",
+    "copyHtml": "Copiar como HTML",
     "copyExcel": "Copiar como datos de Excel",
     "copyCsv": "Copiar como CSV",
     "copyMarkdown": "Copiar como Markdown",
@@ -224,6 +226,9 @@
     "changeColumnBackground": "Cambiar color de fondo de columna",
     "changeRowBackground": "Cambiar color de fondo de fila",
     "changeTextColor": "Cambiar color de texto",
+    "changeCellTextColor": "Cambiar color de texto de celda",
+    "changeHeaderTextColor": "Cambiar color de texto de encabezado",
+    "changeRowTextColor": "Cambiar color de texto de fila",
     "changeColumnType": "Cambiar tipo de columna",
     "insertRowAbove": "Insertar fila arriba",
     "insertRowBelow": "Insertar fila abajo",
@@ -260,11 +265,13 @@
     "findReplace": "Buscar y reemplazar"
   },
   "colorPanel": {
-    "headerColor": "Color de encabezado",
-    "contentColor": "Color de contenido",
-    "noColor": "Sin color",
+    "headerColor": "Color de fondo del encabezado",
+    "contentColor": "Color de contenido de fila",
+    "clear": "Limpiar",
     "customColor": "Personalizado",
-    "swatch": "Muestra de color {{label}}"
+    "swatch": "Muestra de color {{label}}",
+    "rightClickHint": "Haga clic derecho en una celda para más opciones",
+    "rightClickDetails": "Cambie colores de celdas, filas y encabezados\nEstablezca colores de texto en cualquier celda o fila\nAjuste tipos de columna, ordenación y alineación\nInserte, elimine, copie, pegue y borre celdas\nCombine celdas o separe su combinación\nAjuste automático del ancho de columnas y filas"
   },
   "borderPanel": {
     "noBorder": "Sin borde",
@@ -351,6 +358,7 @@
     "importError": "No se pudo leer el archivo. Verifica el formato e inténtalo de nuevo.",
     "importTooLarge": "Archivo demasiado grande. El tamaño máximo es 5MB.",
     "copyImage": "Tabla copiada como imagen.",
+    "copyHtml": "Tabla copiada como HTML.",
     "copyData": "Datos de tabla copiados. Pégalos en Excel o Google Sheets.",
     "pasteSuccess": "Tabla pegada. {{rows}} filas, {{cols}} columnas.",
     "pasteError": "No se pudo leer el portapapeles. Intenta importar un archivo en su lugar.",
@@ -425,6 +433,7 @@
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "copyTable": "Copiar tabla",
+    "pasteTable": "Pegar desde el portapapeles",
     "importFile": "Importar archivo",
     "exportTable": "Exportar tabla",
     "clearTable": "Limpiar todas las celdas",
