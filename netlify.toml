@@ -39,12 +39,6 @@
   status = 200
   force = true
 
-# Normalize trailing slashes — prevents 301 chains for prerendered content pages
-[[redirects]]
-  from = "/*/"
-  to = "/:splat"
-  status = 301
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
