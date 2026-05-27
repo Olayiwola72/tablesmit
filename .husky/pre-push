@@ -1,4 +1,4 @@
-PROTECTED_BRANCHES="master"
+PROTECTED_BRANCHES="main master"
 
 while read local_ref local_oid remote_ref remote_oid; do
   for branch in $PROTECTED_BRANCHES; do
