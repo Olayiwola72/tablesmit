@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import { ChevronRight, Clipboard, Code, Copy, FileText, Image, Loader2, Table, Trash2, X } from 'lucide-react'
 import { useTableContext, useTableData } from '../../../context/TableContext'
-import { DEFAULT_ROWS, DEFAULT_COLS } from '../../../config/table/tableDefaults'
+import { DEFAULT_ROWS, DEFAULT_COLS } from '../../../config/table/tableDefaults/tableDefaults'
 
 import { useCopyTable } from '../../../hooks/useCopyTable/useCopyTable'
 import { useExport } from '../../../hooks/useExport/useExport'
@@ -12,7 +12,7 @@ import { usePrintTable } from '../../../hooks/usePrintTable/usePrintTable'
 import { useTableCopyShortcut } from '../../../hooks/useTableCopyShortcut/useTableCopyShortcut'
 import { handlePasteData } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { trackEvent } from '../../../utils/analytics/analytics'
-import { toast, TOAST } from '../../../utils/toast/toast'
+import { toast } from '../../../utils/toast/toast'
 import { PanelLoader } from '../../ui/PanelLoader/PanelLoader'
 import { MobileSheet } from '../../layout/MobileSheet/MobileSheet'
 import { HeroBanner } from '../HeroBanner/HeroBanner'
@@ -95,15 +95,15 @@ export function TableMakerContent(): ReactNode {
       }
       const result = await handlePasteData(text, html, setCells)
       if (result) {
-        toast.success(TOAST.IMPORT_SUCCESS(result.rowCount, result.colCount))
+        toast.success(t('toast.importSuccess', { rows: result.rowCount, cols: result.colCount }))
       } else {
-        toast.error(TOAST.PASTE_ERROR)
+        toast.error(t('toast.pasteError'))
       }
     } catch {
-      toast.error(TOAST.PASTE_ERROR)
+      toast.error(t('toast.pasteError'))
     }
     closeWsCtx()
-  }, [setCells, closeWsCtx])
+  }, [setCells, closeWsCtx, t])
 
   useEffect(() => {
     if (!wsCtxMenu) return

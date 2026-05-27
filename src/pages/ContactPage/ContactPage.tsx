@@ -4,9 +4,8 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
-import { siteConfig } from '../../config/siteConfig'
-
-const { brand } = siteConfig
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
 
 export function ContactPage(): ReactNode {
   const { t } = useTranslation()
@@ -18,8 +17,8 @@ export function ContactPage(): ReactNode {
         <meta name="description" content={t('meta.contactDescription')} />
         <meta property="og:title" content={t('meta.contactTitle')} />
         <meta property="og:description" content={t('meta.contactDescription')} />
-        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.contact}`} />
-        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.contact}`} />
+        <meta property="og:url" content={`${brand.url}${routes.contact.path}`} />
+        <link rel="canonical" href={`${brand.url}${routes.contact.path}`} />
       </Helmet>
       {renderContent(t)}
     </>
@@ -53,7 +52,7 @@ function renderContent(t: (key: string) => string): ReactNode {
   return (
     <main className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <Breadcrumb segments={[
-        { label: t('nav.home'), to: siteConfig.routes.home },
+        { label: t('nav.home'), to: routes.home.path },
         { label: t('nav.contact') },
       ]} />
       <section className="mx-auto max-w-narrow text-center">

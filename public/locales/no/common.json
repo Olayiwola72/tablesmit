@@ -3,10 +3,9 @@
     "name": "Tablesmit",
     "tagline": "Tabeller på din måte.",
     "description": "En minimalistisk tabellbygger for analytisk skriving — med full kontroll over overskrifter, formatering og eksport.",
-    "aboutLine": "Tablesmit ble laget av en skribent som trengte mer kontroll enn grunnleggende tabellgeneratorer ga. Bygget for folk som tenker i struktur og publiserer med presisjon.",
+    "aboutLine": "{{name}} ble laget av en skribent som trengte mer kontroll enn grunnleggende tabellgeneratorer ga. Bygget for folk som tenker i struktur og publiserer med presisjon.",
     "whatItIsNot": "Ikke et regneark. Ikke en database. Ikke en Notion-konkurrent. Ikke et design-tungt verktøy. Vi er et strukturert skriveverktøy.",
-    "builtFor": "Bygget for strukturerte tenkere.",
-    "openSourceDescription": "Tablesmit er gratis og åpen kildekode. Koden er på GitHub — les den, forked den, forbedre den, eller tilpass den til dine egne behov. Vi mener verktøy for skriving og tenkning bør være transparente."
+    "builtFor": "Bygget for strukturerte tenkere."
   },
   "nav": {
     "home": "Hjem",
@@ -29,18 +28,18 @@
   },
   "about": {
     "heading": "Bygget for strukturerte tenkere.",
-    "body": "Tablesmit ble laget av en skribent som trengte mer kontroll enn grunnleggende tabellgeneratorer ga. De fleste verktøy ga for lite — ingen overskriftstilpasning, ingen kolonneformatering, ingen ren eksport. Andre ga for mye — hele tyngden av et regneark for noe som bare trengte å være en tabell. Tablesmit er mellomveien. Bygget for folk som tenker i struktur og publiserer med presisjon.",
+    "body": "{{name}} ble laget av en skribent som trengte mer kontroll enn grunnleggende tabellgeneratorer ga. De fleste verktøy ga for lite — ingen overskriftstilpasning, ingen kolonneformatering, ingen ren eksport. Andre ga for mye — hele tyngden av et regneark for noe som bare trengte å være en tabell. {{name}} er mellomveien. Bygget for folk som tenker i struktur og publiserer med presisjon.",
     "whatWeAreNot": "Ikke et regneark. Ikke en database. Ikke en Notion-konkurrent. Ikke et design-tungt verktøy. Vi er et strukturert skriveverktøy."
   },
   "openSource": {
     "heading": "Bygget i det åpne.",
-    "body": "Tablesmit er gratis og åpen kildekode. Koden er på GitHub — les den, forked den, forbedre den, eller tilpass den til dine egne behov. Vi mener verktøy for skriving og tenkning bør være transparente.",
+    "body": "{{name}} er gratis og åpen kildekode. Koden er på GitHub — les den, forked den, forbedre den, eller tilpass den til dine egne behov. Vi mener verktøy for skriving og tenkning bør være transparente.",
     "sponsorHeading": "Støtt dette prosjektet",
     "sponsorGitHub": "Spons månedlig på GitHub",
     "sponsorCoffee": "Engangsbidrag",
     "sponsorCollective": "For team og organisasjoner",
     "contributorsHeading": "Bidragsytere",
-    "contributorsBody": "Tablesmit eksisterer takket være bidragsytere med åpen kildekode. Alle feilrapporter, pull requests og forslag teller.",
+    "contributorsBody": "{{name}} eksisterer takket være bidragsytere med åpen kildekode. Alle feilrapporter, pull requests og forslag teller.",
     "viewContributors": "Vis bidragsytere på GitHub",
     "contributeHeading": "Slik bidrar du",
     "contributeBody": "Les CONTRIBUTION.md i repositoriet for retningslinjer om rapportering av feil, forslag til funksjoner og innsending av pull requests.",
@@ -94,8 +93,8 @@
     "heading": "Skriver om tabeller, struktur og analytisk tenkning.",
     "featured": "Utvalgt",
     "minRead": "{{count}} min lesing",
-    "openTablesmit": "Åpne Tablesmit",
-    "ctaTitle": "Prøv Tablesmit selv — gratis, ingen registrering nødvendig.",
+    "openTablesmit": "Åpne {{name}}",
+    "ctaTitle": "Prøv {{name}} selv — gratis, ingen registrering nødvendig.",
     "backToBlog": "Tilbake til bloggen",
     "empty": "Ingen innlegg ennå. Kom tilbake snart.",
     "copiedToClipboard": "Kopiert til utklippstavlen",
@@ -111,7 +110,7 @@
     "heading": "Hva folk sier.",
     "subtext": "Hør fra forfattere, analytikere, forskere og tekniske tenkere som bruker {{name}} hver dag.",
     "emptyHeading": "Ingen anbefalinger ennå",
-    "emptyBody": "Vi samler tilbakemeldinger fra tidlige brukere. Hvis du har brukt Tablesmit, vil vi gjerne høre fra deg.",
+    "emptyBody": "Vi samler tilbakemeldinger fra tidlige brukere. Hvis du har brukt {{name}}, vil vi gjerne høre fra deg.",
     "shareExperience": "Del din erfaring",
     "orReachOnX": "eller kontakt oss på X",
     "sourceOn": "på {{source}}"
@@ -151,8 +150,6 @@
     "undo": "Angre",
     "copy": "Kopier",
     "paste": "Lim inn",
-    "copyImage": "Kopier som bilde",
-    "copyHtml": "Kopier som HTML",
     "copyExcel": "Kopier som Excel-data",
     "copyCsv": "Kopier som CSV",
     "copyMarkdown": "Kopier som Markdown",
@@ -162,7 +159,7 @@
     "undoActions": "Angre ({{count}} handling)",
     "undoActions_plural": "Angre ({{count}} handlinger)",
     "nothingToUndo": "Ingenting å angre",
-    "copyLatex": "Kopier som LaTeX"
+    "copySuccess": "Tabell kopiert som {{copyFormat}}."
   },
   "table": {
     "gridSize": "Rutenettstørrelse",
@@ -396,18 +393,19 @@
     "dateDescription": "Datoformat"
   },
   "meta": {
-    "homeTitle": "Tablesmit — Tabeller på din måte",
+    "homeTitle": "{{name}} — Tabeller på din måte",
     "homeDescription": "Den nettbaserte tabellbyggeren med ekte regnearkkontroll. Juster rader og kolonner, slå sammen celler, sett egendefinerte farger, og eksporter til PDF, Excel, PNG eller JPEG — gratis, ingen konto nødvendig.",
-    "aboutTitle": "Om — Tablesmit",
-    "blogTitle": "Blogg — Tablesmit",
-    "contactTitle": "Kontakt — Tablesmit",
-    "openSourceTitle": "Åpen kildekode — Tablesmit",
-    "changelogTitle": "Endringslogg — Tablesmit",
-    "testimonialsTitle": "Anbefalinger — Tablesmit",
-    "featuresTitle": "Funksjoner — Tablesmit",
-    "notFoundTitle": "Siden ble ikke funnet — Tablesmit",
-    "privacyTitle": "Personvernerklæring — Tablesmit",
-    "termsTitle": "Bruksvilkår — Tablesmit"
+    "aboutTitle": "Om — {{name}}",
+    "blogTitle": "Blogg — {{name}}",
+    "contactTitle": "Kontakt — {{name}}",
+    "openSourceTitle": "Åpen kildekode — {{name}}",
+    "openSourceDescription": "{{name}} er gratis og åpen kildekode. Koden er på GitHub — les den, forked den, forbedre den, eller tilpass den til dine egne behov. Vi mener verktøy for skriving og tenkning bør være transparente.",
+    "changelogTitle": "Endringslogg — {{name}}",
+    "testimonialsTitle": "Anbefalinger — {{name}}",
+    "featuresTitle": "Funksjoner — {{name}}",
+    "notFoundTitle": "Siden ble ikke funnet — {{name}}",
+    "privacyTitle": "Personvernerklæring — {{name}}",
+    "termsTitle": "Bruksvilkår — {{name}}"
   },
   "features": {
     "heading": "Funksjoner",
@@ -425,6 +423,8 @@
     "pageNotFound": "Siden ble ikke funnet.",
     "pageNotFoundSub": "Den URL-en finnes ikke. La oss få deg tilbake til å bygge.",
     "backToHome": "Tilbake til hjem",
+    "fileTooLarge": "Filen er for stor. Maksimal størrelse er {{maxSize}}{{unitLabel}}.",
+    "importParseError": "Kunne ikke lese filen. Sjekk formatet og prøv igjen.",
     "somethingWrong": "Noe gikk galt.",
     "reload": "Last inn siden på nytt",
     "errorMessage": "{{message}}"
@@ -476,7 +476,7 @@
     "ctrlSlash": "Ctrl+/"
   },
   "loading": "Laster…",
-  "changelogDescription": "Hver utgivelse av Tablesmit, dokumentert.",
+  "changelogDescription": "Hver utgivelse av {{name}}, dokumentert.",
   "cookieConsent": {
     "message": "Dette nettstedet bruker informasjonskapsler for analyse. Ingen personlige data samles inn.",
     "learnMore": "Les mer",
@@ -507,5 +507,12 @@
     "openSource": "Åpen kildekode",
     "openSourceBody": "Kildekoden til {{name}} er tilgjengelig under MIT-lisensen. Du kan forke, modifisere og distribuere den under disse vilkårene.",
     "contact": "Kontakt"
+  },
+  "format": {
+    "csv": "CSV",
+    "html": "HTML",
+    "latex": "LaTeX",
+    "markdown": "Markdown",
+    "image": "bilde"
   }
 }

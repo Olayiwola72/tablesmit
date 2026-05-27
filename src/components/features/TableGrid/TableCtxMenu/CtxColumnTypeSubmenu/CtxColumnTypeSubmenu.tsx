@@ -2,14 +2,14 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CtxColumnTypeSubmenuProps } from './CtxColumnTypeSubmenu.types'
 import type { ColumnFormat } from '@/types/table'
-import { siteConfig } from '../../../../../config/siteConfig'
+import { columnFormats } from '../../../../../config/columnFormats/columnFormatsConfig'
 
 export function CtxColumnTypeSubmenu({ currentFormat, onChange, onClose }: CtxColumnTypeSubmenuProps): ReactNode {
   const { t } = useTranslation()
 
   return (
     <div className="border-t border-border px-3 py-2">
-      {siteConfig.columnFormats.map((opt) => (
+      {columnFormats.map((opt) => (
         <button
           key={opt.value}
           type="button"

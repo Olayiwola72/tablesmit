@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
-import { MAX_COLS, MAX_ROWS } from '../../../config/table/tableDefaults'
+import { MAX_COLS, MAX_ROWS } from '../../../config/table/tableDefaults/tableDefaults'
 import { useClipboardPaste, parseClipboardContent } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { buildHtmlTable, buildExcelHtml } from '../../../hooks/useCopyTable/useCopyTable'
 import type { CellData } from '../../../types/table'

@@ -1,0 +1,84 @@
+import type { PresetDefinition } from '../../../types/table'
+
+const presets: PresetDefinition[] = [
+  {
+    id: 'research',
+    label: 'Forschungsnotizen',
+    rows: 5,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: ['Quelle', 'Wichtigste Erkenntnis', 'Relevanz', 'Notizen'],
+    data: [
+      ['Quelle', 'Wichtigste Erkenntnis', 'Relevanz', 'Notizen'],
+      ['Smith 2025', 'Markt soll um 12 % wachsen', 'Hoch', 'In Einleitung zitieren'],
+      ['Lee et al.', 'Benutzerpräferenzänderung erkannt', 'Mittel', 'Mit Umfrage validieren'],
+      ['Interne Daten', 'Kundenbindung sinkt nach 6 Monaten', 'Hoch', 'Maßnahme für Team'],
+      ['Branchenbericht', 'Drei aufstrebende Wettbewerber', 'Niedrig', 'Vierteljährlich überwachen'],
+    ],
+  },
+  {
+    id: 'matrix',
+    label: 'Funktionsmatrix',
+    rows: 6,
+    cols: 4,
+    headerStyle: 'both',
+    headers: [],
+    data: [
+      ['', 'Aktuell', 'Ziel', 'Lücke'],
+      ['Export', 'Nur PDF', 'PDF + CSV', 'CSV-Export ausstehend'],
+      ['Formatierung', 'Einfach', 'Volles Markdown', 'Erfordert Parser'],
+      ['Zusammenarbeit', 'Keine', 'Echtzeit', 'Phase 2'],
+      ['Mobil', 'Nur Desktop', 'Responsiv', 'In Bearbeitung'],
+      ['API', 'Nur Lesen', 'Lesen + Schreiben', 'Design genehmigt'],
+    ],
+  },
+  {
+    id: 'tracker',
+    label: 'Inhaltsverfolgung',
+    rows: 6,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: ['Element', 'Format', 'Fällig', 'Status'],
+    data: [
+      ['Element', 'Format', 'Fällig', 'Status'],
+      ['Q1-Bericht', 'PDF', '31. Jan', 'In Bearbeitung'],
+      ['Fallstudie', 'Blog', '15. Feb', 'Recherche'],
+      ['Whitepaper', 'PDF', '1. Mär', 'Nicht begonnen'],
+      ['Versionshinweise', 'Markdown', 'Wöchentlich', 'Laufend'],
+      ['Newsletter', 'E-Mail', 'Monatlich', 'Geplant'],
+    ],
+  },
+  {
+    id: 'budget',
+    label: 'Budgetübersicht',
+    rows: 5,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: ['Kategorie', 'Budget', 'Ausgegeben', 'Übrig'],
+    data: [
+      ['Kategorie', 'Budget', 'Ausgegeben', 'Übrig'],
+      ['Software', '5.000 $', '3.200 $', '1.800 $'],
+      ['Dienstleister', '12.000 $', '8.500 $', '3.500 $'],
+      ['Infrastruktur', '3.000 $', '2.100 $', '900 $'],
+      ['Marketing', '4.000 $', '1.500 $', '2.500 $'],
+    ],
+  },
+  {
+    id: 'q1',
+    label: 'Q1-Leistung',
+    rows: 5,
+    cols: 4,
+    headerStyle: 'first-row',
+    headers: [],
+    data: [
+      ['Q1-Leistung', '', '', 'Ziel'],
+      ['Jan', 'Feb', 'Mär', ''],
+      ['10.000 $', '12.000 $', '15.000 $', '50.000 $'],
+      ['1.200', '1.350', '1.500', '4.500'],
+      ['85 %', '90 %', '92 %', '90 %'],
+    ],
+    mergedRanges: [{ startRow: 0, startCol: 0, endRow: 0, endCol: 2 }],
+  },
+]
+
+export default presets

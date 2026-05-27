@@ -1,12 +1,15 @@
-import { siteConfig } from '../../config/siteConfig'
-import { MAX_COLS, MAX_IMPORT_FILE_SIZE, MAX_ROWS } from '../../config/table/tableDefaults'
+import i18n from '../../i18n/i18n'
+import { importConfig } from '../../config/import/importConfig'
+import { MAX_COLS, MAX_IMPORT_FILE_SIZE, MAX_ROWS } from '../../config/table/tableDefaults/tableDefaults'
 import type { ImportResult } from './importService.types'
 import { normalizeTableData } from '../../utils/tableUtils/tableUtils'
 import type { CellData, MergeRange } from '../../types/table'
 import { buildMergeKey } from '../../utils/mergeUtils/mergeUtils'
 
-const FILE_TOO_LARGE = siteConfig.messages.importTooLarge
-const READ_ERROR = siteConfig.messages.importParseError
+const fileTooLarge = (): string =>
+  i18n.t('errors.fileTooLarge', { maxSize: importConfig.maxSize, unitLabel: importConfig.unitLabel })
+const readError = (): string =>
+  i18n.t('errors.importParseError')
 
 export function argbToHex(argb: string): string {
   const hex = argb.replace('#', '')
@@ -55,7 +58,7 @@ export function getFillColor(fill: unknown): string | undefined {
 
 function assertFileSize(file: File): void {
   if (file.size > MAX_IMPORT_FILE_SIZE) {
-    throw new Error(FILE_TOO_LARGE)
+    throw new Error(fileTooLarge())
   }
 }
 
@@ -186,16 +189,13 @@ export async function importCsv(file: File): Promise<ImportResult> {
       complete: (parseResult) => {
         const rawRows = parseResult.data as string[][]
         if (rawRows.length === 0) {
-          reject(new Error(READ_ERROR))
+          reject(new Error(readError()))
           return
         }
 
         let caption: string | undefined
         let dataStartIndex = 0
 
-        // Detect caption row: first row has a single non-empty value while the
-        // next row has more (caption + header), or every non-empty cell has the
-        // same value (merged-caption exported from Excel).
         const firstRow = rawRows[0]
         const secondRow = rawRows[1]
         const nonEmptyFirst = firstRow.filter((v) => v?.trim())
@@ -212,7 +212,7 @@ export async function importCsv(file: File): Promise<ImportResult> {
 
         const dataRows = rawRows.slice(dataStartIndex)
         if (dataRows.length === 0) {
-          reject(new Error(READ_ERROR))
+          reject(new Error(readError()))
           return
         }
 
@@ -244,7 +244,7 @@ export async function importCsv(file: File): Promise<ImportResult> {
 
         resolve(result)
       },
-      error: () => reject(new Error(READ_ERROR)),
+      error: () => reject(new Error(readError())),
     })
   })
 }
@@ -258,12 +258,12 @@ export async function importExcel(file: File): Promise<ImportResult> {
     const workbook = new ExcelJS.Workbook()
     await workbook.xlsx.load(buffer)
     const worksheet = workbook.getWorksheet(1)
-    if (!worksheet || !worksheet.dimensions) throw new Error(READ_ERROR)
+    if (!worksheet || !worksheet.dimensions) throw new Error(readError())
 
     const { top, left, bottom, right } = worksheet.dimensions
     const colCount = right - left + 1
     const cellCount = (bottom - top + 1) * colCount
-    if (cellCount > MAX_XLSX_CELLS) throw new Error(READ_ERROR)
+    if (cellCount > MAX_XLSX_CELLS) throw new Error(readError())
 
     // Detect caption: first row with a single non-empty value while the
     // next row has more (merged caption), or every non-empty cell has the
@@ -477,6 +477,6 @@ export async function importExcel(file: File): Promise<ImportResult> {
     }
     return result
   } catch {
-    throw new Error(READ_ERROR)
+    throw new Error(readError())
   }
 }

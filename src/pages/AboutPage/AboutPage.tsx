@@ -5,9 +5,8 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
-import { siteConfig } from '../../config/siteConfig'
-
-const { brand, routes } = siteConfig
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
 
 function splitNotList(text: string): string[] {
   return text.split(/(?<=\.)\s+/).filter(Boolean)
@@ -24,13 +23,13 @@ export function AboutPage(): ReactNode {
         <meta name="description" content={t('meta.aboutDescription')} />
         <meta property="og:title" content={t('meta.aboutTitle')} />
         <meta property="og:description" content={t('meta.aboutDescription')} />
-        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.about}`} />
-        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.about}`} />
+        <meta property="og:url" content={`${brand.url}${routes.about.path}`} />
+        <link rel="canonical" href={`${brand.url}${routes.about.path}`} />
       </Helmet>
       <main className="bg-white">
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.about') },
         ]} />
       </div>
@@ -43,7 +42,7 @@ export function AboutPage(): ReactNode {
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="accent" size="lg">
-            <Link to={routes.home} state={{ freshTable: true }}>{t('hero.cta')}</Link>
+            <Link to={routes.home.path} state={{ freshTable: true }}>{t('hero.cta')}</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">

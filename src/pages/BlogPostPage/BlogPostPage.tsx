@@ -9,7 +9,8 @@ import { Copy, Check } from 'lucide-react'
 import type { BlogPost } from '../../services/blogService/blogService.types'
 import { getPostBySlug, getAllPosts } from '../../services/blogService/blogService'
 import { formatDate } from '../../utils/formatDate/formatDate'
-import { siteConfig } from '../../config/siteConfig'
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
 import { toast } from '../../utils/toast/toast'
 import { SearchBar } from '../../components/features/SearchBar/SearchBar'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
@@ -99,14 +100,14 @@ export default function BlogPostPage(): ReactNode {
     )
   }
 
-  if (!post) return <Navigate to={siteConfig.routes.blog} replace />
+  if (!post) return <Navigate to={routes.blog.path} replace />
 
-  const postUrl = `${siteConfig.brand.url}${siteConfig.routes.blog}${post.slug}/`
+  const postUrl = `${brand.url}${routes.blog.path}${post.slug}/`
 
   return (
     <>
       <Helmet>
-        <title>{post.title} — {siteConfig.brand.name}</title>
+        <title>{post.title} — {brand.name}</title>
         <meta name="description" content={post.description} />
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
@@ -125,13 +126,13 @@ export default function BlogPostPage(): ReactNode {
 
       <article className="mx-auto max-w-narrow px-4 py-16">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
-          { label: t('nav.blog'), to: siteConfig.routes.blog },
+          { label: t('nav.home'), to: routes.home.path },
+          { label: t('nav.blog'), to: routes.blog.path },
           { label: post.title },
         ]} />
         <header className="mb-10">
           <div className="mb-4 flex items-center gap-2 text-xs text-text-muted">
-            <Link to={siteConfig.routes.blog} className="hover:text-primary">Blog</Link>
+            <Link to={routes.blog.path} className="hover:text-primary">Blog</Link>
             <span>·</span>
             <time>{formatDate(post.date)}</time>
             <span>·</span>
@@ -184,7 +185,7 @@ export default function BlogPostPage(): ReactNode {
             {t('blog.ctaTitle')}
           </p>
           <Link
-            to={siteConfig.routes.home}
+            to={routes.home.path}
             className="text-sm font-semibold text-primary hover:underline"
           >
             {t('blog.openTablesmit')}
@@ -209,7 +210,7 @@ export default function BlogPostPage(): ReactNode {
               {results.map(other => (
                 <Link
                   key={other.slug}
-                  to={`${siteConfig.routes.blog}${other.slug}/`}
+                  to={`${routes.blog.path}${other.slug}/`}
                   className={`block rounded-md border p-4 transition-colors duration-150 hover:border-primary ${
                     other.slug === slug ? 'border-primary bg-primary-light' : 'border-border'
                   }`}

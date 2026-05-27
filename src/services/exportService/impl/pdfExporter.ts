@@ -1,5 +1,5 @@
 import type { ExportOptions, ExportStrategy } from '../export.types'
-import { siteConfig } from '../../../config/siteConfig'
+import { exportFileBaseName } from '../../../config/export/exportConfig'
 import { filenameWithExtension, fixTableBordersForExport } from '../utils'
 
 export class PDFExporter implements ExportStrategy {
@@ -41,6 +41,6 @@ export class PDFExporter implements ExportStrategy {
     const width = canvas!.width * ratio
     const height = canvas!.height * ratio
     pdf.addImage(image, 'PNG', (pageWidth - width) / 2, 32, width, Math.min(height, pageHeight - 64))
-    pdf.save(filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'pdf'))
+    pdf.save(filenameWithExtension(options.filename, exportFileBaseName, 'pdf'))
   }
 }

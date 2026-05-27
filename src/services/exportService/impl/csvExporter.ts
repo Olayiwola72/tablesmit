@@ -1,6 +1,6 @@
 import type { CellData } from '../../../types/table'
 import type { ExportOptions, ExportStrategy } from '../export.types'
-import { siteConfig } from '../../../config/siteConfig'
+import { exportFileBaseName } from '../../../config/export/exportConfig'
 import { downloadUrl, filenameWithExtension, sanitizeSpreadsheetValue } from '../utils'
 
 export class CSVExporter implements ExportStrategy {
@@ -15,6 +15,6 @@ export class CSVExporter implements ExportStrategy {
       caption ? [`${caption}\n${csv}`] : [csv],
       { type: 'text/csv;charset=utf-8;' },
     )
-    downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'csv'))
+    downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, exportFileBaseName, 'csv'))
   }
 }

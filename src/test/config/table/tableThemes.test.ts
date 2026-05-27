@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { TABLE_THEMES } from '../../../config/table/tableThemes'
+import { TABLE_THEMES } from '../../../config/table/tableThemes/tableThemes'
 
 describe('TABLE_THEMES', () => {
   it('has exactly 6 theme entries', () => {

@@ -2,7 +2,8 @@ import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
-import { siteConfig } from '../../../config/siteConfig'
+import { brand } from '../../../config/brand/brandConfig'
+import { navItems, routes } from '../../../config/routes/routesConfig'
 import { KEY_ESCAPE } from '../../../constants/keys'
 import { cn } from '../../../lib/utils'
 import { Button } from '../../ui/Button/Button'
@@ -10,8 +11,6 @@ import { IconButton } from '../../ui/IconButton/IconButton'
 import { LanguagePicker } from '../../ui/LanguagePicker/LanguagePicker'
 import { Logo } from '../../ui/Logo/Logo'
 import { useTheme } from '../../../hooks/useTheme/useTheme'
-
-const { brand, routes } = siteConfig
 
 export function Navbar(): ReactNode {
   const { t } = useTranslation()
@@ -32,24 +31,24 @@ export function Navbar(): ReactNode {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-white dark:border-slate-700 dark:bg-slate-900">
       <div className="mx-auto flex h-14 max-w-content items-center justify-between px-4 sm:px-6 md:h-nav lg:px-8">
-        <Link to={routes.home} aria-label={`${brand.name} home`} className="flex items-center">
+        <Link to={routes.home.path} aria-label={`${brand.name} home`} className="flex items-center">
           <Logo variant="icon" theme={logoTheme} className="h-8 w-8 md:hidden" />
           <Logo variant="full" theme={logoTheme} className="hidden h-9 w-[165px] md:block" />
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-6 md:flex">
-          {siteConfig.nav.map((item) => {
-            const isActive = pathname === siteConfig.routes[item.route]
+          {navItems.map((item) => {
+            const isActive = pathname === item.path
             return (
               <Link
-                key={item.label}
-                to={siteConfig.routes[item.route]}
+                key={item.key}
+                to={item.path}
                 className={cn(
                   'text-sm font-medium transition-colors hover:text-primary',
                   isActive ? 'border-b-2 border-primary pb-1 text-primary font-semibold' : 'text-text-secondary',
                 )}
               >
-                {t(`nav.${item.route}`, item.label)}
+                {t(`nav.${item.key}`, item.label)}
               </Link>
             )
           })}
@@ -95,19 +94,19 @@ export function Navbar(): ReactNode {
               />
             </div>
             <nav className="flex flex-col gap-4" aria-label="Mobile navigation">
-              {siteConfig.nav.map((item) => {
-                const isActive = pathname === siteConfig.routes[item.route]
+              {navItems.map((item) => {
+                const isActive = pathname === item.path
                 return (
                   <Link
-                    key={item.label}
-                    to={siteConfig.routes[item.route]}
+                    key={item.key}
+                    to={item.path}
                     className={cn(
                       'text-base font-medium transition-colors',
                       isActive ? 'text-primary font-semibold' : 'text-text-primary',
                     )}
                     onClick={() => setIsOpen(false)}
                   >
-                    {t(`nav.${item.route}`, item.label)}
+                    {t(`nav.${item.key}`, item.label)}
                   </Link>
                 )
               })}

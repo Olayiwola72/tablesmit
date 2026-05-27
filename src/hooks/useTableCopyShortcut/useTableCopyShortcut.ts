@@ -48,7 +48,7 @@ export function useTableCopyShortcut(
               canvas.toBlob((blob) => {
                 if (!blob) return
                 navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]).then(
-                  () => { toast.success(t('toast.copyImage')) },
+                  () => { toast.success(t('toast.copySuccess', { copyFormat: t('format.image') })) },
                   () => { toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.')) },
                 )
               }, 'image/png')

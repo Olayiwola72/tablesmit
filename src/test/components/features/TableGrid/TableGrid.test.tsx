@@ -4,7 +4,7 @@ import { createRef, type ReactNode } from 'react'
 import { describe, expect, it, vi, afterEach } from 'vitest'
 import { TableProvider } from '../../../../context/TableContext'
 import { TableGrid } from '../../../../components/features/TableGrid/TableGrid'
-import { DEFAULT_COLS, DEFAULT_ROWS } from '../../../../config/table/tableDefaults'
+import { DEFAULT_COLS, DEFAULT_ROWS } from '../../../../config/table/tableDefaults/tableDefaults'
 import { toast } from '../../../../utils/toast/toast'
 
 vi.mock('../../../../utils/toast/toast', () => ({
@@ -407,7 +407,7 @@ describe('TableGrid', () => {
 
   it('renders column resize handles', () => {
     renderTableGrid()
-    const handles = screen.getAllByRole('button', { name: /Double-click a column border/i })
+    const handles = screen.getAllByRole('button', { name: /Double-click resize handle/i })
     expect(handles.length).toBeGreaterThanOrEqual(DEFAULT_COLS)
   })
 

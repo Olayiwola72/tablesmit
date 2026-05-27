@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { RowColumnActions } from '../../../../../components/features/TableToolbar/RowColumnActions/RowColumnActions'
-import { MAX_ROWS, MAX_COLS } from '../../../../../config/table/tableDefaults'
+import { MAX_ROWS, MAX_COLS } from '../../../../../config/table/tableDefaults/tableDefaults'
 
 describe('RowColumnActions', () => {
   it('renders all four action buttons', () => {

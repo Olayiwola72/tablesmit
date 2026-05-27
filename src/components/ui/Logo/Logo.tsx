@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type { LogoProps } from './Logo.types'
+import { brand } from '../../../config/brand/brandConfig'
 
 function fillColor(theme: 'light' | 'dark'): string {
   return theme === 'dark' ? '#60A5FA' : '#1E40AF'
@@ -32,7 +33,7 @@ function IconShapes({ fill }: { fill: string }): ReactNode {
 export function Logo({ variant = 'full', theme = 'light', className }: LogoProps): ReactNode {
   const svgProps = {
     role: 'img' as const,
-    'aria-label': 'Tablesmit',
+    'aria-label': brand.name,
     className,
     dir: 'ltr' as const,
     style: { direction: 'ltr' as const },
@@ -42,7 +43,7 @@ export function Logo({ variant = 'full', theme = 'light', className }: LogoProps
     const fill = fillColor(theme)
     return (
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
-        <title>Tablesmit</title>
+        <title>{brand.name}</title>
         <IconShapes fill={fill} />
       </svg>
     )
@@ -52,7 +53,7 @@ export function Logo({ variant = 'full', theme = 'light', className }: LogoProps
   const wordFill = wordmarkFill(theme)
   return (
     <svg width="220" height="48" viewBox="0 0 220 48" fill="none" xmlns="http://www.w3.org/2000/svg" {...svgProps}>
-      <title>Tablesmit</title>
+      <title>{brand.name}</title>
       <g transform="translate(4,8)">
         <LogoShapes fill={iconFill} />
       </g>
@@ -61,7 +62,7 @@ export function Logo({ variant = 'full', theme = 'light', className }: LogoProps
         fontSize="22" fontWeight="600" letterSpacing="-0.5"
         textAnchor="start"
         fill={wordFill}
-      >Tablesmit</text>
+      >{brand.name}</text>
     </svg>
   )
 }

@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import type { FeaturePage } from '../../services/featureService/featureService.types'
 import { getAllFeatures } from '../../services/featureService/featureService'
-import { siteConfig } from '../../config/siteConfig'
-import { ITEMS_PER_PAGE } from '../../config/table/tableDefaults'
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
+import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
 import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
 import { SearchBar } from '../../components/features/SearchBar/SearchBar'
 import { LearnMoreLink } from '../../components/ui/LearnMoreLink/LearnMoreLink'
@@ -54,12 +55,12 @@ export default function FeaturesListPage(): ReactNode {
         <meta name="description" content={t('meta.featuresDescription')} />
         <meta property="og:title" content={t('meta.featuresTitle')} />
         <meta property="og:description" content={t('meta.featuresDescription')} />
-        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.features}`} />
-        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.features}`} />
+        <meta property="og:url" content={`${brand.url}${routes.features.path}`} />
+        <link rel="canonical" href={`${brand.url}${routes.features.path}`} />
       </Helmet>
       <div className="mx-auto max-w-content">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.features') },
         ]} />
         <header className="mb-12 text-center">
@@ -85,7 +86,7 @@ export default function FeaturesListPage(): ReactNode {
               {pageFeatures.map(feature => (
                 <Link
                   key={feature.slug}
-                  to={`${siteConfig.routes.features}${feature.slug}/`}
+                  to={`${routes.features.path}${feature.slug}/`}
                   className="block rounded-md border border-border p-6 transition-all duration-150 hover:border-primary hover:shadow-sm"
                 >
                   <h2 className="mb-2 text-xl font-semibold text-text-primary">

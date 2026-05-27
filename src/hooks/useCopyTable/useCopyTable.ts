@@ -278,6 +278,10 @@ export function useCopyTable(
   const [isCopying, setIsCopying] = useState(false)
   const { t } = useTranslation()
 
+  const showCopySuccess = useCallback((formatType: string): void => {
+    toast.success(t('toast.copySuccess', { copyFormat: t(`format.${formatType}`) }))
+  }, [t])
+
   const copyAsCsv = useCallback(async (): Promise<void> => {
     try {
       const lines = cells.map((row) =>
@@ -290,11 +294,11 @@ export function useCopyTable(
       const output = caption ? `# ${caption}\n${lines.join('\n')}` : lines.join('\n')
       await navigator.clipboard.writeText(output)
       trackEvent('table_copied', { method: 'csv' })
-      toast.success(t('toast.copyCsv', 'Table data copied as CSV.'))
+      showCopySuccess('csv')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     }
-  }, [cells, caption, t])
+  }, [cells, caption, t, showCopySuccess])
 
   const copyAsExcelData = useCallback(async (): Promise<void> => {
     try {
@@ -370,11 +374,11 @@ export function useCopyTable(
       const output = caption ? `${caption}\n\n${table}` : table
       await navigator.clipboard.writeText(output)
       trackEvent('table_copied', { method: 'markdown' })
-      toast.success(t('toast.copyMarkdown', 'Table copied as Markdown.'))
+      showCopySuccess('markdown')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     }
-  }, [cells, caption, t])
+  }, [cells, caption, t, showCopySuccess])
 
   const copyAsImage = useCallback(async (): Promise<void> => {
     setIsCopying(true)
@@ -394,13 +398,13 @@ export function useCopyTable(
       if (!blob) return
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
       trackEvent('table_copied', { method: 'image' })
-      toast.success(t('toast.copyImage'))
+      showCopySuccess('image')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     } finally {
       setIsCopying(false)
     }
-  }, [tableRef, t])
+  }, [tableRef, t, showCopySuccess])
 
   const copyAsLatex = useCallback(async (headerStyle?: string): Promise<void> => {
     try {
@@ -408,11 +412,11 @@ export function useCopyTable(
       const latex = cellsToLatex(cells, headerStyle)
       await navigator.clipboard.writeText(latex)
       trackEvent('table_copied', { method: 'latex' })
-      toast.success(t('toast.copyLatex', 'Table copied as LaTeX.'))
+      showCopySuccess('latex')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     }
-  }, [cells, t])
+  }, [cells, t, showCopySuccess])
 
   const copyAsHtml = useCallback(async (): Promise<void> => {
     try {
@@ -434,11 +438,11 @@ export function useCopyTable(
         await navigator.clipboard.writeText(html)
       }
       trackEvent('table_copied', { method: 'html' })
-      toast.success(t('toast.copyHtml', 'Table copied as HTML.'))
+      showCopySuccess('html')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     }
-  }, [cells, caption, columnWidths, cellColors, cellTextColors, cellTextAlign, mergedRanges, headerColor, headerStyle, contentColor, contentBgColor, borderStyle, borderColor, captionTextColor, captionBgColor, captionAlignment, captionItalic, theme, t])
+  }, [cells, caption, columnWidths, cellColors, cellTextColors, cellTextAlign, mergedRanges, headerColor, headerStyle, contentColor, contentBgColor, borderStyle, borderColor, captionTextColor, captionBgColor, captionAlignment, captionItalic, theme, t, showCopySuccess])
 
   return { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsImage, copyAsLatex, copyAsHtml, isCopying }
 }

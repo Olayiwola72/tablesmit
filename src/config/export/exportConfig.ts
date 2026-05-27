@@ -1,5 +1,7 @@
 import type { ExportDefinition } from '../export/exportConfig.types'
 
+export const exportFileBaseName = 'tablesmit-table'
+
 export const exportFormats: ExportDefinition[] = [
   { format: 'pdf', label: 'PDF', extension: 'pdf' },
   { format: 'png', label: 'PNG', extension: 'png' },

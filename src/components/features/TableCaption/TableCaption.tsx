@@ -5,7 +5,7 @@ import { cn } from '../../../lib/utils'
 import { ColorSwatch } from '../../ui/ColorSwatch/ColorSwatch'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../ui/Tooltip/Tooltip'
 import { contentColorSwatches } from '../../../config/colorPalette/colorPalette'
-import { MIN_ROW_HEIGHT, MAX_ROW_HEIGHT } from '../../../config/table/tableDefaults'
+import { MIN_ROW_HEIGHT, MAX_ROW_HEIGHT } from '../../../config/table/tableDefaults/tableDefaults'
 import type { CaptionAlignment, CtxMenuState, TableCaptionProps } from './TableCaption.types'
 
 function TableCaptionRaw({

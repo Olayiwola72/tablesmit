@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
 import { chromium } from 'playwright'
+import { CONTENT_DIRS } from '../src/config/content/contentConfig'
 
 function readPackageConfig(): { prerenderDir: string } {
   try {
@@ -50,7 +51,7 @@ export function getBlogRoutes(
   exists: (p: string) => boolean,
   readDir: (p: string) => string[],
 ): string[] {
-  const blogDir = path.join(contentDir, 'blog')
+  const blogDir = path.join(contentDir, CONTENT_DIRS.BLOG)
   if (!exists(blogDir)) return []
   return readDir(blogDir)
     .filter((f) => f.endsWith('.ts'))
@@ -63,7 +64,7 @@ export function getFeatureRoutes(
   readDir: (p: string) => string[],
   readFile: (p: string) => string,
 ): string[] {
-  const featuresDir = path.join(contentDir, 'features')
+  const featuresDir = path.join(contentDir, CONTENT_DIRS.FEATURES)
   if (!exists(featuresDir)) return []
   return readDir(featuresDir)
     .filter((f) => f.endsWith('.json'))

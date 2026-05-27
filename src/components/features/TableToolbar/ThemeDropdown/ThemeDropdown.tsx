@@ -2,7 +2,7 @@ import { ChevronDown, Palette } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { ThemeDropdownProps } from './ThemeDropdown.types'
-import { TABLE_THEMES } from '../../../../config/table/tableThemes'
+import { TABLE_THEMES } from '../../../../config/table/tableThemes/tableThemes'
 import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
 

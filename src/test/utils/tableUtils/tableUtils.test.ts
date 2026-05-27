@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   addColumn,
   addRow,
+  computeColumnSum,
   createCell,
   deleteColAt,
   deleteRowAt,
@@ -240,6 +241,24 @@ describe('sortRows', () => {
     const rows = tableWithValues([['a'], ['2'], ['b']])
     const sorted = sortRows(rows, 0, 'asc')
     expect(sorted[0][0].value).toBe('2')
+  })
+})
+
+describe('computeColumnSum', () => {
+  it('sums numeric values', () => {
+    expect(computeColumnSum([{ value: '10' }, { value: '20' }, { value: '30' }])).toBe(60)
+  })
+
+  it('handles NaN values gracefully', () => {
+    expect(computeColumnSum([{ value: 'abc' }, { value: '10' }, { value: '' }])).toBe(10)
+  })
+
+  it('returns 0 for empty array', () => {
+    expect(computeColumnSum([])).toBe(0)
+  })
+
+  it('returns 0 for all NaN values', () => {
+    expect(computeColumnSum([{ value: 'abc' }, { value: 'def' }])).toBe(0)
   })
 })
 

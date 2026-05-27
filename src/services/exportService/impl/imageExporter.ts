@@ -1,5 +1,5 @@
 import type { ExportOptions, ExportStrategy } from '../export.types'
-import { siteConfig } from '../../../config/siteConfig'
+import { exportFileBaseName } from '../../../config/export/exportConfig'
 import { downloadUrl, filenameWithExtension, fixTableBordersForExport } from '../utils'
 
 export class ImageExporter implements ExportStrategy {
@@ -26,7 +26,7 @@ export class ImageExporter implements ExportStrategy {
     const extension = this.mime === 'image/png' ? 'png' : 'jpeg'
     downloadUrl(
       canvas.toDataURL(this.mime, options.quality ?? 0.94),
-      filenameWithExtension(options.filename, siteConfig.exportFileBaseName, extension),
+      filenameWithExtension(options.filename, exportFileBaseName, extension),
     )
   }
 }

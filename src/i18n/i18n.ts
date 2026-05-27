@@ -3,6 +3,7 @@ import { initReactI18next, setDefaults } from 'react-i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import en from './locales/en.json'
 import { LOCALES } from './config'
+import { brand } from '../config/brand/brandConfig'
 
 setDefaults({ useSuspense: false })
 
@@ -47,6 +48,7 @@ if (!i18n.isInitialized) {
         en: { common: en as Record<string, unknown> },
       },
       interpolation: {
+        defaultVariables: { name: brand.name },
         escapeValue: false,
       },
       detection: {

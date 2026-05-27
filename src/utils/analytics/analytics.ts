@@ -1,3 +1,5 @@
+import { ANALYTICS_CONFIG } from '../../config/analytics/analyticsConfig'
+
 declare global {
   interface Window {
     dataLayer?: unknown[]
@@ -5,25 +7,31 @@ declare global {
   }
 }
 
+function getMeasurementId(): string | undefined {
+  return import.meta.env[ANALYTICS_CONFIG.envVar] as string | undefined
+}
+
 export function loadAnalytics(): void {
-  const id = import.meta.env.VITE_GA4_MEASUREMENT_ID as string | undefined
+  const id = getMeasurementId()
   if (!id || typeof window === 'undefined') return
-  if (document.querySelector('#tablesmit-gtag')) return
+  if (document.querySelector(`#${ANALYTICS_CONFIG.scriptId}`)) return
 
   const s = document.createElement('script')
-  s.id = 'tablesmit-gtag'
-  s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`
+  s.id = ANALYTICS_CONFIG.scriptId
+  s.src = `${ANALYTICS_CONFIG.baseUrl}${id}`
   s.async = true
   document.head.appendChild(s)
 
   window.dataLayer ??= []
-  const gtag = (...args: unknown[]) => { window.dataLayer!.push(args) }
-  gtag('js', new Date())
-  gtag('config', id)
+  const gtag = (...args: unknown[]) => {
+    window.dataLayer!.push(args)
+  }
+  gtag(ANALYTICS_CONFIG.commands.js, new Date())
+  gtag(ANALYTICS_CONFIG.commands.config, id)
 }
 
 export function trackEvent(name: string, params?: Record<string, unknown>): void {
-  const id = import.meta.env.VITE_GA4_MEASUREMENT_ID as string | undefined
+  const id = getMeasurementId()
   if (!id || import.meta.env.DEV) return
-  window.gtag?.('event', name, params)
+  window.gtag?.(ANALYTICS_CONFIG.commands.event, name, params)
 }

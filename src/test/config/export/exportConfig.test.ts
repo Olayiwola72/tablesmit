@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { exportFormats } from '../../../config/export/exportConfig'
+import { exportFormats, exportFileBaseName } from '../../../config/export/exportConfig'
+
+describe('exportFileBaseName', () => {
+  it('uses tablesmit-table as the default export basename', () => {
+    expect(exportFileBaseName).toBe('tablesmit-table')
+  })
+})
 
 describe('exportFormats', () => {
   it('has exactly 6 formats', () => {

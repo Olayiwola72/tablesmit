@@ -4,7 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
 import FeaturesListPage from '../../../pages/FeaturesListPage/FeaturesListPage'
 import { getAllFeatures } from '../../../services/featureService/featureService'
-import { ITEMS_PER_PAGE } from '../../../config/table/tableDefaults'
+import { ITEMS_PER_PAGE } from '../../../config/pagination/paginationConfig'
 
 function renderPage(): void {
   render(

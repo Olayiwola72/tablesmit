@@ -1,3 +1,5 @@
+import { LATEX_UNESCAPE_MAP } from '../../config/latex/latexConfig'
+
 export function parseLatexTabular(latex: string): string[][] {
   let text = latex
     .replace(/\\begin\s*\{tabular\*?\}\s*(?:\{[^}]*\}\s*)*/g, '')
@@ -19,15 +21,9 @@ export function parseLatexTabular(latex: string): string[][] {
 }
 
 function unescapeLatex(text: string): string {
-  return text
-    .replace(/\\textbackslash\{\}/g, '\\')
-    .replace(/\\textasciitilde\{\}/g, '~')
-    .replace(/\\textasciicircum\{\}/g, '^')
-    .replace(/\\\{/g, '{')
-    .replace(/\\\}/g, '}')
-    .replace(/\\_/g, '_')
-    .replace(/\\%/g, '%')
-    .replace(/\\&/g, '&')
-    .replace(/\\#/g, '#')
-    .replace(/\\\$/g, '$')
+  let result = text
+  for (const [escaped, char] of Object.entries(LATEX_UNESCAPE_MAP)) {
+    result = result.replaceAll(escaped, char)
+  }
+  return result
 }

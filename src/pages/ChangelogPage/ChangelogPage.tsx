@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import type { ChangelogEntry } from '../../config/changelog/changelog.types'
 import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
-import { siteConfig } from '../../config/siteConfig'
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
 
 export function ChangelogPage(): ReactNode {
   const { t } = useTranslation()
@@ -15,11 +16,11 @@ export function ChangelogPage(): ReactNode {
         <meta name="description" content={t('meta.changelogDescription')} />
         <meta property="og:title" content={t('meta.changelogTitle')} />
         <meta property="og:description" content={t('meta.changelogDescription')} />
-        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.changelog}`} />
+        <link rel="canonical" href={`${brand.url}${routes.changelog.path}`} />
       </Helmet>
       <main className="mx-auto max-w-narrow px-4 py-16">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.changelog') },
         ]} />
       <h1 className="text-3xl font-bold text-text-primary">{t('nav.changelog')}</h1>

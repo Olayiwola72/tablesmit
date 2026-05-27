@@ -1,15 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
-import { siteConfig } from '../../config/siteConfig'
+import { useTranslation } from 'react-i18next'
+import { exportFileBaseName } from '../../config/export/exportConfig'
 import { useTableContext, useTableData } from '../../context/TableContext'
 import { exportTable } from '../../services/exportService'
 import type { ExportFormat } from '../../services/exportService/export.types'
-import { TABLE_THEMES } from '../../config/table/tableThemes'
-import { toast, TOAST } from '../../utils/toast/toast'
+import { TABLE_THEMES } from '../../config/table/tableThemes/tableThemes'
+import { toast } from '../../utils/toast/toast'
 import { trackEvent } from '../../utils/analytics/analytics'
 import type { ExportApi } from './useExport.types'
 
 export function useExport(): ExportApi {
   const [exportingFormat, setExportingFormat] = useState<ExportFormat | null>(null)
+  const { t } = useTranslation()
   const { cells } = useTableData()
   const {
     headerStyle, mergedRanges, headerColor, contentColor, borderColor,
@@ -49,7 +51,7 @@ export function useExport(): ExportApi {
     try {
       await exportTable(element, {
         format,
-        filename: (caption?.trim() ? caption.trim() : siteConfig.exportFileBaseName) + '',
+        filename: (caption?.trim() ? caption.trim() : exportFileBaseName) + '',
         caption: caption?.trim() || undefined,
         captionTextColor: captionTextColor?.trim() || undefined,
         captionBgColor: captionBgColor?.trim() || undefined,
@@ -75,9 +77,9 @@ export function useExport(): ExportApi {
         },
       })
       trackEvent('table_exported', { format })
-      toast.success(TOAST.EXPORT_SUCCESS(format.toUpperCase()))
+      toast.success(t('toast.exportSuccess', { format: format.toUpperCase() }))
     } catch {
-      toast.error(TOAST.EXPORT_ERROR)
+      toast.error(t('toast.exportError'))
     } finally {
       element.classList.remove('is-exporting')
       setExportingFormat(null)

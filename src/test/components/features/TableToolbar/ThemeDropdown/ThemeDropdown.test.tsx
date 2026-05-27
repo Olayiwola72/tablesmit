@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { ThemeDropdown } from '../../../../../components/features/TableToolbar/ThemeDropdown/ThemeDropdown'
-import { TABLE_THEMES } from '../../../../../config/table/tableThemes'
+import { TABLE_THEMES } from '../../../../../config/table/tableThemes/tableThemes'
 
 describe('ThemeDropdown', () => {
   it('renders the trigger button', () => {

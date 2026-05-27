@@ -1,30 +1,29 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { exportFormats } from '../../../config/export/exportConfig'
-import { siteConfig } from '../../../config/siteConfig'
+import { brand } from '../../../config/brand/brandConfig'
+import { routes } from '../../../config/routes/routesConfig'
 import { Logo } from '../../ui/Logo/Logo'
 import { getCurrentYear } from '../../../utils/dateUtils/dateUtils'
 import { FooterGroup } from '../FooterGroup/FooterGroup'
-
-const { brand, routes } = siteConfig
 
 export function Footer(): ReactNode {
   const { t } = useTranslation()
 
   const productLinks = [
-    { label: t('footer.home'), href: routes.home },
-    { label: t('nav.blog'), href: routes.blog },
-    { label: t('nav.features'), href: routes.features },
-    { label: t('nav.changelog'), href: routes.changelog },
-    { label: t('nav.openSource'), href: routes.openSource },
+    { label: t('nav.home', routes.home.label), href: routes.home.path },
+    { label: t('nav.blog', routes.blog.label), href: routes.blog.path },
+    { label: t('nav.features', routes.features.label), href: routes.features.path },
+    { label: t('nav.changelog', routes.changelog.label), href: routes.changelog.path },
+    { label: t('nav.openSource', routes.openSource.label), href: routes.openSource.path },
   ]
 
   const companyLinks = [
-    { label: t('nav.about'), href: routes.about },
-    { label: t('nav.contact'), href: routes.contact },
-    { label: t('nav.testimonials'), href: routes.testimonials },
-    { label: t('footer.privacyPolicy'), href: routes.privacy },
-    { label: t('footer.termsOfUse'), href: routes.terms },
+    { label: t('nav.about', routes.about.label), href: routes.about.path },
+    { label: t('nav.contact', routes.contact.label), href: routes.contact.path },
+    { label: t('nav.testimonials', routes.testimonials.label), href: routes.testimonials.path },
+    { label: t('footer.privacyPolicy'), href: routes.privacy.path },
+    { label: t('footer.termsOfUse'), href: routes.terms.path },
     { label: t('footer.github'), href: brand.githubUrl, external: true },
   ]
 

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../../config/siteConfig'
+import { routes } from '../../../../config/routes/routesConfig'
 
 export function FeatureCtaSection(): ReactNode {
   const { t } = useTranslation()
@@ -12,7 +12,7 @@ export function FeatureCtaSection(): ReactNode {
         {t('blog.ctaTitle')}
       </p>
       <Link
-        to={siteConfig.routes.home}
+        to={routes.home.path}
         className="text-sm font-semibold text-primary hover:underline"
       >
         {t('blog.openTablesmit')}

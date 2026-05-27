@@ -96,6 +96,15 @@ export function isTableEmpty(cells: CellData[][]): boolean {
   return cells.every(row => row.every(cell => !cell.value.trim()))
 }
 
+export function computeColumnSum(cells: { value: string }[]): number {
+  let total = 0
+  for (const cell of cells) {
+    const num = Number(cell.value.replace(/[$,%\s,]/g, ''))
+    if (!Number.isNaN(num)) total += num
+  }
+  return total
+}
+
 export function sortRows(
   rows: CellData[][],
   colIndex: number,

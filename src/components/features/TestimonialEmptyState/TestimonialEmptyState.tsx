@@ -2,11 +2,11 @@ import { Mail, Quote } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../config/siteConfig'
+import { brand } from '../../../config/brand/brandConfig'
+import { routes } from '../../../config/routes/routesConfig'
 
 export function TestimonialEmptyState(): ReactNode {
   const { t } = useTranslation()
-  const { routes, brand } = siteConfig
 
   return (
     <section className="mx-auto max-w-content px-4 pb-20 sm:px-6 lg:px-8">
@@ -20,7 +20,7 @@ export function TestimonialEmptyState(): ReactNode {
         </p>
         <p className="mt-6">
           <Link
-            to={routes.contact}
+            to={routes.contact.path}
             className="text-sm font-semibold text-primary underline underline-offset-2"
           >
             {t('testimonials.shareExperience')} &rarr;

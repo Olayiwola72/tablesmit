@@ -1,7 +1,7 @@
 import { memo, type ReactNode } from 'react'
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../../config/siteConfig'
+import { columnFormats } from '../../../../config/columnFormats/columnFormatsConfig'
 import type { ColumnFormat } from '../../../../types/table'
 import { ResizeHandle } from '../ResizeHandle/ResizeHandle'
 import type { TableHeaderCellProps } from './TableHeaderCell.types'
@@ -53,7 +53,7 @@ function TableHeaderCellRaw({
           data-export-hide data-print-hide
           onChange={(event) => onFormatChange(event.target.value as ColumnFormat)}
         >
-          {siteConfig.columnFormats.map((option) => (
+          {columnFormats.map((option) => (
             <option key={option.value} value={option.value}>
               {t(`table.${option.value}`, option.label)}
             </option>
@@ -63,7 +63,7 @@ function TableHeaderCellRaw({
       <div data-print-hide className="contents">
         <ResizeHandle
           axis="column"
-          label={siteConfig.labels.autoFitColumn}
+          label={t('grid.autoFitTip')}
           onMouseDown={(event) => onResizeStart(event, index, width)}
           onDoubleClick={() => onAutoFit(index)}
         />

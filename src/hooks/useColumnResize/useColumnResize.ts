@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import {
   MAX_COLUMN_WIDTH,
   MIN_COLUMN_WIDTH,
-} from '../../config/table/tableDefaults'
+} from '../../config/table/tableDefaults/tableDefaults'
 import type { ColumnResizeApi } from './useColumnResize.types'
 
 export function useColumnResize(onResizeEnd: (colIndex: number, width: number) => void): ColumnResizeApi {

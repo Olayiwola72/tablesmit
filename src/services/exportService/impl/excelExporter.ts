@@ -1,6 +1,7 @@
 import type { CellData, BorderStyle as TbBorderStyle } from '../../../types/table'
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
-import { siteConfig } from '../../../config/siteConfig'
+import { exportFileBaseName } from '../../../config/export/exportConfig'
+import { brand } from '../../../config/brand/brandConfig'
 import { downloadUrl, filenameWithExtension } from '../utils'
 import { getEffectiveColSpan, getMergeAtCoord } from '../../../utils/mergeUtils/mergeUtils'
 import { isHeaderCell } from '../../../context/TableContext'
@@ -65,7 +66,7 @@ export class ExcelExporter implements ExportStrategy {
     const hasBorders = xlsxBorderStyle !== null
 
     const workbook = new ExcelJS.Workbook()
-    const worksheet = workbook.addWorksheet(siteConfig.brand.name)
+    const worksheet = workbook.addWorksheet(brand.name)
 
     // ── Column widths ──
     if (stylesObj?.columnWidths?.length) {
@@ -170,6 +171,6 @@ export class ExcelExporter implements ExportStrategy {
     const blob = new Blob([buffer], {
       type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     })
-    downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, siteConfig.exportFileBaseName, 'xlsx'))
+    downloadUrl(URL.createObjectURL(blob), filenameWithExtension(options.filename, exportFileBaseName, 'xlsx'))
   }
 }

@@ -1,4 +1,27 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+vi.mock('../../../i18n/i18n', () => ({
+  default: {
+    t: (key: string, opts?: Record<string, unknown>) => {
+      const translations: Record<string, string> = {
+        'errors.fileTooLarge': 'File too large. Maximum size is {{maxSize}}{{unitLabel}}.',
+        'errors.importParseError': 'Could not read file. Check the format and try again.',
+      }
+      let msg = translations[key] ?? key
+      if (opts) {
+        for (const [k, v] of Object.entries(opts)) {
+          msg = msg.replace(new RegExp(`\\{\\{${k}\\}\\}`, 'g'), String(v))
+        }
+      }
+      return msg
+    },
+    language: 'en',
+    isInitialized: true,
+    on: () => vi.fn(),
+    changeLanguage: () => Promise.resolve(),
+  },
+}))
+
 import { importCsv, importExcel, argbToHex, getFillColor } from '../../../services/importService/importService'
 
 const createFile = (content: string, name = 'test.csv', mime = 'text/csv'): File =>

@@ -48,6 +48,7 @@ vi.mock('react-i18next', () => {
     // grid
     'grid.tableEditor': 'Table editor',
     'grid.selectCell': 'Select cell {{id}}',
+    'grid.autoFitTip': 'Double-click resize handle to auto-fit',
     // aria
     'aria.closeMenu': 'Close menu',
     // export
@@ -286,8 +287,14 @@ vi.mock('react-i18next', () => {
     'toast.tableCleared': 'Table cleared.',
     'toast.undoEmpty': 'Nothing left to undo.',
     'toast.copyData': 'Table data copied. Paste into Excel or Google Sheets.',
-    'toast.copyImage': 'Table copied as image.',
+    'toast.copySuccess': 'Table copied as {{copyFormat}}.',
     'toast.aiWaitlist': 'AI features are coming soon! Reach out to share what you\'d like to see.',
+    // format
+    'format.csv': 'CSV',
+    'format.html': 'HTML',
+    'format.latex': 'LaTeX',
+    'format.markdown': 'Markdown',
+    'format.image': 'image',
     // themePicker
     'themePicker.selectTheme': 'Select table theme',
     'themePicker.default': 'Default',
@@ -366,6 +373,9 @@ vi.mock('react-i18next', () => {
     'terms.openSource': 'Open source',
     'terms.openSourceBody': '{{name}} source code is MIT licensed.',
     'terms.contact': 'Contact',
+    // toast
+    'toast.pasteSuccess': 'Table pasted. {{rows}} rows, {{cols}} columns.',
+    'toast.pasteError': 'Could not read clipboard. Try importing a file instead.',
   }
   function interpolate(value: string, opts?: Record<string, unknown>): string {
     if (!opts) return value

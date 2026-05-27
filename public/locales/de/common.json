@@ -3,10 +3,9 @@
     "name": "Tablesmit",
     "tagline": "Tabellen, wie Sie sie brauchen.",
     "description": "Ein minimalistischer Tabellen-Builder für analytisches Schreiben — mit voller Kontrolle über Kopfzeilen, Formatierung und Export.",
-    "aboutLine": "Tablesmit wurde von einem Autor entwickelt, der mehr Kontrolle benötigte, als einfache Tabellen-Generatoren bieten. Entwickelt für Menschen, die in Strukturen denken und mit Präzision veröffentlichen.",
+    "aboutLine": "{{name}} wurde von einem Autor entwickelt, der mehr Kontrolle benötigte, als einfache Tabellen-Generatoren bieten. Entwickelt für Menschen, die in Strukturen denken und mit Präzision veröffentlichen.",
     "whatItIsNot": "Keine Tabellenkalkulation. Keine Datenbank. Kein Notion-Konkurrent. Kein designlastiges Tool. Wir sind ein strukturiertes Schreibwerkzeug.",
-    "builtFor": "Entwickelt für strukturierte Denker.",
-    "openSourceDescription": "Tablesmit ist kostenlos und Open Source. Der Code ist auf GitHub — lesen Sie ihn, forken Sie ihn, verbessern Sie ihn oder passen Sie ihn an Ihre Bedürfnisse an. Wir glauben, dass Werkzeuge zum Schreiben und Denken transparent sein sollten."
+    "builtFor": "Entwickelt für strukturierte Denker."
   },
   "nav": {
     "home": "Start",
@@ -29,18 +28,18 @@
   },
   "about": {
     "heading": "Entwickelt für strukturierte Denker.",
-    "body": "Tablesmit wurde von einem Autor entwickelt, der mehr Kontrolle benötigte, als einfache Tabellen-Generatoren bieten. Die meisten Werkzeuge gaben zu wenig — keine Kopfzeilen-Anpassung, keine Spaltenformatierung, kein sauberer Export. Andere gaben zu viel — das volle Gewicht einer Tabellenkalkulation für etwas, das einfach nur eine Tabelle sein sollte. Tablesmit ist der Mittelweg. Entwickelt für Menschen, die in Strukturen denken und mit Präzision veröffentlichen.",
+    "body": "{{name}} wurde von einem Autor entwickelt, der mehr Kontrolle benötigte, als einfache Tabellen-Generatoren bieten. Die meisten Werkzeuge gaben zu wenig — keine Kopfzeilen-Anpassung, keine Spaltenformatierung, kein sauberer Export. Andere gaben zu viel — das volle Gewicht einer Tabellenkalkulation für etwas, das einfach nur eine Tabelle sein sollte. {{name}} ist der Mittelweg. Entwickelt für Menschen, die in Strukturen denken und mit Präzision veröffentlichen.",
     "whatWeAreNot": "Keine Tabellenkalkulation. Keine Datenbank. Kein Notion-Konkurrent. Kein designlastiges Tool. Wir sind ein strukturiertes Schreibwerkzeug."
   },
   "openSource": {
     "heading": "Offen entwickelt.",
-    "body": "Tablesmit ist kostenlos und Open Source. Der Code ist auf GitHub — lesen Sie ihn, forken Sie ihn, verbessern Sie ihn oder passen Sie ihn an Ihre Bedürfnisse an. Wir glauben, dass Werkzeuge zum Schreiben und Denken transparent sein sollten.",
+    "body": "{{name}} ist kostenlos und Open Source. Der Code ist auf GitHub — lesen Sie ihn, forken Sie ihn, verbessern Sie ihn oder passen Sie ihn an Ihre Bedürfnisse an. Wir glauben, dass Werkzeuge zum Schreiben und Denken transparent sein sollten.",
     "sponsorHeading": "Unterstützen Sie dieses Projekt",
     "sponsorGitHub": "Monatlich auf GitHub sponsern",
     "sponsorCoffee": "Einmaliger Beitrag",
     "sponsorCollective": "Für Teams und Organisationen",
     "contributorsHeading": "Mitwirkende",
-    "contributorsBody": "Tablesmit existiert dank Open-Source-Mitwirkender. Jeder Fehlerbericht, jeder Pull Request und jeder Vorschlag zählt.",
+    "contributorsBody": "{{name}} existiert dank Open-Source-Mitwirkender. Jeder Fehlerbericht, jeder Pull Request und jeder Vorschlag zählt.",
     "viewContributors": "Mitwirkende auf GitHub ansehen",
     "contributeHeading": "Wie Sie mitwirken können",
     "contributeBody": "Lesen Sie die CONTRIBUTION.md im Repository für Richtlinien zum Melden von Fehlern, Vorschlagen von Funktionen und Einreichen von Pull Requests.",
@@ -94,8 +93,8 @@
     "heading": "Beiträge über Tabellen, Struktur und analytisches Denken.",
     "featured": "Hervorgehoben",
     "minRead": "{{count}} Min. Lesezeit",
-    "openTablesmit": "Tablesmit öffnen",
-    "ctaTitle": "Testen Sie Tablesmit selbst — kostenlos, keine Anmeldung erforderlich.",
+    "openTablesmit": "{{name}} öffnen",
+    "ctaTitle": "Testen Sie {{name}} selbst — kostenlos, keine Anmeldung erforderlich.",
     "backToBlog": "Zurück zum Blog",
     "empty": "Noch keine Beiträge. Schau bald wieder vorbei.",
     "copiedToClipboard": "In die Zwischenablage kopiert",
@@ -111,7 +110,7 @@
     "heading": "Was die Leute sagen.",
     "subtext": "Hören Sie von Autoren, Analysten, Forschern und technischen Denkern, die {{name}} täglich nutzen.",
     "emptyHeading": "Noch keine Erfahrungsberichte",
-    "emptyBody": "Wir sammeln Feedback von frühen Nutzern. Wenn Sie Tablesmit verwendet haben, würden wir uns freuen, von Ihnen zu hören.",
+    "emptyBody": "Wir sammeln Feedback von frühen Nutzern. Wenn Sie {{name}} verwendet haben, würden wir uns freuen, von Ihnen zu hören.",
     "shareExperience": "Teilen Sie Ihre Erfahrung",
     "orReachOnX": "oder kontaktieren Sie uns auf X",
     "sourceOn": "auf {{source}}"
@@ -151,8 +150,6 @@
     "undo": "Rückgängig",
     "copy": "Kopieren",
     "paste": "Einfügen",
-    "copyImage": "Als Bild kopieren",
-    "copyHtml": "Als HTML kopieren",
     "copyExcel": "Als Excel-Daten kopieren",
     "copyCsv": "Als CSV kopieren",
     "copyMarkdown": "Als Markdown kopieren",
@@ -162,7 +159,7 @@
     "undoActions": "Rückgängig ({{count}} Aktion)",
     "undoActions_plural": "Rückgängig ({{count}} Aktionen)",
     "nothingToUndo": "Nichts rückgängig zu machen",
-    "copyLatex": "Als LaTeX kopieren"
+    "copySuccess": "Tabelle als {{copyFormat}} kopiert."
   },
   "table": {
     "gridSize": "Rastergröße",
@@ -396,18 +393,19 @@
     "dateDescription": "Datumsformat"
   },
   "meta": {
-    "homeTitle": "Tablesmit — Tabellen, wie Sie sie brauchen",
+    "homeTitle": "{{name}} — Tabellen, wie Sie sie brauchen",
     "homeDescription": "Der Online-Tabellen-Builder mit echter Tabellenkalkulationskontrolle. Größe von Zeilen und Spalten anpassen, Zellen verbinden, benutzerdefinierte Farben einstellen und als PDF, Excel, PNG oder JPEG exportieren — kostenlos, ohne Konto.",
-    "aboutTitle": "Über uns — Tablesmit",
-    "blogTitle": "Blog — Tablesmit",
-    "contactTitle": "Kontakt — Tablesmit",
-    "openSourceTitle": "Open Source — Tablesmit",
-    "changelogTitle": "Changelog — Tablesmit",
-    "testimonialsTitle": "Erfahrungsberichte — Tablesmit",
-    "featuresTitle": "Funktionen — Tablesmit",
-    "notFoundTitle": "Seite nicht gefunden — Tablesmit",
-    "privacyTitle": "Datenschutzerklärung — Tablesmit",
-    "termsTitle": "Nutzungsbedingungen — Tablesmit"
+    "aboutTitle": "Über uns — {{name}}",
+    "blogTitle": "Blog — {{name}}",
+    "contactTitle": "Kontakt — {{name}}",
+    "openSourceTitle": "Open Source — {{name}}",
+    "openSourceDescription": "{{name}} ist kostenlos und Open Source. Der Code ist auf GitHub — lesen Sie ihn, forken Sie ihn, verbessern Sie ihn oder passen Sie ihn an Ihre Bedürfnisse an. Wir glauben, dass Werkzeuge zum Schreiben und Denken transparent sein sollten.",
+    "changelogTitle": "Changelog — {{name}}",
+    "testimonialsTitle": "Erfahrungsberichte — {{name}}",
+    "featuresTitle": "Funktionen — {{name}}",
+    "notFoundTitle": "Seite nicht gefunden — {{name}}",
+    "privacyTitle": "Datenschutzerklärung — {{name}}",
+    "termsTitle": "Nutzungsbedingungen — {{name}}"
   },
   "features": {
     "heading": "Funktionen",
@@ -425,6 +423,8 @@
     "pageNotFound": "Seite nicht gefunden.",
     "pageNotFoundSub": "Diese URL existiert nicht. Zurück zum Bauen.",
     "backToHome": "Zurück zur Startseite",
+    "fileTooLarge": "Datei zu groß. Maximale Größe ist {{maxSize}}{{unitLabel}}.",
+    "importParseError": "Datei konnte nicht gelesen werden. Prüfe das Format und versuche es erneut.",
     "somethingWrong": "Etwas ist schiefgelaufen.",
     "reload": "Seite neu laden",
     "errorMessage": "{{message}}"
@@ -476,7 +476,7 @@
     "ctrlSlash": "Strg+/"
   },
   "loading": "Wird geladen…",
-  "changelogDescription": "Jede Version von Tablesmit, dokumentiert.",
+  "changelogDescription": "Jede Version von {{name}}, dokumentiert.",
   "cookieConsent": {
     "message": "Diese Seite verwendet Cookies für Analysen. Es werden keine persönlichen Daten gesammelt.",
     "learnMore": "Mehr erfahren",
@@ -507,5 +507,12 @@
     "openSource": "Quelloffen",
     "openSourceBody": "Der Quellcode von {{name}} ist unter der MIT-Lizenz verfügbar. Du darfst ihn forkieren, modifizieren und unter diesen Bedingungen verbreiten.",
     "contact": "Kontakt"
+  },
+  "format": {
+    "csv": "CSV",
+    "html": "HTML",
+    "latex": "LaTeX",
+    "markdown": "Markdown",
+    "image": "Bild"
   }
 }

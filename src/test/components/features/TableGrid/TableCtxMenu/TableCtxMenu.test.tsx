@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { TableCtxMenu } from '../../../../../components/features/TableGrid/TableCtxMenu/TableCtxMenu'
 import type { TableCtxMenuProps } from '../../../../../components/features/TableGrid/TableCtxMenu/TableCtxMenu.types'
-import { siteConfig } from '../../../../../config/siteConfig'
+import { columnFormats } from '../../../../../config/columnFormats/columnFormatsConfig'
 
 // Use translation values matching setup.ts
 const tLabels = {
@@ -117,7 +117,7 @@ describe('TableCtxMenu', () => {
 
   it('toggles column type submenu and shows all format options', () => {
     render(<TableCtxMenu {...createProps({ activeSub: 'type' })} />)
-    for (const fmt of siteConfig.columnFormats) {
+    for (const fmt of columnFormats) {
       expect(screen.getByText(fmt.label)).toBeInTheDocument()
     }
   })
