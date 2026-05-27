@@ -3,10 +3,9 @@
     "name": "Tablesmit",
     "tagline": "Tablas, a tu manera.",
     "description": "Un creador de tablas minimalista para escritura analítica — con control total sobre encabezados, formato y exportación.",
-    "aboutLine": "Tablesmit fue creado por un escritor que necesitaba más control del que ofrecían los generadores de tablas básicos. Construido para personas que piensan en estructura y publican con precisión.",
+    "aboutLine": "{{name}} fue creado por un escritor que necesitaba más control del que ofrecían los generadores de tablas básicos. Construido para personas que piensan en estructura y publican con precisión.",
     "whatItIsNot": "No es una hoja de cálculo. No es una base de datos. No es un competidor de Notion. No es una herramienta de diseño pesada. Somos una herramienta de escritura estructurada.",
-    "builtFor": "Construido para pensadores estructurados.",
-    "openSourceDescription": "Tablesmit es gratuito y de código abierto. El código está en GitHub — léelo, haz un fork, mejóralo o adáptalo a tus necesidades. Creemos que las herramientas para escribir y pensar deben ser transparentes."
+    "builtFor": "Construido para pensadores estructurados."
   },
   "nav": {
     "home": "Inicio",
@@ -29,18 +28,18 @@
   },
   "about": {
     "heading": "Construido para pensadores estructurados.",
-    "body": "Tablesmit fue creado por un escritor que necesitaba más control del que ofrecían los generadores de tablas básicos. La mayoría de las herramientas daban muy poco — sin personalización de encabezados, sin formato de columnas, sin exportación limpia. Otras daban demasiado — el peso completo de una hoja de cálculo para algo que solo necesitaba ser una tabla. Tablesmit es el término medio. Construido para personas que piensan en estructura y publican con precisión.",
+    "body": "{{name}} fue creado por un escritor que necesitaba más control del que ofrecían los generadores de tablas básicos. La mayoría de las herramientas daban muy poco — sin personalización de encabezados, sin formato de columnas, sin exportación limpia. Otras daban demasiado — el peso completo de una hoja de cálculo para algo que solo necesitaba ser una tabla. {{name}} es el término medio. Construido para personas que piensan en estructura y publican con precisión.",
     "whatWeAreNot": "No es una hoja de cálculo. No es una base de datos. No es un competidor de Notion. No es una herramienta de diseño pesada. Somos una herramienta de escritura estructurada."
   },
   "openSource": {
     "heading": "Construido en abierto.",
-    "body": "Tablesmit es gratuito y de código abierto. El código está en GitHub — léelo, haz un fork, mejóralo o adáptalo a tus necesidades. Creemos que las herramientas para escribir y pensar deben ser transparentes.",
+    "body": "{{name}} es gratuito y de código abierto. El código está en GitHub — léelo, haz un fork, mejóralo o adáptalo a tus necesidades. Creemos que las herramientas para escribir y pensar deben ser transparentes.",
     "sponsorHeading": "Apoya este proyecto",
     "sponsorGitHub": "Patrocina mensualmente en GitHub",
     "sponsorCoffee": "Contribución única",
     "sponsorCollective": "Para equipos y organizaciones",
     "contributorsHeading": "Colaboradores",
-    "contributorsBody": "Tablesmit existe gracias a los colaboradores de código abierto. Cada informe de error, pull request y sugerencia importa.",
+    "contributorsBody": "{{name}} existe gracias a los colaboradores de código abierto. Cada informe de error, pull request y sugerencia importa.",
     "viewContributors": "Ver colaboradores en GitHub",
     "contributeHeading": "Cómo contribuir",
     "contributeBody": "Lee CONTRIBUTION.md en el repositorio para obtener pautas sobre cómo reportar errores, sugerir funcionalidades y enviar pull requests.",
@@ -94,8 +93,8 @@
     "heading": "Escribiendo sobre tablas, estructura y pensamiento analítico.",
     "featured": "Destacado",
     "minRead": "{{count}} min de lectura",
-    "openTablesmit": "Abrir Tablesmit",
-    "ctaTitle": "Prueba Tablesmit — gratis, sin necesidad de registro.",
+    "openTablesmit": "Abrir {{name}}",
+    "ctaTitle": "Prueba {{name}} — gratis, sin necesidad de registro.",
     "backToBlog": "Volver al Blog",
     "empty": "Aún no hay publicaciones. Vuelve pronto.",
     "copiedToClipboard": "Copiado al portapapeles",
@@ -111,7 +110,7 @@
     "heading": "Lo que dicen las personas.",
     "subtext": "Escuche a escritores, analistas, investigadores y pensadores técnicos que usan {{name}} a diario.",
     "emptyHeading": "Aún no hay testimonios",
-    "emptyBody": "Estamos recopilando comentarios de los primeros usuarios. Si has usado Tablesmit, nos encantaría saber de ti.",
+    "emptyBody": "Estamos recopilando comentarios de los primeros usuarios. Si has usado {{name}}, nos encantaría saber de ti.",
     "shareExperience": "Comparte tu experiencia",
     "orReachOnX": "o contáctanos en X",
     "sourceOn": "en {{source}}"
@@ -151,8 +150,6 @@
     "undo": "Deshacer",
     "copy": "Copiar",
     "paste": "Pegar",
-    "copyImage": "Copiar como imagen",
-    "copyHtml": "Copiar como HTML",
     "copyExcel": "Copiar como datos de Excel",
     "copyCsv": "Copiar como CSV",
     "copyMarkdown": "Copiar como Markdown",
@@ -162,7 +159,7 @@
     "undoActions": "Deshacer ({{count}} acción)",
     "undoActions_plural": "Deshacer ({{count}} acciones)",
     "nothingToUndo": "Nada que deshacer",
-    "copyLatex": "Copiar como LaTeX"
+    "copySuccess": "Tabla copiada como {{copyFormat}}."
   },
   "table": {
     "gridSize": "Tamaño de cuadrícula",
@@ -396,18 +393,19 @@
     "dateDescription": "Formato de fecha"
   },
   "meta": {
-    "homeTitle": "Tablesmit — Tablas, a tu manera",
+    "homeTitle": "{{name}} — Tablas, a tu manera",
     "homeDescription": "El creador de tablas web con verdadero control de hoja de cálculo. Redimensiona filas y columnas, combina celdas, establece colores personalizados y exporta a PDF, Excel, PNG o JPEG — gratis, sin necesidad de cuenta.",
-    "aboutTitle": "Acerca de — Tablesmit",
-    "blogTitle": "Blog — Tablesmit",
-    "contactTitle": "Contacto — Tablesmit",
-    "openSourceTitle": "Código Abierto — Tablesmit",
-    "changelogTitle": "Registro de cambios — Tablesmit",
-    "testimonialsTitle": "Testimonios — Tablesmit",
-    "featuresTitle": "Funcionalidades — Tablesmit",
-    "notFoundTitle": "Página no encontrada — Tablesmit",
-    "privacyTitle": "Política de privacidad — Tablesmit",
-    "termsTitle": "Términos de uso — Tablesmit"
+    "aboutTitle": "Acerca de — {{name}}",
+    "blogTitle": "Blog — {{name}}",
+    "contactTitle": "Contacto — {{name}}",
+    "openSourceTitle": "Código Abierto — {{name}}",
+    "openSourceDescription": "{{name}} es gratuito y de código abierto. El código está en GitHub — léelo, haz un fork, mejóralo o adáptalo a tus necesidades. Creemos que las herramientas para escribir y pensar deben ser transparentes.",
+    "changelogTitle": "Registro de cambios — {{name}}",
+    "testimonialsTitle": "Testimonios — {{name}}",
+    "featuresTitle": "Funcionalidades — {{name}}",
+    "notFoundTitle": "Página no encontrada — {{name}}",
+    "privacyTitle": "Política de privacidad — {{name}}",
+    "termsTitle": "Términos de uso — {{name}}"
   },
   "features": {
     "heading": "Funcionalidades",
@@ -425,6 +423,8 @@
     "pageNotFound": "Página no encontrada.",
     "pageNotFoundSub": "Esa URL no existe. Volvamos a construir.",
     "backToHome": "Volver al Inicio",
+    "fileTooLarge": "Archivo demasiado grande. El tamaño máximo es {{maxSize}}{{unitLabel}}.",
+    "importParseError": "No se pudo leer el archivo. Verifica el formato e inténtalo de nuevo.",
     "somethingWrong": "Algo salió mal.",
     "reload": "Recargar la página",
     "errorMessage": "{{message}}"
@@ -476,7 +476,7 @@
     "ctrlSlash": "Ctrl+/"
   },
   "loading": "Cargando…",
-  "changelogDescription": "Cada versión de Tablesmit, documentada.",
+  "changelogDescription": "Cada versión de {{name}}, documentada.",
   "cookieConsent": {
     "message": "Este sitio utiliza cookies para análisis. No se recopilan datos personales.",
     "learnMore": "Más información",
@@ -507,5 +507,12 @@
     "openSource": "Código abierto",
     "openSourceBody": "El código fuente de {{name}} está disponible bajo la licencia MIT. Puedes bifurcarlo, modificarlo y distribuirlo bajo esos términos.",
     "contact": "Contacto"
+  },
+  "format": {
+    "csv": "CSV",
+    "html": "HTML",
+    "latex": "LaTeX",
+    "markdown": "Markdown",
+    "image": "imagen"
   }
 }

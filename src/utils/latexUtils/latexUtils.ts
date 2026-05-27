@@ -1,27 +1,18 @@
 import type { CellData } from '../../types/table'
-
-const LATEX_CHAR_MAP: Record<string, string> = {
-  '\\': '\\textbackslash{}',
-  '{': '\\{',
-  '}': '\\}',
-  '~': '\\textasciitilde{}',
-  '^': '\\textasciicircum{}',
-  '_': '\\_',
-  '%': '\\%',
-  '&': '\\&',
-  '#': '\\#',
-  '$': '\\$',
-}
+import { LATEX_ESCAPE_MAP, LATEX_COLUMN_ALIGN } from '../../config/latex/latexConfig'
 
 function escapeLatex(value: string): string {
-  return value.replace(/[\\{}~^_%&#$]/g, (match) => LATEX_CHAR_MAP[match])
+  return value.replace(
+    /[\\{}~^_%&#$]/g,
+    (match) => LATEX_ESCAPE_MAP[match] ?? match,
+  )
 }
 
 export function cellsToLatex(cells: CellData[][], headerStyle?: string): string {
   if (!cells.length || !cells[0]!.length) return ''
 
   const cols = cells[0]!.length
-  const colSpec = `|${'l|'.repeat(cols)}`
+  const colSpec = '|' + (LATEX_COLUMN_ALIGN + '|').repeat(cols)
 
   const body = cells
     .map((row, rowIndex) => {

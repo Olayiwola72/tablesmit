@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../../config/siteConfig'
+import { routes } from '../../../../config/routes/routesConfig'
 import type { FeatureRelatedSectionProps } from './FeatureRelatedSection.types'
 
 export function FeatureRelatedSection({ relatedFeatures }: FeatureRelatedSectionProps): ReactNode {
@@ -16,7 +16,7 @@ export function FeatureRelatedSection({ relatedFeatures }: FeatureRelatedSection
         {relatedFeatures.map((rf) => (
           <Link
             key={rf.slug}
-            to={`${siteConfig.routes.features}${rf.slug}/`}
+            to={`${routes.features.path}${rf.slug}/`}
             className="rounded-md border border-border p-4 transition-colors hover:border-primary"
           >
             <h3 className="text-sm font-semibold text-text-primary">{rf.heroHeadline}</h3>

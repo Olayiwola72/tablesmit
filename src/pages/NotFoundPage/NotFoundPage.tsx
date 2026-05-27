@@ -5,7 +5,7 @@ import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button/Button'
 import { NotFoundAnimation } from '../../components/ui/NotFoundAnimation/NotFoundAnimation'
-import { siteConfig } from '../../config/siteConfig'
+import { routes } from '../../config/routes/routesConfig'
 
 export function NotFoundPage(): ReactNode {
   const { t } = useTranslation()
@@ -22,7 +22,7 @@ export function NotFoundPage(): ReactNode {
         {t('notFound.body')}
       </p>
       <Button asChild className="mt-6">
-        <Link to={siteConfig.routes.home}>
+        <Link to={routes.home.path}>
           <ArrowLeft size={16} aria-hidden="true" /> {t('notFound.cta')}
         </Link>
       </Button>

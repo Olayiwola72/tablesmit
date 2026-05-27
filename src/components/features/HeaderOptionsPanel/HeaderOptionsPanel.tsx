@@ -4,6 +4,13 @@ import type { HeaderStyle } from '../../../types/table'
 import { useTableContext } from '../../../context/TableContext'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
+const headerStyleOptions: { value: HeaderStyle; labelKey: string }[] = [
+  { value: 'none', labelKey: 'table.none' },
+  { value: 'first-row', labelKey: 'table.firstRow' },
+  { value: 'first-column', labelKey: 'table.firstColumn' },
+  { value: 'both', labelKey: 'table.both' },
+]
+
 function HeaderOptionsPanel(): ReactNode {
   const { t } = useTranslation()
   const {
@@ -14,16 +21,6 @@ function HeaderOptionsPanel(): ReactNode {
     setFreezeRow,
     setFreezeCol,
   } = useTableContext()
-
-  const headerStyleOptions: { value: HeaderStyle; label: string }[] = [
-    { value: 'none', label: t('table.none') },
-    { value: 'first-row', label: t('table.firstRow') },
-    { value: 'first-column', label: t('table.firstColumn') },
-    { value: 'both', label: t('table.both') },
-  ]
-
-  const currentLabel =
-    headerStyleOptions.find((o) => o.value === headerStyle)?.label ?? ''
 
   return (
     <section>
@@ -41,14 +38,14 @@ function HeaderOptionsPanel(): ReactNode {
         >
           {headerStyleOptions.map((option) => (
             <option key={option.value} value={option.value}>
-              {option.label}
+              {t(option.labelKey)}
             </option>
           ))}
         </select>
       </label>
 
       <p className="mt-2 text-xs text-text-muted">
-        Current: {currentLabel}
+        Current: {t(headerStyleOptions.find((o) => o.value === headerStyle)?.labelKey ?? '')}
       </p>
 
       <div className="mt-4 space-y-2 border-t border-border pt-4">

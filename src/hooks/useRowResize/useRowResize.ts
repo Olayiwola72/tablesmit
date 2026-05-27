@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { MAX_ROW_HEIGHT, MIN_ROW_HEIGHT } from '../../config/table/tableDefaults'
+import { MAX_ROW_HEIGHT, MIN_ROW_HEIGHT } from '../../config/table/tableDefaults/tableDefaults'
 import type { RowResizeApi } from './useRowResize.types'
 
 export function useRowResize(onResizeEnd: (rowIndex: number, height: number) => void): RowResizeApi {

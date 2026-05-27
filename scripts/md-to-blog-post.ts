@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import { siteConfig } from '../src/config/siteConfig'
+import { brand } from '../src/config/brand/brandConfig'
+import { CONTENT_DIRS, CONTENT_PREFIX } from '../src/config/content/contentConfig'
 
 export function parseFrontmatter(raw: string): { frontmatter: Record<string, string>; content: string } {
   const match = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/)
@@ -35,14 +36,14 @@ if (process.env.VITEST) {
     title: frontmatter.title ?? 'FILL IN',
     date: frontmatter.date ?? new Date().toISOString().split('T')[0],
     description: frontmatter.description ?? 'FILL IN — max 160 chars',
-    author: frontmatter.author ?? siteConfig.brand.defaultAuthor,
+    author: frontmatter.author ?? brand.defaultAuthor,
     tags: frontmatter.tags ? frontmatter.tags.split(',').map((t) => t.trim()) : ['FILL IN'],
     readTime: Math.ceil(content.split(' ').length / 200),
     featured: frontmatter.featured === 'true',
     content,
   }
 
-  const outPath = `src/content/blog/${slug}.json`
+  const outPath = `${CONTENT_PREFIX}/${CONTENT_DIRS.BLOG}/${slug}.json`
   fs.writeFileSync(outPath, JSON.stringify(post, null, 2))
   console.log(`Created: ${outPath}`)
   if (!frontmatter.title || !frontmatter.author) {

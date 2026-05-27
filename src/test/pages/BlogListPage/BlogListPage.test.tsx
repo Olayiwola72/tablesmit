@@ -4,7 +4,7 @@ import { HelmetProvider } from 'react-helmet-async'
 import { describe, it, expect } from 'vitest'
 import BlogListPage from '../../../pages/BlogListPage/BlogListPage'
 import { getAllPosts } from '../../../services/blogService/blogService'
-import { ITEMS_PER_PAGE } from '../../../config/table/tableDefaults'
+import { ITEMS_PER_PAGE } from '../../../config/pagination/paginationConfig'
 
 function renderPage(): void {
   render(

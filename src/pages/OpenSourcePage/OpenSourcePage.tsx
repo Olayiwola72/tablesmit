@@ -4,9 +4,9 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
-import { siteConfig } from '../../config/siteConfig'
-
-const { brand, sponsors } = siteConfig
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
+import { sponsors } from '../../config/sponsors/sponsorsConfig'
 
 export function OpenSourcePage(): ReactNode {
   const { t } = useTranslation()
@@ -17,13 +17,13 @@ export function OpenSourcePage(): ReactNode {
         <meta name="description" content={t('meta.openSourceDescription')} />
         <meta property="og:title" content={t('meta.openSourceTitle')} />
         <meta property="og:description" content={t('meta.openSourceDescription')} />
-        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.openSource}`} />
-        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.openSource}`} />
+        <meta property="og:url" content={`${brand.url}${routes.openSource.path}`} />
+        <link rel="canonical" href={`${brand.url}${routes.openSource.path}`} />
       </Helmet>
       <main>
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.openSource') },
         ]} />
       </div>

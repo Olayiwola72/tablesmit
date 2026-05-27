@@ -7,9 +7,9 @@ import {
   DEFAULT_ROWS,
   MAX_COLS,
   MAX_ROWS,
-} from '../../config/table/tableDefaults'
-import { TABLE_THEMES } from '../../config/table/tableThemes'
-import { siteConfig } from '../../config/siteConfig'
+} from '../../config/table/tableDefaults/tableDefaults'
+import { TABLE_THEMES } from '../../config/table/tableThemes/tableThemes'
+import { colors } from '../../config/colors/colorsConfig'
 import type {
   CaptionAlignment,
   TableState,
@@ -60,8 +60,8 @@ export function reducer(state: TableState, action: TableAction): TableState {
         rows,
         cols,
         headerStyle: (s?.headerStyle as HeaderStyle) ?? ('first-row' as HeaderStyle),
-        headerColor: s?.headerColor ?? siteConfig.colors.defaultHeader,
-        contentColor: s?.contentColor ?? siteConfig.colors.defaultContent,
+        headerColor: s?.headerColor ?? colors.defaultHeader,
+        contentColor: s?.contentColor ?? colors.defaultContent,
         contentBgColor: s?.contentBgColor ?? '',
         borderStyle: (s?.borderStyle as TableState['borderStyle']) ?? DEFAULT_BORDER_STYLE,
         borderColor: s?.borderColor ?? DEFAULT_BORDER_COLOR,
@@ -109,8 +109,8 @@ export function reducer(state: TableState, action: TableAction): TableState {
         columnWidths: Array.from({ length: cols }, () => DEFAULT_COLUMN_WIDTH),
         rowHeights: Array.from({ length: rows }, () => DEFAULT_ROW_HEIGHT),
         headerStyle: 'first-row' as HeaderStyle,
-        headerColor: siteConfig.colors.defaultHeader,
-        contentColor: siteConfig.colors.defaultContent,
+        headerColor: colors.defaultHeader,
+        contentColor: colors.defaultContent,
         contentBgColor: '',
         borderStyle: DEFAULT_BORDER_STYLE,
         borderColor: DEFAULT_BORDER_COLOR,

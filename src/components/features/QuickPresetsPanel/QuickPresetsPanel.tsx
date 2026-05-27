@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { usePresets } from '../../../config/presets'
+import { usePresets } from '../../../config/table/presets'
 import { useTableContext } from '../../../context/TableContext'
 import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'

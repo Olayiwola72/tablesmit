@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../Button/Button'
-import { siteConfig } from '../../../config/siteConfig'
+import { routes } from '../../../config/routes/routesConfig'
 import { loadAnalytics } from '../../../utils/analytics/analytics'
 
 const CONSENT_KEY = 'tablesmit-consent'
@@ -55,7 +55,7 @@ export function CookieConsent(): ReactNode {
       <div className="mx-auto flex max-w-content flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-text-secondary">
           {t('cookieConsent.message')}
-          <a href={siteConfig.routes.privacy} className="ml-1 font-semibold text-primary underline underline-offset-2 dark:text-blue-400">{t('cookieConsent.learnMore')} {t('footer.privacyPolicy')}</a>.
+          <a href={routes.privacy.path} className="ml-1 font-semibold text-primary underline underline-offset-2 dark:text-blue-400">{t('cookieConsent.learnMore')} {t('footer.privacyPolicy')}</a>.
         </p>
         <div className="flex shrink-0 gap-2">
           <Button variant="ghost" size="sm" onClick={decline}>{t('cookieConsent.decline')}</Button>

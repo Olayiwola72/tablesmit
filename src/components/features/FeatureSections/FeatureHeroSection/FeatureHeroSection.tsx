@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../../config/siteConfig'
+import { routes } from '../../../../config/routes/routesConfig'
 import type { FeatureHeroSectionProps } from './FeatureHeroSection.types'
 
 export function FeatureHeroSection({ heroHeadline, heroSubtext }: FeatureHeroSectionProps): ReactNode {
@@ -10,7 +10,7 @@ export function FeatureHeroSection({ heroHeadline, heroSubtext }: FeatureHeroSec
   return (
     <header className="mx-auto mb-16 max-w-narrow text-center">
       <Link
-        to={siteConfig.routes.features}
+        to={routes.features.path}
         className="mb-6 inline-block text-sm text-text-muted hover:text-primary"
       >
         &larr; {t('features.backToFeatures')}

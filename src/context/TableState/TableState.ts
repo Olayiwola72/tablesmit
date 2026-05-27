@@ -5,8 +5,8 @@ import {
   DEFAULT_COLUMN_WIDTH,
   DEFAULT_ROW_HEIGHT,
   DEFAULT_ROWS,
-} from '../../config/table/tableDefaults'
-import { siteConfig } from '../../config/siteConfig'
+} from '../../config/table/tableDefaults/tableDefaults'
+import { colors } from '../../config/colors/colorsConfig'
 import type { TextAlign } from '../../types/table'
 import type { CaptionAlignment, TableState } from './TableState.types'
 import { generateEmptyTable } from '../../utils/tableUtils/tableUtils'
@@ -20,8 +20,8 @@ export const initialState: TableState = {
   rowHeights: Array.from({ length: DEFAULT_ROWS }, () => DEFAULT_ROW_HEIGHT),
   mergedRanges: [],
   headerStyle: 'first-row',
-  headerColor: siteConfig.colors.defaultHeader,
-  contentColor: siteConfig.colors.defaultContent,
+  headerColor: colors.defaultHeader,
+  contentColor: colors.defaultContent,
   borderStyle: DEFAULT_BORDER_STYLE,
   borderColor: DEFAULT_BORDER_COLOR,
   contentBgColor: '',

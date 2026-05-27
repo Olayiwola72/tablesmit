@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../../context/TableContext'
 import { ThemePicker } from '../../../../components/features/ThemePicker/ThemePicker'
-import { TABLE_THEMES } from '../../../../config/table/tableThemes'
+import { TABLE_THEMES } from '../../../../config/table/tableThemes/tableThemes'
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return <TableProvider>{children}</TableProvider>

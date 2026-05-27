@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { siteConfig } from '../../../../../config/siteConfig'
+import { columnFormats } from '../../../../../config/columnFormats/columnFormatsConfig'
 import { TableHeaderCell } from '../../../../../components/features/TableGrid/TableHeaderCell/TableHeaderCell'
 import type { TableHeaderCellProps } from '../../../../../components/features/TableGrid/TableHeaderCell/TableHeaderCell.types'
 
@@ -40,7 +40,7 @@ describe('TableHeaderCell', () => {
 
   it('renders all column format options', () => {
     render(<TableHeaderCell {...createProps()} />)
-    for (const fmt of siteConfig.columnFormats) {
+    for (const fmt of columnFormats) {
       const label = fmt.value === 'auto-number' ? '#' : fmt.label
       expect(screen.getByText(label)).toBeInTheDocument()
     }
@@ -110,7 +110,7 @@ describe('TableHeaderCell', () => {
 
   it('renders a resize handle with auto-fit label', () => {
     render(<TableHeaderCell {...createProps()} />)
-    expect(screen.getByRole('button', { name: siteConfig.labels.autoFitColumn })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Double-click resize handle to auto-fit' })).toBeInTheDocument()
   })
 
 })

@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import type { FeaturePage } from '../../services/featureService/featureService.types'
 import { getFeatureBySlug, getAllFeatures } from '../../services/featureService/featureService'
-import { siteConfig } from '../../config/siteConfig'
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
 import { FeatureHeroSection } from '../../components/features/FeatureSections/FeatureHeroSection/FeatureHeroSection'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 
@@ -52,9 +53,9 @@ export default function FeatureDetailPage(): ReactNode {
     )
   }
 
-  if (!feature) return <Navigate to={siteConfig.routes.features} replace />
+  if (!feature) return <Navigate to={routes.features.path} replace />
 
-  const featureUrl = `${siteConfig.brand.url}${siteConfig.routes.features}${feature.slug}/`
+  const featureUrl = `${brand.url}${routes.features.path}${feature.slug}/`
 
   return (
     <>
@@ -76,8 +77,8 @@ export default function FeatureDetailPage(): ReactNode {
 
       <main className="mx-auto max-w-content px-4 py-16 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
-          { label: t('nav.features'), to: siteConfig.routes.features },
+          { label: t('nav.home'), to: routes.home.path },
+          { label: t('nav.features'), to: routes.features.path },
           { label: feature.heroHeadline },
         ]} />
         <FeatureHeroSection heroHeadline={feature.heroHeadline} heroSubtext={feature.heroSubtext} />

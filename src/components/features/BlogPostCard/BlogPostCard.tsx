@@ -4,14 +4,14 @@ import { useTranslation } from 'react-i18next'
 import type { BlogPostCardProps } from './BlogPostCard.types'
 import { LearnMoreLink } from '../../ui/LearnMoreLink/LearnMoreLink'
 import { formatDate } from '../../../utils/formatDate/formatDate'
-import { siteConfig } from '../../../config/siteConfig'
+import { routes } from '../../../config/routes/routesConfig'
 
 export function BlogPostCard({ post }: BlogPostCardProps): ReactNode {
   const { t } = useTranslation()
 
   return (
     <Link
-      to={`${siteConfig.routes.blog}${post.slug}/`}
+      to={`${routes.blog.path}${post.slug}/`}
       className="block rounded-md border border-border p-6 transition-colors duration-150 hover:border-primary"
     >
       {post.featured && (

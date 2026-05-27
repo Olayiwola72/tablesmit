@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { CellData, MergeRange } from '../../types/table'
 import type { CellsStyleMeta } from '../../context/TableReducer/TableReducer.types'
-import { MAX_COLS, MAX_ROWS } from '../../config/table/tableDefaults'
+import { MAX_COLS, MAX_ROWS } from '../../config/table/tableDefaults/tableDefaults'
 import { normalizeTableData } from '../../utils/tableUtils/tableUtils'
-import { toast, TOAST } from '../../utils/toast/toast'
+import { toast } from '../../utils/toast/toast'
 
 let _copyBuffer: { tsv: string; caption?: string; styles: PasteStyleMeta } | null = null
 
@@ -178,7 +179,7 @@ export async function parseClipboardContent(
             hasStyles = true
             const endRow = row + spanRows - 1
             const endCol = col + spanCols - 1
-            if ((endCol !== col || endRow !== row) && row < 50 && col < 20) {
+            if ((endCol !== col || endRow !== row) && row < MAX_ROWS && col < MAX_COLS) {
               mergedRanges.push({
                 key: `R${row}C${col}:R${endRow}C${endCol}`,
                 startRow: row, startCol: col, endRow, endCol,
@@ -343,6 +344,7 @@ export function useClipboardPaste(
   setCells: (cells: CellData[][], mergedRanges?: MergeRange[], styles?: CellsStyleMeta) => void,
 ): { pasting: boolean } {
   const [pasting, setPasting] = useState(false)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const onPaste = async (event: globalThis.ClipboardEvent): Promise<void> => {
@@ -375,10 +377,10 @@ export function useClipboardPaste(
 
         const result = await handlePasteData(text, html, setCells)
         if (result) {
-          toast.success(TOAST.PASTE_SUCCESS(result.rowCount, result.colCount))
+          toast.success(t('toast.pasteSuccess', { rows: result.rowCount, cols: result.colCount }))
         }
       } catch {
-        toast.error(TOAST.PASTE_ERROR)
+        toast.error(t('toast.pasteError'))
       } finally {
         setPasting(false)
       }
@@ -386,7 +388,7 @@ export function useClipboardPaste(
 
     document.addEventListener('paste', onPaste)
     return () => document.removeEventListener('paste', onPaste)
-  }, [setCells])
+  }, [setCells, t])
 
   return { pasting }
 }

@@ -2,7 +2,7 @@ import { Minus, Plus } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RowColumnActionsProps } from './RowColumnActions.types'
-import { MAX_COLS, MAX_ROWS } from '../../../../config/table/tableDefaults'
+import { MAX_COLS, MAX_ROWS } from '../../../../config/table/tableDefaults/tableDefaults'
 import { Button } from '../../../ui/Button/Button'
 
 export function RowColumnActions({ rows, cols, onAddRow, onAddColumn, onRemoveRow, onRemoveColumn }: RowColumnActionsProps): ReactNode {

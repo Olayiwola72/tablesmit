@@ -1,0 +1,17 @@
+import { importConfig } from '../../import/importConfig'
+
+export const DEFAULT_ROWS = 5
+export const DEFAULT_COLS = 5
+export const MAX_ROWS = 50
+export const MAX_COLS = 20
+export const MIN_COLUMN_WIDTH = 60
+export const MAX_COLUMN_WIDTH = 600
+export const DEFAULT_COLUMN_WIDTH = 120
+export const MIN_ROW_HEIGHT = 32
+export const MAX_ROW_HEIGHT = 300
+export const DEFAULT_ROW_HEIGHT = 44
+export const AUTOFIT_PADDING = 16
+export const MAX_IMPORT_FILE_SIZE = importConfig.maxSize * importConfig.unit
+export const MAX_HISTORY = 50
+export const DEFAULT_BORDER_STYLE = 'solid' as const
+export const DEFAULT_BORDER_COLOR = '#000000'

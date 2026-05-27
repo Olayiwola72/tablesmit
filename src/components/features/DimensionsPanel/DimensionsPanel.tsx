@@ -1,7 +1,7 @@
 import { Grid2X2, Sparkles } from 'lucide-react'
 import { useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { DEFAULT_COLS, DEFAULT_ROWS, MAX_COLS, MAX_ROWS } from '../../../config/table/tableDefaults'
+import { DEFAULT_COLS, DEFAULT_ROWS, MAX_COLS, MAX_ROWS } from '../../../config/table/tableDefaults/tableDefaults'
 import { useTableContext } from '../../../context/TableContext'
 import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'

@@ -157,7 +157,7 @@ tablesmit/
 │   ├── i18n/                         # i18next init, locale config, English JSON source of truth
 │   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, searchUtils, cell, toast, analytics, dateUtils
 │   ├── types/                        # Shared table types: CellData, MergeRange, HeaderStyle, TableTheme, PresetDefinition, etc.
-│   ├── config/                       # siteConfig (SSoT), changelog, presets, colorPalette, tableThemes, export config, testimonials
+│   ├── config/                       # Per-domain config: brand, routes, nav, copy, export, import, table, etc.
 │   ├── constants/
 │   ├── content/
 │   │   ├── blog/                     # 34 blog posts as .ts modules (auto-discovered via import.meta.glob)
@@ -202,13 +202,19 @@ Lighthouse Performance: 99 — LCP 0.9s, CLS 0
 
 ## Configuration
 
-All product decisions — brand name, routes, nav links, export formats, colour palettes, and presets — are in one file:
+Product decisions — brand name, routes, nav links, export formats, color palettes,
+and presets — live in per-domain config files under `src/config/`. Each domain owns
+its own file; consumers import exactly what they need.
 
-```
-src/config/siteConfig.ts
-```
+| Domain | File |
+|---|---|---|
+| Brand name, tagline, URLs | `src/config/brand/brandConfig.ts` |
+| Route paths + nav links | `src/config/routes/routesConfig.ts` |
+| Page copy (hero, about, etc.) | `src/config/copy/copyConfig.ts` |
+| Export formats | `src/config/export/exportConfig.ts` |
+| Import limits | `src/config/import/importConfig.ts` |
 
-Check there first before changing component logic. `siteConfig.ts` is the single source of truth for anything brand or route related.
+See `src/config/` for the complete list. Check there before changing component logic.
 
 ---
 

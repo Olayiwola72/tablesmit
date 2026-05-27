@@ -3,8 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
 import type { BlogPost } from '../../services/blogService/blogService.types'
 import { getAllPosts, getAllTags } from '../../services/blogService/blogService'
-import { siteConfig } from '../../config/siteConfig'
-import { ITEMS_PER_PAGE } from '../../config/table/tableDefaults'
+import { brand } from '../../config/brand/brandConfig'
+import { routes } from '../../config/routes/routesConfig'
+import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
 import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
 import { BlogPostCard } from '../../components/features/BlogPostCard/BlogPostCard'
 import { SearchBar } from '../../components/features/SearchBar/SearchBar'
@@ -57,12 +58,12 @@ export default function BlogListPage(): ReactNode {
         <meta name="description" content={t('meta.blogDescription')} />
         <meta property="og:title" content={t('meta.blogTitle')} />
         <meta property="og:description" content={t('meta.blogDescription')} />
-        <meta property="og:url" content={`${siteConfig.brand.url}${siteConfig.routes.blog}`} />
-        <link rel="canonical" href={`${siteConfig.brand.url}${siteConfig.routes.blog}`} />
+        <meta property="og:url" content={`${brand.url}${routes.blog.path}`} />
+        <link rel="canonical" href={`${brand.url}${routes.blog.path}`} />
       </Helmet>
       <div className="mx-auto max-w-content">
         <Breadcrumb segments={[
-          { label: t('nav.home'), to: siteConfig.routes.home },
+          { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.blog') },
         ]} />
         <header className="mb-12 text-center">

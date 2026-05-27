@@ -4,8 +4,8 @@ import {
   MIN_COLUMN_WIDTH, MAX_COLUMN_WIDTH, DEFAULT_COLUMN_WIDTH,
   MIN_ROW_HEIGHT, MAX_ROW_HEIGHT, DEFAULT_ROW_HEIGHT,
   AUTOFIT_PADDING, MAX_IMPORT_FILE_SIZE, MAX_HISTORY,
-  DEFAULT_BORDER_STYLE, DEFAULT_BORDER_COLOR, ITEMS_PER_PAGE,
-} from '../../../config/table/tableDefaults'
+  DEFAULT_BORDER_STYLE, DEFAULT_BORDER_COLOR,
+} from '../../../config/table/tableDefaults/tableDefaults'
 
 describe('tableDefaults', () => {
   it('DEFAULT_ROWS is 5', () => expect(DEFAULT_ROWS).toBe(5))
@@ -23,5 +23,4 @@ describe('tableDefaults', () => {
   it('MAX_HISTORY is 50', () => expect(MAX_HISTORY).toBe(50))
   it('DEFAULT_BORDER_STYLE is solid', () => expect(DEFAULT_BORDER_STYLE).toBe('solid'))
   it('DEFAULT_BORDER_COLOR is #000000', () => expect(DEFAULT_BORDER_COLOR).toBe('#000000'))
-  it('ITEMS_PER_PAGE is 6', () => expect(ITEMS_PER_PAGE).toBe(6))
 })

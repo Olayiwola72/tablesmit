@@ -1118,13 +1118,22 @@ tablesmit/
 │   │   # Per-service types live in the service directory (export.types.ts, etc.)
 │   │   # No top-level ui.types.ts — button/types exist in Button.types.ts
 │   │
-│   ├── config/
-│   │   ├── siteConfig.ts               # Routes, nav, exports, branding (SSoT)
-│   │   ├── changelog/                   # ChangelogEntry[] data + types
+│   ├── config/                         # Per-domain config files, no barrel
+│   │   ├── brand/                      # brandConfig.ts — brand name, tagline, description, URLs
+│   │   ├── changelog/                  # ChangelogEntry[] data + types
 │   │   ├── colorPalette/               # Header + content color swatches
-│   │   ├── export/                     # Supported formats + options
-│   │   ├── presets/                    # Per-locale preset definitions
-│   │   ├── table/                      # tableDefaults, tableThemes
+│   │   ├── colors/                     # colorsConfig.ts — UI color tokens
+│   │   ├── columnFormats/              # columnFormatsConfig.ts — format definitions
+│   │   ├── copy/                       # copyConfig.ts — all page copy (hero, about, open source, etc.)
+│   │   ├── export/                     # exportConfig.ts (formats) + exportFileBaseNameConfig.ts
+│   │   ├── import/                     # importConfig.ts — file size limits, row/col caps
+│   │   ├── labels/                     # labelsConfig.ts — UI section labels
+│   │   ├── locale/                     # localeConfig.ts — getCurrentYear, copyright
+│   │   ├── messages/                   # messagesConfig.ts — constraint/fallback messages
+│   │   ├── routes/                     # routesConfig.ts — route paths + nav link definitions
+│   │   ├── sentry/                     # sentryConfig.ts — Sentry init options
+│   │   ├── sponsors/                   # sponsorsConfig.ts — sponsor platform links
+│   │   ├── table/                      # tableDefaults, tableThemes, presets
 │   │   └── testimonials/               # Testimonial type + data
 │   │
 │   ├── constants/
@@ -1196,7 +1205,7 @@ import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
 import { PageLoader } from '@/components/ui/PageLoader';
 import { ShortcutsModal } from '@/components/features/ShortcutsModal/ShortcutsModal';
 import { TooltipProvider } from '@/components/ui/Tooltip';
-import { siteConfig } from '@/config/siteConfig';
+import { routes } from '@/config/routes/routesConfig';
 
 // Pages — never imported directly; bundled separately per route
 const AboutPage      = lazy(() => import('@/pages/AboutPage'));
@@ -1225,18 +1234,18 @@ export default function App(): ReactNode {
             <div className="flex flex-1 flex-col">
               <Suspense fallback={<PageLoader />}>
                 <Routes>
-                  <Route path={siteConfig.routes.home}        element={<ErrorBoundary><TableMakerPage /></ErrorBoundary>} />
-                  <Route path={siteConfig.routes.about}       element={<AboutPage />} />
-                  <Route path={siteConfig.routes.blog}        element={<BlogListPage />} />
-                  <Route path={siteConfig.routes.blogPost}    element={<BlogPostPage />} />
-                  <Route path={siteConfig.routes.features}    element={<FeaturesListPage />} />
-                  <Route path={siteConfig.routes.featureDetail} element={<FeatureDetailPage />} />
-                  <Route path={siteConfig.routes.openSource}  element={<OpenSourcePage />} />
-                  <Route path={siteConfig.routes.contact}     element={<ContactPage />} />
-                  <Route path={siteConfig.routes.privacy}     element={<PrivacyPage />} />
-                  <Route path={siteConfig.routes.terms}       element={<TermsPage />} />
-                  <Route path={siteConfig.routes.changelog}   element={<ChangelogPage />} />
-                  <Route path={siteConfig.routes.testimonials} element={<TestimonialsPage />} />
+                  <Route path={routes.home}        element={<ErrorBoundary><TableMakerPage /></ErrorBoundary>} />
+                  <Route path={routes.about}       element={<AboutPage />} />
+                  <Route path={routes.blog}        element={<BlogListPage />} />
+                  <Route path={routes.blogPost}    element={<BlogPostPage />} />
+                  <Route path={routes.features}    element={<FeaturesListPage />} />
+                  <Route path={routes.featureDetail} element={<FeatureDetailPage />} />
+                  <Route path={routes.openSource}  element={<OpenSourcePage />} />
+                  <Route path={routes.contact}     element={<ContactPage />} />
+                  <Route path={routes.privacy}     element={<PrivacyPage />} />
+                  <Route path={routes.terms}       element={<TermsPage />} />
+                  <Route path={routes.changelog}   element={<ChangelogPage />} />
+                  <Route path={routes.testimonials} element={<TestimonialsPage />} />
                   <Route path="*"                             element={<NotFoundPage />} />
                 </Routes>
               </Suspense>
@@ -2591,9 +2600,9 @@ The following responsive behaviors are all implemented and verified:
 - ❌ No em dashes in UI copy — use periods or colons instead
 - ❌ No `Github` icon from lucide-react — does not exist; use `GitFork` or `ExternalLink`
 - ❌ No `coverage/` or `tablesmit-table.*` in repository — always gitignored
-- ❌ No hardcoded hrefs in navigation — always reference `siteConfig.routes.*` by key
+- ❌ No hardcoded hrefs in navigation — always reference `routes.*` from `src/config/routes/routesConfig.ts` by key
 - ❌ No co-located `.test.tsx` files with source — all tests in `src/test/` mirroring source structure
-- ❌ No presets copied from other table generators (tabley.online, etc.) — `src/config/presets/index.ts` must contain only original Tablesmit templates: Research Notes, Feature Matrix, Content Tracker, Budget Summary, Q1 Performance
+- ❌ No presets copied from other table generators (tabley.online, etc.) — `src/config/table/presets/` must contain only original Tablesmit templates: Research Notes, Feature Matrix, Content Tracker, Budget Summary, Q1 Performance
 
 ---
 
@@ -2663,7 +2672,7 @@ Brand and visual identity implemented per the specification in Sections 0–6. L
 
 ### Routing
 
-`/` serves `TableMakerPage`. `/about` serves `AboutPage`. All route paths reference `siteConfig.routes.*` — no hardcoded hrefs. `BrowserRouter` future flags configured (`v7_startTransition`, `v7_relativeSplatPath`). NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`). OpenSourcePage route added to siteConfig.
+`/` serves `TableMakerPage`. `/about` serves `AboutPage`. All route paths reference `routes.*` from `src/config/routes/routesConfig.ts` — no hardcoded hrefs. `BrowserRouter` future flags configured (`v7_startTransition`, `v7_relativeSplatPath`). NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`). OpenSourcePage route added to routes.
 
 ### UI Principles
 
@@ -2751,7 +2760,7 @@ Route: `/open-source`. Hero: "Built in the open. Sustained by the community." Sp
 
 ### AI Features (Scaffolded)
 
-`AiFeaturesPanel.tsx` with "Coming soon" badge, feature list, Join Waitlist button. All labels sourced from `siteConfig.ts`. Join Waitlist shows info toast + mailto link. UI-only scaffolding — no backend, no API calls.
+`AiFeaturesPanel.tsx` with "Coming soon" badge, feature list, Join Waitlist button. All labels sourced from per-domain config files (brand, labels, copy). Join Waitlist shows info toast + mailto link. UI-only scaffolding — no backend, no API calls.
 
 ### Changelog Page
 
@@ -3902,13 +3911,18 @@ React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · Vitest
 ## Configuration
 
 Product decisions — brand name, routes, nav links, export formats, color palettes,
-and presets — live in one file:
+and presets — live in per-domain config files under \`src/config/\`. Each domain owns
+its own file; consumers import exactly what they need.
 
-\`\`\`
-src/config/siteConfig.ts
-\`\`\`
+| Domain | File |
+|---|---|
+| Brand name, tagline, URLs | \`src/config/brand/brandConfig.ts\` |
+| Route paths + nav links | \`src/config/routes/routesConfig.ts\` |
+| Page copy (hero, about, etc.) | \`src/config/copy/copyConfig.ts\` |
+| Export formats | \`src/config/export/exportConfig.ts\` |
+| Import limits | \`src/config/import/importConfig.ts\` |
 
-Check there before changing component logic.
+See \`src/config/\` for the complete list. Check there before changing component logic.
 
 ---
 
@@ -6434,63 +6448,41 @@ Every PR must include:
 
 ---
 
-### siteConfig.ts — Central Config Reference
+### Config Files — Per-Domain Configuration
 
-The codebase uses `src/config/siteConfig.ts` as the single source of truth
-for all brand strings, URLs, routes, and feature config.
+The codebase has no single `siteConfig.ts`. Each domain owns its own config file
+under `src/config/`. Consumers import directly from the specific module they need.
 
-**Any agent reading this document must check `siteConfig.ts` first
-before searching for brand references in components.**
+**Any agent reading this document should check the relevant config file under
+`src/config/` before searching for brand references in components.**
 
-```ts
-// src/config/siteConfig.ts — key fields to verify/update
+| File | Exports | Purpose |
+|---|---|---|
+| `src/config/brand/brandConfig.ts` | `brand` | Name, tagline, description, URLs, social links |
+| `src/config/routes/routesConfig.ts` | `routes`, `nav` | All route paths + nav link definitions |
+| `src/config/analytics/analyticsConfig.ts` | `ANALYTICS_CONFIG` | GA4 script ID, env var, commands |
+| `src/config/pagination/paginationConfig.ts` | `ITEMS_PER_PAGE` | Pagination page size |
+| `src/config/dateFormat/dateFormatConfig.ts` | `dateFormatOptions` | `Intl.DateTimeFormatOptions` |
+| `src/config/copy/copyConfig.ts` | `copy` | All page copy (hero, about, open source, etc.) |
+| `src/config/labels/labelsConfig.ts` | `labels` | UI section labels (namespace, key, label) |
+| `src/config/export/exportConfig.ts` | `exportFormats`, `EXPORT_OPTIONS`, `exportFileBaseName` | Supported export formats + options + default filename |
+| `src/config/import/importConfig.ts` | `importConfig`, `KB`, `MB` | File size, row/col limits, unit labels |
+| `src/config/colors/colorsConfig.ts` | `colorsConfig` | UI color tokens |
+| `src/config/columnFormats/columnFormatsConfig.ts` | `columnFormats` | Column format type definitions |
+| `src/config/messages/messagesConfig.ts` | `messages` | Constraint/fallback messages |
+| `src/config/sponsors/sponsorsConfig.ts` | `SPONSORS` | Sponsor platform links |
+| `src/config/sentry/sentryConfig.ts` | `SENTRY_OPTIONS` | Sentry init options |
+| `src/config/locale/localeConfig.ts` | `localeConfig` | Copyright date helpers |
+| `src/config/table/tableDefaults.ts` | `initialState`, `MAX_ROWS`, etc. | Default table dimensions and limits |
+| `src/config/table/tableThemes.ts` | `TABLE_THEMES` | Theme definitions |
+| `src/config/table/presets/` | 5 preset modules | Preset table templates |
+| `src/config/changelog/changelog.ts` | `CHANGELOG` | Changelog entries |
+| `src/config/colorPalette/` | color arrays | Header + content color swatches |
+| `src/config/testimonials/testimonials.ts` | `TESTIMONIALS` | Testimonial type + data |
 
-export const SITE_CONFIG = {
-  // Brand
-  name:        'Tablesmit',
-  tagline:     'Tables, your way.',
-  description: 'A minimalist table builder for analytical writing.',
-  url:         'https://tablesmit.com',
-  contactEmail:'hello@tablesmit.com',
-  defaultAuthor:'Olayiwola Akinnagbe',
-
-  // Repository
-  githubUrl:   'https://github.com/Olayiwola72/tablesmit',
-  authorTwitter: 'https://x.com/OlayiwolaAkinn1',
-
-  // Routes
-  routes: {
-    home:          '/',
-    about:         '/about',
-    blog:          '/blog',
-    blogPost:      '/blog/:slug',
-    features:      '/features',
-    featureDetail: '/features/:slug',
-    openSource:    '/open-source',
-    contact:       '/contact',
-    privacy:       '/privacy',
-    terms:         '/terms',
-    changelog:     '/changelog',
-    testimonials:  '/testimonials',
-  },
-
-  // Nav — sourced from here, not hardcoded in components
-  nav: [
-    { label: 'Home', route: 'home' },
-    { label: 'About', route: 'about' },
-    { label: 'Features', route: 'features' },
-    { label: 'Blog', route: 'blog' },
-    { label: 'Contact', route: 'contact' },
-    { label: 'Open Source', route: 'openSource' },
-    { label: 'Changelog', route: 'changelog' },
-    { label: 'Testimonials', route: 'testimonials' },
-  ],
-} as const;
-```
-
-**Rule:** Any string that identifies the product by name, URL, or social link
-must live in `siteConfig.ts`. Components import from there.
-No brand strings hardcoded in JSX, meta tags, or copy files.
+**Rule:** Each consumer imports the exact config it needs. No barrel index file
+re-exports everything. This keeps import graphs minimal and prevents unnecessary
+rebundling when a single config changes.
 
 ---
 
@@ -7120,7 +7112,7 @@ describe('BlogPostPage', () => {
 
 ### 55J. Implementation
 
-Blog system setup, tests, and routing all live and verified. Dependencies installed: `remark-gfm`, `react-helmet-async`, `@tailwindcss/typography`. `blogService.ts` with `import.meta.glob` auto-discovery. `BlogListPage` and `BlogPostPage` lazy-loaded. `react-markdown` (113 kB / 35 kB gzip) dynamically imported inside `BlogPostPage` — not in the static route chunk. Blog route in `siteConfig.nav`. `scripts/md-to-blog-post.ts` helper and `npm run new-post` script. 21 blog posts live. Sitemap and README updated.
+Blog system setup, tests, and routing all live and verified. Dependencies installed: `remark-gfm`, `react-helmet-async`, `@tailwindcss/typography`. `blogService.ts` with `import.meta.glob` auto-discovery. `BlogListPage` and `BlogPostPage` lazy-loaded. `react-markdown` (113 kB / 35 kB gzip) dynamically imported inside `BlogPostPage` — not in the static route chunk. Blog route in `nav` config (`src/config/routes/routesConfig.ts`). `scripts/md-to-blog-post.ts` helper and `npm run new-post` script. 34 blog posts live. Sitemap and README updated.
 
 ---
 
@@ -7161,9 +7153,9 @@ the config and renders either:
 ### Integration
 
 - Route: `/testimonials` → lazy-loaded via `React.lazy()` in `App.tsx`
-- Nav link: "Testimonials" after "Changelog" in `siteConfig.nav`
+- Nav link: "Testimonials" after "Changelog" in `src/config/routes/routesConfig.ts`
 - Footer link: "Testimonials" after "Contact" in the Company links section
-- Route referenced as `siteConfig.routes.testimonials` — no hardcoded hrefs
+- Route referenced as `routes.testimonials` from `src/config/routes/routesConfig.ts` — no hardcoded hrefs
 
 ### Tests
 
@@ -7457,7 +7449,7 @@ key structure (abbreviated):
 ### Usage in Components
 
 ```tsx
-// Replace any siteConfig.copy / useLocale() calls with useTranslation
+// Replace any copy config / useLocale() calls with useTranslation
 import { useTranslation } from 'react-i18next';
 
 const MyComponent: React.FC = () => {

@@ -1,3 +1,5 @@
+import { SENTRY_OPTIONS } from '../config/sentry/sentryConfig'
+
 type SentryExports = typeof import('@sentry/react')
 
 let lazySentry: SentryExports | null = null
@@ -18,10 +20,14 @@ async function ensureLoaded(): Promise<SentryExports | null> {
     const Sentry = await import('@sentry/react')
     Sentry.init({
       dsn,
-      environment: 'production',
-      sendDefaultPii: false,
-      tracesSampleRate: 0.1,
-      integrations: [Sentry.browserTracingIntegration()],
+      environment: SENTRY_OPTIONS.environment,
+      sendDefaultPii: SENTRY_OPTIONS.sendDefaultPii,
+      tracesSampleRate: SENTRY_OPTIONS.tracesSampleRate,
+      enableLogs: SENTRY_OPTIONS.enableLogs,
+      integrations: [
+        Sentry.consoleLoggingIntegration({ levels: SENTRY_OPTIONS.consoleLogLevels }),
+        Sentry.browserTracingIntegration(),
+      ],
       beforeSend(event) {
         if (event.extra?.cells) delete event.extra.cells
         return event

@@ -1,12 +1,13 @@
 import { useState } from 'react'
-import { siteConfig } from '../../config/siteConfig'
+import { useTranslation } from 'react-i18next'
 import { useTableContext } from '../../context/TableContext'
 import { importCsv, importExcel } from '../../services/importService/importService'
-import { toast, TOAST } from '../../utils/toast/toast'
+import { toast } from '../../utils/toast/toast'
 import { trackEvent } from '../../utils/analytics/analytics'
 import type { ImportApi } from './useImport.types'
 
 export function useImport(): ImportApi {
+  const { t } = useTranslation()
   const [error, setError] = useState<string | null>(null)
   const [isImporting, setIsImporting] = useState(false)
   const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setCaption, setContentColor, setBorderColor, setCaptionTextColor, setCaptionBgColor } = useTableContext()
@@ -33,11 +34,11 @@ export function useImport(): ImportApi {
       const rows = result.cells.length
       const cols = result.cells[0]?.length ?? 0
       trackEvent('table_imported', { source: kind, rows, cols })
-      toast.success(TOAST.IMPORT_SUCCESS(rows, cols))
+      toast.success(t('toast.importSuccess', { rows, cols }))
     } catch (caught) {
-      const message = caught instanceof Error ? caught.message : siteConfig.messages.importParseError
+      const message = caught instanceof Error ? caught.message : null
       setError(message)
-      toast.error(TOAST.IMPORT_ERROR)
+      toast.error(t('toast.importError'))
     } finally {
       setIsImporting(false)
     }

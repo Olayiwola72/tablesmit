@@ -1,7 +1,7 @@
 import { Sparkles } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { siteConfig } from '../../../config/siteConfig'
+import { brand } from '../../../config/brand/brandConfig'
 import { Badge } from '../../ui/Badge/Badge'
 import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
@@ -9,7 +9,6 @@ import { toast } from '../../../utils/toast/toast'
 
 export function AiFeaturesPanel(): ReactNode {
   const { t } = useTranslation()
-  const { brand } = siteConfig
 
   const featureKeys = ['aiFeatures.generateFromText', 'aiFeatures.summarizeTable', 'aiFeatures.cleanData']
 
@@ -32,7 +31,7 @@ export function AiFeaturesPanel(): ReactNode {
         {t('aiFeatures.joinWaitlist')}
       </Button>
       <a
-        href={`mailto:${brand.contactEmail}?subject=Tablesmit%20AI%20waitlist`}
+        href={`mailto:${brand.contactEmail}?subject=${brand.name}%20AI%20waitlist`}
         className="sr-only"
       >
         {t('aiFeatures.joinWaitlist')}

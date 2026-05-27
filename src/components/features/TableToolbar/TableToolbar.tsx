@@ -5,8 +5,8 @@ import {
 } from 'lucide-react'
 import { useMemo, type ReactNode, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast, TOAST } from '../../../utils/toast/toast'
-import { usePresets } from '../../../config/presets'
+import { toast } from '../../../utils/toast/toast'
+import { usePresets } from '../../../config/table/presets'
 import { useTableContext, useTableData, useSelectedRange } from '../../../context/TableContext'
 import { handlePasteData } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { isSingleCellRange } from '../../../utils/mergeUtils/mergeUtils'
@@ -62,14 +62,14 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         }
         const result = await handlePasteData(text, html || null, table.setCells)
         if (result) {
-          toast.success(TOAST.PASTE_SUCCESS(result.rowCount, result.colCount))
+          toast.success(t('toast.pasteSuccess', { rows: result.rowCount, cols: result.colCount }))
           trackEvent('table_pasted', { rows: result.rowCount, cols: result.colCount })
         }
       } catch {
-        toast.error(TOAST.PASTE_ERROR)
+        toast.error(t('toast.pasteError'))
       }
     },
-    [table],
+    [table, t],
   )
 
   return (
