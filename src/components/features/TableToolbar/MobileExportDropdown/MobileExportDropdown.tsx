@@ -8,7 +8,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import type { ExportFormat } from '../../../../services/exportService/export.types'
 
 export function MobileExportDropdown({ isExporting, onExport, tableRef }: MobileExportDropdownProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <div className="lg:hidden">

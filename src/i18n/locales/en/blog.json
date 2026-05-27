@@ -1,0 +1,35 @@
+{
+  "blog": {
+    "heading": "Writing about tables, structure, and analytical thinking.",
+    "featured": "Featured",
+    "minRead": "{{count}} min read",
+    "openBrand": "Open {{name}}",
+    "ctaTitle": "Try {{name}} for yourself — free, no signup required.",
+    "backToBlog": "Back to Blog",
+    "empty": "No posts yet. Check back soon.",
+    "copiedToClipboard": "Copied to clipboard",
+    "failedToCopy": "Failed to copy",
+    "copyCode": "Copy code",
+    "search": "Search blog posts",
+    "searchPlaceholder": "Search posts by title, content, or tags\u2026",
+    "clearSearch": "Clear search",
+    "resultsCount": "Showing {{count}} of {{total}} posts",
+    "learnMore": "Read more",
+    "browsePosts": "Browse other posts"
+  },
+  "pagination": {
+    "page": "Page {{current}} of {{total}}",
+    "prev": "Previous",
+    "next": "Next",
+    "prevAria": "Go to previous page",
+    "nextAria": "Go to next page",
+    "pageAria": "Go to page {{number}}"
+  },
+  "search": {
+    "ariaLabel": "Search",
+    "placeholder": "Search\u2026",
+    "clear": "Clear search",
+    "noResults": "No results match your search.",
+    "resultsCount": "Showing {{count}} of {{total}} results"
+  }
+}

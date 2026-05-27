@@ -6,7 +6,7 @@ import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
 
 export function CopyDropdown({ onCopyExcelData, onCopyCsv, onCopyMarkdown, onCopyLatex, onCopyImage, onCopyHtml, isCopyingImage }: CopyDropdownProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <DropdownMenu>

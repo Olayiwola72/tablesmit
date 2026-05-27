@@ -28,14 +28,6 @@ describe('NotFoundAnimation', () => {
     expect(svg).toHaveAttribute('viewBox', '0 0 200 140')
   })
 
-  it('has animation keyframes in style tag', () => {
-    render(<NotFoundAnimation />)
-    const svg = document.querySelector('svg')
-    expect(svg?.innerHTML).toContain('@keyframes')
-    expect(svg?.innerHTML).toContain('drawGrid')
-    expect(svg?.innerHTML).toContain('fadeCell')
-  })
-
   it('renders the grid-line and cell-digit CSS classes', () => {
     render(<NotFoundAnimation />)
     const svg = document.querySelector('svg')

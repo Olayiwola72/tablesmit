@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { ExternalLink } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
@@ -13,7 +13,7 @@ function splitNotList(text: string): string[] {
 }
 
 export function AboutPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('about', 'table', 'home', 'openSource')
   const lines = splitNotList(t('about.whatWeAreNot'))
 
   return (
@@ -42,7 +42,7 @@ export function AboutPage(): ReactNode {
         </p>
         <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
           <Button asChild variant="accent" size="lg">
-            <Link to={routes.home.path} state={{ freshTable: true }}>{t('hero.cta')}</Link>
+            <Link to={routes.home.path} state={{ freshTable: true }}>{t('table.cta')}</Link>
           </Button>
           <Button asChild variant="secondary" size="lg">
             <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">

@@ -8,7 +8,7 @@ import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function MergeCellsPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const { selectedRange, mergedRanges, mergeSelection, unmergeSelection } = useMergeCells()
   const range = selectedRange ? normalizeSelection(selectedRange) : null
   const prevMergedCount = useRef(mergedRanges.length)

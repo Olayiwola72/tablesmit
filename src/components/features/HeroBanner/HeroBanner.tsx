@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../../hooks/usePageTranslation/usePageTranslation'
 import { exportFormats } from '../../../config/export/exportConfig'
 
 export function HeroBanner(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('home')
 
   return (
     <section className="border-b border-border bg-white px-6 py-5 text-center sm:py-7 dark:border-slate-700 dark:bg-slate-900" data-print-hide>

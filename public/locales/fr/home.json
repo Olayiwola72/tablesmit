@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "headline": "Des tableaux conçus pour l'écriture analytique.",
+    "subtext": "Un générateur de tableaux minimaliste pour l'écriture analytique — avec un contrôle total sur les en-têtes, le formatage et l'exportation.",
+    "viewGitHub": "Voir sur GitHub",
+    "customHeaders": "En-têtes personnalisés",
+    "columnTypes": "Types de colonnes",
+    "mergeCells": "Fusionner les cellules"
+  }
+}

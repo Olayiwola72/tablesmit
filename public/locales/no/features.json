@@ -1,0 +1,13 @@
+{
+  "features": {
+    "heading": "Funksjoner",
+    "subtext": "Alt du trenger for å bygge rene, strukturerte tabeller.",
+    "learnMore": "Les mer",
+    "emptyState": "Ingen funksjoner oppført ennå.",
+    "searchPlaceholder": "Søk etter funksjoner etter navn eller beskrivelse…",
+    "benefits": "Fordeler",
+    "howItWorks": "Slik fungerer det",
+    "useCases": "Brukstilfeller",
+    "relatedFeatures": "Relaterte funksjoner"
+  }
+}

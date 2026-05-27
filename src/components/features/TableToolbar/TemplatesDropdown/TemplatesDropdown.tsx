@@ -6,7 +6,7 @@ import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
 
 export function TemplatesDropdown({ presets, onApplyPreset }: TemplatesDropdownProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <DropdownMenu>

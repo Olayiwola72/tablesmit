@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'The Best Table Tool for Researchers and Analysts',
   date: '2026-05-14',
   description:
-    'Researchers and analysts need tables that are precise, structured, and exportable — including to LaTeX. Here is why Tablesmit fits the academic workflow.',
+    'Researchers and analysts need tables that are precise, structured, and exportable — including to LaTeX. Here is why {{BRAND_NAME}} fits the academic workflow.',
   author: 'Olayiwola Akinnagbe',
   tags: ['researchers', 'analysts', 'latex', 'academic', 'productivity'],
   readTime: 6,

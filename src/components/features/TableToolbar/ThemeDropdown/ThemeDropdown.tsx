@@ -7,7 +7,7 @@ import { Button } from '../../../ui/Button/Button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
 
 export function ThemeDropdown({ theme, onSetTheme }: ThemeDropdownProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   const themeLabelKey: Record<string, string> = {
     'default': 'themePicker.default',

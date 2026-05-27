@@ -1,5 +1,5 @@
 import { type ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Helmet } from 'react-helmet-async'
 import { TableProvider } from '../../context/TableContext'
 import { TableMakerContent } from '../../components/features/TableMakerContent/TableMakerContent'
@@ -18,8 +18,8 @@ const exportList =
 const metaDescription = `Build clean, structured tables with full control over headers, formatting, and export. Free. No signup. Export to ${exportList}.`
 
 export function TableMakerPage(): ReactNode {
-  const { t } = useTranslation()
-  const tagline = t('brand.tagline')
+  const { t } = usePageTranslation('table')
+  const tagline = t('tagline')
   return (
     <TableProvider>
       <Helmet>

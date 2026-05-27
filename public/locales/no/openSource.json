@@ -1,0 +1,18 @@
+{
+  "openSource": {
+    "heading": "Bygget i det åpne.",
+    "body": "{{name}} er gratis og åpen kildekode. Koden er på GitHub — les den, forked den, forbedre den, eller tilpass den til dine egne behov. Vi mener verktøy for skriving og tenkning bør være transparente.",
+    "sponsorHeading": "Støtt dette prosjektet",
+    "sponsorGitHub": "Spons månedlig på GitHub",
+    "sponsorCoffee": "Engangsbidrag",
+    "sponsorCollective": "For team og organisasjoner",
+    "contributorsHeading": "Bidragsytere",
+    "contributorsBody": "{{name}} eksisterer takket være bidragsytere med åpen kildekode. Alle feilrapporter, pull requests og forslag teller.",
+    "viewContributors": "Vis bidragsytere på GitHub",
+    "contributeHeading": "Slik bidrar du",
+    "contributeBody": "Les CONTRIBUTION.md i repositoriet for retningslinjer om rapportering av feil, forslag til funksjoner og innsending av pull requests.",
+    "readContributing": "Les CONTRIBUTION.md",
+    "ctaNote": "MIT-lisensiert. Bidrag er velkomne.",
+    "footerNote": "MIT-lisensiert. Ingen garantier. Laget med omhu."
+  }
+}

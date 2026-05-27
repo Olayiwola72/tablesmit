@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Auto-Sum Columns in an Online Table',
   date: '2026-05-25',
   description:
-    'Need a total row at the bottom of your table? Enable Auto-Sum on any Number, Currency, or Percentage column. Tablesmit calculates it for you.',
+    'Need a total row at the bottom of your table? Enable Auto-Sum on any Number, Currency, or Percentage column. {{BRAND_NAME}} calculates it for you.',
   author: 'Olayiwola Akinnagbe',
   tags: ['auto-sum', 'numbers', 'productivity', 'tutorial', 'tables'],
   readTime: 4,

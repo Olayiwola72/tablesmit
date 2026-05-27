@@ -1,0 +1,25 @@
+{
+  "privacy": {
+    "lastUpdated": "Dernière mise à jour : mai 2026",
+    "intro": "{{name}} est un outil basé sur le navigateur. Nous n'exigeons pas de compte et nous ne stockons pas les données de votre tableau sur un serveur.",
+    "whatWeCollect": "Ce que nous collectons",
+    "whatWeCollectBody": "Nous pouvons utiliser des analyses pour comprendre comment {{name}} est utilisé. Les analyses collectent des données d'utilisation anonymisées telles que les pages visitées, le temps passé sur la page et la région géographique générale au niveau du pays. Nous ne collectons pas les noms, adresses e-mail ou informations personnelles identifiables via l'application elle-même.",
+    "whatWeDontCollect": "Ce que nous ne collectons pas",
+    "whatWeDontCollectBody": "Le contenu de votre tableau ne quitte jamais votre navigateur. Nous ne transmettons, stockons ou traitons pas les données de votre tableau sur nos serveurs. Nous ne vendons pas de données à des tiers.",
+    "fileImports": "Importations de fichiers",
+    "fileImportsBody": "Lorsque vous importez un fichier CSV ou Excel, il est lu localement dans votre navigateur. Le fichier n'est jamais téléchargé sur un serveur.",
+    "contact": "Contact",
+    "contactBody": "Questions sur la confidentialité :"
+  },
+  "terms": {
+    "lastUpdated": "Dernière mise à jour : mai 2026",
+    "intro": "En utilisant {{name}} vous acceptez ces conditions.",
+    "service": "Le service",
+    "serviceBody": "{{name}} est fourni gratuitement, en l'état, sans garantie de disponibilité, d'exactitude ou d'adéquation à un usage particulier.",
+    "yourContent": "Votre contenu",
+    "yourContentBody": "Vous conservez la pleine propriété de tout contenu créé avec {{name}}. Nous ne revendiquons aucun droit sur vos tableaux, données ou exportations.",
+    "openSource": "Open source",
+    "openSourceBody": "Le code source de {{name}} est disponible sous licence MIT. Vous pouvez le forker, le modifier et le distribuer selon ces conditions.",
+    "contact": "Contact"
+  }
+}

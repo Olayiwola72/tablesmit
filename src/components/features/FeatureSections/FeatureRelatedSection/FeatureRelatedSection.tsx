@@ -5,7 +5,7 @@ import { routes } from '../../../../config/routes/routesConfig'
 import type { FeatureRelatedSectionProps } from './FeatureRelatedSection.types'
 
 export function FeatureRelatedSection({ relatedFeatures }: FeatureRelatedSectionProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'features'])
 
   if (relatedFeatures.length === 0) return null
 

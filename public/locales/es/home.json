@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "headline": "Tablas creadas para la escritura analítica.",
+    "subtext": "Un creador de tablas minimalista para escritura analítica — con control total sobre encabezados, formato y exportación.",
+    "viewGitHub": "Ver en GitHub",
+    "customHeaders": "Encabezados personalizados",
+    "columnTypes": "Tipos de columna",
+    "mergeCells": "Combinar celdas"
+  }
+}

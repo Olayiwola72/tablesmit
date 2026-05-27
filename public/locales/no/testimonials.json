@@ -1,0 +1,11 @@
+{
+  "testimonials": {
+    "heading": "Hva folk sier.",
+    "subtext": "Hør fra forfattere, analytikere, forskere og tekniske tenkere som bruker {{name}} hver dag.",
+    "emptyHeading": "Ingen anbefalinger ennå",
+    "emptyBody": "Vi samler tilbakemeldinger fra tidlige brukere. Hvis du har brukt {{name}}, vil vi gjerne høre fra deg.",
+    "shareExperience": "Del din erfaring",
+    "orReachOnX": "eller kontakt oss på X",
+    "sourceOn": "på {{source}}"
+  }
+}

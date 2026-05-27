@@ -34,7 +34,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   )
   const { exportAs, exportingFormat } = useExport()
 
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   const canMerge = useMemo(
     () => selectedRange !== null && !isSingleCellRange(selectedRange),

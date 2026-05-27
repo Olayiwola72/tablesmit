@@ -46,7 +46,7 @@ export function TableMakerContent(): ReactNode {
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
   const { exportAs, exportingFormat } = useExport()
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const [activeSheet, setActiveSheet] = useState<'settings' | 'presets' | null>(null)
   const tableWidth = useMemo(() => columnWidths.reduce((sum, w) => sum + w, 0), [columnWidths])
   const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, isCopying } = useCopyTable(

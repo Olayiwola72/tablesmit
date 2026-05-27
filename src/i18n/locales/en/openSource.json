@@ -1,0 +1,18 @@
+{
+  "openSource": {
+    "heading": "Built in the open.",
+    "body": "{{name}} is free and open source. The code is on GitHub — read it, fork it, improve it, or adapt it for your own needs. We believe tools for writing and thinking should be transparent.",
+    "sponsorHeading": "Support this project",
+    "sponsorGitHub": "Sponsor monthly on GitHub",
+    "sponsorCoffee": "One-time contribution",
+    "sponsorCollective": "For teams and organizations",
+    "contributorsHeading": "Contributors",
+    "contributorsBody": "{{name}} exists because of open source contributors. Every bug report, pull request, and suggestion matters.",
+    "viewContributors": "View Contributors on GitHub",
+    "contributeHeading": "How to contribute",
+    "contributeBody": "Read CONTRIBUTION.md in the repository for guidelines on reporting bugs, suggesting features, and submitting pull requests.",
+    "readContributing": "Read CONTRIBUTION.md",
+    "ctaNote": "MIT licensed. Contributions welcome.",
+    "footerNote": "MIT licensed. No warranties. Built with care."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "privacy": {
+    "lastUpdated": "Zuletzt aktualisiert: Mai 2026",
+    "intro": "{{name}} ist ein browserbasiertes Werkzeug. Wir benötigen kein Konto und speichern deine Tabellendaten auf keinem Server.",
+    "whatWeCollect": "Was wir sammeln",
+    "whatWeCollectBody": "Wir können Analysedienste nutzen, um zu verstehen, wie {{name}} verwendet wird. Dabei werden anonymisierte Nutzungsdaten wie besuchte Seiten, Verweildauer und allgemeine geografische Region auf Länderebene erfasst. Wir sammeln keine Namen, E-Mail-Adressen oder personenbezogene Daten über die App selbst.",
+    "whatWeDontCollect": "Was wir nicht sammeln",
+    "whatWeDontCollectBody": "Deine Tabelleninhalte verlassen niemals deinen Browser. Wir übertragen, speichern oder verarbeiten deine Tabellendaten nicht auf unseren Servern. Wir verkaufen keine Daten an Dritte.",
+    "fileImports": "Dateiimporte",
+    "fileImportsBody": "Wenn du eine CSV- oder Excel-Datei importierst, wird sie lokal in deinem Browser gelesen. Die Datei wird niemals auf einen Server hochgeladen.",
+    "contact": "Kontakt",
+    "contactBody": "Fragen zum Datenschutz:"
+  },
+  "terms": {
+    "lastUpdated": "Zuletzt aktualisiert: Mai 2026",
+    "intro": "Durch die Nutzung von {{name}} stimmst du diesen Bedingungen zu.",
+    "service": "Der Dienst",
+    "serviceBody": "{{name}} wird kostenlos und wie besehen zur Verfügung gestellt, ohne Garantie für Betriebszeit, Genauigkeit oder Eignung für einen bestimmten Zweck.",
+    "yourContent": "Deine Inhalte",
+    "yourContentBody": "Du behältst das vollständige Eigentum an allen Inhalten, die du mit {{name}} erstellst. Wir erheben keine Rechte an deinen Tabellen, Daten oder Exporten.",
+    "openSource": "Quelloffen",
+    "openSourceBody": "Der Quellcode von {{name}} ist unter der MIT-Lizenz verfügbar. Du darfst ihn forkieren, modifizieren und unter diesen Bedingungen verbreiten.",
+    "contact": "Kontakt"
+  }
+}

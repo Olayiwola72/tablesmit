@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Use a Table Builder Without an Internet Connection',
   date: '2026-05-21',
   description:
-    'Most web tools stop when your connection drops. Tablesmit works offline — build, edit, and export tables on a plane, in a tunnel, or anywhere Wi-Fi fails.',
+    'Most web tools stop when your connection drops. {{BRAND_NAME}} works offline — build, edit, and export tables on a plane, in a tunnel, or anywhere Wi-Fi fails.',
   author: 'Olayiwola Akinnagbe',
   tags: ['offline', 'pwa', 'productivity'],
   readTime: 4,

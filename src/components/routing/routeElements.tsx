@@ -15,7 +15,7 @@ const ChangelogPage = lazy(() => import('../../pages/ChangelogPage/ChangelogPage
 const TestimonialsPage = lazy(() => import('../../pages/TestimonialsPage/TestimonialsPage'))
 const NotFoundPage = lazy(() => import('../../pages/NotFoundPage/NotFoundPage'))
 
-export const routeElements: Record<string, ReactNode> = {
+export const RouteElements: Record<string, ReactNode> = {
   home: <TableMakerPage />,
   about: <AboutPage />,
   blog: <BlogListPage />,

@@ -6,7 +6,7 @@ import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function QuickPresetsPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const presets = usePresets()
   const { applyPreset } = useTableContext()
   return (

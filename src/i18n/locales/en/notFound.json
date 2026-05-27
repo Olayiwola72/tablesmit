@@ -1,0 +1,7 @@
+{
+  "notFound": {
+    "heading": "Page not found.",
+    "body": "That URL doesn't exist. Let's get you back to building.",
+    "cta": "Back to Home"
+  }
+}

@@ -10,7 +10,7 @@ export function SearchBar({
   totalItems,
   placeholder,
 }: SearchBarProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'blog', 'features'])
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleChange = useCallback(

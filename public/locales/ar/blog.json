@@ -1,0 +1,29 @@
+{
+  "blog": {
+    "heading": "كتابات عن الجداول، الهيكلية، والتفكير التحليلي.",
+    "featured": "مميز",
+    "minRead": "{{count}} دقيقة قراءة",
+    "openBrand": "فتح {{name}}",
+    "ctaTitle": "جرب {{name}} بنفسك — مجاني، لا يتطلب تسجيل.",
+    "backToBlog": "العودة إلى المدونة",
+    "empty": "لا توجد منشورات بعد. عد لاحقاً.",
+    "copiedToClipboard": "تم النسخ إلى الحافظة",
+    "failedToCopy": "فشل النسخ",
+    "copyCode": "نسخ الكود"
+  },
+  "pagination": {
+    "page": "الصفحة {{current}} من {{total}}",
+    "prev": "السابق",
+    "next": "التالي",
+    "prevAria": "اذهب إلى الصفحة السابقة",
+    "nextAria": "اذهب إلى الصفحة التالية",
+    "pageAria": "اذهب إلى الصفحة {{number}}"
+  },
+  "search": {
+    "ariaLabel": "بحث",
+    "placeholder": "بحث…",
+    "clear": "مسح البحث",
+    "noResults": "لا توجد نتائج تطابق بحثك.",
+    "resultsCount": "عرض {{count}} من {{total}} نتيجة"
+  }
+}

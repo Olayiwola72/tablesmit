@@ -1,20 +1,20 @@
 {
   "slug": "smart-paste",
-  "metaTitle": "Paste a Table from Excel or Word Directly | Tablesmit",
-  "metaDescription": "Copy a table from Excel, Word, or Google Sheets and paste into Tablesmit. It generates from your clipboard automatically. No file upload, no import dialog.",
+  "metaTitle": "Paste a Table from Excel or Word Directly | {{BRAND_NAME}}",
+  "metaDescription": "Copy a table from Excel, Word, or Google Sheets and paste into {{BRAND_NAME}}. It generates from your clipboard automatically. No file upload, no import dialog.",
   "heroHeadline": "Copy from Excel. Paste into Tablesmit. Done.",
-  "heroSubtext": "Ctrl+C in Excel, Ctrl+V in Tablesmit. Your table appears in full — headers, rows, and data exactly as copied. No import dialog, no column mapping, no cleanup.",
+  "heroSubtext": "Ctrl+C in Excel, Ctrl+V in Tablesmit. Your table appears in full \u2014 headers, rows, and data exactly as copied. No import dialog, no column mapping, no cleanup.",
   "icon": "ClipboardPaste",
   "benefits": [
     {
       "icon": "Zap",
-      "heading": "Instant — no import dialog",
+      "heading": "Instant \u2014 no import dialog",
       "body": "Most tools show you a multi-step import wizard when you paste table data. Tablesmit reads the clipboard directly and generates the table in one keypress."
     },
     {
       "icon": "FileSearch",
       "heading": "Detects the format automatically",
-      "body": "Excel copies tab-separated values. Word copies HTML table markup. CSV data uses commas. Tablesmit detects all three and parses correctly — you don't choose the format."
+      "body": "Excel copies tab-separated values. Word copies HTML table markup. CSV data uses commas. Tablesmit detects all three and parses correctly \u2014 you don't choose the format."
     },
     {
       "icon": "LayoutGrid",
@@ -28,20 +28,52 @@
     }
   ],
   "sources": [
-    { "name": "Microsoft Excel",    "format": "TSV (tab-separated values)", "works": true  },
-    { "name": "Google Sheets",      "format": "TSV",                        "works": true  },
-    { "name": "Microsoft Word",     "format": "HTML table",                 "works": true  },
-    { "name": "LibreOffice Calc",   "format": "TSV",                        "works": true  },
-    { "name": "Apple Numbers",      "format": "TSV",                        "works": true  },
-    { "name": "CSV text",           "format": "Comma-separated values",     "works": true  },
-    { "name": "Notion database",    "format": "TSV (when copied as table)", "works": true  },
-    { "name": "Chart or image",     "format": "No text data",               "works": false }
+    {
+      "name": "Microsoft Excel",
+      "format": "TSV (tab-separated values)",
+      "works": true
+    },
+    {
+      "name": "Google Sheets",
+      "format": "TSV",
+      "works": true
+    },
+    {
+      "name": "Microsoft Word",
+      "format": "HTML table",
+      "works": true
+    },
+    {
+      "name": "LibreOffice Calc",
+      "format": "TSV",
+      "works": true
+    },
+    {
+      "name": "Apple Numbers",
+      "format": "TSV",
+      "works": true
+    },
+    {
+      "name": "CSV text",
+      "format": "Comma-separated values",
+      "works": true
+    },
+    {
+      "name": "Notion database",
+      "format": "TSV (when copied as table)",
+      "works": true
+    },
+    {
+      "name": "Chart or image",
+      "format": "No text data",
+      "works": false
+    }
   ],
   "steps": [
     {
       "number": 1,
       "heading": "Select and copy your table",
-      "body": "In Excel, Google Sheets, or Word — select the cells or table you want. Press Ctrl+C (Cmd+C on Mac)."
+      "body": "In Excel, Google Sheets, or Word \u2014 select the cells or table you want. Press Ctrl+C (Cmd+C on Mac)."
     },
     {
       "number": 2,
@@ -51,7 +83,7 @@
     {
       "number": 3,
       "heading": "Style and export",
-      "body": "Your table is now fully editable in Tablesmit. Apply a theme, resize columns, merge cells, add a caption — then export to PDF, LaTeX, Excel, or any format you need."
+      "body": "Your table is now fully editable in Tablesmit. Apply a theme, resize columns, merge cells, add a caption \u2014 then export to PDF, LaTeX, Excel, or any format you need."
     }
   ],
   "useCases": [
@@ -60,9 +92,13 @@
     "Taking a Word table into Tablesmit to apply proper column types and re-export as clean Excel",
     "Moving a Notion database view into Tablesmit for custom header colours and PDF export"
   ],
-  "relatedFeatures": ["excel-import", "csv-import", "copy-table"],
+  "relatedFeatures": [
+    "excel-import",
+    "csv-import",
+    "copy-table"
+  ],
   "relatedPost": "copy-excel-table-to-web",
   "_codex_notes": {
-    "note": "sources[] is an additional array. Render as a compact compatibility table between the hero and benefits: Source | Format | Works (✓/✗). Show the 'works: false' row for charts/images to set honest expectations."
+    "note": "sources[] is an additional array. Render as a compact compatibility table between the hero and benefits: Source | Format | Works (\u2713/\u2717). Show the 'works: false' row for charts/images to set honest expectations."
   }
 }

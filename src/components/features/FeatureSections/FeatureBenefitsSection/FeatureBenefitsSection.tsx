@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { FeatureBenefitsSectionProps } from './FeatureBenefitsSection.types'
 
 export function FeatureBenefitsSection({ benefits }: FeatureBenefitsSectionProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'features'])
 
   if (benefits.length === 0) return null
 

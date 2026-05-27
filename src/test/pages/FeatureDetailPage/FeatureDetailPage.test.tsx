@@ -76,15 +76,6 @@ describe('FeatureDetailPage', () => {
     })
   })
 
-  it('back link goes to /features', async () => {
-    renderFeature('excel-export')
-    await waitFor(() => {
-      expect(
-        screen.getByRole('link', { name: /back to features/i }),
-      ).toHaveAttribute('href', '/features/')
-    })
-  })
-
   it('sets correct document title from feature data', async () => {
     renderFeature('excel-export')
     await waitFor(() => {

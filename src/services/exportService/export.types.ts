@@ -26,6 +26,7 @@ export interface ExportOptions {
   captionTextColor?: string
   captionBgColor?: string
   captionAlignment?: 'left' | 'center' | 'right'
+  captionItalic?: boolean
   cells?: CellData[][]
   headerStyle?: HeaderStyle
   mergedRanges?: MergeRange[]

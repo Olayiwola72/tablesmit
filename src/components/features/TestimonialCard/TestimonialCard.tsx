@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import type { TestimonialCardProps } from './TestimonialCard.types'
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'testimonials'])
 
   return (
     <article className="flex flex-col rounded-md border border-border bg-white p-6 transition-colors duration-150 hover:border-primary">

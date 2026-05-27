@@ -1,0 +1,7 @@
+{
+  "about": {
+    "heading": "Built for structured thinkers.",
+    "body": "{{name}} was created by a writer who needed more control than basic table generators provided. Most tools gave too little — no header customization, no column formatting, no clean export. Others gave too much — the full weight of a spreadsheet for something that just needed to be a table. {{name}} is the middle ground. Built for people who think in structure and publish with precision.",
+    "whatWeAreNot": "Not a spreadsheet. Not a database. Not a Notion competitor. Not a design-heavy tool. We are a structured writing tool."
+  }
+}

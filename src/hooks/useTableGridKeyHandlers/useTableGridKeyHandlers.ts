@@ -12,8 +12,9 @@ export function useTableGridKeyHandlers(
   cols: number,
   rows: number,
   hiddenSet: Set<string>,
+  selectCell: (row: number, col: number) => void,
 ) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   useEffect(() => {
     const onKeyDown = (event: globalThis.KeyboardEvent): void => {
@@ -53,10 +54,11 @@ export function useTableGridKeyHandlers(
     (nextRow: number, nextCol: number): void => {
       if (nextRow < 0 || nextRow >= rows || nextCol < 0 || nextCol >= cols) return
       if (hiddenSet.has(`R${nextRow}C${nextCol}`)) return
+      selectCell(nextRow, nextCol)
       const el = document.querySelector<HTMLElement>(`[data-cell-id="R${nextRow}C${nextCol}"] [contenteditable]`)
       el?.focus()
     },
-    [cols, rows, hiddenSet],
+    [cols, rows, hiddenSet, selectCell],
   )
 
   const handleCellKeyDown = useCallback(

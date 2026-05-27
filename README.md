@@ -133,7 +133,7 @@ tablesmit/
 ├── scripts/
 │   ├── prerender.ts                  # Playwright-based prerender — run locally before content commits
 │   ├── md-to-blog-post.ts            # .md → blog .ts file converter
-│   └── sitemap/gen-sitemap.ts        # Sitemap generator
+│   └── sitemap/generate-sitemap.ts        # Sitemap generator
 │
 ├── e2e/
 │   └── critical-path.spec.ts
@@ -145,17 +145,18 @@ tablesmit/
 │   ├── assets/
 │   │   └── logo.svg                  # Full logo SVG (reference only — rendered as React component)
 │   ├── lib/
-│   │   └── utils.ts                  # cn() helper (clsx + tailwind-merge)
+│   │   ├── utils.ts                  # cn() helper (clsx + tailwind-merge)
+│   │   └── sentry.ts                 # Lazy Sentry init — never eagerly imported
 │   ├── components/
 │   │   ├── ui/                       # Reusable primitives: Button, Logo, ErrorBoundary, IconButton, Tooltip, DropdownMenu, SectionLabel, TableSkeleton, etc.
 │   │   ├── layout/                   # Navbar, Footer, Sidebar, MobileSheet, PageWrapper
 │   │   └── features/                 # Domain components: TableGrid, ExportPanel, TableToolbar, BorderPanel, FindReplace, TableCaption, ThemePicker, etc.
-│   ├── pages/                        # 12 lazy-loaded pages (About, Blog, Contact, Contact, Features, OpenSource, Privacy, Terms, Changelog, Testimonials, 404)
+│   ├── pages/                        # 13 lazy-loaded pages (About, Blog, BlogPost, Contact, Features, FeatureDetail, OpenSource, Privacy, Terms, Changelog, Testimonials, 404, TableMaker)
 │   ├── context/                      # TableContext (cells) + TableSelectionContext (selection) + TableProvider (everything else) — split to minimise re-renders
-│   ├── hooks/                        # 17 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, useBlogSearch, useFeatureSearch, etc.
+│   ├── hooks/                        # 18 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, useBlogSearch, useFeatureSearch, usePageTranslation, etc.
 │   ├── services/                     # exportService (strategy pattern), importService, blogService, featureService
 │   ├── i18n/                         # i18next init, locale config, English JSON source of truth
-│   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, searchUtils, cell, toast, analytics, dateUtils
+│   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, searchUtils, colorUtils, cell, toast, analytics, dateUtils
 │   ├── types/                        # Shared table types: CellData, MergeRange, HeaderStyle, TableTheme, PresetDefinition, etc.
 │   ├── config/                       # Per-domain config: brand, routes, nav, copy, export, import, table, etc.
 │   ├── constants/
@@ -163,7 +164,7 @@ tablesmit/
 │   │   ├── blog/                     # 34 blog posts as .ts modules (auto-discovered via import.meta.glob)
 │   │   └── features/                 # 30 feature pages as .json (auto-discovered)
 │   ├── styles/globals.css            # Tailwind directives + @font-face + print styles + dark mode
-│   ├── test/                         # 148 test files mirroring src/ structure
+│   ├── test/                         # 168 test files mirroring src/ structure
 │   ├── App.tsx                       # Router + providers only — zero business logic
 │   ├── main.tsx                      # ReactDOM root + Sonner Toaster
 │   ├── pwa.ts                        # Service worker registration

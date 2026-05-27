@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "headline": "Tables built for analytical writing.",
+    "subtext": "A minimalist table builder for analytical writing — with full control over headers, formatting, and export.",
+    "viewGitHub": "View on GitHub",
+    "customHeaders": "Custom headers",
+    "columnTypes": "Column types",
+    "mergeCells": "Merge cells"
+  }
+}

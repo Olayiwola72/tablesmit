@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "お問い合わせください。",
+    "body": "ご質問、ご提案、フィードバックはございますか？ぜひお聞かせください。",
+    "emailLabel": "メールアドレス",
+    "emailPlaceholder": "you@example.com",
+    "subjectLabel": "件名",
+    "subjectPlaceholder": "どのようなご用件でしょうか？",
+    "messageLabel": "メッセージ",
+    "messagePlaceholder": "ご質問やアイデアについて詳しくお聞かせください...",
+    "sendButton": "メッセージを送信",
+    "sendingButton": "送信中...",
+    "successTitle": "メッセージを送信しました！",
+    "successBody": "お問い合わせいただきありがとうございます。すぐにご連絡いたします。",
+    "errorTitle": "エラーが発生しました。",
+    "errorBody": "メッセージを送信できませんでした。もう一度お試しいただくか、直接メールでお問い合わせください。",
+    "orEmail": "またはこちらに直接メールをお送りください",
+    "reachOnX": "またはXでご連絡ください",
+    "featureIdea": "機能リクエスト",
+    "featureIdeaDesc": "ワークフローを改善するために不足しているものはありますか？教えてください。",
+    "bugGlitch": "バグまたは不具合",
+    "bugGlitchDesc": "何か正しく動作していませんか？確認して修正します。",
+    "justSayingHi": "ご挨拶",
+    "somethingElse": "その他",
+    "somethingElseDesc": "何でもお聞かせください。すべてのメッセージに目を通します。",
+    "whatToReachOutAbout": "お問い合わせ内容",
+    "builtWithCare": "丁寧に作られ、感謝の気持ちを込めて維持されています。"
+  }
+}

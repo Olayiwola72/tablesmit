@@ -1,0 +1,25 @@
+{
+  "privacy": {
+    "lastUpdated": "Sist oppdatert: mai 2026",
+    "intro": "{{name}} er et nettleserbasert verktøy. Vi krever ikke konto, og vi lagrer ikke tabelldataene dine på noen server.",
+    "whatWeCollect": "Hva vi samler inn",
+    "whatWeCollectBody": "Vi kan bruke analyseverktøy for å forstå hvordan {{name}} brukes. Analyser samler inn anonymiserte bruksdata som besøkte sider, tid på siden og generell geografisk region på landsnivå. Vi samler ikke inn navn, e-postadresser eller personlig identifiserbar informasjon gjennom selve appen.",
+    "whatWeDontCollect": "Hva vi ikke samler inn",
+    "whatWeDontCollectBody": "Tabellinnholdet ditt forlater aldri nettleseren din. Vi overfører, lagrer eller behandler ikke tabelldataene dine på våre servere. Vi selger ikke data til tredjeparter.",
+    "fileImports": "Filimport",
+    "fileImportsBody": "Når du importerer en CSV- eller Excel-fil, leses den lokalt i nettleseren din. Filen lastes aldri opp til noen server.",
+    "contact": "Kontakt",
+    "contactBody": "Spørsmål om personvern:"
+  },
+  "terms": {
+    "lastUpdated": "Sist oppdatert: mai 2026",
+    "intro": "Ved å bruke {{name}} godtar du disse vilkårene.",
+    "service": "Tjenesten",
+    "serviceBody": "{{name}} tilbys gratis, som den er, uten garantier for oppetid, nøyaktighet eller egnethet for noe bestemt formål.",
+    "yourContent": "Ditt innhold",
+    "yourContentBody": "Du beholder fullt eierskap til alt innhold du oppretter med {{name}}. Vi gjør ikke krav på noen rettigheter over dine tabeller, data eller eksporter.",
+    "openSource": "Åpen kildekode",
+    "openSourceBody": "Kildekoden til {{name}} er tilgjengelig under MIT-lisensen. Du kan forke, modifisere og distribuere den under disse vilkårene.",
+    "contact": "Kontakt"
+  }
+}

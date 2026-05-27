@@ -1,0 +1,13 @@
+{
+  "features": {
+    "heading": "الميزات",
+    "subtext": "كل ما تحتاجه لبناء جداول منظمة ونظيفة.",
+    "learnMore": "اعرف المزيد",
+    "emptyState": "لا توجد ميزات مدرجة بعد.",
+    "searchPlaceholder": "البحث في الميزات بالاسم أو الوصف…",
+    "benefits": "الفوائد",
+    "howItWorks": "كيف يعمل",
+    "useCases": "حالات الاستخدام",
+    "relatedFeatures": "الميزات ذات الصلة"
+  }
+}

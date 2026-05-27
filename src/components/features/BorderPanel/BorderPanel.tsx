@@ -5,7 +5,7 @@ import type { BorderStyle } from '../../../types/table'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function BorderPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const table = useTableContext()
 
   const borderStyleOptions = [

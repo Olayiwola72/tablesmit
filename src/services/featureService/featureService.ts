@@ -1,4 +1,9 @@
 import type { FeaturePage } from './featureService.types'
+import { brand } from '../../config/brand/brandConfig'
+
+function replaceBrand(str: string): string {
+  return str.replace(/\{\{BRAND_NAME\}\}/g, brand.name)
+}
 
 const featureModules = import.meta.glob<Record<string, unknown>>(
   '../../content/features/*.json',
@@ -8,26 +13,26 @@ const featureModules = import.meta.glob<Record<string, unknown>>(
 function parseFeature(raw: Record<string, unknown>): FeaturePage {
   return {
     slug: String(raw.slug ?? ''),
-    metaTitle: String(raw.metaTitle ?? ''),
-    metaDescription: String(raw.metaDescription ?? ''),
-    heroHeadline: String(raw.heroHeadline ?? ''),
-    heroSubtext: String(raw.heroSubtext ?? ''),
-    icon: String(raw.icon ?? ''),
+    metaTitle: replaceBrand(String(raw.metaTitle ?? '')),
+    metaDescription: replaceBrand(String(raw.metaDescription ?? '')),
+    heroHeadline: replaceBrand(String(raw.heroHeadline ?? '')),
+    heroSubtext: replaceBrand(String(raw.heroSubtext ?? '')),
+    icon: replaceBrand(String(raw.icon ?? '')),
     benefits: Array.isArray(raw.benefits)
       ? raw.benefits.map((b: Record<string, unknown>) => ({
-          icon: String(b.icon ?? ''),
-          heading: String(b.heading ?? ''),
-          body: String(b.body ?? ''),
+          icon: replaceBrand(String(b.icon ?? '')),
+          heading: replaceBrand(String(b.heading ?? '')),
+          body: replaceBrand(String(b.body ?? '')),
         }))
       : [],
     steps: Array.isArray(raw.steps)
       ? raw.steps.map((s: Record<string, unknown>) => ({
           number: Number(s.number ?? 1),
-          heading: String(s.heading ?? ''),
-          body: String(s.body ?? ''),
+          heading: replaceBrand(String(s.heading ?? '')),
+          body: replaceBrand(String(s.body ?? '')),
         }))
       : [],
-    useCases: Array.isArray(raw.useCases) ? raw.useCases.map(String) : [],
+    useCases: Array.isArray(raw.useCases) ? raw.useCases.map(s => replaceBrand(String(s))) : [],
     relatedFeatures: Array.isArray(raw.relatedFeatures)
       ? raw.relatedFeatures.map(String)
       : [],

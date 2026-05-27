@@ -1,0 +1,22 @@
+@keyframes drawGrid {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fadeCell {
+  to { opacity: 1; }
+}
+
+@keyframes pulseZero {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.6; }
+}
+
+.grid-line { stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawGrid 0.8s ease-out forwards; }
+.grid-line:nth-child(2) { animation-delay: 0.1s; }
+.grid-line:nth-child(3) { animation-delay: 0.2s; }
+.grid-line:nth-child(4) { animation-delay: 0.3s; }
+.grid-line:nth-child(5) { animation-delay: 0.4s; }
+.cell-digit { opacity: 0; animation: fadeCell 0.4s ease-out forwards; }
+.cell-digit:nth-child(1) { animation-delay: 0.5s; }
+.cell-digit:nth-child(2) { animation: fadeCell 0.4s ease-out forwards, pulseZero 2.5s ease-in-out 1s infinite; }
+.cell-digit:nth-child(3) { animation-delay: 0.6s; }

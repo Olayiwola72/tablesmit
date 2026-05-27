@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import type { StatusBarProps } from './StatusBar.types'
 
 export function StatusBar({ rows, cols }: StatusBarProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <div className="flex items-center justify-between border-b border-border bg-white px-4 py-2 text-xs text-text-muted dark:border-slate-700 dark:bg-slate-900" data-print-hide>

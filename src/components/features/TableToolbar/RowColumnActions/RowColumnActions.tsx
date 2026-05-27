@@ -6,7 +6,7 @@ import { MAX_COLS, MAX_ROWS } from '../../../../config/table/tableDefaults/table
 import { Button } from '../../../ui/Button/Button'
 
 export function RowColumnActions({ rows, cols, onAddRow, onAddColumn, onRemoveRow, onRemoveColumn }: RowColumnActionsProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <div className="flex shrink-0 items-center gap-1">

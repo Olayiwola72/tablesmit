@@ -1,0 +1,25 @@
+{
+  "privacy": {
+    "lastUpdated": "Última atualização: maio de 2026",
+    "intro": "{{name}} é uma ferramenta baseada em navegador. Não exigimos conta e não armazenamos os dados da sua tabela em nenhum servidor.",
+    "whatWeCollect": "O que coletamos",
+    "whatWeCollectBody": "Podemos usar análises para entender como o {{name}} é usado. As análises coletam dados de uso anonimizados, como páginas visitadas, tempo na página e região geográfica geral em nível de país. Não coletamos nomes, endereços de e-mail ou informações de identificação pessoal através do aplicativo.",
+    "whatWeDontCollect": "O que não coletamos",
+    "whatWeDontCollectBody": "O conteúdo da sua tabela nunca sai do seu navegador. Não transmitimos, armazenamos ou processamos os dados da sua tabela em nossos servidores. Não vendemos dados a terceiros.",
+    "fileImports": "Importações de arquivos",
+    "fileImportsBody": "Quando você importa um arquivo CSV ou Excel, ele é lido localmente no seu navegador. O arquivo nunca é enviado para nenhum servidor.",
+    "contact": "Contato",
+    "contactBody": "Perguntas sobre privacidade:"
+  },
+  "terms": {
+    "lastUpdated": "Última atualização: maio de 2026",
+    "intro": "Ao usar {{name}} você concorda com estes termos.",
+    "service": "O serviço",
+    "serviceBody": "{{name}} é fornecido gratuitamente, como está, sem garantias de disponibilidade, precisão ou adequação a qualquer propósito específico.",
+    "yourContent": "Seu conteúdo",
+    "yourContentBody": "Você mantém total propriedade de qualquer conteúdo criado com {{name}}. Não reivindicamos direitos sobre suas tabelas, dados ou exportações.",
+    "openSource": "Código aberto",
+    "openSourceBody": "O código fonte do {{name}} está disponível sob a licença MIT. Você pode bifurcar, modificar e distribuir sob esses termos.",
+    "contact": "Contato"
+  }
+}

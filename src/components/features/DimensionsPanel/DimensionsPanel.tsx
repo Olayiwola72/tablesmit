@@ -7,7 +7,7 @@ import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function DimensionsPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const table = useTableContext()
   const [rows, setRows] = useState(table.rows || DEFAULT_ROWS)
   const [cols, setCols] = useState(table.cols || DEFAULT_COLS)
@@ -25,8 +25,8 @@ export function DimensionsPanel(): ReactNode {
           <input name="dim-cols" className="h-10 w-full rounded-md border border-border bg-white px-3 text-sm" type="number" min={1} max={MAX_COLS} value={cols} onChange={(event) => setCols(Number(event.target.value))} />
         </label>
       </div>
-      <Button className="mt-4 w-full" variant="primary" onClick={() => table.generateTable(DEFAULT_ROWS, DEFAULT_COLS)}>
-        <Sparkles size={16} aria-hidden="true" /> {t('hero.cta')}
+      <Button className="mt-4 w-full" variant="primary" onClick={() => table.generateTable(rows, cols)}>
+        <Sparkles size={16} aria-hidden="true" /> {t('table.cta')}
       </Button>
       <p className="mt-3 flex items-center gap-2 text-xs text-text-muted">
         <Grid2X2 size={14} aria-hidden="true" /> {t('table.limitInfo', { rows: MAX_ROWS, cols: MAX_COLS })}

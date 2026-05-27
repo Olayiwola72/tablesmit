@@ -1,10 +1,5 @@
 import type { ReactNode } from 'react'
-
-interface TableSkeletonProps {
-  rows: number
-  cols: number
-  visible: boolean
-}
+import type { TableSkeletonProps } from './TableSkeleton.types'
 
 export function TableSkeleton({ rows, cols, visible }: TableSkeletonProps): ReactNode {
   return (

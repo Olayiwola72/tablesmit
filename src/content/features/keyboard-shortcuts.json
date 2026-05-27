@@ -1,9 +1,9 @@
 {
   "slug": "keyboard-shortcuts",
-  "metaTitle": "Keyboard Shortcuts — Work Faster in Tablesmit",
-  "metaDescription": "Every Tablesmit action has a keyboard shortcut. Navigate cells, add rows, find and replace, and export to PDF — all without leaving the keyboard.",
+  "metaTitle": "Keyboard Shortcuts \u2014 Work Faster in {{BRAND_NAME}}",
+  "metaDescription": "Every {{BRAND_NAME}} action has a keyboard shortcut. Navigate cells, add rows, find and replace, and export to PDF \u2014 all without leaving the keyboard.",
   "heroHeadline": "Your hands never have to leave the keyboard.",
-  "heroSubtext": "Every meaningful action in Tablesmit has a shortcut. Navigate, edit, export, and search at the speed you actually think — no mouse required.",
+  "heroSubtext": "Every meaningful action in Tablesmit has a shortcut. Navigate, edit, export, and search at the speed you actually think \u2014 no mouse required.",
   "icon": "Keyboard",
   "shortcuts": [
     {
@@ -12,27 +12,40 @@
       "items": [
         {
           "label": "Move to next cell",
-          "keys": ["Tab"],
+          "keys": [
+            "Tab"
+          ],
           "note": ""
         },
         {
           "label": "Move to previous cell",
-          "keys": ["Shift+Tab"],
+          "keys": [
+            "Shift+Tab"
+          ],
           "note": ""
         },
         {
           "label": "Move between cells",
-          "keys": ["↑", "↓", "←", "→"],
+          "keys": [
+            "\u2191",
+            "\u2193",
+            "\u2190",
+            "\u2192"
+          ],
           "note": "Arrow key navigation works when a cell is selected but not in edit mode."
         },
         {
           "label": "Enter edit mode",
-          "keys": ["Enter"],
+          "keys": [
+            "Enter"
+          ],
           "note": "Press Enter on a focused cell to start typing into it."
         },
         {
           "label": "Exit edit mode",
-          "keys": ["Escape"],
+          "keys": [
+            "Escape"
+          ],
           "note": "Cancels the current edit without saving the change."
         }
       ]
@@ -43,12 +56,16 @@
       "items": [
         {
           "label": "Undo last action",
-          "keys": ["Ctrl+Z"],
+          "keys": [
+            "Ctrl+Z"
+          ],
           "note": "Up to 50 actions deep. The tooltip on the Undo button shows how many actions are available."
         },
         {
           "label": "Delete cell content",
-          "keys": ["Delete"],
+          "keys": [
+            "Delete"
+          ],
           "note": "Clears the content of the selected cell without removing the cell itself."
         }
       ]
@@ -59,12 +76,16 @@
       "items": [
         {
           "label": "Add row",
-          "keys": ["Ctrl+L"],
+          "keys": [
+            "Ctrl+L"
+          ],
           "note": "Appends a new empty row to the bottom of the table."
         },
         {
           "label": "Add column",
-          "keys": ["Ctrl+R"],
+          "keys": [
+            "Ctrl+R"
+          ],
           "note": "Appends a new empty column to the right of the table."
         }
       ]
@@ -75,33 +96,43 @@
       "items": [
         {
           "label": "Find",
-          "keys": ["Ctrl+F"],
+          "keys": [
+            "Ctrl+F"
+          ],
           "note": "Opens the find panel. Highlights all matching cells as you type."
         },
         {
           "label": "Find and replace",
-          "keys": ["Ctrl+H"],
+          "keys": [
+            "Ctrl+H"
+          ],
           "note": "Opens the find and replace panel. Replace one match or all at once."
         }
       ]
     },
     {
       "category": "Export",
-      "description": "Get your table out of the browser and into the world — instantly.",
+      "description": "Get your table out of the browser and into the world \u2014 instantly.",
       "items": [
         {
           "label": "Export to PDF",
-          "keys": ["Ctrl+P"],
-          "note": "Exports the table as a clean PDF — no browser print dialog, no UI chrome."
+          "keys": [
+            "Ctrl+P"
+          ],
+          "note": "Exports the table as a clean PDF \u2014 no browser print dialog, no UI chrome."
         },
         {
           "label": "Export to Excel",
-          "keys": ["Ctrl+E"],
+          "keys": [
+            "Ctrl+E"
+          ],
           "note": "Downloads a genuine .xlsx file with merged cells and formatting preserved."
         },
         {
           "label": "Copy as image",
-          "keys": ["Ctrl+C"],
+          "keys": [
+            "Ctrl+C"
+          ],
           "status": "coming-soon",
           "note": "Renders the table to a PNG and writes it to your clipboard. Paste directly into any document, presentation, or design tool."
         }
@@ -113,7 +144,9 @@
       "items": [
         {
           "label": "Toggle keyboard shortcuts",
-          "keys": ["Ctrl+/"],
+          "keys": [
+            "Ctrl+/"
+          ],
           "note": "Opens or closes this shortcuts reference. Press it again to dismiss."
         }
       ]
@@ -123,7 +156,7 @@
     {
       "icon": "Zap",
       "heading": "Stay in flow",
-      "body": "Every time you reach for the mouse, you lose a beat. Keyboard shortcuts keep your hands where your thinking is — on the content, not the interface."
+      "body": "Every time you reach for the mouse, you lose a beat. Keyboard shortcuts keep your hands where your thinking is \u2014 on the content, not the interface."
     },
     {
       "icon": "Navigation",
@@ -133,7 +166,7 @@
     {
       "icon": "Download",
       "heading": "Export without breaking focus",
-      "body": "Ctrl+P and Ctrl+E let you export to PDF or Excel in the middle of editing — without opening a menu, without taking your hands off the keyboard."
+      "body": "Ctrl+P and Ctrl+E let you export to PDF or Excel in the middle of editing \u2014 without opening a menu, without taking your hands off the keyboard."
     },
     {
       "icon": "History",
@@ -145,7 +178,7 @@
     {
       "number": 1,
       "heading": "Learn the navigation shortcuts first",
-      "body": "Tab and Shift+Tab are the most important. They let you move through a table like a spreadsheet — left to right, row by row. Arrow keys give you full directional control when not in edit mode."
+      "body": "Tab and Shift+Tab are the most important. They let you move through a table like a spreadsheet \u2014 left to right, row by row. Arrow keys give you full directional control when not in edit mode."
     },
     {
       "number": 2,
@@ -169,12 +202,15 @@
     "Analysts who move quickly between cells using Tab navigation during data entry",
     "Anyone who wants to export a finished table instantly with a single keypress"
   ],
-  "relatedFeatures": ["find-replace", "excel-export", "pdf-export"],
+  "relatedFeatures": [
+    "find-replace",
+    "excel-export",
+    "pdf-export"
+  ],
   "relatedPost": "table-builder-keyboard-shortcuts-guide",
-
   "_codex_notes": {
     "schema_extension": "This page uses a 'shortcuts' field not present in the base FeaturePage type. Extend the type as shown below and handle it in FeatureDetailPage.",
-    "type_extension": "Add to src/types/feature.types.ts:\n\nexport interface ShortcutItem {\n  label:  string;\n  keys:   string[];\n  note?:  string;\n  status?: 'live' | 'coming-soon';\n}\n\nexport interface ShortcutCategory {\n  category:    string;\n  description: string;\n  items:       ShortcutItem[];\n}\n\nexport interface FeaturePage {\n  // ...existing fields\n  shortcuts?: ShortcutCategory[];  // optional — only present on keyboard-shortcuts page\n}",
+    "type_extension": "Add to src/types/feature.types.ts:\n\nexport interface ShortcutItem {\n  label:  string;\n  keys:   string[];\n  note?:  string;\n  status?: 'live' | 'coming-soon';\n}\n\nexport interface ShortcutCategory {\n  category:    string;\n  description: string;\n  items:       ShortcutItem[];\n}\n\nexport interface FeaturePage {\n  // ...existing fields\n  shortcuts?: ShortcutCategory[];  // optional \u2014 only present on keyboard-shortcuts page\n}",
     "rendering": "In FeatureDetailPage: if (page.shortcuts) render a ShortcutsTable component between the hero and benefits sections. The table renders each category as a group with a heading, then each item as a row: label on the left, key badge(s) on the right. 'coming-soon' items render with an amber 'Coming soon' badge next to the key. Key badges: font-mono text-xs bg-surface border border-border rounded-sm px-2 py-1. Coming soon badge: same as accent-light with amber text.",
     "coming_soon_item": "Ctrl+C (Copy as image) is in the pipeline. It is intentionally listed with status: 'coming-soon' to signal intent without shipping broken functionality. Remove the status field when the feature ships."
   }

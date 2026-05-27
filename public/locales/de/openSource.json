@@ -1,0 +1,18 @@
+{
+  "openSource": {
+    "heading": "Offen entwickelt.",
+    "body": "{{name}} ist kostenlos und Open Source. Der Code ist auf GitHub — lesen Sie ihn, forken Sie ihn, verbessern Sie ihn oder passen Sie ihn an Ihre Bedürfnisse an. Wir glauben, dass Werkzeuge zum Schreiben und Denken transparent sein sollten.",
+    "sponsorHeading": "Unterstützen Sie dieses Projekt",
+    "sponsorGitHub": "Monatlich auf GitHub sponsern",
+    "sponsorCoffee": "Einmaliger Beitrag",
+    "sponsorCollective": "Für Teams und Organisationen",
+    "contributorsHeading": "Mitwirkende",
+    "contributorsBody": "{{name}} existiert dank Open-Source-Mitwirkender. Jeder Fehlerbericht, jeder Pull Request und jeder Vorschlag zählt.",
+    "viewContributors": "Mitwirkende auf GitHub ansehen",
+    "contributeHeading": "Wie Sie mitwirken können",
+    "contributeBody": "Lesen Sie die CONTRIBUTION.md im Repository für Richtlinien zum Melden von Fehlern, Vorschlagen von Funktionen und Einreichen von Pull Requests.",
+    "readContributing": "CONTRIBUTION.md lesen",
+    "ctaNote": "MIT-lizenziert. Beiträge willkommen.",
+    "footerNote": "MIT-lizenziert. Keine Garantien. Mit Sorgfalt entwickelt."
+  }
+}

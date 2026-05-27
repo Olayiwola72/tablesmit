@@ -17,7 +17,7 @@ function FindReplaceRaw({
   onClose,
   replaceMode,
 }: FindReplaceProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <div className="w-72 rounded-md border border-border bg-white p-3 shadow-sm">

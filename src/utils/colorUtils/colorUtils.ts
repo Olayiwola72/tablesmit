@@ -10,3 +10,13 @@ export function getContrastText(hex: string): string {
     ? colors.contrastText.lightBackgroundText
     : colors.contrastText.darkBackgroundText
 }
+
+const DARK_BG_MAP: Record<string, string> = {
+  '#ffffff': '#0f172a',
+  '#f3f4f6': '#1e293b',
+  '#f9fafb': '#334155',
+}
+
+export function getDarkBg(hex: string): string {
+  return DARK_BG_MAP[hex.toLowerCase()] ?? hex
+}

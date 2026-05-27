@@ -1,0 +1,29 @@
+{
+  "blog": {
+    "heading": "Skriver om tabeller, struktur og analytisk tenkning.",
+    "featured": "Utvalgt",
+    "minRead": "{{count}} min lesing",
+    "openBrand": "Åpne {{name}}",
+    "ctaTitle": "Prøv {{name}} selv — gratis, ingen registrering nødvendig.",
+    "backToBlog": "Tilbake til bloggen",
+    "empty": "Ingen innlegg ennå. Kom tilbake snart.",
+    "copiedToClipboard": "Kopiert til utklippstavlen",
+    "failedToCopy": "Kopiering mislyktes",
+    "copyCode": "Kopier kode"
+  },
+  "pagination": {
+    "page": "Side {{current}} av {{total}}",
+    "prev": "Forrige",
+    "next": "Neste",
+    "prevAria": "Gå til forrige side",
+    "nextAria": "Gå til neste side",
+    "pageAria": "Gå til side {{number}}"
+  },
+  "search": {
+    "ariaLabel": "Søk",
+    "placeholder": "Søk…",
+    "clear": "Tøm søk",
+    "noResults": "Ingen resultater fant ditt søk.",
+    "resultsCount": "Viser {{count}} av {{total}} resultater"
+  }
+}

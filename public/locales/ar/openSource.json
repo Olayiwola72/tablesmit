@@ -1,0 +1,18 @@
+{
+  "openSource": {
+    "heading": "بُني بشفافية.",
+    "body": "{{name}} مجاني ومفتوح المصدر. الكود موجود على GitHub — اقرأه، انسخه، حسّنه، أو كيّفه لاحتياجاتك. نؤمن أن أدوات الكتابة والتفكير يجب أن تكون شفافة.",
+    "sponsorHeading": "ادعم هذا المشروع",
+    "sponsorGitHub": "ادعم شهريًا على GitHub",
+    "sponsorCoffee": "مساهمة لمرة واحدة",
+    "sponsorCollective": "للفرق والمؤسسات",
+    "contributorsHeading": "المساهمون",
+    "contributorsBody": "{{name}} موجود بفضل المساهمين في المصادر المفتوحة. كل تقرير خطأ، طلب سحب، واقتراح له أهميته.",
+    "viewContributors": "عرض المساهمين على GitHub",
+    "contributeHeading": "كيفية المساهمة",
+    "contributeBody": "اقرأ CONTRIBUTION.md في المستودع للحصول على إرشادات حول الإبلاغ عن الأخطاء واقتراح الميزات وتقديم طلبات السحب.",
+    "readContributing": "قراءة CONTRIBUTION.md",
+    "ctaNote": "مرخص بموجب MIT. المساهمات مرحب بها.",
+    "footerNote": "مرخص تحت MIT. لا ضمانات. بُني بعناية."
+  }
+}

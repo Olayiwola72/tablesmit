@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "headline": "Tabellen für analytisches Schreiben.",
+    "subtext": "Ein minimalistischer Tabellen-Builder für analytisches Schreiben — mit voller Kontrolle über Kopfzeilen, Formatierung und Export.",
+    "viewGitHub": "Auf GitHub ansehen",
+    "customHeaders": "Benutzerdefinierte Kopfzeilen",
+    "columnTypes": "Spaltentypen",
+    "mergeCells": "Zellen verbinden"
+  }
+}

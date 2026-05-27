@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Copy a Table from Excel to the Web',
   date: '2026-04-01',
   description:
-    'Copying a table from Excel to a web tool usually means rebuilding it from scratch. Tablesmit reads your clipboard and generates the table automatically.',
+    'Copying a table from Excel to a web tool usually means rebuilding it from scratch. {{BRAND_NAME}} reads your clipboard and generates the table automatically.',
   author: 'Olayiwola Akinnagbe',
   tags: ['excel', 'import', 'tutorial'],
   readTime: 4,

@@ -8,7 +8,7 @@ import { ColorSwatch } from '../../ui/ColorSwatch/ColorSwatch'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function ColorPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const table = useTableContext()
 
   const featureTags = useMemo(() => {

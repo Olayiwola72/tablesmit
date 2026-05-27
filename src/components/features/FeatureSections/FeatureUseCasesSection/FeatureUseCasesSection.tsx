@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { FeatureUseCasesSectionProps } from './FeatureUseCasesSection.types'
 
 export function FeatureUseCasesSection({ useCases }: FeatureUseCasesSectionProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'features'])
 
   if (useCases.length === 0) return null
 

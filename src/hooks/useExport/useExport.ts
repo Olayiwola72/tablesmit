@@ -11,7 +11,7 @@ import type { ExportApi } from './useExport.types'
 
 export function useExport(): ExportApi {
   const [exportingFormat, setExportingFormat] = useState<ExportFormat | null>(null)
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const { cells } = useTableData()
   const {
     headerStyle, mergedRanges, headerColor, contentColor, borderColor,

@@ -1,15 +1,15 @@
 {
   "slug": "excel-export",
-  "metaTitle": "Export Table to Excel Online — Free | Tablesmit",
-  "metaDescription": "Export any table to Excel (.xlsx) in one click. Build structured tables in Tablesmit and download clean Excel files instantly. Free, no signup required.",
+  "metaTitle": "Export Table to Excel Online \u2014 Free | {{BRAND_NAME}}",
+  "metaDescription": "Export any table to Excel (.xlsx) in one click. Build structured tables in {{BRAND_NAME}} and download clean Excel files instantly. Free, no signup required.",
   "heroHeadline": "Export any table to Excel in one click.",
-  "heroSubtext": "Build your table, click Export, get a clean .xlsx file. Works with Excel, Google Sheets, and LibreOffice — any spreadsheet app.",
+  "heroSubtext": "Build your table, click Export, get a clean .xlsx file. Works with Excel, Google Sheets, and LibreOffice \u2014 any spreadsheet app.",
   "icon": "FileSpreadsheet",
   "benefits": [
     {
       "icon": "FileCheck",
       "heading": "True .xlsx format",
-      "body": "A genuine Excel file — not a CSV renamed. Column widths, header styles, and merged cells are preserved exactly as you built them."
+      "body": "A genuine Excel file \u2014 not a CSV renamed. Column widths, header styles, and merged cells are preserved exactly as you built them."
     },
     {
       "icon": "MousePointerClick",
@@ -41,7 +41,7 @@
     {
       "number": 3,
       "heading": "Click Excel",
-      "body": "Click the Excel button in the toolbar. Your .xlsx file downloads immediately — named after your table caption if you set one."
+      "body": "Click the Excel button in the toolbar. Your .xlsx file downloads immediately \u2014 named after your table caption if you set one."
     }
   ],
   "useCases": [
@@ -50,6 +50,9 @@
     "Creating datasets for reports that require Excel as the delivery format",
     "Building a table in Tablesmit and continuing work in Google Sheets"
   ],
-  "relatedFeatures": ["csv-import", "pdf-export"],
+  "relatedFeatures": [
+    "csv-import",
+    "pdf-export"
+  ],
   "relatedPost": "how-to-export-table-to-pdf"
 }

@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How Undo Makes Online Table Editing Safer',
   date: '2026-05-26',
   description:
-    'Most web table tools do not have undo. One wrong click and your table is gone. Tablesmit has a full undo stack — up to 50 actions, Ctrl+Z, no data loss.',
+    'Most web table tools do not have undo. One wrong click and your table is gone. {{BRAND_NAME}} has a full undo stack — up to 50 actions, Ctrl+Z, no data loss.',
   author: 'Olayiwola Akinnagbe',
   tags: ['undo', 'editing', 'productivity', 'tutorial', 'tables'],
   readTime: 4,

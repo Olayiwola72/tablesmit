@@ -1,0 +1,29 @@
+{
+  "blog": {
+    "heading": "Escribiendo sobre tablas, estructura y pensamiento analítico.",
+    "featured": "Destacado",
+    "minRead": "{{count}} min de lectura",
+    "openBrand": "Abrir {{name}}",
+    "ctaTitle": "Prueba {{name}} — gratis, sin necesidad de registro.",
+    "backToBlog": "Volver al Blog",
+    "empty": "Aún no hay publicaciones. Vuelve pronto.",
+    "copiedToClipboard": "Copiado al portapapeles",
+    "failedToCopy": "Error al copiar",
+    "copyCode": "Copiar código"
+  },
+  "pagination": {
+    "page": "Página {{current}} de {{total}}",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "prevAria": "Ir a la página anterior",
+    "nextAria": "Ir a la página siguiente",
+    "pageAria": "Ir a la página {{number}}"
+  },
+  "search": {
+    "ariaLabel": "Buscar",
+    "placeholder": "Buscar…",
+    "clear": "Limpiar búsqueda",
+    "noResults": "No hay resultados que coincidan con tu búsqueda.",
+    "resultsCount": "Mostrando {{count}} de {{total}} resultados"
+  }
+}

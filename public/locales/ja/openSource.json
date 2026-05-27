@@ -1,0 +1,18 @@
+{
+  "openSource": {
+    "heading": "オープンに作られています。",
+    "body": "{{name}}は無料のオープンソースです。コードはGitHubにあります。読み、フォークし、改良し、自分のニーズに合わせて活用してください。私たちは、書くことと考えるためのツールは透明であるべきだと考えています。",
+    "sponsorHeading": "このプロジェクトを支援する",
+    "sponsorGitHub": "GitHubで月額スポンサーになる",
+    "sponsorCoffee": "一口寄付",
+    "sponsorCollective": "チームや組織向け",
+    "contributorsHeading": "コントリビューター",
+    "contributorsBody": "{{name}}はオープンソースのコントリビューターのおかげで存在しています。バグ報告、プルリクエスト、提案のすべてが重要です。",
+    "viewContributors": "GitHubでコントリビューターを見る",
+    "contributeHeading": "貢献方法",
+    "contributeBody": "リポジトリ内のCONTRIBUTION.mdで、バグ報告、機能提案、プルリクエストの提出に関するガイドラインをお読みください。",
+    "readContributing": "CONTRIBUTION.mdを読む",
+    "ctaNote": "MITライセンス。コントリビューションを歓迎します。",
+    "footerNote": "MITライセンス。保証はありません。大切に作られています。"
+  }
+}

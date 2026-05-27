@@ -1,7 +1,7 @@
 {
   "slug": "excel-import",
-  "metaTitle": "Import Excel File to Table Online — Free | Tablesmit",
-  "metaDescription": "Import any .xlsx or .xls file into Tablesmit. The table generates instantly — headers detected, data mapped, ready to edit and export. Free, no signup.",
+  "metaTitle": "Import Excel File to Table Online \u2014 Free | {{BRAND_NAME}}",
+  "metaDescription": "Import any .xlsx or .xls file into {{BRAND_NAME}}. The table generates instantly \u2014 headers detected, data mapped, ready to edit and export. Free, no signup.",
   "heroHeadline": "Turn an Excel file into an editable web table in seconds.",
   "heroSubtext": "Upload your .xlsx file and Tablesmit builds the full table automatically from the first sheet. Headers detected, column structure preserved, data ready to edit, style, and export.",
   "icon": "FileSpreadsheet",
@@ -9,7 +9,7 @@
     {
       "icon": "Zap",
       "heading": "Reads .xlsx and .xls formats",
-      "body": "Tablesmit uses SheetJS to parse Excel files natively. Both modern .xlsx and legacy .xls formats are supported — no conversion step needed."
+      "body": "Tablesmit uses SheetJS to parse Excel files natively. Both modern .xlsx and legacy .xls formats are supported \u2014 no conversion step needed."
     },
     {
       "icon": "Table",
@@ -19,7 +19,7 @@
     {
       "icon": "SlidersHorizontal",
       "heading": "Fully editable after import",
-      "body": "Once imported, the table is a Tablesmit table — resize columns, merge cells, apply themes, change column types, add a caption, then export in any format."
+      "body": "Once imported, the table is a Tablesmit table \u2014 resize columns, merge cells, apply themes, change column types, add a caption, then export in any format."
     },
     {
       "icon": "Shield",
@@ -41,7 +41,7 @@
     {
       "number": 3,
       "heading": "Edit and export",
-      "body": "Your Excel data is now in Tablesmit. Style it, resize columns, apply a theme — then export to PDF, LaTeX, PNG, CSV, or back to Excel."
+      "body": "Your Excel data is now in Tablesmit. Style it, resize columns, apply a theme \u2014 then export to PDF, LaTeX, PNG, CSV, or back to Excel."
     }
   ],
   "useCases": [
@@ -50,6 +50,10 @@
     "Importing a pricing spreadsheet and re-exporting as a styled PNG for a proposal document",
     "Bringing legacy Excel data into Tablesmit to merge cells and apply proper column types"
   ],
-  "relatedFeatures": ["csv-import", "smart-paste", "excel-export"],
+  "relatedFeatures": [
+    "csv-import",
+    "smart-paste",
+    "excel-export"
+  ],
   "relatedPost": "how-to-import-excel-files-online-table"
 }

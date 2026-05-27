@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "Ta kontakt.",
+    "body": "Har du et spørsmål, forslag eller tilbakemelding? Vi vil gjerne høre fra deg.",
+    "emailLabel": "Din e-post",
+    "emailPlaceholder": "deg@eksempel.no",
+    "subjectLabel": "Emne",
+    "subjectPlaceholder": "Hvordan kan vi hjelpe?",
+    "messageLabel": "Melding",
+    "messagePlaceholder": "Fortell oss mer om spørsmålet eller ideen din...",
+    "sendButton": "Send melding",
+    "sendingButton": "Sender...",
+    "successTitle": "Melding sendt!",
+    "successBody": "Takk for at du tok kontakt. Vi svarer deg snart.",
+    "errorTitle": "Noe gikk galt.",
+    "errorBody": "Kunne ikke sende meldingen din. Prøv igjen eller send oss en e-post direkte.",
+    "orEmail": "Eller send oss e-post direkte på",
+    "reachOnX": "eller kontakt oss på X",
+    "featureIdea": "Funksjonsidé",
+    "featureIdeaDesc": "Noe som mangler som ville forbedre arbeidsflyten din? Si ifra.",
+    "bugGlitch": "Feil eller problem",
+    "bugGlitchDesc": "Noe som ikke fungerer som det skal? Jeg skal se på det og fikse det.",
+    "justSayingHi": "Bare sier hei",
+    "somethingElse": "Noe annet",
+    "somethingElseDesc": "Hva som helst på hjertet. Jeg leser hver melding.",
+    "whatToReachOutAbout": "Hva vil du ta kontakt om?",
+    "builtWithCare": "Bygget med omhu, vedlikeholdt med takknemlighet."
+  }
+}

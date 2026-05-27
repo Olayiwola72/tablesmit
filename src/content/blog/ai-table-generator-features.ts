@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'AI Table Generator — What to Expect When Smart Tables Arrive',
   date: '2026-05-21',
   description:
-    'Tablesmit is developing AI features to help you generate tables from text and clean messy data. Here is what is coming and how it will work.',
+    '{{BRAND_NAME}} is developing AI features to help you generate tables from text and clean messy data. Here is what is coming and how it will work.',
   author: 'Olayiwola Akinnagbe',
   tags: ['ai', 'features', 'future', 'tables'],
   readTime: 5,

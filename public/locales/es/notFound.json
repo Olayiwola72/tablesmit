@@ -1,0 +1,7 @@
+{
+  "notFound": {
+    "heading": "Página no encontrada.",
+    "body": "Esa URL no existe. Volvamos a construir.",
+    "cta": "Volver al Inicio"
+  }
+}

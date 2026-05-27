@@ -1,19 +1,19 @@
 import type { RouteObject } from 'react-router-dom'
-import { routeElements, notFoundElement } from '../../components/routing/routeElements'
+import { RouteElements, notFoundElement } from '../../components/routing/RouteElements'
 
 export const routes = {
-  home: { path: '/', label: 'Home', nav: true, element: routeElements.home },
-  about: { path: '/about/', label: 'About', nav: true, element: routeElements.about },
-  blog: { path: '/blog/', label: 'Blog', nav: true, element: routeElements.blog },
-  blogPost: { path: '/blog/:slug/', label: 'Blog Post', nav: false, element: routeElements.blogPost },
-  features: { path: '/features/', label: 'Features', nav: true, element: routeElements.features },
-  featureDetail: { path: '/features/:slug/', label: 'Feature Detail', nav: false, element: routeElements.featureDetail },
-  contact: { path: '/contact/', label: 'Contact', nav: true, element: routeElements.contact },
-  openSource: { path: '/open-source/', label: 'Open Source', nav: true, element: routeElements.openSource },
-  privacy: { path: '/privacy/', label: 'Privacy Policy', nav: false, element: routeElements.privacy },
-  terms: { path: '/terms/', label: 'Terms of Use', nav: false, element: routeElements.terms },
-  changelog: { path: '/changelog/', label: 'Changelog', nav: true, element: routeElements.changelog },
-  testimonials: { path: '/testimonials/', label: 'Testimonials', nav: true, element: routeElements.testimonials },
+  home: { path: '/', label: 'Home', nav: true, element: RouteElements.home },
+  about: { path: '/about/', label: 'About', nav: true, element: RouteElements.about },
+  blog: { path: '/blog/', label: 'Blog', nav: true, element: RouteElements.blog },
+  blogPost: { path: '/blog/:slug/', label: 'Blog Post', nav: false, element: RouteElements.blogPost },
+  features: { path: '/features/', label: 'Features', nav: true, element: RouteElements.features },
+  featureDetail: { path: '/features/:slug/', label: 'Feature Detail', nav: false, element: RouteElements.featureDetail },
+  contact: { path: '/contact/', label: 'Contact', nav: true, element: RouteElements.contact },
+  openSource: { path: '/open-source/', label: 'Open Source', nav: true, element: RouteElements.openSource },
+  privacy: { path: '/privacy/', label: 'Privacy Policy', nav: false, element: RouteElements.privacy },
+  terms: { path: '/terms/', label: 'Terms of Use', nav: false, element: RouteElements.terms },
+  changelog: { path: '/changelog/', label: 'Changelog', nav: true, element: RouteElements.changelog },
+  testimonials: { path: '/testimonials/', label: 'Testimonials', nav: true, element: RouteElements.testimonials },
 } as const
 
 type Routes = typeof routes

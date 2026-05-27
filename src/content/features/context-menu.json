@@ -1,6 +1,6 @@
 {
   "slug": "context-menu",
-  "metaTitle": "Right-Click Context Menu for Table Cells | Tablesmit",
+  "metaTitle": "Right-Click Context Menu for Table Cells | {{BRAND_NAME}}",
   "metaDescription": "Right-click any cell or column header for instant access to sort, merge, auto-fit, insert, and delete actions — without using the toolbar.",
   "heroHeadline": "Every action, one right-click away.",
   "heroSubtext": "Right-click any cell or column header to access the actions most relevant to where you are in the table. No toolbar hunting — the right options appear exactly where you need them.",
