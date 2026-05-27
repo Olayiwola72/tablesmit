@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { FeatureStepsSectionProps } from './FeatureStepsSection.types'
 
 export function FeatureStepsSection({ steps }: FeatureStepsSectionProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'features'])
 
   if (steps.length === 0) return null
 

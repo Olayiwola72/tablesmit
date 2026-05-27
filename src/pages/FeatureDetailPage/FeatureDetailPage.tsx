@@ -1,6 +1,6 @@
 import { Navigate, useParams } from 'react-router-dom'
 import { useState, useEffect, type ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Helmet } from 'react-helmet-async'
 import type { FeaturePage } from '../../services/featureService/featureService.types'
 import { getFeatureBySlug, getAllFeatures } from '../../services/featureService/featureService'
@@ -20,7 +20,7 @@ import { FeatureRelatedSection } from '../../components/features/FeatureSections
 import { FeatureCtaSection } from '../../components/features/FeatureSections/FeatureCtaSection/FeatureCtaSection'
 
 export default function FeatureDetailPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('features')
   const { slug } = useParams<{ slug: string }>()
   const [feature, setFeature] = useState<FeaturePage | undefined | null>(undefined)
   const [relatedFeatures, setRelatedFeatures] = useState<FeaturePage[]>([])

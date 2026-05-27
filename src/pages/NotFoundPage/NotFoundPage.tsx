@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { ArrowLeft } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
@@ -8,7 +8,7 @@ import { NotFoundAnimation } from '../../components/ui/NotFoundAnimation/NotFoun
 import { routes } from '../../config/routes/routesConfig'
 
 export function NotFoundPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('notFound')
   return (
     <>
       <Helmet>

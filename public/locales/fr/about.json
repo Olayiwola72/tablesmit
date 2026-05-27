@@ -1,0 +1,7 @@
+{
+  "about": {
+    "heading": "Conçu pour les penseurs structurés.",
+    "body": "{{name}} a été créé par un écrivain qui avait besoin de plus de contrôle que ce que les générateurs de tableaux de base offraient. La plupart des outils en donnaient trop peu — pas de personnalisation des en-têtes, pas de formatage des colonnes, pas d'exportation propre. D'autres en donnaient trop — tout le poids d'un tableur pour quelque chose qui devait juste être un tableau. {{name}} est le juste milieu. Conçu pour les personnes qui pensent en structure et publient avec précision.",
+    "whatWeAreNot": "Pas un tableur. Pas une base de données. Pas un concurrent de Notion. Pas un outil axé sur le design. Nous sommes un outil d'écriture structurée."
+  }
+}

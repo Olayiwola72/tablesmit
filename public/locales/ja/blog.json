@@ -1,0 +1,29 @@
+{
+  "blog": {
+    "heading": "テーブル、構造、分析的思考について。",
+    "featured": "注目",
+    "minRead": "読了まで約{{count}}分",
+    "openBrand": "{{name}}を開く",
+    "ctaTitle": "{{name}}を実際にお試しください——無料、登録不要。",
+    "backToBlog": "ブログに戻る",
+    "empty": "まだ投稿はありません。また後で確認してください。",
+    "copiedToClipboard": "クリップボードにコピーしました",
+    "failedToCopy": "コピーに失敗しました",
+    "copyCode": "コードをコピー"
+  },
+  "pagination": {
+    "page": "{{current}} / {{total}} ページ",
+    "prev": "前へ",
+    "next": "次へ",
+    "prevAria": "前のページへ",
+    "nextAria": "次のページへ",
+    "pageAria": "ページ{{number}}へ"
+  },
+  "search": {
+    "ariaLabel": "検索",
+    "placeholder": "検索…",
+    "clear": "検索をクリア",
+    "noResults": "検索結果が見つかりませんでした。",
+    "resultsCount": "{{total}}件中{{count}}件を表示"
+  }
+}

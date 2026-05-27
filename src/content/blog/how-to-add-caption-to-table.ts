@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Add a Caption to Your Table',
   date: '2026-05-28',
   description:
-    'Every published table needs a caption. Tablesmit has a dedicated caption field above the table — click to edit, right-click to align, and it exports cleanly.',
+    'Every published table needs a caption. {{BRAND_NAME}} has a dedicated caption field above the table — click to edit, right-click to align, and it exports cleanly.',
   author: 'Olayiwola Akinnagbe',
   tags: ['caption', 'formatting', 'tutorial', 'tables'],
   readTime: 3,

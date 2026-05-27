@@ -1,4 +1,9 @@
 import type { BlogPost } from './blogService.types'
+import { brand } from '../../config/brand/brandConfig'
+
+function replaceBrand(str: string): string {
+  return str.replace(/\{\{BRAND_NAME\}\}/g, brand.name)
+}
 
 const postModules = import.meta.glob<{ default: BlogPost }>(
   '../../content/blog/*.ts',
@@ -18,6 +23,7 @@ async function ensureLoaded(): Promise<BlogPost[]> {
       if (typeof post.slug !== 'string' || post.slug === '') {
         post.slug = slugFromPath
       }
+      post.description = replaceBrand(post.description)
       return post
     })
   )

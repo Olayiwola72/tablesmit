@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Customize Table Headers Online',
   date: '2026-05-30',
   description:
-    'Most web table generators treat every cell the same. Tablesmit lets you style headers independently — choose which rows and columns are headers and set colors.',
+    'Most web table generators treat every cell the same. {{BRAND_NAME}} lets you style headers independently — choose which rows and columns are headers and set colors.',
   author: 'Olayiwola Akinnagbe',
   tags: ['headers', 'formatting', 'tutorial', 'tables'],
   readTime: 4,

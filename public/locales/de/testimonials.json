@@ -1,0 +1,11 @@
+{
+  "testimonials": {
+    "heading": "Was die Leute sagen.",
+    "subtext": "Hören Sie von Autoren, Analysten, Forschern und technischen Denkern, die {{name}} täglich nutzen.",
+    "emptyHeading": "Noch keine Erfahrungsberichte",
+    "emptyBody": "Wir sammeln Feedback von frühen Nutzern. Wenn Sie {{name}} verwendet haben, würden wir uns freuen, von Ihnen zu hören.",
+    "shareExperience": "Teilen Sie Ihre Erfahrung",
+    "orReachOnX": "oder kontaktieren Sie uns auf X",
+    "sourceOn": "auf {{source}}"
+  }
+}

@@ -6,7 +6,7 @@ import { Button } from '../../../ui/Button/Button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../../ui/Tooltip/Tooltip'
 
 export function MergeUndoGroup({ canMerge, canUndo, historyDepth, onMerge, onUnmerge, onUndo }: MergeUndoGroupProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <div className="flex shrink-0 items-center gap-1">

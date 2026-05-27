@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Resize Table Columns and Rows Online',
   date: '2026-05-24',
   description:
-    'Drag-to-resize columns and rows in Tablesmit — just like a desktop application. Smooth, instant, and precise. Double-click to auto-fit.',
+    'Drag-to-resize columns and rows in {{BRAND_NAME}} — just like a desktop application. Smooth, instant, and precise. Double-click to auto-fit.',
   author: 'Olayiwola Akinnagbe',
   tags: ['resize', 'columns', 'rows', 'tutorial', 'tables'],
   readTime: 4,

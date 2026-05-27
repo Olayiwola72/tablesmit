@@ -1,6 +1,6 @@
 {
   "slug": "drag-to-resize",
-  "metaTitle": "Drag to Resize Table Columns and Rows | Tablesmit",
+  "metaTitle": "Drag to Resize Table Columns and Rows | {{BRAND_NAME}}",
   "metaDescription": "Resize table columns and rows by dragging — exactly like Excel, directly in the browser. Double-click to auto-fit. Free, no signup.",
   "heroHeadline": "Resize columns and rows the way Excel does.",
   "heroSubtext": "Drag any column border to resize it. Double-click to auto-fit to content. Tablesmit gives you precise layout control without touching a pixel value.",

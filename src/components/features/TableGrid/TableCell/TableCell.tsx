@@ -59,7 +59,7 @@ function TableCellRaw({
   isCurrentMatch,
   isTableFocused = true,
 }: TableCellProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const effectiveColSpan = merge ? (merge.endCol - merge.startCol + 1) : cell.colSpan
   const CellTag = isHeaderCell(headerStyle, row, col, effectiveColSpan) ? 'th' : 'td'
   const selected = selectedRange ? isCellInMergeRange(cell.id, { ...normalizeSelection(selectedRange) }) : false
@@ -79,8 +79,8 @@ function TableCellRaw({
   const handlePaste = (event: ReactClipboardEvent<HTMLDivElement>): void => {
     if (isFormula) return
     // If clipboard has HTML content, the document-level handler will process the full table
-    for (const item of event.clipboardData.items) {
-      if (item.type === 'text/html') return
+    for (let i = 0; i < event.clipboardData.items.length; i++) {
+      if (event.clipboardData.items[i]!.type === 'text/html') return
     }
     const text = event.clipboardData.getData('text/plain')
     if (!text) return

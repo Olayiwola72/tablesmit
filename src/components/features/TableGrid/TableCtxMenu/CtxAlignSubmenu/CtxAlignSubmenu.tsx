@@ -11,7 +11,7 @@ const alignIcons: Record<string, ReactNode> = {
 }
 
 export function CtxAlignSubmenu({ currentAlign, onChange, onClose }: CtxAlignSubmenuProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   const alignLabelMap: Record<string, string> = {
     left: t('contextMenu.alignLeft'),

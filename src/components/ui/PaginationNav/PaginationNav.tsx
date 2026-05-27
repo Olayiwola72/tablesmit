@@ -4,7 +4,7 @@ import type { PaginationNavProps } from './PaginationNav.types'
 import { Button } from '../Button/Button'
 
 export function PaginationNav({ currentPage, totalPages, onPageChange }: PaginationNavProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'blog', 'features'])
 
   if (totalPages <= 1) return null
 

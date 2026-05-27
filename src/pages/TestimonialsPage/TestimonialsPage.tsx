@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { TESTIMONIALS } from '../../config/testimonials/testimonials'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
@@ -9,7 +9,7 @@ import { TestimonialEmptyState } from '../../components/features/TestimonialEmpt
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 
 export function TestimonialsPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('testimonials')
   return (
     <main>
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">

@@ -17,7 +17,7 @@ const themeLabelKey: Record<string, string> = {
 }
 
 const ThemeCard = memo(function ThemeCard({ theme, isSelected, onSelect }: { theme: ThemeDefinition; isSelected: boolean; onSelect: () => void }): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <button
@@ -41,7 +41,7 @@ const ThemeCard = memo(function ThemeCard({ theme, isSelected, onSelect }: { the
 })
 
 export function ThemePicker(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const { theme, setTheme } = useTableContext()
 
   return (

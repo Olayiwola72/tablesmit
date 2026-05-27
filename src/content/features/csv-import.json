@@ -1,7 +1,7 @@
 {
   "slug": "csv-import",
-  "metaTitle": "Import CSV to Table Online — Free | Tablesmit",
-  "metaDescription": "Import any CSV file into a clean, editable table. Tablesmit reads your file, detects headers, and builds the table instantly. Free, no signup.",
+  "metaTitle": "Import CSV to Table Online \u2014 Free | {{BRAND_NAME}}",
+  "metaDescription": "Import any CSV file into a clean, editable table. {{BRAND_NAME}} reads your file, detects headers, and builds the table instantly. Free, no signup.",
   "heroHeadline": "Turn a CSV into an editable table in seconds.",
   "heroSubtext": "Upload your CSV and Tablesmit builds the full table automatically. Headers detected, columns set, data ready to edit and export.",
   "icon": "Upload",
@@ -9,7 +9,7 @@
     {
       "icon": "Zap",
       "heading": "Instant import",
-      "body": "Tablesmit reads your CSV using PapaParse and generates the table immediately. No configuration, no column mapping — it just works."
+      "body": "Tablesmit reads your CSV using PapaParse and generates the table immediately. No configuration, no column mapping \u2014 it just works."
     },
     {
       "icon": "ShieldCheck",
@@ -19,7 +19,7 @@
     {
       "icon": "SlidersHorizontal",
       "heading": "Edit after import",
-      "body": "Once imported, the table is fully editable. Resize columns, merge cells, apply themes, change column types — then export in any format."
+      "body": "Once imported, the table is fully editable. Resize columns, merge cells, apply themes, change column types \u2014 then export in any format."
     },
     {
       "icon": "FileWarning",
@@ -41,7 +41,7 @@
     {
       "number": 3,
       "heading": "Edit and export",
-      "body": "Your table is ready to edit. Style it, resize columns, add a caption — then export to PDF, Excel, or PNG."
+      "body": "Your table is ready to edit. Style it, resize columns, add a caption \u2014 then export to PDF, Excel, or PNG."
     }
   ],
   "useCases": [
@@ -50,6 +50,9 @@
     "Taking CSV output from a research tool and styling it for publication",
     "Cleaning and reformatting legacy CSV data before sharing"
   ],
-  "relatedFeatures": ["excel-export", "merge-cells"],
+  "relatedFeatures": [
+    "excel-export",
+    "merge-cells"
+  ],
   "relatedPost": "how-to-import-csv-into-online-table"
 }

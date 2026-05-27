@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "Get in touch.",
+    "body": "Have a question, suggestion, or feedback? We would love to hear from you.",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "you@example.com",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "How can we help?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell us more about your question or idea...",
+    "sendButton": "Send Message",
+    "sendingButton": "Sending...",
+    "successTitle": "Message sent!",
+    "successBody": "Thanks for reaching out. We'll get back to you soon.",
+    "errorTitle": "Something went wrong.",
+    "errorBody": "Could not send your message. Try again or email us directly.",
+    "orEmail": "Or email us directly at",
+    "reachOnX": "or reach out on X",
+    "featureIdea": "Feature idea",
+    "featureIdeaDesc": "Something missing that would make your workflow cleaner? Tell me.",
+    "bugGlitch": "Bug or glitch",
+    "bugGlitchDesc": "Something not working right? I will take a look and fix it.",
+    "justSayingHi": "Just saying hi",
+    "somethingElse": "Something else",
+    "somethingElseDesc": "Anything on your mind. I read every message.",
+    "whatToReachOutAbout": "What to reach out about",
+    "builtWithCare": "Built with care, maintained with gratitude."
+  }
+}

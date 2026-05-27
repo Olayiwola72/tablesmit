@@ -1,20 +1,16 @@
 import { useState, useEffect, useCallback, type ReactNode } from 'react'
-import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import type { FeaturePage } from '../../services/featureService/featureService.types'
 import { getAllFeatures } from '../../services/featureService/featureService'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
-import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
-import { SearchBar } from '../../components/features/SearchBar/SearchBar'
-import { LearnMoreLink } from '../../components/ui/LearnMoreLink/LearnMoreLink'
-import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentListPage } from '../../components/ui/ContentListPage/ContentListPage'
+import { FeatureCard } from '../../components/features/FeatureCard/FeatureCard'
 import { useFeatureSearch } from '../../hooks/useFeatureSearch/useFeatureSearch'
 
 export default function FeaturesListPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('features')
   const [features, setFeatures] = useState<FeaturePage[] | null>(null)
   const [page, setPage] = useState(1)
 
@@ -32,81 +28,36 @@ export default function FeaturesListPage(): ReactNode {
     [setQuery],
   )
 
-  if (features === null) {
-    return (
-      <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-content">
-          <div className="flex items-center justify-center py-20">
-            <div className="h-5 w-5 animate-spin rounded-full border-2 border-border border-t-primary" />
-          </div>
-        </div>
-      </main>
-    )
-  }
-
   const totalPages = Math.max(1, Math.ceil(results.length / ITEMS_PER_PAGE))
   const start = (page - 1) * ITEMS_PER_PAGE
-  const pageFeatures = results.slice(start, start + ITEMS_PER_PAGE)
 
   return (
-    <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
-      <Helmet>
-        <title>{t('meta.featuresTitle')}</title>
-        <meta name="description" content={t('meta.featuresDescription')} />
-        <meta property="og:title" content={t('meta.featuresTitle')} />
-        <meta property="og:description" content={t('meta.featuresDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.features.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.features.path}`} />
-      </Helmet>
-      <div className="mx-auto max-w-content">
-        <Breadcrumb segments={[
-          { label: t('nav.home'), to: routes.home.path },
-          { label: t('nav.features') },
-        ]} />
-        <header className="mb-12 text-center">
-          <h1 className="text-3xl font-bold text-text-primary sm:text-4xl">
-            {t('features.heading')}
-          </h1>
-          <p className="mt-3 text-base text-text-secondary">
-            {t('features.subtext')}
-          </p>
-        </header>
-
-        <SearchBar
-          query={query}
-          onQueryChange={handleSearchChange}
-        totalResults={totalResults}
-        totalItems={features.length}
-          placeholder={t('features.searchPlaceholder')}
-        />
-
-        {pageFeatures.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {pageFeatures.map(feature => (
-                <Link
-                  key={feature.slug}
-                  to={`${routes.features.path}${feature.slug}/`}
-                  className="block rounded-md border border-border p-6 transition-all duration-150 hover:border-primary hover:shadow-sm"
-                >
-                  <h2 className="mb-2 text-xl font-semibold text-text-primary">
-                    {feature.heroHeadline}
-                  </h2>
-                  <p className="mb-4 text-sm leading-relaxed text-text-secondary">
-                    {feature.heroSubtext}
-                  </p>
-                  <LearnMoreLink label={t('features.learnMore')} />
-                </Link>
-              ))}
-            </div>
-            <PaginationNav currentPage={page} totalPages={totalPages} onPageChange={setPage} />
-          </>
-        ) : !query && features.length === 0 ? (
-          <p className="py-20 text-center text-sm text-text-muted">
-            {t('features.emptyState')}
-          </p>
-        ) : null}
+    <ContentListPage
+      meta={{ title: t('meta.featuresTitle'), description: t('meta.featuresDescription') }}
+      canonicalUrl={`${brand.url}${routes.features.path}`}
+      breadcrumb={[
+        { label: t('nav.home'), to: routes.home.path },
+        { label: t('nav.features') },
+      ]}
+      heading={t('features.heading')}
+      headingSubtext={t('features.subtext')}
+      searchQuery={query}
+      onSearchChange={handleSearchChange}
+      totalResults={totalResults}
+      totalItems={features?.length ?? 0}
+      searchPlaceholder={t('features.searchPlaceholder')}
+      currentPage={page}
+      totalPages={totalPages}
+      onPageChange={setPage}
+      isLoading={features === null}
+      isEmpty={features !== null && features.length === 0}
+      emptyMessage={t('features.emptyState')}
+    >
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {results.slice(start, start + ITEMS_PER_PAGE).map(feature => (
+          <FeatureCard key={feature.slug} feature={feature} />
+        ))}
       </div>
-    </main>
+    </ContentListPage>
   )
 }

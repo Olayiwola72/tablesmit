@@ -12,7 +12,7 @@ function ExportPanelRaw({
   onExport: (format: ExportFormat) => void
   exportingFormat: ExportFormat | null
 }): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <section>

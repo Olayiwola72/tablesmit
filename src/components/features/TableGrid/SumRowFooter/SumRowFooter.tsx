@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import type { SumRowFooterProps } from './SumRowFooter.types'
 
 export function SumRowFooter({ cells, sumCols, columnTotals, borderStyle, borderColor, columnTextAlign, cellTextAlign }: SumRowFooterProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   if (sumCols.length === 0) return null
 

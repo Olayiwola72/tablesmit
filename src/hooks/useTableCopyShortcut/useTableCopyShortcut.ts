@@ -11,7 +11,7 @@ export function useTableCopyShortcut(
   tableRef: React.RefObject<HTMLDivElement | null>,
   setCaptionAlignment: (align: CaptionAlignment) => void,
 ) {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {

@@ -5,6 +5,7 @@ import { useTableGridKeyHandlers } from '../../../hooks/useTableGridKeyHandlers/
 
 describe('useTableGridKeyHandlers', () => {
   const defaultHiddenSet = new Set<string>()
+  const defaultSelectCell = vi.fn()
 
   it('triggers undo on Ctrl+Z when canUndo is true', async () => {
     const user = userEvent.setup()
@@ -13,7 +14,7 @@ describe('useTableGridKeyHandlers', () => {
     const setActiveSub = vi.fn()
 
     renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, defaultSelectCell),
     )
 
     await user.keyboard('{Control>}z{/Control}')
@@ -24,13 +25,14 @@ describe('useTableGridKeyHandlers', () => {
     const undo = vi.fn()
     const setCtxMenu = vi.fn()
     const setActiveSub = vi.fn()
+    const selectCell = vi.fn()
 
     const editable = document.createElement('div')
     editable.setAttribute('contenteditable', 'true')
     document.body.appendChild(editable)
 
     renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, selectCell),
     )
 
     act(() => {
@@ -50,7 +52,7 @@ describe('useTableGridKeyHandlers', () => {
     const setActiveSub = vi.fn()
 
     renderHook(() =>
-      useTableGridKeyHandlers(false, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(false, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, defaultSelectCell),
     )
 
     await user.keyboard('{Control>}z{/Control}')
@@ -64,7 +66,7 @@ describe('useTableGridKeyHandlers', () => {
     const setActiveSub = vi.fn()
 
     renderHook(() =>
-      useTableGridKeyHandlers(true, undo, {}, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, {}, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, defaultSelectCell),
     )
 
     await user.keyboard('{Escape}')
@@ -79,7 +81,7 @@ describe('useTableGridKeyHandlers', () => {
     const setActiveSub = vi.fn()
 
     renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, defaultSelectCell),
     )
 
     await user.keyboard('{Escape}')
@@ -94,7 +96,7 @@ describe('useTableGridKeyHandlers', () => {
     document.body.appendChild(outside)
 
     renderHook(() =>
-      useTableGridKeyHandlers(true, undo, {}, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, {}, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, defaultSelectCell),
     )
 
     act(() => {
@@ -116,7 +118,7 @@ describe('useTableGridKeyHandlers', () => {
     document.body.appendChild(menu)
 
     renderHook(() =>
-      useTableGridKeyHandlers(true, undo, {}, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, {}, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, defaultSelectCell),
     )
 
     act(() => {
@@ -127,10 +129,11 @@ describe('useTableGridKeyHandlers', () => {
     document.body.removeChild(menu)
   })
 
-  it('navigateToCell moves focus to a valid cell', () => {
+  it('navigateToCell moves focus to a valid cell and updates selection', () => {
     const undo = vi.fn()
     const setCtxMenu = vi.fn()
     const setActiveSub = vi.fn()
+    const selectCell = vi.fn()
 
     const cell = document.createElement('div')
     cell.setAttribute('data-cell-id', 'R1C1')
@@ -141,13 +144,14 @@ describe('useTableGridKeyHandlers', () => {
     document.body.appendChild(cell)
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, defaultHiddenSet, selectCell),
     )
 
     act(() => {
       result.current.navigateToCell(1, 1)
     })
     expect(document.activeElement).toBe(inner)
+    expect(selectCell).toHaveBeenCalledWith(1, 1)
 
     document.body.removeChild(cell)
   })
@@ -156,20 +160,23 @@ describe('useTableGridKeyHandlers', () => {
     const undo = vi.fn()
     const setCtxMenu = vi.fn()
     const setActiveSub = vi.fn()
+    const selectCell = vi.fn()
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, selectCell),
     )
 
     act(() => {
       expect(() => result.current.navigateToCell(10, 10)).not.toThrow()
     })
+    expect(selectCell).not.toHaveBeenCalled()
   })
 
   it('navigateToCell skips hidden cells', () => {
     const undo = vi.fn()
     const setCtxMenu = vi.fn()
     const setActiveSub = vi.fn()
+    const selectCell = vi.fn()
 
     const hiddenSet = new Set(['R2C2'])
     const cell = document.createElement('div')
@@ -181,13 +188,14 @@ describe('useTableGridKeyHandlers', () => {
     document.body.appendChild(cell)
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, hiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, hiddenSet, selectCell),
     )
 
     act(() => {
       result.current.navigateToCell(2, 2)
     })
     expect(document.activeElement).not.toBe(inner)
+    expect(selectCell).not.toHaveBeenCalled()
 
     document.body.removeChild(cell)
   })
@@ -201,7 +209,7 @@ describe('useTableGridKeyHandlers', () => {
     window.getSelection = vi.fn(() => ({ rangeCount: 0 })) as unknown as typeof window.getSelection
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, defaultHiddenSet, defaultSelectCell),
     )
 
     const target = document.createElement('div')
@@ -226,7 +234,7 @@ describe('useTableGridKeyHandlers', () => {
     const setActiveSub = vi.fn()
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 5, 5, defaultHiddenSet, defaultSelectCell),
     )
 
     const sel = {
@@ -254,6 +262,7 @@ describe('useTableGridKeyHandlers', () => {
     const undo = vi.fn()
     const setCtxMenu = vi.fn()
     const setActiveSub = vi.fn()
+    const selectCell = vi.fn()
 
     const cell = document.createElement('div')
     cell.setAttribute('data-cell-id', 'R1C0')
@@ -264,7 +273,7 @@ describe('useTableGridKeyHandlers', () => {
     document.body.appendChild(cell)
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, selectCell),
     )
 
     const event = {
@@ -285,6 +294,7 @@ describe('useTableGridKeyHandlers', () => {
     const undo = vi.fn()
     const setCtxMenu = vi.fn()
     const setActiveSub = vi.fn()
+    const selectCell = vi.fn()
 
     const cell = document.createElement('div')
     cell.setAttribute('data-cell-id', 'R0C2')
@@ -295,7 +305,7 @@ describe('useTableGridKeyHandlers', () => {
     document.body.appendChild(cell)
 
     const { result } = renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, selectCell),
     )
 
     const event = {
@@ -317,7 +327,7 @@ describe('useTableGridKeyHandlers', () => {
     const removeSpy = vi.spyOn(document, 'removeEventListener')
 
     const { unmount } = renderHook(() =>
-      useTableGridKeyHandlers(true, vi.fn(), null, vi.fn(), vi.fn(), 3, 3, defaultHiddenSet),
+      useTableGridKeyHandlers(true, vi.fn(), null, vi.fn(), vi.fn(), 3, 3, defaultHiddenSet, defaultSelectCell),
     )
     expect(addSpy).toHaveBeenCalledWith('keydown', expect.any(Function))
 

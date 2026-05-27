@@ -56,11 +56,8 @@ vi.mock('react-i18next', () => {
     // aiFeatures
     'aiFeatures.description': 'AI features are in development. Join the waitlist.',
     'aiFeatures.joinWaitlist': 'Join Waitlist',
-    // brand
-    'brand.name': 'Tablesmit',
-    'brand.tagline': 'Tables, your way.',
-    'brand.description': 'A minimalist table builder for analytical writing — with full control over headers, formatting, and export.',
-    'brand.aboutLine': 'Tablesmit was created by a writer who needed more control than basic table generators provided.',
+    // tagline (moved from brand.tagline to common top-level)
+    'tagline': 'Tables, your way.',
     // nav
     'nav.home': 'Home',
     'nav.about': 'About',
@@ -72,7 +69,6 @@ vi.mock('react-i18next', () => {
     // hero
     'hero.headline': 'Tables built for analytical writing.',
     'hero.subtext': 'A minimalist table builder for analytical writing — with full control over headers, formatting, and export.',
-    'hero.cta': 'Create a Table',
     'hero.viewGitHub': 'View on GitHub',
     'hero.customHeaders': 'Custom headers',
     'hero.columnTypes': 'Column types',
@@ -116,6 +112,7 @@ vi.mock('react-i18next', () => {
     'aria.themeSelect': 'Select table theme',
     // table
     'table.gridSize': 'Grid Size',
+    'table.cta': 'Create a Table',
     'table.rows': 'Rows',
     'table.columns': 'Columns',
     'table.limitInfo': 'Limit: {{rows}} rows x {{cols}} columns',
@@ -253,7 +250,7 @@ vi.mock('react-i18next', () => {
     'blog.heading': 'Writing about tables, structure, and analytical thinking.',
     'blog.featured': 'Featured',
     'blog.minRead': '{{count}} min read',
-    'blog.openTablesmit': 'Open Tablesmit',
+    'blog.openBrand': 'Open Tablesmit',
     'blog.ctaTitle': 'Try Tablesmit for yourself — free, no signup required.',
     'blog.backToBlog': 'Back to Blog',
     // notFound
@@ -308,7 +305,7 @@ vi.mock('react-i18next', () => {
     'features.subtext': 'Every feature you need to build clean, structured tables.',
     'features.learnMore': 'Learn more',
     'features.emptyState': 'No features listed yet.',
-    'features.backToFeatures': 'Back to Features',
+
     // errors
     'errors.somethingWrong': 'Something went wrong.',
     'errors.unexpectedError': 'An unexpected error occurred.',

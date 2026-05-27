@@ -12,7 +12,7 @@ const headerStyleOptions: { value: HeaderStyle; labelKey: string }[] = [
 ]
 
 function HeaderOptionsPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const {
     headerStyle,
     setHeaderStyle,

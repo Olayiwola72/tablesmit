@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "Prenez contact.",
+    "body": "Une question, une suggestion ou un retour ? Nous serions ravis de vous entendre.",
+    "emailLabel": "Votre email",
+    "emailPlaceholder": "vous@exemple.com",
+    "subjectLabel": "Sujet",
+    "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Parlez-nous davantage de votre question ou de votre idée...",
+    "sendButton": "Envoyer le message",
+    "sendingButton": "Envoi en cours...",
+    "successTitle": "Message envoyé !",
+    "successBody": "Merci de nous avoir contactés. Nous vous répondrons bientôt.",
+    "errorTitle": "Une erreur est survenue.",
+    "errorBody": "Impossible d'envoyer votre message. Réessayez ou écrivez-nous directement.",
+    "orEmail": "Ou écrivez-nous directement à",
+    "reachOnX": "ou contactez-nous sur X",
+    "featureIdea": "Idée de fonctionnalité",
+    "featureIdeaDesc": "Quelque chose manque qui améliorerait votre flux de travail ? Dites-le moi.",
+    "bugGlitch": "Bug ou problème",
+    "bugGlitchDesc": "Quelque chose ne fonctionne pas correctement ? Je vais regarder et corriger.",
+    "justSayingHi": "Juste dire bonjour",
+    "somethingElse": "Autre chose",
+    "somethingElseDesc": "Tout ce qui vous passe par la tête. Je lis chaque message.",
+    "whatToReachOutAbout": "De quoi voulez-vous parler ?",
+    "builtWithCare": "Construit avec soin, maintenu avec gratitude."
+  }
+}

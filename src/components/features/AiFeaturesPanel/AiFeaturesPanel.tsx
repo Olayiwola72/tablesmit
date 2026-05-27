@@ -8,7 +8,7 @@ import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 import { toast } from '../../../utils/toast/toast'
 
 export function AiFeaturesPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   const featureKeys = ['aiFeatures.generateFromText', 'aiFeatures.summarizeTable', 'aiFeatures.cleanData']
 

@@ -1,14 +1,14 @@
 import { Heart, Lightbulb, MessageCircle, Sparkles } from 'lucide-react'
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
 export function ContactPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('contact')
 
   return (
     <>

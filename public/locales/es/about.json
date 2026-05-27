@@ -1,0 +1,7 @@
+{
+  "about": {
+    "heading": "Construido para pensadores estructurados.",
+    "body": "{{name}} fue creado por un escritor que necesitaba más control del que ofrecían los generadores de tablas básicos. La mayoría de las herramientas daban muy poco — sin personalización de encabezados, sin formato de columnas, sin exportación limpia. Otras daban demasiado — el peso completo de una hoja de cálculo para algo que solo necesitaba ser una tabla. {{name}} es el término medio. Construido para personas que piensan en estructura y publican con precisión.",
+    "whatWeAreNot": "No es una hoja de cálculo. No es una base de datos. No es un competidor de Notion. No es una herramienta de diseño pesada. Somos una herramienta de escritura estructurada."
+  }
+}

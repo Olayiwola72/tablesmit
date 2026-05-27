@@ -1,15 +1,15 @@
 {
   "slug": "accessible-tables",
-  "metaTitle": "Accessible Online Table Builder — WCAG Compliant | Tablesmit",
-  "metaDescription": "Tablesmit implements the WAI-ARIA grid pattern, keyboard navigation, and screen reader announcements. Build tables everyone can use with confidence.",
+  "metaTitle": "Accessible Online Table Builder \u2014 WCAG Compliant | {{BRAND_NAME}}",
+  "metaDescription": "{{BRAND_NAME}} implements the WAI-ARIA grid pattern, keyboard navigation, and screen reader announcements. Build tables everyone can use with confidence.",
   "heroHeadline": "Tables for everyone.",
-  "heroSubtext": "Built-in WAI-ARIA grid pattern, full keyboard navigation, and screen reader announcements make Tablemit's editor usable by people who rely on assistive technology.",
+  "heroSubtext": "Built-in WAI-ARIA grid pattern, full keyboard navigation, and screen reader announcements make {{BRAND_NAME}}'s editor usable by people who rely on assistive technology.",
   "icon": "Accessibility",
   "benefits": [
     {
       "icon": "Grid3x3",
       "heading": "WAI-ARIA grid pattern",
-      "body": "The table uses role=\"grid\", role=\"row\", role=\"gridcell\", aria-rowindex, and aria-colindex. Screen readers navigate the table correctly — not as a flat block of text."
+      "body": "The table uses role=\"grid\", role=\"row\", role=\"gridcell\", aria-rowindex, and aria-colindex. Screen readers navigate the table correctly \u2014 not as a flat block of text."
     },
     {
       "icon": "Keyboard",
@@ -24,7 +24,7 @@
     {
       "icon": "Palette",
       "heading": "Colour-independent selection",
-      "body": "Selected cells show a ring indicator (ring-2 ring-primary) in addition to colour. Color swatches use aria-pressed and checkmark icons — never colour alone."
+      "body": "Selected cells show a ring indicator (ring-2 ring-primary) in addition to colour. Color swatches use aria-pressed and checkmark icons \u2014 never colour alone."
     }
   ],
   "steps": [
@@ -51,6 +51,10 @@
     "Developing educational materials for inclusive classroom environments",
     "Ensuring research data is accessible to all readers regardless of ability"
   ],
-  "relatedFeatures": ["keyboard-shortcuts", "export-pdf", "latex-export"],
+  "relatedFeatures": [
+    "keyboard-shortcuts",
+    "export-pdf",
+    "latex-export"
+  ],
   "relatedPost": "web-table-accessibility-guide"
 }

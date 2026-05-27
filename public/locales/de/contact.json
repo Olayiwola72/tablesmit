@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "Nehmen Sie Kontakt auf.",
+    "body": "Haben Sie eine Frage, einen Vorschlag oder Feedback? Wir freuen uns, von Ihnen zu hören.",
+    "emailLabel": "Ihre E-Mail",
+    "emailPlaceholder": "sie@beispiel.de",
+    "subjectLabel": "Betreff",
+    "subjectPlaceholder": "Wie können wir helfen?",
+    "messageLabel": "Nachricht",
+    "messagePlaceholder": "Erzählen Sie uns mehr über Ihre Frage oder Idee...",
+    "sendButton": "Nachricht senden",
+    "sendingButton": "Wird gesendet...",
+    "successTitle": "Nachricht gesendet!",
+    "successBody": "Vielen Dank für Ihre Nachricht. Wir melden uns bald bei Ihnen.",
+    "errorTitle": "Etwas ist schiefgelaufen.",
+    "errorBody": "Die Nachricht konnte nicht gesendet werden. Versuchen Sie es erneut oder schreiben Sie uns direkt eine E-Mail.",
+    "orEmail": "Oder schreiben Sie uns direkt an",
+    "reachOnX": "oder kontaktieren Sie uns auf X",
+    "featureIdea": "Funktionswunsch",
+    "featureIdeaDesc": "Etwas fehlt, das deinen Workflow verbessern würde? Sag Bescheid.",
+    "bugGlitch": "Fehler oder Problem",
+    "bugGlitchDesc": "Etwas funktioniert nicht richtig? Ich schaue es mir an und behebe es.",
+    "justSayingHi": "Nur Hallo sagen",
+    "somethingElse": "Sonstiges",
+    "somethingElseDesc": "Was auch immer dir auf dem Herzen liegt. Ich lese jede Nachricht.",
+    "whatToReachOutAbout": "Worum geht es?",
+    "builtWithCare": "Mit Sorgfalt gebaut, mit Dankbarkeit gepflegt."
+  }
+}

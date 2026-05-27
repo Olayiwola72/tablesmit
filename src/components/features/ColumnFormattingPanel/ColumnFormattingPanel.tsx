@@ -5,7 +5,7 @@ import type { ColumnFormat } from '../../../types/table'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
 
 export function ColumnFormattingPanel(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const { cells } = useTableData()
   const { cols, setColumnFormat } = useTableContext()
 

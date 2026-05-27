@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'Markdown Table Generator — Write Tables Faster Online',
   date: '2026-05-20',
   description:
-    'Generate Markdown pipe tables visually in Tablesmit. Build your table with drag-to-resize and merge cells, then copy the Markdown — no pipe alignment.',
+    'Generate Markdown pipe tables visually in {{BRAND_NAME}}. Build your table with drag-to-resize and merge cells, then copy the Markdown — no pipe alignment.',
   author: 'Olayiwola Akinnagbe',
   tags: ['markdown', 'generator', 'tables', 'tutorial'],
   readTime: 4,

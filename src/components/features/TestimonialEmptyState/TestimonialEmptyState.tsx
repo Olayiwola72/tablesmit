@@ -6,7 +6,7 @@ import { brand } from '../../../config/brand/brandConfig'
 import { routes } from '../../../config/routes/routesConfig'
 
 export function TestimonialEmptyState(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'testimonials'])
 
   return (
     <section className="mx-auto max-w-content px-4 pb-20 sm:px-6 lg:px-8">

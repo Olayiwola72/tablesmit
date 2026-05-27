@@ -1,0 +1,11 @@
+{
+  "testimonials": {
+    "heading": "ユーザーの声。",
+    "subtext": "ライター、アナリスト、研究者、技術的思考者など、{{name}}を毎日使っている人々の声をお聞きください。",
+    "emptyHeading": "まだレビューはありません",
+    "emptyBody": "最初のユーザーからフィードバックを集めています。{{name}}をお使いになった方は、ぜひ感想をお聞かせください。",
+    "shareExperience": "体験を共有する",
+    "orReachOnX": "またはXでご連絡ください",
+    "sourceOn": "{{source}}より"
+  }
+}

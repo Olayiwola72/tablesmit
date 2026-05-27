@@ -1,6 +1,6 @@
 {
   "slug": "column-types",
-  "metaTitle": "Column Types — Format Numbers, Currency, Dates and More | Tablesmit",
+  "metaTitle": "Column Types — Format Numbers, Currency, Dates and More | {{BRAND_NAME}}",
   "metaDescription": "Set column types to format every cell consistently — Text, Number, Currency, Percentage, or Date. Click the column header to change. No formulas needed.",
   "heroHeadline": "Every column formatted consistently — with one click.",
   "heroSubtext": "Set a column type and every cell in that column formats automatically. Numbers right-align. Currency adds the symbol. Dates normalise. No formulas, no manual formatting.",

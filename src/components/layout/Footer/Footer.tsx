@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../../hooks/usePageTranslation/usePageTranslation'
 import { exportFormats } from '../../../config/export/exportConfig'
 import { brand } from '../../../config/brand/brandConfig'
 import { routes } from '../../../config/routes/routesConfig'
@@ -8,7 +8,7 @@ import { getCurrentYear } from '../../../utils/dateUtils/dateUtils'
 import { FooterGroup } from '../FooterGroup/FooterGroup'
 
 export function Footer(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation()
 
   const productLinks = [
     { label: t('nav.home', routes.home.label), href: routes.home.path },
@@ -36,7 +36,7 @@ export function Footer(): ReactNode {
       <div className="mx-auto grid max-w-content gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
         <div className="space-y-3 sm:col-span-2 lg:col-span-1">
           <Logo variant="full" className="h-9 w-[165px]" />
-          <p className="text-sm text-text-secondary">{t('brand.tagline')}</p>
+          <p className="text-sm text-text-secondary">{t('tagline')}</p>
           <p className="text-xs text-text-muted">
             © {getCurrentYear()} {brand.name}. {t('footer.license')}
           </p>

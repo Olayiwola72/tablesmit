@@ -5,7 +5,7 @@ const post: BlogPost = {
   title: 'How to Import Excel Files into an Online Table Editor',
   date: '2026-05-29',
   description:
-    'Upload an .xlsx file directly into Tablesmit. Excel import preserves cell content, merged cells, column widths, and caption styling — no server upload.',
+    'Upload an .xlsx file directly into {{BRAND_NAME}}. Excel import preserves cell content, merged cells, column widths, and caption styling — no server upload.',
   author: 'Olayiwola Akinnagbe',
   tags: ['excel', 'import', 'xlsx', 'tutorial', 'tables'],
   readTime: 5,

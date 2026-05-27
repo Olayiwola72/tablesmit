@@ -1,0 +1,13 @@
+{
+  "features": {
+    "heading": "Funktionen",
+    "subtext": "Alles, was Sie brauchen, um saubere, strukturierte Tabellen zu erstellen.",
+    "learnMore": "Mehr erfahren",
+    "emptyState": "Noch keine Funktionen aufgelistet.",
+    "searchPlaceholder": "Funktionen nach Namen oder Beschreibung durchsuchen…",
+    "benefits": "Vorteile",
+    "howItWorks": "So funktioniert es",
+    "useCases": "Anwendungsfälle",
+    "relatedFeatures": "Verwandte Funktionen"
+  }
+}

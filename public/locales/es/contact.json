@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "Ponte en contacto.",
+    "body": "¿Tienes una pregunta, sugerencia o comentario? Nos encantaría saber de ti.",
+    "emailLabel": "Tu correo electrónico",
+    "emailPlaceholder": "tu@ejemplo.com",
+    "subjectLabel": "Asunto",
+    "subjectPlaceholder": "¿Cómo podemos ayudarte?",
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntanos más sobre tu pregunta o idea...",
+    "sendButton": "Enviar mensaje",
+    "sendingButton": "Enviando...",
+    "successTitle": "¡Mensaje enviado!",
+    "successBody": "Gracias por contactarnos. Te responderemos pronto.",
+    "errorTitle": "Algo salió mal.",
+    "errorBody": "No se pudo enviar tu mensaje. Intenta de nuevo o escríbenos directamente.",
+    "orEmail": "O escríbenos directamente a",
+    "reachOnX": "o contáctanos en X",
+    "featureIdea": "Sugerir función",
+    "featureIdeaDesc": "¿Algo que falta y mejoraría tu flujo de trabajo? Dímelo.",
+    "bugGlitch": "Error o fallo",
+    "bugGlitchDesc": "¿Algo no funciona bien? Lo revisaré y lo arreglaré.",
+    "justSayingHi": "Solo saludar",
+    "somethingElse": "Otra cosa",
+    "somethingElseDesc": "Cualquier cosa que tengas en mente. Leo cada mensaje.",
+    "whatToReachOutAbout": "¿Sobre qué quieres contactar?",
+    "builtWithCare": "Construido con cuidado, mantenido con gratitud."
+  }
+}

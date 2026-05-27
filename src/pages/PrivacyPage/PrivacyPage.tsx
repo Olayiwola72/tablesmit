@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Link } from 'react-router-dom'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
 export function PrivacyPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('legal')
   return (
     <>
       <Helmet>

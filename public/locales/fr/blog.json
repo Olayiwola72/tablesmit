@@ -1,0 +1,29 @@
+{
+  "blog": {
+    "heading": "Des articles sur les tableaux, la structure et la pensée analytique.",
+    "featured": "À la une",
+    "minRead": "{{count}} min de lecture",
+    "openBrand": "Ouvrir {{name}}",
+    "ctaTitle": "Essayez {{name}} gratuitement — sans inscription.",
+    "backToBlog": "Retour au blog",
+    "empty": "Aucun article pour le moment. Revenez bientôt.",
+    "copiedToClipboard": "Copié dans le presse-papiers",
+    "failedToCopy": "Échec de la copie",
+    "copyCode": "Copier le code"
+  },
+  "pagination": {
+    "page": "Page {{current}} sur {{total}}",
+    "prev": "Précédent",
+    "next": "Suivant",
+    "prevAria": "Aller à la page précédente",
+    "nextAria": "Aller à la page suivante",
+    "pageAria": "Aller à la page {{number}}"
+  },
+  "search": {
+    "ariaLabel": "Rechercher",
+    "placeholder": "Rechercher…",
+    "clear": "Effacer la recherche",
+    "noResults": "Aucun résultat ne correspond à votre recherche.",
+    "resultsCount": "Affichage de {{count}} sur {{total}} résultats"
+  }
+}

@@ -1,6 +1,6 @@
-import { useTranslation } from 'react-i18next'
+import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Link, Navigate, useParams } from 'react-router-dom'
-import { useState, useEffect, type ReactNode, type ComponentPropsWithoutRef, type FC } from 'react'
+import { useState, useEffect, useMemo, useCallback, type ReactNode, type ComponentPropsWithoutRef, type FC } from 'react'
 
 type MdComponent = FC<{ remarkPlugins: unknown[]; components: Record<string, unknown>; children: string }>
 import remarkGfm from 'remark-gfm'
@@ -15,6 +15,8 @@ import { toast } from '../../utils/toast/toast'
 import { SearchBar } from '../../components/features/SearchBar/SearchBar'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { useBlogSearch } from '../../hooks/useBlogSearch/useBlogSearch'
+import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
+import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
 
 function extractText(node: ReactNode): string {
   if (typeof node === 'string') return node
@@ -28,7 +30,7 @@ function extractText(node: ReactNode): string {
 type PreBlockProps = ComponentPropsWithoutRef<'pre'>
 
 function PreBlock(props: PreBlockProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('blog')
   const [copied, setCopied] = useState(false)
   const { children } = props
 
@@ -62,13 +64,25 @@ const markdownComponents = {
 }
 
 export default function BlogPostPage(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = usePageTranslation('blog')
   const { slug } = useParams<{ slug: string }>()
   const [post, setPost] = useState<BlogPost | undefined | null>(undefined)
   const [allPosts, setAllPosts] = useState<BlogPost[]>([])
   const [Md, setMd] = useState<MdComponent | null>(null)
 
   const { query, setQuery, results, totalResults } = useBlogSearch(allPosts)
+  const [browsePage, setBrowsePage] = useState(1)
+
+  const onSearchChange = useCallback((q: string) => {
+    setQuery(q)
+    setBrowsePage(1)
+  }, [setQuery])
+
+  const paginatedResults = useMemo(
+    () => results.slice((browsePage - 1) * ITEMS_PER_PAGE, browsePage * ITEMS_PER_PAGE),
+    [results, browsePage],
+  )
+  const totalBrowsePages = Math.max(1, Math.ceil(results.length / ITEMS_PER_PAGE))
 
   useEffect(() => {
     let cancelled = false
@@ -182,13 +196,13 @@ export default function BlogPostPage(): ReactNode {
 
         <div className="mt-16 rounded-md border border-border bg-surface p-6 text-center">
           <p className="mb-3 text-sm text-text-secondary">
-            {t('blog.ctaTitle')}
+            {t('blog.ctaTitle', { name: brand.name })}
           </p>
           <Link
             to={routes.home.path}
             className="text-sm font-semibold text-primary hover:underline"
           >
-            {t('blog.openTablesmit')}
+            {t('blog.openBrand', { name: brand.name })}
           </Link>
         </div>
       </article>
@@ -200,29 +214,36 @@ export default function BlogPostPage(): ReactNode {
           </h2>
           <SearchBar
             query={query}
-            onQueryChange={setQuery}
+            onQueryChange={onSearchChange}
             totalResults={totalResults}
             totalItems={allPosts.length}
             placeholder={t('blog.searchPlaceholder')}
           />
-          {query && results.length > 0 && (
-            <div className="mt-4 space-y-3">
-              {results.map(other => (
-                <Link
-                  key={other.slug}
-                  to={`${routes.blog.path}${other.slug}/`}
-                  className={`block rounded-md border p-4 transition-colors duration-150 hover:border-primary ${
-                    other.slug === slug ? 'border-primary bg-primary-light' : 'border-border'
-                  }`}
-                >
-                  <h3 className="text-sm font-semibold text-text-primary">{other.title}</h3>
-                  <p className="mt-1 text-xs text-text-muted line-clamp-2">{other.description}</p>
-                </Link>
-              ))}
-            </div>
+          {results.length > 0 && (
+            <>
+              <div className="mt-4 space-y-3">
+                {paginatedResults.map(other => (
+                  <Link
+                    key={other.slug}
+                    to={`${routes.blog.path}${other.slug}/`}
+                    className={`block rounded-md border p-4 transition-colors duration-150 hover:border-primary ${
+                      other.slug === slug ? 'border-primary bg-primary-light' : 'border-border'
+                    }`}
+                  >
+                    <h3 className="text-sm font-semibold text-text-primary">{other.title}</h3>
+                    <p className="mt-1 text-xs text-text-muted line-clamp-2">{other.description}</p>
+                  </Link>
+                ))}
+              </div>
+              <PaginationNav
+                currentPage={browsePage}
+                totalPages={totalBrowsePages}
+                onPageChange={setBrowsePage}
+              />
+            </>
           )}
           {query && results.length === 0 && (
-            <p className="mt-4 text-center text-sm text-text-muted">{t('blog.noResults')}</p>
+            <p className="mt-4 text-sm text-text-muted">{t('search.noResults')}</p>
           )}
         </section>
       )}

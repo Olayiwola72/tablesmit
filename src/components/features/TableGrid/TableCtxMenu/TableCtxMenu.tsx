@@ -31,7 +31,7 @@ function CtxSeparator(): ReactNode {
 }
 
 export function TableCtxMenu({ ctxMenu, activeSub, headerStyle, columnColors, cellColors, cellTextColors, rowTextColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setCellTextColor, setRowTextColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const menuRef = useRef<HTMLDivElement>(null)
   const isHeaderRow = ctxMenu.type === 'cell' && (headerStyle === 'first-row' || headerStyle === 'both') && ctxMenu.row === 0
 

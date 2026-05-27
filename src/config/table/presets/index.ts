@@ -14,7 +14,7 @@ const localePresetLoaders: Record<string, () => Promise<{ default: PresetDefinit
 }
 
 export function usePresets(): PresetDefinition[] {
-  const { i18n } = useTranslation()
+  const { i18n } = useTranslation(['common', 'table'])
   const [presets, setPresets] = useState<PresetDefinition[]>([])
 
   useEffect(() => {

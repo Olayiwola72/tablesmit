@@ -1,0 +1,11 @@
+{
+  "testimonials": {
+    "heading": "What people are saying.",
+    "subtext": "Hear from writers, analysts, researchers, and technical thinkers who use {{name}} every day.",
+    "emptyHeading": "No testimonials yet",
+    "emptyBody": "We are collecting feedback from early users. If you have used {{name}}, we would love to hear from you.",
+    "shareExperience": "Share your experience",
+    "orReachOnX": "or reach out on X",
+    "sourceOn": "on {{source}}"
+  }
+}

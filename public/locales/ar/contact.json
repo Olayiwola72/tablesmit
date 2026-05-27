@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "تواصل معنا.",
+    "body": "لديك سؤال، اقتراح، أو ملاحظة؟ يسعدنا سماع رأيك.",
+    "emailLabel": "بريدك الإلكتروني",
+    "emailPlaceholder": "you@example.com",
+    "subjectLabel": "الموضوع",
+    "subjectPlaceholder": "كيف يمكننا المساعدة؟",
+    "messageLabel": "الرسالة",
+    "messagePlaceholder": "أخبرنا المزيد عن سؤالك أو فكرتك...",
+    "sendButton": "إرسال الرسالة",
+    "sendingButton": "جارٍ الإرسال...",
+    "successTitle": "تم إرسال الرسالة!",
+    "successBody": "شكرًا لتواصلك. سنعود إليك قريبًا.",
+    "errorTitle": "حدث خطأ ما.",
+    "errorBody": "تعذر إرسال رسالتك. حاول مرة أخرى أو راسلنا مباشرةً.",
+    "orEmail": "أو راسلنا مباشرةً على",
+    "reachOnX": "أو تواصل معنا على X",
+    "featureIdea": "اقتراح ميزة",
+    "featureIdeaDesc": "هل هناك شيء مفقود يحسن سير عملك؟ أخبرني.",
+    "bugGlitch": "خطأ أو مشكلة",
+    "bugGlitchDesc": "هل هناك شيء لا يعمل بشكل صحيح؟ سألقي نظرة وأصلحه.",
+    "justSayingHi": "فقط ألقي التحية",
+    "somethingElse": "شيء آخر",
+    "somethingElseDesc": "أي شيء في ذهنك. أقرأ كل رسالة.",
+    "whatToReachOutAbout": "بماذا تريد التواصل؟",
+    "builtWithCare": "بُني بعناية، يُحافظ عليه بامتنان."
+  }
+}

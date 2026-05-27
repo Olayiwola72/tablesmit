@@ -1,0 +1,13 @@
+{
+  "features": {
+    "heading": "Funcionalidades",
+    "subtext": "Todo lo que necesitas para crear tablas limpias y estructuradas.",
+    "learnMore": "Más información",
+    "emptyState": "No hay funcionalidades listadas todavía.",
+    "searchPlaceholder": "Buscar funciones por nombre o descripción…",
+    "benefits": "Beneficios",
+    "howItWorks": "Cómo funciona",
+    "useCases": "Casos de uso",
+    "relatedFeatures": "Funciones relacionadas"
+  }
+}

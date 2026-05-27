@@ -878,7 +878,8 @@ tablesmit/
 │   │   └── logo.svg                    ← full logo SVG (Section 2A)
 │   │
 │   ├── lib/
-│   │   └── utils.ts                    # cn() helper (clsx + tailwind-merge)
+│   │   ├── utils.ts                    # cn() helper (clsx + tailwind-merge)
+│   │   └── sentry.ts                   # Lazy Sentry init — never eagerly imported
 │   │
 │   ├── components/
 │   │   │
@@ -888,28 +889,48 @@ tablesmit/
 │   │   │   │   └── BackToTop.tsx
 │   │   │   ├── Badge/
 │   │   │   │   └── Badge.tsx
+│   │   │   ├── Breadcrumb/
+│   │   │   │   ├── Breadcrumb.tsx
+│   │   │   │   └── Breadcrumb.types.ts
 │   │   │   ├── Button/
-│   │   │   │   └── Button.tsx
+│   │   │   │   ├── Button.tsx
+│   │   │   │   └── Button.types.ts
 │   │   │   ├── ColorSwatch/
-│   │   │   │   └── ColorSwatch.tsx
+│   │   │   │   ├── ColorSwatch.tsx
+│   │   │   │   └── ColorSwatch.types.ts
+│   │   │   ├── ContentCard/
+│   │   │   │   ├── ContentCard.tsx
+│   │   │   │   └── ContentCard.types.ts
+│   │   │   ├── ContentListPage/
+│   │   │   │   ├── ContentListPage.tsx
+│   │   │   │   └── ContentListPage.types.ts
 │   │   │   ├── CookieConsent/
 │   │   │   │   └── CookieConsent.tsx
 │   │   │   ├── DropdownMenu/            # shadcn/ui wrapper
 │   │   │   │   └── DropdownMenu.tsx
 │   │   │   ├── ErrorBoundary/
-│   │   │   │   └── ErrorBoundary.tsx
+│   │   │   │   ├── ErrorBoundary.tsx
+│   │   │   │   └── ErrorBoundary.types.ts
 │   │   │   ├── IconButton/
-│   │   │   │   └── IconButton.tsx
+│   │   │   │   ├── IconButton.tsx
+│   │   │   │   └── IconButton.types.ts
 │   │   │   ├── LanguagePicker/
-│   │   │   │   └── LanguagePicker.tsx
+│   │   │   │   ├── LanguagePicker.tsx
+│   │   │   │   └── LanguagePicker.types.ts
+│   │   │   ├── LearnMoreLink/
+│   │   │   │   ├── LearnMoreLink.tsx
+│   │   │   │   └── LearnMoreLink.types.ts
 │   │   │   ├── Logo/
-│   │   │   │   └── Logo.tsx
+│   │   │   │   ├── Logo.tsx
+│   │   │   │   └── Logo.types.ts
 │   │   │   ├── NotFoundAnimation/
-│   │   │   │   └── NotFoundAnimation.tsx
+│   │   │   │   ├── NotFoundAnimation.tsx
+│   │   │   │   └── not-found-animation.styles.css
 │   │   │   ├── PageLoader/
 │   │   │   │   └── PageLoader.tsx
 │   │   │   ├── PaginationNav/
-│   │   │   │   └── PaginationNav.tsx
+│   │   │   │   ├── PaginationNav.tsx
+│   │   │   │   └── PaginationNav.types.ts
 │   │   │   ├── PanelLoader/
 │   │   │   │   └── PanelLoader.tsx
 │   │   │   ├── MoreOptionsAccordion/
@@ -918,7 +939,8 @@ tablesmit/
 │   │   │   ├── SectionLabel/
 │   │   │   │   └── SectionLabel.tsx
 │   │   │   ├── TableSkeleton/
-│   │   │   │   └── TableSkeleton.tsx
+│   │   │   │   ├── TableSkeleton.tsx
+│   │   │   │   └── TableSkeleton.types.ts
 │   │   │   └── Tooltip/                 # shadcn/ui wrapper
 │   │   │       └── Tooltip.tsx
 │   │   │
@@ -926,15 +948,20 @@ tablesmit/
 │   │   │   ├── Footer/
 │   │   │   │   └── Footer.tsx
 │   │   │   ├── FooterGroup/
-│   │   │   │   └── FooterGroup.tsx
+│   │   │   │   ├── FooterGroup.tsx
+│   │   │   │   └── FooterGroup.types.ts
 │   │   │   ├── MobileSheet/
-│   │   │   │   └── MobileSheet.tsx
+│   │   │   │   ├── MobileSheet.tsx
+│   │   │   │   └── MobileSheet.types.ts
 │   │   │   ├── Navbar/
 │   │   │   │   └── Navbar.tsx
 │   │   │   ├── PageWrapper/
 │   │   │   │   └── PageWrapper.tsx
-│   │   │   └── Sidebar/
-│   │   │       └── Sidebar.tsx
+│   │   │       └── Sidebar/
+│   │   │           └── Sidebar.tsx
+│   │   │
+│   │   ├── routing/
+│   │   │   └── RouteElements.tsx
 │   │   │
 │   │   └── features/                   # Domain-specific feature components
 │   │       ├── AiFeaturesPanel/
@@ -951,6 +978,9 @@ tablesmit/
 │   │       │   └── DimensionsPanel.tsx
 │   │       ├── ExportPanel/
 │   │       │   └── ExportPanel.tsx
+│   │       ├── FeatureCard/
+│   │       │   ├── FeatureCard.tsx
+│   │       │   └── FeatureCard.types.ts
 │   │       ├── FeatureSections/         # For feature landing pages
 │   │       │   ├── FeatureBenefitsSection/
 │   │       │   ├── FeatureCtaSection/
@@ -967,43 +997,76 @@ tablesmit/
 │   │       ├── MergeCellsPanel/
 │   │       │   └── MergeCellsPanel.tsx
 │   │       ├── MobileFloatingActions/
-│   │       │   └── MobileFloatingActions.tsx
+│   │       │   ├── MobileFloatingActions.tsx
+│   │       │   └── MobileFloatingActions.types.ts
 │   │       ├── QuickPresetsPanel/
 │   │       │   └── QuickPresetsPanel.tsx
 │   │       ├── SearchBar/
 │   │       │   ├── SearchBar.tsx
 │   │       │   └── SearchBar.types.ts
 │   │       ├── ShortcutsModal/
-│   │       │   └── ShortcutsModal.tsx
+│   │       │   ├── ShortcutsModal.tsx
+│   │       │   └── ShortcutsModal.types.ts
 │   │       ├── StatusBar/
-│   │       │   └── StatusBar.tsx
+│   │       │   ├── StatusBar.tsx
+│   │       │   └── StatusBar.types.ts
 │   │       ├── TableCaption/
-│   │       │   └── TableCaption.tsx
+│   │       │   ├── TableCaption.tsx
+│   │       │   └── TableCaption.types.ts
 │   │       ├── TableGrid/
 │   │       │   ├── TableGrid.tsx
+│   │       │   ├── TableGrid.types.ts
 │   │       │   ├── PastingOverlay/
+│   │       │   │   ├── PastingOverlay.tsx
+│   │       │   │   └── PastingOverlay.types.ts
 │   │       │   ├── ResizeHandle/
+│   │       │   │   └── ResizeHandle.tsx
 │   │       │   ├── SumRowFooter/
+│   │       │   │   ├── SumRowFooter.tsx
+│   │       │   │   └── SumRowFooter.types.ts
 │   │       │   ├── TableCell/
+│   │       │   │   ├── TableCell.tsx
+│   │       │   │   └── TableCell.types.ts
 │   │       │   ├── TableCtxMenu/
+│   │       │   │   ├── TableCtxMenu.tsx
+│   │       │   │   └── TableCtxMenu.types.ts
 │   │       │   │   ├── CtxAlignSubmenu/
 │   │       │   │   ├── CtxColorSubmenu/
 │   │       │   │   └── CtxColumnTypeSubmenu/
 │   │       │   ├── TableHeaderCell/
+│   │       │   │   ├── TableHeaderCell.tsx
+│   │       │   │   └── TableHeaderCell.types.ts
 │   │       │   └── TableHeaderRow/
+│   │       │       ├── TableHeaderRow.tsx
+│   │       │       └── TableHeaderRow.types.ts
 │   │       ├── TableMakerContent/
 │   │       │   └── TableMakerContent.tsx
 │   │       ├── TableToolbar/
+│   │       │   ├── TableToolbar.tsx
+│   │       │   ├── TableToolbar.types.ts
 │   │       │   ├── CopyDropdown/
+│   │       │   │   ├── CopyDropdown.tsx
+│   │       │   │   └── CopyDropdown.types.ts
 │   │       │   ├── ImportDropdown/
+│   │       │   │   └── ImportDropdown.tsx
 │   │       │   ├── MergeUndoGroup/
+│   │       │   │   ├── MergeUndoGroup.tsx
+│   │       │   │   └── MergeUndoGroup.types.ts
 │   │       │   ├── MobileExportDropdown/
+│   │       │   │   ├── MobileExportDropdown.tsx
+│   │       │   │   └── MobileExportDropdown.types.ts
 │   │       │   ├── RowColumnActions/
+│   │       │   │   ├── RowColumnActions.tsx
+│   │       │   │   └── RowColumnActions.types.ts
 │   │       │   ├── TemplatesDropdown/
-│   │       │   ├── ThemeDropdown/
-│   │       │   └── TableToolbar.tsx
+│   │       │   │   ├── TemplatesDropdown.tsx
+│   │       │   │   └── TemplatesDropdown.types.ts
+│   │       │   └── ThemeDropdown/
+│   │       │       ├── ThemeDropdown.tsx
+│   │       │       └── ThemeDropdown.types.ts
 │   │       ├── TestimonialCard/
-│   │       │   └── TestimonialCard.tsx
+│   │       │   ├── TestimonialCard.tsx
+│   │       │   └── TestimonialCard.types.ts
 │   │       ├── TestimonialEmptyState/
 │   │       │   └── TestimonialEmptyState.tsx
 │   │       └── ThemePicker/
@@ -1062,6 +1125,7 @@ tablesmit/
 │   │   ├── useFindReplace/
 │   │   ├── useImport/
 │   │   ├── useMergeCells/
+│   │   ├── usePageTranslation/
 │   │   ├── usePrintTable/
 │   │   ├── useRowResize/
 │   │   ├── useTableCopyShortcut/
@@ -1090,10 +1154,21 @@ tablesmit/
 │   │
 │   ├── i18n/
 │   │   ├── i18n.ts                      # i18next init (manual fetch, no http-backend)
-│   │   ├── config.ts                    # LOCALES array (8 languages)
 │   │   ├── types.d.ts                   # TS augmentation for type-safe t()
 │   │   └── locales/
-│   │       └── en.json                  # English source of truth (bundled directly)
+│   │       └── en/                       # English source of truth (12 per-domain JSON files, bundled directly)
+│   │           ├── about.json
+│   │           ├── blog.json
+│   │           ├── changelog.json
+│   │           ├── common.json
+│   │           ├── contact.json
+│   │           ├── features.json
+│   │           ├── home.json
+│   │           ├── legal.json
+│   │           ├── notFound.json
+│   │           ├── openSource.json
+│   │           ├── table.json
+│   │           └── testimonials.json
 │   │
 │   ├── utils/
 │   │   ├── analytics/                   # GA4 event tracking
@@ -1106,6 +1181,7 @@ tablesmit/
 │   │   ├── mergeUtils/                  # Merge range math
 │   │   ├── searchUtils/                 # searchItems() — generic search utility with boost-field ranking
 │   │   ├── tableUtils/                  # Pure table transformation functions
+│   │   ├── colorUtils/                  # Color manipulation helpers
 │   │   └── toast/                       # Sonner toast wrapper + TOAST consts
 │   │
 │   ├── types/
@@ -1119,22 +1195,24 @@ tablesmit/
 │   │   # No top-level ui.types.ts — button/types exist in Button.types.ts
 │   │
 │   ├── config/                         # Per-domain config files, no barrel
+│   │   ├── analytics/                  # analyticsConfig.ts — GA4 script ID, env var, events
 │   │   ├── brand/                      # brandConfig.ts — brand name, tagline, description, URLs
-│   │   ├── changelog/                  # ChangelogEntry[] data + types
-│   │   ├── colorPalette/               # Header + content color swatches
+│   │   ├── changelog/                  # changelog.ts + changelog.types.ts — ChangelogEntry[] data
+│   │   ├── colorPalette/               # colorPalette.ts + colorPalette.types.ts — color swatches
 │   │   ├── colors/                     # colorsConfig.ts — UI color tokens
 │   │   ├── columnFormats/              # columnFormatsConfig.ts — format definitions
-│   │   ├── copy/                       # copyConfig.ts — all page copy (hero, about, open source, etc.)
-│   │   ├── export/                     # exportConfig.ts (formats) + exportFileBaseNameConfig.ts
+│   │   ├── content/                    # contentConfig.ts — content page metadata
+│   │   ├── dateFormat/                 # dateFormatConfig.ts — Intl.DateTimeFormatOptions
+│   │   ├── export/                     # exportConfig.ts + exportConfig.types.ts — formats + options
 │   │   ├── import/                     # importConfig.ts — file size limits, row/col caps
-│   │   ├── labels/                     # labelsConfig.ts — UI section labels
-│   │   ├── locale/                     # localeConfig.ts — getCurrentYear, copyright
-│   │   ├── messages/                   # messagesConfig.ts — constraint/fallback messages
+│   │   ├── latex/                      # latexConfig.ts — LaTeX export/import config
+│   │   ├── locale/                     # localesConfig.ts + localesConfig.types.ts — i18n locale metadata
+│   │   ├── pagination/                 # paginationConfig.ts — ITEMS_PER_PAGE
 │   │   ├── routes/                     # routesConfig.ts — route paths + nav link definitions
 │   │   ├── sentry/                     # sentryConfig.ts — Sentry init options
 │   │   ├── sponsors/                   # sponsorsConfig.ts — sponsor platform links
-│   │   ├── table/                      # tableDefaults, tableThemes, presets
-│   │   └── testimonials/               # Testimonial type + data
+│   │   ├── table/                      # tableDefaults/, tableThemes/, presets/
+│   │   └── testimonials/               # testimonials.ts + testimonials.types.ts
 │   │
 │   ├── constants/
 │   │   └── keys.ts                     # Keyboard key constants
@@ -1152,19 +1230,22 @@ tablesmit/
 │   ├── test/                           # All tests live here (never co-located with source)
 │   │   ├── setup.ts                    # jest-dom import + polyfills
 │   │   ├── App.test.tsx
-│   │   ├── config/                     # 8 test files
+│   │   ├── pwa.test.ts                 # PWA service worker test
+│   │   ├── scripts/                    # 3 test files (md-to-blog-post, prerender, sitemap)
+│   │   ├── config/                     # 19 test files (all config domains)
 │   │   ├── constants/                  # keys.test.ts
-│   │   ├── content/                    # 4 test files (blog.test.ts, features.test.ts, search tests)
+│   │   ├── content/                    # 2 test files (blog.test.ts, features.test.ts)
 │   │   ├── context/                    # 6 test files (TableContext, TableProvider, TableReducer, etc.)
-│   │   ├── hooks/                      # 17 test files (all hooks tested)
-│   │   ├── i18n/                       # config.test.ts, i18n.test.ts
-│   │   ├── lib/                        # utils.test.ts (cn() tests)
-│   │   ├── pages/                      # 15 test files (every page tested)
-│   │   ├── services/                   # 14 test files (all services)
+│   │   ├── hooks/                      # 18 test files (all hooks tested)
+│   │   ├── i18n/                       # i18n.test.ts
+│   │   ├── lib/                        # 2 test files (utils.test.ts, sentry.test.ts)
+│   │   ├── pages/                      # 13 test files (every page tested)
+│   │   ├── services/                   # 12 test files (all services)
 │   │   ├── components/
-│   │   │   ├── ui/                     # 16 test files (every UI component)
+│   │   │   ├── ui/                     # 22 test files (every UI component)
 │   │   │   ├── layout/                 # 6 test files (every layout component)
-│   │   │   └── features/               # 48 test files (every feature component)
+│   │   │   ├── routing/                # RouteElements.test.tsx
+│   │   │   └── features/               # 47 test files (every feature component)
 │   │   └── utils/                      # 13 test files (every util)
 │   │
 │   ├── App.tsx                         # Router + providers only. Zero business logic.
@@ -8215,47 +8296,69 @@ The homepage (`/`) is **never prerendered** — it is a heavy interactive SPA (T
 |---|---|---|
 | Library | **Playwright** (already in devDependencies) | Avoids adding Puppeteer (~300 MB). Playwright is already installed for E2E tests. |
 | Timing | **Pre-commit, not CI** | Playwright needs browsers (~150 MB installed). CI does not download them. Prerendered HTML is committed to git. |
-| Output folder | `prerendered/` | Committed to git (unlike `dist/` which is gitignored). CI copies `prerendered/` into `dist/` at build time via `cp -r prerendered/. dist/`. |
-| Route discovery | **Filesystem scan** (DI-injectable for tests) | Blog slugs derived from `src/content/blog/*.ts` filenames. Feature slugs from `src/content/features/*.json`. Static routes defined in an array. |
-| Server | **`vite preview`** (spawned as child process) | Serves the exact production build. No separate server config or middleware needed. |
+| Output dir | Read from `package.json#config.prerenderDir` (default `prerendered/`) | Single source of truth; `npm run prerender` and `.husky/pre-commit` both resolve it from `package.json`. |
+| Route discovery | **Filesystem scan** (DI-injectable for tests) | Blog slugs derived from `src/content/blog/*.ts` filenames. Feature slugs from `src/content/features/*.json`. Static routes defined in array. Content subdirectory names read from `src/config/content/contentConfig.ts`. |
+| Server | **`vite preview`** (spawned as child process, URL parsed from stdout) | Serves the exact production build. No separate server config or middleware needed. |
 
 ### Architecture
 
 ```
-Local (when content changes):
-  npm run prere nder
-    → starts vite preview (serving dist/)
-    → visits all content routes in headless Chromium
-    → saves HTML to prerendered/{route}/index.html
-    → prerendered/ is committed to git
+Pre-commit (when content changes):
+  git add src/content/...
+  hook: npm run lint && npm run test -- --run && npm run build
+  hook: npx tsx scripts/prerender.ts --out-dir prerendered
+          → checks dist/ exists (skips if not built)
+          → checks Playwright browsers installed (skips gracefully if missing)
+          → starts vite preview (spawn, parse URL from stdout)
+          → visits all content routes in headless Chromium
+          → saves HTML to prerendered/{route}/index.html
+  hook: git add prerendered/
+  → commit includes source + prerendered HTML
 
 CI (every push):
   npm run build
-    → generate-sitemap (route discovery)
+    → generate-sitemap (route discovery, writes public/sitemap.xml)
     → vite build (app bundle to dist/)
-    → cp -r prere  ndered/. dist/ (copies committed prerendered HTML)
-    → deploy dist/ to Netlify
+    → deploy dist/ to Netlify (prerendered/ lives in git, already present at dist/ but unused during dev)
 
 scripts/prerender.ts:
-  1. parseArgs() → reads --out-dir (default: dist)
-  2. getAllRoutes() → STATIC_ROUTES + blog filenames + feature slugs
-  3. startServer() → spawns "vite preview --port 4173 --strictPort"
-  4. For each route:
-     a. chromium.launch() → headless browser
-     b. page.goto(url, { waitUntil: 'networkidle' })
-     c. waitForSelector('#root') + 500ms settle
-     d. page.content() → HTML string
-     e. fs.writeFileSync(outDir/{route}/index.html, html)
-  5. browser.close() + stopServer()
+  CONST:
+    PRERENDER_OUT_DIR       → from package.json#config.prerenderDir or 'prerendered'
+    PORT = 4173
+    CONTENT_DIR             → path.resolve(ROOT, 'src/content')
+    VITE_BIN                → node_modules/.bin/vite
+
+  1. parseArgs(argv)        → reads --out-dir (default: PRERENDER_OUT_DIR, resolved to ROOT)
+  2. isPlaywrightAvailable()→ chromium.launch/close, returns bool; skips if not installed
+  3. Check dist/index.html  → skips if build not found
+  4. getAllRoutes()         → STATIC_ROUTES + getBlogRoutes() + getFeatureRoutes()
+       Uses DI callbacks: exists(path), readDir(path), readFile(path)
+       Blog:   readDir(CONTENT_DIR/blog) → filter .ts → /blog/{slug}
+       Feat:   readDir(CONTENT_DIR/features) → filter .json → JSON.parse → /features/{slug}
+  5. startServer()          → spawn vite preview --port 4173
+       Resolves on stdout match /Local:\s+(https?:\/\/[^\s]+)/
+       Rejects after 90s timeout or non-zero exit code
+  6. For each route:
+     a. browser.newPage({ viewport: 1280×720 })
+     b. page.goto(url, { waitUntil: 'networkidle', timeout: 30s })
+     c. page.waitForSelector('#root', { timeout: 10s })
+     d. page.waitForTimeout(500)
+     e. page.content() → HTML string
+     f. fs.writeFileSync(outDir/{route_no_slash}/index.html, html)
+     g. page.close() in finally block
+  7. browser.close() + stopServer()
+  8. Log succeeded/failed counts; process.exit(1) if any failures
+
+  CLI guard: only runs when process.env.VITEST is not set
 ```
 
 ### Route Categories
 
 | Category | Count | Discovery method |
 |---|---|---|
-| Static (content) | 9 | Hardcoded array in `scripts/prerender.ts` (homepage excluded) |
-| Blog posts | Variable | `fs.readdirSync(src/content/blog/*.ts)` → `slug = filename minus .ts` |
-| Feature pages | 30 | `JSON.parse(slug field from src/content/features/*.json)` → falls back to filename |
+| Static (content) | 9 | `STATIC_ROUTES` array in `scripts/prerender.ts` (homepage excluded) |
+| Blog posts | 34 | `import.meta.glob` + filename → slug in `blogService.ts`; prerender uses `fs.readdirSync(CONTENT_DIR/blog/*.ts)` |
+| Feature pages | 30 | `JSON.parse(slug field from CONTENT_DIR/features/*.json)` → falls back to filename minus `.json` |
 
 ### Local Workflow
 
@@ -8264,48 +8367,60 @@ scripts/prerender.ts:
 npm run dev
 
 # After adding or editing content (blog posts, feature pages, etc.):
-npm run prerender        # generates static HTML into prere  ndered/
-git add prere  ndered/    # commit prerendered content alongside source changes
+npm run prerender          # runs npx tsx scripts/prerender.ts --out-dir $npm_package_config_prerenderDir
+git add prerendered/       # commit prerendered content alongside source changes
 git commit -m "content: add new blog post"
 git push
-
-# CI handles the rest — no Playwright needed in CI
 ```
 
 ### Pre-commit Hook
 
-A `.husky/pre-commit` hook can auto-run the prerender when `src/content/` changes:
+The `.husky/pre-commit` hook auto-runs the prerender when content or the prerender script itself changes, then runs lint + test + build as quality gates:
 
 ```sh
-if git diff --cached --name-only | grep -q "^src/content/"; then
-  npx tsx scripts/prerender.ts --out-dir prere  ndered
-  git add prere  ndered/
+if git diff --cached --name-only | grep -qE "^src/content/|^scripts/prerender\.ts"; then
+  PRERENDER_DIR=$(node -e "console.log(require('./package.json').config.prerenderDir)")
+  echo "Content or prerender script changed — regenerating prerendered pages..."
+  npx tsx scripts/prerender.ts --out-dir "$PRERENDER_DIR"
+  git add "$PRERENDER_DIR/"
 fi
+
+npm run lint && npm run test -- --run && npm run build
 ```
+
+Triggers on changes to `src/content/` **or** `scripts/prerender.ts`. Reads the output directory from `package.json` config — no hardcoded path. If Playwright browsers are not installed (fresh clone), the prerender step logs a warning and exits gracefully — the hook still runs lint + test + build.
 
 ### Adding a New Route
 
-**Static route:** Add the path to the `STATIC_ROUTES` array in `scripts/prerender.ts` (do NOT add `/` — homepage is never prerendered).
+**Static route:** Add the path to the `STATIC_ROUTES` array in `scripts/prerender.ts` **and** to `STATIC_PAGES` in `scripts/sitemap/generate-sitemap.ts` (do NOT add `/` — homepage is never prerendered).
 
-**Blog post:** Create a `.ts` file in `src/content/blog/`. The filename becomes the slug automatically — no prerender script change needed.
+**Blog post:** Create a `.ts` file in `src/content/blog/`. The filename becomes the slug automatically — no prerender script or sitemap change needed (both auto-discover).
 
-**Feature page:** Create a `.json` file in `src/content/features/` with a `slug` field (or omit `slug` to use the filename). No prerender script change needed.
+**Feature page:** Create a `.json` file in `src/content/features/` with a `slug` field (or omit `slug` to use the filename). No prerender or sitemap change needed (both auto-discover).
 
 ### Error Handling
 
 - Routes that fail to render (timeout, browser crash) are logged with the error message; the script continues to the next route.
 - After all routes are attempted, the script exits with code 1 if any failures occurred.
 - The `vite preview` server is killed via the `stopServer` callback in all cases (success, failure, or exception).
+- Playwright availability and build existence are checked upfront — missing either logs a warning and returns early (exit 0), so the pre-commit hook continues to lint/test/build.
 
 ### Tests
 
-Route discovery and CLI parsing are pure functions tested in `src/test/scripts/prerender/prerender.test.ts` (15 tests). The Playwright-based render step is tested only in `build.sh` (local CI-style script):
+Route discovery and CLI parsing are pure functions tested in `src/test/scripts/prerender/prerender.test.ts` (15 tests over 163 lines). Sitemap generation is tested in `src/test/scripts/sitemap/generate-sitemap.test.ts` (10 tests). Both use dependency-injected callbacks — no Playwright, no real filesystem I/O.
+
+Build verification (run locally after `npm run build`):
 
 ```bash
-npm run build
-# Check: find dist -name "index.html" -not -path "dist/index.html" | wc -l  should equal route count
-# Sample: head -5 dist/about/index.html  should show prerendered <!DOCTYPE html>
-# Sample: head -3 dist/index.html  should contain <script> (SPA, not prerendered)
+# Check: prerendered content pages exist at expected paths
+ls -d prerendered/*/index.html | wc -l
+
+# Sample: check prerendered content is real HTML (not SPA shell)
+head -3 prerendered/about/index.html
+# Should show <!DOCTYPE html> with prerendered content
+
+# Sample: homepage is never prerendered
+ls prerendered/index.html 2>/dev/null && echo "EXISTS (BAD)" || echo "MISSING (GOOD)"
 ```
 
 ---

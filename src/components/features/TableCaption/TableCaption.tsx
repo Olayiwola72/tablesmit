@@ -22,7 +22,7 @@ function TableCaptionRaw({
   italic,
   onItalicChange,
 }: TableCaptionProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const [editing, setEditing] = useState(false)
   const [ctxMenu, setCtxMenu] = useState<CtxMenuState | null>(null)
   const [activePicker, setActivePicker] = useState<'text' | 'bg' | null>(null)

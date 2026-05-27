@@ -5,7 +5,7 @@ import type { ColumnFormat } from '@/types/table'
 import { columnFormats } from '../../../../../config/columnFormats/columnFormatsConfig'
 
 export function CtxColumnTypeSubmenu({ currentFormat, onChange, onClose }: CtxColumnTypeSubmenuProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   return (
     <div className="border-t border-border px-3 py-2">

@@ -18,7 +18,7 @@ function TableHeaderCellRaw({
   onAutoFit,
   onContextMenu,
 }: TableHeaderCellProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   return (
     <div
       className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface pl-2 pr-2 py-1"

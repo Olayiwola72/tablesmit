@@ -1,0 +1,10 @@
+{
+  "hero": {
+    "headline": "Tabeller bygget for analytisk skriving.",
+    "subtext": "En minimalistisk tabellbygger for analytisk skriving — med full kontroll over overskrifter, formatering og eksport.",
+    "viewGitHub": "Vis på GitHub",
+    "customHeaders": "Egendefinerte overskrifter",
+    "columnTypes": "Kolonetyper",
+    "mergeCells": "Slå sammen celler"
+  }
+}

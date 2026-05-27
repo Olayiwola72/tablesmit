@@ -276,7 +276,7 @@ export function useCopyTable(
   captionItalic?: boolean,
 ) {
   const [isCopying, setIsCopying] = useState(false)
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
 
   const showCopySuccess = useCallback((formatType: string): void => {
     toast.success(t('toast.copySuccess', { copyFormat: t(`format.${formatType}`) }))

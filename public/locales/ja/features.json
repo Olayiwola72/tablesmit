@@ -1,0 +1,13 @@
+{
+  "features": {
+    "heading": "機能",
+    "subtext": "クリーンで構造化されたテーブルを作成するために必要なすべて。",
+    "learnMore": "もっと詳しく",
+    "emptyState": "まだ機能はリストされていません。",
+    "searchPlaceholder": "名前または説明で機能を検索…",
+    "benefits": "利点",
+    "howItWorks": "使い方",
+    "useCases": "使用例",
+    "relatedFeatures": "関連機能"
+  }
+}

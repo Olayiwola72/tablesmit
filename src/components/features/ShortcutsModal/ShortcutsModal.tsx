@@ -1,12 +1,17 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KEY_ESCAPE } from '../../../constants/keys'
 import { X } from 'lucide-react'
 import type { Shortcut } from './ShortcutsModal.types'
 
 export function ShortcutsModal(): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const [open, setOpen] = useState(false)
+  const openRef = useRef(open)
+
+  useEffect(() => {
+    openRef.current = open
+  }, [open])
 
   const shortcuts: Shortcut[] = [
     { keys: t('shortcutKeys.ctrlZ'), labelKey: 'shortcuts.undo' },
@@ -34,6 +39,10 @@ export function ShortcutsModal(): ReactNode {
       if (e.key === '?' && !(e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement)) {
         e.preventDefault()
         setOpen((v) => !v)
+        return
+      }
+      if (openRef.current && (e.ctrlKey || e.metaKey)) {
+        setOpen(false)
       }
     }
     document.addEventListener('keydown', handler)

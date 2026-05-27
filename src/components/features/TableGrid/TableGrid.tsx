@@ -8,7 +8,7 @@ import { useTableSelection } from '../../../hooks/useTableSelection/useTableSele
 import { useTableGridKeyHandlers } from '../../../hooks/useTableGridKeyHandlers/useTableGridKeyHandlers'
 import { TABLE_THEMES } from '../../../config/table/tableThemes/tableThemes'
 import { computeColumnSum } from '../../../utils/tableUtils/tableUtils'
-import { getContrastText } from '../../../utils/colorUtils/colorUtils'
+import { getContrastText, getDarkBg } from '../../../utils/colorUtils/colorUtils'
 import { isRangeAnchor } from '../../../utils/mergeUtils/mergeUtils'
 import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { useColumnSort } from '../../../hooks/useColumnSort/useColumnSort'
@@ -23,7 +23,7 @@ import { TableSkeleton } from '../../ui/TableSkeleton/TableSkeleton'
 import type { TableGridProps } from './TableGrid.types'
 
 export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: TableGridProps): ReactNode {
-  const { t } = useTranslation()
+  const { t } = useTranslation(['common', 'table'])
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
   const {
@@ -69,7 +69,16 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   } = useTableContext()
   const { selectCell } = useTableSelection()
   const gridRef = useRef<HTMLTableElement>(null)
-  const headerTextColor = useMemo(() => getContrastText(headerColor), [headerColor])
+  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'))
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains('dark'))
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    return () => observer.disconnect()
+  }, [])
+  const effectiveHeaderColor = isDark ? getDarkBg(headerColor) : headerColor
+  const headerTextColor = useMemo(() => getContrastText(effectiveHeaderColor), [effectiveHeaderColor])
   const themeConfig = useMemo(() => TABLE_THEMES.find((t) => t.id === theme) ?? TABLE_THEMES[0], [theme])
 
   const { ghostLineRef: columnGhostLineRef, onMouseDown: onColumnResizeStart } = useColumnResize(setColumnWidth)
@@ -219,7 +228,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   const [activeSub, setActiveSub] = useState<string | null>(null)
 
   const { handleCellKeyDown } = useTableGridKeyHandlers(
-    canUndo, undo, ctxMenu, (v) => { setCtxMenu(v); setActiveSub(null) }, (v) => { setActiveSub(v) }, cols, rows, hiddenSet,
+    canUndo, undo, ctxMenu, (v) => { setCtxMenu(v); setActiveSub(null) }, (v) => { setActiveSub(v) }, cols, rows, hiddenSet, selectCell,
   )
 
   const closeCtx = useCallback((): void => { setCtxMenu(null); setActiveSub(null) }, [])
@@ -251,13 +260,13 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   const [skeletonVisible, setSkeletonVisible] = useState(true)
 
   useEffect(() => {
-    const timeoutRef = { current: 0 as ReturnType<typeof setTimeout> }
+    const timeoutRef = { current: undefined as ReturnType<typeof setTimeout> | undefined }
     const raf = requestAnimationFrame(() => {
       timeoutRef.current = setTimeout(() => setSkeletonVisible(false), 350)
     })
     return () => {
       cancelAnimationFrame(raf)
-      clearTimeout(timeoutRef.current)
+      if (timeoutRef.current !== undefined) clearTimeout(timeoutRef.current)
     }
   }, [])
 
@@ -313,7 +322,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
                           freezeRow={freezeRow}
                           freezeCol={freezeCol}
                           headerStyle={headerStyle}
-                          headerColor={headerColor}
+                          headerColor={effectiveHeaderColor}
                           headerTextColor={headerTextColor}
                           contentColor={contentColor}
                           contentBgColor={contentBgColor}
