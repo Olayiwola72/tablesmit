@@ -1,11 +1,11 @@
-# npx lint-staged
+npx lint-staged
 
-# # Regenerate prerendered HTML when content or prerender script changes
-# if git diff --cached --name-only | grep -qE "^src/content/|^scripts/prerender\.ts"; then
-#   PRERENDER_DIR=$(node -e "console.log(require('./package.json').config.prerenderDir)")
-#   echo "Content or prerender script changed — regenerating prerendered pages..."
-#   npx tsx scripts/prerender.ts --out-dir "$PRERENDER_DIR"
-#   git add "$PRERENDER_DIR/"
-# fi
+# Regenerate prerendered HTML when content or prerender script changes
+if git diff --cached --name-only | grep -qE "^src/content/|^scripts/prerender\.ts"; then
+  PRERENDER_DIR=$(node -e "console.log(require('./package.json').config.prerenderDir)")
+  echo "Content or prerender script changed — regenerating prerendered pages..."
+  npx tsx scripts/prerender.ts --out-dir "$PRERENDER_DIR"
+  git add "$PRERENDER_DIR/"
+fi
 
-# npm run lint && npm run test -- --run && npm run build
+npm run lint && npm run test -- --run && npm run build
