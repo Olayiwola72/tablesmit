@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
-import { EXPORT_QUALITY_PRESETS, exportFileBaseName } from '../../config/export/exportConfig'
+import { EXPORT_QUALITY_PRESETS, defaultExportQuality, exportFileBaseName } from '../../config/export/exportConfig'
 import { useTableContext, useTableData } from '../../context/TableContext'
 import { exportTable } from '../../services/exportService'
 import type { ExportFormat } from '../../services/exportService/export.types'
@@ -12,7 +12,7 @@ import type { ExportApi } from './useExport.types'
 
 export function useExport(tableRef?: RefObject<HTMLDivElement | null>): ExportApi {
   const [exportingFormat, setExportingFormat] = useState<ExportFormat | null>(null)
-  const [exportQuality, setExportQuality] = useState<ExportQuality>('normal')
+  const [exportQuality, setExportQuality] = useState<ExportQuality>(defaultExportQuality)
   const { t } = useTranslation(['common', 'table'])
   const { cells } = useTableData()
   const {

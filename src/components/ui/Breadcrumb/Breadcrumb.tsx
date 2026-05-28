@@ -9,7 +9,7 @@ export function Breadcrumb({ segments }: BreadcrumbProps): ReactNode {
         {segments.map((segment, index) => {
           const isLast = index === segments.length - 1
           return (
-            <li key={`${segment.label}-${index}`} className="flex items-center gap-1.5">
+            <li key={segment.to ?? segment.label} className="flex items-center gap-1.5">
               {index > 0 && (
                 <span className="text-text-muted" aria-hidden="true">›</span>
               )}

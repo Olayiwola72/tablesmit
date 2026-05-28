@@ -16,7 +16,7 @@ export function SumRowFooter({ cells, sumCols, columnTotals, borderStyle, border
           const isFirstSum = colIndex === sumCols[0]
           return (
             <td
-              key={colIndex}
+              key={`footer-${colIndex}`}
               className="px-2 py-1.5"
               style={{
                 border: borderStyle === 'none' ? 'none' : `1px ${borderStyle} ${borderColor}`,

@@ -35,10 +35,10 @@ export function ChangelogPage(): ReactNode {
               <time className="text-sm text-text-muted">{entry.date}</time>
             </div>
             <ul className="mt-4 space-y-2">
-              {entry.changes.map((change: ChangelogEntry['changes'][number], index) => {
+              {entry.changes.map((change: ChangelogEntry['changes'][number]) => {
                 const style = getChangeStyle(change.type)
                 return (
-                  <li key={index} className="flex items-start gap-3 text-sm">
+                  <li key={change.description} className="flex items-start gap-3 text-sm">
                     <span className={`mt-0.5 inline-flex shrink-0 rounded-sm px-2 py-0.5 text-xs font-medium ${style.bg} ${style.text}`}>
                       {style.label}
                     </span>

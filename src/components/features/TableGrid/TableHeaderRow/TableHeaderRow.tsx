@@ -24,7 +24,7 @@ export function TableHeaderRow({
     >
       {Array.from({ length: cols }, (_, index) => (
         <TableHeaderCell
-          key={index}
+          key={cells[0]?.[index]?.id ?? `col-${index}`}
           index={index}
           width={columnWidths[index]}
           format={cells[0]?.[index]?.format ?? 'text'}

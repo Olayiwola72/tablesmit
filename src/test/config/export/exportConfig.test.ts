@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { EXPORT_QUALITY_PRESETS, exportFormats, exportFileBaseName } from '../../../config/export/exportConfig'
+import { EXPORT_QUALITY_PRESETS, defaultExportQuality, exportFormats, exportFileBaseName } from '../../../config/export/exportConfig'
 
 describe('exportFileBaseName', () => {
   it('uses tablesmit-table as the default export basename', () => {
@@ -62,6 +62,19 @@ describe('EXPORT_QUALITY_PRESETS', () => {
       expect(preset.label).toBeTruthy()
       expect(typeof preset.scale).toBe('number')
       expect(typeof preset.jpegQuality).toBe('number')
+      expect(typeof preset.default).toBe('boolean')
     }
+  })
+
+  it('exactly one preset is marked as default', () => {
+    expect(Object.values(EXPORT_QUALITY_PRESETS).filter((p) => p.default)).toHaveLength(1)
+  })
+
+  it('high is the default preset', () => {
+    expect(EXPORT_QUALITY_PRESETS.high.default).toBe(true)
+  })
+
+  it('defaultExportQuality resolves to high', () => {
+    expect(defaultExportQuality).toBe('high')
   })
 })

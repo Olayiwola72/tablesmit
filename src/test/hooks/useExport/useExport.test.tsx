@@ -28,9 +28,9 @@ describe('useExport', () => {
     expect(typeof result.current.exportAs).toBe('function')
   })
 
-  it('returns exportQuality defaulting to normal', () => {
+  it('returns exportQuality defaulting to high', () => {
     const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
-    expect(result.current.exportQuality).toBe('normal')
+    expect(result.current.exportQuality).toBe('high')
   })
 
   it('setExportQuality updates the quality', () => {
@@ -47,28 +47,28 @@ describe('useExport', () => {
     expect(result.current.exportingFormat).toBeNull()
   })
 
-  it('passes normal quality scale and quality to exportTable', async () => {
+  it('passes high quality scale and quality to exportTable by default', async () => {
     vi.mocked(exportService.exportTable).mockResolvedValue(undefined)
     const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
-    const el = document.createElement('div')
-    await result.current.exportAs('pdf', el)
-    await waitFor(() => expect(result.current.exportingFormat).toBeNull())
-    expect(exportService.exportTable).toHaveBeenCalledWith(
-      el,
-      expect.objectContaining({ scale: 1, quality: 0.8 }),
-    )
-  })
-
-  it('passes high quality scale and quality to exportTable when set', async () => {
-    vi.mocked(exportService.exportTable).mockResolvedValue(undefined)
-    const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
-    act(() => { result.current.setExportQuality('high') })
     const el = document.createElement('div')
     await result.current.exportAs('pdf', el)
     await waitFor(() => expect(result.current.exportingFormat).toBeNull())
     expect(exportService.exportTable).toHaveBeenCalledWith(
       el,
       expect.objectContaining({ scale: 2, quality: 0.92 }),
+    )
+  })
+
+  it('passes normal quality scale and quality to exportTable when set', async () => {
+    vi.mocked(exportService.exportTable).mockResolvedValue(undefined)
+    const { result } = renderHook(() => useExport(), { wrapper: Wrapper })
+    act(() => { result.current.setExportQuality('normal') })
+    const el = document.createElement('div')
+    await result.current.exportAs('pdf', el)
+    await waitFor(() => expect(result.current.exportingFormat).toBeNull())
+    expect(exportService.exportTable).toHaveBeenCalledWith(
+      el,
+      expect.objectContaining({ scale: 1, quality: 0.8 }),
     )
   })
 

@@ -91,6 +91,23 @@ describe('Breadcrumb', () => {
     expect(current).toHaveAttribute('aria-current', 'page')
   })
 
+  it('handles segments with identical labels but different paths', () => {
+    renderWithRouter(
+      <Breadcrumb
+        segments={[
+          { label: 'Products', to: '/products' },
+          { label: 'Products', to: '/products/featured' },
+          { label: 'Current Product' },
+        ]}
+      />,
+    )
+    const links = screen.getAllByRole('link')
+    expect(links).toHaveLength(2)
+    expect(links[0]).toHaveAttribute('href', '/products')
+    expect(links[1]).toHaveAttribute('href', '/products/featured')
+    expect(screen.getByText('Current Product')).toBeInTheDocument()
+  })
+
   it('has the correct style classes on the nav element', () => {
     renderWithRouter(
       <Breadcrumb

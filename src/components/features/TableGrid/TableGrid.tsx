@@ -293,7 +293,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
         <table ref={gridRef} className="min-w-max border-collapse" style={{ backgroundColor: '#FFFFFF' }} role="grid" aria-label={t('grid.tableEditor')} aria-rowcount={rows} aria-colcount={cols}>
           <colgroup>
             {columnWidths.map((width, index) => (
-              <col key={index} style={{ width }} />
+              <col key={`col-${index}`} style={{ width }} />
             ))}
           </colgroup>
           <tbody>
