@@ -24,7 +24,7 @@
     "sortColumn": "列を並べ替え",
     "sortDisabledMsg": "並べ替えを有効にするには結合セルを解除してください",
     "mergeCells": "セルを結合",
-    "selectCellsToMerge": "結合するセルを2つ以上選択してください。",
+    "selectCellsToMerge": "セルをクリックし、別のセルをShift+クリックして範囲を選択します。",
     "selectedRange": "選択範囲: {{range}}",
     "mergedCell": "結合されたセル",
     "noSelection": "選択なし",

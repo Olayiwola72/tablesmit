@@ -24,7 +24,7 @@
     "sortColumn": "فرز العمود",
     "sortDisabledMsg": "قم بإزالة الدمج لتمكين الفرز",
     "mergeCells": "دمج الخلايا",
-    "selectCellsToMerge": "اختر خليتين أو أكثر للدمج.",
+    "selectCellsToMerge": "انقر على خلية، ثم Shift+انقر على أخرى لتحديد نطاق.",
     "selectedRange": "المحدد: {{range}}",
     "mergedCell": "خلية مدمجة",
     "noSelection": "لا يوجد تحديد",

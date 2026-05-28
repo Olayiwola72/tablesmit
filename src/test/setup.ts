@@ -139,7 +139,7 @@ vi.mock('react-i18next', () => {
     'table.sortColumn': 'Sort column',
     'table.sortDisabledMsg': 'Clear merged cells to enable sorting',
     'table.mergeCells': 'Merge Cells',
-    'table.selectCellsToMerge': 'Select two or more cells to merge.',
+    'table.selectCellsToMerge': 'Click a cell, then Shift+click another to select a range.',
     'table.selectedRange': 'Selected: {{range}}',
     'table.mergedCell': 'Merged cell',
     'table.noSelection': 'No selection',

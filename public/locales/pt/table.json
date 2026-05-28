@@ -24,7 +24,7 @@
     "sortColumn": "Ordenar coluna",
     "sortDisabledMsg": "Remova células mescladas para ativar a ordenação",
     "mergeCells": "Mesclar Células",
-    "selectCellsToMerge": "Selecione duas ou mais células para mesclar.",
+    "selectCellsToMerge": "Clique em uma célula e Shift+clique em outra para selecionar um intervalo.",
     "selectedRange": "Selecionado: {{range}}",
     "mergedCell": "Célula mesclada",
     "noSelection": "Nenhuma seleção",

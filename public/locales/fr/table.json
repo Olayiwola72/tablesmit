@@ -24,7 +24,7 @@
     "sortColumn": "Trier la colonne",
     "sortDisabledMsg": "Supprimez les cellules fusionnées pour activer le tri",
     "mergeCells": "Fusionner les cellules",
-    "selectCellsToMerge": "Sélectionnez deux cellules ou plus à fusionner.",
+    "selectCellsToMerge": "Cliquez sur une cellule, puis Maj+clic sur une autre pour sélectionner une plage.",
     "selectedRange": "Sélection : {{range}}",
     "mergedCell": "Cellule fusionnée",
     "noSelection": "Aucune sélection",

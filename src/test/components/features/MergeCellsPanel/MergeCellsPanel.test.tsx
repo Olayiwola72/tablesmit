@@ -31,7 +31,7 @@ describe('MergeCellsPanel', () => {
 
   it('renders merge instructions text', () => {
     render(<MergeCellsPanel />, { wrapper: Wrapper })
-    expect(screen.getByText('Select two or more cells to merge.')).toBeInTheDocument()
+    expect(screen.getByText(/click a cell.*Shift\+click another/i)).toBeInTheDocument()
   })
 
   it('contains an aria-live region for screen reader announcements', () => {

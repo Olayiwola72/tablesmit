@@ -24,7 +24,7 @@
     "sortColumn": "Spalte sortieren",
     "sortDisabledMsg": "Verbundene Zellen entfernen, um Sortierung zu aktivieren",
     "mergeCells": "Zellen verbinden",
-    "selectCellsToMerge": "Wählen Sie zwei oder mehr Zellen zum Verbinden aus.",
+    "selectCellsToMerge": "Klicken Sie auf eine Zelle, dann Shift+Klick auf eine weitere, um einen Bereich auszuwählen.",
     "selectedRange": "Ausgewählt: {{range}}",
     "mergedCell": "Verbundene Zelle",
     "noSelection": "Keine Auswahl",
