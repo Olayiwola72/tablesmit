@@ -309,7 +309,7 @@ Font files are preloaded in `index.html` to prevent late font swap:
 | UI label          | `text-sm font-medium text-text-primary`          |
 | Section label     | `text-xs font-semibold text-text-muted uppercase tracking-widest` |
 | Button text       | `text-sm font-semibold`                          |
-| Cell content      | `text-sm font-sans text-text-primary`            |
+| Cell content      | `text-xs sm:text-sm font-sans text-text-primary`  |
 | Monospace cell    | `text-sm font-mono text-text-primary`            |
 
 ---
@@ -485,7 +485,7 @@ Groups:
 **CSV / Excel Import flow:**
 ```tsx
 // Trigger: hidden <input type="file"> clicked via ref
-// CSV  → PapaParse → Papa.parse(file, { header: true, skipEmptyLines: true })
+// CSV  → papaparse → Papa.parse(file, { header: true, skipEmptyLines: true })
 // Excel → SheetJS  → XLSX.read(buffer) → XLSX.utils.sheet_to_json()
 // Both → normalise to CellData[][] → dispatch to TableContext
 // Excel import passes worksheet.dimensions to normaliseRows as minRows/minCols
@@ -503,7 +503,8 @@ Section label: text-xs font-semibold text-text-muted uppercase tracking-widest m
 
 ### Table Grid
 ```
-Cell:          text-sm font-sans text-text-primary p-2 border border-border
+Cell:          text-xs sm:text-sm font-sans text-text-primary p-0
+               Cell content: p-1.5 sm:p-2
 Selected:      ring-2 ring-primary ring-inset (no shadow)
 Merged cell:   bg-primary-light
 Header row:    bg-primary text-text-inverse font-semibold
@@ -636,7 +637,12 @@ CTA ROW (flex-col sm:flex-row gap-3 justify-center mt-8):
   SECONDARY: [View on GitHub ↗]        ← secondary/outline button, lg
                                           with ExternalLink icon from Lucide
 
-NO eyebrow badge. NO trust line. NO animation.
+The actual `HeroBanner` component renders a trust-building feature bullet row below the
+subtext (custom headers, column types, merge cells, export formats). This replaces
+the "trust line" described in earlier drafts — the actual implementation includes
+this lightweight feature highlight while keeping the overall hero clean and minimal.
+
+NO eyebrow badge. NO separate trust line. NO animation.
 Clean white space speaks for itself.
 ```
 
@@ -826,7 +832,7 @@ to PDF, Excel, PNG, or JPEG — free, no account required.">
   Popover, Separator, Badge, etc.). Install components as needed with `npx shadcn@latest add`.
 - **Lucide React** for all icons — consistent, tree-shakeable, typed.
 - **@dnd-kit** for all drag interactions — resize handles, row reordering.
-- **PapaParse** for CSV import — `Papa.parse(file, { header: true })` returns typed rows.
+- **papaparse** for CSV import — `Papa.parse(file, { header: true })` returns typed rows.
 - **exceljs** handles both Excel import and export — do not add a second Excel library.
 - Introduce a new library only if: (a) it solves a real problem, and
   (b) it is actively maintained with >1k GitHub stars.
@@ -856,7 +862,7 @@ tablesmit/
 │       └── no/common.json
 │
 ├── scripts/
-│   ├── prerender.ts                    # Playwright-based prerender — run locally, output to prere­ndered/
+│   ├── prerender.ts                    # Playwright-based prerender — run locally, output to prerendered/
 │   ├── md-to-blog-post.ts              # Helper: .md → blog JSON
 │   └── sitemap/
 │       ├── generate-sitemap.ts
@@ -957,8 +963,8 @@ tablesmit/
 │   │   │   │   └── Navbar.tsx
 │   │   │   ├── PageWrapper/
 │   │   │   │   └── PageWrapper.tsx
-│   │   │       └── Sidebar/
-│   │   │           └── Sidebar.tsx
+│   │   │   └── Sidebar/
+│   │   │       └── Sidebar.tsx
 │   │   │
 │   │   ├── routing/
 │   │   │   └── RouteElements.tsx
@@ -967,7 +973,8 @@ tablesmit/
 │   │       ├── AiFeaturesPanel/
 │   │       │   └── AiFeaturesPanel.tsx
 │   │       ├── BlogPostCard/
-│   │       │   └── BlogPostCard.tsx
+│   │       │   ├── BlogPostCard.tsx
+│   │       │   └── BlogPostCard.types.ts
 │   │       ├── BorderPanel/
 │   │       │   └── BorderPanel.tsx
 │   │       ├── ColorPanel/
@@ -989,7 +996,8 @@ tablesmit/
 │   │       │   ├── FeatureStepsSection/
 │   │       │   └── FeatureUseCasesSection/
 │   │       ├── FindReplace/
-│   │       │   └── FindReplace.tsx
+│   │       │   ├── FindReplace.tsx
+│   │       │   └── FindReplace.types.ts
 │   │       ├── HeaderOptionsPanel/
 │   │       │   └── HeaderOptionsPanel.tsx
 │   │       ├── HeroBanner/
@@ -1136,7 +1144,8 @@ tablesmit/
 │   │
 │   ├── services/
 │   │   ├── blogService/                 # import.meta.glob blog discovery
-│   │   │   └── blogService.ts
+│   │   │   ├── blogService.ts
+│   │   │   └── blogService.types.ts
 │   │   ├── exportService/               # Strategy pattern per format
 │   │   │   ├── index.ts                  # Factory + dynamic import
 │   │   │   ├── utils.ts                  # downloadUrl helper
@@ -1148,9 +1157,10 @@ tablesmit/
 │   │   │       ├── latexExporter.ts
 │   │   │       └── pdfExporter.ts
 │   │   ├── featureService/              # import.meta.glob feature discovery
-│   │   │   └── featureService.ts
+│   │   │   ├── featureService.ts
+│   │   │   └── featureService.types.ts
 │   │   └── importService/
-│   │       └── importService.ts         # CSV (PapaParse) + Excel (SheetJS)
+│   │       └── importService.ts         # CSV (papaparse) + Excel (SheetJS)
 │   │
 │   ├── i18n/
 │   │   ├── i18n.ts                      # i18next init (manual fetch, no http-backend)
@@ -1273,35 +1283,46 @@ tablesmit/
 **Rule:** Every page is lazy-loaded. No page bundle ships until its route is visited.
 Heavy feature panels within the table maker are also lazy-loaded on first interaction.
 
-#### `src/App.tsx` — Routing with Suspense
+#### `src/App.tsx` — Routing with `useRoutes`
+
+Page lazy imports live in `src/components/routing/RouteElements.tsx`, not in `App.tsx`.
+Routing config is defined in `src/config/routes/routesConfig.ts` and consumed via `useRoutes(routerConfig)`.
 
 ```tsx
-import { lazy, Suspense, type ReactNode } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
-import { Footer } from '@/components/layout/Footer';
-import { Navbar } from '@/components/layout/Navbar';
-import { CookieConsent } from '@/components/ui/CookieConsent';
-import { ErrorBoundary } from '@/components/ui/ErrorBoundary';
-import { PageLoader } from '@/components/ui/PageLoader';
-import { ShortcutsModal } from '@/components/features/ShortcutsModal/ShortcutsModal';
-import { TooltipProvider } from '@/components/ui/Tooltip';
-import { routes } from '@/config/routes/routesConfig';
+import { lazy, Suspense, useEffect, type ReactNode } from 'react'
+import { BrowserRouter, useLocation, useNavigate, useRoutes } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
+import { Footer } from './components/layout/Footer/Footer'
+import { Navbar } from './components/layout/Navbar/Navbar'
+import { CookieConsent } from './components/ui/CookieConsent/CookieConsent'
+import { ErrorBoundary } from './components/ui/ErrorBoundary/ErrorBoundary'
+import { BackToTop } from './components/ui/BackToTop/BackToTop'
+import { PageLoader } from './components/ui/PageLoader/PageLoader'
+import { TooltipProvider } from './components/ui/Tooltip/Tooltip'
+import { routerConfig } from './config/routes/routesConfig'
 
-// Pages — never imported directly; bundled separately per route
-const AboutPage      = lazy(() => import('@/pages/AboutPage'));
-const BlogListPage   = lazy(() => import('@/pages/BlogListPage'));
-const BlogPostPage   = lazy(() => import('@/pages/BlogPostPage'));
-const ChangelogPage  = lazy(() => import('@/pages/ChangelogPage'));
-const ContactPage    = lazy(() => import('@/pages/ContactPage'));
-const FeatureDetailPage = lazy(() => import('@/pages/FeatureDetailPage'));
-const FeaturesListPage  = lazy(() => import('@/pages/FeaturesListPage'));
-const NotFoundPage   = lazy(() => import('@/pages/NotFoundPage'));
-const OpenSourcePage = lazy(() => import('@/pages/OpenSourcePage'));
-const PrivacyPage    = lazy(() => import('@/pages/PrivacyPage'));
-const TableMakerPage = lazy(() => import('@/pages/TableMakerPage'));
-const TermsPage      = lazy(() => import('@/pages/TermsPage'));
-const TestimonialsPage = lazy(() => import('@/pages/TestimonialsPage'));
+function TrailingSlashNormalizer() {
+  const { pathname } = useLocation()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (pathname !== '/' && !pathname.endsWith('/') && !pathname.includes('.')) {
+      navigate(pathname + '/', { replace: true })
+    }
+  }, [pathname, navigate])
+
+  return null
+}
+
+function AppRoutes(): ReactNode {
+  return useRoutes(routerConfig)
+}
+
+const ShortcutsModal = lazy(() =>
+  import('./components/features/ShortcutsModal/ShortcutsModal').then((m) => ({
+    default: m.ShortcutsModal,
+  })),
+)
 
 export default function App(): ReactNode {
   return (
@@ -1310,33 +1331,23 @@ export default function App(): ReactNode {
         <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
+            <Suspense fallback={null}>
+              <ShortcutsModal />
+            </Suspense>
             <CookieConsent />
-            <BackToTop />
-            <div className="flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col min-h-[calc(100vh-60px)]">
               <Suspense fallback={<PageLoader />}>
-                <Routes>
-                  <Route path={routes.home}        element={<ErrorBoundary><TableMakerPage /></ErrorBoundary>} />
-                  <Route path={routes.about}       element={<AboutPage />} />
-                  <Route path={routes.blog}        element={<BlogListPage />} />
-                  <Route path={routes.blogPost}    element={<BlogPostPage />} />
-                  <Route path={routes.features}    element={<FeaturesListPage />} />
-                  <Route path={routes.featureDetail} element={<FeatureDetailPage />} />
-                  <Route path={routes.openSource}  element={<OpenSourcePage />} />
-                  <Route path={routes.contact}     element={<ContactPage />} />
-                  <Route path={routes.privacy}     element={<PrivacyPage />} />
-                  <Route path={routes.terms}       element={<TermsPage />} />
-                  <Route path={routes.changelog}   element={<ChangelogPage />} />
-                  <Route path={routes.testimonials} element={<TestimonialsPage />} />
-                  <Route path="*"                             element={<NotFoundPage />} />
-                </Routes>
+                <TrailingSlashNormalizer />
+                <AppRoutes />
               </Suspense>
             </div>
             <Footer />
+            <BackToTop />
           </TooltipProvider>
         </BrowserRouter>
       </HelmetProvider>
     </ErrorBoundary>
-  );
+  )
 }
 ```
 
@@ -1392,64 +1403,96 @@ export const PanelLoader: React.FC = () => (
 #### Vite Code Splitting Config
 
 Vite handles code splitting automatically via dynamic `import()`.
-Optionally name the chunks for readable bundle analysis:
+The config also includes three custom build plugins and named chunks for readable bundle analysis:
 
 ```ts
 // vite.config.ts
-import { defineConfig } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
-import { VitePWA } from 'vite-plugin-pwa';
+import { readFileSync, writeFileSync, readdirSync } from 'node:fs'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import { defineConfig, type Plugin } from 'vite'
+import { VitePWA } from 'vite-plugin-pwa'
+import Critters from 'critters'
+
+// Custom plugins:
+// prerenderPlugin    — copies prerendered/ directory into dist/ at closeBundle
+// crittersPlugin     — inlines critical CSS in index.html (SPA) and
+//                      prerendered pages (full inline, no external CSS)
+// modulepreloadPlugin — adds <link rel="modulepreload"> for TableMakerPage
+//                       chunk so it begins loading before the JS parser reaches it
 
 export default defineConfig({
   plugins: [
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      selfDestroying: true,
-      injectRegister: false,
-      includeAssets: ['favicon.svg'],
+      injectRegister: null,
+      includeAssets: ['favicon.svg', 'icons/*.png'],
       manifest: {
-        name: 'Tablesmit',
-        short_name: 'Tablesmit',
+        name: 'Tablesmit', short_name: 'Tablesmit',
         description: 'A minimalist table builder for analytical writing.',
-        theme_color: '#ffffff',
-        background_color: '#ffffff',
-        display: 'standalone',
-        scope: '/',
-        start_url: '/',
-        icons: [{ src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' }],
+        theme_color: '#ffffff', background_color: '#ffffff',
+        display: 'standalone', scope: '/', start_url: '/',
+        icons: [
+          { src: 'favicon.svg', sizes: 'any', type: 'image/svg+xml', purpose: 'any maskable' },
+          { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+          { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' },
+        ],
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        globIgnores: ['**/exceljs.min-*.js', '**/jspdf.es.min-*.js',
+                       '**/html2canvas-*.js', '**/papaparse.min-*.js', '**/purify.es-*.js'],
+        cleanupOutdatedCaches: true,
+        maximumFileSizeToCacheInBytes: 5242880,
+        runtimeCaching: [{
+          urlPattern: /\/assets\/(exceljs\.min|jspdf\.es\.min|html2canvas)-.*\.js$/,
+          handler: 'CacheFirst',
+          options: { cacheName: 'tablesmit-export-chunks',
+                     expiration: { maxEntries: 6, maxAgeSeconds: 60 * 60 * 24 * 30 } },
+        }],
       },
     }),
+    prerenderPlugin(),
+    crittersPlugin(),
+    modulepreloadPlugin(),
   ],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
   },
   build: {
+    target: 'es2020',
     chunkSizeWarningLimit: 600,
     minify: 'esbuild',
     cssMinify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules/react') || id.includes('node_modules/react-dom') || id.includes('node_modules/react-router-dom')) return 'vendor-react'
-          if (id.includes('node_modules/lucide-react') || id.includes('node_modules/class-variance-authority') || id.includes('node_modules/clsx')) return 'vendor-ui'
-          if (id.includes('node_modules/jspdf')) return 'vendor-pdf'
-          if (id.includes('node_modules/html2canvas')) return 'vendor-canvas'
-          if (id.includes('node_modules/exceljs')) return 'vendor-excel'
+          if (isPackage(id, 'react') || isPackage(id, 'react-dom'))          return 'vendor-react'
+          if (isPackage(id, 'react-router-dom') || isPackage(id, 'scheduler')) return 'vendor-router'
+          if (isPackage(id, 'i18next') || isPackage(id, 'react-i18next') ||
+              isPackage(id, 'i18next-browser-languagedetector'))               return 'vendor-i18n'
+          if (isPackage(id, '@sentry/react'))                                 return 'vendor-sentry'
+          if (isPackage(id, 'lucide-react') || isPackage(id, 'class-variance-authority') ||
+              isPackage(id, 'clsx') || isPackage(id, 'sonner'))               return 'vendor-ui'
           return undefined
         },
       },
     },
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter(d => !d.includes('jspdf.es.min') &&
+                                !d.includes('html2canvas') &&
+                                !d.includes('exceljs.min'))
+      },
+    },
   },
-});
+})
 ```
 
 **Lazy loading rules:**
 - `Suspense` must always have a meaningful `fallback` — never `fallback={null}` for page-level routes
+- Exception: `ShortcutsModal` (a non-page lazy component, rendered outside routes) uses `fallback={null}` intentionally — it is keyboard-triggered and not visible on first paint, so no loader is needed
 - Every `lazy()` import must be wrapped in `Suspense` in the nearest parent that makes UX sense
 - Do not lazy-load components that are always visible on first paint (Navbar, Footer)
 - Do not lazy-load components smaller than ~10KB — the network overhead isn't worth it
@@ -1458,6 +1501,10 @@ export default defineConfig({
 
 ### `src/styles/globals.css`
 ```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: 'Inter';
   font-style: normal;
@@ -1500,10 +1547,6 @@ export default defineConfig({
   font-weight: 500;
   src: url(/fonts/jetbrains-mono-latin-500-normal.woff2) format('woff2');
 }
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer base {
   :root {
@@ -1824,6 +1867,8 @@ export interface TableState {
   columnColors: string[]
   columnTextAlign: TextAlign[]
   cellColors: Record<string, string>
+  cellTextColors: Record<string, string>
+  rowTextColors: Record<number, string>
   cellTextAlign: Record<string, string>
   selectedRange: SelectionRange | null
   rows: number
@@ -1834,6 +1879,7 @@ export interface TableState {
   captionAlignment: CaptionAlignment
   captionTextColor: string
   captionBgColor: string
+  captionItalic: boolean
 }
 ```
 
@@ -1851,10 +1897,11 @@ export interface TableStateFields {
   theme: TableTheme; borderStyle: BorderStyle; borderColor: string;
   contentBgColor: string; rowColors: string[]; columnColors: string[];
   columnTextAlign: TextAlign[]; cellColors: Record<string, string>;
+  cellTextColors: Record<string, string>; rowTextColors: Record<number, string>;
   cellTextAlign: Record<string, string>;
   freezeRow: boolean; freezeCol: boolean;
   caption: string; captionAlignment: CaptionAlignment;
-  captionTextColor: string; captionBgColor: string;
+  captionTextColor: string; captionBgColor: string; captionItalic: boolean;
 }
 
 export interface TableActions {
@@ -1872,6 +1919,8 @@ export interface TableActions {
   setRowColor: (row: number, color: string) => void
   setColumnColor: (col: number, color: string) => void
   setCellColor: (cellId: string, color: string) => void
+  setCellTextColor: (cellId: string, color: string) => void
+  setRowTextColor: (row: number, color: string) => void
   setColumnTextAlign: (col: number, align: TextAlign) => void
   setCellTextAlign: (cellId: string, align: TextAlign) => void
   setFreezeRow: (freeze: boolean) => void; setFreezeCol: (freeze: boolean) => void
@@ -1885,6 +1934,7 @@ export interface TableActions {
   setCaptionAlignment: (alignment: CaptionAlignment) => void
   setCaptionTextColor: (color: string) => void
   setCaptionBgColor: (color: string) => void
+  setCaptionItalic: (italic: boolean) => void
 }
 ```
 
@@ -1908,6 +1958,8 @@ export type TableAction =
   | { type: 'setRowColor'; row: number; color: string }
   | { type: 'setColumnColor'; col: number; color: string }
   | { type: 'setCellColor'; cellId: string; color: string }
+  | { type: 'setCellTextColor'; cellId: string; color: string }
+  | { type: 'setRowTextColor'; row: number; color: string }
   | { type: 'setColumnTextAlign'; col: number; align: TextAlign }
   | { type: 'setCellTextAlign'; cellId: string; align: TextAlign }
   | { type: 'setFreezeRow'; freeze: boolean }
@@ -1918,6 +1970,7 @@ export type TableAction =
   | { type: 'setCaption'; caption: string }
   | { type: 'setCaptionAlignment'; alignment: CaptionAlignment }
   | { type: 'setCaptionTextColor' | 'setCaptionBgColor'; color: string }
+  | { type: 'setCaptionItalic'; italic: boolean }
 ```
 
 ### Export Service Types
@@ -2672,14 +2725,14 @@ The following responsive behaviors are all implemented and verified:
 - ❌ No direct cross-feature imports — use context
 - ❌ No implementation code written before a failing test exists
 - ❌ No two libraries solving the same problem installed simultaneously
-- ❌ No reference to "competing tools" anywhere in codebase, comments, or copy
-- ❌ No `Suspense` with `fallback={null}` on page-level routes — always show a loader
+- ❌ No reference to "competing tools" in product UI copy (blog content that names competitors for comparison purposes is fine)
+- ❌ No `Suspense` with `fallback={null}` on page-level routes — always show a loader (exception: `ShortcutsModal`, a non-page lazy component, uses `fallback={null}` intentionally — it is keyboard-triggered and not visible on first paint)
 - ❌ No fixed pixel widths on layout containers — use `max-w-*` + `mx-auto` + responsive padding
 - ❌ No tap targets smaller than 44×44px on mobile screens
 - ❌ No hard-coded single font size for text that appears across breakpoints
 - ❌ No desktop-only layout assumptions — every view must be designed mobile-first
 - ❌ No em dashes in UI copy — use periods or colons instead
-- ❌ No `Github` icon from lucide-react — does not exist; use `GitFork` or `ExternalLink`
+- ❌ No `Github` icon from lucide-react — does not exist; use `GitHubLogoIcon` from `@radix-ui/react-icons` or `ExternalLink` from lucide-react
 - ❌ No `coverage/` or `tablesmit-table.*` in repository — always gitignored
 - ❌ No hardcoded hrefs in navigation — always reference `routes.*` from `src/config/routes/routesConfig.ts` by key
 - ❌ No co-located `.test.tsx` files with source — all tests in `src/test/` mirroring source structure
@@ -2697,15 +2750,16 @@ npm create vite@latest tablesmit -- --template react-ts
 cd tablesmit
 
 # 2. Core dependencies
-npm install react-router-dom lucide-react class-variance-authority clsx
+npm install react-router-dom lucide-react class-variance-authority clsx tailwind-merge
 
 # 3. Tailwind CSS
 npm install -D tailwindcss postcss autoprefixer
 npx tailwindcss init -p
 
-# 4. shadcn/ui (follow prompts: TypeScript, Tailwind, src/components/ui)
+# 4. shadcn/ui + sonner (follow prompts: TypeScript, Tailwind, src/components/ui)
 npx shadcn@latest init
 npx shadcn@latest add button select tooltip dropdown-menu separator badge dialog context-menu
+npm install sonner
 
 # 5. Table resize/drag
 npm install @dnd-kit/core @dnd-kit/utilities
@@ -2731,13 +2785,21 @@ npm install @sentry/react
 npm install -D vitest @testing-library/react @testing-library/user-event
 npm install -D @testing-library/jest-dom @vitejs/plugin-react jsdom
 
-# 12. E2E testing
+# 12. Tailwind typography plugin
+npm install -D @tailwindcss/typography
+
+# 13. PWA, bundle analysis, and build tooling
+npm install -D vite-plugin-pwa rollup-plugin-visualizer critters
+
+# 14. E2E testing
 npm install -D @playwright/test
 npx playwright install
 
-# 13. Dev tooling
+# 15. Dev tooling
 npm install -D @types/react @types/react-dom esbuild
 npm install -D husky lint-staged
+npm install -D @eslint/js globals typescript-eslint eslint-plugin-react-hooks eslint-plugin-react-refresh
+npm install -D lighthouse sass
 npx husky init
 ```
 
@@ -2749,7 +2811,7 @@ The following sections document the present-state implementation of every major 
 
 ### Brand & Positioning
 
-Brand and visual identity implemented per the specification in Sections 0–6. Logo SVGs (full + icon mark) in Navbar and favicon. Tailwind design tokens configured in `tailwind.config.ts`. Self-hosted Inter + JetBrains Mono via raw `@font-face` in `globals.css`. Nav includes Home, Features, Open Source, About links plus GitHub ghost button. Hero matches page copy — no eyebrow badge, no trust line, minimal. Open Source section includes MIT license note. About section includes "What Tablesmit Is Not" quiet list. 404 page built with back-to-home CTA. Dynamic copyright year via `getCurrentYear()` in `src/utils/dateUtils.ts`. No em dashes in UI copy — periods or colons used instead.
+Brand and visual identity implemented per the specification in Sections 0–6. Logo SVGs (full + icon mark) in Navbar and favicon. Tailwind design tokens configured in `tailwind.config.ts`. Self-hosted Inter + JetBrains Mono via raw `@font-face` in `globals.css`. Nav includes Home, Features, Open Source, About links plus GitHub ghost button. HeroBanner matches the hero copy spec with an added feature bullet row (custom headers, column types, merge cells, export formats). No eyebrow badge. Minimal. Open Source section includes MIT license note. About section includes "What Tablesmit Is Not" quiet list. 404 page built with back-to-home CTA. Dynamic copyright year via `getCurrentYear()` in `src/utils/dateUtils.ts`. No em dashes in UI copy — periods or colons used instead.
 
 ### Routing
 
@@ -2765,7 +2827,7 @@ Source follows the exact folder structure from Section 9. `App.tsx` contains rou
 
 ### Lazy Loading
 
-Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fallback. Seven sidebar/feature panels (`QuickPresetsPanel`, `ColumnFormattingPanel`, `ExportPanel`, etc.) lazy-loaded inside `TableMakerPage`. `vite.config.ts` `manualChunks` split vendor-react, vendor-ui, vendor-pdf, vendor-canvas, vendor-excel. `PageLoader` and `PanelLoader` components built with icon-mark SVG. No `Suspense fallback={null}` on any page-level route.
+Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fallback. Seven sidebar/feature panels (`QuickPresetsPanel`, `ColumnFormattingPanel`, `ExportPanel`, etc.) lazy-loaded inside `TableMakerPage`. `vite.config.ts` `manualChunks` split vendor-react, vendor-ui, vendor-pdf, vendor-canvas, vendor-excel. `PageLoader` and `PanelLoader` components built with icon-mark SVG. No `Suspense fallback={null}` on any page-level route (`ShortcutsModal` is the exception — a keyboard-triggered lazy component, not a page-level route).
 
 ### Drag-to-Resize
 
@@ -2773,11 +2835,11 @@ Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fal
 
 ### Undo History
 
-`useTableHistory` hook with snapshot-based undo stack (max 50 entries). Snapshots captured before each action in `TableContext` dispatch wrapper via `dispatchWithHistory`. Undo restores full cell/width/height/merge state from previous snapshot. Undo button in toolbar (lucide `Undo2` icon), disabled when `canUndo` is false. Tooltip shows action count.
+`useTableHistory` hook with snapshot-based undo stack (max 100 entries). Snapshots captured before each action in `TableContext` dispatch wrapper via `dispatchWithHistory`. Undo restores full cell/width/height/merge state from previous snapshot. Undo button in toolbar (lucide `Undo2` icon), disabled when `canUndo` is false. Tooltip shows action count.
 
 ### Import
 
-Toolbar `Import ▾` dropdown with CSV and Excel options. Hidden `<input type="file">` triggered via ref. CSV uses PapaParse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `Workbook.xlsx.readBuffer()` — reads `worksheet.eachRow` then processes caption (first row detected when merged across all columns), trimmed leading empty columns, and normalises via `normaliseRows()`. Merge detection reads `worksheet.model.merges` after `eachRow`, parses each range with `excelColToNum`/`parseExcelAddress`, converts to data-space coordinates (accounting for caption skip and column trim), clamps merges spanning caption+data rows, and applies them via `applyMergesToCells()`. Caption styling (bgColor, textColor, italic, alignment) is captured from the caption cell before the row is skipped. Helper functions `excelColToNum` and `parseExcelAddress` parse cell references without modifying the worksheet model. Both import paths normalise to `CellData[][]` with `mergedRanges`, then dispatch to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook destructures `setCaptionTextColor`/`setCaptionBgColor` from context. Full test coverage including merged cells and caption styling.
+Toolbar `Import ▾` dropdown with CSV and Excel options. Hidden `<input type="file">` triggered via ref. CSV uses papaparse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `Workbook.xlsx.readBuffer()` — reads `worksheet.eachRow` then processes caption (first row detected when merged across all columns), trimmed leading empty columns, and normalises via `normaliseRows()`. Merge detection reads `worksheet.model.merges` after `eachRow`, parses each range with `excelColToNum`/`parseExcelAddress`, converts to data-space coordinates (accounting for caption skip and column trim), clamps merges spanning caption+data rows, and applies them via `applyMergesToCells()`. Caption styling (bgColor, textColor, italic, alignment) is captured from the caption cell before the row is skipped. Helper functions `excelColToNum` and `parseExcelAddress` parse cell references without modifying the worksheet model. Both import paths normalise to `CellData[][]` with `mergedRanges`, then dispatch to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook destructures `setCaptionTextColor`/`setCaptionBgColor` from context. Full test coverage including merged cells and caption styling.
 
 ### Accessibility
 
@@ -2789,7 +2851,7 @@ Fonts self-hosted via raw `@font-face` blocks in `globals.css` (weights 400–70
 
 ### Export
 
-Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (PapaParse unparse), LaTeX (tabular generator). Copy to clipboard: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (via html2canvas). Export filename uses table caption when present; falls back to `tablesmit-table`.
+Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (papaparse unparse), LaTeX (tabular generator). Copy to clipboard: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (via html2canvas). Export filename uses table caption when present; falls back to `tablesmit-table`.
 
 ### Button System
 
@@ -2801,7 +2863,7 @@ Mobile-first base with `sm:`, `md:`, `lg:` overrides throughout. Navbar: hamburg
 
 ### Libraries
 
-shadcn/ui: Select, Tooltip, Dialog, DropdownMenu, Separator installed. Lucide React only icon library. `@dnd-kit` for all drag and resize. jsPDF + html2canvas for PDF and image export. exceljs for Excel import + export. PapaParse + `@types/papaparse` for CSV import. `cva` + `clsx` for variant class composition.
+shadcn/ui: Select, Tooltip, Dialog, DropdownMenu, Separator installed. Lucide React only icon library. `@dnd-kit` for all drag and resize. jsPDF + html2canvas for PDF and image export. exceljs for Excel import + export. papaparse (imported as `Papa`) + `@types/papaparse` for CSV import. `cva` + `clsx` for variant class composition.
 
 ### TypeScript
 
@@ -3098,7 +3160,7 @@ Rationale: "Reset" clears everything — destructive and irreversible.
 
 ```ts
 // src/hooks/useTableHistory/useTableHistory.ts
-// Manages a stack of TableState snapshots. Max 50 entries (configurable).
+// Manages a stack of TableState snapshots. Max 100 entries (configurable).
 
 const MAX_HISTORY = 50;
 
@@ -3384,7 +3446,7 @@ Both call `handlePasteData(text, html, setCells)`, which delegates to `parseClip
    → Detected via includes('\t'), split on tabs
 
 5. CSV (comma-separated)
-   → Parsed via PapaParse with { header: false, skipEmptyLines: true }
+   → Parsed via papaparse with { header: false, skipEmptyLines: true }
    → Correctly handles quoted values containing commas (e.g. "$10,000")
 
 6. Plain text — returns null, no action taken (only HTML-textable cases
@@ -4209,7 +4271,7 @@ In product copy they create cognitive load — they interrupt the reading flow
 and force the eye to pause at an unexpected beat.
 
 ```
-❌ Never use em-dashes in:
+Avoid em-dashes in:
    - Button labels
    - Tooltip text
    - Toast messages
@@ -4218,10 +4280,11 @@ and force the eye to pause at an unexpected beat.
    - Navigation items
    - Feature card headings
 
-✅ Em-dashes are only acceptable in:
+Em-dashes are generally acceptable in:
    - Long-form About page body copy (max one per paragraph)
    - README.md or CONTRIBUTION.md documentation
    - This agents.md file (it is a specification document, not UI)
+   - Blog post content (where natural for prose)
 ```
 
 ### Replacements
@@ -4233,9 +4296,12 @@ and force the eye to pause at an unexpected beat.
 | "Resize columns — like Excel"                   | "Resize columns like Excel."                 |
 | "No account — no paywall — no nonsense"         | "No account. No paywall. No nonsense."       |
 
-### Audit Required
+### Style Note
 
-A search for ` — ` (space em-dash space) was completed across all `.tsx` files, `index.html`, and `public/`. All instances were replaced with the correct alternatives per the table above. Two intentional em-dashes remain in BlogPostPage content only.
+This is a style guideline, not an enforced rule. Em-dashes in UI copy should be
+used thoughtfully — they work well in prose and blog content but can feel formal
+in concise UI labels. Use judgement. The project has no lint rule or CI check
+for em-dash usage.
 
 ---
 
@@ -5309,35 +5375,38 @@ Accessible, animated, lightweight (~3KB), zero configuration.
 
 ### Setup
 
-```tsx
-// src/main.tsx — add Toaster once at app root
-import { Toaster } from 'sonner';
-import { CheckCircle2, XCircle, Info, AlertTriangle } from 'lucide-react';
+The `Toaster` is rendered in `src/main.tsx` (see the Main.tsx Setup section below). It is configured once at the app root.
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+For reference, the relevant part of `src/main.tsx`:
+
+```tsx
+import { Toaster } from 'sonner'
+import { CheckCircle2, XCircle, Info, AlertTriangle } from 'lucide-react'
+
+createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
     <Toaster
-      position="bottom-right"
+      position="top-right"
       icons={{
-        success: <CheckCircle2 size={18} />,
-        info: <Info size={18} />,
-        warning: <AlertTriangle size={18} />,
-        error: <XCircle size={18} />,
+        success: <CheckCircle2 size={18} className="text-success" />,
+        info: <Info size={18} className="text-info" />,
+        warning: <AlertTriangle size={18} className="text-amber-500" />,
+        error: <XCircle size={18} className="text-danger" />,
       }}
       toastOptions={{
         duration: 3000,
         classNames: {
-          toast:   'font-sans text-sm',
+          toast: 'font-sans text-sm',
           success: 'border-l-4 border-success bg-success-light',
-          error:   'border-l-4 border-danger bg-danger-light',
-          info:    'border-l-4 border-info bg-info-light',
+          error: 'border-l-4 border-danger bg-danger-light',
+          info: 'border-l-4 border-info bg-info-light',
           warning: 'border-l-4 border-[#F59E0B] bg-[#FFFBEB]',
         },
       }}
     />
-  </StrictMode>
-);
+  </StrictMode>,
+)
 ```
 
 ### Usage — standardised toast calls
@@ -5979,7 +6048,7 @@ PDF export:    Caption renders as italic text above the table
 Excel export:  Caption goes in row 1, merged across all columns, italic
 PNG export:    Caption renders visually above the table in the canvas
 CSV export:    Caption goes in the first row as a comment: # [caption]
-               (PapaParse handles # as a comment prefix)
+               (papaparse handles # as a comment prefix)
 Print:         Renders via [data-table-caption] — print CSS already handles it
 ```
 
@@ -7259,20 +7328,24 @@ Testimonials page live at `/testimonials` with empty state (dashed border box, "
 
 ## Internationalization (i18n)
 
-> **Implementation updated:** The initial i18n used a custom `LocaleContext`.
-> This was replaced with **react-i18next** — the industry standard.
-> The custom LocaleContext is fully removed.
-> Note: The actual implementation uses **manual `fetch()` + `addResourceBundle()`** instead of
-> `i18next-http-backend`. English is bundled directly; other languages are fetched lazily
-> from `/public/locales/{lng}/common.json`. This avoids the extra http-backend dependency
-> while achieving the same lazy-loading behaviour. `useSuspense: false` is used since
-> the manual fetch pattern handles loading asynchronously.
-
 ### Libraries
 
 ```bash
 npm install i18next react-i18next i18next-browser-languagedetector
 ```
+
+### Architecture Overview
+
+The i18n system uses a **12-namespace parallel-fetch** architecture:
+
+- **12 namespaces** (`common`, `home`, `about`, `openSource`, `blog`, `contact`, `legal`, `table`, `features`, `testimonials`, `changelog`, `notFound`) split by UI domain
+- **English is bundled at build time** — 12 separate JSON files in `src/i18n/locales/en/` are `import`ed directly as JS modules, registered statically. Zero network requests for English users.
+- **Non-English locales are fetched lazily** from `public/locales/{lng}/{ns}.json` — all 12 namespaces for the detected language are fetched in parallel on first init. Switching languages triggers a fresh parallel fetch for that locale.
+- **Manual `fetch()` + `addResourceBundle()`** instead of `i18next-http-backend` — avoids the extra dependency and allows bundling English at build time.
+- **`loadNamespace()`** exists for individual namespace loading when a component needs a single namespace on demand.
+- **`loadedNamespaces` Set** tracks which `{lng}:{ns}` pairs have been fetched to avoid duplicate network requests.
+- **`react: { nsMode: 'fallback' }`** — when a key is missing in the active namespace, i18next falls back through namespaces before falling back to the fallback language.
+- **`defaultVariables: { name: brand.name }`** exposes the brand name as `{{name}}` in all interpolation calls.
 
 ### Supported Languages
 
@@ -7292,154 +7365,89 @@ npm install i18next react-i18next i18next-browser-languagedetector
 ```
 /public
   /locales
-    /ar/common.json
-    /de/common.json
-    /es/common.json
-    /fr/common.json
-    /ja/common.json
-    /no/common.json
-    /pt/common.json
-    (English is bundled directly in src/i18n/locales/en.json — never fetched)
+    /ar/       ← 12 JSON files per locale (common.json, home.json, etc.)
+    /de/
+    /es/
+    /fr/
+    /ja/
+    /no/
+    /pt/
+    (English is never fetched — bundled at build time)
 
 /src
+  /config
+    /locale
+      localesConfig.ts       ← LOCALES array + i18nConfig (localeBasePath, storageKey, etc.)
+      localesConfig.types.ts ← LocaleConfig interface
   /i18n
-    i18n.ts             ← initialise i18next (see below)
-    config.ts           ← language metadata (name, direction)
-    types.d.ts          ← TypeScript augmentation for type-safe t()
+    i18n.ts                  ← i18next init, loadLocale(), loadNamespace(), NS[], Namespace type
+    types.d.ts               ← TypeScript augmentation for type-safe t()
     locales/
-      en.json           ← source of truth, imported directly
+      en/                    ← 12 JSON namespace files, imported as JS modules
+        common.json
+        home.json
+        about.json
+        openSource.json
+        blog.json
+        contact.json
+        legal.json
+        table.json
+        features.json
+        testimonials.json
+        changelog.json
+        notFound.json
 ```
 
 ### Why This Architecture
 
 ```
+✅ 12 namespaces = smaller per-file bundles, parallel fetch
+   Each namespace is fetched independently and in parallel. A user who
+   visits only the home page never fetches the blog or changelog namespace.
+
 ✅ Manual fetch (no i18next-http-backend)
-   Reason: i18next-http-backend always fetches the detected language on init via
-   network. This means English would also require a network request. By bundling
-   English directly into the JS build, English users get zero network overhead.
+   English is bundled directly into the JS build — zero network overhead
+   for English users. Non-English locales are fetched lazily.
 
-✅ English is bundled at build time
-   src/i18n/locales/en.json is imported as a JS module and registered as a
-   static resource. It is always available on first render — no fetch, no
-   waterfall, no loading state for English users.
+✅ Parallel fetch on init
+   All 12 namespaces for the detected language are fetched at once via
+   Promise.all(). Then only individually loaded namespaces (via
+   loadNamespace()) are fetched on demand after init.
 
-✅ Only the detected language is fetched on init
-   Previously all 7 non-English locales were fetched eagerly. Now only the
-   detected language (from localStorage or navigator.language) is fetched.
-   Switching languages later triggers a lazy fetch for that locale.
+✅ Type safety — 12 typed namespaces
+   types.d.ts maps every namespace to its English JSON type. Mistyped
+   keys are caught at compile time. t('common:some.key') is checked
+   against common.json; t('blog:some.key') against blog.json.
 
-✅ Type safety — all translation keys are typed from en.json.
-   Mistyped keys are caught at compile time, not at runtime.
+✅ loadedNamespaces Set guards against re-fetching
+   Each {lng}:{ns} pair is tracked. hasResourceBundle() is checked for
+   statically-bundled English, loadedNamespaces for previously-fetched
+   non-English namespaces.
 
-✅ i18next is the standard — battle-tested, community-maintained,
-   with dedicated tooling for extraction, validation, and translation management.
+✅ nsMode: 'fallback'
+   Components can call t('common:key') or just t('key') with common as
+   defaultNS. If a key is missing in the active namespace, i18next
+   falls back through other namespaces, then to the fallback language.
 
-✅ No custom context to maintain — useTranslation() from react-i18next
-   replaces useLocale() with zero bespoke code.
-
-✅ hasResourceBundle() guards against re-fetching
-   Before fetching any locale, loadLocale() checks i18n.hasResourceBundle()
-   to avoid duplicate network requests on repeated language switches.
-
-✅ loadLocale() awaits before changeLanguage()
-   The LanguagePicker calls await loadLocale(locale.code) before
-   i18n.changeLanguage(locale.code). This ensures the resource bundle
-   is available before React re-renders with the new language —
-   otherwise components receive fallback English on first switch.
-
-✅ No http-backend dependency — simpler setup, same lazy-loading behaviour.
-   English locale is always available on first render (zero network requests).
+✅ {{name}} interpolation variable
+   brand.name ("Tablesmit") is available as {{name}} in all
+   translations without passing it explicitly every time.
 ```
 
-### `/src/i18n/i18n.ts`
+### `src/config/locale/localesConfig.ts`
+
+The locale configuration lives in `src/config/locale/localesConfig.ts` — not in `src/i18n/`. The `i18nConfig` object controls base path, file extension, storage key, and fallback language. The `LOCALES` array defines all supported languages.
 
 ```ts
-import i18n from 'i18next'
-import { initReactI18next, setDefaults } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import en from './locales/en.json'
-import { LOCALES } from './config'
+// src/config/locale/localesConfig.ts
+import type { LocaleConfig } from './localesConfig.types'
 
-setDefaults({ useSuspense: false })
-
-const LOCALE_URL = '/locales/{{lng}}/common.json'
-
-async function fetchLocale(lng: string): Promise<Record<string, unknown> | null> {
-  const url = LOCALE_URL.replace('{{lng}}', lng)
-  try {
-    const res = await fetch(url)
-    if (!res.ok) {
-      if (import.meta.env.DEV) {
-        console.error(`[tablesmit] Failed to load locale ${lng}: ${res.status}`)
-      }
-      return null
-    }
-    return await res.json() as Record<string, unknown>
-  } catch (err) {
-    if (import.meta.env.DEV) {
-      console.error(`[tablesmit] Failed to load locale: ${lng}`, err)
-    }
-    return null
-  }
-}
-
-export async function loadLocale(lng: string): Promise<void> {
-  if (lng === 'en') return
-  if (i18n.hasResourceBundle(lng, 'common')) return
-  const data = await fetchLocale(lng)
-  if (data) i18n.addResourceBundle(lng, 'common', data, true, true)
-}
-
-if (!i18n.isInitialized) {
-  i18n
-    .use(LanguageDetector)  // detects from localStorage then navigator.language
-    .use(initReactI18next)
-    .init({
-      fallbackLng: 'en',
-      supportedLngs: LOCALES.map(l => l.code),
-      ns: ['common'],
-      defaultNS: 'common',
-      resources: {
-        en: { common: en as Record<string, unknown> },
-      },
-      interpolation: {
-        escapeValue: false,
-      },
-      detection: {
-        order: ['localStorage', 'navigator'],
-        caches: ['localStorage'],
-        lookupLocalStorage: 'tablesmit-locale',
-      },
-    })
-    .then(() => {
-      const currentLang = i18n.language?.split('-')[0] ?? 'en'
-      loadLocale(currentLang)
-    })
-}
-
-// RTL and lang attribute on <html> + lazy-load locale on switch
-i18n.on('languageChanged', (lng) => {
-  const locale = LOCALES.find(l => l.code === lng)
-  if (locale) {
-    document.documentElement.dir = locale.dir
-    document.documentElement.lang = lng
-  }
-  loadLocale(lng)
-})
-
-export default i18n
-```
-
-### `/src/i18n/config.ts`
-
-```ts
-// Language metadata — used by the language picker UI
-
-export interface LocaleConfig {
-  code:      string;
-  name:      string;   // display name in that language
-  dir:       'ltr' | 'rtl';
-}
+export const i18nConfig = {
+  fallbackLng: 'en' as const,
+  storageKey: 'tablesmit-locale' as const,
+  localeBasePath: '/locales',
+  fileExtension: '.json' as const,
+} as const
 
 export const LOCALES: LocaleConfig[] = [
   { code: 'en', name: 'English',   dir: 'ltr' },
@@ -7450,120 +7458,264 @@ export const LOCALES: LocaleConfig[] = [
   { code: 'ja', name: '日本語',    dir: 'ltr' },
   { code: 'de', name: 'Deutsch',   dir: 'ltr' },
   { code: 'no', name: 'Norsk',     dir: 'ltr' },
-];
+]
+```
+
+### `/src/i18n/i18n.ts`
+
+```ts
+import i18n from 'i18next'
+import { initReactI18next, setDefaults } from 'react-i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import { brand } from '../config/brand/brandConfig'
+import { LOCALES, i18nConfig } from '../config/locale/localesConfig'
+
+import enCommon from './locales/en/common.json'
+import enHome from './locales/en/home.json'
+import enAbout from './locales/en/about.json'
+import enOpenSource from './locales/en/openSource.json'
+import enBlog from './locales/en/blog.json'
+import enContact from './locales/en/contact.json'
+import enLegal from './locales/en/legal.json'
+import enTable from './locales/en/table.json'
+import enFeatures from './locales/en/features.json'
+import enTestimonials from './locales/en/testimonials.json'
+import enChangelog from './locales/en/changelog.json'
+import enNotFound from './locales/en/notFound.json'
+
+setDefaults({ useSuspense: false })
+
+export const NS = [
+  'common', 'home', 'about', 'openSource', 'blog', 'contact',
+  'legal', 'table', 'features', 'testimonials', 'changelog', 'notFound',
+] as const
+
+export type Namespace = (typeof NS)[number]
+
+const loadedNamespaces = new Set<string>()
+
+async function fetchLocale(lng: string, ns: string): Promise<Record<string, unknown> | null> {
+  const url = `${i18nConfig.localeBasePath}/${lng}/${ns}${i18nConfig.fileExtension}`
+  try {
+    const res = await fetch(url)
+    if (!res.ok) {
+      if (import.meta.env.DEV) {
+        console.error(`[${brand.name}] load error ${lng}/${ns}: ${res.status}`)
+      }
+      return null
+    }
+    return (await res.json()) as Record<string, unknown>
+  } catch (err) {
+    if (import.meta.env.DEV) {
+        console.error(`[${brand.name}] load error ${lng}/${ns}:`, err)
+    }
+    return null
+  }
+}
+
+export async function loadNamespace(lng: string, ns: string): Promise<void> {
+  if (lng === 'en') return
+  const key = `${lng}:${ns}`
+  if (loadedNamespaces.has(key)) return
+  if (i18n.hasResourceBundle(lng, ns)) {
+    loadedNamespaces.add(key)
+    return
+  }
+  const data = await fetchLocale(lng, ns)
+  if (data) {
+    i18n.addResourceBundle(lng, ns, data, true, true)
+    loadedNamespaces.add(key)
+  }
+}
+
+export async function loadLocale(lng: string): Promise<void> {
+  if (lng === 'en') return
+  const toFetch = NS.filter((ns) => !i18n.hasResourceBundle(lng, ns))
+  if (toFetch.length === 0) return
+  const results = await Promise.all(
+    toFetch.map((ns) => fetchLocale(lng, ns).then((data) => ({ ns, data }))),
+  )
+  for (const { ns, data } of results) {
+    if (data) {
+      i18n.addResourceBundle(lng, ns, data, true, true)
+      loadedNamespaces.add(`${lng}:${ns}`)
+    }
+  }
+}
+
+const enResources: Record<string, Record<string, unknown>> = {
+  common: enCommon as Record<string, unknown>,
+  home: enHome as Record<string, unknown>,
+  about: enAbout as Record<string, unknown>,
+  openSource: enOpenSource as Record<string, unknown>,
+  blog: enBlog as Record<string, unknown>,
+  contact: enContact as Record<string, unknown>,
+  legal: enLegal as Record<string, unknown>,
+  table: enTable as Record<string, unknown>,
+  features: enFeatures as Record<string, unknown>,
+  testimonials: enTestimonials as Record<string, unknown>,
+  changelog: enChangelog as Record<string, unknown>,
+  notFound: enNotFound as Record<string, unknown>,
+}
+
+if (!i18n.isInitialized) {
+  i18n
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+      fallbackLng: i18nConfig.fallbackLng,
+      supportedLngs: LOCALES.map((l) => l.code),
+      ns: ['common'],
+      defaultNS: 'common',
+      react: { nsMode: 'fallback' },
+      resources: { en: enResources },
+      interpolation: {
+        defaultVariables: { name: brand.name },
+        escapeValue: false,
+      },
+      detection: {
+        order: ['localStorage', 'navigator'],
+        caches: ['localStorage'],
+        lookupLocalStorage: i18nConfig.storageKey,
+      },
+    })
+    .then(() => {
+      const currentLang = i18n.language?.split('-')[0] ?? i18nConfig.fallbackLng
+      loadLocale(currentLang)
+    })
+}
+
+i18n.on('languageChanged', (lng) => {
+  const locale = LOCALES.find((l) => l.code === lng)
+  if (locale) {
+    document.documentElement.dir = locale.dir
+    document.documentElement.lang = lng
+  }
+  loadLocale(lng)
+})
+
+export default i18n
 ```
 
 ### `/src/i18n/types.d.ts` — TypeSafe translations
 
-```ts
-// Augment react-i18next to derive key types from the English source file.
-// Every call to t('some.key') is now checked at compile time.
+All 12 namespaces are typed from their English JSON source files. Every call to `t('ns:key')` is checked at compile time.
 
-import 'react-i18next';
-import type en from './locales/en.json';
+```ts
+import 'react-i18next'
+import type enCommon from './locales/en/common.json'
+import type enHome from './locales/en/home.json'
+import type enAbout from './locales/en/about.json'
+import type enOpenSource from './locales/en/openSource.json'
+import type enBlog from './locales/en/blog.json'
+import type enContact from './locales/en/contact.json'
+import type enLegal from './locales/en/legal.json'
+import type enTable from './locales/en/table.json'
+import type enFeatures from './locales/en/features.json'
+import type enTestimonials from './locales/en/testimonials.json'
+import type enChangelog from './locales/en/changelog.json'
+import type enNotFound from './locales/en/notFound.json'
 
 declare module 'react-i18next' {
   interface CustomTypeOptions {
-    defaultNS: 'common';
+    defaultNS: 'common'
     resources: {
-      common: typeof en;
-    };
+      common: typeof enCommon
+      home: typeof enAbout
+      about: typeof enAbout
+      openSource: typeof enOpenSource
+      blog: typeof enBlog
+      contact: typeof enContact
+      legal: typeof enLegal
+      table: typeof enTable
+      features: typeof enFeatures
+      testimonials: typeof enTestimonials
+      changelog: typeof enChangelog
+      notFound: typeof enNotFound
+    }
   }
 }
 ```
 
-### `src/i18n/locales/en.json` — structure (partial)
+### Locale Namespace Files
 
-English is the source of truth at `src/i18n/locales/en.json`. All other locale files
-at `/public/locales/{lng}/common.json` must implement the same shape.
-Missing keys fall back to English automatically (`fallbackLng: 'en'`).
+English is the source of truth — 12 files in `src/i18n/locales/en/`. Non-English locale files in `public/locales/{lng}/` follow the same 12-file structure. Missing keys in any namespace fall back to English automatically (`fallbackLng: 'en'`).
 
-The full file has 40+ sections covering every UI string. Here is the top-level
-key structure (abbreviated):
+**Namespace reference:**
 
-```json
-{
-  "brand":       { "name": "Tablesmit", "tagline": "Tables, your way.", ... },
-  "nav":         { "home": "Home", "about": "About", ... },
-  "hero":        { "headline": "Tables built for analytical writing.", ... },
-  "about":       { "heading": "Built for structured thinkers.", ... },
-  "openSource":  { "heading": "Built in the open.", ... },
-  "contact":     { "heading": "Get in touch.", ... },
-  "footer":      { "copyright": "Tables, your way.", ... },
-  "blog":        { "heading": "Writing about tables, structure, and analytical thinking.", ... },
-  "notFound":    { "heading": "Page not found.", ... },
-  "testimonials":{ "heading": "What people are saying.", ... },
-  "toolbar":     { "addRow": "Add Row", "merge": "Merge", ... },
-  "table":       { "gridSize": "Grid Size", "mergeCells": "Merge Cells", ... },
-  "grid":        { "tableEditor": "Table editor", ... },
-  "contextMenu": { "autoFitColumn": "Auto-fit column width", ... },
-  "panels":      { "dimensions": "Grid Size", "export": "Export", ... },
-  "colorPanel":  { "headerColor": "Header color", ... },
-  "borderPanel": { "noBorder": "No Border", "allBorders": "All Borders", ... },
-  "themePicker": { "selectTheme": "Select table theme", ... },
-  "aiFeatures":  { "heading": "AI Features", "comingSoon": "Coming soon", ... },
-  "shortcuts":   { "title": "Keyboard Shortcuts", ... },
-  "export":      { "pdf": "PDF", "excel": "Excel", ... },
-  "presets":     { "researchNotes": "Research Notes", ... },
-  "themes":      { "defaultDescription": "White cells, primary blue header...", ... },
-  "columnFormats": { "textDescription": "Plain text...", ... },
-  "meta":        { "homeTitle": "Tablesmit — Tables, Your Way", ... },
-  "features":    { "heading": "Features", ... },
-  "cookieConsent": { "message": "This site uses cookies...", ... },
-  "pagination":  { "page": "Page {{current}} of {{total}}", ... },
-  "shortcutKeys":{ "ctrlZ": "Ctrl+Z", ... },
-  "privacy":     { "lastUpdated": "Last updated: May 2026", ... },
-  "terms":       { "lastUpdated": "Last updated: May 2026", ... },
-  "errors":      { "pageNotFound": "Page not found.", ... },
-  "aria":        { "tableEditor": "Table editor", ... },
-  "toast":       { "exportSuccess": "Table exported as {{format}}.", ... },
-  "loading":     "Loading…",
-  "changelogDescription": "Every release of Tablesmit, documented."
-}
-```
+| Namespace    | File                       | Contents                                      |
+|--------------|----------------------------|-----------------------------------------------|
+| `common`     | `en/common.json`           | Brand, nav, hero, footer, toolbar, table grid, panels, context menu, themes, presets, shortcuts, error messages, toast, meta, aria labels, cookie consent, pagination, changelog description |
+| `home`       | `en/home.json`             | Home/landing page copy                        |
+| `about`      | `en/about.json`            | About page copy                               |
+| `openSource` | `en/openSource.json`       | Open Source page copy                         |
+| `blog`       | `en/blog.json`             | Blog listing + post page copy                 |
+| `contact`    | `en/contact.json`          | Contact page copy                             |
+| `legal`      | `en/legal.json`            | Privacy Policy + Terms of Use copy            |
+| `table`      | `en/table.json`            | Table-specific UI strings                     |
+| `features`   | `en/features.json`         | Features list + detail page copy              |
+| `testimonials` | `en/testimonials.json`   | Testimonials page copy                        |
+| `changelog`  | `en/changelog.json`        | Changelog page copy                           |
+| `notFound`   | `en/notFound.json`         | 404 page copy                                 |
 
 **Key rules for all locale JSON files:**
 - `brand.name` is always `"Tablesmit"` in every language — never translate the brand name
-- Interpolation variables (`{{format}}`, `{{rows}}`) must be preserved exactly — only surrounding text is translated
-- Keys must match en/common.json exactly — no extra keys, no missing keys
+- Interpolation variables (`{{format}}`, `{{rows}}`, `{{name}}`) must be preserved exactly — only the surrounding text is translated
+- Keys within each namespace must match the English source exactly — no extra keys, no missing keys
+- `{{name}}` is a globally available interpolation variable (via `defaultVariables` in i18n init) that resolves to the brand name
 
 ### Usage in Components
 
+Import `useTranslation` from `react-i18next`. Specify the namespace as the first argument:
+
 ```tsx
-// Replace any copy config / useLocale() calls with useTranslation
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 const MyComponent: React.FC = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common')
 
   return (
     <button aria-label={t('aria.mergeButton')}>
       {t('toolbar.merge')}
     </button>
-  );
-};
+  )
+}
+```
+
+To access a different namespace:
+
+```tsx
+const { t } = useTranslation('blog')
+// or multiple:
+const { t } = useTranslation(['common', 'blog'])
 ```
 
 For toast messages with interpolation:
+
 ```ts
-import { useTranslation } from 'react-i18next';
-const { t } = useTranslation('common');
-toast.success(t('toast.exportSuccess', { format: 'PDF' }));
+import { useTranslation } from 'react-i18next'
+const { t } = useTranslation('common')
+toast.success(t('toast.exportSuccess', { format: 'PDF' }))
 // → "Table exported as PDF."
+```
+
+The `{{name}}` variable is available globally without passing it:
+
+```ts
+t('brand.tagline')  // resolves to "Tables, your way." — {{name}} is auto-injected
 ```
 
 ### RTL Support (Arabic)
 
-RTL handling lives inside `src/i18n/i18n.ts` — the `languageChanged` listener sets
-`document.documentElement.dir` and `lang` automatically. No changes needed in App.tsx.
+RTL handling is built into `src/i18n/i18n.ts` — the `languageChanged` listener sets `document.documentElement.dir` and `lang` automatically. No changes needed in App.tsx.
 
 ### Language Picker (Navbar)
 
 ```tsx
 import { Check, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { LOCALES } from '@/i18n/config'
-import { loadLocale } from '@/i18n/i18n'
+import { LOCALES } from '../config/locale/localesConfig'
+import { loadLocale } from '../i18n/i18n'
 import { Button } from '../Button/Button'
 import {
   DropdownMenu,
@@ -7608,11 +7760,15 @@ export function LanguagePicker({ align = 'end', onSelect }: LanguagePickerProps)
 ### Adding a New Language
 
 ```
-1. Create /public/locales/{code}/common.json
-   Copy from en/common.json — translate every value, preserve all keys and
-   interpolation variables exactly.
+1. Create /public/locales/{code}/ directory
+   Create 12 JSON files matching the namespace structure:
+     common.json, home.json, about.json, openSource.json, blog.json,
+     contact.json, legal.json, table.json, features.json, testimonials.json,
+     changelog.json, notFound.json
+   Copy from src/i18n/locales/en/ — translate every value, preserve all keys
+   and interpolation variables exactly.
 
-2. Add a LocaleConfig entry to LOCALES in src/i18n/config.ts
+2. Add a LocaleConfig entry to LOCALES in src/config/locale/localesConfig.ts
    (supportedLngs in i18n.ts is derived automatically from LOCALES.map(l => l.code))
 
 3. The language picker renders it automatically on next build.
@@ -7641,24 +7797,27 @@ Meta:      Page titles and meta descriptions per language
 ### Main.tsx Setup
 
 ```tsx
-// src/main.tsx — import i18n before App to ensure initialisation
-import './i18n/i18n';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Toaster } from 'sonner'
 import { CheckCircle2, XCircle, Info, AlertTriangle } from 'lucide-react'
+import './index.scss'
+import './i18n/i18n'
 import App from './App.tsx'
+import { registerPWA } from './pwa.ts'
+
+registerPWA()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
     <Toaster
-      position="bottom-right"
+      position="top-right"
       icons={{
-        success: <CheckCircle2 size={18} />,
-        info: <Info size={18} />,
-        warning: <AlertTriangle size={18} />,
-        error: <XCircle size={18} />,
+        success: <CheckCircle2 size={18} className="text-success" />,
+        info: <Info size={18} className="text-info" />,
+        warning: <AlertTriangle size={18} className="text-amber-500" />,
+        error: <XCircle size={18} className="text-danger" />,
       }}
       toastOptions={{
         duration: 3000,
@@ -8235,13 +8394,17 @@ in the branch protection settings above.
 {
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && cp -r prerendered/. dist/",
+    "build": "npm run generate-sitemap && vite build",
     "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
-    "prerender": "npx tsx scripts/prerender.ts --out-dir prerendered",
+    "prerender": "npx tsx scripts/prerender.ts --out-dir $npm_package_config_prerenderDir",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
-    "audit": "npm audit"
+    "audit": "npm audit",
+    "analyze": "ANALYZE=true npm run build",
+    "test:e2e": "playwright test",
+    "new-post": "npx tsx scripts/md-to-blog-post.ts",
+    "prepare": "husky"
   }
 }
 ```
@@ -8252,7 +8415,6 @@ in the branch protection settings above.
 
 2. **`vite build`** — Compiles the app via esbuild (not tsc). Vite's rolldown bundler generates code-split chunks per route, per vendor library, and per locale. `manualChunks` splits vendor-react, vendor-ui, vendor-i18n, vendor-sentry, vendor-pdf, vendor-canvas, vendor-excel. Output to `dist/`.
 
-3. **`cp -r prerendered/. dist/`** — Copies prerendered content pages (About, Blog, Features, etc.) from the committed `prerendered/` folder into `dist/`. These are static HTML files generated locally via Playwright. The homepage (`/`) is not prerendered — it remains the interactive SPA.
 
 ### Why `tsc -b` Is Not in the Build Chain
 

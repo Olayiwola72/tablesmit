@@ -2,7 +2,7 @@
   "name": "tablesmit",
   "description": "A minimalist table builder for analytical writing.",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.2.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
