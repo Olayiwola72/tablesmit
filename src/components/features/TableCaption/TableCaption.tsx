@@ -282,8 +282,8 @@ function TableCaptionRaw({
           <div className="fixed inset-0 z-40" onClick={closeMenu} data-export-hide />
           <div
             ref={menuRef}
-            className="fixed z-50 w-52 rounded-md border border-border bg-white py-1 shadow-sm" data-export-hide
-            style={{ left: ctxMenu.x, top: ctxMenu.y }}
+            className="fixed z-50 w-52 rounded-md py-1 shadow-sm" data-export-hide
+            style={{ left: ctxMenu.x, top: ctxMenu.y, backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}
           >
             <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-muted">
               {t('contextMenu.editCaption')}

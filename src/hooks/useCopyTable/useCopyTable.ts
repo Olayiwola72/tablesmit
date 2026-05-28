@@ -4,6 +4,7 @@ import { toast } from '../../utils/toast/toast'
 import { trackEvent } from '../../utils/analytics/analytics'
 import { setCopyBuffer } from '../useClipboardPaste/useClipboardPaste'
 import { fixTableBordersForExport } from '../../services/exportService/utils'
+import { DEFAULT_CAPTION_TEXT_COLOR } from '../../config/colors/colorsConfig'
 import type { CellData, MergeRange } from '@/types/table'
 
 function escapeHtml(s: string): string {
@@ -74,7 +75,7 @@ export function buildHtmlTable(
 
   let html = `<table style="border-collapse: collapse; font-family: Inter, Arial, sans-serif"${tableAttrStr}>\n`
   if (caption) {
-    const capStyles: string[] = ['caption-side: top', 'margin-bottom: 6px', `color: ${captionTextColor ?? '#6B7280'}`]
+    const capStyles: string[] = ['caption-side: top', 'margin-bottom: 6px', `color: ${captionTextColor ?? DEFAULT_CAPTION_TEXT_COLOR}`]
     if (captionItalic) capStyles.push('font-style: italic')
     if (captionBgColor) capStyles.push(`background: ${captionBgColor}`)
     if (captionAlignment && captionAlignment !== 'center') capStyles.push(`text-align: ${captionAlignment}`)
@@ -171,8 +172,8 @@ export function buildExcelHtml(
   body += `<table style="border-collapse: collapse; font-family: Inter, Arial, sans-serif"${bodyAttrStr}>\n`
   if (caption) {
     const capStyles: string[] = [
-      `color: ${captionTextColor ?? '#6B7280'}`,
-      `mso-foregroundcolor: ${captionTextColor ?? '#6B7280'}`,
+      `color: ${captionTextColor ?? DEFAULT_CAPTION_TEXT_COLOR}`,
+      `mso-foregroundcolor: ${captionTextColor ?? DEFAULT_CAPTION_TEXT_COLOR}`,
       `background-color: ${captionBgColor ?? '#FFFFFF'}`,
       `mso-backgroundcolor: ${captionBgColor ?? '#FFFFFF'}`,
       'mso-pattern: auto none',

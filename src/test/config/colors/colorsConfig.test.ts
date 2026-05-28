@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { colors } from '../../../config/colors/colorsConfig'
+import { colors, DEFAULT_CAPTION_TEXT_COLOR } from '../../../config/colors/colorsConfig'
+
+describe('DEFAULT_CAPTION_TEXT_COLOR', () => {
+  it('is black', () => {
+    expect(DEFAULT_CAPTION_TEXT_COLOR).toBe('#000000')
+  })
+})
 
 describe('colors', () => {
   it('has a default header color of white', () => {

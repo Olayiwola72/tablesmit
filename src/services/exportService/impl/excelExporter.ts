@@ -1,6 +1,7 @@
 import type { CellData, BorderStyle as TbBorderStyle } from '../../../types/table'
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
 import { exportFileBaseName } from '../../../config/export/exportConfig'
+import { DEFAULT_CAPTION_TEXT_COLOR } from '../../../config/colors/colorsConfig'
 import { brand } from '../../../config/brand/brandConfig'
 import { downloadUrl, filenameWithExtension } from '../utils'
 import { getEffectiveColSpan, getMergeAtCoord } from '../../../utils/mergeUtils/mergeUtils'
@@ -85,7 +86,7 @@ export class ExcelExporter implements ExportStrategy {
         name: 'Calibri',
         size: 12,
         italic: options.captionItalic ?? true,
-        color: { argb: options.captionTextColor ? toArgb(options.captionTextColor) : 'FF6B7280' },
+        color: { argb: options.captionTextColor ? toArgb(options.captionTextColor) : toArgb(DEFAULT_CAPTION_TEXT_COLOR) },
       }
       if (options.captionBgColor) {
         captionCell.fill = {

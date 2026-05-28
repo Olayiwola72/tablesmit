@@ -8,7 +8,7 @@ import { useTableSelection } from '../../../hooks/useTableSelection/useTableSele
 import { useTableGridKeyHandlers } from '../../../hooks/useTableGridKeyHandlers/useTableGridKeyHandlers'
 import { TABLE_THEMES } from '../../../config/table/tableThemes/tableThemes'
 import { computeColumnSum } from '../../../utils/tableUtils/tableUtils'
-import { getContrastText, getDarkBg } from '../../../utils/colorUtils/colorUtils'
+import { getContrastText } from '../../../utils/colorUtils/colorUtils'
 import { isRangeAnchor } from '../../../utils/mergeUtils/mergeUtils'
 import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
 import { useColumnSort } from '../../../hooks/useColumnSort/useColumnSort'
@@ -69,15 +69,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
   } = useTableContext()
   const { selectCell } = useTableSelection()
   const gridRef = useRef<HTMLTableElement>(null)
-  const [isDark, setIsDark] = useState(() => document.documentElement.classList.contains('dark'))
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'))
-    })
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
-    return () => observer.disconnect()
-  }, [])
-  const effectiveHeaderColor = isDark ? getDarkBg(headerColor) : headerColor
+  const effectiveHeaderColor = headerColor
   const headerTextColor = useMemo(() => getContrastText(effectiveHeaderColor), [effectiveHeaderColor])
   const themeConfig = useMemo(() => TABLE_THEMES.find((t) => t.id === theme) ?? TABLE_THEMES[0], [theme])
 
@@ -291,8 +283,8 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
           <TableCaption {...caption} tableWidth={actualTableWidth} hasBorder={borderStyle !== 'none'} />
         </div>
       )}
-      <div ref={tableRef} className="inline-block align-top bg-white dark:bg-slate-900" data-table-container>
-        <table ref={gridRef} className="min-w-max border-collapse bg-white dark:bg-slate-900" role="grid" aria-label={t('grid.tableEditor')} aria-rowcount={rows} aria-colcount={cols}>
+      <div ref={tableRef} className="inline-block align-top" style={{ backgroundColor: '#FFFFFF' }} data-table-container>
+        <table ref={gridRef} className="min-w-max border-collapse" style={{ backgroundColor: '#FFFFFF' }} role="grid" aria-label={t('grid.tableEditor')} aria-rowcount={rows} aria-colcount={cols}>
           <colgroup>
             {columnWidths.map((width, index) => (
               <col key={index} style={{ width }} />
@@ -305,7 +297,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
                     ? (theme === 'striped' && origRowIdx % 2 === 1 ? themeConfig.altRowBg : themeConfig.rowBg)
                     : undefined
                   return (
-                  <tr key={row[0]?.id ?? rowIdx} role="row" aria-rowindex={origRowIdx + 1} style={{ height: rowHeights[origRowIdx] }}>
+                  <tr key={row[0]?.id ?? rowIdx} role="row" aria-rowindex={origRowIdx + 1} style={{ height: rowHeights[origRowIdx], backgroundColor: '#FFFFFF' }}>
                     {row.map((cell, colIndex) => {
                       if (hiddenSet.has(cell.id)) return null
                       const merge = mergeAnchorMap.get(cell.id)

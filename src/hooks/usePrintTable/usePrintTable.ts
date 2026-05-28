@@ -9,6 +9,12 @@ function sanitizePrintableClone(element: HTMLElement): void {
         node.removeAttribute(attribute.name)
       }
     }
+    if (node.hasAttribute('contenteditable')) {
+      node.removeAttribute('contenteditable')
+    }
+    if (node.hasAttribute('spellcheck')) {
+      node.removeAttribute('spellcheck')
+    }
   })
 }
 
@@ -61,9 +67,11 @@ export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
       }
 
       const printCSS = `@media print {
-  body { margin:2cm; }
   @page { margin:2cm; size:A4 landscape; }
-  td, th { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+  [data-table-container] { display:block !important; }
+  table { border-collapse:collapse; margin:0 auto; }
+  td, th { print-color-adjust:exact; -webkit-print-color-adjust:exact; position:static !important; }
+  [data-table-caption] { display:flex; justify-content:center !important; }
   [data-print-hide] { display:none !important; }
 }`
 
