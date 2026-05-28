@@ -37,6 +37,23 @@
   [headers.values]
     Cache-Control = "no-cache"
 
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/markdown; charset=utf-8"
+    Cache-Control = "public, max-age=86400"
+
+[[redirects]]
+  from = "/llms.txt"
+  to = "/llms.txt"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/.well-known/llms.txt"
+  to = "/llms.txt"
+  status = 302
+
 [[redirects]]
   from = "/sitemap.xml"
   to = "/sitemap.xml"

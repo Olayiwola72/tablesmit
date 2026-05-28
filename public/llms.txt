@@ -1,0 +1,70 @@
+# Tablesmit
+
+Tablesmit is a minimalist, open source table builder for analytical writing. Build clean structured tables with full control over headers, column types, formatting, and export. No signup required. Free. MIT licensed.
+
+## Core
+
+- [Table Maker](/): Create and edit tables online
+- [Features](/features): All table builder features
+- [About](/about): About Tablesmit
+- [Blog](/blog): Articles about tables, writing, and analytical thinking
+- [Changelog](/changelog): Version history
+- [Open Source](/open-source): Source code, contributors, and sponsorship
+- [Testimonials](/testimonials): User feedback
+
+## Export
+
+- [PDF Export](/features/pdf-export)
+- [Excel Export](/features/excel-export)
+- [CSV Export](/features/csv-export)
+- [LaTeX Export](/features/latex-export)
+- [Image Export](/features/image-export)
+- [Copy Table](/features/copy-table)
+- [Markdown Table](/features/markdown-table)
+
+## Import
+
+- [CSV Import](/features/csv-import)
+- [Excel Import](/features/excel-import)
+- [Smart Paste](/features/smart-paste)
+
+## Editing
+
+- [Merge Cells](/features/merge-cells)
+- [Column Sorting](/features/column-sorting)
+- [Column Types](/features/column-types)
+- [Table Themes](/features/table-themes)
+- [Custom Headers](/features/custom-headers)
+- [Drag to Resize](/features/drag-to-resize)
+- [Freeze Panes](/features/freeze-panes)
+- [Find and Replace](/features/find-replace)
+- [Border Styles](/features/border-styles)
+- [Table Caption](/features/table-caption)
+- [Context Menu](/features/context-menu)
+- [Auto Sum](/features/auto-sum)
+- [Undo](/features/undo)
+- [Table Templates](/features/templates)
+- [Keyboard Shortcuts](/features/keyboard-shortcuts)
+
+## Accessibility
+
+- [Accessible Tables](/features/accessible-tables)
+
+## Preferences
+
+- [Dark Mode](/features/dark-mode)
+
+## Advanced
+
+- [Academic Tables](/features/academic-tables)
+- [AI Features](/features/ai-features)
+- [Offline Mode](/features/offline)
+
+## Legal
+
+- [Privacy Policy](/privacy)
+- [Terms of Use](/terms)
+
+## Social
+
+- [GitHub](https://github.com/Olayiwola72/tablesmit)
