@@ -74,8 +74,8 @@ export function AboutPage(): ReactNode {
         </div>
         <div className="rounded-md border border-border bg-surface p-6">
           <div className="space-y-2">
-            {lines.map((line, i) => (
-              <p key={i} className="text-sm font-medium text-text-muted">
+            {lines.map((line) => (
+              <p key={line} className="text-sm font-medium text-text-muted">
                 {line}
               </p>
             ))}

@@ -24,7 +24,7 @@ export function ColumnFormattingPanel(): ReactNode {
       <SectionLabel>{t('panels.columnFormatting')}</SectionLabel>
       <div className="space-y-2">
         {Array.from({ length: cols }, (_, index) => (
-          <label key={index} className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
+          <label key={cells[0]?.[index]?.id ?? `col-${index}`} className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
             C{index + 1}
             <select
               name={`sidebar-col-type-${index}`}

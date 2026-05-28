@@ -13,4 +13,5 @@ export interface ExportQualityPreset {
   label: string
   scale: number
   jpegQuality: number
+  default: boolean
 }
