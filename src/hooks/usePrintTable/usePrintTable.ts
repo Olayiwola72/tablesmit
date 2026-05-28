@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import type { RefObject } from 'react'
 
 function sanitizePrintableClone(element: HTMLElement): void {
@@ -18,7 +18,13 @@ function sanitizePrintableClone(element: HTMLElement): void {
   })
 }
 
-export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
+export function usePrintTable(tableRef: RefObject<HTMLDivElement>, onBeforePrint?: () => void): void {
+  const onBeforePrintRef = useRef(onBeforePrint)
+
+  useEffect(() => {
+    onBeforePrintRef.current = onBeforePrint
+  }, [onBeforePrint])
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
       const isCtrl = e.ctrlKey || e.metaKey
@@ -28,6 +34,9 @@ export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
       if (target.closest('[contenteditable]')) return
 
       e.preventDefault()
+
+      ;(document.activeElement as HTMLElement | null)?.blur()
+      onBeforePrintRef.current?.()
 
       const iframe = document.createElement('iframe')
       iframe.style.position = 'fixed'
@@ -70,7 +79,7 @@ export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
   @page { margin:2cm; size:A4 landscape; }
   [data-table-container] { display:block !important; }
   table { border-collapse:collapse; margin:0 auto; }
-  td, th { print-color-adjust:exact; -webkit-print-color-adjust:exact; position:static !important; }
+  td, th { print-color-adjust:exact; -webkit-print-color-adjust:exact; position:static !important; box-shadow:none !important; outline:none !important; }
   [data-table-caption] { display:flex; justify-content:center !important; }
   [data-print-hide] { display:none !important; }
 }`
