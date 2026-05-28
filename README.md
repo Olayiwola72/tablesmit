@@ -7,7 +7,7 @@ No account. No bloat. Free and open source.
 
 **[→ tablesmit.com](https://tablesmit.com)**
 
-![Tests](https://img.shields.io/badge/tests-1549%20passing-4ade80?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-1781%20passing-4ade80?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-60a5fa?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f59e0b?style=flat-square)
 ![Made in Nigeria](https://img.shields.io/badge/made%20in-Nigeria-1e40af?style=flat-square)
@@ -67,7 +67,7 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 - RTL support for Arabic
 - Keyboard shortcuts — press `?` or `Ctrl+/` to see all 13
 - Offline-capable PWA with auto-updating service worker
-- 27 feature landing pages, 21 blog posts
+- 30 feature landing pages, 34 blog posts
 - No account required. No data leaves your browser.
 
 ---
@@ -192,7 +192,7 @@ Every page is lazy-loaded. Heavy feature panels within the table maker are also 
 ## Project status
 
 ```
-Tests:     1549 passing — 144 test files
+Tests:     1781 passing — 169 test files
 Lint:      TypeScript strict — zero custom rules
 Build:     clean — code-split chunks < 150 KB gzipped initial
 PWA:       offline-capable with auto-updating service worker
@@ -212,9 +212,19 @@ its own file; consumers import exactly what they need.
 |---|---|---|
 | Brand name, tagline, URLs | `src/config/brand/brandConfig.ts` |
 | Route paths + nav links | `src/config/routes/routesConfig.ts` |
-| Page copy (hero, about, etc.) | `src/config/copy/copyConfig.ts` |
-| Export formats | `src/config/export/exportConfig.ts` |
+| Export formats + quality presets | `src/config/export/exportConfig.ts` |
 | Import limits | `src/config/import/importConfig.ts` |
+| Keyboard shortcuts | `src/config/shortcuts/shortcutsConfig.ts` |
+| Table themes | `src/config/table/tableThemes/tableThemes.ts` |
+| Table defaults + constraints | `src/config/table/tableDefaults/tableDefaults.ts` |
+| Table presets | `src/config/table/presets/` |
+| Changelog entries | `src/config/changelog/changelog.ts` |
+| Color palette swatches | `src/config/colorPalette/colorPalette.ts` |
+| Column formats | `src/config/columnFormats/columnFormatsConfig.ts` |
+| Locale metadata | `src/config/locale/localesConfig.ts` |
+| Analytics | `src/config/analytics/analyticsConfig.ts` |
+| Sponsors | `src/config/sponsors/sponsorsConfig.ts` |
+| Page content + testimonials | `src/config/testimonials/testimonials.ts` |
 
 See `src/config/` for the complete list. Check there before changing component logic.
 
@@ -264,7 +274,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for full guidelines.
 Quick summary:
 - Open an issue before starting large changes
 - No direct pushes to `main` — all changes go through PRs
-- Run `npm test` — all 1549 tests must pass
+- Run `npm test` — all 1781 tests must pass
 - Run `npm run lint` — zero warnings
 - Write tests for new features
 

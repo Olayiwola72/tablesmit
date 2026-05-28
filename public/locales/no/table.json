@@ -192,7 +192,11 @@
     "medium": "Medium",
     "high": "Høy",
     "captureTable": "Fang tabell",
-    "exportButton": "Eksporter"
+    "exportButton": "Eksporter",
+    "qualityNormal": "Normal",
+    "qualityHigh": "Høy",
+    "qualityNormalDescription": "Mindre filstørrelse, standard kvalitet",
+    "qualityHighDescription": "Skarp utskrift i 2×, større fil"
   },
   "presets": {
     "researchNotes": "Forskningsnotater",

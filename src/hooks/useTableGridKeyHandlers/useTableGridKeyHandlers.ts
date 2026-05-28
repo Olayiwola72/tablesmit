@@ -19,8 +19,6 @@ export function useTableGridKeyHandlers(
   useEffect(() => {
     const onKeyDown = (event: globalThis.KeyboardEvent): void => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'z') {
-        const target = event.target as HTMLElement
-        if (target.closest('[contenteditable]')) return
         event.preventDefault()
         if (!canUndo) {
           toast.info(t('toast.undoEmpty'))

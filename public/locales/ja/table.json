@@ -192,7 +192,11 @@
     "medium": "中",
     "high": "高",
     "captureTable": "テーブルをキャプチャ",
-    "exportButton": "エクスポート"
+    "exportButton": "エクスポート",
+    "qualityNormal": "標準",
+    "qualityHigh": "高",
+    "qualityNormalDescription": "ファイルサイズ小、標準品質",
+    "qualityHighDescription": "2倍の解像度で鮮明、ファイルサイズ大"
   },
   "presets": {
     "researchNotes": "研究ノート",

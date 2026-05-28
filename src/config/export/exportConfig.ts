@@ -1,4 +1,4 @@
-import type { ExportDefinition } from '../export/exportConfig.types'
+import type { ExportDefinition, ExportQuality, ExportQualityPreset } from '../export/exportConfig.types'
 
 export const exportFileBaseName = 'tablesmit-table'
 
@@ -10,3 +10,18 @@ export const exportFormats: ExportDefinition[] = [
   { format: 'csv', label: 'CSV', extension: 'csv' },
   { format: 'latex', label: 'LaTeX', extension: 'tex' },
 ]
+
+export const EXPORT_QUALITY_PRESETS: Record<ExportQuality, ExportQualityPreset> = {
+  normal: {
+    quality: 'normal',
+    label: 'Normal',
+    scale: 1,
+    jpegQuality: 0.8,
+  },
+  high: {
+    quality: 'high',
+    label: 'High',
+    scale: 2,
+    jpegQuality: 0.92,
+  },
+}

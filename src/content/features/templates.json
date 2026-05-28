@@ -78,12 +78,12 @@
     {
       "number": 3,
       "heading": "Fill in your content",
-      "body": "Click any cell to edit. Tab to move to the next cell. Add rows with Ctrl+L as your data grows."
+      "body": "Click any cell to edit. Tab to move to the next cell. Use the toolbar buttons to add rows or columns as your data grows."
     },
     {
       "number": 4,
       "heading": "Export when ready",
-      "body": "Export to PDF, Excel, PNG, or CSV directly from the toolbar — or use keyboard shortcuts Ctrl+P and Ctrl+E."
+      "body": "Export to PDF, Excel, PNG, or CSV directly from the toolbar — or use keyboard shortcuts Ctrl+P and Ctrl+Shift+X."
     }
   ],
   "useCases": [

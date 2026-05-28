@@ -2,7 +2,7 @@ import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { PDFExporter } from '../../../../services/exportService/impl/pdfExporter'
 
 const mockCanvas = vi.hoisted(() => ({
-  toDataURL: vi.fn(() => 'data:image/png;base64,fakedata'),
+  toDataURL: vi.fn(() => 'data:image/jpeg;base64,fakedata'),
   width: 800,
   height: 600,
 }))
@@ -38,7 +38,7 @@ describe('PDFExporter', () => {
     mockHtml2canvas.mockResolvedValue(mockCanvas)
     mockCanvas.width = 800
     mockCanvas.height = 600
-    mockCanvas.toDataURL.mockReturnValue('data:image/png;base64,fakedata')
+    mockCanvas.toDataURL.mockReturnValue('data:image/jpeg;base64,fakedata')
     mockPdfInstance.internal.pageSize.getWidth.mockReturnValue(595.28)
     mockPdfInstance.internal.pageSize.getHeight.mockReturnValue(841.89)
   })
@@ -59,6 +59,14 @@ describe('PDFExporter', () => {
     expect(typeof opts.onclone).toBe('function')
   })
 
+  it('uses provided scale option', async () => {
+    await new PDFExporter().export(el(), { format: 'pdf', scale: 1 })
+    expect(mockHtml2canvas).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ scale: 1 }),
+    )
+  })
+
   it('falls back to lower scale when html2canvas fails', async () => {
     mockHtml2canvas
       .mockRejectedValueOnce(new Error('canvas too large'))
@@ -74,6 +82,16 @@ describe('PDFExporter', () => {
     mockHtml2canvas.mockRejectedValue(new Error('canvas error'))
     await expect(new PDFExporter().export(el(), { format: 'pdf' })).rejects.toThrow('canvas error')
     expect(mockHtml2canvas).toHaveBeenCalledTimes(3)
+  })
+
+  it('renders canvas as JPEG with default high quality when quality not provided', async () => {
+    await new PDFExporter().export(el(), { format: 'pdf' })
+    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/jpeg', 0.92)
+  })
+
+  it('renders canvas as JPEG with provided quality', async () => {
+    await new PDFExporter().export(el(), { format: 'pdf', quality: 0.8 })
+    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/jpeg', 0.8)
   })
 
   it('creates jsPDF with landscape for wide canvas', async () => {
@@ -114,13 +132,13 @@ describe('PDFExporter', () => {
     expect(mockPdfInstance.addImage).toHaveBeenCalled()
   })
 
-  it('passes correct arguments to addImage', async () => {
+  it('passes correct arguments to addImage using JPEG format', async () => {
     mockCanvas.width = 800
     mockCanvas.height = 600
     await new PDFExporter().export(el(), { format: 'pdf' })
     expect(mockPdfInstance.addImage).toHaveBeenCalledWith(
-      'data:image/png;base64,fakedata',
-      'PNG',
+      'data:image/jpeg;base64,fakedata',
+      'JPEG',
       expect.any(Number),
       32,
       expect.any(Number),

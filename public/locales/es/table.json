@@ -192,7 +192,11 @@
     "medium": "Media",
     "high": "Alta",
     "captureTable": "Capturar tabla",
-    "exportButton": "Exportar"
+    "exportButton": "Exportar",
+    "qualityNormal": "Normal",
+    "qualityHigh": "Alta",
+    "qualityNormalDescription": "Tamaño de archivo más pequeño, calidad estándar",
+    "qualityHighDescription": "Salida nítida a 2×, archivo más grande"
   },
   "presets": {
     "researchNotes": "Notas de investigación",

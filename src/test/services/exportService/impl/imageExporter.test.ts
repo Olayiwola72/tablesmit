@@ -35,21 +35,29 @@ describe('ImageExporter', () => {
     vi.restoreAllMocks()
   })
 
-  it('PNG calls html2canvas with correct options', async () => {
+  it('PNG calls html2canvas with default high scale when no scale provided', async () => {
     const element = el()
     await new ImageExporter('image/png').export(element, { format: 'png' })
     expect(mockHtml2canvas).toHaveBeenCalledWith(element, expect.objectContaining({
       backgroundColor: '#ffffff',
-      scale: 3,
+      scale: 2,
       useCORS: true,
     }))
     const [, opts] = mockHtml2canvas.mock.calls[0]
     expect(typeof opts.onclone).toBe('function')
   })
 
-  it('PNG uses image/png mime type with default quality', async () => {
+  it('PNG uses provided scale option', async () => {
+    await new ImageExporter('image/png').export(el(), { format: 'png', scale: 1 })
+    expect(mockHtml2canvas).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ scale: 1 }),
+    )
+  })
+
+  it('PNG uses image/png mime type', async () => {
     await new ImageExporter('image/png').export(el(), { format: 'png' })
-    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/png', 0.94)
+    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/png', 0.92)
   })
 
   it('JPEG uses image/jpeg mime type with custom quality', async () => {
@@ -57,9 +65,9 @@ describe('ImageExporter', () => {
     expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/jpeg', 0.5)
   })
 
-  it('JPEG defaults quality to 0.94 when not provided', async () => {
+  it('JPEG defaults quality to high preset (0.92) when not provided', async () => {
     await new ImageExporter('image/jpeg').export(el(), { format: 'jpeg' })
-    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/jpeg', 0.94)
+    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/jpeg', 0.92)
   })
 
   it('PNG uses default filename tablesmit-table.png', async () => {

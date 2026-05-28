@@ -76,7 +76,7 @@ Click the caption field above the table and type the pricing table's context —
 
 For a client proposal: **PDF** (Ctrl+P). The table exports cleanly — no toolbar, no sidebars, just the pricing information.
 
-For a spreadsheet you will continue editing: **Excel** (Ctrl+E). The currency formatting and column structure transfer correctly.
+For a spreadsheet you will continue editing: **Excel** (Ctrl+Shift+X). The currency formatting and column structure transfer correctly.
 
 For a document or presentation: **PNG** — paste directly into Word, Google Docs, or PowerPoint.
 

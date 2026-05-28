@@ -192,7 +192,11 @@
     "medium": "متوسطة",
     "high": "عالية",
     "captureTable": "التقاط الجدول",
-    "exportButton": "تصدير"
+    "exportButton": "تصدير",
+    "qualityNormal": "عادي",
+    "qualityHigh": "عالية",
+    "qualityNormalDescription": "حجم ملف أصغر، جودة قياسية",
+    "qualityHighDescription": "إخراج بدقة 2×، ملف أكبر"
   },
   "presets": {
     "researchNotes": "ملاحظات بحثية",

@@ -21,30 +21,6 @@ describe('useTableGridKeyHandlers', () => {
     expect(undo).toHaveBeenCalledOnce()
   })
 
-  it('does not trigger undo when target is contenteditable', () => {
-    const undo = vi.fn()
-    const setCtxMenu = vi.fn()
-    const setActiveSub = vi.fn()
-    const selectCell = vi.fn()
-
-    const editable = document.createElement('div')
-    editable.setAttribute('contenteditable', 'true')
-    document.body.appendChild(editable)
-
-    renderHook(() =>
-      useTableGridKeyHandlers(true, undo, null, setCtxMenu, setActiveSub, 3, 3, defaultHiddenSet, selectCell),
-    )
-
-    act(() => {
-      editable.dispatchEvent(
-        new KeyboardEvent('keydown', { key: 'z', ctrlKey: true, bubbles: true }),
-      )
-    })
-    expect(undo).not.toHaveBeenCalled()
-
-    document.body.removeChild(editable)
-  })
-
   it('skips undo when canUndo is false', async () => {
     const user = userEvent.setup()
     const undo = vi.fn()

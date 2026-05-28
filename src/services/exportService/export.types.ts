@@ -21,6 +21,7 @@ export interface ExportStyleOptions {
 export interface ExportOptions {
   format: ExportFormat
   filename?: string
+  scale?: number
   quality?: number
   caption?: string
   captionTextColor?: string

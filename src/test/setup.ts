@@ -96,6 +96,10 @@ vi.mock('react-i18next', () => {
     'toolbar.undoActions_plural': 'Undo ({{count}} actions)',
     // export
     'export.exportButton': 'Export',
+    'export.qualityNormal': 'Normal',
+    'export.qualityHigh': 'High',
+    'export.qualityNormalDescription': 'Smaller file size, standard quality',
+    'export.qualityHighDescription': 'Crisp output at 2× resolution, larger file',
     'export.pdf': 'PDF',
     'export.png': 'PNG',
     'export.jpeg': 'JPEG',

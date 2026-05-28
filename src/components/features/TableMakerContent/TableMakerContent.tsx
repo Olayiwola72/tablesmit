@@ -45,7 +45,7 @@ export function TableMakerContent(): ReactNode {
       window.history.replaceState({}, document.title)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
-  const { exportAs, exportingFormat } = useExport()
+  const { exportAs, exportingFormat, exportQuality, setExportQuality } = useExport(tableRef)
   const { t } = useTranslation(['common', 'table'])
   const [activeSheet, setActiveSheet] = useState<'settings' | 'presets' | null>(null)
   const tableWidth = useMemo(() => columnWidths.reduce((sum, w) => sum + w, 0), [columnWidths])
@@ -155,7 +155,7 @@ export function TableMakerContent(): ReactNode {
 
         <section className="relative flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace" onContextMenu={handleWsContext}>
           <StatusBar rows={rows} cols={cols} />
-          <div ref={exportRef} className="flex flex-col min-w-0 w-fit">
+          <div ref={exportRef} className="flex flex-col min-w-0 w-fit" data-export-ref>
             <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} caption={{ value: caption, onChange: setCaption, alignment: captionAlignment, onAlignmentChange: setCaptionAlignment, tableWidth, textColor: captionTextColor, bgColor: captionBgColor, onTextColorChange: setCaptionTextColor, onBgColorChange: setCaptionBgColor, italic: captionItalic, onItalicChange: setCaptionItalic }} blurTableRef={blurTableRef} />
           </div>
           {findOpen && (
@@ -275,7 +275,7 @@ export function TableMakerContent(): ReactNode {
 
         <aside aria-label="Table editing controls" className="hidden w-sidebar-right flex-none flex-col gap-8 overflow-y-auto border-l border-border bg-surface p-6 lg:flex" data-sidebar-right>
           <Suspense fallback={<PanelLoader />}>
-            <ExportPanel onExport={handleExport} exportingFormat={exportingFormat} />
+            <ExportPanel onExport={handleExport} exportingFormat={exportingFormat} exportQuality={exportQuality} onExportQualityChange={setExportQuality} />
             <BorderPanel />
             <MergeCellsPanel />
             <AiFeaturesPanel />
@@ -297,7 +297,7 @@ export function TableMakerContent(): ReactNode {
         ) : (
           <Suspense fallback={<PanelLoader />}>
             <div className="space-y-8">
-              <ExportPanel onExport={handleExport} exportingFormat={exportingFormat} />
+              <ExportPanel onExport={handleExport} exportingFormat={exportingFormat} exportQuality={exportQuality} onExportQualityChange={setExportQuality} />
               <BorderPanel />
               <MergeCellsPanel />
               <AiFeaturesPanel />

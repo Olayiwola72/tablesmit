@@ -1,5 +1,5 @@
 import type { ExportOptions, ExportStrategy } from '../export.types'
-import { exportFileBaseName } from '../../../config/export/exportConfig'
+import { EXPORT_QUALITY_PRESETS, exportFileBaseName } from '../../../config/export/exportConfig'
 import { filenameWithExtension, fixTableBordersForExport } from '../utils'
 
 export class PDFExporter implements ExportStrategy {
@@ -9,7 +9,8 @@ export class PDFExporter implements ExportStrategy {
       import('jspdf'),
     ])
 
-    const scales = [2, 1.5, 1]
+    const targetScale = options.scale ?? EXPORT_QUALITY_PRESETS.high.scale
+    const scales = targetScale >= 2 ? [targetScale, 1.5, 1] : [targetScale, 1]
     let canvas: HTMLCanvasElement | null = null
 
     for (const scale of scales) {
@@ -32,7 +33,8 @@ export class PDFExporter implements ExportStrategy {
       }
     }
 
-    const image = canvas!.toDataURL('image/png')
+    const quality = options.quality ?? EXPORT_QUALITY_PRESETS.high.jpegQuality
+    const image = canvas!.toDataURL('image/jpeg', quality)
     const orientation = canvas!.width > canvas!.height ? 'landscape' : 'portrait'
     const pdf = new jsPDF({ orientation, unit: 'pt', format: 'a4' })
     const pageWidth = pdf.internal.pageSize.getWidth()
@@ -40,7 +42,7 @@ export class PDFExporter implements ExportStrategy {
     const ratio = Math.min(pageWidth / canvas!.width, pageHeight / canvas!.height)
     const width = canvas!.width * ratio
     const height = canvas!.height * ratio
-    pdf.addImage(image, 'PNG', (pageWidth - width) / 2, 32, width, Math.min(height, pageHeight - 64))
+    pdf.addImage(image, 'JPEG', (pageWidth - width) / 2, 32, width, Math.min(height, pageHeight - 64))
     pdf.save(filenameWithExtension(options.filename, exportFileBaseName, 'pdf'))
   }
 }

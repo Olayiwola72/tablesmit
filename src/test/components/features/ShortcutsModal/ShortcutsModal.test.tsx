@@ -52,11 +52,27 @@ describe('ShortcutsModal', () => {
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
   })
 
-  it('closes on any Ctrl+ shortcut key when open', () => {
+  it('closes on Ctrl+Z when open (listed in SHORTCUTS)', () => {
     render(<ShortcutsModal />)
     fireEvent.keyDown(document, { key: '/', ctrlKey: true })
     fireEvent.keyDown(document, { key: 'z', ctrlKey: true })
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('does not close on Ctrl+C when open (not in SHORTCUTS)', () => {
+    render(<ShortcutsModal />)
+    fireEvent.keyDown(document, { key: '/', ctrlKey: true })
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    fireEvent.keyDown(document, { key: 'c', ctrlKey: true })
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+  })
+
+  it('does not close on plain Ctrl key press when open', () => {
+    render(<ShortcutsModal />)
+    fireEvent.keyDown(document, { key: '/', ctrlKey: true })
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    fireEvent.keyDown(document, { key: 'Control' })
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
   })
 
   it('does not open on Ctrl+P when closed', () => {

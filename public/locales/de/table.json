@@ -192,7 +192,11 @@
     "medium": "Mittel",
     "high": "Hoch",
     "captureTable": "Tabelle erfassen",
-    "exportButton": "Exportieren"
+    "exportButton": "Exportieren",
+    "qualityNormal": "Normal",
+    "qualityHigh": "Hoch",
+    "qualityNormalDescription": "Kleinere Dateigröße, Standardqualität",
+    "qualityHighDescription": "Scharfe Ausgabe in 2×, größere Datei"
   },
   "presets": {
     "researchNotes": "Forschungsnotizen",

@@ -2,7 +2,17 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { KEY_ESCAPE } from '../../../constants/keys'
 import { X } from 'lucide-react'
-import type { Shortcut } from './ShortcutsModal.types'
+import { SHORTCUTS } from '../../../config/shortcuts/shortcutsConfig'
+import type { ShortcutDef } from '../../../config/shortcuts/shortcutsConfig.types'
+
+const SHORTCUT_KEYS = new Set<string>()
+for (const s of SHORTCUTS) {
+  if (!s.keys.startsWith('Ctrl+')) continue
+  let keySpec = s.keys.slice(5)
+  const hasShift = keySpec.startsWith('Shift+')
+  if (hasShift) keySpec = keySpec.slice(6)
+  SHORTCUT_KEYS.add(`${hasShift ? 's:' : ''}${keySpec.toLowerCase()}`)
+}
 
 export function ShortcutsModal(): ReactNode {
   const { t } = useTranslation(['common', 'table'])
@@ -13,21 +23,7 @@ export function ShortcutsModal(): ReactNode {
     openRef.current = open
   }, [open])
 
-  const shortcuts: Shortcut[] = [
-    { keys: t('shortcutKeys.ctrlZ'), labelKey: 'shortcuts.undo' },
-    { keys: t('shortcutKeys.ctrlF'), labelKey: 'shortcuts.find' },
-    { keys: t('shortcutKeys.ctrlH'), labelKey: 'shortcuts.findAndReplace_short' },
-    { keys: t('shortcutKeys.ctrlP'), labelKey: 'shortcuts.exportPdf' },
-    { keys: t('shortcutKeys.ctrlE'), labelKey: 'shortcuts.exportExcel' },
-    { keys: t('shortcutKeys.ctrlL'), labelKey: 'shortcuts.addRow' },
-    { keys: t('shortcutKeys.ctrlR'), labelKey: 'shortcuts.addColumn' },
-    { keys: `${t('shortcutKeys.tab')} / ${t('shortcutKeys.shiftTab')}`, labelKey: 'shortcuts.moveBetweenCells' },
-    { keys: t('shortcutKeys.arrowKeys'), labelKey: 'shortcuts.moveBetweenCells' },
-    { keys: t('shortcutKeys.enter'), labelKey: 'shortcuts.editCell' },
-    { keys: t('shortcutKeys.escape'), labelKey: 'shortcuts.cancelEdit' },
-    { keys: t('shortcutKeys.delete'), labelKey: 'shortcuts.deleteContent' },
-    { keys: t('shortcutKeys.ctrlSlash'), labelKey: 'shortcuts.shortcutsModal' },
-  ]
+  const shortcuts: ShortcutDef[] = SHORTCUTS
 
   useEffect(() => {
     const handler = (e: KeyboardEvent): void => {
@@ -42,7 +38,10 @@ export function ShortcutsModal(): ReactNode {
         return
       }
       if (openRef.current && (e.ctrlKey || e.metaKey)) {
-        setOpen(false)
+        const eventKey = `${e.shiftKey ? 's:' : ''}${e.key.toLowerCase()}`
+        if (SHORTCUT_KEYS.has(eventKey)) {
+          setOpen(false)
+        }
       }
     }
     document.addEventListener('keydown', handler)

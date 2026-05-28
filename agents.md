@@ -1140,6 +1140,7 @@ tablesmit/
 │   │   ├── useTableCopyShortcut/
 │   │   ├── useTableGridKeyHandlers/
 │   │   ├── useTableHistory/
+│   │   ├── useTableRowColumnShortcuts/
 │   │   ├── useTableSelection/
 │   │   └── useTheme/
 │   │
@@ -1221,6 +1222,7 @@ tablesmit/
 │   │   ├── pagination/                 # paginationConfig.ts — ITEMS_PER_PAGE
 │   │   ├── routes/                     # routesConfig.ts — route paths + nav link definitions
 │   │   ├── sentry/                     # sentryConfig.ts — Sentry init options
+│   │   ├── shortcuts/                  # shortcutsConfig.ts + shortcutsConfig.types.ts — keyboard shortcut definitions
 │   │   ├── sponsors/                   # sponsorsConfig.ts — sponsor platform links
 │   │   ├── table/                      # tableDefaults/, tableThemes/, presets/
 │   │   └── testimonials/               # testimonials.ts + testimonials.types.ts
@@ -1243,11 +1245,11 @@ tablesmit/
 │   │   ├── App.test.tsx
 │   │   ├── pwa.test.ts                 # PWA service worker test
 │   │   ├── scripts/                    # 3 test files (md-to-blog-post, prerender, sitemap)
-│   │   ├── config/                     # 19 test files (all config domains)
+│   │   ├── config/                     # 20 test files (all config domains)
 │   │   ├── constants/                  # keys.test.ts
 │   │   ├── content/                    # 2 test files (blog.test.ts, features.test.ts)
 │   │   ├── context/                    # 6 test files (TableContext, TableProvider, TableReducer, etc.)
-│   │   ├── hooks/                      # 18 test files (all hooks tested)
+│   │   ├── hooks/                      # 19 test files (all hooks tested)
 │   │   ├── i18n/                       # i18n.test.ts
 │   │   ├── lib/                        # 2 test files (utils.test.ts, sentry.test.ts)
 │   │   ├── pages/                      # 13 test files (every page tested)

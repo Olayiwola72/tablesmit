@@ -1,11 +1,13 @@
 import { Clipboard, Copy } from 'lucide-react'
-import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
+import { memo, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../../../lib/utils'
 import { ColorSwatch } from '../../ui/ColorSwatch/ColorSwatch'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../../ui/Tooltip/Tooltip'
 import { contentColorSwatches } from '../../../config/colorPalette/colorPalette'
 import { MIN_ROW_HEIGHT, MAX_ROW_HEIGHT } from '../../../config/table/tableDefaults/tableDefaults'
+import { SHORTCUTS } from '../../../config/shortcuts/shortcutsConfig'
+import type { ShortcutDef } from '../../../config/shortcuts/shortcutsConfig.types'
 import type { CaptionAlignment, CtxMenuState, TableCaptionProps } from './TableCaption.types'
 
 function TableCaptionRaw({
@@ -58,6 +60,14 @@ function TableCaptionRaw({
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseup', onUp)
   }, [captionH])
+
+  const shortcutMap: Record<string, ShortcutDef> = useMemo(() => {
+    const map: Record<string, ShortcutDef> = {}
+    for (const s of SHORTCUTS) {
+      if (s.id) map[s.id] = s
+    }
+    return map
+  }, [])
 
   const alignClass = alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left'
 
@@ -157,7 +167,7 @@ function TableCaptionRaw({
     onBgColorChange?.(e.target.value)
   }, [onBgColorChange])
 
-  const renderAlignmentOption = (key: string, label: string, value: CaptionAlignment): ReactNode => (
+  const renderAlignmentOption = (shortcutId: string, label: string, value: CaptionAlignment): ReactNode => (
     <button
       type="button"
       className={cn(
@@ -167,7 +177,7 @@ function TableCaptionRaw({
       onClick={() => setAlign(value)}
     >
       {alignment === value ? `✓ ${label}` : label}
-      <span className="ml-4 text-xs text-text-muted">Ctrl+{key}</span>
+      <span className="ml-4 text-xs text-text-muted">{shortcutMap[shortcutId]?.keys ?? ''}</span>
     </button>
   )
 
@@ -297,9 +307,9 @@ function TableCaptionRaw({
             <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-muted">
               {t('contextMenu.editCaption')}
             </div>
-            {renderAlignmentOption('L', t('contextMenu.alignLeft'), 'left')}
-            {renderAlignmentOption('E', t('contextMenu.alignCenter'), 'center')}
-            {renderAlignmentOption('R', t('contextMenu.alignRight'), 'right')}
+            {renderAlignmentOption('captionAlignLeft', t('contextMenu.alignLeft'), 'left')}
+            {renderAlignmentOption('captionAlignCenter', t('contextMenu.alignCenter'), 'center')}
+            {renderAlignmentOption('captionAlignRight', t('contextMenu.alignRight'), 'right')}
             <div className="border-t border-border my-1" />
             <button
               type="button"
