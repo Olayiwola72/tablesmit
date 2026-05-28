@@ -4,7 +4,6 @@ import react from '@vitejs/plugin-react'
 import path from 'path'
 import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
-import { visualizer } from 'rollup-plugin-visualizer'
 import Critters from 'critters'
 
 function prerenderPlugin(): Plugin {
@@ -45,18 +44,42 @@ function crittersPlugin(): Plugin {
         }
 
         // 1. Process main index.html (SPA shell) — inline above-fold CSS
-        const critter = new Critters({
+        // Keep external CSS intact (pruneSource: false) so lazy-loaded
+        // component styles are still available via the external stylesheet.
+        const spaCritter = new Critters({
           path: 'dist',
           reduceInlineStyles: true,
-          pruneSource: true,
+          pruneSource: false,
           logLevel: 'warn',
         })
         let html = readFileSync(distIndex, 'utf-8')
-        html = await critter.process(html)
+        const cssHref = actualCssFile()
+        // Capture the external stylesheet href before critters modifies it
+        const styleMatch = /<link[^>]*rel="stylesheet"[^>]*href="([^"]+)"[^>]*>/.exec(html)
+        const styleHref = styleMatch ? styleMatch[1] : cssHref
+        html = await spaCritter.process(html)
+        // After critters, add back <link rel="stylesheet"> so lazy-loaded
+        // route components (TableMakerPage, etc.) still get CSS. Critters
+        // with pruneSource:false preserves the stylesheet, but if another
+        // plugin already removed it, re-add it here.
+        if (styleHref && !html.includes('rel="stylesheet"')) {
+          html = html.replace('</body>', `  <link rel="stylesheet" crossorigin href="${styleHref}">\n</body>`)
+        }
         writeFileSync(distIndex, html)
-        console.log('[critters] Inlined critical CSS in index.html')
+        const hasSheet = html.includes('rel="stylesheet"')
+        console.log(`[critters] Inlined critical CSS in index.html (has stylesheet: ${hasSheet})`)
 
-        // 2. Process prerendered HTML files — use the actual CSS file
+        // Deduplicate manifest link — VitePWA adds one even when already in source HTML
+        const manifestCount = (html.match(/rel="manifest"/g) || []).length
+        if (manifestCount > 1) {
+          html = html.replace(/<link[^>]*rel="manifest"[^>]*>/g, '')
+          html = html.replace('</head>', '  <link rel="manifest" href="/manifest.webmanifest">\n</head>')
+          writeFileSync(distIndex, html)
+          console.log(`[critters] Deduplicated manifest links (was ${manifestCount})`)
+        }
+
+        // 2. Process prerendered HTML files — fix up stale CSS hash,
+        //    inline all used CSS, then strip the external link.
         const actualCss = actualCssFile()
         if (!actualCss) {
           console.warn('[critters] No CSS file found in dist/assets — skipping prerendered pages')
@@ -74,9 +97,17 @@ function crittersPlugin(): Plugin {
         }
         collect('dist')
 
+        const contentCritter = new Critters({
+          path: 'dist',
+          reduceInlineStyles: true,
+          pruneSource: true,
+          logLevel: 'warn',
+        })
+
         let processedCount = 0
+        const absDistIndex = path.resolve(distIndex)
         for (const file of htmlFiles) {
-          if (file === distIndex) continue
+          if (path.resolve(file) === absDistIndex) continue
           let content = readFileSync(file, 'utf-8')
 
           // Fix up stale CSS reference to match current build hash
@@ -91,12 +122,12 @@ function crittersPlugin(): Plugin {
             `href="${actualCss}" as="style"`
           )
 
-          const result = await critter.process(content)
+          content = await contentCritter.process(content)
           // For prerendered static pages, strip the external CSS link
-          // since all used CSS is already inlined by critters
-          const cleaned = result.replace(/<link[^>]*rel="stylesheet"[^>]*>/g, '')
-          // Also strip any stray preload+stylesheet link combos left by critters
-          writeFileSync(file, cleaned)
+          // since all used CSS is already inlined by critters.
+          // Non-used CSS rules are pruned from the file by pruneSource.
+          content = content.replace(/<link[^>]*rel="stylesheet"[^>]*>/g, '')
+          writeFileSync(file, content)
           processedCount++
         }
         console.log(`[critters] Inlined CSS in ${processedCount} prerendered pages`)
@@ -130,22 +161,9 @@ function modulepreloadPlugin(): Plugin {
   }
 }
 
-const isAnalyze = process.env.ANALYZE === 'true'
-
 export default defineConfig({
   plugins: [
-    prerenderPlugin(),
-    crittersPlugin(),
-    modulepreloadPlugin(),
     react(),
-    ...(isAnalyze
-      ? [visualizer({
-          filename: 'dist/stats.html',
-          open: true,
-          gzipSize: true,
-          brotliSize: true,
-        })]
-      : []),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: null,
@@ -205,6 +223,9 @@ export default defineConfig({
         ],
       },
     }),
+    prerenderPlugin(),
+    crittersPlugin(),
+    modulepreloadPlugin(),
   ],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
