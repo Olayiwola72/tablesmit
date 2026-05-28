@@ -125,6 +125,7 @@ tablesmit/
 │   ├── og-image.png / og-image.svg
 │   ├── robots.txt
 │   ├── sitemap.xml
+│   ├── llms.txt                    # LLM-friendly project summary (llmstxt.dev)
 │   ├── fonts/                       # Self-hosted Inter + JetBrains Mono woff2
 │   ├── icons/                       # PWA icons (192, 512)
 │   ├── launch/                      # Product Hunt + HN launch copy
