@@ -24,7 +24,7 @@
     "sortColumn": "Sort column",
     "sortDisabledMsg": "Clear merged cells to enable sorting",
     "mergeCells": "Merge Cells",
-    "selectCellsToMerge": "Select two or more cells to merge.",
+    "selectCellsToMerge": "Click a cell, then Shift+click another to select a range.",
     "selectedRange": "Selected: {{range}}",
     "mergedCell": "Merged cell",
     "noSelection": "No selection",

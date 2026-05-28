@@ -24,7 +24,7 @@
     "sortColumn": "Ordenar columna",
     "sortDisabledMsg": "Elimina las celdas combinadas para habilitar la ordenación",
     "mergeCells": "Combinar celdas",
-    "selectCellsToMerge": "Selecciona dos o más celdas para combinar.",
+    "selectCellsToMerge": "Haz clic en una celda y Mayús+clic en otra para seleccionar un rango.",
     "selectedRange": "Seleccionado: {{range}}",
     "mergedCell": "Celda combinada",
     "noSelection": "Sin selección",

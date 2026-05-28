@@ -24,7 +24,7 @@
     "sortColumn": "Sorter kolonne",
     "sortDisabledMsg": "Fjern sammenslåtte celler for å aktivere sortering",
     "mergeCells": "Slå sammen celler",
-    "selectCellsToMerge": "Velg to eller flere celler for å slå sammen.",
+    "selectCellsToMerge": "Klikk på en celle, og Shift+klikk på en annen for å velge et område.",
     "selectedRange": "Valgt: {{range}}",
     "mergedCell": "Sammenslått celle",
     "noSelection": "Ingen valg",
