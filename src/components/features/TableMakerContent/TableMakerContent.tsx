@@ -112,7 +112,8 @@ export function TableMakerContent(): ReactNode {
     return () => document.removeEventListener('mousedown', onDown)
   }, [wsCtxMenu, closeWsCtx])
 
-  usePrintTable(tableRef)
+  const blurTableRef = useRef<(() => void) | null>(null)
+  usePrintTable(tableRef, () => blurTableRef.current?.())
   useTableCopyShortcut(cells, tableRef, setCaptionAlignment)
 
   const {
@@ -155,7 +156,7 @@ export function TableMakerContent(): ReactNode {
         <section className="relative flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace" onContextMenu={handleWsContext}>
           <StatusBar rows={rows} cols={cols} />
           <div ref={exportRef} className="flex flex-col min-w-0 w-fit">
-            <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} caption={{ value: caption, onChange: setCaption, alignment: captionAlignment, onAlignmentChange: setCaptionAlignment, tableWidth, textColor: captionTextColor, bgColor: captionBgColor, onTextColorChange: setCaptionTextColor, onBgColorChange: setCaptionBgColor, italic: captionItalic, onItalicChange: setCaptionItalic }} />
+            <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} caption={{ value: caption, onChange: setCaption, alignment: captionAlignment, onAlignmentChange: setCaptionAlignment, tableWidth, textColor: captionTextColor, bgColor: captionBgColor, onTextColorChange: setCaptionTextColor, onBgColorChange: setCaptionBgColor, italic: captionItalic, onItalicChange: setCaptionItalic }} blurTableRef={blurTableRef} />
           </div>
           {findOpen && (
             <div className="absolute right-2 top-2 z-40">

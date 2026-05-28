@@ -106,7 +106,9 @@ function TableCellRaw({
       )}
       style={{
         height: rowHeight,
-        border: borderStyle === 'none' ? 'none' : `1px ${borderStyle} ${borderColor}`,
+        border: borderStyle === 'none' ? 'none' : `${
+          devicePixelRatio >= 3 ? 1.5 : devicePixelRatio >= 2 ? 1.25 : 1
+        }px ${borderStyle} ${borderColor}`,
         backgroundColor: effectiveBg,
         color: cellTextColor || rowTextColor || (CellTag === 'th' ? headerTextColor : contentColor),
         textAlign: textAlign as React.CSSProperties['textAlign'],
