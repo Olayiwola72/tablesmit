@@ -9,7 +9,7 @@ import type enLegal from './locales/en/legal.json'
 import type enTable from './locales/en/table.json'
 import type enFeatures from './locales/en/features.json'
 import type enTestimonials from './locales/en/testimonials.json'
-import type enChanglog from './locales/en/changelog.json'
+import type enChangelog from './locales/en/changelog.json'
 import type enNotFound from './locales/en/notFound.json'
 
 declare module 'react-i18next' {
@@ -26,7 +26,7 @@ declare module 'react-i18next' {
       table: typeof enTable
       features: typeof enFeatures
       testimonials: typeof enTestimonials
-      changelog: typeof enChanglog
+      changelog: typeof enChangelog
       notFound: typeof enNotFound
     }
   }

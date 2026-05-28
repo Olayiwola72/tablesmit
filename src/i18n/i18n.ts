@@ -14,7 +14,7 @@ import enLegal from './locales/en/legal.json'
 import enTable from './locales/en/table.json'
 import enFeatures from './locales/en/features.json'
 import enTestimonials from './locales/en/testimonials.json'
-import enChanglog from './locales/en/changelog.json'
+import enChangelog from './locales/en/changelog.json'
 import enNotFound from './locales/en/notFound.json'
 
 setDefaults({ useSuspense: false })
@@ -88,7 +88,7 @@ const enResources: Record<string, Record<string, unknown>> = {
   table: enTable as Record<string, unknown>,
   features: enFeatures as Record<string, unknown>,
   testimonials: enTestimonials as Record<string, unknown>,
-  changelog: enChanglog as Record<string, unknown>,
+  changelog: enChangelog as Record<string, unknown>,
   notFound: enNotFound as Record<string, unknown>,
 }
 

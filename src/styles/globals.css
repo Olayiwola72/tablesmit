@@ -122,6 +122,8 @@
 
   th, [data-header-row] td {
     background-color: #F1F5F9 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   tr {

@@ -1,5 +1,5 @@
 import type { RouteObject } from 'react-router-dom'
-import { RouteElements, notFoundElement } from '../../components/routing/routeElements'
+import { RouteElements, notFoundElement } from '../../components/routing/RouteElements'
 
 export const routes = {
   home: { path: '/', label: 'Home', nav: true, element: RouteElements.home },
