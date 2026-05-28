@@ -66,7 +66,7 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 - Internationalisation: 8 languages (English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian)
 - RTL support for Arabic
 - Keyboard shortcuts — press `?` or `Ctrl+/` to see all 13
-- Offline-capable PWA with auto-updating service worker
+- Offline-capable PWA with auto-updating service worker + version polling
 - 30 feature landing pages, 34 blog posts
 - No account required. No data leaves your browser.
 
@@ -133,6 +133,7 @@ tablesmit/
 │
 ├── scripts/
 │   ├── prerender.ts                  # Playwright-based prerender — run locally before content commits
+│   ├── version.cjs                   # Writes dist/version.json with DEPLOY_ID or timestamp
 │   ├── md-to-blog-post.ts            # .md → blog .ts file converter
 │   └── sitemap/generate-sitemap.ts        # Sitemap generator
 │
@@ -168,7 +169,7 @@ tablesmit/
 │   ├── test/                         # 168 test files mirroring src/ structure
 │   ├── App.tsx                       # Router + providers only — zero business logic
 │   ├── main.tsx                      # ReactDOM root + Sonner Toaster
-│   ├── pwa.ts                        # Service worker registration
+│   ├── pwa.ts                        # Service worker registration + version polling
 │   └── index.scss                    # SCSS entry
 │
 ├── tailwind.config.ts
@@ -288,7 +289,7 @@ npx vitest run --coverage
 # Run lint
 npm run lint
 
-# Build (generates sitemap + bundles app + copies prerendered content)
+# Build (generates sitemap + bundles app + copies prerendered content + writes version.json)
 npm run build
 
 # Prerender static HTML for content pages (run locally before content commits)

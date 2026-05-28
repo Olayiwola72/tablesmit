@@ -864,6 +864,7 @@ tablesmit/
 │
 ├── scripts/
 │   ├── prerender.ts                    # Playwright-based prerender — run locally, output to prerendered/
+│   ├── version.cjs                     # Writes dist/version.json with DEPLOY_ID or timestamp
 │   ├── md-to-blog-post.ts              # Helper: .md → blog JSON
 │   └── sitemap/
 │       ├── generate-sitemap.ts
@@ -2962,7 +2963,7 @@ Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `impo
 
 ### Infrastructure & Compliance
 
-Netlify: `netlify.toml` with full CSP via HTTP headers (stronger than meta tag), security headers (X-Frame-Options, X-Content-Type-Options, Permissions-Policy, Referrer-Policy, Cross-Origin-Opener-Policy), cache policies (assets/locales/favicon: 1-year immutable; index.html/webmanifest: no-cache), and SPA redirect (`/*` → `/index.html` 200). PWA via `vite-plugin-pwa` — auto-updating service worker, `manifest.webmanifest`, offline-capable build. `CookieConsent` component — lightweight banner, stores consent in localStorage, loads GA4 only on Accept + production.
+Netlify: `netlify.toml` with full CSP via HTTP headers (stronger than meta tag), security headers (X-Frame-Options, X-Content-Type-Options, Permissions-Policy, Referrer-Policy, Cross-Origin-Opener-Policy), cache policies (assets/locales/favicon: 1-year immutable; index.html/webmanifest/version.json: no-cache), and SPA redirect (`/*` → `/index.html` 200). PWA via `vite-plugin-pwa` — auto-updating service worker with `SKIP_WAITING` + `controllerchange` auto-reload, plus `version.json` polling (60s interval) as a parallel safety net for non-PWA users and long-lived tabs. `dist/version.json` written at build time by `scripts/version.cjs`. `CookieConsent` component — lightweight banner, stores consent in localStorage, loads GA4 only on Accept + production.
 
 ### Developer Experience
 
@@ -8492,7 +8493,7 @@ in the branch protection settings above.
 {
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build",
+    "build": "npm run generate-sitemap && vite build && node scripts/version.cjs",
     "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
     "prerender": "npx tsx scripts/prerender.ts --out-dir $npm_package_config_prerenderDir",
     "preview": "vite preview",
@@ -8513,6 +8514,7 @@ in the branch protection settings above.
 
 2. **`vite build`** — Compiles the app via esbuild (not tsc). Vite's rolldown bundler generates code-split chunks per route, per vendor library, and per locale. `manualChunks` splits vendor-react, vendor-ui, vendor-i18n, vendor-sentry, vendor-pdf, vendor-canvas, vendor-excel. Output to `dist/`.
 
+3. **`node scripts/version.cjs`** — Writes `dist/version.json` with the deploy ID or current timestamp. Used at runtime by the PWA version polling system to detect stale clients and trigger auto-reload after a deploy.
 
 ### Why `tsc -b` Is Not in the Build Chain
 
