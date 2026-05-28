@@ -69,14 +69,35 @@ describe('exportTable', () => {
     expect(mockHtml2canvas).toHaveBeenCalledOnce()
   })
 
+  it('passes scale option to html2canvas for PDF', async () => {
+    await exportTable(el(), { format: 'pdf', scale: 1 })
+    expect(mockHtml2canvas).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ scale: 1 }),
+    )
+  })
+
   it('dispatches to PNG strategy', async () => {
     await exportTable(el(), { format: 'png' })
     expect(mockHtml2canvas).toHaveBeenCalledOnce()
   })
 
+  it('passes scale option to html2canvas for PNG', async () => {
+    await exportTable(el(), { format: 'png', scale: 2 })
+    expect(mockHtml2canvas).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ scale: 2 }),
+    )
+  })
+
   it('dispatches to JPEG strategy', async () => {
     await exportTable(el(), { format: 'jpeg', quality: 0.8 })
     expect(mockHtml2canvas).toHaveBeenCalledOnce()
+  })
+
+  it('passes quality to canvas.toDataURL for JPEG', async () => {
+    await exportTable(el(), { format: 'jpeg', quality: 0.7 })
+    expect(mockCanvas.toDataURL).toHaveBeenCalledWith('image/jpeg', 0.7)
   })
 
   it('dispatches to CSV strategy', async () => {

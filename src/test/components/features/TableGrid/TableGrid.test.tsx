@@ -331,14 +331,15 @@ describe('TableGrid', () => {
     })
   })
 
-  it('does not show undo toast when pressing Ctrl+Z with contentEditable focused', () => {
+  it('fires undo even when pressing Ctrl+Z with contentEditable focused', () => {
     renderTableGrid()
 
     const cell = getCell(0, 0)
     const editable = cell.querySelector<HTMLElement>('[contenteditable]')
     expect(editable).not.toBeNull()
 
-    /* Fire Ctrl+Z on the contentEditable — the event bubbles to the doc-level handler */
+    /* Fire Ctrl+Z on the contentEditable — the contenteditable guard was removed
+       so Ctrl+Z always triggers undo (matching the button behaviour) */
     editable!.dispatchEvent(
       new KeyboardEvent('keydown', {
         key: 'z',
@@ -348,7 +349,7 @@ describe('TableGrid', () => {
       }),
     )
 
-    expect(toast.info).not.toHaveBeenCalled()
+    expect(toast.info).toHaveBeenCalledWith('Nothing left to undo.')
   })
 
   // ── Right-click context menu on cell ─────────────────────

@@ -71,22 +71,29 @@
       ]
     },
     {
-      "category": "Table Structure",
-      "description": "Add rows and columns without breaking your focus from the content.",
+      "category": "Caption",
+      "description": "Align your table caption without leaving the keyboard.",
       "items": [
         {
-          "label": "Add row",
+          "label": "Align caption left",
           "keys": [
             "Ctrl+L"
           ],
-          "note": "Appends a new empty row to the bottom of the table."
+          "note": "Works when the caption field is focused."
         },
         {
-          "label": "Add column",
+          "label": "Align caption centre",
+          "keys": [
+            "Ctrl+E"
+          ],
+          "note": "Centres the caption text above the table."
+        },
+        {
+          "label": "Align caption right",
           "keys": [
             "Ctrl+R"
           ],
-          "note": "Appends a new empty column to the right of the table."
+          "note": "Works when the caption field is focused."
         }
       ]
     },
@@ -124,7 +131,7 @@
         {
           "label": "Export to Excel",
           "keys": [
-            "Ctrl+E"
+            "Ctrl+Shift+X"
           ],
           "note": "Downloads a genuine .xlsx file with merged cells and formatting preserved."
         },
@@ -166,7 +173,7 @@
     {
       "icon": "Download",
       "heading": "Export without breaking focus",
-      "body": "Ctrl+P and Ctrl+E let you export to PDF or Excel in the middle of editing \u2014 without opening a menu, without taking your hands off the keyboard."
+      "body": "Ctrl+P and Ctrl+Shift+X let you export to PDF or Excel in the middle of editing \u2014 without opening a menu, without taking your hands off the keyboard."
     },
     {
       "icon": "History",
@@ -182,8 +189,8 @@
     },
     {
       "number": 2,
-      "heading": "Use Ctrl+L and Ctrl+R to build structure",
-      "body": "Add rows with Ctrl+L and columns with Ctrl+R while filling in data. You never need to stop typing to extend the table."
+      "heading": "Align captions with Ctrl+L, Ctrl+E, and Ctrl+R",
+      "body": "When the caption field is focused, Ctrl+L, Ctrl+E, and Ctrl+R align the caption left, centre, or right. No need to reach for the mouse to adjust a single line of text."
     },
     {
       "number": 3,
@@ -193,7 +200,7 @@
     {
       "number": 4,
       "heading": "Export directly from the keyboard",
-      "body": "When your table is ready, Ctrl+P sends it to PDF and Ctrl+E sends it to Excel. No toolbar required. Press Ctrl+/ at any time to see the full reference."
+      "body": "When your table is ready, Ctrl+P sends it to PDF and Ctrl+Shift+X sends it to Excel. No toolbar required. Press Ctrl+/ at any time to see the full reference."
     }
   ],
   "useCases": [

@@ -171,8 +171,9 @@
     "findAndReplace_short": "Find and Replace",
     "exportPdf": "Export to PDF",
     "exportExcel": "Export to Excel",
-    "addRow": "Add Row",
-    "addColumn": "Add Column",
+    "captionAlignLeft": "Align caption left",
+    "captionAlignCenter": "Align caption centre",
+    "captionAlignRight": "Align caption right",
     "moveBetweenCells": "Move between cells",
     "editCell": "Edit cell",
     "confirmEdit": "Confirm edit",
@@ -196,7 +197,11 @@
     "medium": "Medium",
     "high": "High",
     "captureTable": "Capture table",
-    "exportButton": "Export"
+    "exportButton": "Export",
+    "qualityNormal": "Normal",
+    "qualityHigh": "High",
+    "qualityNormalDescription": "Smaller file size, standard quality",
+    "qualityHighDescription": "Crisp output at 2× resolution, larger file"
   },
   "presets": {
     "researchNotes": "Research Notes",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { exportFormats, exportFileBaseName } from '../../../config/export/exportConfig'
+import { EXPORT_QUALITY_PRESETS, exportFormats, exportFileBaseName } from '../../../config/export/exportConfig'
 
 describe('exportFileBaseName', () => {
   it('uses tablesmit-table as the default export basename', () => {
@@ -26,5 +26,42 @@ describe('exportFormats', () => {
     expect(['pdf', 'png', 'jpeg', 'excel', 'csv', 'latex']).toContain(fmt.format)
     expect(fmt.label).toBeTruthy()
     expect(fmt.extension).toBeTruthy()
+  })
+})
+
+describe('EXPORT_QUALITY_PRESETS', () => {
+  it('has normal and high presets', () => {
+    expect(Object.keys(EXPORT_QUALITY_PRESETS)).toEqual(['normal', 'high'])
+  })
+
+  it('normal preset uses scale 1', () => {
+    expect(EXPORT_QUALITY_PRESETS.normal.scale).toBe(1)
+  })
+
+  it('high preset uses scale 2', () => {
+    expect(EXPORT_QUALITY_PRESETS.high.scale).toBe(2)
+  })
+
+  it('normal preset uses lower jpegQuality than high', () => {
+    expect(EXPORT_QUALITY_PRESETS.normal.jpegQuality).toBeLessThan(EXPORT_QUALITY_PRESETS.high.jpegQuality)
+  })
+
+  it('normal preset jpegQuality is between 0 and 1', () => {
+    expect(EXPORT_QUALITY_PRESETS.normal.jpegQuality).toBeGreaterThan(0)
+    expect(EXPORT_QUALITY_PRESETS.normal.jpegQuality).toBeLessThanOrEqual(1)
+  })
+
+  it('high preset jpegQuality is between 0 and 1', () => {
+    expect(EXPORT_QUALITY_PRESETS.high.jpegQuality).toBeGreaterThan(0)
+    expect(EXPORT_QUALITY_PRESETS.high.jpegQuality).toBeLessThanOrEqual(1)
+  })
+
+  it('each preset has required fields', () => {
+    for (const preset of Object.values(EXPORT_QUALITY_PRESETS)) {
+      expect(preset.quality).toBeTruthy()
+      expect(preset.label).toBeTruthy()
+      expect(typeof preset.scale).toBe('number')
+      expect(typeof preset.jpegQuality).toBe('number')
+    }
   })
 })

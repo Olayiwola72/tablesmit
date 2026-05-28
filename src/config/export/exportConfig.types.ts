@@ -5,3 +5,12 @@ export interface ExportDefinition {
   label: string
   extension: string
 }
+
+export type ExportQuality = 'normal' | 'high'
+
+export interface ExportQualityPreset {
+  quality: ExportQuality
+  label: string
+  scale: number
+  jpegQuality: number
+}
