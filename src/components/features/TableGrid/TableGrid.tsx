@@ -22,7 +22,7 @@ import { PastingOverlay } from './PastingOverlay/PastingOverlay'
 import { TableSkeleton } from '../../ui/TableSkeleton/TableSkeleton'
 import type { TableGridProps } from './TableGrid.types'
 
-export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: TableGridProps): ReactNode {
+export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, blurTableRef }: TableGridProps): ReactNode {
   const { t } = useTranslation(['common', 'table'])
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
@@ -119,6 +119,12 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption }: 
     document.addEventListener('mousedown', onDocumentMouseDown)
     return () => document.removeEventListener('mousedown', onDocumentMouseDown)
   }, [])
+
+  useEffect(() => {
+    if (!blurTableRef) return
+    blurTableRef.current = () => setIsTableFocused(false)
+    return () => { blurTableRef.current = null }
+  }, [blurTableRef])
 
   const autoFitColumn = useCallback((columnIndex: number): void => {
     const table = gridRef.current

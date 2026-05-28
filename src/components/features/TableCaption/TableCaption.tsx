@@ -1,4 +1,4 @@
-import { Clipboard } from 'lucide-react'
+import { Clipboard, Copy } from 'lucide-react'
 import { memo, useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { cn } from '../../../lib/utils'
@@ -87,6 +87,15 @@ function TableCaptionRaw({
   }, [value, captionH, editing])
 
   const closeMenu = useCallback((): void => { setCtxMenu(null); setActivePicker(null) }, [])
+
+  const handleCopy = useCallback(async (): Promise<void> => {
+    if (value) {
+      try {
+        await navigator.clipboard.writeText(value)
+      } catch { /* Clipboard write not available */ }
+    }
+    closeMenu()
+  }, [value, closeMenu])
 
   const handlePaste = useCallback(async (): Promise<void> => {
     try {
@@ -282,8 +291,8 @@ function TableCaptionRaw({
           <div className="fixed inset-0 z-40" onClick={closeMenu} data-export-hide />
           <div
             ref={menuRef}
-            className="fixed z-50 w-52 rounded-md py-1 shadow-sm" data-export-hide
-            style={{ left: ctxMenu.x, top: ctxMenu.y, backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}
+            className="fixed z-50 w-52 rounded-md py-1 shadow-sm bg-white border border-border" data-export-hide
+            style={{ left: ctxMenu.x, top: ctxMenu.y }}
           >
             <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-widest text-text-muted">
               {t('contextMenu.editCaption')}
@@ -292,6 +301,14 @@ function TableCaptionRaw({
             {renderAlignmentOption('E', t('contextMenu.alignCenter'), 'center')}
             {renderAlignmentOption('R', t('contextMenu.alignRight'), 'right')}
             <div className="border-t border-border my-1" />
+            <button
+              type="button"
+              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-text-primary hover:bg-surface"
+              onClick={handleCopy}
+            >
+              <Copy size={14} className="text-text-muted" />
+              {t('contextMenu.copy')}
+            </button>
             <button
               type="button"
               className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-text-primary hover:bg-surface"

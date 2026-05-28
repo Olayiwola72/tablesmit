@@ -5760,10 +5760,12 @@ the browser prints the full app chrome (navbar, sidebars, toolbar).
     font-size: 11pt;
   }
 
-  /* Preserve cell borders in print */
+  /* Preserve cell borders in print. Suppress focus rings. */
   td, th {
     border: 1px solid #E5E7EB !important;
     padding: 6pt 8pt !important;
+    box-shadow: none !important;
+    outline: none !important;
   }
 
   /* Header row prints in light grey (saves ink vs full blue) */
@@ -5810,29 +5812,95 @@ without coupling to Tailwind class names (which may change):
 ### Ctrl+P Hook — `usePrintTable`
 
 A custom hook intercepts `Ctrl+P` / `Cmd+P` globally to print only the table
-content (not the app chrome).
+content (not the app chrome). It accepts an optional `onBeforePrint` callback
+to defocus active UI state (e.g. clear the table cell focus ring) before
+cloning the DOM.
 
 ```ts
 // src/hooks/usePrintTable/usePrintTable.ts
 // Intercepts Ctrl+P, creates a hidden <iframe>, clones the table + caption
 // into it, copies all CSS rules, and triggers window.print() on the iframe.
 
-export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
+export function usePrintTable(tableRef: RefObject<HTMLDivElement>, onBeforePrint?: () => void): void {
+  const onBeforePrintRef = useRef(onBeforePrint)
+  onBeforePrintRef.current = onBeforePrint
+
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent): void => {
       const isCtrl = e.ctrlKey || e.metaKey
       if (!isCtrl || e.key !== 'p') return
+
       const target = e.target as HTMLElement
       if (target.closest('[contenteditable]')) return
+
       e.preventDefault()
 
-      // Create hidden iframe, clone table content + styles, print
+      ;(document.activeElement as HTMLElement | null)?.blur()
+      onBeforePrintRef.current?.()
+
       const iframe = document.createElement('iframe')
       iframe.style.position = 'fixed'
       iframe.style.right = '-9999px'
-      // ...
-      win.print()
+      iframe.style.bottom = '-9999px'
+      iframe.style.width = '0'
+      iframe.style.height = '0'
+      document.body.appendChild(iframe)
+
+      const win = iframe.contentWindow
+      if (!win) { document.body.removeChild(iframe); return }
+
+      const caption = document.querySelector<HTMLElement>('[data-table-caption]')
+      const container = tableRef.current
+      let bodyHTML = ''
+      if (caption) {
+        const clone = caption.cloneNode(true) as HTMLElement
+        clone.querySelectorAll('[data-print-hide]').forEach(el => el.remove())
+        sanitizePrintableClone(clone)
+        bodyHTML += clone.outerHTML
+      }
+      if (container) {
+        const clone = container.cloneNode(true) as HTMLElement
+        clone.querySelectorAll('[data-print-hide]').forEach(el => el.remove())
+        sanitizePrintableClone(clone)
+        bodyHTML += clone.outerHTML
+      }
+
+      const cssRules: string[] = []
+      for (const sheet of Array.from(document.styleSheets)) {
+        try {
+          for (const rule of Array.from(sheet.cssRules)) {
+            if (rule instanceof CSSMediaRule && /print/i.test(rule.media.mediaText)) continue
+            cssRules.push(rule.cssText)
+          }
+        } catch { /* cross-origin sheet — skip */ }
+      }
+
+      const printCSS = `@media print {
+  @page { margin:2cm; size:A4 landscape; }
+  [data-table-container] { display:block !important; }
+  table { border-collapse:collapse; margin:0 auto; }
+  td, th { print-color-adjust:exact; -webkit-print-color-adjust:exact; position:static !important; box-shadow:none !important; outline:none !important; }
+  [data-table-caption] { display:flex; justify-content:center !important; }
+  [data-print-hide] { display:none !important; }
+}`
+
+      const doc = win.document
+      doc.open()
+      doc.write(`<!DOCTYPE html>
+<html>
+<head>
+  <style>${cssRules.join('\n')}</style>
+  <style>${printCSS}</style>
+</head>
+<body>${bodyHTML}</body>
+</html>`)
+      doc.close()
+
+      win.addEventListener('load', () => {
+        setTimeout(() => { win.print(); document.body.removeChild(iframe) }, 300)
+      })
     }
+
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [tableRef])
@@ -5840,11 +5908,38 @@ export function usePrintTable(tableRef: RefObject<HTMLDivElement>): void {
 ```
 
 Behaviour:
-- Skips paste when focus is inside a `[contenteditable]` cell (user is editing)
-- Sanitizes cloned DOM: removes scripts, iframes, event handler attributes
-- Copies all CSS (including print rules from `globals.css`)
-- Adds `@page A4 landscape` to the print styles
+- Skips Ctrl+P when focus is inside a `[contenteditable]` cell (user editing)
+- Calls `document.activeElement?.blur()` + `onBeforePrint` callback before cloning,
+  so React state can defocus UI elements (e.g. selection rings) before the DOM snapshot
+- Uses `useRef` for the callback — the effect never re-registers the listener,
+  stable even when `onBeforePrint` changes on every render
+- Sanitizes cloned DOM: removes scripts, iframes, event handler attributes,
+  `contenteditable`, and `spellcheck`
+- Copies all CSS rules (skipping `@media print` rules to avoid double-application)
+- Injects print-specific CSS: `@page A4 landscape`, `box-shadow:none` / `outline:none`
+  on cells (safety net for focus rings), center-aligned table container
 - Removes `[data-print-hide]` elements from the output
+- Waits 300ms after iframe load before calling `win.print()` to allow style
+  application
+
+### Defocus-on-Print Wiring
+
+`TableGrid` exposes a `blurTableRef?: MutableRefObject<(() => void) | null>` prop
+in `TableGridProps` (defined in `TableGrid.types.ts`). On mount, `TableGrid` sets
+`blurTableRef.current = () => setIsTableFocused(false)`, clearing the focus-ring
+class from the table. On unmount, it sets `.current = null`.
+
+`TableMakerContent` creates the ref and wires both ends:
+
+```tsx
+const blurTableRef = useRef<(() => void) | null>(null)
+usePrintTable(tableRef, () => blurTableRef.current?.())
+// ...
+<TableGrid tableRef={tableRef} blurTableRef={blurTableRef} ... />
+```
+
+This keeps the defocus logic fully internal to the table — no global state or
+context changes are needed.
 
 ---
 

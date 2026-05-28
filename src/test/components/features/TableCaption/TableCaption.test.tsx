@@ -99,6 +99,31 @@ describe('TableCaption', () => {
     expect(outerDiv.style.maxWidth).toBe('')
   })
 
+  it('shows Copy button in context menu', () => {
+    renderWithProviders(<TableCaption {...defaultProps} />)
+    fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))
+    expect(screen.getByText('Copy')).toBeInTheDocument()
+  })
+
+  it('copies caption text to clipboard when Copy button is clicked', async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    const origClipboard = navigator.clipboard
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText, readText: vi.fn() },
+      configurable: true,
+      writable: true,
+    })
+
+    renderWithProviders(<TableCaption {...defaultProps} value="Caption to copy" />)
+    fireEvent.contextMenu(screen.getByText('Caption to copy'))
+    const copyBtn = screen.getByText('Copy')
+    expect(copyBtn).toBeInTheDocument()
+    fireEvent.click(copyBtn)
+    await vi.waitFor(() => { expect(writeText).toHaveBeenCalledWith('Caption to copy') })
+
+    Object.defineProperty(navigator, 'clipboard', { value: origClipboard, configurable: true })
+  })
+
   it('shows Paste button in context menu', () => {
     renderWithProviders(<TableCaption {...defaultProps} />)
     fireEvent.contextMenu(screen.getByText('Add a table title or caption (optional)'))

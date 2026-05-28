@@ -53,4 +53,14 @@ describe('usePrintTable', () => {
     document.body.dispatchEvent(event)
     expect(preventSpy).toHaveBeenCalled()
   })
+
+  it('calls onBeforePrint when Ctrl+P fires', () => {
+    const ref = { current: document.createElement('div') }
+    const onBeforePrint = vi.fn()
+    renderHook(() => usePrintTable(ref, onBeforePrint))
+
+    const event = new KeyboardEvent('keydown', { key: 'p', ctrlKey: true, bubbles: true })
+    document.body.dispatchEvent(event)
+    expect(onBeforePrint).toHaveBeenCalledOnce()
+  })
 })
