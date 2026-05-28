@@ -852,6 +852,7 @@ tablesmit/
 │   ├── og-image.svg
 │   ├── robots.txt
 │   ├── sitemap.xml
+│   ├── llms.txt                        # LLM-friendly project summary (llmstxt.dev)
 │   ├── fonts/                          # Self-hosted woff2 font files
 │   ├── icons/                          # PWA icons (192, 512)
 │   ├── launch/                         # Product Hunt + HN launch copy
