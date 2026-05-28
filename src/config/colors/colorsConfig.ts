@@ -1,5 +1,7 @@
 import { headerColorSwatches, contentColorSwatches } from '../colorPalette/colorPalette'
 
+export const DEFAULT_CAPTION_TEXT_COLOR = '#000000'
+
 export const colors = {
   defaultHeader: '#ffffff',
   defaultContent: '#111827',

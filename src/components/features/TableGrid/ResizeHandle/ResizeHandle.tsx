@@ -21,6 +21,7 @@ function ResizeHandleRaw({
       tabIndex={0}
       aria-label={label}
       title={label}
+      data-print-hide
       className={`absolute ${axisClass} opacity-0 transition-opacity duration-100 hover:opacity-100 hover:bg-primary`}
       onMouseDown={onMouseDown}
       onDoubleClick={onDoubleClick}

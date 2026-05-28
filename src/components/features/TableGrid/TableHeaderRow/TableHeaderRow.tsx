@@ -18,8 +18,8 @@ export function TableHeaderRow({
   return (
     <div
       data-print-hide data-export-hide
-      className="mb-2 grid min-w-max border border-border bg-surface dark:border-slate-700 dark:bg-slate-800"
-      style={{ gridTemplateColumns: columnWidths.map((width) => `${width}px`).join(' ') }}
+      className="mb-2 grid min-w-max"
+      style={{ gridTemplateColumns: columnWidths.map((width) => `${width}px`).join(' '), backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}
       aria-label="Column formatting controls"
     >
       {Array.from({ length: cols }, (_, index) => (
