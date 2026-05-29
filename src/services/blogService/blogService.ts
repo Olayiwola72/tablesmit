@@ -23,7 +23,9 @@ async function ensureLoaded(): Promise<BlogPost[]> {
       if (typeof post.slug !== 'string' || post.slug === '') {
         post.slug = slugFromPath
       }
+      post.title = replaceBrand(post.title)
       post.description = replaceBrand(post.description)
+      post.content = replaceBrand(post.content)
       return post
     })
   )
