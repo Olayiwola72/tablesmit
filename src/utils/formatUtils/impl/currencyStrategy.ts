@@ -1,4 +1,4 @@
-import { locale } from '../../../config/locale/localesConfig'
+import { locale } from '@/config/locale/localesConfig'
 import type { FormatUtilStrategy } from '../formatUtilStrategy.types'
 import { tryParseNumber } from '../utils'
 

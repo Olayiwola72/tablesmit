@@ -1,24 +1,18 @@
-import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import type { ChangelogEntry } from '../../config/changelog/changelog.types'
 import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
-import { brand } from '../../config/brand/brandConfig'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { routes } from '../../config/routes/routesConfig'
 
 export function ChangelogPage(): ReactNode {
   const { t } = usePageTranslation()
   return (
-    <>
-      <Helmet>
-        <title>{t('meta.changelogTitle')}</title>
-        <meta name="description" content={t('meta.changelogDescription')} />
-        <meta property="og:title" content={t('meta.changelogTitle')} />
-        <meta property="og:description" content={t('meta.changelogDescription')} />
-        <link rel="canonical" href={`${brand.url}${routes.changelog.path}`} />
-      </Helmet>
-      <main className="mx-auto max-w-narrow px-4 py-16">
+    <ContentPageLayout
+      metaKey="changelog"
+      routeKey="changelog"
+      className="mx-auto max-w-narrow px-4 py-16">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.changelog') },
@@ -51,8 +45,7 @@ export function ChangelogPage(): ReactNode {
         ))}
       </div>
 
-    </main>
-    </>
+    </ContentPageLayout>
   )
 }
 

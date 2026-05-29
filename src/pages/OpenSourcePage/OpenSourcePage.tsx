@@ -1,9 +1,9 @@
 import { ExternalLink, GitFork } from 'lucide-react'
-import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 import { sponsors } from '../../config/sponsors/sponsorsConfig'
@@ -11,16 +11,7 @@ import { sponsors } from '../../config/sponsors/sponsorsConfig'
 export function OpenSourcePage(): ReactNode {
   const { t } = usePageTranslation('openSource', 'home')
   return (
-    <>
-      <Helmet>
-        <title>{t('meta.openSourceTitle')}</title>
-        <meta name="description" content={t('meta.openSourceDescription')} />
-        <meta property="og:title" content={t('meta.openSourceTitle')} />
-        <meta property="og:description" content={t('meta.openSourceDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.openSource.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.openSource.path}`} />
-      </Helmet>
-      <main>
+    <ContentPageLayout metaKey="openSource" routeKey="openSource">
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
@@ -102,8 +93,7 @@ export function OpenSourcePage(): ReactNode {
           <p className="mt-10 text-center text-xs text-text-muted">{t('openSource.footerNote')}</p>
         </div>
       </section>
-    </main>
-    </>
+    </ContentPageLayout>
   )
 }
 

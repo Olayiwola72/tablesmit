@@ -1,31 +1,15 @@
 import { Heart, Lightbulb, MessageCircle, Sparkles } from 'lucide-react'
-import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
 export function ContactPage(): ReactNode {
   const { t } = usePageTranslation('contact')
 
-  return (
-    <>
-      <Helmet>
-        <title>{t('meta.contactTitle')}</title>
-        <meta name="description" content={t('meta.contactDescription')} />
-        <meta property="og:title" content={t('meta.contactTitle')} />
-        <meta property="og:description" content={t('meta.contactDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.contact.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.contact.path}`} />
-      </Helmet>
-      {renderContent(t)}
-    </>
-  )
-}
-
-function renderContent(t: (key: string) => string): ReactNode {
   const reasons = [
     {
       icon: <Lightbulb size={18} aria-hidden="true" />,
@@ -50,7 +34,10 @@ function renderContent(t: (key: string) => string): ReactNode {
   ]
 
   return (
-    <main className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <ContentPageLayout
+      metaKey="contact"
+      routeKey="contact"
+      className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <Breadcrumb segments={[
         { label: t('nav.home'), to: routes.home.path },
         { label: t('nav.contact') },
@@ -96,7 +83,7 @@ function renderContent(t: (key: string) => string): ReactNode {
         <p className="text-sm font-medium text-text-primary">{t('contact.builtWithCare')}</p>
         <p className="mt-2 text-sm leading-relaxed text-text-secondary">{t('contact.body')}</p>
       </section>
-    </main>
+    </ContentPageLayout>
   )
 }
 

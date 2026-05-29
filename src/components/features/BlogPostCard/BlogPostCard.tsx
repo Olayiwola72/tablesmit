@@ -2,8 +2,8 @@ import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { BlogPostCardProps } from './BlogPostCard.types'
 import { ContentCard } from '../../ui/ContentCard/ContentCard'
-import { formatDate } from '../../../utils/formatDate/formatDate'
-import { routes } from '../../../config/routes/routesConfig'
+import { formatDate } from '@/utils/formatDate/formatDate'
+import { routes } from '@/config/routes/routesConfig'
 
 export function BlogPostCard({ post }: BlogPostCardProps): ReactNode {
   const { t } = useTranslation(['common', 'blog'])

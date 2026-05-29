@@ -1,6 +1,6 @@
 import i18n from 'i18next'
-import { dateFormatOptions } from '../../config/dateFormat/dateFormatConfig'
+import { dateOptions } from '../../config/date/dateConfig'
 
 export function formatDate(iso: string): string {
-  return new Intl.DateTimeFormat(i18n.language, dateFormatOptions).format(new Date(iso))
+  return new Intl.DateTimeFormat(i18n.language, dateOptions).format(new Date(iso))
 }

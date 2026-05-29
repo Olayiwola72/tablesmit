@@ -1,4 +1,4 @@
-import type { PresetDefinition } from '../../../types/table'
+import type { PresetDefinition } from '@/types/table'
 
 const presets: PresetDefinition[] = [
   {

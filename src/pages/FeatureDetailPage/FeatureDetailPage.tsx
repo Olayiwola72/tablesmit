@@ -1,9 +1,9 @@
 import { Navigate, useParams } from 'react-router-dom'
 import { useState, useEffect, type ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
-import { Helmet } from 'react-helmet-async'
 import type { FeaturePage } from '../../services/featureService/featureService.types'
 import { getFeatureBySlug, getAllFeatures } from '../../services/featureService/featureService'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 import { FeatureHeroSection } from '../../components/features/FeatureSections/FeatureHeroSection/FeatureHeroSection'
@@ -58,14 +58,12 @@ export default function FeatureDetailPage(): ReactNode {
   const featureUrl = `${brand.url}${routes.features.path}${feature.slug}/`
 
   return (
-    <>
-      <Helmet>
-        <title>{feature.metaTitle}</title>
-        <meta name="description" content={feature.metaDescription} />
-        <meta property="og:title" content={feature.metaTitle} />
-        <meta property="og:description" content={feature.metaDescription} />
-        <meta property="og:url" content={featureUrl} />
-        <link rel="canonical" href={featureUrl} />
+    <ContentPageLayout
+      title={feature.metaTitle}
+      description={feature.metaDescription}
+      canonicalUrl={featureUrl}
+      ogUrl={featureUrl}
+      metaChildren={
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'WebPage',
@@ -73,9 +71,8 @@ export default function FeatureDetailPage(): ReactNode {
           description: feature.metaDescription,
           url: featureUrl,
         })}</script>
-      </Helmet>
-
-      <main className="mx-auto max-w-content px-4 py-16 sm:px-6 lg:px-8">
+      }
+      className="mx-auto max-w-content px-4 py-16 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.features'), to: routes.features.path },
@@ -87,7 +84,6 @@ export default function FeatureDetailPage(): ReactNode {
         <FeatureUseCasesSection useCases={feature.useCases} />
         <FeatureRelatedSection relatedFeatures={relatedFeatures} />
         <FeatureCtaSection />
-      </main>
-    </>
+      </ContentPageLayout>
   )
 }

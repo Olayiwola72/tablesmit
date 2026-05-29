@@ -1,24 +1,18 @@
-import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Link } from 'react-router-dom'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
 export function TermsPage(): ReactNode {
   const { t } = usePageTranslation('legal')
   return (
-    <>
-      <Helmet>
-        <title>{t('meta.termsTitle')}</title>
-        <meta name="description" content={t('meta.termsDescription')} />
-        <meta property="og:title" content={t('meta.termsTitle')} />
-        <meta property="og:description" content={t('meta.termsDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.terms.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.terms.path}`} />
-      </Helmet>
-      <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
+    <ContentPageLayout
+      metaKey="terms"
+      routeKey="terms"
+      className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
           { label: t('footer.termsOfUse') },
@@ -63,8 +57,7 @@ export function TermsPage(): ReactNode {
           Privacy Policy
         </Link>
       </div>
-    </main>
-    </>
+    </ContentPageLayout>
   )
 }
 

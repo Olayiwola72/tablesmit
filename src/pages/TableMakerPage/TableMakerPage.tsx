@@ -1,11 +1,10 @@
 import { type ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
-import { Helmet } from 'react-helmet-async'
 import { TableProvider } from '../../context/TableContext'
 import { TableMakerContent } from '../../components/features/TableMakerContent/TableMakerContent'
+import { PageMeta } from '../../components/ui/PageMeta/PageMeta'
 import { brand } from '../../config/brand/brandConfig'
 import { exportFormats } from '../../config/export/exportConfig'
-import { routes } from '../../config/routes/routesConfig'
 
 const exportLabels = exportFormats.map((f) => f.label)
 const lastLabel = exportLabels[exportLabels.length - 1]
@@ -22,14 +21,11 @@ export function TableMakerPage(): ReactNode {
   const tagline = t('tagline')
   return (
     <TableProvider>
-      <Helmet>
-        <title>{brand.name} — {tagline}</title>
-        <meta name="description" content={metaDescription} />
-        <meta property="og:title" content={`${brand.name} — ${tagline}`} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={brand.url} />
-        <link rel="canonical" href={`${brand.url}${routes.home.path}`} />
-      </Helmet>
+      <PageMeta
+        title={`${brand.name} — ${tagline}`}
+        description={metaDescription}
+        routeKey="home"
+      />
       <TableMakerContent />
     </TableProvider>
   )

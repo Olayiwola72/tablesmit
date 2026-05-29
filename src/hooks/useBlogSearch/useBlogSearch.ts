@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import type { BlogPost } from '../../../services/blogService/blogService.types'
+import type { BlogPost } from '@/services/blogService/blogService.types'
 import type { UseBlogSearchResult } from './useBlogSearch.types'
 import { searchItems } from '../../utils/searchUtils/searchUtils'
 

@@ -3,7 +3,7 @@ import { Slot } from '@radix-ui/react-slot'
 import { cva } from 'class-variance-authority'
 import { Loader2 } from 'lucide-react'
 import { forwardRef, memo, type ReactNode } from 'react'
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 import type { ButtonProps } from './Button.types'
 
 export const buttonVariants = cva(

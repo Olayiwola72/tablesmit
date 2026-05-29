@@ -1,6 +1,6 @@
 import { Check } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 import type { ColorSwatchProps } from './ColorSwatch.types'
 
 export function ColorSwatch({ label, value, selected = false, className, ...props }: ColorSwatchProps): ReactNode {

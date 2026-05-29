@@ -14,10 +14,9 @@ describe('usePageTranslation', () => {
     vi.clearAllMocks()
   })
 
-  it('returns t and i18n', () => {
+  it('returns t', () => {
     const { result } = renderHook(() => usePageTranslation())
     expect(result.current.t).toBeDefined()
-    expect(result.current.i18n).toBeDefined()
   })
 
   it('calls loadNamespace for each provided namespace', () => {

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { LogoProps } from './Logo.types'
-import { brand } from '../../../config/brand/brandConfig'
+import { brand } from '@/config/brand/brandConfig'
 
 function fillColor(theme: 'light' | 'dark'): string {
   return theme === 'dark' ? '#60A5FA' : '#1E40AF'

@@ -2,8 +2,8 @@ import { ChevronDown, Code, Copy, FileText, Image, Loader2, Table2 } from 'lucid
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CopyDropdownProps } from './CopyDropdown.types'
-import { Button } from '../../../ui/Button/Button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
+import { Button } from '@/components/ui/Button/Button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu/DropdownMenu'
 
 export function CopyDropdown({ onCopyExcelData, onCopyCsv, onCopyMarkdown, onCopyLatex, onCopyImage, onCopyHtml, isCopyingImage }: CopyDropdownProps): ReactNode {
   const { t } = useTranslation(['common', 'table'])

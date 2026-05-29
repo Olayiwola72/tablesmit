@@ -1,7 +1,7 @@
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
-import { exportFileBaseName } from '../../../config/export/exportConfig'
+import { exportFileBaseName } from '@/config/export/exportConfig'
 import { downloadUrl, filenameWithExtension } from '../utils'
-import { getEffectiveColSpan } from '../../../utils/mergeUtils/mergeUtils'
+import { getEffectiveColSpan } from '@/utils/mergeUtils/mergeUtils'
 
 function escapeLatex(value: string): string {
   return value

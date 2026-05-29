@@ -2,8 +2,8 @@ import { Merge, Undo2, Ungroup } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { MergeUndoGroupProps } from './MergeUndoGroup.types'
-import { Button } from '../../../ui/Button/Button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '../../../ui/Tooltip/Tooltip'
+import { Button } from '@/components/ui/Button/Button'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/Tooltip/Tooltip'
 
 export function MergeUndoGroup({ canMerge, canUndo, historyDepth, onMerge, onUnmerge, onUndo }: MergeUndoGroupProps): ReactNode {
   const { t } = useTranslation(['common', 'table'])

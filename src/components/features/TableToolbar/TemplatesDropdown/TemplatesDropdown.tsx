@@ -2,8 +2,8 @@ import { ChevronDown, LayoutTemplate } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TemplatesDropdownProps } from './TemplatesDropdown.types'
-import { Button } from '../../../ui/Button/Button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
+import { Button } from '@/components/ui/Button/Button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu/DropdownMenu'
 
 export function TemplatesDropdown({ presets, onApplyPreset }: TemplatesDropdownProps): ReactNode {
   const { t } = useTranslation(['common', 'table'])

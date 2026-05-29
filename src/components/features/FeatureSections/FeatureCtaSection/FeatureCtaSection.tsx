@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { brand } from '../../../../config/brand/brandConfig'
-import { routes } from '../../../../config/routes/routesConfig'
+import { brand } from '@/config/brand/brandConfig'
+import { routes } from '@/config/routes/routesConfig'
 
 export function FeatureCtaSection(): ReactNode {
   const { t } = useTranslation(['common', 'features', 'blog'])

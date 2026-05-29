@@ -2,7 +2,7 @@
 import * as TooltipPrimitive from '@radix-ui/react-tooltip'
 import type { ComponentPropsWithoutRef, ComponentRef, ReactNode } from 'react'
 import { forwardRef } from 'react'
-import { cn } from '../../../lib/utils'
+import { cn } from '@/lib/utils'
 
 export const TooltipProvider = TooltipPrimitive.Provider
 export const Tooltip = TooltipPrimitive.Root

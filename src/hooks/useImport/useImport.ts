@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTableContext } from '../../context/TableContext'
-import { importCsv, importExcel } from '../../services/importService/importService'
+import { importCsv, importExcel } from '../../services/importService'
 import { toast } from '../../utils/toast/toast'
 import { trackEvent } from '../../utils/analytics/analytics'
 import type { ImportApi } from './useImport.types'

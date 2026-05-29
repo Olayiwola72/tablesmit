@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
-import { usePageTranslation } from '../../../hooks/usePageTranslation/usePageTranslation'
-import { exportFormats } from '../../../config/export/exportConfig'
-import { brand } from '../../../config/brand/brandConfig'
-import { routes } from '../../../config/routes/routesConfig'
+import { usePageTranslation } from '@/hooks/usePageTranslation/usePageTranslation'
+import { exportFormats } from '@/config/export/exportConfig'
+import { brand } from '@/config/brand/brandConfig'
+import { routes } from '@/config/routes/routesConfig'
 import { Logo } from '../../ui/Logo/Logo'
-import { getCurrentYear } from '../../../utils/dateUtils/dateUtils'
+import { getCurrentYear } from '@/utils/dateUtils/dateUtils'
 import { FooterGroup } from '../FooterGroup/FooterGroup'
 
 export function Footer(): ReactNode {

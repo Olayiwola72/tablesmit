@@ -14,5 +14,5 @@ export function usePageTranslation(...namespaces: Namespace[]) {
     namespaces.forEach((ns) => loadNamespace(lng, ns))
   }, [i18n.language, namespaces])
 
-  return { t, i18n }
+  return { t }
 }

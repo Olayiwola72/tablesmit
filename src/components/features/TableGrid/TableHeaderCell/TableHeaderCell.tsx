@@ -1,8 +1,8 @@
 import { memo, type ReactNode } from 'react'
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { columnFormats } from '../../../../config/columnFormats/columnFormatsConfig'
-import type { ColumnFormat } from '../../../../types/table'
+import { columnFormats } from '@/config/columnFormats/columnFormatsConfig'
+import type { ColumnFormat } from '@/types/table'
 import { ResizeHandle } from '../ResizeHandle/ResizeHandle'
 import type { TableHeaderCellProps } from './TableHeaderCell.types'
 
@@ -21,6 +21,8 @@ function TableHeaderCellRaw({
   const { t } = useTranslation(['common', 'table'])
   return (
     <div
+      role="columnheader"
+      aria-colindex={index + 1}
       className="relative flex min-w-20 items-center justify-between border-r border-border bg-surface pl-2 pr-2 py-1"
       onContextMenu={(event) => onContextMenu(index, event)}
     >

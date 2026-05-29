@@ -4,10 +4,10 @@ import { useState, useEffect, useMemo, useCallback, type ReactNode, type Compone
 
 type MdComponent = FC<{ remarkPlugins: unknown[]; components: Record<string, unknown>; children: string }>
 import remarkGfm from 'remark-gfm'
-import { Helmet } from 'react-helmet-async'
 import { Copy, Check } from 'lucide-react'
 import type { BlogPost } from '../../services/blogService/blogService.types'
 import { getPostBySlug, getAllPosts } from '../../services/blogService/blogService'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { formatDate } from '../../utils/formatDate/formatDate'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
@@ -119,14 +119,12 @@ export default function BlogPostPage(): ReactNode {
   const postUrl = `${brand.url}${routes.blog.path}${post.slug}/`
 
   return (
-    <>
-      <Helmet>
-        <title>{post.title} — {brand.name}</title>
-        <meta name="description" content={post.description} />
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description} />
-        <meta property="og:url" content={postUrl} />
-        <link rel="canonical" href={postUrl} />
+    <ContentPageLayout
+      title={`${post.title} — ${brand.name}`}
+      description={post.description}
+      ogUrl={postUrl}
+      canonicalUrl={postUrl}
+      metaChildren={
         <script type="application/ld+json">{JSON.stringify({
           '@context': 'https://schema.org',
           '@type': 'BlogPosting',
@@ -136,8 +134,8 @@ export default function BlogPostPage(): ReactNode {
           author: { '@type': 'Person', name: post.author },
           url: postUrl,
         })}</script>
-      </Helmet>
-
+      }
+    >
       <article className="mx-auto max-w-narrow px-4 py-16">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
@@ -247,6 +245,6 @@ export default function BlogPostPage(): ReactNode {
           )}
         </section>
       )}
-    </>
-  )
-}
+        </ContentPageLayout>
+      )
+    }
