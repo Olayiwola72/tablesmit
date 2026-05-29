@@ -114,7 +114,8 @@
     "undoEmpty": "Ingenting igjen å angre.",
     "tableCleared": "Tabell tømt.",
     "aiWaitlist": "KI-funksjoner kommer snart! Ta kontakt for å fortelle hva du ønsker å se.",
-    "copyLatex": "Tabell kopiert som LaTeX."
+    "copyLatex": "Tabell kopiert som LaTeX.",
+    "pwaUpdate": "En ny versjon er tilgjengelig. Laster inn på nytt…"
   },
   "cookieConsent": {
     "message": "Dette nettstedet bruker informasjonskapsler for analyse. Ingen personlige data samles inn.",

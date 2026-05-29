@@ -36,6 +36,8 @@
     "backToHome": "Back to Home",
     "fileTooLarge": "File too large. Maximum size is {{maxSize}}{{unitLabel}}.",
     "importParseError": "Could not read file. Check the format and try again.",
+    "notExcelFormat": "This file doesn't appear to be a valid Excel file (.xlsx). The content looks like plain text, not a spreadsheet. Try saving the file with a .csv extension and using 'Import from CSV' instead.",
+    "notCsvFormat": "This .csv file appears to be an Excel workbook (.xlsx), not a plain-text CSV. Try saving the file with a .xlsx extension and using 'Import from Excel' instead.",
     "somethingWrong": "Something went wrong.",
     "unexpectedError": "An unexpected error occurred.",
     "reload": "Reload the page",
@@ -123,7 +125,8 @@
     "pasteError": "Could not read clipboard. Try importing a file instead.",
     "undoEmpty": "Nothing left to undo.",
     "tableCleared": "Table cleared.",
-    "aiWaitlist": "AI features are coming soon! Reach out to share what you'd like to see."
+    "aiWaitlist": "AI features are coming soon! Reach out to share what you'd like to see.",
+    "pwaUpdate": "A new version is available. Reloading…"
   },
   "cookieConsent": {
     "message": "This site uses cookies for analytics. No personal data is collected.",

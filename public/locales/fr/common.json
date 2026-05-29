@@ -114,7 +114,8 @@
     "undoEmpty": "Plus rien à annuler.",
     "tableCleared": "Tableau effacé.",
     "aiWaitlist": "Les fonctionnalités IA arrivent bientôt ! Contactez-nous pour partager ce que vous aimeriez voir.",
-    "copyLatex": "Tableau copié en LaTeX."
+    "copyLatex": "Tableau copié en LaTeX.",
+    "pwaUpdate": "Une nouvelle version est disponible. Rechargement…"
   },
   "cookieConsent": {
     "message": "Ce site utilise des cookies à des fins d'analyse. Aucune donnée personnelle n'est collectée.",

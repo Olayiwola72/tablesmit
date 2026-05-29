@@ -6,6 +6,7 @@ vi.mock('../../../../i18n/i18n', () => ({
       const translations: Record<string, string> = {
         'errors.fileTooLarge': 'File too large. Maximum size is {{maxSize}}{{unitLabel}}.',
         'errors.importParseError': 'Could not read file. Check the format and try again.',
+        'errors.notCsvFormat': 'This .csv file appears to be an Excel workbook (.xlsx), not a plain-text CSV. Try saving the file with a .xlsx extension and using \'Import from Excel\' instead.',
       }
       let msg = translations[key] ?? key
       if (opts) {
@@ -43,6 +44,12 @@ describe('importCsv', () => {
     const large = new ArrayBuffer(6 * 1024 * 1024)
     const file = new File([large], 'large.csv', { type: 'text/csv' })
     await expect(importCsv(file)).rejects.toThrow('File too large')
+  })
+
+  it('rejects file with .csv extension that is actually an xlsx (ZIP content)', async () => {
+    const zipBytes = new Uint8Array([0x50, 0x4B, 0x03, 0x04])
+    const file = new File([zipBytes], 'fake.csv', { type: 'text/csv' })
+    await expect(importCsv(file)).rejects.toThrow('appears to be an Excel workbook')
   })
 
   it('preserves column count when header exists but all data rows are empty', async () => {

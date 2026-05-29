@@ -114,7 +114,8 @@
     "undoEmpty": "元に戻せる操作はありません。",
     "tableCleared": "テーブルをクリアしました。",
     "aiWaitlist": "AI機能は準備中です！ご希望の機能があればお聞かせください。",
-    "copyLatex": "テーブルをLaTeXとしてコピーしました。"
+    "copyLatex": "テーブルをLaTeXとしてコピーしました。",
+    "pwaUpdate": "新しいバージョンがあります。再読み込み中…"
   },
   "cookieConsent": {
     "message": "このサイトは分析のためにCookieを使用します。個人データは収集されません。",

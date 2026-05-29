@@ -114,7 +114,8 @@
     "undoEmpty": "No hay nada que deshacer.",
     "tableCleared": "Tabla limpiada.",
     "aiWaitlist": "¡Las funciones de IA están por llegar! Contáctanos para compartir lo que te gustaría ver.",
-    "copyLatex": "Tabla copiada como LaTeX."
+    "copyLatex": "Tabla copiada como LaTeX.",
+    "pwaUpdate": "Una nueva versión está disponible. Recargando…"
   },
   "cookieConsent": {
     "message": "Este sitio utiliza cookies para análisis. No se recopilan datos personales.",

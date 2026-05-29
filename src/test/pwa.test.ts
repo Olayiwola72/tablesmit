@@ -1,5 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { toast } from '../utils/toast/toast'
 import { registerPWA, registerSW } from '../pwa'
+
+vi.mock('i18next', () => ({
+  default: { t: vi.fn(() => 'A new version is available. Reloading…') },
+}))
+
+vi.mock('../utils/toast/toast', () => ({
+  toast: { info: vi.fn() },
+}))
 
 beforeEach(() => {
   vi.unstubAllGlobals()
@@ -91,7 +100,33 @@ describe('registerSW', () => {
     await registerSW()
     await vi.dynamicImportSettled?.()
 
+    expect(toast.info).toHaveBeenCalledWith('A new version is available. Reloading…')
     expect(mockNewSW.postMessage).toHaveBeenCalledWith({ type: 'SKIP_WAITING' })
+  })
+
+  it('calls toast.info before sending SKIP_WAITING in the correct order', async () => {
+    const callOrder: string[] = []
+    const mockToastInfo = vi.fn(() => { callOrder.push('toast') })
+    const mockPostMsg = vi.fn(() => { callOrder.push('postMessage') })
+
+    vi.mocked(toast.info).mockImplementation(mockToastInfo)
+    mockPostMessage.mockImplementation(mockPostMsg)
+
+    const mockNewSW = {
+      state: 'installed',
+      addEventListener: vi.fn((_event: string, handler: () => void) => {
+        handler()
+      }),
+      postMessage: mockPostMessage,
+    }
+    const reg = setupServiceWorker({ installing: mockNewSW })
+    reg.addEventListener = vi.fn((_event: string, handler: () => void) => {
+      handler()
+    })
+
+    await registerSW()
+
+    expect(callOrder).toEqual(['toast', 'postMessage'])
   })
 
   it('does not send SKIP_WAITING when controller is null', async () => {

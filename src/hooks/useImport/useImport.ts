@@ -38,7 +38,7 @@ export function useImport(): ImportApi {
     } catch (caught) {
       const message = caught instanceof Error ? caught.message : null
       setError(message)
-      toast.error(t('toast.importError'))
+      toast.error(message ?? t('toast.importError'))
     } finally {
       setIsImporting(false)
     }

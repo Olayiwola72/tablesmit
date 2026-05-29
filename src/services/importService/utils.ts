@@ -13,6 +13,12 @@ const fileTooLarge = (): string =>
 export const readError = (): string =>
   i18n.t('errors.importParseError')
 
+export const notExcelFormat = (): string =>
+  i18n.t('errors.notExcelFormat')
+
+export const notCsvFormat = (): string =>
+  i18n.t('errors.notCsvFormat')
+
 export function argbToHex(argb: string): string {
   const hex = argb.replace('#', '')
   return hex.length === 8 ? `#${hex.slice(2)}` : `#${hex}`

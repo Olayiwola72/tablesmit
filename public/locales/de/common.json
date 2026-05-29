@@ -114,7 +114,8 @@
     "undoEmpty": "Es gibt nichts rückgängig zu machen.",
     "tableCleared": "Tabelle geleert.",
     "aiWaitlist": "KI-Funktionen kommen bald! Teilen Sie uns mit, was Sie sich wünschen.",
-    "copyLatex": "Tabelle als LaTeX kopiert."
+    "copyLatex": "Tabelle als LaTeX kopiert.",
+    "pwaUpdate": "Eine neue Version ist verfügbar. Neuladen…"
   },
   "cookieConsent": {
     "message": "Diese Seite verwendet Cookies für Analysen. Es werden keine persönlichen Daten gesammelt.",

@@ -6,6 +6,7 @@ import {
   applyMergesToCells,
   getFillColor,
   normaliseRows,
+  notExcelFormat,
   readError,
 } from '../utils'
 import { buildMergeKey } from '@/utils/mergeUtils/mergeUtils'
@@ -31,8 +32,13 @@ export class ExcelImporter implements ImportStrategy {
   async importFile(file: File): Promise<ImportResult> {
     assertFileSize(file)
     const MAX_XLSX_CELLS = 100_000
+
+    const buffer = await file.arrayBuffer()
+    const bytes = new Uint8Array(buffer.slice(0, 4))
+    const isZip = bytes[0] === 0x50 && bytes[1] === 0x4B && bytes[2] === 0x03 && bytes[3] === 0x04
+    if (!isZip) throw new Error(notExcelFormat())
+
     try {
-      const buffer = await file.arrayBuffer()
       const ExcelJS = await import('exceljs')
       const workbook = new ExcelJS.Workbook()
       await workbook.xlsx.load(buffer)
