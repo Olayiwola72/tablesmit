@@ -1,9 +1,16 @@
 import type { ImportResult, ImportStrategy } from '../import.types'
-import { assertFileSize, detectCsvMerges, applyMergesToCells, normaliseRows, readError } from '../utils'
+import { assertFileSize, detectCsvMerges, applyMergesToCells, normaliseRows, notCsvFormat, readError } from '../utils'
 
 export class CsvImporter implements ImportStrategy {
   async importFile(file: File): Promise<ImportResult> {
     assertFileSize(file)
+
+    const headerBytes = await file.slice(0, 4).arrayBuffer()
+    const hb = new Uint8Array(headerBytes)
+    if (hb[0] === 0x50 && hb[1] === 0x4B && hb[2] === 0x03 && hb[3] === 0x04) {
+      throw new Error(notCsvFormat())
+    }
+
     const Papa = await import('papaparse')
     return new Promise((resolve, reject) => {
       Papa.default.parse<unknown[]>(file, {

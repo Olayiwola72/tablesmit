@@ -46,6 +46,20 @@ export const STATIC_ROUTES: string[] = [
   '/testimonials',
 ]
 
+// Config paths (relative to project root) that drive content on prerendered pages.
+// When any file under these paths changes, the pre-commit hook should re-prerender.
+export const CONFIG_WATCH_PATHS: Record<string, string[]> = {
+  'src/content':               ['/blog', '/features'],
+  'src/config/changelog':      ['/changelog'],
+  'src/config/testimonials':    ['/testimonials'],
+  'src/config/sponsors':       ['/open-source'],
+  'src/config/brand':          ['/about', '/open-source', '/contact', '/privacy', '/terms', '/testimonials'],
+}
+
+export function getConfigWatchPaths(): string[] {
+  return Object.keys(CONFIG_WATCH_PATHS)
+}
+
 export function getBlogRoutes(
   contentDir: string,
   exists: (p: string) => boolean,

@@ -6,6 +6,7 @@ vi.mock('../../../../i18n/i18n', () => ({
       const translations: Record<string, string> = {
         'errors.fileTooLarge': 'File too large. Maximum size is {{maxSize}}{{unitLabel}}.',
         'errors.importParseError': 'Could not read file. Check the format and try again.',
+        'errors.notExcelFormat': "This file doesn't appear to be a valid Excel file (.xlsx). The content looks like plain text, not a spreadsheet. Try saving the file with a .csv extension and using 'Import from CSV' instead.",
       }
       let msg = translations[key] ?? key
       if (opts) {
@@ -36,7 +37,7 @@ describe('importExcel', () => {
 
   it('rejects files that are not valid XLSX', async () => {
     const file = createFile('not a valid xlsx', 'bad.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    await expect(importExcel(file)).rejects.toThrow('Could not read file')
+    await expect(importExcel(file)).rejects.toThrow("doesn't appear to be a valid Excel file")
   })
 
   it('preserves dimensions when importing a styled empty Excel file', async () => {

@@ -1,7 +1,7 @@
 import type { MergeRange } from '@/utils/mergeUtils/mergeUtils.types'
 
 export interface BuildHtmlTableParams {
-  cells: import('@/types/table').CellData[][]
+  cells: import('@/types/table/cell.types').CellData[][]
   caption?: string
   columnWidths?: number[]
   cellColors?: Record<string, string>
@@ -22,7 +22,7 @@ export interface BuildHtmlTableParams {
 }
 
 export interface BuildExcelHtmlParams {
-  cells: import('@/types/table').CellData[][]
+  cells: import('@/types/table/cell.types').CellData[][]
   caption?: string
   columnWidths?: number[]
   cellColors?: Record<string, string>

@@ -1,3 +1,14 @@
+import i18n from 'i18next'
+import { toast } from './utils/toast/toast'
+
+function pwaMessage(): string {
+  try {
+    return i18n.isInitialized ? i18n.t('toast.pwaUpdate') : 'A new version is available. Reloading…'
+  } catch {
+    return 'A new version is available. Reloading…'
+  }
+}
+
 let lastVersion: string | null = null
 
 export function registerPWA(): void {
@@ -18,6 +29,7 @@ export async function registerSW(): Promise<void> {
       if (!newSW) return
       newSW.addEventListener('statechange', () => {
         if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
+          toast.info(pwaMessage())
           newSW.postMessage({ type: 'SKIP_WAITING' })
         }
       })
@@ -45,7 +57,8 @@ async function checkForUpdates(): Promise<void> {
     }
     if (data.version !== lastVersion) {
       lastVersion = data.version
-      window.location.reload()
+      toast.info(pwaMessage())
+      setTimeout(() => { window.location.reload() }, 2000)
     }
   } catch {
     /* Polling unavailable */

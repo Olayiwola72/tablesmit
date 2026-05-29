@@ -83,7 +83,7 @@ export function buildHtmlTable(
       const effectiveRowSpan = mergeSpan?.rowSpan ?? cell.rowSpan
       if (effectiveColSpan > 1) attrs.push(`colspan="${effectiveColSpan}"`)
       if (effectiveRowSpan > 1) attrs.push(`rowspan="${effectiveRowSpan}"`)
-      const isHeader = isHeaderCell(headerStyle as import('@/types/table').HeaderStyle, r, c, effectiveColSpan)
+      const isHeader = isHeaderCell(headerStyle as import('@/context/TableState/TableState.types').HeaderStyle, r, c, effectiveColSpan)
       const tag = isHeader ? 'th' : 'td'
       const w = columnWidths?.[c]
       if (w && w > 0) cellStyles.push(`width: ${w}px`)
@@ -191,7 +191,7 @@ export function buildExcelHtml(
       if (effectiveColSpan > 1) attrs.push(`colspan="${effectiveColSpan}"`)
       if (effectiveRowSpan > 1) attrs.push(`rowspan="${effectiveRowSpan}"`)
 
-      const isHeader = isHeaderCell(headerStyle as import('@/types/table').HeaderStyle, r, c, effectiveColSpan)
+      const isHeader = isHeaderCell(headerStyle as import('@/context/TableState/TableState.types').HeaderStyle, r, c, effectiveColSpan)
       const tag = isHeader ? 'th' : 'td'
 
       const w = columnWidths?.[c]

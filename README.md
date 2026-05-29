@@ -15,7 +15,7 @@ No account. No bloat. Free and open source.
 ---
 
 <p align="center">
-  <img src="./public/launch/tablesmit_demo_light_mode.png" alt="Tablesmit demo — building a comparison table" width="700">
+  <img src="./public/launch/tablesmit-video-demo.gif" alt="Tablesmit demo — building a table from scratch" width="700">
 </p>
 
 ---

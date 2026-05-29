@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
   STATIC_ROUTES,
+  CONFIG_WATCH_PATHS,
+  getConfigWatchPaths,
   getBlogRoutes,
   getFeatureRoutes,
   getAllRoutes,
@@ -24,6 +26,31 @@ describe('STATIC_ROUTES', () => {
     expect(locs).toContain('/terms')
     expect(locs).toContain('/changelog')
     expect(locs).toContain('/testimonials')
+  })
+})
+
+describe('CONFIG_WATCH_PATHS', () => {
+  it('covers changelog config', () => {
+    expect(CONFIG_WATCH_PATHS['src/config/changelog']).toContain('/changelog')
+  })
+
+  it('covers testimonials config', () => {
+    expect(CONFIG_WATCH_PATHS['src/config/testimonials']).toContain('/testimonials')
+  })
+
+  it('covers sponsors config', () => {
+    expect(CONFIG_WATCH_PATHS['src/config/sponsors']).toContain('/open-source')
+  })
+
+  it('every static route is covered by at least one watch path', () => {
+    const allCoveredRoutes = new Set(Object.values(CONFIG_WATCH_PATHS).flat())
+    for (const route of STATIC_ROUTES) {
+      expect(allCoveredRoutes.has(route)).toBe(true)
+    }
+  })
+
+  it('getConfigWatchPaths returns all config watch directory keys', () => {
+    expect(getConfigWatchPaths().sort()).toEqual(Object.keys(CONFIG_WATCH_PATHS).sort())
   })
 })
 
