@@ -1,8 +1,10 @@
 import { renderHook } from '@testing-library/react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
-import { useCopyTable, buildHtmlTable, buildExcelHtml } from '../../../hooks/useCopyTable/useCopyTable'
+import { buildHtmlTable, buildExcelHtml } from '../../../services/tableHtmlBuilder'
+import { useCopyTable } from '../../../hooks/useCopyTable/useCopyTable'
 import { createRef } from 'react'
-import type { CellData, MergeRange } from '../../../types/table'
+import type { CellData } from '../../../types/table/cell.types'
+import type { MergeRange } from '../../../utils/mergeUtils/mergeUtils.types'
 
 const mockCells: CellData[][] = [
   [

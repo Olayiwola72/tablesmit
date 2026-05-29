@@ -2,7 +2,7 @@ import { renderHook } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { useTableCopyShortcut } from '../../../hooks/useTableCopyShortcut/useTableCopyShortcut'
-import type { CellData } from '../../../types/table'
+import type { CellData } from '../../../types/table/cell.types'
 
 function createCells(values: string[][]): CellData[][] {
   return values.map((row, r) =>

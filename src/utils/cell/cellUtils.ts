@@ -1,5 +1,5 @@
 import type { CellCoordinate } from './cellUtils.types'
-import type { HeaderStyle } from '../../types/table'
+import type { HeaderStyle } from '../../context/TableState/TableState.types'
 
 export function buildCellId(row: number, col: number): string {
   return `R${row}C${col}`

@@ -7,6 +7,7 @@ import {
   deleteColAt,
   deleteRowAt,
   generateEmptyTable,
+  getSumColumnIndices,
   insertColAt,
   insertRowAt,
   isTableEmpty,
@@ -334,6 +335,22 @@ describe('insertColAt', () => {
     const t = generateEmptyTable(2, 3)
     insertColAt(t, 0)
     expect(t[0]).toHaveLength(3)
+  })
+})
+
+describe('getSumColumnIndices', () => {
+  it('returns indices of columns with format "sum"', () => {
+    let cells = generateEmptyTable(3, 4)
+    cells = updateColumnFormat(cells, 1, 'sum')
+    cells = updateColumnFormat(cells, 3, 'sum')
+    const result = getSumColumnIndices(cells, 4)
+    expect(result).toEqual([1, 3])
+  })
+
+  it('returns empty array when no sum columns exist', () => {
+    const cells = generateEmptyTable(3, 4)
+    const result = getSumColumnIndices(cells, 4)
+    expect(result).toEqual([])
   })
 })
 

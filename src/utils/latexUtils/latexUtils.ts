@@ -1,4 +1,4 @@
-import type { CellData } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
 import { LATEX_ESCAPE_MAP, LATEX_COLUMN_ALIGN } from '../../config/latex/latexConfig'
 
 function escapeLatex(value: string): string {

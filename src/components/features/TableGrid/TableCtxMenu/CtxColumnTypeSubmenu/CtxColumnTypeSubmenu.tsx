@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { CtxColumnTypeSubmenuProps } from './CtxColumnTypeSubmenu.types'
-import type { ColumnFormat } from '@/types/table'
+import type { ColumnFormat } from '@/config/columnFormats/columnFormats.types'
 import { columnFormats } from '@/config/columnFormats/columnFormatsConfig'
 
 export function CtxColumnTypeSubmenu({ currentFormat, onChange, onClose }: CtxColumnTypeSubmenuProps): ReactNode {

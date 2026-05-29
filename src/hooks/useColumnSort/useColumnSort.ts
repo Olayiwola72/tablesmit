@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import type { CellData, MergeRange } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
+import type { MergeRange } from '../../utils/mergeUtils/mergeUtils.types'
 import { sortRows } from '../../utils/tableUtils/tableUtils'
 import type { UseColumnSortResult } from './useColumnSort.types'
 

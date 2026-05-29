@@ -1,4 +1,4 @@
-import type { ColumnFormat } from '../../types/table'
+import type { ColumnFormat } from '../../config/columnFormats/columnFormats.types'
 import type { FormatUtilStrategy } from './formatUtilStrategy.types'
 import { autoNumberStrategy } from './impl/autoNumberStrategy'
 import { textStrategy } from './impl/textStrategy'

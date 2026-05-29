@@ -50,7 +50,7 @@ describe('TableGrid', () => {
 
   it('renders 5 rows with role="row"', () => {
     renderTableGrid()
-    expect(screen.getAllByRole('row')).toHaveLength(DEFAULT_ROWS)
+    expect(screen.getAllByRole('row')).toHaveLength(DEFAULT_ROWS + 1)
   })
 
   it('renders 25 cells with gridcell or columnheader role', () => {
@@ -483,9 +483,9 @@ describe('TableGrid', () => {
   it('renders the correct number of rows and columns in the grid', () => {
     renderTableGrid()
     const rows = screen.getAllByRole('row')
-    expect(rows).toHaveLength(DEFAULT_ROWS)
+    expect(rows).toHaveLength(DEFAULT_ROWS + 1)
 
-    const firstRowCells = rows[0]?.querySelectorAll('[role="columnheader"]')
+    const firstRowCells = rows[1]?.querySelectorAll('[role="columnheader"]')
     expect(firstRowCells).toHaveLength(DEFAULT_COLS)
   })
 

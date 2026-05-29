@@ -1112,8 +1112,10 @@ tablesmit/
 │   │   │   └── TableDataContext.tsx
 │   │   ├── TableProvider/               # Main provider wrapping all 3 contexts
 │   │   │   └── TableProvider.tsx
-│   │   ├── TableReducer/                # Reducer + action types
-│   │   │   └── TableReducer.ts
+│   │   ├── TableReducer/                # Reducer + action types + helpers
+│   │   │   ├── TableReducer.ts
+│   │   │   └── helpers/
+│   │   │       └── reducerHelpers.ts
 │   │   ├── TableSelectionContext/       # TableSelectionCtx — selectedRange only
 │   │   │   └── TableSelectionContext.tsx
 │   │   └── TableState/                  # Initial state + persistence
@@ -1248,12 +1250,12 @@ tablesmit/
 │   │   ├── config/                     # 20 test files (all config domains)
 │   │   ├── constants/                  # keys.test.ts
 │   │   ├── content/                    # 2 test files (blog.test.ts, features.test.ts)
-│   │   ├── context/                    # 6 test files (TableContext, TableProvider, TableReducer, etc.)
+│   │   ├── context/                    # 7 test files (TableContext, TableProvider, TableReducer, etc.)
 │   │   ├── hooks/                      # 19 test files (all hooks tested)
 │   │   ├── i18n/                       # i18n.test.ts
 │   │   ├── lib/                        # 2 test files (utils.test.ts, sentry.test.ts)
 │   │   ├── pages/                      # 13 test files (every page tested)
-│   │   ├── services/                   # 12 test files (all services)
+│   │   ├── services/                   # 16 test files (all services)
 │   │   ├── components/
 │   │   │   ├── ui/                     # 22 test files (every UI component)
 │   │   │   ├── layout/                 # 6 test files (every layout component)
@@ -4491,9 +4493,11 @@ src/context/
   TableProvider/          — creates TableContext — all non-cell state + actions
     TableProvider.tsx
     TableProvider.types.ts
-  TableReducer/           — pure reducer function + action type union
+  TableReducer/           — pure reducer function + action type union + helpers
     TableReducer.ts
     TableReducer.types.ts
+    helpers/
+      reducerHelpers.ts
   TableState/             — initialState + persistence keys
     TableState.ts
     TableState.types.ts

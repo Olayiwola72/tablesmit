@@ -1,4 +1,4 @@
-export type ColumnFormat = 'text' | 'number' | 'currency' | 'percentage' | 'date' | 'sum' | 'auto-number'
+import type { ColumnFormat } from '../../config/columnFormats/columnFormats.types'
 
 export interface CellData {
   id: string

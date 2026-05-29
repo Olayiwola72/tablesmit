@@ -7,7 +7,7 @@ No account. No bloat. Free and open source.
 
 **[→ tablesmit.com](https://tablesmit.com)**
 
-![Tests](https://img.shields.io/badge/tests-1781%20passing-4ade80?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-1936%20passing-4ade80?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-60a5fa?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f59e0b?style=flat-square)
 ![Made in Nigeria](https://img.shields.io/badge/made%20in-Nigeria-1e40af?style=flat-square)
@@ -154,9 +154,9 @@ tablesmit/
 │   │   ├── layout/                   # Navbar, Footer, Sidebar, MobileSheet, PageWrapper
 │   │   └── features/                 # Domain components: TableGrid, ExportPanel, TableToolbar, BorderPanel, FindReplace, TableCaption, ThemePicker, etc.
 │   ├── pages/                        # 13 lazy-loaded pages (About, Blog, BlogPost, Contact, Features, FeatureDetail, OpenSource, Privacy, Terms, Changelog, Testimonials, 404, TableMaker)
-│   ├── context/                      # TableContext (cells) + TableSelectionContext (selection) + TableProvider (everything else) — split to minimise re-renders
-│   ├── hooks/                        # 18 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, useBlogSearch, useFeatureSearch, usePageTranslation, etc.
-│   ├── services/                     # exportService (strategy pattern), importService, blogService, featureService
+│   ├── context/                      # TableContext (cells) + TableSelectionContext (selection) + TableProvider (everything else) + TableReducer (reducer + helpers) — split to minimise re-renders
+│   ├── hooks/                        # 19 hooks: useColumnResize, useExport, useImport, useClipboardPaste, useFindReplace, useTableHistory, useTheme, useMergeCells, useTableFocus, useBlogSearch, useFeatureSearch, usePageTranslation, etc.
+│   ├── services/                     # exportService (strategy pattern), importService, blogService, featureService, tableHtmlBuilder, clipboardParser
 │   ├── i18n/                         # i18next init, locale config, English JSON source of truth
 │   ├── utils/                        # tableUtils, mergeUtils, latexUtils, markdownUtils, formatUtils, searchUtils, colorUtils, cell, toast, analytics, dateUtils
 │   ├── types/                        # Shared table types: CellData, MergeRange, HeaderStyle, TableTheme, PresetDefinition, etc.
@@ -166,7 +166,7 @@ tablesmit/
 │   │   ├── blog/                     # 34 blog posts as .ts modules (auto-discovered via import.meta.glob)
 │   │   └── features/                 # 30 feature pages as .json (auto-discovered)
 │   ├── styles/globals.css            # Tailwind directives + @font-face + print styles + dark mode
-│   ├── test/                         # 168 test files mirroring src/ structure
+│   ├── test/                         # 186 test files mirroring src/ structure
 │   ├── App.tsx                       # Router + providers only — zero business logic
 │   ├── main.tsx                      # ReactDOM root + Sonner Toaster
 │   ├── pwa.ts                        # Service worker registration + version polling
@@ -193,7 +193,7 @@ Every page is lazy-loaded. Heavy feature panels within the table maker are also 
 ## Project status
 
 ```
-Tests:     1781 passing — 169 test files
+Tests:     1936 passing — 186 test files
 Lint:      TypeScript strict — zero custom rules
 Build:     clean — code-split chunks < 150 KB gzipped initial
 PWA:       offline-capable with auto-updating service worker

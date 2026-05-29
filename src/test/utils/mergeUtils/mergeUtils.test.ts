@@ -6,6 +6,8 @@ import {
   isSingleCellRange,
   normalizeSelection,
   rangeFromSelection,
+  buildMergeAnchorMap,
+  buildHiddenSet,
 } from '../../../utils/mergeUtils/mergeUtils'
 
 describe('normalizeSelection', () => {
@@ -81,5 +83,68 @@ describe('isRangeAnchor', () => {
   it('returns false for non-anchor cells', () => {
     expect(isRangeAnchor('R1C1', range)).toBe(false)
     expect(isRangeAnchor('R2C2', range)).toBe(false)
+  })
+})
+
+describe('buildMergeAnchorMap', () => {
+  it('maps each anchor cell to its range', () => {
+    const ranges = [
+      { key: 'R0C0:R1C1', startRow: 0, startCol: 0, endRow: 1, endCol: 1 },
+      { key: 'R2C2:R3C3', startRow: 2, startCol: 2, endRow: 3, endCol: 3 },
+    ]
+    const map = buildMergeAnchorMap(ranges)
+    expect(map.get('R0C0')).toEqual(ranges[0])
+    expect(map.get('R2C2')).toEqual(ranges[1])
+  })
+
+  it('omits non-anchor cells from the map', () => {
+    const ranges = [
+      { key: 'R0C0:R1C1', startRow: 0, startCol: 0, endRow: 1, endCol: 1 },
+    ]
+    const map = buildMergeAnchorMap(ranges)
+    expect(map.has('R0C1')).toBe(false)
+    expect(map.has('R1C0')).toBe(false)
+    expect(map.has('R1C1')).toBe(false)
+  })
+
+  it('returns empty map for empty ranges', () => {
+    const map = buildMergeAnchorMap([])
+    expect(map.size).toBe(0)
+  })
+})
+
+describe('buildHiddenSet', () => {
+  it('includes all non-anchor cells within a merge range', () => {
+    const ranges = [
+      { key: 'R0C0:R1C1', startRow: 0, startCol: 0, endRow: 1, endCol: 1 },
+    ]
+    const hidden = buildHiddenSet(ranges)
+    expect(hidden.has('R0C1')).toBe(true)
+    expect(hidden.has('R1C0')).toBe(true)
+    expect(hidden.has('R1C1')).toBe(true)
+  })
+
+  it('excludes anchor cells from the hidden set', () => {
+    const ranges = [
+      { key: 'R0C0:R1C1', startRow: 0, startCol: 0, endRow: 1, endCol: 1 },
+    ]
+    const hidden = buildHiddenSet(ranges)
+    expect(hidden.has('R0C0')).toBe(false)
+  })
+
+  it('handles multiple disjoint merge ranges', () => {
+    const ranges = [
+      { key: 'R0C0:R0C1', startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      { key: 'R2C2:R3C3', startRow: 2, startCol: 2, endRow: 3, endCol: 3 },
+    ]
+    const hidden = buildHiddenSet(ranges)
+    expect(hidden.has('R0C1')).toBe(true)
+    expect(hidden.has('R2C3')).toBe(true)
+    expect(hidden.has('R3C2')).toBe(true)
+  })
+
+  it('returns empty set for empty ranges', () => {
+    const hidden = buildHiddenSet([])
+    expect(hidden.size).toBe(0)
   })
 })

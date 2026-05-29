@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { exportTable } from '../../../services/exportService'
-import type { CellData } from '../../../types/table'
+import type { CellData } from '../../../types/table/cell.types'
 
 const mockDownloadUrl = vi.hoisted(() => vi.fn())
 vi.mock('../../../services/exportService/utils', async (importOriginal) => {

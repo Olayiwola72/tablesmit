@@ -1,4 +1,5 @@
-import type { CellData, BorderStyle as TbBorderStyle } from '@/types/table'
+import type { CellData } from '@/types/table/cell.types'
+import type { BorderStyle as TbBorderStyle } from '@/context/TableState/TableState.types'
 import type { ExportOptions, ExportStrategy, ExportStyleOptions } from '../export.types'
 import { exportFileBaseName } from '@/config/export/exportConfig'
 import { DEFAULT_CAPTION_TEXT_COLOR } from '@/config/colors/colorsConfig'

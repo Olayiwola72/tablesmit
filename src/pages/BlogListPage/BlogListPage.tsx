@@ -7,7 +7,7 @@ import { routes } from '../../config/routes/routesConfig'
 import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
 import { ContentListPage } from '../../components/ui/ContentListPage/ContentListPage'
 import { BlogPostCard } from '../../components/features/BlogPostCard/BlogPostCard'
-import { useBlogSearch } from '../../hooks/useBlogSearch/useBlogSearch'
+import { useSearch } from '../../hooks/useSearch/useSearch'
 
 export default function BlogListPage(): ReactNode {
   const { t } = usePageTranslation('blog')
@@ -22,7 +22,11 @@ export default function BlogListPage(): ReactNode {
     })
   }, [])
 
-  const { query, setQuery, results, totalResults } = useBlogSearch(posts ?? [])
+  const { query, setQuery, results, totalResults } = useSearch({
+    items: posts ?? [],
+    fields: post => [post.title, post.description, post.content, post.author, ...post.tags],
+    boostField: post => post.title,
+  })
 
   const handleSearchChange = useCallback(
     (q: string) => {

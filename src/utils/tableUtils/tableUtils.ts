@@ -1,4 +1,5 @@
-import type { CellData, ColumnFormat } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
+import type { ColumnFormat } from '../../config/columnFormats/columnFormats.types'
 import { buildCellId } from '../cell/cellUtils'
 
 export function createCell(row: number, col: number, value = ''): CellData {
@@ -94,6 +95,14 @@ export function updateColumnFormat(
 
 export function isTableEmpty(cells: CellData[][]): boolean {
   return cells.every(row => row.every(cell => !cell.value.trim()))
+}
+
+export function getSumColumnIndices(cells: CellData[][], cols: number): number[] {
+  const indices: number[] = []
+  for (let c = 0; c < cols; c++) {
+    if (cells[0]?.[c]?.format === 'sum') indices.push(c)
+  }
+  return indices
 }
 
 export function computeColumnSum(cells: { value: string }[]): number {

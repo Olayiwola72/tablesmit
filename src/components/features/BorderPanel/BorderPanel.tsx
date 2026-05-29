@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTableContext } from '@/context/TableContext'
-import type { BorderStyle } from '@/types/table'
+import type { BorderStyle } from '@/context/TableState/TableState.types'
 import { FormLabel } from '../../ui/FormLabel/FormLabel'
 import { FormSelect } from '../../ui/FormSelect/FormSelect'
 import { SidebarPanelShell } from '../../ui/SidebarPanelShell/SidebarPanelShell'

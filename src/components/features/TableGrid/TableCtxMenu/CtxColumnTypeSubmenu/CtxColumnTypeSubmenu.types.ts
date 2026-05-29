@@ -1,4 +1,4 @@
-import type { ColumnFormat } from '@/types/table'
+import type { ColumnFormat } from '@/config/columnFormats/columnFormats.types'
 
 export interface CtxColumnTypeSubmenuProps {
   currentFormat: string | undefined

@@ -7,7 +7,7 @@ import {
   DEFAULT_ROWS,
 } from '../../config/table/tableDefaults/tableDefaults'
 import { colors } from '../../config/colors/colorsConfig'
-import type { TextAlign } from '../../types/table'
+import type { TextAlign } from './TableState.types'
 import type { CaptionAlignment, TableState } from './TableState.types'
 import { generateEmptyTable } from '../../utils/tableUtils/tableUtils'
 

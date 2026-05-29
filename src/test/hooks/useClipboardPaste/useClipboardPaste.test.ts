@@ -1,9 +1,10 @@
 import { renderHook } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MAX_COLS, MAX_ROWS } from '../../../config/table/tableDefaults/tableDefaults'
-import { useClipboardPaste, parseClipboardContent } from '../../../hooks/useClipboardPaste/useClipboardPaste'
-import { buildHtmlTable, buildExcelHtml } from '../../../hooks/useCopyTable/useCopyTable'
-import type { CellData } from '../../../types/table'
+import { useClipboardPaste } from '../../../hooks/useClipboardPaste/useClipboardPaste'
+import { parseClipboardContent } from '../../../services/clipboardParser'
+import { buildHtmlTable, buildExcelHtml } from '../../../services/tableHtmlBuilder'
+import type { CellData } from '../../../types/table/cell.types'
 
 describe('useClipboardPaste', () => {
   afterEach(() => {
