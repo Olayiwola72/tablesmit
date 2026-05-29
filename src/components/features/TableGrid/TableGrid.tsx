@@ -1,15 +1,16 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { AUTOFIT_PADDING, MAX_COLUMN_WIDTH, MAX_ROW_HEIGHT, MIN_COLUMN_WIDTH, MIN_ROW_HEIGHT } from '@/config/table/tableDefaults/tableDefaults'
 import { useSelectedRange, useTableContext, useTableData } from '@/context/TableContext'
 import { useColumnResize } from '@/hooks/useColumnResize/useColumnResize'
 import { useRowResize } from '@/hooks/useRowResize/useRowResize'
 import { useTableSelection } from '@/hooks/useTableSelection/useTableSelection'
 import { useTableGridKeyHandlers } from '@/hooks/useTableGridKeyHandlers/useTableGridKeyHandlers'
+import { useAutoFit } from '@/hooks/useAutoFit/useAutoFit'
+import { useTableFocus } from '@/hooks/useTableFocus/useTableFocus'
 import { TABLE_THEMES } from '@/config/table/tableThemes/tableThemes'
-import { computeColumnSum } from '@/utils/tableUtils/tableUtils'
+import { computeColumnSum, getSumColumnIndices } from '@/utils/tableUtils/tableUtils'
 import { getContrastText } from '@/utils/colorUtils/colorUtils'
-import { isRangeAnchor } from '@/utils/mergeUtils/mergeUtils'
+import { buildHiddenSet, buildMergeAnchorMap } from '@/utils/mergeUtils/mergeUtils'
 import { useClipboardPaste } from '@/hooks/useClipboardPaste/useClipboardPaste'
 import { useColumnSort } from '@/hooks/useColumnSort/useColumnSort'
 import { TableCaption } from '../TableCaption/TableCaption'
@@ -89,9 +90,12 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
     sortDisabled,
   } = useColumnSort(cells, cols, mergedRanges)
 
-  const [actualTableWidth, setActualTableWidth] = useState(() => columnWidths.reduce((sum, w) => sum + w, 0))
-  const [isTableFocused, setIsTableFocused] = useState(true)
+  const { autoFitColumn, autoFitRow } = useAutoFit(gridRef as React.RefObject<HTMLTableElement | null>, setColumnWidth, setRowHeight)
+
   const containerRef = useRef<HTMLDivElement>(null)
+  const { isTableFocused, setIsTableFocused } = useTableFocus(containerRef)
+
+  const [actualTableWidth, setActualTableWidth] = useState(() => columnWidths.reduce((sum, w) => sum + w, 0))
 
   useEffect(() => {
     const table = gridRef.current
@@ -104,76 +108,10 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
   }, [])
 
   useEffect(() => {
-    const onDocumentMouseDown = (event: globalThis.MouseEvent): void => {
-      const target = event.target as HTMLElement
-      if (containerRef.current?.contains(target)) {
-        if (target.closest('[data-table-caption]')) {
-          setIsTableFocused(false)
-        } else {
-          setIsTableFocused(true)
-        }
-      } else if (!target.closest('[data-ctx-menu]')) {
-        setIsTableFocused(false)
-      }
-    }
-    document.addEventListener('mousedown', onDocumentMouseDown)
-    return () => document.removeEventListener('mousedown', onDocumentMouseDown)
-  }, [])
-
-  useEffect(() => {
     if (!blurTableRef) return
     blurTableRef.current = () => setIsTableFocused(false)
     return () => { blurTableRef.current = null }
-  }, [blurTableRef])
-
-  const autoFitColumn = useCallback((columnIndex: number): void => {
-    const table = gridRef.current
-    if (!table) return
-
-    const visibleRows = Array.from(table.rows).filter((row) => getComputedStyle(row).display !== 'none')
-    const widths = visibleRows.flatMap((row) => {
-      const cell = row.cells.item(columnIndex)
-      if (!cell || getComputedStyle(cell).display === 'none') return []
-      const measure = cell.querySelector<HTMLElement>('.cell-measure')
-      return measure ? [measure.scrollWidth] : [cell.scrollWidth]
-    })
-    const nextWidth = Math.min(
-      Math.max(Math.max(MIN_COLUMN_WIDTH, ...widths) + AUTOFIT_PADDING, MIN_COLUMN_WIDTH),
-      MAX_COLUMN_WIDTH,
-    )
-    setColumnWidth(columnIndex, nextWidth)
-  }, [setColumnWidth])
-
-  const autoFitRow = useCallback((rowIndex: number): void => {
-    const table = gridRef.current
-    if (!table) return
-
-    const row = table.rows.item(rowIndex)
-    if (!row || getComputedStyle(row).display === 'none') return
-
-    const heights = Array.from(row.cells).flatMap((cell) => {
-      if (getComputedStyle(cell).display === 'none') return []
-      const content = cell.querySelector<HTMLElement>('.cell-measure')
-      if (!content) return []
-
-      const measure = content.cloneNode(true) as HTMLElement
-      measure.style.position = 'absolute'
-      measure.style.visibility = 'hidden'
-      measure.style.whiteSpace = 'pre-wrap'
-      measure.style.width = `${cell.getBoundingClientRect().width}px`
-      measure.style.height = 'auto'
-      document.body.appendChild(measure)
-      const h = measure.scrollHeight
-      document.body.removeChild(measure)
-      return [h]
-    })
-
-    const nextHeight = Math.min(
-      Math.max(Math.max(MIN_ROW_HEIGHT, ...heights) + AUTOFIT_PADDING, MIN_ROW_HEIGHT),
-      MAX_ROW_HEIGHT,
-    )
-    setRowHeight(rowIndex, nextHeight)
-  }, [setRowHeight])
+  }, [blurTableRef, setIsTableFocused])
 
   const handleCellBlur = useCallback((cellId: string, value: string, col: number, rowIdx: number): void => {
     if (cells[rowIdx]?.[col]?.format !== 'auto-number') {
@@ -181,38 +119,9 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
     }
   }, [cells, updateCell])
 
-  const mergeAnchorMap = useMemo(() => {
-    const map = new Map<string, (typeof mergedRanges)[number]>()
-    for (const range of mergedRanges) {
-      if (isRangeAnchor(`R${range.startRow}C${range.startCol}`, range)) {
-        map.set(`R${range.startRow}C${range.startCol}`, range)
-      }
-    }
-    return map
-  }, [mergedRanges])
-
-  const hiddenSet = useMemo(() => {
-    const hidden = new Set<string>()
-    for (const range of mergedRanges) {
-      for (let r = range.startRow; r <= range.endRow; r++) {
-        for (let c = range.startCol; c <= range.endCol; c++) {
-          const id = `R${r}C${c}`
-          if (!isRangeAnchor(id, range)) {
-            hidden.add(id)
-          }
-        }
-      }
-    }
-    return hidden
-  }, [mergedRanges])
-
-  const sumCols = useMemo(() => {
-    const indices: number[] = []
-    for (let c = 0; c < cols; c++) {
-      if (cells[0]?.[c]?.format === 'sum') indices.push(c)
-    }
-    return indices
-  }, [cells, cols])
+  const mergeAnchorMap = useMemo(() => buildMergeAnchorMap(mergedRanges), [mergedRanges])
+  const hiddenSet = useMemo(() => buildHiddenSet(mergedRanges), [mergedRanges])
+  const sumCols = useMemo(() => getSumColumnIndices(cells, cols), [cells, cols])
 
   const columnTotals = useMemo(() => {
     const totals: Record<number, number> = {}

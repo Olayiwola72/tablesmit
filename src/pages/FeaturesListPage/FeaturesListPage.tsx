@@ -7,7 +7,7 @@ import { routes } from '../../config/routes/routesConfig'
 import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
 import { ContentListPage } from '../../components/ui/ContentListPage/ContentListPage'
 import { FeatureCard } from '../../components/features/FeatureCard/FeatureCard'
-import { useFeatureSearch } from '../../hooks/useFeatureSearch/useFeatureSearch'
+import { useSearch } from '../../hooks/useSearch/useSearch'
 
 export default function FeaturesListPage(): ReactNode {
   const { t } = usePageTranslation('features')
@@ -18,7 +18,16 @@ export default function FeaturesListPage(): ReactNode {
     getAllFeatures().then(all => setFeatures(all))
   }, [])
 
-  const { query, setQuery, results, totalResults } = useFeatureSearch(features ?? [])
+  const { query, setQuery, results, totalResults } = useSearch({
+    items: features ?? [],
+    fields: feature => [
+      feature.heroHeadline,
+      feature.metaTitle,
+      feature.metaDescription,
+      feature.heroSubtext,
+    ],
+    boostField: feature => feature.heroHeadline,
+  })
 
   const handleSearchChange = useCallback(
     (q: string) => {

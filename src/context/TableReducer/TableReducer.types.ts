@@ -1,6 +1,9 @@
-import type { CellData, ColumnFormat, HeaderStyle, MergeRange, SelectionRange, TableTheme, TextAlign, BorderStyle } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
+import type { ColumnFormat } from '../../config/columnFormats/columnFormats.types'
+import type { HeaderStyle, TableTheme, TextAlign, BorderStyle } from '../TableState/TableState.types'
 import type { CaptionAlignment, TableState } from '../TableState/TableState.types'
-import type { PresetDefinition } from '../../types/table'
+import type { MergeRange, SelectionRange } from '../../utils/mergeUtils/mergeUtils.types'
+import type { PresetDefinition } from '../../config/table/presets/presets.types'
 
 export interface CellsStyleMeta {
   caption?: string

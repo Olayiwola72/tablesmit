@@ -1,4 +1,4 @@
-import type { TextAlign } from '@/types/table'
+import type { TextAlign } from '@/context/TableState/TableState.types'
 
 export interface CtxAlignSubmenuProps {
   currentAlign: string

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { cellsToLatex } from '../../../utils/latexUtils'
-import type { CellData } from '../../../types/table'
+import type { CellData } from '../../../types/table/cell.types'
 
 function cell(id: string, value: string, overrides: Partial<CellData> = {}): CellData {
   return {

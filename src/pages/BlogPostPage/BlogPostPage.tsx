@@ -14,7 +14,7 @@ import { routes } from '../../config/routes/routesConfig'
 import { toast } from '../../utils/toast/toast'
 import { SearchBar } from '../../components/features/SearchBar/SearchBar'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
-import { useBlogSearch } from '../../hooks/useBlogSearch/useBlogSearch'
+import { useSearch } from '../../hooks/useSearch/useSearch'
 import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
 import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
 
@@ -70,7 +70,11 @@ export default function BlogPostPage(): ReactNode {
   const [allPosts, setAllPosts] = useState<BlogPost[]>([])
   const [Md, setMd] = useState<MdComponent | null>(null)
 
-  const { query, setQuery, results, totalResults } = useBlogSearch(allPosts)
+  const { query, setQuery, results, totalResults } = useSearch({
+    items: allPosts,
+    fields: post => [post.title, post.description, post.content, post.author, ...post.tags],
+    boostField: post => post.title,
+  })
   const [browsePage, setBrowsePage] = useState(1)
 
   const onSearchChange = useCallback((q: string) => {

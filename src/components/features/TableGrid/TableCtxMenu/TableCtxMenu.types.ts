@@ -1,4 +1,6 @@
-import type { CellData, ColumnFormat, TextAlign } from '@/types/table'
+import type { CellData } from '@/types/table/cell.types'
+import type { ColumnFormat } from '@/config/columnFormats/columnFormats.types'
+import type { TextAlign } from '@/context/TableState/TableState.types'
 
 export type CtxData =
   | { type: 'cell'; row: number; col: number; x: number; y: number }

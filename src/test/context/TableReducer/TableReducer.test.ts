@@ -3,7 +3,7 @@ import { reducer } from '../../../context/TableReducer/TableReducer'
 import { initialState } from '../../../context/TableState/TableState'
 import { TABLE_THEMES } from '../../../config/table/tableThemes/tableThemes'
 import { generateEmptyTable } from '../../../utils/tableUtils/tableUtils'
-import type { PresetDefinition } from '../../../types/table'
+import type { PresetDefinition } from '../../../config/table/presets/presets.types'
 
 describe('TableReducer', () => {
   it('processes SET_CELLS action', () => {

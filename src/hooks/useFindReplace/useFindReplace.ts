@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { CellData } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
 
 export function useFindReplace(cells: CellData[][]) {
   const [query, setQuery] = useState('')

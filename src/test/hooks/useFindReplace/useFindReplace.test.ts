@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { renderHook, act } from '@testing-library/react'
-import type { CellData } from '../../../types/table'
+import type { CellData } from '../../../types/table/cell.types'
 import { useFindReplace } from '../../../hooks/useFindReplace/useFindReplace'
 
 function cell(value: string, id: string): CellData {

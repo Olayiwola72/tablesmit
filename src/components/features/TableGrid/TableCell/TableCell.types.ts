@@ -1,4 +1,6 @@
-import type { BorderStyle, CellData, HeaderStyle, MergeRange, SelectionRange } from '@/types/table'
+import type { CellData } from '@/types/table/cell.types'
+import type { BorderStyle, HeaderStyle } from '@/context/TableState/TableState.types'
+import type { MergeRange, SelectionRange } from '@/utils/mergeUtils/mergeUtils.types'
 
 export interface TableCellProps {
   cell: CellData

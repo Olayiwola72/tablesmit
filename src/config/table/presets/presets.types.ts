@@ -1,4 +1,4 @@
-import type { HeaderStyle } from './table-state.types'
+import type { HeaderStyle } from '../../context/TableState/TableState.types'
 
 export interface PresetDefinition {
   id: string

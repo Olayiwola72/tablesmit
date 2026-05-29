@@ -3,7 +3,8 @@ import { importConfig } from '../../config/import/importConfig'
 import { MAX_COLS, MAX_IMPORT_FILE_SIZE, MAX_ROWS } from '../../config/table/tableDefaults/tableDefaults'
 import type { ImportResult } from './import.types'
 import { normalizeTableData } from '../../utils/tableUtils/tableUtils'
-import type { CellData, MergeRange } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
+import type { MergeRange } from '../../utils/mergeUtils/mergeUtils.types'
 import { buildMergeKey } from '../../utils/mergeUtils/mergeUtils'
 
 const fileTooLarge = (): string =>

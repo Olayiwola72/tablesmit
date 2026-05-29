@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { TableHeaderRow } from '../../../../../components/features/TableGrid/TableHeaderRow/TableHeaderRow'
-import type { CellData } from '../../../../../types/table'
+import type { CellData } from '../../../../../types/table/cell.types'
 
 function makeCells(values: string[][]): CellData[][] {
   return values.map((row, r) =>

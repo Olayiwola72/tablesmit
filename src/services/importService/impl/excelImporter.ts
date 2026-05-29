@@ -1,4 +1,4 @@
-import type { MergeRange } from '@/types/table'
+import type { MergeRange } from '@/utils/mergeUtils/mergeUtils.types'
 import type { ImportResult, ImportStrategy } from '../import.types'
 import {
   argbToHex,

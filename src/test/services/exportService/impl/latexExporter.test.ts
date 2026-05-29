@@ -1,6 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { LatexExporter } from '../../../../services/exportService/impl/latexExporter'
-import type { CellData } from '../../../../types/table'
+import type { CellData } from '../../../../types/table/cell.types'
 import type { ExportStyleOptions } from '../../../../services/exportService/export.types'
 
 const mockDownloadUrl = vi.hoisted(() => vi.fn())

@@ -1,4 +1,6 @@
-import type { CellData, HeaderStyle, MergeRange } from '../../types/table'
+import type { CellData } from '../../types/table/cell.types'
+import type { HeaderStyle } from '../../context/TableState/TableState.types'
+import type { MergeRange } from '../../utils/mergeUtils/mergeUtils.types'
 
 export type ImportFormat = 'csv' | 'excel'
 

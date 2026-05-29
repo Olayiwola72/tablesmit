@@ -4,7 +4,7 @@ import type { CaptionAlignment } from '../../components/features/TableCaption/Ta
 import { isTableEmpty } from '../../utils/tableUtils/tableUtils'
 import { toast } from '../../utils/toast/toast'
 import { fixTableBordersForExport } from '../../services/exportService/utils'
-import type { CellData } from '@/types/table'
+import type { CellData } from '@/types/table/cell.types'
 
 export function useTableCopyShortcut(
   cells: CellData[][],

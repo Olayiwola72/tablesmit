@@ -16,9 +16,10 @@ export function TableHeaderRow({
   onContextMenu,
 }: TableHeaderRowProps): ReactNode {
   return (
-    <div
-      data-print-hide data-export-hide
-      className="mb-2 grid min-w-max"
+      <div
+        role="row"
+        data-print-hide data-export-hide
+        className="mb-2 grid min-w-max"
       style={{ gridTemplateColumns: columnWidths.map((width) => `${width}px`).join(' '), backgroundColor: '#FFFFFF', border: '1px solid #E5E7EB' }}
       aria-label="Column formatting controls"
     >

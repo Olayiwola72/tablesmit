@@ -1,4 +1,4 @@
-import type { MergeRange, SelectionRange } from '../../types/table'
+import type { MergeRange, SelectionRange } from './mergeUtils.types'
 import { parseCellId } from '../cell/cellUtils'
 
 export function normalizeSelection(range: SelectionRange): SelectionRange {
@@ -51,4 +51,29 @@ export function getEffectiveColSpan(row: number, col: number, ranges: MergeRange
   if (!merge) return defaultColSpan
   if (row !== merge.startRow || col !== merge.startCol) return 1
   return merge.endCol - merge.startCol + 1
+}
+
+export function buildMergeAnchorMap(ranges: MergeRange[]): Map<string, MergeRange> {
+  const map = new Map<string, MergeRange>()
+  for (const range of ranges) {
+    if (isRangeAnchor(`R${range.startRow}C${range.startCol}`, range)) {
+      map.set(`R${range.startRow}C${range.startCol}`, range)
+    }
+  }
+  return map
+}
+
+export function buildHiddenSet(ranges: MergeRange[]): Set<string> {
+  const hidden = new Set<string>()
+  for (const range of ranges) {
+    for (let r = range.startRow; r <= range.endRow; r++) {
+      for (let c = range.startCol; c <= range.endCol; c++) {
+        const id = `R${r}C${c}`
+        if (!isRangeAnchor(id, range)) {
+          hidden.add(id)
+        }
+      }
+    }
+  }
+  return hidden
 }

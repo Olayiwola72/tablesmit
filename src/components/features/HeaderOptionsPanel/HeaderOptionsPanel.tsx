@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { HeaderStyle } from '@/types/table'
+import type { HeaderStyle } from '@/context/TableState/TableState.types'
 import { useTableContext } from '@/context/TableContext'
 import { FormSelect } from '../../ui/FormSelect/FormSelect'
 import { CheckboxField } from '../../ui/CheckboxField/CheckboxField'
