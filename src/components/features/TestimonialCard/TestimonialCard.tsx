@@ -1,4 +1,4 @@
-import { ExternalLink, Quote } from 'lucide-react'
+import { ExternalLink, Quote, Star } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { TestimonialCardProps } from './TestimonialCard.types'
@@ -12,6 +12,13 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps): ReactNod
       <blockquote className="flex-1 text-base leading-relaxed text-text-secondary italic">
         &ldquo;{testimonial.quote}&rdquo;
       </blockquote>
+      {testimonial.rating ? (
+        <div className="mb-3 flex gap-0.5" aria-label={`${testimonial.rating} out of 5 stars`}>
+          {Array.from({ length: testimonial.rating }, (_, i) => (
+            <Star key={i} size={16} className="text-amber-500" fill="currentColor" aria-hidden="true" />
+          ))}
+        </div>
+      ) : null}
       <footer className="mt-4 flex items-center gap-3 border-t border-border pt-4">
         <div className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-primary-light">
           <span className="flex h-full items-center justify-center text-sm font-semibold text-primary">
@@ -22,7 +29,18 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps): ReactNod
           </span>
         </div>
         <div>
-          <p className="text-sm font-semibold text-text-primary">{testimonial.name}</p>
+          {testimonial.nameUrl ? (
+            <a
+              href={testimonial.nameUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-text-primary hover:underline"
+            >
+              {testimonial.name}
+            </a>
+          ) : (
+            <p className="text-sm font-semibold text-text-primary">{testimonial.name}</p>
+          )}
           <p className="text-xs text-text-muted">{testimonial.role}</p>
         </div>
         {testimonial.source && testimonial.sourceUrl ? (

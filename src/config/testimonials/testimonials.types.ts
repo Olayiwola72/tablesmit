@@ -4,6 +4,8 @@ export interface Testimonial {
   role: string
   avatar: string
   quote: string
+  nameUrl?: string
+  rating?: number
   source?: string
   sourceUrl?: string
 }
