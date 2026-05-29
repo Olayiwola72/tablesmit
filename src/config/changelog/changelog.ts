@@ -13,6 +13,19 @@ export function getChangeStyle(type: ChangelogEntry['changes'][number]['type']):
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    version: '1.3.0',
+    date: '2026-05-29',
+    changes: [
+      { type: 'improved', description: 'Restructured types — merge.types.ts moved to utils/mergeUtils/; deleted stale type barrel files' },
+      { type: 'improved', description: 'Extracted clipboardParser, tableHtmlBuilder, useCopyTable into dedicated services' },
+      { type: 'improved', description: 'Replaced useBlogSearch/useFeatureSearch with generic useSearch hook + searchUtils' },
+      { type: 'added',    description: 'useTableFocus hook — focus management extracted from merge logic' },
+      { type: 'added',    description: 'useAutoFit hook — auto-fit column/row on double-click' },
+      { type: 'added',    description: 'reducerHelpers — extracted from TableReducer for maintainability' },
+      { type: 'fixed',    description: '5 pre-existing test failures — parameter ordering, act() wrapping, return value capture' },
+    ],
+  },
+  {
     version: '1.2.3',
     date: '2026-05-23',
     changes: [
