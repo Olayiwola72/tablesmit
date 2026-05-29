@@ -1,31 +1,22 @@
 import type { ReactNode } from 'react'
-import { Helmet } from 'react-helmet-async'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { TESTIMONIALS } from '../../config/testimonials/testimonials'
-import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 import { TestimonialCard } from '../../components/features/TestimonialCard/TestimonialCard'
 import { TestimonialEmptyState } from '../../components/features/TestimonialEmptyState/TestimonialEmptyState'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 
 export function TestimonialsPage(): ReactNode {
   const { t } = usePageTranslation('testimonials')
   return (
-    <main>
+    <ContentPageLayout metaKey="testimonials" routeKey="testimonials">
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
           { label: t('nav.testimonials') },
         ]} />
       </div>
-      <Helmet>
-        <title>{t('meta.testimonialsTitle')}</title>
-        <meta name="description" content={t('meta.testimonialsDescription')} />
-        <meta property="og:title" content={t('meta.testimonialsTitle')} />
-        <meta property="og:description" content={t('meta.testimonialsDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.testimonials.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.testimonials.path}`} />
-      </Helmet>
       <section className="mx-auto max-w-content px-4 py-12 text-center sm:px-6 sm:py-16 lg:px-8 lg:py-20">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl lg:text-5xl">
           {t('testimonials.heading')}
@@ -46,7 +37,7 @@ export function TestimonialsPage(): ReactNode {
           </div>
         </section>
       )}
-    </main>
+    </ContentPageLayout>
   )
 }
 

@@ -1,5 +1,5 @@
 import type { ExportOptions, ExportStrategy } from '../export.types'
-import { EXPORT_QUALITY_PRESETS, exportFileBaseName } from '../../../config/export/exportConfig'
+import { EXPORT_QUALITY_PRESETS, exportFileBaseName } from '@/config/export/exportConfig'
 import { filenameWithExtension, fixTableBordersForExport } from '../utils'
 
 export class PDFExporter implements ExportStrategy {

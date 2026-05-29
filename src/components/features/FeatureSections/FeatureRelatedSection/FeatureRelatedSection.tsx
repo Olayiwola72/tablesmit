@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { routes } from '../../../../config/routes/routesConfig'
+import { routes } from '@/config/routes/routesConfig'
 import type { FeatureRelatedSectionProps } from './FeatureRelatedSection.types'
 
 export function FeatureRelatedSection({ relatedFeatures }: FeatureRelatedSectionProps): ReactNode {

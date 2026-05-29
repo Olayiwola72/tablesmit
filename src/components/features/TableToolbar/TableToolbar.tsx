@@ -5,15 +5,16 @@ import {
 } from 'lucide-react'
 import { useMemo, type ReactNode, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast } from '../../../utils/toast/toast'
-import { usePresets } from '../../../config/table/presets'
-import { useTableContext, useTableData, useSelectedRange } from '../../../context/TableContext'
-import { handlePasteData } from '../../../hooks/useClipboardPaste/useClipboardPaste'
-import { isSingleCellRange } from '../../../utils/mergeUtils/mergeUtils'
-import { useCopyTable } from '../../../hooks/useCopyTable/useCopyTable'
-import { useExport } from '../../../hooks/useExport/useExport'
-import { trackEvent } from '../../../utils/analytics/analytics'
+import { toast } from '@/utils/toast/toast'
+import { usePresets } from '@/config/table/presets'
+import { useTableContext, useTableData, useSelectedRange } from '@/context/TableContext'
+import { handlePasteData } from '@/hooks/useClipboardPaste/useClipboardPaste'
+import { isSingleCellRange } from '@/utils/mergeUtils/mergeUtils'
+import { useCopyTable } from '@/hooks/useCopyTable/useCopyTable'
+import { useExport } from '@/hooks/useExport/useExport'
+import { trackEvent } from '@/utils/analytics/analytics'
 import { Button } from '../../ui/Button/Button'
+import { ToolbarSeparator } from '../../ui/ToolbarSeparator/ToolbarSeparator'
 import { TemplatesDropdown } from './TemplatesDropdown/TemplatesDropdown'
 import { ThemeDropdown } from './ThemeDropdown/ThemeDropdown'
 import { RowColumnActions } from './RowColumnActions/RowColumnActions'
@@ -76,11 +77,11 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
     <div className="flex h-12 items-center gap-2 overflow-x-auto border-b border-border bg-surface px-6" data-toolbar>
       <TemplatesDropdown presets={presets} onApplyPreset={(p) => { table.applyPreset(p); trackEvent('preset_applied', { preset: p.id }) }} />
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <ThemeDropdown theme={table.theme} onSetTheme={table.setTheme} />
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <RowColumnActions
         rows={table.rows}
@@ -91,7 +92,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         onRemoveColumn={table.removeColumn}
       />
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <MergeUndoGroup
         canMerge={canMerge}
@@ -102,13 +103,13 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         onUndo={() => { table.undo(); trackEvent('table_undone', {}) }}
       />
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <Button variant="ghost" size="sm" title={t('aiFeatures.comingSoon')} onClick={() => { trackEvent('ai_waitlist_clicked', {}); toast.info(t('toast.aiWaitlist')) }}>
         <Sparkles size={14} aria-hidden="true" /> {t('toolbar.ai')}
       </Button>
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <CopyDropdown
         onCopyExcelData={copyAsExcelData}
@@ -124,15 +125,15 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
         <ClipboardCopy size={14} aria-hidden="true" /> {t('toolbar.paste')}
       </Button>
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <ImportDropdown />
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border lg:hidden" />
+      <ToolbarSeparator />
 
       <MobileExportDropdown isExporting={exportingFormat !== null} onExport={(format, el) => exportAs(format, el ?? null)} tableRef={tableRef} />
 
-      <div className="mx-1 h-5 w-px shrink-0 bg-border" />
+      <ToolbarSeparator />
 
       <Button variant="danger" size="sm" onClick={() => { table.clearAll(); trackEvent('table_cleared', {}); toast.info(t('toast.tableCleared')) }}>
         <Trash2 size={14} aria-hidden="true" /> {t('toolbar.clearAll')}

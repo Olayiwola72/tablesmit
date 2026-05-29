@@ -3,7 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { ReactNode } from 'react'
 import { TableProvider } from '../../../context/TableContext'
 import { useImport } from '../../../hooks/useImport/useImport'
-import * as importService from '../../../services/importService/importService'
+import * as importService from '../../../services/importService'
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return <TableProvider>{children}</TableProvider>

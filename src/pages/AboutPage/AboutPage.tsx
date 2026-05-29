@@ -1,10 +1,10 @@
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { ExternalLink } from 'lucide-react'
-import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
@@ -17,16 +17,7 @@ export function AboutPage(): ReactNode {
   const lines = splitNotList(t('about.whatWeAreNot'))
 
   return (
-    <>
-      <Helmet>
-        <title>{t('meta.aboutTitle')}</title>
-        <meta name="description" content={t('meta.aboutDescription')} />
-        <meta property="og:title" content={t('meta.aboutTitle')} />
-        <meta property="og:description" content={t('meta.aboutDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.about.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.about.path}`} />
-      </Helmet>
-      <main className="bg-white">
+    <ContentPageLayout metaKey="about" routeKey="about">
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
@@ -82,8 +73,7 @@ export function AboutPage(): ReactNode {
           </div>
         </div>
       </section>
-    </main>
-    </>
+    </ContentPageLayout>
   )
 }
 

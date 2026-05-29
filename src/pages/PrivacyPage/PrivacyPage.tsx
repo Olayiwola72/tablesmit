@@ -1,24 +1,18 @@
-import { Helmet } from 'react-helmet-async'
 import type { ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { Link } from 'react-router-dom'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
 export function PrivacyPage(): ReactNode {
   const { t } = usePageTranslation('legal')
   return (
-    <>
-      <Helmet>
-        <title>{t('meta.privacyTitle')}</title>
-        <meta name="description" content={t('meta.privacyDescription')} />
-        <meta property="og:title" content={t('meta.privacyTitle')} />
-        <meta property="og:description" content={t('meta.privacyDescription')} />
-        <meta property="og:url" content={`${brand.url}${routes.privacy.path}`} />
-        <link rel="canonical" href={`${brand.url}${routes.privacy.path}`} />
-      </Helmet>
-      <main className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
+    <ContentPageLayout
+      metaKey="privacy"
+      routeKey="privacy"
+      className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },
           { label: t('footer.privacyPolicy') },
@@ -64,8 +58,7 @@ export function PrivacyPage(): ReactNode {
           Terms of Use
         </Link>
       </div>
-    </main>
-    </>
+    </ContentPageLayout>
   )
 }
 

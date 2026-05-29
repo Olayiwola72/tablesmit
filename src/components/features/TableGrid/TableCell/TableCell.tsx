@@ -1,9 +1,9 @@
 import { memo, type ClipboardEvent as ReactClipboardEvent, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { isHeaderCell } from '../../../../context/TableContext'
-import { cn } from '../../../../lib/utils'
-import { formatUtils } from '../../../../utils/formatUtils/formatUtils'
-import { isCellInMergeRange, normalizeSelection } from '../../../../utils/mergeUtils/mergeUtils'
+import { isHeaderCell } from '@/context/TableContext'
+import { cn } from '@/lib/utils'
+import { formatUtils } from '@/utils/formatUtils/formatUtils'
+import { isCellInMergeRange, normalizeSelection } from '@/utils/mergeUtils/mergeUtils'
 import { ResizeHandle } from '../ResizeHandle/ResizeHandle'
 import type { TableCellProps } from './TableCell.types'
 

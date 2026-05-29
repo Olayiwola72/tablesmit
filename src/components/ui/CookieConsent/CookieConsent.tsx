@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '../Button/Button'
-import { routes } from '../../../config/routes/routesConfig'
-import { loadAnalytics } from '../../../utils/analytics/analytics'
+import { routes } from '@/config/routes/routesConfig'
+import { loadAnalytics } from '@/utils/analytics/analytics'
 
 const CONSENT_KEY = 'tablesmit-consent'
 

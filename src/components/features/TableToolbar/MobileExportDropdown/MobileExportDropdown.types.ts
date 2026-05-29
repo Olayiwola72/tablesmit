@@ -1,4 +1,4 @@
-import type { ExportFormat } from '../../../../services/exportService/export.types'
+import type { ExportFormat } from '@/services/exportService/export.types'
 
 export interface MobileExportDropdownProps {
   isExporting: boolean

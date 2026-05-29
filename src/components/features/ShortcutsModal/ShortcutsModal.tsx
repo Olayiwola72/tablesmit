@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { KEY_ESCAPE } from '../../../constants/keys'
+import { KEY_ESCAPE } from '@/constants/keys'
 import { X } from 'lucide-react'
-import { SHORTCUTS } from '../../../config/shortcuts/shortcutsConfig'
-import type { ShortcutDef } from '../../../config/shortcuts/shortcutsConfig.types'
+import { SHORTCUTS } from '@/config/shortcuts/shortcutsConfig'
+import type { ShortcutDef } from '@/config/shortcuts/shortcutsConfig.types'
+import { ShortcutKey } from '../../ui/ShortcutKey/ShortcutKey'
 
 const SHORTCUT_KEYS = new Set<string>()
 for (const s of SHORTCUTS) {
@@ -83,14 +84,12 @@ export function ShortcutsModal(): ReactNode {
           {shortcuts.map((s) => (
             <div key={s.keys} className="flex items-center justify-between py-2">
               <span className="text-sm text-text-secondary">{t(s.labelKey)}</span>
-              <kbd className="rounded-sm border border-border bg-surface px-2 py-0.5 text-xs font-medium text-text-primary">
-                {s.keys}
-              </kbd>
+              <ShortcutKey>{s.keys}</ShortcutKey>
             </div>
           ))}
         </div>
         <p className="mt-4 text-xs text-text-muted">
-          <kbd className="rounded-sm border border-border bg-surface px-1 text-xs text-text-primary">{t('shortcutKeys.ctrlSlash')}</kbd>
+          <ShortcutKey>{t('shortcutKeys.ctrlSlash')}</ShortcutKey>
           {' '}{t('shortcuts.toggleList')}
         </p>
       </div>

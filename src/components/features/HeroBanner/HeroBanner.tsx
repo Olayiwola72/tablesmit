@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
-import { usePageTranslation } from '../../../hooks/usePageTranslation/usePageTranslation'
-import { exportFormats } from '../../../config/export/exportConfig'
+import { usePageTranslation } from '@/hooks/usePageTranslation/usePageTranslation'
+import { exportFormats } from '@/config/export/exportConfig'
+import { BulletItem } from '../../ui/BulletItem/BulletItem'
 
 export function HeroBanner(): ReactNode {
   const { t } = usePageTranslation('home')
@@ -14,18 +15,9 @@ export function HeroBanner(): ReactNode {
         {t('hero.subtext')}
       </p>
       <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-muted sm:text-sm">
-        <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
-          {t('hero.customHeaders')}
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
-          {t('hero.columnTypes')}
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
-          {t('hero.mergeCells')}
-        </span>
+        <BulletItem>{t('hero.customHeaders')}</BulletItem>
+        <BulletItem>{t('hero.columnTypes')}</BulletItem>
+        <BulletItem>{t('hero.mergeCells')}</BulletItem>
         <span className="flex items-center gap-1.5">
           <span className="h-1.5 w-1.5 rounded-full bg-primary/60" aria-hidden="true" />
           {exportFormats.map((f) => f.label).join(', ')}

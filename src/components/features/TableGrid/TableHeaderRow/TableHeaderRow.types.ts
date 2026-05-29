@@ -1,4 +1,4 @@
-import type { CellData, ColumnFormat } from '../../../../types/table'
+import type { CellData, ColumnFormat } from '@/types/table'
 
 export interface TableHeaderRowProps {
   cols: number

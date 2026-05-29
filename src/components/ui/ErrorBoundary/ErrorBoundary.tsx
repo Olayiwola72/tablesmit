@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { captureException } from '../../../lib/sentry.ts'
+import { captureException } from '@/lib/sentry.ts'
 import type { ErrorBoundaryProps, ErrorBoundaryState } from './ErrorBoundary.types'
 
 function DefaultErrorFallback({ error }: { error: Error | null }): ReactNode {

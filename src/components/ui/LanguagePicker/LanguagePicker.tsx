@@ -1,8 +1,8 @@
 import { Check, Globe } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { LanguagePickerProps } from './LanguagePicker.types'
-import { LOCALES } from '../../../config/locale/localesConfig'
-import { loadLocale } from '../../../i18n/i18n'
+import { LOCALES } from '@/config/locale/localesConfig'
+import { loadLocale } from '@/i18n/i18n'
 import { Button } from '../Button/Button'
 import {
   DropdownMenu,

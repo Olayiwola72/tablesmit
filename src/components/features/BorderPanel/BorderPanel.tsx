@@ -1,8 +1,10 @@
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useTableContext } from '../../../context/TableContext'
-import type { BorderStyle } from '../../../types/table'
-import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
+import { useTableContext } from '@/context/TableContext'
+import type { BorderStyle } from '@/types/table'
+import { FormLabel } from '../../ui/FormLabel/FormLabel'
+import { FormSelect } from '../../ui/FormSelect/FormSelect'
+import { SidebarPanelShell } from '../../ui/SidebarPanelShell/SidebarPanelShell'
 
 export function BorderPanel(): ReactNode {
   const { t } = useTranslation(['common', 'table'])
@@ -17,30 +19,21 @@ export function BorderPanel(): ReactNode {
   ]
 
   return (
-    <section>
-      <SectionLabel>{t('panels.borderStyle')}</SectionLabel>
-      <div className="space-y-3">
-        <select
-          value={table.borderStyle}
-          name="border-style"
-          aria-label={t('panels.borderStyle')}
-          className="h-8 w-full rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
-          onChange={(event) => table.setBorderStyle(event.target.value as BorderStyle)}
-        >
-          {borderStyleOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        {table.borderStyle !== 'none' && (
-          <label className="flex items-center justify-between gap-3 text-sm font-medium text-text-primary">
-            <span>{t('borderPanel.borderColor')}</span>
-            <input type="color" name="border-color" value={table.borderColor} onChange={(event) => table.setBorderColor(event.target.value)} />
-          </label>
-        )}
-      </div>
-    </section>
+    <SidebarPanelShell label={t('panels.borderStyle')}>
+      <FormSelect
+        value={table.borderStyle}
+        name="border-style"
+        aria-label={t('panels.borderStyle')}
+        onChange={(event) => table.setBorderStyle(event.target.value as BorderStyle)}
+        options={borderStyleOptions}
+      />
+      {table.borderStyle !== 'none' && (
+        <FormLabel>
+          <span>{t('borderPanel.borderColor')}</span>
+          <input type="color" name="border-color" value={table.borderColor} onChange={(event) => table.setBorderColor(event.target.value)} />
+        </FormLabel>
+      )}
+    </SidebarPanelShell>
   )
 }
 

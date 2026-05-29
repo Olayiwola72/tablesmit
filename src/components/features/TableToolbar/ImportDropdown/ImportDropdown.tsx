@@ -1,11 +1,11 @@
 import { ChevronDown, Upload } from 'lucide-react'
 import { useCallback, useRef, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { PanelLoader } from '../../../ui/PanelLoader/PanelLoader'
-import { useImport } from '../../../../hooks/useImport/useImport'
-import { toast } from '../../../../utils/toast/toast'
-import { Button } from '../../../ui/Button/Button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../../../ui/DropdownMenu/DropdownMenu'
+import { PanelLoader } from '@/components/ui/PanelLoader/PanelLoader'
+import { useImport } from '@/hooks/useImport/useImport'
+import { toast } from '@/utils/toast/toast'
+import { Button } from '@/components/ui/Button/Button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu/DropdownMenu'
 
 export function ImportDropdown(): ReactNode {
   const { t } = useTranslation(['common', 'table'])

@@ -1,6 +1,6 @@
-import type { CellData } from '../../../types/table'
+import type { CellData } from '@/types/table'
 import type { ExportOptions, ExportStrategy } from '../export.types'
-import { exportFileBaseName } from '../../../config/export/exportConfig'
+import { exportFileBaseName } from '@/config/export/exportConfig'
 import { downloadUrl, filenameWithExtension, sanitizeSpreadsheetValue } from '../utils'
 
 export class CSVExporter implements ExportStrategy {

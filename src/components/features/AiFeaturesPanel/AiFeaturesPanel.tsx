@@ -1,11 +1,11 @@
 import { Sparkles } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
-import { brand } from '../../../config/brand/brandConfig'
+import { brand } from '@/config/brand/brandConfig'
 import { Badge } from '../../ui/Badge/Badge'
 import { Button } from '../../ui/Button/Button'
 import { SectionLabel } from '../../ui/SectionLabel/SectionLabel'
-import { toast } from '../../../utils/toast/toast'
+import { toast } from '@/utils/toast/toast'
 
 export function AiFeaturesPanel(): ReactNode {
   const { t } = useTranslation(['common', 'table'])

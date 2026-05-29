@@ -1,4 +1,4 @@
-import type { BorderStyle, CellData, HeaderStyle, MergeRange, SelectionRange } from '../../../../types/table'
+import type { BorderStyle, CellData, HeaderStyle, MergeRange, SelectionRange } from '@/types/table'
 
 export interface TableCellProps {
   cell: CellData
