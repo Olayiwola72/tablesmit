@@ -25,8 +25,18 @@ function setConsent(value: 'accepted' | 'declined'): void {
 
 export function CookieConsent(): ReactNode {
   const { t } = useTranslation()
-  const [consent, setConsentState] = useState<'accepted' | 'declined' | null>(getConsent)
+  const [consent, setConsentState] = useState<'accepted' | 'declined' | null>(null)
+  const [mounted, setMounted] = useState(false)
   const analyticsLoaded = useRef(false)
+
+  useEffect(() => {
+    // Mount flag + localStorage read: avoids SSR/CSR mismatch on prerendered pages.
+    // Initial render always shows the banner; this runs once client-side to hide
+    // it if already consented. This is the standard SSR hydration pattern.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true)
+    setConsentState(getConsent())
+  }, [])
 
   useEffect(() => {
     if (consent === 'accepted' && import.meta.env.PROD && !analyticsLoaded.current) {
@@ -35,7 +45,7 @@ export function CookieConsent(): ReactNode {
     }
   }, [consent])
 
-  if (consent !== null) return null
+  if (!mounted || consent !== null) return null
 
   const accept = (): void => {
     setConsent('accepted')
