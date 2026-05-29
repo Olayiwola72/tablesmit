@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { spawn } from 'node:child_process'
+import Critters from 'critters'
 import { chromium } from 'playwright'
 import { CONTENT_DIRS } from '../src/config/content/contentConfig'
 
@@ -163,6 +164,59 @@ function startServer(): Promise<{ baseUrl: string; stop: () => void }> {
   })
 }
 
+// ── Critters post-processing ──
+
+async function inlineCssInDir(outDir: string, buildDir: string): Promise<void> {
+  const cssFile = fs.readdirSync(path.join(buildDir, 'assets'))
+    .find((f) => f.startsWith('index-') && f.endsWith('.css'))
+  if (!cssFile) {
+    console.warn('⚠ No CSS file found in dist/assets — skipping Critters inlining')
+    return
+  }
+
+  const htmlFiles: string[] = []
+  function collect(dir: string) {
+    const entries = fs.readdirSync(dir, { withFileTypes: true })
+    for (const e of entries) {
+      const full = path.join(dir, e.name)
+      if (e.isDirectory()) collect(full)
+      else if (e.name === 'index.html') htmlFiles.push(full)
+    }
+  }
+  collect(outDir)
+
+  if (htmlFiles.length === 0) return
+
+  const critter = new Critters({
+    path: 'dist',
+    reduceInlineStyles: true,
+    pruneSource: true,
+    logLevel: 'warn',
+  })
+
+  let processedCount = 0
+  for (const file of htmlFiles) {
+    let content = fs.readFileSync(file, 'utf-8')
+
+    // Fix up stale CSS reference to match current build hash
+    content = content.replace(
+      /href="\/assets\/index-[^"]+\.css"/,
+      `href="/assets/${cssFile}"`
+    )
+    content = content.replace(
+      /href="\/assets\/index-[^"]+\.css" as="style"/,
+      `href="/assets/${cssFile}" as="style"`
+    )
+
+    content = await critter.process(content)
+    content = content.replace(/<link[^>]*rel="stylesheet"[^>]*>/g, '')
+    fs.writeFileSync(file, content, 'utf-8')
+    processedCount++
+  }
+
+  console.log(`  Inlined CSS in ${processedCount} prerendered pages via Critters`)
+}
+
 // ── Prerender ──
 
 async function prerender(): Promise<void> {
@@ -225,6 +279,8 @@ async function prerender(): Promise<void> {
 
   await browser.close()
   stopServer()
+
+  await inlineCssInDir(outDir, buildDir)
 
   console.log(`\nDone — ${successCount} succeeded, ${failCount} failed`)
   if (failCount > 0) process.exit(1)
