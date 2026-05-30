@@ -1,1 +1,0 @@
-import{t as i}from"./vendor-react-sVagdW3-.js";import{t}from"./SectionLabel-DZF6yVJE.js";var e=i(),c=({label:r,children:s,className:a})=>(0,e.jsxs)("section",{className:a,children:[(0,e.jsx)(t,{children:r}),(0,e.jsx)("div",{className:"space-y-3 sm:space-y-4",children:s})]});export{c as t};

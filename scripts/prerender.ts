@@ -36,25 +36,25 @@ export function parseArgs(argv: string[]): { outDir: string } {
 // ── Route discovery ──
 
 export const STATIC_ROUTES: string[] = [
-  '/about',
-  '/open-source',
-  '/blog',
-  '/features',
-  '/contact',
-  '/privacy',
-  '/terms',
-  '/changelog',
-  '/testimonials',
+  '/about/',
+  '/open-source/',
+  '/blog/',
+  '/features/',
+  '/contact/',
+  '/privacy/',
+  '/terms/',
+  '/changelog/',
+  '/testimonials/',
 ]
 
 // Config paths (relative to project root) that drive content on prerendered pages.
 // When any file under these paths changes, the pre-commit hook should re-prerender.
 export const CONFIG_WATCH_PATHS: Record<string, string[]> = {
-  'src/content':               ['/blog', '/features'],
-  'src/config/changelog':      ['/changelog'],
-  'src/config/testimonials':    ['/testimonials'],
-  'src/config/sponsors':       ['/open-source'],
-  'src/config/brand':          ['/about', '/open-source', '/contact', '/privacy', '/terms', '/testimonials'],
+  'src/content':               ['/blog/', '/features/'],
+  'src/config/changelog':      ['/changelog/'],
+  'src/config/testimonials':    ['/testimonials/'],
+  'src/config/sponsors':       ['/open-source/'],
+  'src/config/brand':          ['/about/', '/open-source/', '/contact/', '/privacy/', '/terms/', '/testimonials/'],
 }
 
 export function getConfigWatchPaths(): string[] {
@@ -70,7 +70,7 @@ export function getBlogRoutes(
   if (!exists(blogDir)) return []
   return readDir(blogDir)
     .filter((f) => f.endsWith('.ts'))
-    .map((f) => `/blog/${f.replace(/\.ts$/, '')}`)
+    .map((f) => `/blog/${f.replace(/\.ts$/, '')}/`)
 }
 
 export function getFeatureRoutes(
@@ -88,9 +88,9 @@ export function getFeatureRoutes(
       try {
         const raw = JSON.parse(readFile(filePath)) as Record<string, unknown>
         const slug = typeof raw.slug === 'string' ? raw.slug : f.replace(/\.json$/, '')
-        return `/features/${slug}`
+        return `/features/${slug}/`
       } catch {
-        return `/features/${f.replace(/\.json$/, '')}`
+        return `/features/${f.replace(/\.json$/, '')}/`
       }
     })
 }
@@ -195,7 +195,10 @@ async function inlineCssInDir(outDir: string, buildDir: string): Promise<void> {
   })
 
   let processedCount = 0
+  const absBuildIndex = path.resolve(buildDir, 'index.html')
   for (const file of htmlFiles) {
+    if (path.resolve(file) === absBuildIndex) continue
+
     let content = fs.readFileSync(file, 'utf-8')
 
     // Fix up stale CSS reference to match current build hash
@@ -282,11 +285,13 @@ async function prerender(): Promise<void> {
 
   await inlineCssInDir(outDir, buildDir)
 
-  const assetsSrc = path.join(buildDir, 'assets')
-  const assetsDst = path.join(outDir, 'assets')
-  if (fs.existsSync(assetsSrc)) {
-    fs.cpSync(assetsSrc, assetsDst, { recursive: true })
-    console.log('  Copied assets directory')
+  if (buildDir !== outDir) {
+    const assetsSrc = path.join(buildDir, 'assets')
+    const assetsDst = path.join(outDir, 'assets')
+    if (fs.existsSync(assetsSrc)) {
+      fs.cpSync(assetsSrc, assetsDst, { recursive: true })
+      console.log('  Copied assets directory')
+    }
   }
 
   console.log(`\nDone — ${successCount} succeeded, ${failCount} failed`)

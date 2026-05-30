@@ -43,6 +43,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install Playwright (for prerender)
+        run: npx playwright install --with-deps chromium
+
       - name: Lint
         run: npm run lint
 

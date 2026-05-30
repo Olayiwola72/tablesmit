@@ -6,23 +6,6 @@ import { defineConfig, type Plugin } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import Critters from 'critters'
 
-function prerenderPlugin(): Plugin {
-  const prerenderDir = process.env.npm_package_config_prerenderDir ?? 'prerendered'
-  return {
-    name: 'copy-prerendered',
-    closeBundle() {
-      const src = prerenderDir
-      const dest = 'dist'
-      if (!fs.existsSync(src)) {
-        console.warn(`[prerender] Source directory "${src}" not found — skipping`)
-        return
-      }
-      fs.cpSync(src, dest, { recursive: true, dereference: true })
-      console.log(`[prerender] Copied "${src}" → "${dest}"`)
-    },
-  }
-}
-
 function isPackage(id: string, packageName: string): boolean {
   return id.replaceAll('\\', '/').includes(`/node_modules/${packageName}/`)
 }
@@ -229,7 +212,6 @@ export default defineConfig({
         ],
       },
     }),
-    prerenderPlugin(),
     crittersPlugin(),
     modulepreloadPlugin(),
   ],
