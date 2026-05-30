@@ -57,7 +57,7 @@
 [[redirects]]
   from = "/.well-known/llms.txt"
   to = "/llms.txt"
-  status = 302
+  status = 301
 
 [[redirects]]
   from = "/sitemap.xml"

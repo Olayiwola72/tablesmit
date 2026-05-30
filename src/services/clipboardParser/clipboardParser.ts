@@ -53,7 +53,15 @@ export async function parseClipboardContent(
   let captionAlignment: string | undefined
   let captionItalic: boolean | undefined
 
-  if (html) {
+  // Check for LaTeX FIRST — prefer LaTeX parser over HTML when clipboard has LaTeX
+  if (pastedRows.length === 0 && text && (text.includes('\\begin{tabular}') || text.includes('\\begin{table}'))) {
+    const { parseLatexTabular } = await import('../../utils/latexUtils')
+    const latexResult = parseLatexTabular(text)
+    pastedRows = latexResult.rows
+    if (latexResult.caption && !caption) caption = latexResult.caption
+  }
+
+  if (pastedRows.length === 0 && html) {
     const doc = new DOMParser().parseFromString(html, 'text/html')
     const table = doc.querySelector('table')
     if (table) {
@@ -200,11 +208,6 @@ export async function parseClipboardContent(
         }
       }
     }
-  }
-
-  if (pastedRows.length === 0 && text && text.includes('\\begin{tabular}')) {
-    const { parseLatexTabular } = await import('../../utils/latexUtils')
-    pastedRows = parseLatexTabular(text)
   }
 
   if (pastedRows.length === 0 && text && text.includes('|')) {

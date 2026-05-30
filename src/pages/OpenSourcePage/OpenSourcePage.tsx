@@ -10,8 +10,24 @@ import { sponsors } from '../../config/sponsors/sponsorsConfig'
 
 export function OpenSourcePage(): ReactNode {
   const { t } = usePageTranslation('openSource', 'home')
+  const pageTitle = t('meta.openSourceTitle')
+  const pageDescription = t('meta.openSourceDescription')
+  const pageUrl = `${brand.url}${routes.openSource.path}`
+
   return (
-    <ContentPageLayout metaKey="openSource" routeKey="openSource">
+    <ContentPageLayout
+      metaKey="openSource"
+      routeKey="openSource"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
+    >
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },

@@ -530,6 +530,23 @@ describe('useCopyTable', () => {
     expect(written).toContain('Alice & 30')
   })
 
+  it('copyAsLatex includes caption in table environment', async () => {
+    const { result } = setup('My Caption')
+    await result.current.copyAsLatex()
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0]
+    expect(written).toContain('\\begin{table}[h]')
+    expect(written).toContain('\\centering')
+    expect(written).toContain('\\caption{My Caption}')
+    expect(written).toContain('\\end{table}')
+  })
+
+  it('copyAsLatex escapes caption special characters', async () => {
+    const { result } = setup('Cost & Revenue')
+    await result.current.copyAsLatex()
+    const written = (navigator.clipboard.writeText as ReturnType<typeof vi.fn>).mock.calls[0][0]
+    expect(written).toContain('\\caption{Cost \\& Revenue}')
+  })
+
   it('copyAsLatex accepts headerStyle parameter', async () => {
     const { result } = setup()
     await result.current.copyAsLatex('first-row')

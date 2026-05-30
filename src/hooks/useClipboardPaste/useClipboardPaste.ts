@@ -35,16 +35,19 @@ export function useClipboardPaste(
 
       const inContentEditable = target instanceof HTMLElement && !!target.closest('[contenteditable]')
 
-      // Inside contentEditable: only intercept if clipboard has HTML table data
+      // Read plain text early so we can check for LaTeX before deciding to intercept
+      const text = event.clipboardData?.getData('text/plain') ?? ''
+      const hasLatex = text.includes('\\begin{tabular}') || text.includes('\\begin{table}')
+
+      // Inside contentEditable: only intercept if clipboard has HTML table data or LaTeX
       // Otherwise let the cell's native paste handler deal with plain text
-      if (inContentEditable && !hasHtml) return
+      if (inContentEditable && !hasHtml && !hasLatex) return
 
       event.preventDefault()
 
       setPasting(true)
       try {
         const html = hasHtml ? event.clipboardData?.getData('text/html') ?? null : null
-        const text = event.clipboardData?.getData('text/plain') ?? ''
 
         const result = await handlePasteData(text, html, setCells)
         if (result) {

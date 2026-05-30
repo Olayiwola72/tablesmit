@@ -8,7 +8,7 @@ function escapeLatex(value: string): string {
   )
 }
 
-export function cellsToLatex(cells: CellData[][], headerStyle?: string): string {
+export function cellsToLatex(cells: CellData[][], headerStyle?: string, caption?: string): string {
   if (!cells.length || !cells[0]!.length) return ''
 
   const cols = cells[0]!.length
@@ -29,10 +29,22 @@ export function cellsToLatex(cells: CellData[][], headerStyle?: string): string 
     })
     .join('\n')
 
-  return [
+  const tableCore = [
     `\\begin{tabular}{${colSpec}}`,
     `\\hline`,
     body,
     `\\end{tabular}`,
   ].join('\n')
+
+  if (caption) {
+    return [
+      `\\begin{table}[h]`,
+      `\\centering`,
+      `\\caption{${escapeLatex(caption)}}`,
+      tableCore,
+      `\\end{table}`,
+    ].join('\n')
+  }
+
+  return tableCore
 }

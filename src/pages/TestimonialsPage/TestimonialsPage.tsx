@@ -5,12 +5,29 @@ import { routes } from '../../config/routes/routesConfig'
 import { TestimonialCard } from '../../components/features/TestimonialCard/TestimonialCard'
 import { TestimonialEmptyState } from '../../components/features/TestimonialEmptyState/TestimonialEmptyState'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
+import { brand } from '../../config/brand/brandConfig'
 import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
 
 export function TestimonialsPage(): ReactNode {
   const { t } = usePageTranslation('testimonials')
+  const pageTitle = t('meta.testimonialsTitle')
+  const pageDescription = t('meta.testimonialsDescription')
+  const pageUrl = `${brand.url}${routes.testimonials.path}`
+
   return (
-    <ContentPageLayout metaKey="testimonials" routeKey="testimonials">
+    <ContentPageLayout
+      metaKey="testimonials"
+      routeKey="testimonials"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
+    >
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },

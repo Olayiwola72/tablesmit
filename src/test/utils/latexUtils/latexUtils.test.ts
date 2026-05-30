@@ -89,6 +89,31 @@ describe('cellsToLatex', () => {
     expect(result).not.toContain('Hidden')
   })
 
+  it('wraps tabular in table environment when caption is provided', () => {
+    const cells: CellData[][] = [
+      [cell('R0C0', 'Data')],
+    ]
+    const result = cellsToLatex(cells, undefined, 'Table Caption')
+    expect(result).toContain('\\begin{table}[h]')
+    expect(result).toContain('\\centering')
+    expect(result).toContain('\\caption{Table Caption}')
+    expect(result).toContain('\\begin{tabular}')
+    expect(result).toContain('\\end{tabular}')
+    expect(result).toContain('\\end{table}')
+    expect(result.indexOf('\\begin{table}')).toBeLessThan(result.indexOf('\\begin{tabular}'))
+    expect(result.indexOf('\\end{tabular}')).toBeLessThan(result.indexOf('\\end{table}'))
+  })
+
+  it('does not wrap in table environment when caption is empty', () => {
+    const cells: CellData[][] = [
+      [cell('R0C0', 'Data')],
+    ]
+    const result = cellsToLatex(cells, undefined, '')
+    expect(result).toContain('\\begin{tabular}')
+    expect(result).not.toContain('\\begin{table}')
+    expect(result).not.toContain('\\caption')
+  })
+
   it('replaces empty values with a space', () => {
     const cells: CellData[][] = [
       [cell('R0C0', ''), cell('R0C1', 'Value')],

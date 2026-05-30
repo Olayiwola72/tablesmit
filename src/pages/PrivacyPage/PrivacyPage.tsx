@@ -8,10 +8,23 @@ import { routes } from '../../config/routes/routesConfig'
 
 export function PrivacyPage(): ReactNode {
   const { t } = usePageTranslation('legal')
+  const pageTitle = t('meta.privacyTitle')
+  const pageDescription = t('meta.privacyDescription')
+  const pageUrl = `${brand.url}${routes.privacy.path}`
+
   return (
     <ContentPageLayout
       metaKey="privacy"
       routeKey="privacy"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
       className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },

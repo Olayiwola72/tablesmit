@@ -15,9 +15,24 @@ function splitNotList(text: string): string[] {
 export function AboutPage(): ReactNode {
   const { t } = usePageTranslation('about', 'table', 'home', 'openSource')
   const lines = splitNotList(t('about.whatWeAreNot'))
+  const pageTitle = t('meta.aboutTitle')
+  const pageDescription = t('meta.aboutDescription')
+  const pageUrl = `${brand.url}${routes.about.path}`
 
   return (
-    <ContentPageLayout metaKey="about" routeKey="about">
+    <ContentPageLayout
+      metaKey="about"
+      routeKey="about"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
+    >
       <div className="mx-auto max-w-content px-4 pt-8 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },

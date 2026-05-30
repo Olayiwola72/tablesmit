@@ -8,6 +8,7 @@ export interface ContentListPageMeta {
 
 export interface ContentListPageProps {
   meta: ContentListPageMeta
+  metaChildren?: ReactNode
   canonicalUrl: string
   breadcrumb: BreadcrumbSegment[]
   heading: string

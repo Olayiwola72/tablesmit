@@ -7,6 +7,7 @@ import { PaginationNav } from '../PaginationNav/PaginationNav'
 
 export function ContentListPage({
   meta,
+  metaChildren,
   canonicalUrl,
   breadcrumb,
   heading,
@@ -46,6 +47,7 @@ export function ContentListPage({
         <meta property="og:description" content={meta.description} />
         <meta property="og:url" content={canonicalUrl} />
         <link rel="canonical" href={canonicalUrl} />
+        {metaChildren}
       </Helmet>
       <div className="mx-auto max-w-content">
         <Breadcrumb segments={breadcrumb} />
