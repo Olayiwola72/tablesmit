@@ -231,6 +231,7 @@
     "import": "インポート",
     "importCsv": "CSVからインポート",
     "importExcel": "Excelからインポート",
+    "importLatex": "LaTeXからインポート",
     "clearAll": "すべてクリア",
     "undo": "元に戻す",
     "copy": "コピー",

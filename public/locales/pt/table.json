@@ -231,6 +231,7 @@
     "import": "Importar",
     "importCsv": "Importar de CSV",
     "importExcel": "Importar do Excel",
+    "importLatex": "Importar do LaTeX",
     "clearAll": "Limpar Tudo",
     "undo": "Desfazer",
     "copy": "Copiar",

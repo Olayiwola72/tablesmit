@@ -1233,7 +1233,7 @@ tablesmit/
 │   │   └── keys.ts                     # Keyboard key constants
 │   │
 │   ├── content/
-│   │   ├── blog/                       # 34 posts — auto-discovered via import.meta.glob (see Section 58)
+│   │   ├── blog/                       # 36 posts — auto-discovered via import.meta.glob (see Section 58)
 │   │   └── features/                   # 30 feature page JSON definitions
 │   │
 │   ├── styles/
@@ -2837,7 +2837,7 @@ Every page lazy-loaded via `React.lazy()` + `Suspense` with `<PageLoader />` fal
 
 ### Import
 
-Toolbar `Import ▾` dropdown with CSV and Excel options. Hidden `<input type="file">` triggered via ref. CSV uses papaparse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `Workbook.xlsx.readBuffer()` — reads `worksheet.eachRow` then processes caption (first row detected when merged across all columns), trimmed leading empty columns, and normalises via `normaliseRows()`. Merge detection reads `worksheet.model.merges` after `eachRow`, parses each range with `excelColToNum`/`parseExcelAddress`, converts to data-space coordinates (accounting for caption skip and column trim), clamps merges spanning caption+data rows, and applies them via `applyMergesToCells()`. Caption styling (bgColor, textColor, italic, alignment) is captured from the caption cell before the row is skipped. Helper functions `excelColToNum` and `parseExcelAddress` parse cell references without modifying the worksheet model. Both import paths normalise to `CellData[][]` with `mergedRanges`, then dispatch to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook destructures `setCaptionTextColor`/`setCaptionBgColor` from context. Full test coverage including merged cells and caption styling.
+Toolbar `Import ▾` dropdown with CSV, Excel, and LaTeX options. Hidden `<input type="file">` triggered via ref. CSV uses papaparse with `{ header: true, skipEmptyLines: true }`. Excel uses exceljs `Workbook.xlsx.readBuffer()` — reads `worksheet.eachRow` then processes caption (first row detected when merged across all columns), trimmed leading empty columns, and normalises via `normaliseRows()`. Merge detection reads `worksheet.model.merges` after `eachRow`, parses each range with `excelColToNum`/`parseExcelAddress`, converts to data-space coordinates (accounting for caption skip and column trim), clamps merges spanning caption+data rows, and applies them via `applyMergesToCells()`. Caption styling (bgColor, textColor, italic, alignment) is captured from the caption cell before the row is skipped. Helper functions `excelColToNum` and `parseExcelAddress` parse cell references without modifying the worksheet model. LaTeX import uses `parseLatexTabularWithMerges` — reads `\rowcolor`, `\columncolor`, `\textcolor`, `\cellcolor`, `\colorbox` commands and normalises cells (strips formatting commands so values are clean). All import paths normalise to `CellData[][]` with `mergedRanges`, then dispatch to `TableContext`. Files >5MB rejected before parsing. Parse errors show toast. `useImport` hook destructures `setCaptionTextColor`/`setCaptionBgColor` from context. Full test coverage including merged cells, caption styling, and LaTeX round-trip.
 
 ### Accessibility
 
@@ -2849,7 +2849,7 @@ Fonts self-hosted via raw `@font-face` blocks in `globals.css` (weights 400–70
 
 ### Export
 
-Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (papaparse unparse), LaTeX (tabular generator). Copy to clipboard: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (via html2canvas). Export filename uses table caption when present; falls back to `tablesmit-table`.
+Export via strategy pattern in `src/services/exportService/`: PDF (html2canvas + jsPDF), PNG, JPEG (html2canvas), Excel (exceljs), CSV (papaparse unparse), LaTeX (tabular generator). LaTeX export preserves row colors (`\rowcolor`), column colors (`\columncolor`), header colors, header text colors (`\textcolor`), and column text alignment. Copy to clipboard: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (via html2canvas). Copy-as-LaTeX also supports colors and column alignment via `cellsToLatex` `LatexOptions`. Export filename uses table caption when present; falls back to `tablesmit-table`.
 
 ### Button System
 
@@ -2929,7 +2929,7 @@ Route: `/changelog`. Data-driven from `src/config/changelog/changelog.ts` typed 
 
 ### Blog System
 
-Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `import.meta.glob`. `BlogListPage` with card grid, tags, dates, featured badge (paginated at 6 per page via `ITEMS_PER_PAGE`). `BlogPostPage` with ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data. 34 posts live. `scripts/md-to-blog-post.ts` helper. Blog section in README.
+Blog posts as `.ts` modules in `src/content/blog/` — auto-discovered via `import.meta.glob`. `BlogListPage` with card grid, tags, dates, featured badge (paginated at 6 per page via `ITEMS_PER_PAGE`). `BlogPostPage` with ReactMarkdown + remark-gfm, Helmet meta tags, JSON-LD structured data. 36 posts live. `scripts/md-to-blog-post.ts` helper. Blog section in README.
 
 ### Security
 
@@ -2968,7 +2968,7 @@ GitHub issue templates (`bug_report.md`, `feature_request.md`). `pull_request_te
 8 languages: English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian. English bundled at build time (`src/i18n/locales/en.json` — zero network requests). Other locales served from `public/locales/{code}/common.json` as static assets. Only the detected language is fetched eagerly on init; all others are fetched lazily on language switch. `hasResourceBundle()` guards against re-fetching already-loaded locales. RTL for Arabic via `document.documentElement.dir = 'rtl'`. Language picker in Navbar. Brand name never translated. All toast messages use `useTranslation` with interpolation variables. All aria-labels translated. `useSuspense: false` — manual fetch pattern handles loading asynchronously.
 
 ### Content — v8.0 Targets
-- [x] Blog posts committed to `src/content/blog/` (Section 58 — 34 posts live)
+- [x] Blog posts committed to `src/content/blog/` (Section 58 — 36 posts live)
 - [x] Feature landing pages — system built + 30 JSON files live in `src/content/features/` (Section 59)
 - [ ] Real testimonials — min 3 collected and added to TESTIMONIALS array (Section 60)
   - [x] Google Search Console — verified + sitemap submitted (Section 38G)
@@ -7357,7 +7357,7 @@ describe('BlogPostPage', () => {
 
 ### 55J. Implementation
 
-Blog system setup, tests, and routing all live and verified. Dependencies installed: `remark-gfm`, `react-helmet-async`, `@tailwindcss/typography`. `blogService.ts` with `import.meta.glob` auto-discovery. `BlogListPage` and `BlogPostPage` lazy-loaded. `react-markdown` (113 kB / 35 kB gzip) dynamically imported inside `BlogPostPage` — not in the static route chunk. Blog route in `nav` config (`src/config/routes/routesConfig.ts`). `scripts/md-to-blog-post.ts` helper and `npm run new-post` script. 34 blog posts live. Sitemap and README updated.
+Blog system setup, tests, and routing all live and verified. Dependencies installed: `remark-gfm`, `react-helmet-async`, `@tailwindcss/typography`. `blogService.ts` with `import.meta.glob` auto-discovery. `BlogListPage` and `BlogPostPage` lazy-loaded. `react-markdown` (113 kB / 35 kB gzip) dynamically imported inside `BlogPostPage` — not in the static route chunk. Blog route in `nav` config (`src/config/routes/routesConfig.ts`). `scripts/md-to-blog-post.ts` helper and `npm run new-post` script. 36 blog posts live. Sitemap and README updated.
 
 ---
 
@@ -7941,11 +7941,11 @@ on first render (zero network requests).
 
 **Live:** Tablesmit is live at tablesmit.com, indexed in Google Search Console, and tracked via GA4 (consent-gated) and Sentry (lazy-loaded, production-only).
 
-**Content:** 34 blog posts and 30 feature landing pages published. Sitemap updated with all URLs.
+**Content:** 36 blog posts and 30 feature landing pages published. Sitemap updated with all URLs.
 
 ```
 CONTENT — must ship before any promotion:
-[x] Blog posts — 34 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
+[x] Blog posts — 36 posts committed to src/content/blog/ (see Section 58 for slugs and specs)
 [x] Feature landing pages — system built + 30 JSON files live (Section 59)
 [x] Google Search Console — verified, sitemap submitted, homepage indexed (Section 38G)
 [x] Netlify env vars — VITE_GA4_MEASUREMENT_ID and VITE_SENTRY_DSN set in dashboard (Section 53)
@@ -7963,12 +7963,14 @@ CONTENT — must ship before any promotion:
 
 ## 58. Blog Posts — Content Specification
 
-34 posts live in `src/content/blog/`. All follow the TypeScript `BlogPost` format described in Section 56.
+36 posts live in `src/content/blog/`. All follow the TypeScript `BlogPost` format described in Section 56.
 
 ### All Posts (newest first)
 
 | Date | Slug | Featured |
 |---|---|---|
+| 2026-06-02 | `how-to-export-colored-tables-to-latex` | |
+| 2026-06-02 | `how-to-edit-latex-tables-online` | |
 | 2026-06-01 | `how-to-add-table-borders-online` | |
 | 2026-05-31 | `how-to-use-right-click-table-editor` | |
 | 2026-05-30 | `how-to-customize-table-headers-online` | |

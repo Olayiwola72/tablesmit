@@ -35,6 +35,7 @@
     "backToHome": "Zurück zur Startseite",
     "fileTooLarge": "Datei zu groß. Maximale Größe ist {{maxSize}}{{unitLabel}}.",
     "importParseError": "Datei konnte nicht gelesen werden. Prüfe das Format und versuche es erneut.",
+    "notLatexFormat": "Diese Datei scheint keine gültige LaTeX-Datei zu sein. Der Inhalt sollte einen \\begin{tabular}- oder \\begin{table}-Block enthalten.",
     "somethingWrong": "Etwas ist schiefgelaufen.",
     "reload": "Seite neu laden",
     "errorMessage": "{{message}}"

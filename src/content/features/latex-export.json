@@ -1,7 +1,7 @@
 {
   "slug": "latex-export",
   "metaTitle": "Export Table to LaTeX Online — Free | {{BRAND_NAME}}",
-  "metaDescription": "Export any table to clean LaTeX code in one click. Get publication-ready LaTeX output for academic papers and journals. Free, no signup.",
+  "metaDescription": "Export any table to clean LaTeX code in one click. Preserves row colors, column colors, and header styling. Perfect for academic papers. Free, no signup.",
   "heroHeadline": "Build your table visually. Get clean LaTeX output.",
   "heroSubtext": "No more writing LaTeX table syntax by hand. Build your table in Tablesmit, click Export, and get correctly formatted LaTeX code — ready to paste into your paper or thesis.",
   "icon": "FileCode",
@@ -25,6 +25,11 @@
       "icon": "Shield",
       "heading": "Special characters escaped",
       "body": "Ampersands, underscores, percent signs, dollar signs, and other LaTeX-reserved characters are escaped automatically. Paste the output directly — no manual find-and-replace."
+    },
+    {
+      "icon": "Palette",
+      "heading": "Row and column colors preserved",
+      "body": "Header colors, row colors, column colors, and header text colors all carry through to LaTeX as \\rowcolor, \\columncolor, and \\textcolor. Set your table styling visually and get the same colors in your LaTeX output — no manual preamble hacks."
     }
   ],
   "steps": [
@@ -46,14 +51,15 @@
   ],
   "outputExample": {
     "heading": "What the output looks like",
-    "description": "A four-column research data table with a header row exports as:",
-    "code": "\\begin{table}[h]\n  \\centering\n  \\caption{Comparison of study methodologies}\n  \\begin{tabular}{l l r r}\n    \\hline\n    Study & Method & Sample size & Effect size \\\\\n    \\hline\n    Smith et al. & RCT & 240 & 0.42 \\\\\n    Jones et al. & Cohort & 1{,}840 & 0.31 \\\\\n    Lee et al.   & Meta & 12{,}400 & 0.38 \\\\\n    \\hline\n  \\end{tabular}\n\\end{table}"
+    "description": "A styled table with a dark blue header, alternating row colors, and a first-column color exports as clean LaTeX with all colors preserved:",
+    "code": "\\begin{table}[h]\n  \\centering\n  \\caption{Comparison of study methodologies}\n  \\begin{tabular}{|>{\\columncolor[HTML]{F3F4F6}}l|l|r|r|}\n    \\hline\n    \\rowcolor[HTML]{1E40AF}\n    \\textcolor[HTML]{FFFFFF}{\\textbf{Study}} & \\textcolor[HTML]{FFFFFF}{\\textbf{Method}} & \\textcolor[HTML]{FFFFFF}{\\textbf{Sample size}} & \\textcolor[HTML]{FFFFFF}{\\textbf{Effect size}} \\\\\n    \\hline\n    \\rowcolor[HTML]{F9FAFB}\n    Smith et al. & RCT & 240 & 0.42 \\\\\n    \\rowcolor[HTML]{FFFFFF}\n    Jones et al. & Cohort & 1{,}840 & 0.31 \\\\\n    \\rowcolor[HTML]{F9FAFB}\n    Lee et al.   & Meta & 12{,}400 & 0.38 \\\\\n    \\hline\n  \\end{tabular}\n\\end{table}"
   },
   "useCases": [
     "Exporting a data table from a research study into a journal submission formatted in LaTeX",
     "Creating a methods comparison table for a thesis or dissertation without writing tabular syntax manually",
     "Building a complex results table visually and exporting it for use in an Overleaf project",
-    "Converting an Excel or CSV dataset into a properly formatted LaTeX table for publication"
+    "Converting an Excel or CSV dataset into a properly formatted LaTeX table for publication",
+    "Exporting a visually styled table with custom header colors and alternating row colors to LaTeX for a journal submission"
   ],
   "relatedFeatures": ["pdf-export", "csv-import", "custom-headers"],
   "relatedPost": "how-to-export-table-to-latex",

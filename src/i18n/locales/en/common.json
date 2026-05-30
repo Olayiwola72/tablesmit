@@ -38,6 +38,7 @@
     "importParseError": "Could not read file. Check the format and try again.",
     "notExcelFormat": "This file doesn't appear to be a valid Excel file (.xlsx). The content looks like plain text, not a spreadsheet. Try saving the file with a .csv extension and using 'Import from CSV' instead.",
     "notCsvFormat": "This .csv file appears to be an Excel workbook (.xlsx), not a plain-text CSV. Try saving the file with a .xlsx extension and using 'Import from Excel' instead.",
+    "notLatexFormat": "This file doesn't appear to be a valid LaTeX file. The content should contain a \\begin{tabular} or \\begin{table} block.",
     "somethingWrong": "Something went wrong.",
     "unexpectedError": "An unexpected error occurred.",
     "reload": "Reload the page",

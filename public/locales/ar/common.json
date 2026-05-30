@@ -35,6 +35,7 @@
     "backToHome": "العودة إلى الرئيسية",
     "fileTooLarge": "الملف كبير جدًا. الحد الأقصى للحجم هو {{maxSize}}{{unitLabel}}.",
     "importParseError": "تعذرت قراءة الملف. تحقق من التنسيق وحاول مرة أخرى.",
+    "notLatexFormat": "لا يبدو أن هذا الملف هو ملف LaTeX صالح. يجب أن يحتوي المحتوى على كتلة \\begin{tabular} أو \\begin{table}.",
     "somethingWrong": "حدث خطأ ما.",
     "reload": "أعد تحميل الصفحة",
     "errorMessage": "{{message}}"

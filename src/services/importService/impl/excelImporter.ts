@@ -91,6 +91,7 @@ export class ExcelImporter implements ImportStrategy {
       let captionItalic: boolean | undefined
       let captionAlignment: string | undefined
       const cellColors: Record<string, string> = {}
+      const rowColors: Record<number, string> = {}
       const mergeRanges: MergeRange[] = []
 
       worksheet.eachRow({ includeEmpty: true }, (row, rowIdx) => {
@@ -153,6 +154,20 @@ export class ExcelImporter implements ImportStrategy {
               firstRowFill = hex
               break
             }
+          }
+        }
+
+        if (rows.length > 0) {
+          const rowFillSet = new Set<string>()
+          for (let col = left; col <= right; col++) {
+            const cell = row.getCell(col)
+            const hex = getFillColor(cell.fill)
+            if (hex && hex !== '#FFFFFF' && hex !== '#000000') {
+              rowFillSet.add(hex)
+            }
+          }
+          if (rowFillSet.size === 1) {
+            rowColors[rows.length] = [...rowFillSet][0]
           }
         }
 
@@ -235,6 +250,7 @@ export class ExcelImporter implements ImportStrategy {
       if (borderColor) result.borderColor = borderColor
       if (contentColor) result.contentColor = contentColor
       if (Object.keys(cellColors).length > 0) result.cellColors = cellColors
+      if (Object.keys(rowColors).length > 0) result.rowColors = rowColors
       if (mergeRanges.length > 0) {
         applyMergesToCells(result.cells, mergeRanges)
         result.mergedRanges = mergeRanges

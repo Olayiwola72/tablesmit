@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { parseLatexTabular } from '../../../utils/latexUtils'
+import { parseLatexTabular, parseLatexTabularWithMerges } from '../../../utils/latexUtils'
 
 describe('parseLatexTabular', () => {
   it('returns empty rows for empty string', () => {
@@ -270,5 +270,41 @@ A \\\\
     const result = parseLatexTabular(latex)
     expect(result.rows).toEqual([])
     expect(result.caption).toBe('Orphan caption')
+  })
+})
+
+describe('parseLatexTabularWithMerges', () => {
+  it('extracts headerColor and rowColors from \\rowcolor[HTML] (row 0 excluded)', () => {
+    const latex = `\\begin{tabular}{cc}
+\\rowcolor[HTML]{1E40AF} \\textbf{H1} & \\textbf{H2} \\\\
+\\rowcolor[HTML]{F3F4F6} A & B \\\\
+\\end{tabular}`
+
+    const result = parseLatexTabularWithMerges(latex)
+    expect(result.headerColor).toBe('#1E40AF')
+    expect(result.rows).toEqual([['H1', 'H2'], ['A', 'B']])
+    expect(result.rowColors![0]).toBeUndefined()
+    expect(result.rowColors![1]).toBe('#F3F4F6')
+  })
+
+  it('extracts columnColors from \\columncolor[HTML] in preamble', () => {
+    const latex = `\\begin{tabular}{>{\\columncolor[HTML]{F3F4F6}}c>{\\columncolor[HTML]{E5E7EB}}c}
+A & B \\\\
+\\end{tabular}`
+
+    const result = parseLatexTabularWithMerges(latex)
+    expect(result.columnColors![0]).toBe('#F3F4F6')
+    expect(result.columnColors![1]).toBe('#E5E7EB')
+    expect(result.rows).toEqual([['A', 'B']])
+  })
+
+  it('returns undefined rowColors and columnColors when none present', () => {
+    const latex = `\\begin{tabular}{cc}
+A & B \\\\
+\\end{tabular}`
+
+    const result = parseLatexTabularWithMerges(latex)
+    expect(result.rowColors).toBeUndefined()
+    expect(result.columnColors).toBeUndefined()
   })
 })
