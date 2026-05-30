@@ -12,6 +12,7 @@ import { handlePasteData } from '@/services/clipboardParser'
 import { isSingleCellRange } from '@/utils/mergeUtils/mergeUtils'
 import { useCopyTable } from '@/hooks/useCopyTable/useCopyTable'
 import { useExport } from '@/hooks/useExport/useExport'
+import { TABLE_THEMES } from '@/config/table/tableThemes/tableThemes'
 import { trackEvent } from '@/utils/analytics/analytics'
 import { Button } from '../../ui/Button/Button'
 import { ToolbarSeparator } from '../../ui/ToolbarSeparator/ToolbarSeparator'
@@ -28,10 +29,13 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
   const presets = usePresets()
+  const headerTextColor = TABLE_THEMES.find(t => t.id === table.theme)?.headerText ?? '#FFFFFF'
+
   const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, copyAsHtml, isCopying } = useCopyTable(
     cells, tableRef, table.caption, table.columnWidths, table.cellColors, table.cellTextColors, table.cellTextAlign,
     table.mergedRanges, table.headerColor, table.headerStyle, table.contentColor, table.contentBgColor, table.theme,
     table.borderStyle, table.borderColor, table.captionTextColor, table.captionBgColor, table.captionAlignment, table.captionItalic,
+    table.rowColors, table.columnColors, headerTextColor, table.columnTextAlign,
   )
   const { exportAs, exportingFormat } = useExport()
 

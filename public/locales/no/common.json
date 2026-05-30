@@ -35,6 +35,7 @@
     "backToHome": "Tilbake til hjem",
     "fileTooLarge": "Filen er for stor. Maksimal størrelse er {{maxSize}}{{unitLabel}}.",
     "importParseError": "Kunne ikke lese filen. Sjekk formatet og prøv igjen.",
+    "notLatexFormat": "Denne filen ser ikke ut til å være en gyldig LaTeX-fil. Innholdet bør inneholde en \\begin{tabular}- eller \\begin{table}-blokk.",
     "somethingWrong": "Noe gikk galt.",
     "reload": "Last inn siden på nytt",
     "errorMessage": "{{message}}"

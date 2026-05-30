@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useTableContext } from '../../context/TableContext'
-import { importCsv, importExcel } from '../../services/importService'
+import { importCsv, importExcel, importLatex } from '../../services/importService'
 import { toast } from '../../utils/toast/toast'
 import { trackEvent } from '../../utils/analytics/analytics'
 import type { ImportApi } from './useImport.types'
@@ -10,13 +10,16 @@ export function useImport(): ImportApi {
   const { t } = useTranslation()
   const [error, setError] = useState<string | null>(null)
   const [isImporting, setIsImporting] = useState(false)
-  const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setCaption, setContentColor, setBorderColor, setCaptionTextColor, setCaptionBgColor } = useTableContext()
+  const { setCells, setHeaderColor, setHeaderStyle, setCellColor, setRowColor, setColumnColor, setCaption, setContentColor, setBorderColor, setCaptionTextColor, setCaptionBgColor } = useTableContext()
 
-  const importFile = async (file: File, kind: 'csv' | 'excel'): Promise<void> => {
+  const importFile = async (file: File, kind: 'csv' | 'excel' | 'latex'): Promise<void> => {
     setError(null)
     setIsImporting(true)
     try {
-      const result = kind === 'csv' ? await importCsv(file) : await importExcel(file)
+      const result =
+        kind === 'csv' ? await importCsv(file) :
+        kind === 'latex' ? await importLatex(file) :
+        await importExcel(file)
       setCells(result.cells, result.mergedRanges)
 
       if (result.caption) setCaption(result.caption)
@@ -29,6 +32,16 @@ export function useImport(): ImportApi {
       if (result.cellColors) {
         for (const [cellId, color] of Object.entries(result.cellColors)) {
           setCellColor(cellId, color)
+        }
+      }
+      if (result.rowColors) {
+        for (const [row, color] of Object.entries(result.rowColors)) {
+          setRowColor(Number(row), color)
+        }
+      }
+      if (result.columnColors) {
+        for (const [col, color] of Object.entries(result.columnColors)) {
+          setColumnColor(Number(col), color)
         }
       }
       const rows = result.cells.length

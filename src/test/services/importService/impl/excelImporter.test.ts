@@ -312,4 +312,41 @@ describe('importExcel', () => {
     expect(result.captionItalic).toBeUndefined()
     expect(result.captionAlignment).toBeUndefined()
   })
+
+  it('extracts row fill colors from data rows (row 0 excluded)', async () => {
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    const ws = workbook.addWorksheet('Sheet1')
+
+    ws.getCell('A1').value = 'Name'
+    ws.getCell('B1').value = 'Value'
+    ws.getCell('A1').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E40AF' } }
+    ws.getCell('B1').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1E40AF' } }
+
+    ws.getCell('A2').value = 'Alice'
+    ws.getCell('B2').value = '100'
+    ws.getCell('A2').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF3F4F6' } }
+    ws.getCell('B2').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFF3F4F6' } }
+
+    ws.getCell('A3').value = 'Bob'
+    ws.getCell('B3').value = '200'
+    ws.getCell('A3').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE5E7EB' } }
+    ws.getCell('B3').fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFE5E7EB' } }
+
+    ws.getCell('A4').value = 'Charlie'
+    ws.getCell('B4').value = '300'
+
+    const buffer = await workbook.xlsx.writeBuffer()
+    const file = new File([buffer], 'row-colors.xlsx', {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    })
+    const result = await importExcel(file)
+
+    expect(result.headerColor).toBe('#1E40AF')
+    expect(result.rowColors).toBeDefined()
+    expect(result.rowColors![0]).toBeUndefined()
+    expect(result.rowColors![1]).toBe('#F3F4F6')
+    expect(result.rowColors![2]).toBe('#E5E7EB')
+    expect(result.rowColors![3]).toBeUndefined()
+  })
 })

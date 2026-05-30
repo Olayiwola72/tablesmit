@@ -19,6 +19,9 @@ export const notExcelFormat = (): string =>
 export const notCsvFormat = (): string =>
   i18n.t('errors.notCsvFormat')
 
+export const notLatexFormat = (): string =>
+  i18n.t('errors.notLatexFormat')
+
 export function argbToHex(argb: string): string {
   const hex = argb.replace('#', '')
   return hex.length === 8 ? `#${hex.slice(2)}` : `#${hex}`

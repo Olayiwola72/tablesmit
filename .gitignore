@@ -21,8 +21,6 @@ dist-ssr
 # Generated coverage reports
 coverage
 
-# Prerendered build artifacts (regenerated during build)
-prerendered
 
 # Lighthouse reports
 lh-detail.json

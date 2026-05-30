@@ -47,7 +47,7 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 
 ### Data and editing
 - Smart clipboard paste — Ctrl+V reads Excel, Word, CSV, Markdown pipes, and LaTeX tabular automatically
-- Import: CSV (PapaParse) and Excel (exceljs)
+- Import: CSV (PapaParse), Excel (exceljs), and LaTeX (tabular with colors)
 - Export: PDF, PNG, JPEG, Excel (.xlsx), CSV, LaTeX (.tex)
 - Copy: Excel Data (TSV), CSV, Markdown, LaTeX, HTML, Image (PNG)
 - Column sorting — numeric-aware, empty cells to bottom, disabled when merged ranges present
@@ -67,7 +67,8 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 - RTL support for Arabic
 - Keyboard shortcuts — press `?` or `Ctrl+/` to see all 13
 - Offline-capable PWA with auto-updating service worker + version polling
-- 30 feature landing pages, 34 blog posts
+- LaTeX import (round-trip safe — strips `\textcolor`, `\textbf`, `\colorbox`, `\rowcolor`, `\columncolor`)
+- 30 feature landing pages, 36 blog posts
 - No account required. No data leaves your browser.
 
 ---

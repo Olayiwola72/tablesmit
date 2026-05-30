@@ -48,9 +48,14 @@ export class LatexExporter implements ExportStrategy {
 
     const colCount = cells[0].length
 
-    // Column alignment string
+    // Column alignment string with optional column colors
     const sep = hasBorders ? '|' : ''
-    const alignStr = Array.from({ length: colCount }, (_, i) => `${sep}${colAlignment(i, columnTextAlign)}`).join('') + (hasBorders ? '|' : '')
+    const alignStr = Array.from({ length: colCount }, (_, i) => {
+      const align = colAlignment(i, columnTextAlign)
+      const cc = options.styles?.columnColors?.[i]?.trim()
+      const prefix = cc ? `>{\\columncolor[HTML]{${cc.slice(1)}}}` : ''
+      return `${sep}${prefix}${align}`
+    }).join('') + (hasBorders ? '|' : '')
 
     const lines: string[] = []
 
@@ -81,6 +86,14 @@ export class LatexExporter implements ExportStrategy {
       const row = cells[r]
       if (hasBorders) lines.push('\\hline')
 
+      // Row color
+      const rc = r === 0 && headerStyle !== 'none'
+        ? options.styles?.headerColor
+        : options.styles?.rowColors?.[r]
+      if (rc && rc.trim() && rc !== '#FFFFFF' && rc !== '#ffffff') {
+        lines.push(`\\rowcolor[HTML]{${rc.slice(1)}}`)
+      }
+
       const rowParts: string[] = []
       let skipCols = 0
 
@@ -104,6 +117,9 @@ export class LatexExporter implements ExportStrategy {
 
         const cs = getEffectiveColSpan(r, c, options.mergedRanges ?? [], cell.colSpan)
         if (isHeader(r, c, cs)) {
+          if (options.styles?.headerTextColor?.trim()) {
+            value = `\\textcolor[HTML]{${options.styles.headerTextColor.slice(1)}}{${value}}`
+          }
           value = `\\textbf{${value}}`
         }
 

@@ -28,6 +28,10 @@ export function useCopyTable(
   captionBgColor?: string,
   captionAlignment?: string,
   captionItalic?: boolean,
+  rowColors?: string[],
+  columnColors?: string[],
+  headerTextColor?: string,
+  columnTextAlign?: string[],
 ) {
   const [isCopying, setIsCopying] = useState(false)
   const { t } = useTranslation(['common', 'table'])
@@ -163,14 +167,20 @@ export function useCopyTable(
   const copyAsLatex = useCallback(async (headerStyle?: string): Promise<void> => {
     try {
       const { cellsToLatex } = await import('../../utils/latexUtils')
-      const latex = cellsToLatex(cells, headerStyle, caption)
+      const latex = cellsToLatex(cells, headerStyle, caption, {
+        columnColors,
+        rowColors,
+        headerColor,
+        headerTextColor,
+        columnTextAlign,
+      })
       await navigator.clipboard.writeText(latex)
       trackEvent('table_copied', { method: 'latex' })
       showCopySuccess('latex')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     }
-  }, [cells, caption, t, showCopySuccess])
+  }, [cells, caption, columnColors, rowColors, headerColor, headerTextColor, columnTextAlign, t, showCopySuccess])
 
   const copyAsHtml = useCallback(async (): Promise<void> => {
     try {
