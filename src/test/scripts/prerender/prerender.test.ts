@@ -15,31 +15,31 @@ describe('STATIC_ROUTES', () => {
     expect(STATIC_ROUTES).not.toContain('/')
   })
 
-  it('includes all expected content pages', () => {
+  it('includes all expected content pages with trailing slashes', () => {
     const locs = STATIC_ROUTES
-    expect(locs).toContain('/about')
-    expect(locs).toContain('/open-source')
-    expect(locs).toContain('/blog')
-    expect(locs).toContain('/features')
-    expect(locs).toContain('/contact')
-    expect(locs).toContain('/privacy')
-    expect(locs).toContain('/terms')
-    expect(locs).toContain('/changelog')
-    expect(locs).toContain('/testimonials')
+    expect(locs).toContain('/about/')
+    expect(locs).toContain('/open-source/')
+    expect(locs).toContain('/blog/')
+    expect(locs).toContain('/features/')
+    expect(locs).toContain('/contact/')
+    expect(locs).toContain('/privacy/')
+    expect(locs).toContain('/terms/')
+    expect(locs).toContain('/changelog/')
+    expect(locs).toContain('/testimonials/')
   })
 })
 
 describe('CONFIG_WATCH_PATHS', () => {
   it('covers changelog config', () => {
-    expect(CONFIG_WATCH_PATHS['src/config/changelog']).toContain('/changelog')
+    expect(CONFIG_WATCH_PATHS['src/config/changelog']).toContain('/changelog/')
   })
 
   it('covers testimonials config', () => {
-    expect(CONFIG_WATCH_PATHS['src/config/testimonials']).toContain('/testimonials')
+    expect(CONFIG_WATCH_PATHS['src/config/testimonials']).toContain('/testimonials/')
   })
 
   it('covers sponsors config', () => {
-    expect(CONFIG_WATCH_PATHS['src/config/sponsors']).toContain('/open-source')
+    expect(CONFIG_WATCH_PATHS['src/config/sponsors']).toContain('/open-source/')
   })
 
   it('every static route is covered by at least one watch path', () => {
@@ -70,7 +70,7 @@ describe('getBlogRoutes', () => {
       () => true,
       () => ['hello-world.ts', 'another-post.ts'],
     )
-    expect(routes).toEqual(['/blog/hello-world', '/blog/another-post'])
+    expect(routes).toEqual(['/blog/hello-world/', '/blog/another-post/'])
   })
 
   it('ignores non-TS files in the blog directory', () => {
@@ -79,7 +79,7 @@ describe('getBlogRoutes', () => {
       () => true,
       () => ['hello-world.ts', 'image.png', '.DS_Store'],
     )
-    expect(routes).toEqual(['/blog/hello-world'])
+    expect(routes).toEqual(['/blog/hello-world/'])
   })
 })
 
@@ -101,7 +101,7 @@ describe('getFeatureRoutes', () => {
       () => ['excel-export.json'],
       () => JSON.stringify({ slug: 'excel-export', title: 'Excel Export' }),
     )
-    expect(routes).toEqual(['/features/excel-export'])
+    expect(routes).toEqual(['/features/excel-export/'])
   })
 
   it('falls back to filename when JSON has no slug field', () => {
@@ -111,7 +111,7 @@ describe('getFeatureRoutes', () => {
       () => ['pdf-export.json'],
       () => JSON.stringify({ title: 'PDF Export' }),
     )
-    expect(routes).toEqual(['/features/pdf-export'])
+    expect(routes).toEqual(['/features/pdf-export/'])
   })
 
   it('falls back to filename when JSON is invalid', () => {
@@ -121,7 +121,7 @@ describe('getFeatureRoutes', () => {
       () => ['broken.json'],
       () => '{ invalid json }',
     )
-    expect(routes).toEqual(['/features/broken'])
+    expect(routes).toEqual(['/features/broken/'])
   })
 
   it('handles multiple feature files', () => {
@@ -136,7 +136,7 @@ describe('getFeatureRoutes', () => {
         return JSON.stringify({ title: 'Dark Mode' })
       },
     )
-    expect(routes).toEqual(['/features/merge-cells', '/features/csv-import', '/features/dark-mode'])
+    expect(routes).toEqual(['/features/merge-cells/', '/features/csv-import/', '/features/dark-mode/'])
   })
 })
 
@@ -165,9 +165,9 @@ describe('getAllRoutes', () => {
         return ''
       },
     )
-    expect(routes).toContain('/about')
-    expect(routes).toContain('/blog/post')
-    expect(routes).toContain('/features/feature')
+    expect(routes).toContain('/about/')
+    expect(routes).toContain('/blog/post/')
+    expect(routes).toContain('/features/feature/')
     expect(routes).not.toContain('/')
   })
 })
