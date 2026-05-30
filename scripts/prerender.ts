@@ -1,6 +1,6 @@
 import fs from 'node:fs'
+import http from 'node:http'
 import path from 'node:path'
-import { spawn } from 'node:child_process'
 import Critters from 'critters'
 import { chromium } from 'playwright'
 import { CONTENT_DIRS } from '../src/config/content/contentConfig'
@@ -20,8 +20,6 @@ export const PRERENDER_OUT_DIR = readPackageConfig().prerenderDir
 const PORT = 4173
 const ROOT = path.resolve(import.meta.dirname, '..')
 const CONTENT_DIR = path.resolve(ROOT, 'src/content')
-const VITE_BIN = path.resolve(ROOT, 'node_modules', '.bin', 'vite')
-const SERVER_TIMEOUT = 90_000
 
 // ── CLI arg parsing ──
 
@@ -120,46 +118,41 @@ async function isPlaywrightAvailable(): Promise<boolean> {
   }
 }
 
-// ── Server ──
+// ── Tiny static server (replaces `vite preview` — starts instantly) ──
 
-function startServer(): Promise<{ baseUrl: string; stop: () => void }> {
-  return new Promise((resolve, reject) => {
-    const server = spawn(VITE_BIN, ['preview', '--port', String(PORT)], {
-      cwd: ROOT,
-      stdio: 'pipe',
-      env: { ...process.env, BROWSER: 'none' },
+const MIME: Record<string, string> = {
+  '.js':    'text/javascript',
+  '.css':   'text/css',
+  '.html':  'text/html',
+  '.svg':   'image/svg+xml',
+  '.png':   'image/png',
+  '.json':  'application/json',
+  '.woff2': 'font/woff2',
+}
+
+function startServer(buildDir: string, port: number): Promise<{ baseUrl: string; stop: () => void }> {
+  return new Promise((resolve) => {
+    const server = http.createServer((req, res) => {
+      const urlPath = req.url ?? '/'
+      if (urlPath.includes('..')) { res.writeHead(403); res.end(); return }
+
+      // SPA fallback: serve index.html for any non-file route
+      let filePath = path.join(buildDir, urlPath === '/' ? 'index.html' : urlPath)
+      if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+        filePath = path.join(buildDir, 'index.html')
+      }
+
+      const ext = path.extname(filePath)
+      const contentType = MIME[ext] ?? 'application/octet-stream'
+      const content = fs.readFileSync(filePath)
+      res.writeHead(200, { 'Content-Type': contentType })
+      res.end(content)
     })
 
-    const timeout = setTimeout(() => {
-      server.kill()
-      reject(new Error('Server failed to start within 90 seconds'))
-    }, SERVER_TIMEOUT)
-
-    function onData(data: Buffer) {
-      const text = data.toString()
-      const match = text.match(/Local:\s+(https?:\/\/[^\s]+)/)
-      if (match) {
-        clearTimeout(timeout)
-        resolve({
-          baseUrl: match[1].replace(/\/$/, ''),
-          stop: () => { server.kill() },
-        })
-      }
-    }
-
-    server.stdout.on('data', onData)
-    server.stderr.on('data', onData)
-
-    server.on('error', (err: Error) => {
-      clearTimeout(timeout)
-      reject(err)
-    })
-
-    server.on('exit', (code: number | null) => {
-      clearTimeout(timeout)
-      if (code !== 0) {
-        reject(new Error(`Server exited with code ${code}`))
-      }
+    server.listen(port, '127.0.0.1')
+    resolve({
+      baseUrl: `http://127.0.0.1:${port}`,
+      stop: () => { server.close() },
     })
   })
 }
@@ -242,8 +235,8 @@ async function prerender(): Promise<void> {
   const routes = getAllRoutes(CONTENT_DIR, (p) => fs.existsSync(p), (p) => fs.readdirSync(p), (p) => fs.readFileSync(p, 'utf-8'))
   console.log(`Prerendering ${routes.length} routes to ${outDir}…`)
 
-  console.log('Starting vite preview server…')
-  const { baseUrl, stop: stopServer } = await startServer()
+  console.log('Starting static server…')
+  const { baseUrl, stop: stopServer } = await startServer(buildDir, PORT)
   console.log(`Server ready at ${baseUrl}`)
 
   const browser = await chromium.launch({ headless: true })
