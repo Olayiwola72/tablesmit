@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { TESTIMONIALS } from '../../../config/testimonials/testimonials'
 
 describe('TESTIMONIALS', () => {
-  it('has at least one testimonial', () => {
-    expect(TESTIMONIALS.length).toBeGreaterThan(0)
+  it('has at least two testimonials', () => {
+    expect(TESTIMONIALS.length).toBeGreaterThanOrEqual(2)
   })
 
   it('first testimonial has the correct shape', () => {
@@ -14,6 +14,17 @@ describe('TESTIMONIALS', () => {
     expect(t.quote).toContain('LaTeX export')
     expect(t.rating).toBe(5)
     expect(t.source).toBe('Direct')
+  })
+
+  it('second testimonial has the correct shape', () => {
+    const t = TESTIMONIALS[1]
+    expect(t.id).toBe('testimonial-aderibigbe')
+    expect(t.name).toBe('Aderibigbe Oluwakayode')
+    expect(t.role).toContain('Medical Student')
+    expect(t.quote).toContain('Medical school')
+    expect(t.rating).toBe(5)
+    expect(t.source).toBe('Twitter')
+    expect(t.sourceUrl).toContain('x.com')
   })
 
   it('every testimonial has required fields', () => {

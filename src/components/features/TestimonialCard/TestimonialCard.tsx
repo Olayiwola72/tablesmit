@@ -8,8 +8,8 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps): ReactNod
 
   return (
     <article className="flex flex-col rounded-md border border-border bg-white p-6 transition-colors duration-150 hover:border-primary">
-      <Quote size={28} className="mb-2 text-primary/20" aria-hidden="true" />
-      <blockquote className="flex-1 text-base leading-relaxed text-text-secondary italic">
+      <Quote size={28} className="mb-2 text-primary/40" aria-hidden="true" />
+      <blockquote className="flex-1 text-base leading-relaxed text-text-primary italic">
         &ldquo;{testimonial.quote}&rdquo;
       </blockquote>
       {testimonial.rating ? (

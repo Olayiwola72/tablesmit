@@ -12,4 +12,15 @@ export const TESTIMONIALS: Testimonial[] = [
     source: 'Direct',
     sourceUrl: '',
   },
+  {
+    id: 'testimonial-aderibigbe',
+    name: 'Aderibigbe Oluwakayode',
+    role: 'Medical Student, College Of Medical Sciences, Ambrose Alli University',
+    avatar: '',
+    quote: 'Medical school is basically just tables — drug classes, treatment protocols, differential diagnoses. Found Tablesmit recently and it\'s been genuinely useful. Clean output, exports straight to PDF. Good work @OlayiwolaAkinn1',
+    nameUrl: 'https://x.com/aderibigbekayo5',
+    rating: 5,
+    source: 'Twitter',
+    sourceUrl: 'https://x.com/aderibigbekayo5/status/2060707788511224027',
+  },
 ]

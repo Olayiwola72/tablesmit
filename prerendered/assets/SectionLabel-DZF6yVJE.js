@@ -1,0 +1,1 @@
+import{i as e}from"./rolldown-runtime-6KndmJbk.js";import{o as r}from"./vendor-i18n-BpAeH5dI.js";import{t as o}from"./vendor-react-sVagdW3-.js";var a=e(r(),1),i=o();function m({children:t}){return(0,i.jsx)("h2",{className:"mb-3 text-xs font-semibold uppercase tracking-widest text-text-muted",children:t})}var p=(0,a.memo)(m);export{p as t};
