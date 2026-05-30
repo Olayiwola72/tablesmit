@@ -1,0 +1,3 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/papaparse.min-DS-D4PzQ.js","assets/rolldown-runtime-6KndmJbk.js"])))=>i.map(i=>d[i]);
+import{i as c}from"./rolldown-runtime-6KndmJbk.js";import{_ as i,m as l}from"./index-DiJDrEUx.js";import{i as m,n as p,t as _}from"./utils-B99LxJIC.js";var d=class{async export(f,e){const{unparse:n}=await l(async()=>{const{unparse:t}=await import("./papaparse.min-DS-D4PzQ.js").then(a=>c(a.default,1));return{unparse:t}},__vite__mapDeps([0,1])),s=e.caption?.trim(),r=n((e.cells??[]).map(t=>t.map(a=>m(a.value)))),o=new Blob(s?[`${s}
+${r}`]:[r],{type:"text/csv;charset=utf-8;"});_(URL.createObjectURL(o),p(e.filename,i,"csv"))}};export{d as CSVExporter};

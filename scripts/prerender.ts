@@ -282,6 +282,13 @@ async function prerender(): Promise<void> {
 
   await inlineCssInDir(outDir, buildDir)
 
+  const assetsSrc = path.join(buildDir, 'assets')
+  const assetsDst = path.join(outDir, 'assets')
+  if (fs.existsSync(assetsSrc)) {
+    fs.cpSync(assetsSrc, assetsDst, { recursive: true })
+    console.log('  Copied assets directory')
+  }
+
   console.log(`\nDone — ${successCount} succeeded, ${failCount} failed`)
   if (failCount > 0) process.exit(1)
 }

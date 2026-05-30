@@ -1,0 +1,1 @@
+import{t as m}from"./vendor-react-sVagdW3-.js";var a=m(),i=({htmlFor:e,children:t,className:r})=>(0,a.jsx)("label",{htmlFor:e,className:`flex items-center justify-between gap-3 text-sm font-medium text-text-primary ${r??""}`,children:t});export{i as t};
