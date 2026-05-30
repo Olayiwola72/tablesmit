@@ -4,14 +4,28 @@ import type { ChangelogEntry } from '../../config/changelog/changelog.types'
 import { CHANGELOG, getChangeStyle } from '../../config/changelog/changelog'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
+import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
 export function ChangelogPage(): ReactNode {
   const { t } = usePageTranslation()
+  const pageTitle = t('meta.changelogTitle')
+  const pageDescription = t('meta.changelogDescription')
+  const pageUrl = `${brand.url}${routes.changelog.path}`
+
   return (
     <ContentPageLayout
       metaKey="changelog"
       routeKey="changelog"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
       className="mx-auto max-w-narrow px-4 py-16">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },

@@ -8,10 +8,23 @@ import { routes } from '../../config/routes/routesConfig'
 
 export function TermsPage(): ReactNode {
   const { t } = usePageTranslation('legal')
+  const pageTitle = t('meta.termsTitle')
+  const pageDescription = t('meta.termsDescription')
+  const pageUrl = `${brand.url}${routes.terms.path}`
+
   return (
     <ContentPageLayout
       metaKey="terms"
       routeKey="terms"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
       className="mx-auto max-w-narrow px-4 py-16 sm:px-6 lg:px-8">
         <Breadcrumb segments={[
           { label: t('nav.home'), to: routes.home.path },

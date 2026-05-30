@@ -25,7 +25,21 @@ export function TableMakerPage(): ReactNode {
         title={`${brand.name} — ${tagline}`}
         description={metaDescription}
         routeKey="home"
-      />
+      >
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: brand.name,
+          alternateName: 'Tablesmith',
+          applicationCategory: 'ProductivityApplication',
+          operatingSystem: 'Web',
+          url: brand.url,
+          description: metaDescription,
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+          featureList: exportFormats.map((f) => f.label),
+          author: { '@type': 'Organization', name: brand.name },
+        })}</script>
+      </PageMeta>
       <TableMakerContent />
     </TableProvider>
   )

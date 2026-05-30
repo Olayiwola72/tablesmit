@@ -100,6 +100,77 @@ describe('parseClipboardContent', () => {
     const result = await parseClipboardContent(`${row}\n${row}`, null)
     expect(result?.colCount).toBeLessThanOrEqual(20)
   })
+
+  it('parses LaTeX tabular from plain text', async () => {
+    const latex = '\\begin{tabular}{ll}\\hline\\textbf{Name} & \\textbf{Age} \\\\ \\hline Alice & 30 \\\\ \\hline \\end{tabular}'
+    const result = await parseClipboardContent(latex, null)
+    expect(result).not.toBeNull()
+    expect(result!.rows).toEqual([['Name', 'Age'], ['Alice', '30']])
+    expect(result!.caption).toBeUndefined()
+  })
+
+  it('parses LaTeX with caption from plain text', async () => {
+    const latex = '\\begin{table}[h]\\centering\\caption{Team Scores}\\begin{tabular}{ll}\\hline Player & Score \\\\ \\hline Alice & 95 \\\\ \\hline \\end{tabular}\\end{table}'
+    const result = await parseClipboardContent(latex, null)
+    expect(result).not.toBeNull()
+    expect(result!.caption).toBe('Team Scores')
+    expect(result!.rows).toEqual([['Player', 'Score'], ['Alice', '95']])
+  })
+
+  it('parses LaTeX with booktabs', async () => {
+    const latex = '\\begin{tabular}{ll}\\toprule X & Y \\\\ \\midrule A & 1 \\\\ B & 2 \\\\ \\bottomrule \\end{tabular}'
+    const result = await parseClipboardContent(latex, null)
+    expect(result).not.toBeNull()
+    expect(result!.rows).toEqual([['X', 'Y'], ['A', '1'], ['B', '2']])
+  })
+
+  it('returns null for plain text without LaTeX/CSV/TSV structure', async () => {
+    const result = await parseClipboardContent('just some random text', null)
+    expect(result).toBeNull()
+  })
+
+  it('strips Markdown code fence markers (```) from LaTeX before parsing', async () => {
+    const latex = '```\n\\begin{tabular}{ll}\\hline a & b \\\\ \\hline c & d \\\\ \\hline \\end{tabular}\n```'
+    const result = await parseClipboardContent(latex, null)
+    expect(result?.rows).toEqual([['a', 'b'], ['c', 'd']])
+  })
+
+  it('strips language-tagged code fence (```latex) from LaTeX before parsing', async () => {
+    const latex = '```latex\n\\begin{tabular}{ll}\\hline Method & Accuracy \\\\ \\hline Test & 95\\% \\\\ \\hline \\end{tabular}\n```'
+    const result = await parseClipboardContent(latex, null)
+    expect(result?.rows).toEqual([['Method', 'Accuracy'], ['Test', '95%']])
+  })
+
+  it('still parses LaTeX without code fences after fence-stripping change', async () => {
+    const latex = '\\begin{tabular}{ll}\\hline X & Y \\\\ \\hline 1 & 2 \\\\ \\hline \\end{tabular}'
+    const result = await parseClipboardContent(latex, null)
+    expect(result?.rows).toEqual([['X', 'Y'], ['1', '2']])
+  })
+
+  it('prefers LaTeX parser over HTML when both contain table data', async () => {
+    const latex = '\\begin{tabular}{ll}\\hline Name & Age \\\\ \\hline Alice & 30 \\\\ \\hline \\end{tabular}'
+    const html = '<table><tr><td>wrong</td><td>data</td></tr></table>'
+    const result = await parseClipboardContent(latex, html)
+    expect(result).not.toBeNull()
+    expect(result!.rows).toEqual([['Name', 'Age'], ['Alice', '30']])
+    expect(result!.caption).toBeUndefined()
+  })
+
+  it('preserves LaTeX caption when both LaTeX text and HTML table are present', async () => {
+    const latex = '\\begin{table}[h]\\centering\\caption{My Caption}\\begin{tabular}{l}\\hline Data \\\\ \\hline \\end{tabular}\\end{table}'
+    const html = '<table><caption>HTML Cap</caption><tr><td>wrong</td></tr></table>'
+    const result = await parseClipboardContent(latex, html)
+    expect(result).not.toBeNull()
+    expect(result!.caption).toBe('My Caption')
+    expect(result!.rows).toEqual([['Data']])
+  })
+
+  it('still parses HTML table when clipboard text has no LaTeX structure', async () => {
+    const html = '<table><tr><td>a</td><td>b</td></tr></table>'
+    const result = await parseClipboardContent('', html)
+    expect(result).not.toBeNull()
+    expect(result!.rows).toEqual([['a', 'b']])
+  })
 })
 
 describe('handlePasteData', () => {

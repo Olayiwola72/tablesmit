@@ -163,14 +163,14 @@ export function useCopyTable(
   const copyAsLatex = useCallback(async (headerStyle?: string): Promise<void> => {
     try {
       const { cellsToLatex } = await import('../../utils/latexUtils')
-      const latex = cellsToLatex(cells, headerStyle)
+      const latex = cellsToLatex(cells, headerStyle, caption)
       await navigator.clipboard.writeText(latex)
       trackEvent('table_copied', { method: 'latex' })
       showCopySuccess('latex')
     } catch {
       toast.error(t('toast.clipboardError', 'Could not copy to clipboard. Try again.'))
     }
-  }, [cells, t, showCopySuccess])
+  }, [cells, caption, t, showCopySuccess])
 
   const copyAsHtml = useCallback(async (): Promise<void> => {
     try {

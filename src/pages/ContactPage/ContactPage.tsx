@@ -9,6 +9,9 @@ import { routes } from '../../config/routes/routesConfig'
 
 export function ContactPage(): ReactNode {
   const { t } = usePageTranslation('contact')
+  const pageTitle = t('meta.contactTitle')
+  const pageDescription = t('meta.contactDescription')
+  const pageUrl = `${brand.url}${routes.contact.path}`
 
   const reasons = [
     {
@@ -37,6 +40,15 @@ export function ContactPage(): ReactNode {
     <ContentPageLayout
       metaKey="contact"
       routeKey="contact"
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
       className="mx-auto max-w-content px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <Breadcrumb segments={[
         { label: t('nav.home'), to: routes.home.path },

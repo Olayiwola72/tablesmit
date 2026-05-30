@@ -169,6 +169,47 @@ Widget & 9.99 \\\\
     expect(cells[0][1].value).toBe('Price')
   })
 
+  it('intercepts LaTeX paste inside contenteditable cell', async () => {
+    const setCells = vi.fn()
+    renderHook(() => useClipboardPaste(setCells))
+
+    // Create an editable cell inside the DOM
+    const editable = document.createElement('div')
+    editable.setAttribute('contenteditable', 'true')
+    document.body.appendChild(editable)
+
+    const latex = `\\begin{table}[h]
+\\centering
+\\caption{My Caption}
+\\begin{tabular}{ll}
+Name & Score \\\\
+Alice & 95 \\\\
+\\end{tabular}
+\\end{table}`
+
+    const data = new DataTransfer()
+    data.setData('text/plain', latex)
+
+    editable.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: data,
+      bubbles: true,
+      cancelable: true,
+    }))
+
+    await vi.waitFor(() => {
+      expect(setCells).toHaveBeenCalled()
+    })
+
+    const cells = setCells.mock.calls[0][0]
+    expect(cells).toHaveLength(2)
+    expect(cells[0][0].value).toBe('Name')
+    expect(cells[0][1].value).toBe('Score')
+    expect(cells[1][0].value).toBe('Alice')
+    expect(cells[1][1].value).toBe('95')
+
+    document.body.removeChild(editable)
+  })
+
   it('parses a Markdown table from plain text clipboard', async () => {
     const setCells = vi.fn()
     renderHook(() => useClipboardPaste(setCells))

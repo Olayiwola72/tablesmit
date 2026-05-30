@@ -39,10 +39,23 @@ export default function BlogListPage(): ReactNode {
   const totalPages = Math.max(1, Math.ceil(results.length / ITEMS_PER_PAGE))
   const start = (page - 1) * ITEMS_PER_PAGE
 
+  const pageTitle = t('meta.blogTitle')
+  const pageDescription = t('meta.blogDescription')
+  const pageUrl = `${brand.url}${routes.blog.path}`
+
   return (
     <ContentListPage
-      meta={{ title: t('meta.blogTitle'), description: t('meta.blogDescription') }}
-      canonicalUrl={`${brand.url}${routes.blog.path}`}
+      meta={{ title: pageTitle, description: pageDescription }}
+      canonicalUrl={pageUrl}
+      metaChildren={
+        <script type="application/ld+json">{JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: pageTitle,
+          description: pageDescription,
+          url: pageUrl,
+        })}</script>
+      }
       breadcrumb={[
         { label: t('nav.home'), to: routes.home.path },
         { label: t('nav.blog') },
