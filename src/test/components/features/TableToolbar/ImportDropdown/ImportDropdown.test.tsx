@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { ImportDropdown } from '../../../../../components/features/TableToolbar/ImportDropdown/ImportDropdown'
 import { useImport } from '../../../../../hooks/useImport/useImport'
 import * as toastModule from '../../../../../utils/toast/toast'
@@ -40,18 +40,26 @@ describe('ImportDropdown', () => {
     expect(toastSpy).toHaveBeenCalledOnce()
   })
 
-  it('renders hidden file input for CSV', () => {
+  it.each([
+    { accept: '.csv,text/csv', kind: 'csv' },
+    { accept: '.xlsx,.xls',    kind: 'excel' },
+    { accept: '.tex',          kind: 'latex' },
+  ])('renders hidden file input for %s', ({ accept }) => {
     render(<ImportDropdown />)
-    const csvInput = document.querySelector('input[accept=".csv,text/csv"]')
-    expect(csvInput).toBeInTheDocument()
-    expect(csvInput).toHaveClass('hidden')
+    const input = document.querySelector<HTMLInputElement>(`input[accept="${accept}"]`)
+    expect(input).toBeInTheDocument()
+    expect(input).toHaveClass('hidden')
+    expect(input!.type).toBe('file')
   })
 
-  it('renders hidden file input for Excel', () => {
+  it('resets file input value after onChange fires', () => {
     render(<ImportDropdown />)
-    const excelInput = document.querySelector('input[accept=".xlsx,.xls"]')
-    expect(excelInput).toBeInTheDocument()
-    expect(excelInput).toHaveClass('hidden')
+    const input = document.querySelector<HTMLInputElement>('input[accept=".csv,text/csv"]')!
+    expect(input).toBeInTheDocument()
+
+    input.dispatchEvent(new Event('change', { bubbles: true }))
+
+    expect(input.value).toBe('')
   })
 
   it('shows error message when useImport returns an error', () => {
