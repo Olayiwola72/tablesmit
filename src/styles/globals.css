@@ -93,6 +93,28 @@
   }
 }
 
+@media (pointer: coarse) {
+  [data-axis="column"]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -16px;
+    transform: translateY(-50%);
+    height: 44px;
+    width: 44px;
+  }
+
+  [data-axis="row"]::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: -16px;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media print {
   nav, header, footer,
   [data-toolbar], [data-sidebar-left], [data-sidebar-right],
