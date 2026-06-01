@@ -28,7 +28,7 @@ function TableHeaderCellRaw({
         <button
           type="button"
           aria-label={`C${index + 1}`}
-          className="inline-flex items-center gap-0.5 rounded-sm px-1 py-0.5 transition-colors hover:bg-border disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex items-center gap-0.5 rounded-sm px-1 py-2 transition-colors hover:bg-border disabled:cursor-not-allowed disabled:opacity-50"
           onClick={onSort}
           disabled={sortDisabled}
           title={sortDisabled ? t('table.sortDisabledMsg') : t('table.sortColumn')}
@@ -49,7 +49,7 @@ function TableHeaderCellRaw({
           name={`col-type-${index}`}
           aria-label={`Column type ${index + 1}`}
           title={`Column type: ${format}`}
-          className="h-8 rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
+          className="h-11 rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
           data-export-hide data-print-hide
           onChange={(event) => onFormatChange(event.target.value as ColumnFormat)}
         >
