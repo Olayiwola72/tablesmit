@@ -22,7 +22,7 @@ vi.mock('../../../i18n/i18n', () => ({
   },
 }))
 
-import { argbToHex, getFillColor } from '../../../services/importService/utils'
+import { argbToHex, extractCellValue, getFillColor, trimTrailingEmptyRows } from '../../../services/importService/utils'
 
 describe('argbToHex', () => {
   it('converts 8-character ARGB to 6-character hex, stripping alpha', () => {
@@ -153,5 +153,112 @@ describe('getFillColor', () => {
       type: 'unknown',
       fgColor: { argb: 'FFFF0000' }
     })).toBeUndefined()
+  })
+})
+
+describe('extractCellValue', () => {
+  it('returns empty string for null and undefined', () => {
+    expect(extractCellValue(null)).toBe('')
+    expect(extractCellValue(undefined)).toBe('')
+  })
+
+  it('returns string representation for primitives', () => {
+    expect(extractCellValue(42)).toBe('42')
+    expect(extractCellValue(3.14)).toBe('3.14')
+    expect(extractCellValue('hello')).toBe('hello')
+    expect(extractCellValue(true)).toBe('true')
+    expect(extractCellValue(false)).toBe('false')
+  })
+
+  it('extracts result from formula value object', () => {
+    const formulaValue = { formula: 'SUM(B3:D3)', result: 450 }
+    expect(extractCellValue(formulaValue)).toBe('450')
+  })
+
+  it('extracts result as string for string result', () => {
+    const formulaValue = { formula: 'CONCAT(A1,B1)', result: 'HelloWorld' }
+    expect(extractCellValue(formulaValue)).toBe('HelloWorld')
+  })
+
+  it('returns empty string when formula has no result', () => {
+    const formulaValue = { formula: 'SUM(B3:D3)' }
+    expect(extractCellValue(formulaValue)).toBe('')
+  })
+
+  it('extracts text from hyperlink value object', () => {
+    const hyperlinkValue = { text: 'Click here', hyperlink: 'https://example.com' }
+    expect(extractCellValue(hyperlinkValue)).toBe('Click here')
+  })
+
+  it('extracts text from rich text value object', () => {
+    const richTextValue = { richText: [{ text: 'Hello' }, { text: ' ' }, { text: 'World' }] }
+    expect(extractCellValue(richTextValue)).toBe('Hello World')
+  })
+
+  it('returns empty string for empty rich text', () => {
+    expect(extractCellValue({ richText: [] })).toBe('')
+  })
+
+  it('extracts error from cell error value object', () => {
+    const errorValue = { error: '#DIV/0!' }
+    expect(extractCellValue(errorValue)).toBe('#DIV/0!')
+  })
+
+  it('returns empty string for unrecognised object', () => {
+    expect(extractCellValue({ some: 'unknown' })).toBe('')
+  })
+
+  it('handles shared formula value with result', () => {
+    const sharedFormula = { sharedFormula: 'A1', result: 100 }
+    expect(extractCellValue(sharedFormula)).toBe('100')
+  })
+
+  it('returns empty string for empty string', () => {
+    expect(extractCellValue('')).toBe('')
+  })
+
+  it('returns string representation for zero', () => {
+    expect(extractCellValue(0)).toBe('0')
+  })
+})
+
+describe('trimTrailingEmptyRows', () => {
+  it('returns the same array when there are no trailing empty rows', () => {
+    const rows = [['a', 'b'], ['c', 'd']]
+    expect(trimTrailingEmptyRows(rows)).toEqual(rows)
+  })
+
+  it('trims trailing all-empty rows', () => {
+    const rows = [['a', 'b'], ['c', 'd'], ['', ''], ['', '']]
+    expect(trimTrailingEmptyRows(rows)).toEqual([['a', 'b'], ['c', 'd']])
+  })
+
+  it('preserves mid-table empty rows', () => {
+    const rows = [['a', 'b'], ['', ''], ['c', 'd']]
+    expect(trimTrailingEmptyRows(rows)).toEqual(rows)
+  })
+
+  it('preserves mid-table empty rows and trims trailing ones', () => {
+    const rows = [['a', 'b'], ['', ''], ['c', 'd'], ['', '']]
+    expect(trimTrailingEmptyRows(rows)).toEqual([['a', 'b'], ['', ''], ['c', 'd']])
+  })
+
+  it('returns empty array when all rows are empty', () => {
+    const rows = [['', ''], ['', ''], ['', '']]
+    expect(trimTrailingEmptyRows(rows)).toEqual([])
+  })
+
+  it('trims rows that are all whitespace as empty', () => {
+    const rows = [['a', 'b'], ['  ', '  '], [' ', ' ']]
+    expect(trimTrailingEmptyRows(rows)).toEqual([['a', 'b']])
+  })
+
+  it('handles single non-empty row', () => {
+    const rows = [['hello']]
+    expect(trimTrailingEmptyRows(rows)).toEqual([['hello']])
+  })
+
+  it('handles empty array', () => {
+    expect(trimTrailingEmptyRows([])).toEqual([])
   })
 })

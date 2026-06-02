@@ -206,10 +206,20 @@ describe('importCsv', () => {
     expect(result.cells[2][0].value).toBe('')
   })
 
+  it('preserves mid-table empty rows and trims only trailing empty rows', async () => {
+    const file = createFile('Col1,Col2\nA,1\n,\nB,2\n,\n,')
+    const result = await importCsv(file)
+    expect(result.rows).toBe(4)
+    expect(result.cells[0][0].value).toBe('Col1')
+    expect(result.cells[1][0].value).toBe('A')
+    expect(result.cells[2][0].value).toBe('')
+    expect(result.cells[3][0].value).toBe('B')
+  })
+
   it('does not merge empty cells without a non-empty anchor above', async () => {
     const file = createFile('Col1,Col2\n,,\n,,\nX,Y')
     const result = await importCsv(file)
-    expect(result.rows).toBe(2)
+    expect(result.rows).toBe(4)
     expect(result.mergedRanges).toBeUndefined()
   })
 

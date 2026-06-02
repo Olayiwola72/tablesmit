@@ -313,6 +313,54 @@ describe('importExcel', () => {
     expect(result.captionAlignment).toBeUndefined()
   })
 
+  it('extracts formula cell result instead of rendering as [object Object]', async () => {
+    const ExcelJS = await import('exceljs')
+    const workbook = new ExcelJS.Workbook()
+    const ws = workbook.addWorksheet('Sheet1')
+
+    ws.getCell('A1').value = 'Product'
+    ws.getCell('B1').value = 'Q1'
+    ws.getCell('C1').value = 'Q2'
+    ws.getCell('D1').value = 'Total'
+
+    ws.getCell('A2').value = 'Widget'
+    ws.getCell('B2').value = 100
+    ws.getCell('C2').value = 200
+    ws.getCell('D2').value = { formula: 'SUM(B2:C2)', result: 300 }
+
+    ws.getCell('A3').value = 'Gadget'
+    ws.getCell('B3').value = 150
+    ws.getCell('C3').value = 250
+    ws.getCell('D3').value = { formula: 'SUM(B3:C3)', result: 400 }
+
+    const buffer = await workbook.xlsx.writeBuffer()
+    const file = new File([buffer], 'formula-sum.xlsx', {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    })
+
+    const result = await importExcel(file)
+
+    expect(result.rows).toBe(3)
+    expect(result.cols).toBe(4)
+
+    expect(result.cells[0][0].value).toBe('Product')
+    expect(result.cells[0][1].value).toBe('Q1')
+    expect(result.cells[0][2].value).toBe('Q2')
+    expect(result.cells[0][3].value).toBe('Total')
+
+    expect(result.cells[1][0].value).toBe('Widget')
+    expect(result.cells[1][1].value).toBe('100')
+    expect(result.cells[1][2].value).toBe('200')
+    expect(result.cells[1][3].value).toBe('300')
+
+    expect(result.cells[2][0].value).toBe('Gadget')
+    expect(result.cells[2][1].value).toBe('150')
+    expect(result.cells[2][2].value).toBe('250')
+    expect(result.cells[2][3].value).toBe('400')
+
+    expect(result.cells[1][3].value).not.toBe('[object Object]')
+  })
+
   it('extracts row fill colors from data rows (row 0 excluded)', async () => {
     const ExcelJS = await import('exceljs')
     const workbook = new ExcelJS.Workbook()
