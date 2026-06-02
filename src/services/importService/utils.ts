@@ -53,9 +53,6 @@ export function getFillColor(fill: unknown): string | undefined {
 export function extractCellValue(value: unknown): string {
   if (value === null || value === undefined) return ''
   if (typeof value === 'object') {
-    if (Object.prototype.toString.call(value) === '[object Date]') {
-      return (value as Date).toISOString().split('T')[0]
-    }
     const obj = value as Record<string, unknown>
     if ('result' in obj && obj.result !== undefined) {
       return String(obj.result)
