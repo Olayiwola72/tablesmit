@@ -53,6 +53,9 @@ export function getFillColor(fill: unknown): string | undefined {
 export function extractCellValue(value: unknown): string {
   if (value === null || value === undefined) return ''
   if (typeof value === 'object') {
+    if (Object.prototype.toString.call(value) === '[object Date]') {
+      return (value as Date).toISOString().split('T')[0]
+    }
     const obj = value as Record<string, unknown>
     if ('result' in obj && obj.result !== undefined) {
       return String(obj.result)
@@ -111,12 +114,26 @@ export function detectCsvMerges(
 ): MergeRange[] {
   const mergedRanges: MergeRange[] = []
 
+  const emptyRows = new Set<number>()
+  for (let r = 1; r < rowCount; r++) {
+    if (rows[r]?.every(cell => !(cell ?? '').trim())) {
+      emptyRows.add(r)
+    }
+  }
+
+  function gapIsAllEmpty(from: number, to: number): boolean {
+    for (let rr = from; rr <= to; rr++) {
+      if (!emptyRows.has(rr)) return false
+    }
+    return true
+  }
+
   for (let c = 0; c < colCount; c++) {
     let anchorRow = -1
     for (let r = 1; r < rowCount; r++) {
       const val = (rows[r]?.[c] ?? '').trim()
       if (val !== '') {
-        if (anchorRow >= 0 && r - 1 > anchorRow) {
+        if (anchorRow >= 0 && r - 1 > anchorRow && !gapIsAllEmpty(anchorRow + 1, r - 1)) {
           mergedRanges.push({
             key: buildMergeKey(anchorRow, c, r - 1, c),
             startRow: anchorRow,
@@ -128,7 +145,7 @@ export function detectCsvMerges(
         anchorRow = r
       }
     }
-    if (anchorRow >= 0 && rowCount - 1 > anchorRow) {
+    if (anchorRow >= 0 && rowCount - 1 > anchorRow && !gapIsAllEmpty(anchorRow + 1, rowCount - 1)) {
       mergedRanges.push({
         key: buildMergeKey(anchorRow, c, rowCount - 1, c),
         startRow: anchorRow,

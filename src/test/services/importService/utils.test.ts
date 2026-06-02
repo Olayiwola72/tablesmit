@@ -22,7 +22,7 @@ vi.mock('../../../i18n/i18n', () => ({
   },
 }))
 
-import { argbToHex, extractCellValue, getFillColor, trimTrailingEmptyRows } from '../../../services/importService/utils'
+import { argbToHex, detectCsvMerges, extractCellValue, getFillColor, trimTrailingEmptyRows } from '../../../services/importService/utils'
 
 describe('argbToHex', () => {
   it('converts 8-character ARGB to 6-character hex, stripping alpha', () => {
@@ -220,6 +220,21 @@ describe('extractCellValue', () => {
   it('returns string representation for zero', () => {
     expect(extractCellValue(0)).toBe('0')
   })
+
+  it('returns YYYY-MM-DD for Date objects', () => {
+    const date = new Date('2026-06-02T12:00:00Z')
+    expect(extractCellValue(date)).toBe('2026-06-02')
+  })
+
+  it('handles Date at start of year', () => {
+    const date = new Date('2026-01-01T00:00:00Z')
+    expect(extractCellValue(date)).toBe('2026-01-01')
+  })
+
+  it('handles Date at end of year', () => {
+    const date = new Date('2026-12-31T23:59:59Z')
+    expect(extractCellValue(date)).toBe('2026-12-31')
+  })
 })
 
 describe('trimTrailingEmptyRows', () => {
@@ -260,5 +275,92 @@ describe('trimTrailingEmptyRows', () => {
 
   it('handles empty array', () => {
     expect(trimTrailingEmptyRows([])).toEqual([])
+  })
+})
+
+describe('detectCsvMerges', () => {
+  it('returns empty array for single row', () => {
+    expect(detectCsvMerges([['a'], ['b']], 2, 1)).toEqual([])
+  })
+
+  it('detects vertical merge when empty cell is not an all-empty row', () => {
+    const rows = [
+      ['h1', 'h2'],
+      ['A', '1'],
+      ['', '2'],
+      ['B', '3'],
+    ]
+    const result = detectCsvMerges(rows, 4, 2)
+    expect(result).toHaveLength(1)
+    expect(result[0]).toEqual({
+      key: 'R1C0:R2C0',
+      startRow: 1,
+      startCol: 0,
+      endRow: 2,
+      endCol: 0,
+    })
+  })
+
+  it('does not merge through all-empty spacer rows', () => {
+    const rows = [
+      ['Col1', 'Col2'],
+      ['A', '1'],
+      ['', ''],
+      ['B', '2'],
+    ]
+    const result = detectCsvMerges(rows, 4, 2)
+    expect(result).toHaveLength(0)
+  })
+
+  it('does not merge trailing all-empty rows into data', () => {
+    const rows = [
+      ['Col1'],
+      ['A'],
+      [''],
+      [''],
+    ]
+    const result = detectCsvMerges(rows, 4, 1)
+    expect(result).toHaveLength(0)
+  })
+
+  it('creates vertical merge through content rows but not all-empty ones', () => {
+    const rows = [
+      ['h1', 'h2'],
+      ['A', '1'],
+      ['', ''],
+      ['C', '2'],
+      ['', '3'],
+      ['B', '4'],
+    ]
+    const result = detectCsvMerges(rows, 6, 2)
+    expect(result).toHaveLength(1)
+    expect(result[0].startRow).toBe(3)
+    expect(result[0].endRow).toBe(4)
+    expect(result[0].startCol).toBe(0)
+    expect(result[0].endCol).toBe(0)
+  })
+
+  it('detects horizontal merge for adjacent identical values', () => {
+    const rows = [
+      ['h1', 'h2', 'h3'],
+      ['X', 'X', 'Y'],
+    ]
+    const result = detectCsvMerges(rows, 2, 3)
+    expect(result).toHaveLength(1)
+    expect(result[0]).toEqual({
+      key: 'R1C0:R1C1',
+      startRow: 1,
+      startCol: 0,
+      endRow: 1,
+      endCol: 1,
+    })
+  })
+
+  it('handles only header row', () => {
+    expect(detectCsvMerges([['a', 'b']], 1, 2)).toEqual([])
+  })
+
+  it('handles empty dataset', () => {
+    expect(detectCsvMerges([], 0, 0)).toEqual([])
   })
 })
