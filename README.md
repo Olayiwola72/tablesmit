@@ -20,6 +20,18 @@ No account. No bloat. Free and open source.
 
 ---
 
+## Screenshots
+
+<p align="center">
+  <img src="./public/launch/tablesmit_demo_homepage_light_mode.png" alt="Tablesmit homepage in light mode" width="45%">
+  <img src="./public/launch/tablesmit_demo_light_mode.png" alt="Tablesmit table editor in light mode" width="45%">
+</p>
+<p align="center">
+  <img src="./public/launch/tablesmit_demo_darkmode_mode.png" alt="Tablesmit editor in dark mode" width="45%">
+</p>
+
+---
+
 ## What is Tablesmit?
 
 Tablesmit is a browser-based table editor built for writers, analysts, and researchers who need clean, structured tables — not a spreadsheet.
@@ -70,6 +82,21 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 - LaTeX import (round-trip safe — strips `\textcolor`, `\textbf`, `\colorbox`, `\rowcolor`, `\columncolor`)
 - 30 feature landing pages, 36 blog posts
 - No account required. No data leaves your browser.
+
+### Export / Copy formats
+
+| Format | Export | Copy |
+|--------|:------:|:----:|
+| PDF | ✅ | — |
+| PNG | ✅ | — |
+| JPEG | ✅ | — |
+| Excel (.xlsx) | ✅ | — |
+| CSV | ✅ | ✅ |
+| LaTeX | ✅ | ✅ |
+| Markdown | — | ✅ |
+| HTML | — | ✅ |
+| Image (PNG) | — | ✅ |
+| Excel Data (TSV) | — | ✅ |
 
 ---
 

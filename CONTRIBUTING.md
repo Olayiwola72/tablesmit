@@ -4,11 +4,48 @@ Thanks for your interest in contributing. Tablesmit is MIT licensed and contribu
 
 Read `AGENTS.md` in the repository root for brand, architecture, and testing standards before you start.
 
+## Setup
+
+```bash
+git clone https://github.com/Olayiwola72/tablesmit.git
+cd tablesmit
+npm install
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173).
+
+## Tests
+
+```bash
+npm run test          # Vitest unit tests (all must pass)
+npm run test:e2e      # Playwright E2E tests
+npm run test:coverage # Coverage report
+```
+
+All tests must pass before a pull request is reviewed.
+
 ## Before You Start
 
-- Check [existing issues](https://github.com/Olayiwola72/tablesmit/issues) to avoid duplicates.
+- Check [existing issues](https://github.com/Olayiwola72/tablesmit/issues) for tasks tagged `good first issue`. Comment to claim one.
 - For large changes, open an issue first to discuss the approach.
 - No direct pushes to `main` — all changes go through pull requests (enforced by pre-push hook and GitHub branch protection).
+
+## How to Contribute
+
+We are looking for:
+
+- Bug fixes with tests
+- i18n corrections or additions
+- Accessibility improvements
+- Performance improvements
+- Documentation improvements
+
+Fork the repo, create a branch, make your changes, run tests — all must pass — then open a pull request.
+
+TypeScript strict. ESLint with `--max-warnings=0`. No warnings allowed on merge.
+
+Questions? Open an issue or DM [@OlayiwolaAkinn1](https://x.com/OlayiwolaAkinn1) on Twitter/X.
 
 ## Reporting Bugs
 
@@ -140,8 +177,9 @@ Rules:
 ## Quick Reference
 
 ```bash
-npm test                    # Run all tests
-npx vitest run --coverage   # Run tests with coverage report
+npm run test                # Vitest unit tests
+npm run test:e2e            # Playwright E2E tests
+npx vitest run --coverage   # Tests with coverage report
 npm run lint                # ESLint — zero tolerance for warnings
 npm run build               # Full production build
 npm run audit               # Dependency vulnerability check
