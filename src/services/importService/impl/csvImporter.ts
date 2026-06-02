@@ -56,15 +56,8 @@ export class CsvImporter implements ImportStrategy {
           if (caption) result.caption = caption
 
           if (result.rows > 0 && result.cols > 0) {
-            const filteredRows = mergedRows
-              .map((r) => r.map((v) => String(v ?? '')))
-              .filter((r) => r.some((v) => v.trim()))
-              .slice(0, result.rows)
-              .map((r) => {
-                if (r.length < result.cols) return [...r, ...Array(result.cols - r.length).fill('')]
-                return r.slice(0, result.cols)
-              })
-            const mergedRanges = detectCsvMerges(filteredRows, result.rows, result.cols)
+            const cellRows = result.cells.map((r) => r.map((c) => c.value))
+            const mergedRanges = detectCsvMerges(cellRows, result.rows, result.cols)
             if (mergedRanges.length > 0) {
               applyMergesToCells(result.cells, mergedRanges)
               result.mergedRanges = mergedRanges

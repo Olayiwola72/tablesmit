@@ -4,6 +4,7 @@ import {
   argbToHex,
   assertFileSize,
   applyMergesToCells,
+  extractCellValue,
   getFillColor,
   normaliseRows,
   notExcelFormat,
@@ -54,18 +55,18 @@ export class ExcelImporter implements ImportStrategy {
       let captionValue: string | undefined
       if (colCount > 1) {
         const firstCell = worksheet.getCell(top, left)
-        const firstVal = String(firstCell.value ?? '').trim()
+        const firstVal = extractCellValue(firstCell.value).trim()
         if (firstVal) {
           let firstRowNonEmpty = 0
           let secondRowNonEmpty = 0
           for (let col = left; col <= right; col++) {
-            if (String(worksheet.getCell(top, col).value ?? '').trim()) firstRowNonEmpty++
-            if (String(worksheet.getCell(top + 1, col).value ?? '').trim()) secondRowNonEmpty++
+            if (extractCellValue(worksheet.getCell(top, col).value).trim()) firstRowNonEmpty++
+            if (extractCellValue(worksheet.getCell(top + 1, col).value).trim()) secondRowNonEmpty++
           }
 
           let allSame = true
           for (let col = left + 1; col <= right; col++) {
-            if (String(worksheet.getCell(top, col).value ?? '').trim() !== firstVal) {
+            if (extractCellValue(worksheet.getCell(top, col).value).trim() !== firstVal) {
               allSame = false
               break
             }
@@ -112,7 +113,7 @@ export class ExcelImporter implements ImportStrategy {
         const rowValues: unknown[] = []
         for (let col = left; col <= right; col++) {
           const cell = row.getCell(col)
-          rowValues.push(cell.value ?? '')
+          rowValues.push(extractCellValue(cell.value))
 
           const hex = getFillColor(cell.fill)
           if (hex) {

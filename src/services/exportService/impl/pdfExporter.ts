@@ -25,6 +25,14 @@ export class PDFExporter implements ExportStrategy {
             const style = clonedDoc.createElement('style')
             style.textContent = '[class*="hover\\:"] { transition: none !important; }'
             clonedDoc.head.appendChild(style)
+            const captionEl = clonedDoc.querySelector('[data-table-caption]')
+            if (captionEl) {
+              const textEl = captionEl.querySelector('p')
+              if (textEl && !(textEl as HTMLElement).style.color) {
+                ;(textEl as HTMLElement).style.color = '#000000'
+              }
+              ;(captionEl as HTMLElement).style.marginBottom = '16px'
+            }
           },
         })
         break

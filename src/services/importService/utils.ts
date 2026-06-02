@@ -50,16 +50,47 @@ export function getFillColor(fill: unknown): string | undefined {
   return undefined
 }
 
+export function extractCellValue(value: unknown): string {
+  if (value === null || value === undefined) return ''
+  if (typeof value === 'object') {
+    const obj = value as Record<string, unknown>
+    if ('result' in obj && obj.result !== undefined) {
+      return String(obj.result)
+    }
+    if ('text' in obj && obj.text !== undefined) {
+      return String(obj.text)
+    }
+    if ('richText' in obj && Array.isArray(obj.richText)) {
+      return (obj.richText as Array<Record<string, unknown>>)
+        .map((rt) => String(rt.text ?? ''))
+        .join('')
+    }
+    if ('error' in obj && obj.error !== undefined) {
+      return String(obj.error)
+    }
+    return ''
+  }
+  return String(value)
+}
+
 export function assertFileSize(file: File): void {
   if (file.size > MAX_IMPORT_FILE_SIZE) {
     throw new Error(fileTooLarge())
   }
 }
 
+export function trimTrailingEmptyRows(rows: string[][]): string[][] {
+  let lastNonEmpty = rows.length - 1
+  while (lastNonEmpty >= 0 && rows[lastNonEmpty].every((v) => !v.trim())) {
+    lastNonEmpty--
+  }
+  return rows.slice(0, lastNonEmpty + 1)
+}
+
 export function normaliseRows(rows: unknown[][], minRows = 1, minCols = 1): ImportResult {
-  const stringRows = rows
-    .map((row) => row.map((value) => String(value ?? '')))
-    .filter((row) => row.some((value) => value.trim()))
+  const stringRows = trimTrailingEmptyRows(
+    rows.map((row) => row.map((value) => extractCellValue(value))),
+  )
   const rawRowCount = Math.max(stringRows.length, minRows)
   const rawColCount = Math.max(...stringRows.map((row) => row.length), minCols)
 
