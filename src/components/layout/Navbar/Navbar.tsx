@@ -1,4 +1,4 @@
-import { ExternalLink, Menu, Moon, Sun, X } from 'lucide-react'
+import { Menu, Moon, Star, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
@@ -61,9 +61,10 @@ export function Navbar(): ReactNode {
             icon={theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             onClick={toggle}
           />
-          <Button asChild variant="ghost" size="sm">
+          <Button asChild variant="secondary" size="sm">
             <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
-              GitHub <ExternalLink size={14} aria-hidden="true" />
+              <Star size={14} className="fill-amber-400 text-amber-400 shrink-0" aria-hidden="true" />
+              {t('nav.starOnGitHub', 'Star on GitHub')}
             </a>
           </Button>
         </div>
@@ -115,14 +116,15 @@ export function Navbar(): ReactNode {
                 <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>
                   {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
                 </Button>
-                <Button asChild variant="ghost" size="sm">
+                <Button asChild variant="secondary" size="sm" className="w-full">
                   <a
                     href={brand.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsOpen(false)}
                   >
-                    GitHub <ExternalLink size={14} aria-hidden="true" />
+                    <Star size={14} className="fill-amber-400 text-amber-400 shrink-0" aria-hidden="true" />
+                    {t('nav.starOnGitHub', 'Star on GitHub')}
                   </a>
                 </Button>
               </div>
