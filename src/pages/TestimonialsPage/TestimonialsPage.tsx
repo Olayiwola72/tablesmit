@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { TESTIMONIALS } from '../../config/testimonials/testimonials'
 import { routes } from '../../config/routes/routesConfig'
@@ -7,12 +7,19 @@ import { TestimonialEmptyState } from '../../components/features/TestimonialEmpt
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { brand } from '../../config/brand/brandConfig'
 import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
+import { PaginationNav } from '../../components/ui/PaginationNav/PaginationNav'
+import { ITEMS_PER_PAGE } from '../../config/pagination/paginationConfig'
 
 export function TestimonialsPage(): ReactNode {
   const { t } = usePageTranslation('testimonials')
   const pageTitle = t('meta.testimonialsTitle')
   const pageDescription = t('meta.testimonialsDescription')
   const pageUrl = `${brand.url}${routes.testimonials.path}`
+
+  const [page, setPage] = useState(1)
+  const totalPages = Math.max(1, Math.ceil(TESTIMONIALS.length / ITEMS_PER_PAGE))
+  const start = (page - 1) * ITEMS_PER_PAGE
+  const paginatedTestimonials = TESTIMONIALS.slice(start, start + ITEMS_PER_PAGE)
 
   return (
     <ContentPageLayout
@@ -48,10 +55,15 @@ export function TestimonialsPage(): ReactNode {
       ) : (
         <section className="mx-auto max-w-content px-4 pb-20 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {TESTIMONIALS.map((testimonial) => (
+            {paginatedTestimonials.map((testimonial) => (
               <TestimonialCard key={testimonial.id} testimonial={testimonial} />
             ))}
           </div>
+          <PaginationNav
+            currentPage={page}
+            totalPages={totalPages}
+            onPageChange={setPage}
+          />
         </section>
       )}
     </ContentPageLayout>

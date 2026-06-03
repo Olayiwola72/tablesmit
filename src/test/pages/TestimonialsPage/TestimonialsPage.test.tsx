@@ -1,7 +1,9 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router-dom'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { TestimonialsPage } from '../../../pages/TestimonialsPage/TestimonialsPage'
+import { ITEMS_PER_PAGE } from '../../../config/pagination/paginationConfig'
 
 vi.mock('react-helmet-async', () => ({
   Helmet: () => null,
@@ -153,5 +155,71 @@ describe('TestimonialsPage', () => {
 
     expect(screen.getByText('Alice Johnson')).toBeInTheDocument()
     expect(screen.queryByText('on Twitter')).not.toBeInTheDocument()
+  })
+
+  describe('pagination', () => {
+    function buildMockTestimonials(count: number): Array<{
+      id: string
+      name: string
+      role: string
+      avatar: string
+      quote: string
+    }> {
+      return Array.from({ length: count }, (_, i) => ({
+        id: `t${i}`,
+        name: `Person ${i + 1}`,
+        role: `Role ${i + 1}`,
+        avatar: '',
+        quote: `Quote number ${i + 1}.`,
+      }))
+    }
+
+    it('shows ITEMS_PER_PAGE testimonials on page 1 when more than ITEMS_PER_PAGE exist', async () => {
+      const mod = await loadTestimonialsModule()
+      const mockData = buildMockTestimonials(ITEMS_PER_PAGE + 1)
+      vi.spyOn(mod, 'TESTIMONIALS', 'get').mockReturnValue(mockData)
+
+      renderPage()
+
+      for (let i = 0; i < ITEMS_PER_PAGE; i++) {
+        expect(screen.getByText(`Person ${i + 1}`)).toBeInTheDocument()
+      }
+      expect(screen.queryByText(`Person ${ITEMS_PER_PAGE + 1}`)).not.toBeInTheDocument()
+    })
+
+    it('renders PaginationNav when there are more than ITEMS_PER_PAGE testimonials', async () => {
+      const mod = await loadTestimonialsModule()
+      const mockData = buildMockTestimonials(ITEMS_PER_PAGE + 1)
+      vi.spyOn(mod, 'TESTIMONIALS', 'get').mockReturnValue(mockData)
+
+      renderPage()
+
+      expect(screen.getByRole('navigation', { name: /pagination/i })).toBeInTheDocument()
+    })
+
+    it('does not render PaginationNav when total is at most ITEMS_PER_PAGE', async () => {
+      const mod = await loadTestimonialsModule()
+      const mockData = buildMockTestimonials(3)
+      vi.spyOn(mod, 'TESTIMONIALS', 'get').mockReturnValue(mockData)
+
+      renderPage()
+
+      expect(screen.queryByRole('navigation', { name: /pagination/i })).not.toBeInTheDocument()
+    })
+
+    it('clicking page 2 shows remaining testimonials', async () => {
+      const user = userEvent.setup()
+      const mod = await loadTestimonialsModule()
+      const mockData = buildMockTestimonials(ITEMS_PER_PAGE + 1)
+      vi.spyOn(mod, 'TESTIMONIALS', 'get').mockReturnValue(mockData)
+
+      renderPage()
+
+      const nav = screen.getByRole('navigation', { name: /pagination/i })
+      await user.click(within(nav).getByText('2'))
+
+      expect(screen.queryByText('Person 1')).not.toBeInTheDocument()
+      expect(screen.getByText(`Person ${ITEMS_PER_PAGE + 1}`)).toBeInTheDocument()
+    })
   })
 })
