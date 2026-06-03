@@ -9,7 +9,8 @@
     "openSource": "Open Source",
     "changelog": "Changelog",
     "testimonials": "Testimonials",
-    "features": "Features"
+    "features": "Features",
+    "starOnGitHub": "Star on GitHub"
   },
   "footer": {
     "copyright": "Tables, your way.",

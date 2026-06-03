@@ -8,7 +8,8 @@
     "openSource": "Open Source",
     "changelog": "Changelog",
     "testimonials": "Témoignages",
-    "features": "Fonctionnalités"
+    "features": "Fonctionnalités",
+    "starOnGitHub": "Star sur GitHub"
   },
   "footer": {
     "copyright": "Des tableaux, à votre façon.",
