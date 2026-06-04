@@ -16,9 +16,9 @@ jobs:
       - name: Check branch name
         run: |
           BRANCH="${GITHUB_HEAD_REF}"
-          if [[ ! "$BRANCH" =~ ^(feature|fix|docs|chore|test|refactor|content|i18n)\/.+ ]]; then
+          if [[ ! "$BRANCH" =~ ^(feature|fix|docs|chore|test|refactor|content|i18n|feat)\/.+ ]]; then
             echo "Invalid branch name: '$BRANCH'"
-            echo "Allowed prefixes: feature/ fix/ docs/ chore/ test/ refactor/ content/ i18n/"
+            echo "Allowed prefixes: feature/ feat/ fix/ docs/ chore/ test/ refactor/ content/ i18n/"
             exit 1
           fi
           echo "Branch name '$BRANCH' is valid."
