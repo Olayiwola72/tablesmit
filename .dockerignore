@@ -1,0 +1,16 @@
+node_modules
+.git
+.gitignore
+.env
+.env.*
+dist
+coverage
+test-results
+playwright-report
+e2e
+*.md
+.DS_Store
+.vscode
+.idea
+lh-detail.json
+lighthouse-report.json

@@ -1,0 +1,12 @@
+name: Tablesmit
+website_url: https://tablesmit.com
+source_code_url: https://github.com/Olayiwola72/tablesmit
+description: A minimalist table builder for analytical writing, with full control over headers, column types, formatting, and export.
+licenses:
+  - MIT
+platforms:
+  - Docker
+  - Nodejs
+tags:
+  - Note-taking & Editors
+demo_url: https://tablesmit.com

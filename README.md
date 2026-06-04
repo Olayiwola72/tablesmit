@@ -111,6 +111,15 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173)
 
+### Docker
+
+```bash
+docker build -t tablesmit .
+docker run -d -p 8080:80 tablesmit
+```
+
+Open [http://localhost:8080](http://localhost:8080). The container runs an nginx server serving the built static site with SPA routing, gzip compression, and immutable asset caching.
+
 ### Prerequisites
 
 - Node 18+
