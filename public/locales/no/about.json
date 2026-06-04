@@ -2,6 +2,8 @@
   "about": {
     "heading": "Bygget for strukturerte tenkere.",
     "body": "{{name}} ble laget av en skribent som trengte mer kontroll enn grunnleggende tabellgeneratorer ga. De fleste verktøy ga for lite — ingen overskriftstilpasning, ingen kolonneformatering, ingen ren eksport. Andre ga for mye — hele tyngden av et regneark for noe som bare trengte å være en tabell. {{name}} er mellomveien. Bygget for folk som tenker i struktur og publiserer med presisjon.",
-    "whatWeAreNot": "Ikke et regneark. Ikke en database. Ikke en Notion-konkurrent. Ikke et design-tungt verktøy. Vi er et strukturert skriveverktøy."
+    "whatWeAreNot": "Ikke et regneark. Ikke en database. Ikke en Notion-konkurrent. Ikke et design-tungt verktøy. Vi er et strukturert skriveverktøy.",
+    "demoHeading": "Se det i aksjon",
+    "demoSubtext": "Se hvordan du bygger rene, strukturerte tabeller med full kontroll over overskrifter, formatering og eksport."
   }
 }
