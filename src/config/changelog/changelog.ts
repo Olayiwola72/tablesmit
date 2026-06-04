@@ -14,8 +14,14 @@ export function getChangeStyle(type: ChangelogEntry['changes'][number]['type']):
 export const CHANGELOG: ChangelogEntry[] = [
   {
     version: '1.3.0',
-    date: '2026-05-29',
+    date: '2026-06-04',
     changes: [
+      { type: 'fixed',    description: 'Restore accent color to original bright amber (#F59E0B) matching brand spec' },
+      { type: 'improved', description: 'Responsive RowColumnActions — collapses to dropdown on lg- screens' },
+      { type: 'improved', description: 'Reduce column type select height from 44px to 32px in TableHeaderCell' },
+      { type: 'improved', description: 'Tighten toolbar spacing to prevent overflow on desktop' },
+      { type: 'fixed',    description: 'Move trailing separator into MobileExportDropdown to avoid phantom separator' },
+      { type: 'fixed',    description: 'Stack Navbar mobile drawer buttons vertically instead of cramped side-by-side' },
       { type: 'improved', description: 'Restructured types — merge.types.ts moved to utils/mergeUtils/; deleted stale type barrel files' },
       { type: 'improved', description: 'Extracted clipboardParser, tableHtmlBuilder, useCopyTable into dedicated services' },
       { type: 'improved', description: 'Replaced useBlogSearch/useFeatureSearch with generic useSearch hook + searchUtils' },
