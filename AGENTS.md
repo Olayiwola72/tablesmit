@@ -2,7 +2,7 @@
 > For AI Coding Agents (Codex, Claude Code, etc.)
 > Brand + Positioning + Architecture + TDD | Tailwind CSS Edition
 > Status: Authoritative. Do not deviate without explicit instruction.
-> Current Release: v1.2.3
+> Current Release: v1.3.0
 
 ---
 
