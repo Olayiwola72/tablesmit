@@ -361,7 +361,7 @@ Layout: justify-between items-center px-6
 Left: Logo SVG
 Center: nav links — text-sm font-medium text-text-secondary hover:text-primary
 Right: GitHub ghost button (ExternalLink icon)
-Links: Home · About · Features · Blog · Contact · Open Source · Changelog · Testimonials
+Links: Home · About · Features · Blog · Contact · Open Source · Testimonials
 CTA: "Create a Table" lives in the hero section — not in the navbar
 ```
 
@@ -612,7 +612,7 @@ Row height:   min 32px · max 300px
 ### Navigation
 ```
 Left:   [Tablesmit SVG Logo]
-Center: Home  |  About  |  Features  |  Blog  |  Contact  |  Open Source  |  Changelog  |  Testimonials
+Center: Home  |  About  |  Features  |  Blog  |  Contact  |  Open Source  |  Testimonials
 Right:  [GitHub ↗]         (ghost button with ExternalLink icon)
 ```
 

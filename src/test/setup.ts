@@ -66,6 +66,7 @@ vi.mock('react-i18next', () => {
     'nav.openSource': 'Open Source',
     'nav.changelog': 'Changelog',
     'nav.testimonials': 'Testimonials',
+    'nav.productHunt': 'Product Hunt',
     // hero
     'hero.headline': 'Tables built for analytical writing.',
     'hero.subtext': 'A minimalist table builder for analytical writing — with full control over headers, formatting, and export.',
@@ -310,6 +311,10 @@ vi.mock('react-i18next', () => {
     'features.learnMore': 'Learn more',
     'features.emptyState': 'No features listed yet.',
 
+    // productHunt
+    'productHunt.description': 'A minimalist table builder with LaTeX, PDF, and Excel export',
+    'productHunt.checkItOut': 'Check it out on Product Hunt',
+    'footer.productHunt': 'Product Hunt',
     // errors
     'errors.somethingWrong': 'Something went wrong.',
     'errors.unexpectedError': 'An unexpected error occurred.',

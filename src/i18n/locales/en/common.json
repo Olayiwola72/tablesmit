@@ -10,7 +10,8 @@
     "changelog": "Changelog",
     "testimonials": "Testimonials",
     "features": "Features",
-    "starOnGitHub": "Star on GitHub"
+    "starOnGitHub": "Star on GitHub",
+    "productHunt": "Product Hunt"
   },
   "footer": {
     "copyright": "Tables, your way.",
@@ -23,6 +24,7 @@
     "about": "About",
     "contact": "Contact",
     "github": "GitHub",
+    "productHunt": "Product Hunt",
     "pdf": "PDF",
     "png": "PNG",
     "jpeg": "JPEG",
@@ -138,5 +140,9 @@
     "decline": "Decline",
     "dialogAria": "Cookie consent"
   },
-  "changelogDescription": "Every release of {{name}}, documented."
+  "changelogDescription": "Every release of {{name}}, documented.",
+  "productHunt": {
+    "description": "A minimalist table builder with LaTeX, PDF, and Excel export",
+    "checkItOut": "Check it out on Product Hunt"
+  }
 }

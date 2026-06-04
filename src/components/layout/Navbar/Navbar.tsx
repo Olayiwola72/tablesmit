@@ -1,4 +1,4 @@
-import { Menu, Moon, Star, Sun, X } from 'lucide-react'
+import { ExternalLink, Menu, Moon, Star, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
@@ -44,7 +44,7 @@ export function Navbar(): ReactNode {
                 key={item.key}
                 to={item.path}
                 className={cn(
-                  'text-sm font-medium transition-colors hover:text-primary',
+                  'whitespace-nowrap text-sm font-medium transition-colors hover:text-primary',
                   isActive ? 'border-b-2 border-primary pb-1 text-primary font-semibold' : 'text-text-secondary',
                 )}
               >
@@ -65,6 +65,12 @@ export function Navbar(): ReactNode {
             <a href={brand.githubUrl} target="_blank" rel="noopener noreferrer">
               <Star size={14} className="fill-amber-400 text-amber-400 shrink-0" aria-hidden="true" />
               {t('nav.starOnGitHub', 'Star on GitHub')}
+            </a>
+          </Button>
+          <Button asChild variant="secondary" size="sm">
+            <a href={brand.productHuntUrl} target="_blank" rel="noopener noreferrer">
+              <ExternalLink size={14} aria-hidden="true" />
+              {t('nav.productHunt')}
             </a>
           </Button>
         </div>
@@ -116,17 +122,30 @@ export function Navbar(): ReactNode {
                 <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>
                   {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
                 </Button>
-                <Button asChild variant="secondary" size="sm" className="w-full">
-                  <a
-                    href={brand.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <Star size={14} className="fill-amber-400 text-amber-400 shrink-0" aria-hidden="true" />
-                    {t('nav.starOnGitHub', 'Star on GitHub')}
-                  </a>
-                </Button>
+                <div className="flex w-full gap-2">
+                  <Button asChild variant="secondary" size="sm" className="flex-1">
+                    <a
+                      href={brand.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <Star size={14} className="fill-amber-400 text-amber-400 shrink-0" aria-hidden="true" />
+                      {t('nav.starOnGitHub', 'Star on GitHub')}
+                    </a>
+                  </Button>
+                  <Button asChild variant="secondary" size="sm" className="flex-1">
+                    <a
+                      href={brand.productHuntUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <ExternalLink size={14} aria-hidden="true" />
+                      {t('nav.productHunt')}
+                    </a>
+                  </Button>
+                </div>
               </div>
             </nav>
           </aside>

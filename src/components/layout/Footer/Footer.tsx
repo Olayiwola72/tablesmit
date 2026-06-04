@@ -25,6 +25,7 @@ export function Footer(): ReactNode {
     { label: t('footer.privacyPolicy'), href: routes.privacy.path },
     { label: t('footer.termsOfUse'), href: routes.terms.path },
     { label: t('footer.github'), href: brand.githubUrl, external: true },
+    { label: t('footer.productHunt'), href: brand.productHuntUrl, external: true },
   ]
 
   const exportLinks = exportFormats.map((item) => ({

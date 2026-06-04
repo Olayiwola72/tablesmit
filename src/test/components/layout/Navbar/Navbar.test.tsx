@@ -54,6 +54,12 @@ describe('Navbar', () => {
     expect(githubLinks.length).toBeGreaterThanOrEqual(1)
   })
 
+  it('renders the Product Hunt link', () => {
+    render(<Navbar />, { wrapper: Wrapper })
+    const phLinks = screen.getAllByText(/Product Hunt/)
+    expect(phLinks.length).toBeGreaterThanOrEqual(1)
+  })
+
   it('opens mobile menu when hamburger is clicked', async () => {
     const user = userEvent.setup()
     render(<Navbar />, { wrapper: Wrapper })
