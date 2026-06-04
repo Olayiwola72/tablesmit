@@ -12,7 +12,7 @@ export const routes = {
   openSource: { path: '/open-source/', label: 'Open Source', nav: true, element: RouteElements.openSource },
   privacy: { path: '/privacy/', label: 'Privacy Policy', nav: false, element: RouteElements.privacy },
   terms: { path: '/terms/', label: 'Terms of Use', nav: false, element: RouteElements.terms },
-  changelog: { path: '/changelog/', label: 'Changelog', nav: true, element: RouteElements.changelog },
+  changelog: { path: '/changelog/', label: 'Changelog', nav: false, element: RouteElements.changelog },
   testimonials: { path: '/testimonials/', label: 'Testimonials', nav: true, element: RouteElements.testimonials },
 } as const
 

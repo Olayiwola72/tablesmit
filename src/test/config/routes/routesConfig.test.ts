@@ -64,7 +64,7 @@ describe('routes', () => {
 
   it('has a changelog route with trailing slash', () => {
     expect(routes.changelog.path).toBe('/changelog/')
-    expect(routes.changelog.nav).toBe(true)
+    expect(routes.changelog.nav).toBe(false)
     expect(routes.changelog.label).toBe('Changelog')
   })
 
@@ -79,7 +79,7 @@ describe('routes', () => {
   })
 
   it('all nav routes have nav: true', () => {
-    const navRoutes = ['home', 'about', 'features', 'blog', 'contact', 'openSource', 'changelog', 'testimonials']
+    const navRoutes = ['home', 'about', 'features', 'blog', 'contact', 'openSource', 'testimonials']
     navRoutes.forEach(k => expect(routes[k as keyof typeof routes].nav).toBe(true))
   })
 
@@ -98,8 +98,8 @@ describe('routes', () => {
 })
 
 describe('navItems', () => {
-  it('has exactly 8 items', () => {
-    expect(navItems).toHaveLength(8)
+  it('has exactly 7 items', () => {
+    expect(navItems).toHaveLength(7)
   })
 
   it('includes only nav: true routes', () => {

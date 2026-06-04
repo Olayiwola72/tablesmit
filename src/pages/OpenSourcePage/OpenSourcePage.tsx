@@ -4,6 +4,7 @@ import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTransl
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
+import { ProductHuntBadge } from '../../components/ui/ProductHuntBadge/ProductHuntBadge'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 import { sponsors } from '../../config/sponsors/sponsorsConfig'
@@ -34,7 +35,7 @@ export function OpenSourcePage(): ReactNode {
           { label: t('nav.openSource') },
         ]} />
       </div>
-      <section className="mx-auto max-w-content px-4 py-20 text-center sm:px-6 sm:py-28 lg:px-8 lg:py-36">
+      <section className="mx-auto max-w-content px-4 pb-8 pt-8 text-center sm:px-6 sm:pb-10 sm:pt-8 lg:px-8 lg:pb-12 lg:pt-8">
         <h1 className="text-3xl font-bold text-text-primary sm:text-4xl lg:text-5xl">
           {t('openSource.heading')}
         </h1>
@@ -50,6 +51,11 @@ export function OpenSourcePage(): ReactNode {
           </Button>
         </div>
         <p className="mt-4 text-xs text-text-muted">{t('openSource.ctaNote')}</p>
+      </section>
+
+      <section className="mx-auto flex max-w-content flex-col items-center px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8 lg:px-8 lg:pt-10">
+        <h2 className="mb-8 text-center text-xl font-bold text-text-primary">Featured on Product Hunt</h2>
+        <ProductHuntBadge variant="card" />
       </section>
 
       <section className="bg-surface px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
