@@ -12,7 +12,7 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-primary px-5 py-2.5 text-text-inverse hover:bg-primary-hover hover:shadow-md active:scale-[0.97] active:bg-[#1a3080] active:shadow-none',
-        accent: 'bg-accent px-5 py-2.5 text-white hover:bg-accent-hover hover:shadow-md active:scale-[0.97] active:bg-[#78350F] active:shadow-none',
+        accent: 'bg-accent px-5 py-2.5 text-white hover:bg-accent-hover hover:shadow-md active:scale-[0.97] active:bg-[#B45309] active:shadow-none',
         secondary: 'border border-border bg-transparent px-5 py-2.5 text-text-primary hover:border-primary hover:bg-surface hover:text-primary active:scale-[0.97] active:bg-gray-100',
         ghost: 'rounded-sm bg-transparent px-3 py-1.5 text-text-secondary hover:bg-surface hover:text-text-primary active:scale-[0.97] active:bg-border',
         danger: 'bg-danger px-5 py-2.5 text-white hover:bg-red-700 hover:shadow-md active:scale-[0.97] active:bg-red-800 active:shadow-none',

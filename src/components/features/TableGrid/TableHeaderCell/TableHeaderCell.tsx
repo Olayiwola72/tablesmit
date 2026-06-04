@@ -49,7 +49,7 @@ function TableHeaderCellRaw({
           name={`col-type-${index}`}
           aria-label={`Column type ${index + 1}`}
           title={`Column type: ${format}`}
-          className="h-11 rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
+          className="h-8 rounded-sm border border-border bg-white px-2 text-xs text-text-primary"
           data-export-hide data-print-hide
           onChange={(event) => onFormatChange(event.target.value as ColumnFormat)}
         >

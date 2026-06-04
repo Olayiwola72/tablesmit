@@ -78,7 +78,7 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
   )
 
   return (
-    <div className="flex h-12 items-center gap-2 overflow-x-auto border-b border-border bg-surface px-6" data-toolbar>
+    <div className="flex h-12 items-center gap-1 overflow-x-auto border-b border-border bg-surface px-4" data-toolbar>
       <TemplatesDropdown presets={presets} onApplyPreset={(p) => { table.applyPreset(p); trackEvent('preset_applied', { preset: p.id }) }} />
 
       <ToolbarSeparator />
@@ -136,8 +136,6 @@ export function TableToolbar({ tableRef }: { tableRef: RefObject<HTMLDivElement 
       <ToolbarSeparator />
 
       <MobileExportDropdown isExporting={exportingFormat !== null} onExport={(format, el) => exportAs(format, el ?? null)} tableRef={tableRef} />
-
-      <ToolbarSeparator />
 
       <Button variant="danger" size="sm" onClick={() => { table.clearAll(); trackEvent('table_cleared', {}); toast.info(t('toast.tableCleared')) }}>
         <Trash2 size={14} aria-hidden="true" /> {t('toolbar.clearAll')}

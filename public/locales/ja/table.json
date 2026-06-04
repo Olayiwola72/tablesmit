@@ -245,6 +245,7 @@
     "undoActions": "元に戻す（{{count}}件の操作）",
     "undoActions_plural": "元に戻す（{{count}}件の操作）",
     "nothingToUndo": "元に戻せる操作はありません",
+    "addRemove": "追加/削除",
     "copySuccess": "テーブルを{{copyFormat}}としてコピーしました。"
   },
   "format": {

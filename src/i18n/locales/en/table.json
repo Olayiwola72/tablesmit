@@ -250,7 +250,8 @@
     "startBuilding": "Start Building",
     "undoActions": "Undo ({{count}} action)",
     "undoActions_plural": "Undo ({{count}} actions)",
-    "nothingToUndo": "Nothing to undo"
+    "nothingToUndo": "Nothing to undo",
+    "addRemove": "Add/Remove"
   },
   "format": {
     "csv": "CSV",

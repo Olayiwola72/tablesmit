@@ -245,6 +245,7 @@
     "undoActions": "Desfazer ({{count}} ação)",
     "undoActions_plural": "Desfazer ({{count}} ações)",
     "nothingToUndo": "Nada para desfazer",
+    "addRemove": "Adicionar/Remover",
     "copySuccess": "Tabela copiada como {{copyFormat}}."
   },
   "format": {

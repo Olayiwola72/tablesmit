@@ -245,6 +245,7 @@
     "undoActions": "Annuler ({{count}} action)",
     "undoActions_plural": "Annuler ({{count}} actions)",
     "nothingToUndo": "Rien à annuler",
+    "addRemove": "Ajouter/Supprimer",
     "copySuccess": "Tableau copié {{copyFormat}}."
   },
   "format": {

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import type { MobileExportDropdownProps } from './MobileExportDropdown.types'
 import { exportFormats } from '@/config/export/exportConfig'
 import { Button } from '@/components/ui/Button/Button'
+import { ToolbarSeparator } from '@/components/ui/ToolbarSeparator/ToolbarSeparator'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/DropdownMenu/DropdownMenu'
 import type { ExportFormat } from '@/services/exportService/export.types'
 
@@ -11,7 +12,7 @@ export function MobileExportDropdown({ isExporting, onExport, tableRef }: Mobile
   const { t } = useTranslation(['common', 'table'])
 
   return (
-    <div className="lg:hidden">
+    <div className="lg:hidden flex shrink-0 items-center gap-1">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="secondary" size="sm" isLoading={isExporting}>
@@ -26,6 +27,7 @@ export function MobileExportDropdown({ isExporting, onExport, tableRef }: Mobile
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
+      <ToolbarSeparator />
     </div>
   )
 }

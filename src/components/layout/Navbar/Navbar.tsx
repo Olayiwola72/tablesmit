@@ -122,8 +122,8 @@ export function Navbar(): ReactNode {
                 <Button variant="ghost" size="sm" onClick={toggle} aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}>
                   {theme === 'light' ? <><Moon size={14} /> Dark mode</> : <><Sun size={14} /> Light mode</>}
                 </Button>
-                <div className="flex w-full gap-2">
-                  <Button asChild variant="secondary" size="sm" className="flex-1">
+                <div className="flex w-full flex-col gap-2">
+                  <Button asChild variant="secondary" size="sm">
                     <a
                       href={brand.githubUrl}
                       target="_blank"
@@ -134,7 +134,7 @@ export function Navbar(): ReactNode {
                       {t('nav.starOnGitHub', 'Star on GitHub')}
                     </a>
                   </Button>
-                  <Button asChild variant="secondary" size="sm" className="flex-1">
+                  <Button asChild variant="secondary" size="sm">
                     <a
                       href={brand.productHuntUrl}
                       target="_blank"
