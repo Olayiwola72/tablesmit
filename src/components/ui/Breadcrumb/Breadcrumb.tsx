@@ -4,7 +4,7 @@ import type { BreadcrumbProps } from './Breadcrumb.types'
 
 export function Breadcrumb({ segments }: BreadcrumbProps): ReactNode {
   return (
-    <nav aria-label="Breadcrumb" className="mb-8 text-sm text-text-muted">
+    <nav aria-label="Breadcrumb" className="mb-4 text-sm text-text-muted">
       <ol className="flex flex-wrap items-center gap-1.5">
         {segments.map((segment, index) => {
           const isLast = index === segments.length - 1

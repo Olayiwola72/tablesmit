@@ -2,6 +2,8 @@
   "about": {
     "heading": "Feito para pensadores estruturados.",
     "body": "{{name}} foi criado por um escritor que precisava de mais controle do que os geradores básicos de tabelas ofereciam. A maioria das ferramentas oferecia muito pouco — sem personalização de cabeçalhos, sem formatação de colunas, sem exportação limpa. Outras ofereciam demais — o peso completo de uma planilha para algo que só precisava ser uma tabela. {{name}} é o meio-termo. Feito para pessoas que pensam em estrutura e publicam com precisão.",
-    "whatWeAreNot": "Não é uma planilha. Não é um banco de dados. Não é um concorrente do Notion. Não é uma ferramenta de design. Somos uma ferramenta de escrita estruturada."
+    "whatWeAreNot": "Não é uma planilha. Não é um banco de dados. Não é um concorrente do Notion. Não é uma ferramenta de design. Somos uma ferramenta de escrita estruturada.",
+    "demoHeading": "Veja em ação",
+    "demoSubtext": "Veja como criar tabelas limpas e estruturadas com controle total sobre cabeçalhos, formatação e exportação."
   }
 }

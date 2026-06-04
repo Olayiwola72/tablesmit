@@ -2,6 +2,8 @@
   "about": {
     "heading": "Entwickelt für strukturierte Denker.",
     "body": "{{name}} wurde von einem Autor entwickelt, der mehr Kontrolle benötigte, als einfache Tabellen-Generatoren bieten. Die meisten Werkzeuge gaben zu wenig — keine Kopfzeilen-Anpassung, keine Spaltenformatierung, kein sauberer Export. Andere gaben zu viel — das volle Gewicht einer Tabellenkalkulation für etwas, das einfach nur eine Tabelle sein sollte. {{name}} ist der Mittelweg. Entwickelt für Menschen, die in Strukturen denken und mit Präzision veröffentlichen.",
-    "whatWeAreNot": "Keine Tabellenkalkulation. Keine Datenbank. Kein Notion-Konkurrent. Kein designlastiges Tool. Wir sind ein strukturiertes Schreibwerkzeug."
+    "whatWeAreNot": "Keine Tabellenkalkulation. Keine Datenbank. Kein Notion-Konkurrent. Kein designlastiges Tool. Wir sind ein strukturiertes Schreibwerkzeug.",
+    "demoHeading": "In Aktion sehen",
+    "demoSubtext": "Sehen Sie, wie Sie saubere, strukturierte Tabellen mit voller Kontrolle über Kopfzeilen, Formatierung und Export erstellen."
   }
 }

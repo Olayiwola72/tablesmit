@@ -120,6 +120,6 @@ describe('Breadcrumb', () => {
     const nav = screen.getByRole('navigation')
     expect(nav.className).toContain('text-sm')
     expect(nav.className).toContain('text-text-muted')
-    expect(nav.className).toContain('mb-8')
+    expect(nav.className).toContain('mb-4')
   })
 })
