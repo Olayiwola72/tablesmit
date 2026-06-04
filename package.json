@@ -12,6 +12,7 @@
     "audit": "npm audit",
     "preview": "vite preview",
     "analyze": "ANALYZE=true npm run build",
+    "version": "node scripts/version-bump.cjs",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "prerender": "npx tsx scripts/prerender.ts --out-dir dist",
