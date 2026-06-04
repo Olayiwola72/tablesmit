@@ -211,6 +211,7 @@ tablesmit/
 ├── .husky/
 ├── CONTRIBUTING.md
 ├── LICENSE
+├── PRIVACY.md
 └── package.json
 ```
 
@@ -385,7 +386,7 @@ Questions or feedback: [hello@tablesmit.com](mailto:hello@tablesmit.com)
 
 ## License
 
-MIT — see [LICENSE](LICENSE)
+MIT — see [LICENSE](LICENSE) · [Privacy Policy](PRIVACY.md)
 
 ---
 
