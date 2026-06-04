@@ -377,6 +377,12 @@ Required Netlify environment variables:
 
 ---
 
+## Contact
+
+Questions or feedback: [hello@tablesmit.com](mailto:hello@tablesmit.com)
+
+---
+
 ## License
 
 MIT — see [LICENSE](LICENSE)
