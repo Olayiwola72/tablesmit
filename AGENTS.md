@@ -212,8 +212,8 @@ const config: Config = {
           light: '#EFF6FF',
         },
         accent: {
-          DEFAULT: '#B45309',
-          hover: '#92400E',
+          DEFAULT: '#F59E0B',
+          hover: '#D97706',
           light: '#FFFBEB',
         },
         surface: '#F9FAFB',
@@ -445,7 +445,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:   'bg-primary text-text-inverse hover:bg-primary-hover hover:shadow-md active:bg-[#1a3080] active:scale-[0.97] active:shadow-none',
-        accent:    'bg-accent text-white hover:bg-accent-hover hover:shadow-md active:bg-[#78350F] active:scale-[0.97] active:shadow-none',
+        accent:    'bg-accent text-white hover:bg-accent-hover hover:shadow-md active:bg-[#B45309] active:scale-[0.97] active:shadow-none',
         secondary: 'bg-transparent border border-border text-text-primary hover:bg-surface hover:border-primary hover:text-primary active:bg-gray-100 active:scale-[0.97]',
         ghost:     'bg-transparent text-text-secondary hover:bg-surface hover:text-text-primary active:bg-border active:scale-[0.97]',
         danger:    'bg-danger text-white hover:bg-red-700 hover:shadow-md active:bg-red-800 active:scale-[0.97] active:shadow-none',
@@ -5545,7 +5545,7 @@ const config: Config = {
     --color-primary-hover:  #60A5FA;
     --color-primary-light:  #1E3A5F;
     --color-accent:         #F59E0B;   /* unchanged — amber works on dark */
-    --color-accent-hover:   #92400E;
+    --color-accent-hover:   #D97706;
   }
 }
 ```

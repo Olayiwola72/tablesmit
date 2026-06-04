@@ -13,8 +13,8 @@ const config: Config = {
           light: '#EFF6FF',
         },
         accent: {
-          DEFAULT: '#B45309',
-          hover: '#92400E',
+          DEFAULT: '#F59E0B',
+          hover: '#D97706',
           light: '#FFFBEB',
         },
         surface: '#F9FAFB',

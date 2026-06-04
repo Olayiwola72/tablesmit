@@ -245,6 +245,7 @@
     "undoActions": "Angre ({{count}} handling)",
     "undoActions_plural": "Angre ({{count}} handlinger)",
     "nothingToUndo": "Ingenting å angre",
+    "addRemove": "Legg til / Fjern",
     "copySuccess": "Tabell kopiert som {{copyFormat}}."
   },
   "format": {

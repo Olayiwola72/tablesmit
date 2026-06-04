@@ -245,6 +245,7 @@
     "undoActions": "تراجع ({{count}} إجراء)",
     "undoActions_plural": "تراجع ({{count}} إجراءات)",
     "nothingToUndo": "لا يوجد شيء للتراجع عنه",
+    "addRemove": "إضافة/إزالة",
     "copySuccess": "تم نسخ الجدول {{copyFormat}}."
   },
   "format": {

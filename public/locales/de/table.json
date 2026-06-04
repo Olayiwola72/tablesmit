@@ -245,6 +245,7 @@
     "undoActions": "Rückgängig ({{count}} Aktion)",
     "undoActions_plural": "Rückgängig ({{count}} Aktionen)",
     "nothingToUndo": "Nichts rückgängig zu machen",
+    "addRemove": "Hinzufügen/Entfernen",
     "copySuccess": "Tabelle als {{copyFormat}} kopiert."
   },
   "format": {
