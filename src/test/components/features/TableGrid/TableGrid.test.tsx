@@ -3,8 +3,13 @@ import userEvent from '@testing-library/user-event'
 import { createRef, type ReactNode } from 'react'
 import { describe, expect, it, vi, afterEach } from 'vitest'
 import { TableProvider } from '../../../../context/TableContext'
+import { TooltipProvider } from '../../../../components/ui/Tooltip/Tooltip'
 import { TableGrid } from '../../../../components/features/TableGrid/TableGrid'
 import { DEFAULT_COLS, DEFAULT_ROWS } from '../../../../config/table/tableDefaults/tableDefaults'
+import type { CellData } from '../../../../types/table/cell.types'
+import { generateEmptyTable } from '../../../../utils/tableUtils/tableUtils'
+
+const defaultSortedRows = generateEmptyTable(DEFAULT_ROWS, DEFAULT_COLS)
 import { toast } from '../../../../utils/toast/toast'
 
 vi.mock('../../../../utils/toast/toast', () => ({
@@ -18,7 +23,7 @@ vi.mock('../../../../utils/toast/toast', () => ({
 }))
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {
-  return <TableProvider>{children}</TableProvider>
+  return <TooltipProvider><TableProvider>{children}</TableProvider></TooltipProvider>
 }
 
 function getCell(row: number, col: number): HTMLElement {
@@ -29,7 +34,21 @@ function getCell(row: number, col: number): HTMLElement {
 
 function renderTableGrid(props: Record<string, unknown> = {}): { tableRef: React.RefObject<HTMLDivElement | null> } {
   const tableRef = createRef<HTMLDivElement>()
-  render(<TableGrid tableRef={tableRef} {...props} />, { wrapper: Wrapper })
+  render(
+    <TableGrid
+      tableRef={tableRef}
+      sortedRows={props.sortedRows as CellData[][] ?? defaultSortedRows}
+      sortedToOriginal={props.sortedToOriginal as number[] ?? Array.from({ length: DEFAULT_ROWS }, (_, i) => i)}
+      toggleSort={props.toggleSort as (col: number) => void ?? (() => {})}
+      sortAsc={props.sortAsc as (col: number) => void ?? (() => {})}
+      sortDesc={props.sortDesc as (col: number) => void ?? (() => {})}
+      activeSortCol={props.activeSortCol as number | null ?? null}
+      activeSortDir={props.activeSortDir as 'asc' | 'desc' | null ?? null}
+      isSortDisabled={props.isSortDisabled as (col: number) => boolean ?? (() => false)}
+      {...props}
+    />,
+    { wrapper: Wrapper },
+  )
   return { tableRef }
 }
 

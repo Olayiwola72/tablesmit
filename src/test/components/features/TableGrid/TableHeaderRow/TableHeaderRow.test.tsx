@@ -1,7 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
+import { TooltipProvider } from '../../../../../components/ui/Tooltip/Tooltip'
 import { TableHeaderRow } from '../../../../../components/features/TableGrid/TableHeaderRow/TableHeaderRow'
 import type { CellData } from '../../../../../types/table/cell.types'
+
+function renderWithProviders(ui: React.ReactElement) {
+  return render(<TooltipProvider>{ui}</TooltipProvider>)
+}
 
 function makeCells(values: string[][]): CellData[][] {
   return values.map((row, r) =>
@@ -23,7 +28,7 @@ describe('TableHeaderRow', () => {
     cells: makeCells([['A', 'B', 'C']]),
     activeSortCol: null as number | null,
     activeSortDir: null as 'asc' | 'desc' | null,
-    sortDisabled: false,
+    isSortDisabled: () => false,
     onSort: vi.fn(),
     onFormatChange: vi.fn(),
     onResizeStart: vi.fn(),
@@ -32,27 +37,27 @@ describe('TableHeaderRow', () => {
   }
 
   it('renders correct number of header cells', () => {
-    render(<TableHeaderRow {...defaultProps} />)
+    renderWithProviders(<TableHeaderRow {...defaultProps} />)
     const formatSelects = screen.getAllByRole('combobox')
     expect(formatSelects).toHaveLength(3)
   })
 
   it('applies correct grid template columns', () => {
-    const { container } = render(<TableHeaderRow {...defaultProps} />)
+    const { container } = renderWithProviders(<TableHeaderRow {...defaultProps} />)
     const wrapper = container.firstChild as HTMLElement
     expect(wrapper.style.gridTemplateColumns).toBe('100px 120px 140px')
   })
 
   it('calls onSort when a column is sorted', () => {
     const onSort = vi.fn()
-    render(<TableHeaderRow {...defaultProps} onSort={onSort} />)
+    renderWithProviders(<TableHeaderRow {...defaultProps} onSort={onSort} />)
     const sortButtons = screen.getAllByRole('button')
     const sortBtn = sortButtons.find((b) => b.querySelector('svg'))
     if (sortBtn) fireEvent.click(sortBtn)
   })
 
   it('renders with active sort direction', () => {
-    render(
+    renderWithProviders(
       <TableHeaderRow
         {...defaultProps}
         activeSortCol={0}
@@ -64,7 +69,7 @@ describe('TableHeaderRow', () => {
   })
 
   it('renders with sort disabled', () => {
-    render(<TableHeaderRow {...defaultProps} sortDisabled />)
+    renderWithProviders(<TableHeaderRow {...defaultProps} isSortDisabled={() => true} />)
     const formatSelects = screen.getAllByRole('combobox')
     expect(formatSelects).toHaveLength(3)
   })

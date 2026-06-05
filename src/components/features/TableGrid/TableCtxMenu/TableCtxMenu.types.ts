@@ -37,6 +37,7 @@ export interface TableCtxMenuProps {
   insertColLeft: (col: number) => void
   insertColRight: (col: number) => void
   deleteColAt: (col: number) => void
+  isSortDisabled: (col: number) => boolean
   sortAsc: (col: number) => void
   sortDesc: (col: number) => void
 }

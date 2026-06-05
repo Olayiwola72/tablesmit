@@ -12,7 +12,6 @@ import { computeColumnSum, getSumColumnIndices } from '@/utils/tableUtils/tableU
 import { getContrastText } from '@/utils/colorUtils/colorUtils'
 import { buildHiddenSet, buildMergeAnchorMap } from '@/utils/mergeUtils/mergeUtils'
 import { useClipboardPaste } from '@/hooks/useClipboardPaste/useClipboardPaste'
-import { useColumnSort } from '@/hooks/useColumnSort/useColumnSort'
 import { TableCaption } from '../TableCaption/TableCaption'
 import { TableCell } from './TableCell/TableCell'
 import { TableCtxMenu } from './TableCtxMenu/TableCtxMenu'
@@ -23,7 +22,7 @@ import { PastingOverlay } from './PastingOverlay/PastingOverlay'
 import { TableSkeleton } from '../../ui/TableSkeleton/TableSkeleton'
 import type { TableGridProps } from './TableGrid.types'
 
-export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, blurTableRef }: TableGridProps): ReactNode {
+export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, blurTableRef, sortedRows, sortedToOriginal, toggleSort, sortAsc, sortDesc, activeSortCol, activeSortDir, isSortDisabled }: TableGridProps): ReactNode {
   const { t } = useTranslation(['common', 'table'])
   const { cells } = useTableData()
   const selectedRange = useSelectedRange()
@@ -78,17 +77,6 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
   const { ghostLineRef: rowGhostLineRef, onMouseDown: onRowResizeStart } = useRowResize(setRowHeight)
 
   const { pasting } = useClipboardPaste(setCells)
-
-  const {
-    activeSortCol,
-    activeSortDir,
-    toggleSort,
-    sortAsc,
-    sortDesc,
-    sortedRows,
-    sortedToOriginal,
-    sortDisabled,
-  } = useColumnSort(cells, cols, mergedRanges)
 
   const { autoFitColumn, autoFitRow } = useAutoFit(gridRef as React.RefObject<HTMLTableElement | null>, setColumnWidth, setRowHeight)
 
@@ -186,7 +174,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
         cells={cells}
         activeSortCol={activeSortCol}
         activeSortDir={activeSortDir}
-        sortDisabled={sortDisabled}
+        isSortDisabled={isSortDisabled}
         onSort={toggleSort}
         onFormatChange={setColumnFormat}
         onResizeStart={onColumnResizeStart}
@@ -298,6 +286,7 @@ export function TableGrid({ tableRef, findMatches, currentFindMatch, caption, bl
           insertColLeft={(col) => insertColAt(col)}
           insertColRight={(col) => insertColAt(col + 1)}
           deleteColAt={(col) => deleteColAt(col)}
+          isSortDisabled={isSortDisabled}
           sortAsc={sortAsc}
           sortDesc={sortDesc}
         />

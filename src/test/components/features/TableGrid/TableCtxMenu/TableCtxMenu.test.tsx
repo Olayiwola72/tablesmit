@@ -51,6 +51,7 @@ function createProps(overrides: Partial<TableCtxMenuProps> = {}): TableCtxMenuPr
     insertColLeft: vi.fn(),
     insertColRight: vi.fn(),
     deleteColAt: vi.fn(),
+    isSortDisabled: () => false,
     sortAsc: vi.fn(),
     sortDesc: vi.fn(),
     ...overrides,

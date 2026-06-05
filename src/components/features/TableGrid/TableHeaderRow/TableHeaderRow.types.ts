@@ -7,7 +7,7 @@ export interface TableHeaderRowProps {
   cells: CellData[][]
   activeSortCol: number | null
   activeSortDir: 'asc' | 'desc' | null
-  sortDisabled: boolean
+  isSortDisabled: (col: number) => boolean
   onSort: (col: number) => void
   onFormatChange: (col: number, format: ColumnFormat) => void
   onResizeStart: (e: React.MouseEvent, col: number, currentWidth: number) => void
