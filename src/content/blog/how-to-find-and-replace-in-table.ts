@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Find and Replace Text in a Table Online',
   date: '2026-04-18',
   description:
-    'The browser\'s built-in find bar does not navigate between table cells. Here is a table-aware find and replace that works inside your data.',
+    'Learn how to find and replace in table with Tablesmit. Design, format, and export with full control. Tablesmit makes it simple. Tablesmit handles it all.',
   author: 'Olayiwola Akinnagbe',
   tags: ['find and replace', 'search table', 'tutorial'],
   readTime: 3,
   featured: false,
   content: `## Why the browser find bar is not enough
 
-The browser's find function (Ctrl+F) searches the entire page as flat text. In a table editor, this has two problems. First, it highlights text anywhere on the page — including the toolbar, sidebars, and navigation — cluttering the results. Second, it cannot help you replace values. You find a cell, you edit it manually, you repeat.
+Learn how to find and replace in table with Tablesmit. To [find and replace text in a table online](/features/find-replace), you need a tool that understands cell boundaries. The browser's find function (Ctrl+F) searches the entire page as flat text. In a table editor, this has two problems. First, it highlights text anywhere on the page — including the toolbar, sidebars, and navigation — cluttering the results. Second, it cannot help you replace values. You find a cell, you edit it manually, you repeat.
 
 For a table with dozens or hundreds of cells, a table-aware find and replace saves significant time.
 

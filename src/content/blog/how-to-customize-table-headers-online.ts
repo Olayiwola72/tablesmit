@@ -5,16 +5,16 @@ const post: BlogPost = {
   title: 'How to Customize Table Headers Online',
   date: '2026-05-30',
   description:
-    'Most web table generators treat every cell the same. {{BRAND_NAME}} lets you style headers independently — choose which rows and columns are headers and set colors.',
+    'Learn how to customize table headers online with Tablesmit. Choose header rows and columns and style them with custom colors. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['headers', 'formatting', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## Headers define a table
 
-A table without a header is just a grid of numbers. A table with a clear, styled header is a structured document. Headers tell the reader what each column means, what unit the numbers are in, and what dimension each row represents.
+Learn how to customize table headers online with Tablesmit. A table without a header is just a grid of numbers. A table with a clear, styled header is a structured document. Headers tell the reader what each column means, what unit the numbers are in, and what dimension each row represents.
 
-Most web table tools treat headers as an afterthought — bold the first row and call it done. Tablesmit gives you full control.
+Most web table tools treat headers as an afterthought — bold the first row and call it done. [Tablesmit](/) gives you full control.
 
 ## Header style options
 
@@ -49,7 +49,7 @@ Header colors are preserved across all export formats. When you export to PDF, E
 4. Pick a header color from the color swatches.
 5. Toggle freeze panes if your table is large.
 
-The table updates in real time. No save button. No preview mode. What you see is what you publish.`,
+The table updates in real time. No save button. No preview mode. [Customize your headers in Tablesmit](/) — what you see is what you publish.`,
   relatedFeature: 'custom-headers',
 }
 

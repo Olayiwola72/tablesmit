@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Merge Cells in an Online Table',
   date: '2026-05-15',
   description:
-    'Most web table tools do not support cell merging. Here is how to merge and unmerge cells in {{BRAND_NAME}} — and when to use it in your tables.',
+    'Learn how to merge cells in online table editors with Tablesmit: combine cells, span data across columns, and unmerge cells when you need clean layout.',
   author: 'Olayiwola Akinnagbe',
   tags: ['merge cells', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## What is cell merging?
 
-Cell merging combines two or more adjacent cells into one. The merged cell spans the space of all the cells it absorbed.
+Learn how to merge cells in online table with Tablesmit. Cell merging combines two or more adjacent cells into one. The merged cell spans the space of all the cells it absorbed.
 
 You see it constantly in professional tables:
 
@@ -96,7 +96,9 @@ Merged cells export correctly across all formats:
 - **Excel** — the exported .xlsx file uses Excel's native merge, which opens correctly in Excel and Google Sheets
 - **CSV** — merge information cannot be represented in CSV; the anchor cell's value is written and merged cells are empty
 
-[Build your table in Tablesmit](/) — merge cells included.`,
+[Build your table in Tablesmit](/) — merge cells included.
+
+[Open Tablesmit](/) to build your tables — free and works in your browser.`,
   relatedFeature: 'merge-cells',
 }
 

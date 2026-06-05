@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Export Colored Tables to LaTeX',
   date: '2026-05-30',
   description:
-    'Set row colors, column colors, and header styling visually — then export to LaTeX with all colors preserved. No manual preamble code, no HTML conversion.',
+    'Learn how to export colored tables to latex with Tablesmit: set row and column colors visually, then export with all their formatting preserved.',
   author: 'Olayiwola Akinnagbe',
   tags: ['latex', 'academic', 'colors', 'export', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## The most tedious part of LaTeX tables
 
-Writing a plain LaTeX table by hand is already slow. Writing a colored one is worse.
+Learn how to export colored tables to latex with Tablesmit. Writing a plain LaTeX table by hand is already slow. Writing a colored one is worse.
 
 If you have ever tried to add row colors or a colored header to a LaTeX table, you know the pattern:
 
@@ -113,7 +113,9 @@ Yes. If you set a background color on a specific cell (via the right-click conte
 
 Yes. The Copy dropdown in the toolbar includes a "Copy as LaTeX" option that generates the same color-aware LaTeX code as the file export. Paste directly into your editor.
 
-[Export your colored table to LaTeX](/) — style visually, get clean code.`,
+[Export your colored table to LaTeX](/) — style visually, get clean code.
+
+[Open Tablesmit](/) — free, no signup required.`,
   relatedFeature: 'latex-export',
 }
 

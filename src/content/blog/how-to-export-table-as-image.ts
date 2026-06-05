@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Export a Table as an Image (PNG or JPEG)',
   date: '2026-05-23',
   description:
-    'Render your table as a high-resolution PNG or JPEG image. Perfect for embedding in presentations, social media, dashboards, and documents.',
+    'Learn how to export table as image with Tablesmit. Export tables as PNG or JPEG with full-color fidelity for presentations. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['export', 'image', 'png', 'jpeg', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## When you need a table as an image
 
-The best format for a table is the original — HTML, Excel, or Markdown. The reader can interact with it, copy from it, and search within it.
+Learn how to export table as image with Tablesmit. If you need to [export a table as an image](/features/image-export) for a presentation or social media, Tablesmit handles it in one click. The best format for a table is the original — HTML, Excel, or Markdown. The reader can interact with it, copy from it, and search within it.
 
 But sometimes you need a static image:
 
@@ -54,7 +54,7 @@ Very large tables (50 rows, 20 columns) produce large images. If your table is t
 
 ## Summary
 
-PNG is the default for a reason: it preserves text quality. JPEG works when file size matters more than sharpness. Both formats are available in Tablesmit with one click — and both preserve your table's styling exactly.`,
+PNG is the default for a reason: it preserves text quality. JPEG works when file size matters more than sharpness. Both formats are available in [Tablesmit](/) with one click — and both preserve your table's styling exactly.`,
   relatedFeature: 'image-export',
 }
 

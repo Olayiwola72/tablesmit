@@ -5,16 +5,16 @@ const post: BlogPost = {
   title: 'How to Resize Table Columns and Rows Online',
   date: '2026-05-24',
   description:
-    'Drag-to-resize columns and rows in {{BRAND_NAME}} — just like a desktop application. Smooth, instant, and precise. Double-click to auto-fit.',
+    'Learn how to resize table columns rows with Tablesmit. Design, format, and export with full control. Tablesmit makes it simple. Tablesmit handles it all.',
   author: 'Olayiwola Akinnagbe',
   tags: ['resize', 'columns', 'rows', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## The drag-to-resize experience
 
-Spreadsheet users expect to be able to drag column edges to resize them. It is one of those interactions that feels obvious once you have used it — and frustrating when it is missing.
+Learn how to resize table columns rows with Tablesmit. Learn how to resize table columns and rows online with Tablesmit. Spreadsheet users expect to be able to drag column edges to resize them. It is one of those interactions that feels obvious once you have used it.
 
-Tablesmit implements drag-to-resize for both columns and rows, with the same smooth, immediate feel as a desktop application.
+[Tablesmit](/) implements drag-to-resize for both columns and rows, with the same smooth, immediate feel as a desktop application.
 
 ## How column resize works
 
@@ -53,7 +53,7 @@ On mobile devices, the resize handles are wider (12px) to meet the 44×44px acce
 
 ## Performance
 
-Resize uses \`requestAnimationFrame\` to batch visual updates. The ghost line moves every frame, but the actual column width change happens once on mouseup. This means zero layout thrashing — the table stays responsive even with many columns.`,
+Resize uses \`requestAnimationFrame\` to batch visual updates. The ghost line moves every frame, but the actual column width change happens once on mouseup. [Resize your table columns in Tablesmit](/) — zero layout thrashing, even with many columns.`,
   relatedFeature: 'drag-to-resize',
 }
 

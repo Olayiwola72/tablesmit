@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-use-dark-mode-in-table-builder',
-  title: 'How to Use Dark Mode in a Table Builder for Low-Light Work',
+  title: 'Use Dark Mode in a Table Builder at Night',
   date: '2026-04-30',
   description:
-    'Dark mode reduces eye strain in low-light environments. Here is how to enable it in a table builder and what changes when you switch.',
+    'Learn how to use dark mode in table builder with Tablesmit. Design, format, and export with full control. Tablesmit makes it simple. Tablesmit makes it...',
   author: 'Olayiwola Akinnagbe',
   tags: ['dark mode', 'table editor', 'accessibility'],
   readTime: 3,
   featured: false,
   content: `## Why dark mode matters for table work
 
-Tables involve a lot of staring at a bright screen — white backgrounds with dark text, sometimes for hours at a time. In a well-lit room, this is comfortable. In a dim room, at night, or for people with light sensitivity, a bright interface causes eye fatigue.
+Learn how to use dark mode in table builder with Tablesmit. If you want to [use dark mode in a table builder](/features/dark-mode) for late-night editing, Tablesmit has full support. Tables involve a lot of staring at a bright screen — white backgrounds with dark text, sometimes for hours at a time. In a well-lit room, this is comfortable. In a dim room, at night, or for people with light sensitivity, a bright interface causes eye fatigue.
 
 Dark mode inverts the relationship — dark backgrounds with light text. The contrast ratio remains readable, but the overall luminance is lower. For people who work on tables in the evening or in low-light environments, this makes a measurable difference in comfort over extended sessions.
 

@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Import a CSV File into an Online Table',
   date: '2026-04-13',
   description:
-    'CSV files are the universal format for tabular data. Here is how to import one into a web table tool and what to watch for during the process.',
+    'Learn how to import csv into online table with Tablesmit. Upload CSV files with headers preserved and parse them instantly in browser. Tablesmit makes i...',
   author: 'Olayiwola Akinnagbe',
   tags: ['csv import', 'csv to table', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## Why CSV import matters
 
-CSV (comma-separated values) is the most common format for exchanging tabular data between applications. Almost every database, spreadsheet, and analytics tool can export to CSV. If you have ever downloaded a report from a web application, exported a contact list, or received data from a collaborator, it was probably a CSV file.
+Learn how to import csv into online table with Tablesmit. CSV (comma-separated values) is the most common format for exchanging tabular data between applications. Almost every database, spreadsheet, and analytics tool can export to CSV. If you have ever downloaded a report from a web application, exported a contact list, or received data from a collaborator, it was probably a CSV file.
 
 The challenge is what happens after you download the file. Opening a CSV in a text editor shows raw comma-separated text — unreadable for anything beyond a few rows. Opening it in Excel works but adds the full weight of a spreadsheet application for data that may only need a clean table.
 

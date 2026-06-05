@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Copy a Table from Excel to the Web',
   date: '2026-04-01',
   description:
-    'Copying a table from Excel to a web tool usually means rebuilding it from scratch. {{BRAND_NAME}} reads your clipboard and generates the table automatically.',
+    'Learn to copy excel table to web format using Tablesmit. Paste from Excel or Sheets — borders, colors, and merged cells stay intact. Tablesmit makes it...',
   author: 'Olayiwola Akinnagbe',
   tags: ['excel', 'import', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## The problem with Excel and the web
 
-You have a table in Excel. You need it on the web — in a document, a blog post, a report, or a tool.
+Learn how to copy excel table to web format using Tablesmit. To copy an Excel table to the web, you need a tool that reads clipboard data. You have a table in Excel. You need it on the web — in a document, a blog post, a report, or a tool.
 
 The obvious thing is to copy and paste. But it never works cleanly.
 

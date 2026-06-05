@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'markdown-table-generator-online',
-  title: 'Markdown Table Generator — Write Tables Faster Online',
+  title: 'Markdown Table Generator — Write Tables Online',
   date: '2026-05-20',
   description:
-    'Generate Markdown pipe tables visually in {{BRAND_NAME}}. Build your table with drag-to-resize and merge cells, then copy the Markdown — no pipe alignment.',
+    'Use a markdown table generator online to build tables in Tablesmit. Then copy clean Markdown pipe-table syntax for any platform. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['markdown', 'generator', 'tables', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## The problem with writing Markdown tables by hand
 
-Markdown tables look simple at first. A few pipes, some dashes, and you have a table.
+Use a Markdown table generator online to avoid manual pipe alignment. Markdown tables look simple at first. A few pipes, some dashes, and you have a table.
 
 \`\`\`
 | Name | Price | Quantity |
@@ -23,7 +23,7 @@ Markdown tables look simple at first. A few pipes, some dashes, and you have a t
 
 But as soon as you need to add a column, merge cells, or align text, the formatting falls apart. You spend more time lining up pipes than writing content.
 
-A Markdown table generator solves this: build the table visually, copy the Markdown.
+A [Markdown table generator](/) solves this: build the table visually, copy the Markdown.
 
 ## How Tablesmit generates Markdown
 
@@ -80,7 +80,7 @@ Both are available in the Copy dropdown. Choose Markdown for simplicity, HTML fo
 
 ## Quick start
 
-Open Tablesmit. Type your data. Click Copy → Markdown. Paste. Your first Markdown table takes about 30 seconds from start to finish.`,
+[Open Tablesmit](/) and type your data. Click Copy → Markdown. Paste. Your first Markdown table takes about 30 seconds from start to finish.`,
   relatedFeature: 'markdown-table',
 }
 

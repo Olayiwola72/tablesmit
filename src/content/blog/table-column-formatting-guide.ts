@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'table-column-formatting-guide',
-  title: 'How to Format Table Columns by Type — Number, Currency, Date, and More',
+  title: 'Table Column Formatting: Types & Best Practices',
   date: '2026-05-22',
   description:
-    'Not every column should behave like plain text. Here is a practical guide to column formats and when each one makes your table clearer.',
+    'A table column formatting guide: learn when to use text, number, currency, percentage, and date columns for cleaner and more readable tables.',
   author: 'Olayiwola Akinnagbe',
   tags: ['column formatting', 'column types', 'guide'],
   readTime: 5,
   featured: false,
   content: `## Why column types matter
 
-A table where every cell is plain text works for simple lists. But as soon as your table contains numbers, dates, or prices, treating everything as text creates problems. Numbers do not align properly. Dates display in inconsistent formats. Currency values mix symbols and decimals in unpredictable ways.
+Use table column formatting guide with Tablesmit. A table where every cell is plain text works for simple lists. But as soon as your table contains numbers, dates, or prices, treating everything as text creates problems. Numbers do not align properly. Dates display in inconsistent formats. Currency values mix symbols and decimals in unpredictable ways.
 
 Column types solve this by telling the table how to display and handle each column's content. The underlying data stays the same — the column type only changes how it is presented and, in some cases, how it behaves.
 
@@ -70,7 +70,9 @@ CSV export ignores column types — CSV is a plain-text format with no formattin
 
 Types are safe to change at any point. Switching from Text to Number does not erase your data — it only changes how the existing values are displayed. If a value cannot be interpreted as a number, it displays as-is and is ignored in calculations.
 
-Open [Tablesmit](/) and select any column in your table, then open the Column Formatting panel to try the available types.`,
+Open [Tablesmit](/) and select any column in your table, then open the Column Formatting panel to try the available types.
+
+[Open Tablesmit](/) to build your tables — free and works in your browser.`,
   relatedFeature: 'column-types',
 }
 

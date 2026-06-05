@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Export a Table to PDF from Your Browser',
   date: '2026-04-19',
   description:
-    'Exporting a web table to PDF is harder than it should be. Here is the cleanest way to do it — with no browser print dialog, no UI chrome, and no quality loss.',
+    'Learn how to export table to pdf with Tablesmit. Export from your browser with layout, borders, and colors preserved. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['pdf', 'export', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## Why PDF is the right format for tables
 
-When you are submitting a report, sharing research findings, or sending a document to a client, PDF is the format that works everywhere. It does not change appearance between devices. It does not require the recipient to have Excel. It does not reformat when the page width is different. It is a finished document.
+Learn how to export table to pdf with Tablesmit. If you need to export a table to PDF from your browser, Tablesmit does it cleanly. When you are submitting a report, sharing research findings, or sending a document to a client, PDF is the format that works everywhere. It does not change appearance between devices. It does not require the recipient to have Excel. It does not reformat when the page width is different. It is a finished document.
 
 The challenge is getting a clean PDF out of a web-based table tool without the browser's toolbar, sidebar, or navigation appearing in the output.
 

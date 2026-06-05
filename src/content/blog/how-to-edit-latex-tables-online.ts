@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-edit-latex-tables-online',
-  title: 'How to Edit LaTeX Tables Online (Round-Trip Support)',
+  title: 'Edit LaTeX Tables Online (Round-Trip Support)',
   date: '2026-05-30',
   description:
-    'Export a table to LaTeX, paste it into a paper, edit in Tablesmit, and re-export. The round-trip keeps formatting clean — no double-wrapping or manual cleanup.',
+    'Learn how to edit latex tables online with Tablesmit: export clean LaTeX, paste into a paper, re-import, and re-export with formatting fully intact.',
   author: 'Olayiwola Akinnagbe',
   tags: ['latex', 'tutorial', 'import', 'workflow'],
   readTime: 4,
   featured: false,
   content: `## The workflow gap
 
-If you write academic papers in LaTeX, your table workflow probably looks like this:
+Learn how to edit latex tables online with Tablesmit. If you write academic papers in LaTeX, your table workflow probably looks like this:
 
 1. Build the table data in a spreadsheet or Tablemit
 2. Export to LaTeX — get clean tabular code
@@ -132,7 +132,9 @@ Tablesmit's LaTeX import reads \\\\rowcolor and \\\\columncolor commands from th
 
 The only requirement is that the LaTeX uses the \\\`[HTML]\\\` colour specification format, which is the standard for \\\`\\\\usepackage[table]{xcolor}\\\`.
 
-[Edit your LaTeX tables online](/) — export, revise, re-export. Clean every time.`,
+[Edit your LaTeX tables online](/) — export, revise, re-export. Clean every time.
+
+[Open Tablesmit](/) — free, no signup required.`,
   relatedFeature: 'latex-export',
 }
 

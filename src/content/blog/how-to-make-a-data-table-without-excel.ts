@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-make-a-data-table-without-excel',
-  title: 'How to Make a Data Table Without Excel or Google Sheets',
+  title: 'Make a Data Table Without Excel or Sheets',
   date: '2026-06-03',
   description:
-    'Need a simple data table but do not want the overhead of a spreadsheet? Build clean tables in your browser — no installation, no formulas, no account.',
+    'Learn how to make a data table without excel with Tablesmit. Build clean data tables in your browser with full export control and formatting.',
   author: 'Olayiwola Akinnagbe',
   tags: ['spreadsheet alternatives', 'data tables', 'no spreadsheet', 'productivity'],
   readTime: 5,
   featured: false,
   content: `## The spreadsheet overhang problem
 
-You need a table. Three columns. Maybe ten rows.
+Learn how to make a data table without excel with Tablesmit. You need a table. Three columns. Maybe ten rows.
 
 So you open Excel — and suddenly you are staring at 16,000 columns, a ribbon with a hundred tabs you have never clicked, and the quiet realisation that this application was designed for financial models, not your simple data table.
 
@@ -33,7 +33,7 @@ Spreadsheets satisfy these, but they come with unwanted baggage: formulas you do
 
 ## Tablesmit: purpose-built for tables
 
-Tablesmit is a browser-based table builder. It does one thing — build structured tables — and does it without pretending to be a spreadsheet.
+If you want to [make a data table without Excel](/features/drag-to-resize), Tablesmit is a browser-based table builder that does one thing — build structured tables — and does it without pretending to be a spreadsheet.
 
 ### Build in seconds
 

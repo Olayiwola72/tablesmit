@@ -5,16 +5,16 @@ const post: BlogPost = {
   title: 'How to Apply Table Themes Online',
   date: '2026-05-27',
   description:
-    'Six ready-made themes — Default, Minimal, Dark Header, Striped, Academic, and Monochrome — that restyle your entire table in one click.',
+    'Learn how to apply table themes with Tablesmit. Restyle with Default, Minimal, Striped, Academic, or Monochrome in one click. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['themes', 'styling', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## The problem with manual formatting
 
-Choosing colors, borders, and backgrounds for every part of a table takes time. It is also easy to end up with a table that looks inconsistent — a blue header here, a grey stripe there, a border weight that does not match.
+Learn how to apply table themes online with Tablesmit. Choosing colors, borders, and backgrounds for every part of a table takes time. It is easy to end up with a table that looks inconsistent.
 
-Table themes solve this. One click applies a complete, consistent visual style to the entire table.
+[Table themes](/) solve this. One click applies a complete, consistent visual style to the entire table.
 
 ## Available themes
 
@@ -64,7 +64,7 @@ Start with the audience:
 - **Journal or conference paper** → Academic
 - **Print or photocopy** → Monochrome
 
-One click. Instant polish.`,
+One click. [Apply a table theme in Tablesmit](/) — instant polish.`,
   relatedFeature: 'table-themes',
 }
 

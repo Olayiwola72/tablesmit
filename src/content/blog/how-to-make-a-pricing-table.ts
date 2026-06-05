@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Make a Pricing Table Online',
   date: '2026-05-23',
   description:
-    'A pricing table that looks unprofessional costs you clients before you have even spoken. Here is how to build one that earns trust — in under five minutes.',
+    'Learn how to make a pricing table with Tablesmit. Structure prices with headers, currency format, and auto-sum for totals. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['pricing table', 'tutorial', 'templates'],
   readTime: 5,
   featured: false,
   content: `## Why the pricing table matters more than you think
 
-A pricing table is not a grid of numbers. It is the moment a potential client makes a decision about whether your work is worth what you are charging.
+Learn how to make a pricing table with Tablesmit. A pricing table is not a grid of numbers. It is the moment a potential client makes a decision about whether your work is worth what you are charging.
 
 A table that looks inconsistent — misaligned columns, mixed formatting, numbers with different decimal places — signals carelessness before anyone has read a word. A clean, well-structured pricing table signals that you take your work seriously.
 

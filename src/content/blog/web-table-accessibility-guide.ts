@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'web-table-accessibility-guide',
-  title: 'Web Table Accessibility — How to Make Tables Usable With a Screen Reader',
+  title: 'Web Table Accessibility Guide: Screen Readers',
   date: '2026-03-27',
   description:
-    'Tables are one of the hardest HTML elements to navigate with a screen reader. Here is how to build tables that work for everyone.',
+    'Web table accessibility guide: learn how to make tables that work with screen readers — proper headers, ARIA roles, and keyboard navigation.',
   author: 'Olayiwola Akinnagbe',
   tags: ['accessibility', 'screen reader', 'a11y'],
   readTime: 4,
   featured: false,
   content: `## Why table accessibility matters
 
-Tables present information in two dimensions — rows and columns. Sighted users scan a table by looking at the headers and moving their eyes across the grid. Screen reader users cannot scan visually. They navigate the table cell by cell, and without the proper structure, each cell is an isolated piece of data with no context.
+Use web table accessibility guide with Tablesmit. Tables present information in two dimensions — rows and columns. Sighted users scan a table by looking at the headers and moving their eyes across the grid. Screen reader users cannot scan visually. They navigate the table cell by cell, and without the proper structure, each cell is an isolated piece of data with no context.
 
 A screen reader needs to announce the row and column position of each cell as the user navigates. Without this announcement, the user hears plain text values without knowing which row or column they belong to.
 
@@ -111,7 +111,9 @@ Tablesmit implements the full ARIA grid pattern, keyboard navigation, proper col
 
 If you encounter an accessibility issue while using Tablesmit, the contact page is the best place to report it — specific feedback helps prioritise fixes.
 
-Build an accessible table in [Tablesmit](/) — the grid pattern and keyboard navigation are active from the first cell.`,
+Build an accessible table in [Tablesmit](/) — the grid pattern and keyboard navigation are active from the first cell.
+
+[Open Tablesmit](/) — free, no signup required.`,
   relatedFeature: 'accessible-tables',
 }
 

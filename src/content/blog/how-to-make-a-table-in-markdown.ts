@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Make a Table in Markdown',
   date: '2026-04-10',
   description:
-    'Markdown tables are simpler than they look. Learn the syntax in five minutes — then see how {{BRAND_NAME}} generates them without writing a single pipe character.',
+    'Learn how to make a table in markdown with Tablesmit. Build visually and copy correctly formatted Markdown pipe-table syntax. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['markdown', 'tutorial', 'tables'],
   readTime: 5,
   featured: false,
   content: `## The basics
 
-A Markdown table is built from three things: pipes (\`|\`), hyphens (\`-\`), and plain text.
+Learn how to make a table in markdown with Tablesmit. A Markdown table is built from three things: pipes (\`|\`), hyphens (\`-\`), and plain text.
 
 Here is the simplest possible table:
 

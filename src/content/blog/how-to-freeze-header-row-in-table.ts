@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-freeze-header-row-in-table',
-  title: 'How to Freeze a Header Row in a Table So It Stays Visible While Scrolling',
+  title: 'How to Freeze a Header Row in a Table',
   date: '2026-05-11',
   description:
-    'When a table is tall enough to scroll, the header disappears. Freezing the header row keeps column labels visible while you scroll through your data.',
+    'Learn how to freeze header row in table with Tablesmit. Design, format, and export with full control. Tablesmit makes it simple. Tablesmit handles it all.',
   author: 'Olayiwola Akinnagbe',
   tags: ['freeze header', 'sticky row', 'tutorial'],
   readTime: 3,
   featured: false,
   content: `## The problem with scrolling tables
 
-A table with ten rows fits on most screens. A table with twenty or thirty rows does not. Once you scroll down, the header row disappears and you can no longer see which column is which. You scroll back up, check the header, scroll down again — the friction adds up.
+Learn how to freeze header row in table with Tablesmit. A table with ten rows fits on most screens. A table with twenty or thirty rows does not. Once you scroll down, the header row disappears and you can no longer see which column is which. You scroll back up, check the header, scroll down again — the friction adds up.
 
 Spreadsheet applications solved this years ago with freeze panes. The header row stays pinned at the top while the rest of the table scrolls beneath it. Web table tools have been slower to adopt the pattern.
 
