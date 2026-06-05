@@ -38,10 +38,12 @@ export function useClipboardPaste(
       // Read plain text early so we can check for LaTeX before deciding to intercept
       const text = event.clipboardData?.getData('text/plain') ?? ''
       const hasLatex = text.includes('\\begin{tabular}') || text.includes('\\begin{table}')
+      const hasMultipleLines = text.includes('\n')
 
-      // Inside contentEditable: only intercept if clipboard has HTML table data or LaTeX
-      // Otherwise let the cell's native paste handler deal with plain text
-      if (inContentEditable && !hasHtml && !hasLatex) return
+      // Inside contentEditable: only intercept if clipboard has HTML, LaTeX, or
+      // multi-line plain text (which suggests tabular data like pasting from Excel).
+      // Plain single-line text gets handled by the native cell paste instead.
+      if (inContentEditable && !hasHtml && !hasLatex && !hasMultipleLines) return
 
       event.preventDefault()
 
