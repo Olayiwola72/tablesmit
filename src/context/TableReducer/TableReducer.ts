@@ -44,6 +44,28 @@ function removeInvalidMerges(ranges: MergeRange[], rows: number, cols: number): 
   return ranges.filter((range) => range.endRow < rows && range.endCol < cols)
 }
 
+function getAutoNumberCols(firstRow: CellData[] | undefined): Set<number> {
+  const autoCols = new Set<number>()
+  if (firstRow) {
+    for (let c = 0; c < firstRow.length; c++) {
+      if (firstRow[c]?.format === 'auto-number') autoCols.add(c)
+    }
+  }
+  return autoCols
+}
+
+function resequenceAutoNumberCells(cells: CellData[][], autoCols: Set<number>): CellData[][] {
+  if (autoCols.size === 0) return cells
+  return cells.map((row, ri) =>
+    row.map((cell, ci) => {
+      if (autoCols.has(ci)) {
+        return { ...cell, value: String(ri + 1), format: 'auto-number' }
+      }
+      return cell
+    }),
+  )
+}
+
 export function reducer(state: TableState, action: TableAction): TableState {
   switch (action.type) {
     case 'setCells': {
@@ -153,10 +175,12 @@ export function reducer(state: TableState, action: TableAction): TableState {
     case 'insertRowAt': {
       if (state.rows >= MAX_ROWS) return state
       const ir = Math.min(action.index, state.rows)
+      const cells = insertRowToCells(state.cells, ir)
+      const autoCols = getAutoNumberCols(state.cells[0])
       return {
         ...state,
         rows: state.rows + 1,
-        cells: insertRowToCells(state.cells, ir),
+        cells: resequenceAutoNumberCells(cells, autoCols),
         rowHeights: [...state.rowHeights.slice(0, ir), DEFAULT_ROW_HEIGHT, ...state.rowHeights.slice(ir)],
         rowColors: [...state.rowColors.slice(0, ir), '', ...state.rowColors.slice(ir)],
       }
@@ -165,10 +189,12 @@ export function reducer(state: TableState, action: TableAction): TableState {
       if (state.rows <= 1) return state
       const dr = Math.min(action.index, state.rows - 1)
       const newRows = state.rows - 1
+      const cells = deleteRowFromCells(state.cells, dr)
+      const autoCols = getAutoNumberCols(state.cells[0])
       return {
         ...state,
         rows: newRows,
-        cells: deleteRowFromCells(state.cells, dr),
+        cells: resequenceAutoNumberCells(cells, autoCols),
         rowHeights: state.rowHeights.filter((_, i) => i !== dr),
         rowColors: state.rowColors.filter((_, i) => i !== dr),
         mergedRanges: removeInvalidMerges(state.mergedRanges, newRows, state.cols),
@@ -246,8 +272,51 @@ export function reducer(state: TableState, action: TableAction): TableState {
     case 'mergeSelection': {
       if (!state.selectedRange || isSingleCellRange(state.selectedRange)) return state
       const range = rangeFromSelection(state.selectedRange)
+      const anchorCell = state.cells[range.startRow]?.[range.startCol]
+      if (!anchorCell) return state
+
+      const computedFormats = new Set<string>(['auto-number', 'sum'])
+      const isAnchorComputed = anchorCell.format ? computedFormats.has(anchorCell.format) : false
+
+      // Find first non-computed cell in the merge range
+      let firstNonComputed: { value: string; format: string } | undefined
+      for (let r = range.startRow; r <= range.endRow && !firstNonComputed; r++) {
+        for (let c = range.startCol; c <= range.endCol && !firstNonComputed; c++) {
+          const cell = state.cells[r]?.[c]
+          if (cell?.format && !computedFormats.has(cell.format)) {
+            firstNonComputed = { value: cell.value, format: cell.format }
+          }
+        }
+      }
+
+      // Determine which auto-number columns intersect the merge range
+      const affectedCols = new Set<number>()
+      for (let c = range.startCol; c <= range.endCol; c++) {
+        const cell = state.cells[range.startRow]?.[c]
+        if (cell?.format === 'auto-number') {
+          affectedCols.add(c)
+        }
+      }
+
+      // Re-sequence counters for affected auto-number columns
+      const counters: Record<number, number> = {}
+      for (const c of affectedCols) counters[c] = 1
+
+      const newCells = state.cells.map((row, r) =>
+        row.map((cell, c) => {
+          if (r === range.startRow && c === range.startCol && isAnchorComputed && firstNonComputed) {
+            return { ...cell, value: firstNonComputed.value, format: firstNonComputed.format }
+          }
+          if (r > range.endRow && affectedCols.has(c) && cell.format === 'auto-number') {
+            return { ...cell, value: String(counters[c]++) }
+          }
+          return cell
+        }),
+      )
+
       return {
         ...state,
+        cells: newCells,
         mergedRanges: [...state.mergedRanges.filter((item) => item.key !== range.key), range],
       }
     }
@@ -307,8 +376,12 @@ export function reducer(state: TableState, action: TableAction): TableState {
     case 'setColumnFormat':
       return {
         ...state,
-        cells: state.cells.map((row) =>
-          row.map((cell, ci) => (ci === action.col ? { ...cell, format: action.format } : cell)),
+        cells: state.cells.map((row, ri) =>
+          row.map((cell, ci) =>
+            ci !== action.col
+              ? cell
+              : { ...cell, format: action.format, value: action.format === 'auto-number' ? String(ri + 1) : cell.value },
+          ),
         ),
       }
     case 'setColumnTextAlign':

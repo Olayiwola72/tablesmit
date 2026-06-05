@@ -31,7 +31,7 @@ function CtxSeparator(): ReactNode {
   return <div className="border-t border-border my-1" />
 }
 
-export function TableCtxMenu({ ctxMenu, activeSub, headerStyle, columnColors, cellColors, cellTextColors, rowTextColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setCellTextColor, setRowTextColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
+export function TableCtxMenu({ ctxMenu, activeSub, headerStyle, columnColors, cellColors, cellTextColors, rowTextColors, rowColors, columnTextAlign, cells, onClose, onToggleSub, autoFitColumn, setColumnColor, setCellColor, setCellTextColor, setRowTextColor, setRowColor, setColumnFormat, setColumnTextAlign, updateCell, insertRowAbove, insertRowBelow, deleteRowAt, insertColLeft, insertColRight, deleteColAt, isSortDisabled, sortAsc, sortDesc }: TableCtxMenuProps): ReactNode {
   const { t } = useTranslation(['common', 'table'])
   const menuRef = useRef<HTMLDivElement>(null)
   const isHeaderRow = ctxMenu.type === 'cell' && (headerStyle === 'first-row' || headerStyle === 'both') && ctxMenu.row === 0
@@ -88,8 +88,12 @@ export function TableCtxMenu({ ctxMenu, activeSub, headerStyle, columnColors, ce
       {ctxMenu.type === 'column' ? (
         <>
           <CtxButton icon={<Ruler size={14} className="text-primary" />} label={t('contextMenu.autoFitColumn')} onClick={() => { autoFitColumn(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<ArrowUp size={14} className="text-info" />} label={t('contextMenu.sortAscending')} onClick={() => { sortAsc(ctxMenu.col); onClose() }} />
-          <CtxButton icon={<ArrowDown size={14} className="text-info" />} label={t('contextMenu.sortDescending')} onClick={() => { sortDesc(ctxMenu.col); onClose() }} />
+          {!isSortDisabled(ctxMenu.col) ? (
+            <>
+              <CtxButton icon={<ArrowUp size={14} className="text-info" />} label={t('contextMenu.sortAscending')} onClick={() => { sortAsc(ctxMenu.col); onClose() }} />
+              <CtxButton icon={<ArrowDown size={14} className="text-info" />} label={t('contextMenu.sortDescending')} onClick={() => { sortDesc(ctxMenu.col); onClose() }} />
+            </>
+          ) : null}
         </>
       ) : (
         <>

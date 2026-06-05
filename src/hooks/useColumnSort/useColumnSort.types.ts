@@ -10,5 +10,5 @@ export interface UseColumnSortResult {
   sortDesc: (col: number) => void
   sortedRows: CellData[][]
   sortedToOriginal: number[]
-  sortDisabled: boolean
+  isSortDisabled: (col: number) => boolean
 }

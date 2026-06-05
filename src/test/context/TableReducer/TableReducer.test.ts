@@ -4,6 +4,7 @@ import { initialState } from '../../../context/TableState/TableState'
 import { TABLE_THEMES } from '../../../config/table/tableThemes/tableThemes'
 import { generateEmptyTable } from '../../../utils/tableUtils/tableUtils'
 import type { PresetDefinition } from '../../../config/table/presets/presets.types'
+import type { ColumnFormat } from '../../../config/columnFormats/columnFormats.types'
 
 describe('TableReducer', () => {
   it('processes SET_CELLS action', () => {
@@ -246,6 +247,203 @@ describe('TableReducer', () => {
     expect(enabled.captionItalic).toBe(true)
     const next = reducer(enabled, { type: 'clearAll' })
     expect(next.captionItalic).toBe(false)
+  })
+
+  describe('mergeSelection', () => {
+    function setupMergeState(
+      rows: number,
+      cols: number,
+      col0Format: ColumnFormat,
+      col1Format: ColumnFormat,
+      col0Values?: string[],
+      col1Values?: string[],
+    ) {
+      const generated = reducer(initialState, { type: 'generate', rows, cols })
+      const withCol0Format = reducer(generated, { type: 'setColumnFormat', col: 0, format: col0Format })
+      const withCol1Format = reducer(withCol0Format, { type: 'setColumnFormat', col: 1, format: col1Format })
+      let result = withCol1Format
+      if (col0Values) {
+        col0Values.forEach((val, r) => {
+          result = reducer(result, { type: 'updateCell', cellId: `R${r}C0`, value: val })
+        })
+      }
+      if (col1Values) {
+        col1Values.forEach((val, r) => {
+          result = reducer(result, { type: 'updateCell', cellId: `R${r}C1`, value: val })
+        })
+      }
+      return result
+    }
+
+    it('gives priority to non-computed cell value when anchor is auto-number', () => {
+      const state = setupMergeState(3, 2, 'auto-number', 'text', ['1', '2', '3'], ['name', 'desc', 'note'])
+      const withSelection = reducer(state, {
+        type: 'selectRange',
+        range: { startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      })
+      const merged = reducer(withSelection, { type: 'mergeSelection' })
+      expect(merged.cells[0][0].value).toBe('name')
+    })
+
+    it('changes anchor format from auto-number to text when merging with a text cell', () => {
+      const state = setupMergeState(3, 2, 'auto-number', 'text', ['1', '2', '3'], ['name', 'desc', 'note'])
+      const withSelection = reducer(state, {
+        type: 'selectRange',
+        range: { startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      })
+      const merged = reducer(withSelection, { type: 'mergeSelection' })
+      expect(merged.cells[0][0].format).toBe('text')
+    })
+
+    it('re-sequences auto-number cells below the merged range', () => {
+      const state = setupMergeState(4, 2, 'auto-number', 'text', ['1', '2', '3', '4'], ['a', 'b', 'c', 'd'])
+      const withSelection = reducer(state, {
+        type: 'selectRange',
+        range: { startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      })
+      const merged = reducer(withSelection, { type: 'mergeSelection' })
+      expect(merged.cells[1][0].value).toBe('1')
+      expect(merged.cells[2][0].value).toBe('2')
+      expect(merged.cells[3][0].value).toBe('3')
+    })
+
+    it('keeps anchor value when anchor is non-computed (text)', () => {
+      const state = setupMergeState(2, 2, 'text', 'auto-number', ['hello'], ['1'])
+      const withSelection = reducer(state, {
+        type: 'selectRange',
+        range: { startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      })
+      const merged = reducer(withSelection, { type: 'mergeSelection' })
+      expect(merged.cells[0][0].value).toBe('hello')
+      expect(merged.cells[0][0].format).toBe('text')
+    })
+
+    it('keeps anchor value when all cells in range are auto-number', () => {
+      const state = setupMergeState(2, 2, 'auto-number', 'auto-number', ['1'], ['2'])
+      const withSelection = reducer(state, {
+        type: 'selectRange',
+        range: { startRow: 0, startCol: 0, endRow: 0, endCol: 1 },
+      })
+      const merged = reducer(withSelection, { type: 'mergeSelection' })
+      expect(merged.cells[0][0].value).toBe('1')
+      expect(merged.cells[0][0].format).toBe('auto-number')
+    })
+
+    it('returns state unchanged when no selectedRange', () => {
+      const next = reducer(initialState, { type: 'mergeSelection' })
+      expect(next).toBe(initialState)
+    })
+  })
+
+  function setupCustomState(
+    rows: number,
+    cols: number,
+    columnFormats: ColumnFormat[],
+    data?: string[][],
+  ) {
+    const generated = reducer(initialState, { type: 'generate', rows, cols })
+    let result = generated
+    columnFormats.forEach((fmt, c) => {
+      result = reducer(result, { type: 'setColumnFormat', col: c, format: fmt })
+    })
+    if (data) {
+      data.forEach((row, r) => {
+        row.forEach((val, c) => {
+          result = reducer(result, { type: 'updateCell', cellId: `R${r}C${c}`, value: val })
+        })
+      })
+    }
+    return result
+  }
+
+  describe('deleteRowAt with auto-number re-sequencing', () => {
+    it('re-sequences auto-number column values when first row is deleted', () => {
+      const columns: ColumnFormat[] = ['auto-number', 'text']
+      const data = [
+        ['1', 'A'],
+        ['2', 'B'],
+        ['3', 'C'],
+      ]
+      const state = setupCustomState(3, 2, columns, data)
+      const next = reducer(state, { type: 'deleteRowAt', index: 0 })
+      expect(next.cells[0][0].value).toBe('1')
+      expect(next.cells[0][0].format).toBe('auto-number')
+      expect(next.cells[0][1].value).toBe('B')
+      expect(next.cells[1][0].value).toBe('2')
+      expect(next.cells[1][0].format).toBe('auto-number')
+      expect(next.cells[1][1].value).toBe('C')
+    })
+
+    it('re-sequences auto-number column values when middle row is deleted', () => {
+      const columns: ColumnFormat[] = ['auto-number', 'text']
+      const data = [
+        ['1', 'A'],
+        ['2', 'B'],
+        ['3', 'C'],
+      ]
+      const state = setupCustomState(3, 2, columns, data)
+      const next = reducer(state, { type: 'deleteRowAt', index: 1 })
+      expect(next.cells[0][0].value).toBe('1')
+      expect(next.cells[1][0].value).toBe('2')
+      expect(next.rows).toBe(2)
+    })
+
+    it('does not re-sequence non-auto-number columns', () => {
+      const columns: ColumnFormat[] = ['text', 'number']
+      const data = [
+        ['A', '42'],
+        ['B', '99'],
+      ]
+      const state = setupCustomState(2, 2, columns, data)
+      const next = reducer(state, { type: 'deleteRowAt', index: 0 })
+      expect(next.cells[0][0].value).toBe('B')
+      expect(next.cells[0][1].value).toBe('99')
+      expect(next.rows).toBe(1)
+    })
+  })
+
+  describe('insertRowAt with auto-number re-sequencing', () => {
+    it('re-sequences auto-number column values when inserting at row 0', () => {
+      const columns: ColumnFormat[] = ['auto-number', 'text']
+      const data = [
+        ['1', 'A'],
+        ['2', 'B'],
+        ['3', 'C'],
+      ]
+      const state = setupCustomState(3, 2, columns, data)
+      const next = reducer(state, { type: 'insertRowAt', index: 0 })
+      expect(next.rows).toBe(4)
+      expect(next.cells[0][0].value).toBe('1')
+      expect(next.cells[0][0].format).toBe('auto-number')
+      expect(next.cells[1][0].value).toBe('2')
+      expect(next.cells[1][0].format).toBe('auto-number')
+      expect(next.cells[2][0].value).toBe('3')
+      expect(next.cells[2][0].format).toBe('auto-number')
+      expect(next.cells[3][0].value).toBe('4')
+      expect(next.cells[3][0].format).toBe('auto-number')
+    })
+
+    it('re-sequences auto-number column values when inserting in middle', () => {
+      const columns: ColumnFormat[] = ['auto-number']
+      const data = [['1'], ['2'], ['3']]
+      const state = setupCustomState(3, 1, columns, data)
+      const next = reducer(state, { type: 'insertRowAt', index: 2 })
+      expect(next.rows).toBe(4)
+      expect(next.cells[0][0].value).toBe('1')
+      expect(next.cells[1][0].value).toBe('2')
+      expect(next.cells[2][0].value).toBe('3')
+      expect(next.cells[3][0].value).toBe('4')
+    })
+
+    it('does not re-sequence non-auto-number columns', () => {
+      const columns: ColumnFormat[] = ['currency']
+      const data = [['100']]
+      const state = setupCustomState(1, 1, columns, data)
+      const next = reducer(state, { type: 'insertRowAt', index: 1 })
+      expect(next.rows).toBe(2)
+      expect(next.cells[0][0].value).toBe('100')
+      expect(next.cells[1][0].value).toBe('')
+    })
   })
 
   it('returns state unchanged for unknown action type', () => {

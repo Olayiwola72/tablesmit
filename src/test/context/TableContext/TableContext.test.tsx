@@ -120,6 +120,20 @@ describe('TableContext', () => {
     expect(result.current.mergedRanges).toHaveLength(0)
   })
 
+  it('merge gives priority to non-computed cell value over auto-number', () => {
+    const { result } = renderHook(() => useCombined(), { wrapper: Wrapper })
+    act(() => result.current.setColumnFormat(0, 'auto-number'))
+    act(() => result.current.setColumnFormat(1, 'text'))
+    act(() => result.current.updateCell('R0C0', '1'))
+    act(() => result.current.updateCell('R0C1', 'Product'))
+    act(() => result.current.updateCell('R1C0', '2'))
+    act(() => result.current.selectRange({ startRow: 0, startCol: 0, endRow: 0, endCol: 1 }))
+    act(() => result.current.mergeSelection())
+    expect(result.current.cells[0][0].value).toBe('Product')
+    expect(result.current.cells[0][0].format).toBe('text')
+    expect(result.current.cells[1][0].value).toBe('1')
+  })
+
   it('generates a new table with specified dimensions', () => {
     const { result } = renderHook(() => useCombined(), { wrapper: Wrapper })
     act(() => result.current.generateTable(3, 7))

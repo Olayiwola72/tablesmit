@@ -5,6 +5,7 @@ import { ChevronRight, Clipboard, Code, Copy, FileText, Image, Loader2, Table, T
 import { useTableContext, useTableData } from '@/context/TableContext'
 import { DEFAULT_ROWS, DEFAULT_COLS } from '@/config/table/tableDefaults/tableDefaults'
 
+import { useColumnSort } from '@/hooks/useColumnSort/useColumnSort'
 import { useCopyTable } from '@/hooks/useCopyTable/useCopyTable'
 import { useExport } from '@/hooks/useExport/useExport'
 import { useFindReplace } from '@/hooks/useFindReplace/useFindReplace'
@@ -45,12 +46,20 @@ export function TableMakerContent(): ReactNode {
       window.history.replaceState({}, document.title)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  const {
+    sortedRows, sortedToOriginal,
+    toggleSort, sortAsc, sortDesc,
+    activeSortCol, activeSortDir,
+    isSortDisabled,
+  } = useColumnSort(cells, cols, mergedRanges, headerStyle)
+
   const { exportAs, exportingFormat, exportQuality, setExportQuality } = useExport(tableRef)
   const { t } = useTranslation(['common', 'table'])
   const [activeSheet, setActiveSheet] = useState<'settings' | 'presets' | null>(null)
   const tableWidth = useMemo(() => columnWidths.reduce((sum, w) => sum + w, 0), [columnWidths])
   const { copyAsCsv, copyAsExcelData, copyAsMarkdown, copyAsLatex, copyAsImage, isCopying } = useCopyTable(
-    cells, tableRef, caption, columnWidths, cellColors, cellTextColors, cellTextAlign,
+    sortedRows, tableRef, caption, columnWidths, cellColors, cellTextColors, cellTextAlign,
     mergedRanges, headerColor, headerStyle, contentColor, contentBgColor, theme,
     borderStyle, borderColor, captionTextColor, captionBgColor, captionAlignment, captionItalic,
   )
@@ -114,7 +123,7 @@ export function TableMakerContent(): ReactNode {
 
   const blurTableRef = useRef<(() => void) | null>(null)
   usePrintTable(tableRef, () => blurTableRef.current?.())
-  useTableCopyShortcut(cells, tableRef, setCaptionAlignment)
+  useTableCopyShortcut(sortedRows, tableRef, setCaptionAlignment)
 
   const {
     query, setQuery, replaceText, setReplaceText,
@@ -137,8 +146,8 @@ export function TableMakerContent(): ReactNode {
   }, [replaceAll, updateCell])
 
   const handleExport = useCallback((format: ExportFormat): void => {
-    void exportAs(format, exportRef.current, caption, captionTextColor, captionBgColor, captionAlignment, captionItalic)
-  }, [exportAs, exportRef, caption, captionTextColor, captionBgColor, captionAlignment, captionItalic])
+    void exportAs(format, exportRef.current, caption, captionTextColor, captionBgColor, captionAlignment, captionItalic, sortedRows)
+  }, [exportAs, exportRef, caption, captionTextColor, captionBgColor, captionAlignment, captionItalic, sortedRows])
 
   return (
     <main className="flex flex-1 flex-col overflow-hidden bg-white dark:bg-slate-900">
@@ -156,7 +165,7 @@ export function TableMakerContent(): ReactNode {
         <section className="relative flex min-w-0 flex-1 flex-col" aria-label="Editable table workspace" onContextMenu={handleWsContext}>
           <StatusBar rows={rows} cols={cols} />
           <div ref={exportRef} className="flex flex-col min-w-0 w-fit" data-export-ref>
-            <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} caption={{ value: caption, onChange: setCaption, alignment: captionAlignment, onAlignmentChange: setCaptionAlignment, tableWidth, textColor: captionTextColor, bgColor: captionBgColor, onTextColorChange: setCaptionTextColor, onBgColorChange: setCaptionBgColor, italic: captionItalic, onItalicChange: setCaptionItalic }} blurTableRef={blurTableRef} />
+            <TableGrid tableRef={tableRef} findMatches={matches} currentFindMatch={currentMatch} caption={{ value: caption, onChange: setCaption, alignment: captionAlignment, onAlignmentChange: setCaptionAlignment, tableWidth, textColor: captionTextColor, bgColor: captionBgColor, onTextColorChange: setCaptionTextColor, onBgColorChange: setCaptionBgColor, italic: captionItalic, onItalicChange: setCaptionItalic }} blurTableRef={blurTableRef} sortedRows={sortedRows} sortedToOriginal={sortedToOriginal} toggleSort={toggleSort} sortAsc={sortAsc} sortDesc={sortDesc} activeSortCol={activeSortCol} activeSortDir={activeSortDir} isSortDisabled={isSortDisabled} />
           </div>
           {findOpen && (
             <div className="absolute right-2 top-2 z-40">

@@ -1,11 +1,11 @@
 import type { ColumnFormat } from '@/config/columnFormats/columnFormats.types'
 
-export interface TableHeaderCellProps {
+export interface ColumnHeaderCellProps {
   index: number
   width: number
   format: ColumnFormat
   sortDir: 'asc' | 'desc' | null
-  sortDisabled?: boolean
+  isSortDisabled: () => boolean
   onSort: () => void
   onFormatChange: (format: ColumnFormat) => void
   onResizeStart: (event: React.MouseEvent, index: number, width: number) => void

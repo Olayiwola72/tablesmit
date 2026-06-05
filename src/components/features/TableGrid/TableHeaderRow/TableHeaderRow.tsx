@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { TableHeaderCell } from '../TableHeaderCell/TableHeaderCell'
+import { ColumnHeaderCell } from '../ColumnHeaderCell/ColumnHeaderCell'
 import type { TableHeaderRowProps } from './TableHeaderRow.types'
 
 export function TableHeaderRow({
@@ -8,7 +8,7 @@ export function TableHeaderRow({
   cells,
   activeSortCol,
   activeSortDir,
-  sortDisabled,
+  isSortDisabled,
   onSort,
   onFormatChange,
   onResizeStart,
@@ -23,13 +23,13 @@ export function TableHeaderRow({
       aria-label="Column formatting controls"
     >
       {Array.from({ length: cols }, (_, index) => (
-        <TableHeaderCell
+        <ColumnHeaderCell
           key={cells[0]?.[index]?.id ?? `col-${index}`}
           index={index}
           width={columnWidths[index]}
           format={cells[0]?.[index]?.format ?? 'text'}
           sortDir={activeSortCol === index ? activeSortDir : null}
-          sortDisabled={sortDisabled}
+          isSortDisabled={() => isSortDisabled(index)}
           onSort={() => onSort(index)}
           onFormatChange={(format) => onFormatChange(index, format)}
           onResizeStart={onResizeStart}

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { EXPORT_QUALITY_PRESETS, defaultExportQuality, exportFileBaseName } from '../../config/export/exportConfig'
 import { useTableContext, useTableData } from '../../context/TableContext'
 import { exportTable } from '../../services/exportService'
+import type { CellData } from '../../types/table/cell.types'
 import type { ExportFormat } from '../../services/exportService/export.types'
 import type { ExportQuality } from '../../config/export/exportConfig.types'
 import { TABLE_THEMES } from '../../config/table/tableThemes/tableThemes'
@@ -44,7 +45,7 @@ export function useExport(tableRef?: RefObject<HTMLDivElement | null>): ExportAp
     rowColors, columnColors, columnTextAlign, cellColors, cellTextAlign,
   ])
 
-  const exportAs = useCallback(async (format: ExportFormat, element: HTMLElement | null, caption?: string, captionTextColor?: string, captionBgColor?: string, captionAlignment?: 'left' | 'center' | 'right', captionItalic?: boolean): Promise<void> => {
+  const exportAs = useCallback(async (format: ExportFormat, element: HTMLElement | null, caption?: string, captionTextColor?: string, captionBgColor?: string, captionAlignment?: 'left' | 'center' | 'right', captionItalic?: boolean, cellsOverride?: CellData[][]): Promise<void> => {
     if (!element) return
     setExportingFormat(format)
     element.classList.add('is-exporting')
@@ -64,7 +65,7 @@ export function useExport(tableRef?: RefObject<HTMLDivElement | null>): ExportAp
         captionBgColor: captionBgColor?.trim() || undefined,
         captionAlignment,
         captionItalic,
-        cells: cellsRef.current,
+        cells: cellsOverride ?? cellsRef.current,
         headerStyle: styleRef.current,
         mergedRanges: mergedRef.current,
         styles: {

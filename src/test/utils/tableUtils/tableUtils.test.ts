@@ -243,6 +243,41 @@ describe('sortRows', () => {
     const sorted = sortRows(rows, 0, 'asc')
     expect(sorted[0][0].value).toBe('2')
   })
+
+  it('skips the first row when skipFirstRow is true', () => {
+    const rows = tableWithValues([['header'], ['c'], ['a'], ['b']])
+    const sorted = sortRows(rows, 0, 'asc', true)
+    expect(sorted[0][0].value).toBe('header')
+    expect(sorted.map((r) => r[0].value)).toEqual(['header', 'a', 'b', 'c'])
+  })
+
+  it('preserves first row position in descending sort with skipFirstRow', () => {
+    const rows = tableWithValues([['header'], ['a'], ['c'], ['b']])
+    const sorted = sortRows(rows, 0, 'desc', true)
+    expect(sorted[0][0].value).toBe('header')
+    expect(sorted.map((r) => r[0].value)).toEqual(['header', 'c', 'b', 'a'])
+  })
+
+  it('does not mutate original when skipFirstRow is true', () => {
+    const rows = tableWithValues([['header'], ['c'], ['a']])
+    const original = rows.map((r) => r[0].value)
+    sortRows(rows, 0, 'asc', true)
+    expect(rows.map((r) => r[0].value)).toEqual(original)
+  })
+
+  it('handles skipFirstRow with empty cells correctly', () => {
+    const rows = tableWithValues([['header'], [''], ['b'], ['a']])
+    const sorted = sortRows(rows, 0, 'asc', true)
+    expect(sorted[0][0].value).toBe('header')
+    expect(sorted.map((r) => r[0].value)).toEqual(['header', 'a', 'b', ''])
+  })
+
+  it('does not error when skipFirstRow is true with single row', () => {
+    const rows = tableWithValues([['only']])
+    const sorted = sortRows(rows, 0, 'asc', true)
+    expect(sorted).toHaveLength(1)
+    expect(sorted[0][0].value).toBe('only')
+  })
 })
 
 describe('computeColumnSum', () => {

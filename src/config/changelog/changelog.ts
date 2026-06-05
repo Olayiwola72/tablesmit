@@ -18,7 +18,7 @@ export const CHANGELOG: ChangelogEntry[] = [
     changes: [
       { type: 'fixed',    description: 'Restore accent color to original bright amber (#F59E0B) matching brand spec' },
       { type: 'improved', description: 'Responsive RowColumnActions — collapses to dropdown on lg- screens' },
-      { type: 'improved', description: 'Reduce column type select height from 44px to 32px in TableHeaderCell' },
+      { type: 'improved', description: 'Reduce column type select height from 44px to 32px in ColumnHeaderCell' },
       { type: 'improved', description: 'Tighten toolbar spacing to prevent overflow on desktop' },
       { type: 'fixed',    description: 'Move trailing separator into MobileExportDropdown to avoid phantom separator' },
       { type: 'fixed',    description: 'Stack Navbar mobile drawer buttons vertically instead of cramped side-by-side' },

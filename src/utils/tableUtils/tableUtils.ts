@@ -118,7 +118,26 @@ export function sortRows(
   rows: CellData[][],
   colIndex: number,
   direction: 'asc' | 'desc',
+  skipFirstRow = false,
 ): CellData[][] {
+  if (skipFirstRow && rows.length > 1) {
+    const header = rows[0]
+    const dataRows = rows.slice(1)
+    const sorted = [...dataRows].sort((rowA, rowB) => {
+      const aVal = rowA[colIndex]?.value ?? ''
+      const bVal = rowB[colIndex]?.value ?? ''
+      if (aVal === '') return 1
+      if (bVal === '') return -1
+
+      const aNum = parseFloat(aVal)
+      const bNum = parseFloat(bVal)
+      const isNumeric = !Number.isNaN(aNum) && !Number.isNaN(bNum)
+      const compared = isNumeric ? aNum - bNum : aVal.localeCompare(bVal)
+      return direction === 'asc' ? compared : -compared
+    })
+    return [header, ...sorted]
+  }
+
   return [...rows].sort((rowA, rowB) => {
     const aVal = rowA[colIndex]?.value ?? ''
     const bVal = rowB[colIndex]?.value ?? ''
