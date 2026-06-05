@@ -228,7 +228,7 @@ export async function parseClipboardContent(
     } else {
       pastedRows = lines.map((line) => line.split(delim).map((v) => v.trim()))
     }
-    if (delim === ',' && pastedRows.every((r) => r.length === 1)) pastedRows = []
+    if (delim === ',' && pastedRows.length === 1 && pastedRows[0]!.length === 1) pastedRows = []
   }
 
   if (pastedRows.length > 1 && !caption) {
@@ -244,9 +244,6 @@ export async function parseClipboardContent(
       const match = first.match(/^#\s+(.+)/)
       if (match) {
         caption = match[1]!
-        pastedRows = pastedRows.slice(1)
-      } else if (pastedRows.length > 2) {
-        caption = first
         pastedRows = pastedRows.slice(1)
       }
     }

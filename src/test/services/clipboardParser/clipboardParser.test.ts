@@ -24,10 +24,10 @@ describe('parseClipboardContent', () => {
     expect(result?.rows).toEqual([['$10,000', '$5,000'], ['$1,000', '$500']])
   })
 
-  it('extracts caption from leading single-cell row', async () => {
+  it('does not treat leading single-cell as caption — first row is data', async () => {
     const result = await parseClipboardContent('My Table\n\na\tb\nc\td', null)
-    expect(result?.caption).toBe('My Table')
-    expect(result?.rows).toEqual([['a', 'b'], ['c', 'd']])
+    expect(result?.caption).toBeUndefined()
+    expect(result?.rows).toEqual([['My Table'], ['a', 'b'], ['c', 'd']])
   })
 
   it('returns null for single-row single-column text', async () => {
