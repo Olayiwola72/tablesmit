@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'ai-table-generator-features',
-  title: 'AI Table Generator — What to Expect When Smart Tables Arrive',
+  title: 'AI Table Generator Features — What to Expect',
   date: '2026-05-21',
   description:
-    '{{BRAND_NAME}} is developing AI features to help you generate tables from text and clean messy data. Here is what is coming and how it will work.',
+    'AI table generator features are coming to Tablesmit. Generate tables from text descriptions, clean messy data, and summarize table content — coming soon.',
   author: 'Olayiwola Akinnagbe',
   tags: ['ai', 'features', 'future', 'tables'],
   readTime: 5,
   featured: false,
   content: `## Tables are about to get smarter
 
-Tablesmit is a structured writing tool. It gives you precise control over headers, formatting, and export. What it does not do yet is help you create content — that part is still entirely up to you.
+AI table generator features are coming to [Tablesmit](/). It gives you precise control over headers, formatting, and export. What it does not do yet is help you create content — that part is still entirely up to you.
 
 That is changing. We are developing AI features that will work alongside you in the table editor.
 
@@ -57,7 +57,7 @@ AI features will be opt-in only. Table data is never sent to an AI endpoint with
 
 ## Availability
 
-AI features are currently in development with no fixed release date. The UI scaffolding is in place so you can see what is coming and provide feedback. If you want early access when the beta launches, click **Join Waitlist** in the AI Features panel.
+AI features are currently in development with no fixed release date. The UI scaffolding is in place so you can see what is coming and provide feedback. If you want early access when the beta launches, click **Join Waitlist** in the AI Features panel. Read the [AI features overview](/features/ai-features) for more detail.
 
 ## What comes next
 

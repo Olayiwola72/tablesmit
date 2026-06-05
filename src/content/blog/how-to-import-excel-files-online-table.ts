@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-import-excel-files-online-table',
-  title: 'How to Import Excel Files into an Online Table Editor',
+  title: 'Import Excel Files into an Online Table Editor',
   date: '2026-05-29',
   description:
-    'Upload an .xlsx file directly into {{BRAND_NAME}}. Excel import preserves cell content, merged cells, column widths, and caption styling — no server upload.',
+    'Learn how to import excel files online table with Tablesmit. Design, format, and export with full control. Tablesmit makes it simple. Tablesmit makes it...',
   author: 'Olayiwola Akinnagbe',
   tags: ['excel', 'import', 'xlsx', 'tutorial', 'tables'],
   readTime: 5,
   featured: false,
   content: `## Why Excel import matters
 
-Most people start their tables in Excel. It is the tool they know, the tool their data lives in, and the tool their colleagues send them files from. But Excel is overkill when you just need a clean, formatted table for a report, blog post, or research paper.
+Learn how to import excel files online table with Tablesmit. If you need to [import Excel files into an online table editor](/features/excel-import), Tablesmit handles the conversion seamlessly. Most people start their tables in Excel. It is the tool they know, the tool their data lives in, and the tool their colleagues send them files from. But Excel is overkill when you just need a clean, formatted table for a report, blog post, or research paper.
 
 The solution: build the data in Excel, then import it into Tablesmit for polishing, styling, and export.
 
@@ -47,7 +47,7 @@ The solution: build the data in Excel, then import it into Tablesmit for polishi
 - Maximum columns: 20
 - Maximum cells: 100,000
 
-These limits keep the editor responsive. If your Excel file exceeds them, consider splitting it into smaller tables.
+These limits keep the editor responsive. If your Excel file exceeds them, consider splitting it into smaller tables. You can also [import CSV into an online table](/features/csv-import) for simpler data files.
 
 ## Excel import vs CSV import
 

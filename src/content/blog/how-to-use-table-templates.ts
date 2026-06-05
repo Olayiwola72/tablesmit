@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Use Table Templates to Start Faster',
   date: '2026-03-30',
   description:
-    'A blank table forces you to decide everything from scratch. Templates give you a starting structure with preset headers, rows, and columns.',
+    'Learn how to use table templates to start faster with Tablesmit. Templates give you preset headers, rows, and columns so you skip the blank canvas.',
   author: 'Olayiwola Akinnagbe',
   tags: ['table templates', 'presets', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## The blank page problem
 
-A new table with five rows and five columns of empty cells presents a decision: what goes in each column? How many rows do you need? What should the headers say?
+Learn how to use table templates with Tablesmit. A new table with five rows and five columns of empty cells presents a decision: what goes in each column? How many rows do you need? What should the headers say?
 
 These decisions are not difficult, but they add up. When you build tables frequently, starting from a blank grid every time wastes a few minutes per table. Over a week of regular work, the overhead is measurable.
 

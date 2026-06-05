@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Make a Schedule Table Online',
   date: '2026-04-22',
   description:
-    'A schedule table that is hard to read wastes time. Here is how to build a clean, clear schedule — for an event, course, or project — in under three minutes.',
+    'Learn how to make a schedule table online with Tablesmit. Build a clean, clear schedule for an event, course, or project in under three minutes.',
   author: 'Olayiwola Akinnagbe',
   tags: ['schedule', 'templates', 'tutorial'],
   readTime: 4,
   featured: false,
   content: `## What a schedule table needs to do
 
-A schedule table has one job: tell people where they need to be and when, without making them work for the answer.
+Learn how to make a schedule table with Tablesmit. A schedule table has one job: tell people where they need to be and when, without making them work for the answer.
 
 The structure is always the same — time down the left, sessions or activities in the next column, with additional columns for location, presenter, or notes depending on the context. The formatting challenge is making that structure scan quickly. Someone reading a conference schedule should be able to find their panel in under five seconds.
 

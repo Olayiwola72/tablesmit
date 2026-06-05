@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Add a Table to a Medium Post',
   date: '2026-06-01',
   description:
-    'Medium does not support native tables. Three workarounds that work — including how to get a clean, formatted table into your Medium post in under two minutes.',
+    'Learn how to add table to medium post with Tablesmit. Build your table visually then paste clean HTML into Medium editor. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['medium', 'writing', 'tutorial'],
   readTime: 5,
   featured: false,
   content: `## The problem
 
-Medium cannot render a \`<table>\` tag. After 13 years, that still has not changed.
+Learn how to add table to medium post with Tablesmit. If you need to add a table to a Medium post, you face a limitation. Medium cannot render a \`<table>\` tag. After 13 years, that still has not changed.
 
 The editor handles text, images, embeds, and code blocks — but structured tables are not on that list. It is a known frustration, and it is not going away.
 

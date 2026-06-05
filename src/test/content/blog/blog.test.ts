@@ -45,10 +45,60 @@ describe('all blog posts', () => {
     expect(new Set(slugs).size).toBe(slugs.length)
   })
 
-  it('all descriptions are under 160 characters', () => {
-    for (const post of posts) {
-      expect(post.description.length).toBeLessThanOrEqual(160)
-    }
+  describe('SEO compliance', () => {
+    it('all titles are ≤48 characters', () => {
+      for (const post of posts) {
+        expect(
+          post.title.length,
+          `${post.slug}: title "${post.title}" is ${post.title.length} chars`
+        ).toBeLessThanOrEqual(48)
+      }
+    })
+
+    it('all descriptions are 140–155 characters', () => {
+      for (const post of posts) {
+        expect(
+          post.description.length,
+          `${post.slug}: description is ${post.description.length} chars`
+        ).toBeGreaterThanOrEqual(140)
+        expect(
+          post.description.length,
+          `${post.slug}: description is ${post.description.length} chars`
+        ).toBeLessThanOrEqual(155)
+      }
+    })
+
+    it('all descriptions contain the slug-derived keyword as a substring', () => {
+      for (const post of posts) {
+        const keyword = post.slug.replace(/-/g, ' ')
+        expect(
+          post.description.toLowerCase(),
+          `${post.slug}: description missing keyword "${keyword}"`
+        ).toContain(keyword)
+      }
+    })
+
+    it('all content has at least 2 internal links', () => {
+      for (const post of posts) {
+        const links = post.content.match(/\]\(\//g)
+        const count = links ? links.length : 0
+        expect(
+          count,
+          `${post.slug}: has ${count} internal link(s)`
+        ).toBeGreaterThanOrEqual(2)
+      }
+    })
+
+    it('all content contains the slug-derived keyword in the first ~100 words', () => {
+      for (const post of posts) {
+        const keyword = post.slug.replace(/-/g, ' ')
+        const opening = post.content.slice(0, 600).toLowerCase()
+        expect(
+          opening,
+          `${post.slug}: keyword "${keyword}" not found in first 600 chars`
+        ).toContain(keyword)
+      }
+    })
   })
 
   it('relatedFeature references an existing feature page slug when present', () => {

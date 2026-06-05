@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Add a Caption to Your Table',
   date: '2026-05-28',
   description:
-    'Every published table needs a caption. {{BRAND_NAME}} has a dedicated caption field above the table — click to edit, right-click to align, and it exports cleanly.',
+    'Learn how to add caption to table with Tablesmit. Style captions with custom colors, alignment, and italic text formatting. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['caption', 'formatting', 'tutorial', 'tables'],
   readTime: 3,
   featured: false,
   content: `## Why captions matter
 
-A table without a caption is a floating grid of data. The reader has to figure out what it means from context — and in a document with multiple tables, that context quickly becomes confusing.
+Learn how to add caption to table with Tablesmit. Learning [how to add a caption to your table](/features/table-caption) makes your data clear and referenceable. A table without a caption is a floating grid of data. The reader has to figure out what it means from context — and in a document with multiple tables, that context quickly becomes confusing.
 
 Captions are standard in academic writing, technical reports, and data journalism. They label the table, describe its contents, and make it referenceable in the text ("see Table 3").
 
@@ -53,7 +53,7 @@ Captions are preserved in every export format:
 
 ## Quick start
 
-Click the placeholder above any table. Type your caption. Press Enter or click away to confirm. That is it — your table now has a title.`,
+Click the placeholder above any table. Type your caption. Press Enter or click away to confirm. That is it — your table now has a title. Try it in [Tablesmit](/).`,
   relatedFeature: 'table-caption',
 }
 

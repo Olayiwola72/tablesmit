@@ -5,16 +5,16 @@ const post: BlogPost = {
   title: 'How to Auto-Sum Columns in an Online Table',
   date: '2026-05-25',
   description:
-    'Need a total row at the bottom of your table? Enable Auto-Sum on any Number, Currency, or Percentage column. {{BRAND_NAME}} calculates it for you.',
+    'Learn how to auto sum columns table with Tablesmit. Design, format, and export with full control. Tablesmit makes it simple. Tablesmit handles it all.',
   author: 'Olayiwola Akinnagbe',
   tags: ['auto-sum', 'numbers', 'productivity', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## A table that adds itself
 
-You are building a budget table. Six rows of expenses. One column for amounts. You reach for a calculator, or you copy the data into a spreadsheet just to get a total.
+Learn how to auto sum columns table with Tablesmit. Learn how to auto-sum columns in an online table with Tablesmit. You are building a budget table. Six rows of expenses. One column for amounts. You reach for a calculator, or you copy the data into a spreadsheet just to get a total.
 
-Tablesmit has a better way: Auto-Sum.
+[Tablesmit](/) has a better way: Auto-Sum.
 
 ## How Auto-Sum works
 
@@ -64,7 +64,7 @@ Any column where the last question is "what is the total?".
 
 ## Quick start
 
-Select a numeric column. Open Column Type. Choose Currency. Toggle Show sum row. Your table now has a running total — updated automatically as you edit.`,
+Select a numeric column. Open Column Type. Choose Currency. Toggle Show sum row. [Set up Auto-Sum in Tablesmit](/) — your table gets a running total that updates automatically as you edit.`,
   relatedFeature: 'auto-sum',
 }
 

@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'table-builder-keyboard-shortcuts-guide',
-  title: '10 Table Builder Keyboard Shortcuts Every Power User Should Know',
+  title: '10 Table Builder Keyboard Shortcuts',
   date: '2026-05-22',
   description:
-    'Speed up your table editing with keyboard shortcuts. Navigate cells, merge, undo, copy, find and replace — all without touching the mouse.',
+    'Master every shortcut in this table builder keyboard shortcuts guide from Tablesmit. Navigate and format without touching your mouse. Tablesmit makes it...',
   author: 'Olayiwola Akinnagbe',
   tags: ['shortcuts', 'productivity', 'keyboard', 'tutorial', 'tables'],
   readTime: 5,
   featured: true,
   content: `## Why keyboard shortcuts matter
 
-Every time your hand moves from keyboard to mouse and back, you lose a fraction of a second. Over the course of editing a table, those fractions add up to minutes of lost time. Keyboard shortcuts eliminate the movement entirely.
+This table builder keyboard shortcuts guide covers every Tablesmit shortcut. [Table builder keyboard shortcuts](/features/keyboard-shortcuts) save you minutes of wasted motion every editing session. Every time your hand moves from keyboard to mouse and back, you lose a fraction of a second. Over the course of editing a table, those fractions add up to minutes of lost time. Keyboard shortcuts eliminate the movement entirely.
 
 Tablesmit has a full set of keyboard shortcuts for every major operation. Here are the ten that will change how you work.
 
@@ -32,7 +32,7 @@ The most important shortcut in any application. Undo the last action. Works for 
 
 ## 4. Ctrl+F / Ctrl+H — Find and Replace
 
-Ctrl+F opens the find panel. Type to search across all cell values. Use the ▲ and ▼ buttons to jump between matches. Ctrl+H opens find and replace — enter the search term and replacement, then click Replace or Replace All.
+Ctrl+F opens the [find and replace](/features/find-replace) panel. Type to search across all cell values. Use the ▲ and ▼ buttons to jump between matches. Ctrl+H opens find and replace — enter the search term and replacement, then click Replace or Replace All.
 
 Matches are highlighted in amber. The active match has an amber ring around it.
 

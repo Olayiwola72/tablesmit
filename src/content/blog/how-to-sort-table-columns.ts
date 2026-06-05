@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-sort-table-columns',
-  title: 'How to Sort Table Columns by Data — Ascending, Descending, and What Happens to Empty Cells',
+  title: 'How to Sort Table Columns in Online Tables',
   date: '2026-04-24',
   description:
-    'Sorting a table column is one of the fastest ways to find patterns in your data. Here is how sorting works and what you need to know before you use it.',
+    'Learn how to sort table columns: find patterns faster with ascending, descending, and empty-cells-always-last sorting you can apply in one click.',
   author: 'Olayiwola Akinnagbe',
   tags: ['sort columns', 'table sorting', 'tutorial'],
   readTime: 3,
   featured: false,
   content: `## Sorting as a discovery tool
 
-When you enter data into a table, you usually enter it in the order it arrives — chronologically, by source, or in whatever order makes sense during data collection. The resulting table reflects the order of entry, not the order of the data itself.
+Learn how to sort table columns with Tablesmit. When you enter data into a table, you usually enter it in the order it arrives — chronologically, by source, or in whatever order makes sense during data collection. The resulting table reflects the order of entry, not the order of the data itself.
 
 Sorting a column rearranges the rows so you can see the data in a meaningful sequence. Sorted alphabetically, a list of product names becomes easier to scan. Sorted by price from low to high, a pricing table reveals the cheapest options first. Sorted by date from newest to oldest, a log becomes a timeline.
 
@@ -71,7 +71,9 @@ This means you can experiment with sorting without worrying about losing the ori
 - Grouping similar values together to spot patterns
 - Preparing data before exporting — a sorted table reads more clearly in PDF or Excel
 
-Open [Tablesmit](/) and click any column header icon to try ascending and descending sort on your data.`,
+Open [Tablesmit](/) and click any column header icon to try ascending and descending sort on your data.
+
+[Open Tablesmit](/) to build your tables — free and works in your browser.`,
   relatedFeature: 'column-sorting',
 }
 

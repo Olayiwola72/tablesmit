@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'offline-table-builder',
-  title: 'How to Use a Table Builder Without an Internet Connection',
+  title: 'Table Builder Without Internet Connection',
   date: '2026-05-21',
   description:
-    'Most web tools stop when your connection drops. {{BRAND_NAME}} works offline — build, edit, and export tables on a plane, in a tunnel, or anywhere Wi-Fi fails.',
+    'Learn to use an offline table builder for travel and remote work. Tablesmit works as a PWA — build, edit, and export tables without an internet connection.',
   author: 'Olayiwola Akinnagbe',
   tags: ['offline', 'pwa', 'productivity'],
   readTime: 4,
   featured: false,
   content: `## The problem with browser-based tools and travel
 
-You are on a seven-hour flight. Your research notes are in your head and your laptop is open. You need to build a table for the paper you are writing — a literature review, a methods comparison, a results summary.
+An offline table builder is essential when you travel. You are on a seven-hour flight. Your research notes are in your head and your laptop is open. You need to build a table for the paper you are writing — a literature review, a methods comparison, a results summary.
 
 You open your browser, navigate to the tool you normally use, and see a blank screen and a loading spinner. No internet. No table tool.
 

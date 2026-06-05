@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Add Table Borders Online',
   date: '2026-06-01',
   description:
-    'Word-style border controls in a web table editor. Choose from No Border, All Borders, Outside, Inside, Thick Box, Double, Dashed, and Dotted.',
+    'Learn how to add table borders online with Tablesmit. Apply solid, dashed, dotted, or double borders to any cell edge or side. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['borders', 'formatting', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## Why table borders matter
 
-Borders define the structure of a table. Without them, a grid of cells looks like a block of text. With the right borders, the same data becomes scannable, professional, and publication-ready.
+Learning how to add table borders online gives you publication-ready results. Borders define the structure of a table. Without them, a grid of cells looks like a block of text. With the right borders, the same data becomes scannable, professional, and publication-ready.
 
 Professional writers and researchers know this. A conference paper or report with clean borders signals attention to detail. A table with default or invisible borders looks unfinished.
 
@@ -20,7 +20,7 @@ Professional writers and researchers know this. A conference paper or report wit
 
 Most online table builders give you one border option: a uniform grid. Every cell edge looks the same. You cannot add a thick box border around the outside, a double line at the top, or remove borders from inside cells to create a clean, minimal look.
 
-Tablesmit gives you all the same border options you expect from Microsoft Word — and applies them to the cells you select.
+[Tablesmit](/features/border-styles) gives you all the same border options you expect from Microsoft Word — and applies them to the cells you select.
 
 ## Border types supported
 
@@ -60,7 +60,7 @@ The border panel shows a visual preview of each preset — no guessing what "Ins
 
 ## Borders in export
 
-Borders are preserved in every export format:
+Borders are preserved in every [export format](/features/pdf-export):
 
 - **PDF** — borders render as specified, with correct weights and styles
 - **PNG / JPEG** — rasterised exactly as the editor shows

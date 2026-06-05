@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Make a Comparison Table Online',
   date: '2026-05-06',
   description:
-    'A good comparison table does not just list features — it makes a decision obvious. Here is how to structure, format, and export one that actually persuades.',
+    'Learn how to make a comparison table online that makes decisions obvious. Tablesmit helps you structure, format, and export tables that persuade fast.',
   author: 'Olayiwola Akinnagbe',
   tags: ['comparison table', 'tutorial', 'templates'],
   readTime: 6,
   featured: false,
   content: `## What makes a comparison table work
 
-A comparison table has one job: make a decision easier.
+Learn how to make a comparison table with Tablesmit. A comparison table has one job: make a decision easier.
 
 Done well, it removes ambiguity. The reader looks at the table and understands, immediately and without interpretation, which option best fits their situation.
 

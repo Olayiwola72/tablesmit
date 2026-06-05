@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-copy-table-as-image',
-  title: 'How to Copy a Table as an Image for Presentations and Documents',
+  title: 'Copy a Table as an Image for Presentations',
   date: '2026-04-08',
   description:
-    'Need a picture of your table for a slide deck or a report? Here is how to copy any table as a clean PNG image — no cropping needed.',
+    'Learn how to copy table as image with Tablesmit. Copy high-resolution PNG images into documents, slides, and presentations. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['copy table', 'table image', 'screenshot'],
   readTime: 3,
   featured: false,
   content: `## When you need a table as an image
 
-Most of the time you want your table as data — editable cells in a spreadsheet, searchable text in a PDF, or structured rows in a database. But sometimes the format you are publishing to does not accept live tables. Presentation tools, certain document templates, and some CMS platforms expect images, not structured content.
+Learn how to copy table as image with Tablesmit. If you need to [copy a table as an image](/features/image-export) for a presentation or document, Tablesmit gives you a direct way to do it. Most of the time you want your table as data — editable cells in a spreadsheet, searchable text in a PDF, or structured rows in a database. But sometimes the format you are publishing to does not accept live tables. Presentation tools, certain document templates, and some CMS platforms expect images, not structured content.
 
 In those cases, a screenshot is the fallback. But a screenshot captures whatever is on your screen at that moment — the toolbar, the scrollbar, the sidebar, the browser chrome around the edges. It takes multiple crops and resizes to get a clean image.
 

@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-make-a-table-in-html',
-  title: 'How to Make a Table in HTML (and a Faster Alternative)',
+  title: 'Make a Table in HTML Without Writing Markup',
   date: '2026-06-03',
   description:
-    'Learn the HTML table syntax — thead, tbody, th, td, colspan, rowspan — then discover a faster way to build tables without writing markup.',
+    'Learn how to make a table in HTML with proper thead, tbody, th, and td tags. Tablesmit generates semantic HTML output so you skip the markup entirely.',
   author: 'Olayiwola Akinnagbe',
   tags: ['html tables', 'web development', 'tutorial', 'html beginners'],
   readTime: 5,
   featured: false,
   content: `## The basic HTML table structure
 
-Every HTML table follows the same skeleton. Here is a simple product table:
+Learn how to make a table in html with Tablesmit. Every HTML table follows the same skeleton. Here is a simple product table:
 
 \`\`\`html
 <table>
@@ -115,7 +115,7 @@ Add a class or inline styles — either works. The HTML structure stays the same
 
 ## The problem with writing HTML by hand
 
-For a one-off table, writing raw HTML is manageable. But if you build tables regularly, you run into the same problems:
+For a one-off table, writing raw HTML is manageable. But if you build tables regularly with an [online table maker](/), you run into the same problems:
 
 - **Repetitive markup** — every \`<tr>\` and \`<td>\` tag is boilerplate
 - **Error-prone colspan math** — one miscount breaks the layout silently

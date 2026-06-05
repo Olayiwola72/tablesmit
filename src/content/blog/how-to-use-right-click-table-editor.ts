@@ -5,16 +5,16 @@ const post: BlogPost = {
   title: 'How to Use Right-Click in an Online Table Editor',
   date: '2026-05-31',
   description:
-    'Right-click any cell or column header to access AutoFit, insert and delete rows or columns, sort, copy, and paste — without reaching for the toolbar.',
+    'Learn how to use right click table editor with Tablesmit. Right-click any cell or header to AutoFit, insert, delete, or sort quickly. Tablesmit makes it...',
   author: 'Olayiwola Akinnagbe',
   tags: ['context menu', 'right-click', 'productivity', 'tutorial', 'tables'],
   readTime: 4,
   featured: false,
   content: `## The fastest way to edit tables
 
-The toolbar is useful, but the context menu is faster. Right-clicking the element you want to modify skips the mental step of finding the right button in the toolbar.
+Learn how to use right click table editor with Tablesmit. Learning how to use a right-click table editor saves time. The toolbar is useful, but the context menu is faster. Right-clicking the element you want to modify skips the mental step of finding the right button in the toolbar.
 
-Tablesmit includes a full right-click context menu on every cell and column header. It mirrors the most common table operations so you never have to leave your workflow.
+[Tablesmit](/) includes a full right-click context menu on every cell and column header. It mirrors the most common table operations so you never have to leave your workflow.
 
 ## Cell context menu
 
@@ -55,7 +55,7 @@ Right-click a column header for column-specific operations:
 
 The toolbar is best for batch operations and first-time discovery (seeing all buttons at once). The context menu is best for fast, targeted edits when you already know what you want to do.
 
-Both are always available. Use whichever fits the moment.`,
+Both are always available. [Build your table in Tablesmit](/) and use whichever fits the moment.`,
   relatedFeature: 'context-menu',
 }
 

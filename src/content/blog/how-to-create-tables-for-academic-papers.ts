@@ -2,17 +2,17 @@ import type { BlogPost } from '../../services/blogService/blogService.types'
 
 const post: BlogPost = {
   slug: 'how-to-create-tables-for-academic-papers',
-  title: 'How to Create Tables for Academic Papers and Research Publications',
+  title: 'How to Create Tables for Academic Papers',
   date: '2026-04-05',
   description:
-    'Academic tables have specific formatting expectations. Here is how to build tables that meet journal requirements — clean, readable, and ready for publication.',
+    'Learn how to create tables for academic papers with Tablesmit. Design publication-ready academic tables with header and column styling. Tablesmit makes...',
   author: 'Olayiwola Akinnagbe',
   tags: ['academic tables', 'research papers', 'guide'],
   readTime: 5,
   featured: false,
   content: `## Why academic tables are different
 
-A table in a research paper serves a different purpose from a table in a business report or a personal spreadsheet. In academic writing, the table is a piece of evidence — it presents data that supports your argument. Readers need to be able to scan it quickly, understand the structure, and extract specific values without rereading.
+Learn how to create tables for academic papers with Tablesmit. A table in a research paper serves a different purpose from a table in a business report or a personal spreadsheet. In academic writing, the table is a piece of evidence — it presents data that supports your argument. Readers need to be able to scan it quickly, understand the structure, and extract specific values without rereading.
 
 Academic publishers impose specific formatting rules on tables. These vary by journal, but the common requirements are consistent: clear headers, consistent alignment, readable font sizes, and no distracting colours or styling.
 

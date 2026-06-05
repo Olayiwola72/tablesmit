@@ -5,14 +5,14 @@ const post: BlogPost = {
   title: 'How to Export a Table to LaTeX',
   date: '2026-04-29',
   description:
-    'Stop writing LaTeX table syntax by hand. Build tables visually and export clean, paste-ready LaTeX code — with headers, alignment, and escaping handled.',
+    'Learn how to export table to latex with Tablesmit. Generate publication-ready LaTeX with colors, alignment, and border styles. Tablesmit makes it simple.',
   author: 'Olayiwola Akinnagbe',
   tags: ['latex', 'academic', 'export', 'tutorial'],
   readTime: 5,
   featured: false,
   content: `## The problem with LaTeX tables
 
-If you have written a research paper in LaTeX, you know the feeling. Your data is ready. Your analysis is done. And now you need to turn a spreadsheet into a \`tabular\` environment — by hand.
+Learn how to export table to latex with Tablesmit. If you have written a research paper in LaTeX, you know the feeling. Your data is ready. Your analysis is done. And now you need to turn a spreadsheet into a \`tabular\` environment — by hand.
 
 The syntax is not complicated in principle. But in practice, it is fragile. A missing ampersand breaks the entire table. A percent sign in a cell causes a compile error. Column alignment has to be declared upfront before you know how wide your data will run. And if you paste in data from Excel, every special character becomes a potential problem.
 
