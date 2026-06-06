@@ -1,0 +1,37 @@
+name: Crosspost to dev.to
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'public/launch/tablesmit-devto-complete.md'
+      - 'scripts/crosspost-devto.ts'
+  workflow_dispatch:
+
+jobs:
+  crosspost:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          cache: npm
+
+      - run: npm ci
+
+      - name: Crosspost new posts to dev.to
+        run: npm run crosspost -- --cover
+        env:
+          VITE_DEVTO_API_KEY: ${{ secrets.VITE_DEVTO_API_KEY }}
+
+      - name: Commit updated tracking file
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add scripts/.crossposted.json
+          git diff --staged --quiet || git commit -m 'chore: update dev.to crosspost tracking [skip ci]'
+          git push
