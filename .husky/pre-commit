@@ -1,3 +1,13 @@
-npx lint-staged
+# Crosspost new blog posts to dev.to when content changes
+if git diff --cached --name-only | grep -qE "^public/launch/tablesmit-devto-complete\.md$|^scripts/crosspost-devto\.ts$" || \
+   git diff --cached --name-only --diff-filter=A | grep -qE "^src/content/blog/"; then
+  echo "Content changes detected — crossposting to dev.to..."
+  npm run crosspost -- --cover
+  git add scripts/.crossposted.json
+fi
 
+npx lint-staged
 npm run lint && npm run test -- --run
+
+# Re-stage tracking file in case lint/test cycle touched it
+git add scripts/.crossposted.json
