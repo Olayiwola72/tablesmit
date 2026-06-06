@@ -1,5 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { execSync } from 'node:child_process'
+import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -7,6 +9,7 @@ const ROOT = path.resolve(__dirname, '..')
 const BLUEPRINT_PATH = path.join(ROOT, 'public/launch/tablesmit-devto-complete.md')
 const TRACKING_PATH = path.join(__dirname, '.crossposted.json')
 const CSV_REPORT_PATH = path.join(__dirname, '.crossposted-report.csv')
+const INDEXING_DIR = path.join(ROOT, 'indexing')
 const DEVTO_API_BASE = 'https://dev.to/api'
 const RATE_LIMIT_MS = 3_000
 
@@ -106,6 +109,7 @@ interface TrackingData {
       crosspostedAt: string
     }
   >
+  indexingHash?: string
 }
 
 interface CliFlags {
@@ -114,6 +118,7 @@ interface CliFlags {
   repost: boolean
   report: boolean
   cover: boolean
+  rescheduleIndexed: boolean
 }
 
 interface DevtoArticle {
@@ -179,6 +184,78 @@ function parseBlueprint(): CrossPost[] {
   return posts.sort((a, b) => a.number - b.number)
 }
 
+// ── Working day helpers ──
+
+function addWorkingDays(from: Date, count: number): Date {
+  const result = new Date(from)
+  for (let i = 0; i < count; ) {
+    result.setUTCDate(result.getUTCDate() + 1)
+    const dow = result.getUTCDay()
+    if (dow !== 0 && dow !== 6) i++
+  }
+  return result
+}
+
+// ── Indexing coverage ──
+
+function loadIndexedSlugs(): Set<string> {
+  const slugs = new Set<string>()
+
+  if (!fs.existsSync(INDEXING_DIR)) return slugs
+
+  const files = fs.readdirSync(INDEXING_DIR)
+
+  for (const file of files) {
+    const filePath = path.join(INDEXING_DIR, file)
+    let csvContent: string | null = null
+
+    if (file.endsWith('.csv')) {
+      csvContent = fs.readFileSync(filePath, 'utf-8')
+    } else if (file.endsWith('.zip')) {
+      try {
+        csvContent = execSync(`unzip -p "${filePath}" Table.csv`, {
+          encoding: 'utf-8',
+        })
+      } catch {
+        continue
+      }
+    }
+
+    if (!csvContent) continue
+
+    const lines = csvContent.split('\n').filter((line) => line.trim())
+    const header = lines[0]
+    const urlColIdx = header
+      .split(',')
+      .findIndex((col: string) => col.trim() === 'URL')
+    if (urlColIdx === -1) continue
+
+    for (let i = 1; i < lines.length; i++) {
+      const cols = lines[i].split(',')
+      const url = cols[urlColIdx]?.trim()
+      if (!url) continue
+
+      const match = url.match(/\/blog\/([^/]+)/)
+      if (match) slugs.add(match[1])
+    }
+  }
+
+  return slugs
+}
+
+function computeIndexingHash(): string {
+  if (!fs.existsSync(INDEXING_DIR)) return ''
+  const files = fs.readdirSync(INDEXING_DIR).sort()
+  const parts = files.map((f) => {
+    const stat = fs.statSync(path.join(INDEXING_DIR, f))
+    return `${f}:${stat.mtimeMs}:${stat.size}`
+  })
+  const hash = createHash('md5')
+    .update(parts.join('|'))
+    .digest('hex')
+  return hash
+}
+
 // ── Tracking ──
 
 function loadTracking(): TrackingData {
@@ -212,6 +289,7 @@ function parseArgs(): CliFlags {
     repost: args.includes('--repost'),
     report: args.includes('--report'),
     cover: args.includes('--cover'),
+    rescheduleIndexed: args.includes('--reschedule-indexed'),
   }
 }
 
@@ -457,8 +535,57 @@ async function main(): Promise<void> {
     postsToProcess = allPosts
   }
 
-  // Filter out already-crossposted posts (unless --repost)
-  if (!flags.repost) {
+  // ── Reschedule-indexed mode: find indexed posts and schedule them next working day ──
+  if (flags.rescheduleIndexed) {
+    const indexingHash = computeIndexingHash()
+    const indexingChanged =
+      indexingHash && indexingHash !== tracking.indexingHash
+
+    if (!indexingChanged) {
+      console.log('Indexing data unchanged — nothing to reschedule.')
+      return
+    }
+
+    const indexedSlugs = loadIndexedSlugs()
+    if (indexedSlugs.size === 0) {
+      console.log('No indexed blog post slugs found — nothing to reschedule.')
+      return
+    }
+    console.log(
+      `Found ${indexedSlugs.size} indexed blog post(s) in GSC coverage data`,
+    )
+
+    // Only consider already-crossposted posts that are now indexed
+    postsToProcess = allPosts.filter(
+      (p) => tracking.crossposted[p.slug] && indexedSlugs.has(p.slug),
+    )
+
+    if (postsToProcess.length === 0) {
+      console.log(
+        'None of the indexed blog posts have been crossposted yet — nothing to reschedule.',
+      )
+      return
+    }
+    console.log(
+      `${postsToProcess.length} indexed post(s) found in crossposted data — will reschedule`,
+    )
+
+    // Reschedule each to next working day at 2-3pm WAT
+    let indexedPostCounter = 0
+    for (const post of postsToProcess) {
+      const adjustedDate = addWorkingDays(new Date(), indexedPostCounter + 1)
+      const randomMinute = Math.floor(Math.random() * 60)
+      adjustedDate.setUTCHours(13, randomMinute, 0, 0)
+      post.scheduleDate = adjustedDate
+      indexedPostCounter++
+    }
+
+    // Persist hash so next run skips
+    tracking.indexingHash = indexingHash
+  }
+
+  // Filter out already-crossposted posts (unless --repost or --reschedule-indexed)
+  if (!flags.repost && !flags.rescheduleIndexed) {
     const pending = postsToProcess.filter(
       (p) => !tracking.crossposted[p.slug],
     )
@@ -483,6 +610,40 @@ async function main(): Promise<void> {
   if (!flags.dryRun) {
     existingArticles = await fetchExistingArticles()
     console.log(`Found ${existingArticles.size} existing articles`)
+  }
+
+  // Check if indexing coverage data has changed; adjust schedules (skip in --reschedule-indexed)
+  if (!flags.rescheduleIndexed) {
+    const indexingHash = computeIndexingHash()
+    const indexingChanged =
+      indexingHash && indexingHash !== tracking.indexingHash
+    let indexedSlugs = new Set<string>()
+    let indexedPostCounter = 0
+
+    if (indexingChanged) {
+      indexedSlugs = loadIndexedSlugs()
+      if (indexedSlugs.size > 0) {
+        console.log(
+          `Found ${indexedSlugs.size} indexed blog post(s) in GSC coverage data`,
+        )
+      } else {
+        console.log('Indexing data changed but no blog slugs found')
+      }
+    }
+
+    if (indexingChanged) {
+      tracking.indexingHash = indexingHash
+    }
+
+    for (const post of postsToProcess) {
+      if (indexedSlugs.has(post.slug)) {
+        const adjustedDate = addWorkingDays(new Date(), indexedPostCounter + 1)
+        const randomMinute = Math.floor(Math.random() * 60)
+        adjustedDate.setUTCHours(13, randomMinute, 0, 0)
+        post.scheduleDate = adjustedDate
+        indexedPostCounter++
+      }
+    }
   }
 
   // Process each post
