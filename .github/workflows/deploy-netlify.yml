@@ -58,6 +58,12 @@ jobs:
       - name: Build
         run: npm run build --if-present
 
+      - name: Reschedule indexed posts on dev.to
+        if: github.ref == 'refs/heads/main'
+        run: npm run crosspost -- --reschedule-indexed
+        env:
+          VITE_DEVTO_API_KEY: ${{ secrets.VITE_DEVTO_API_KEY }}
+
       - name: Deploy to Netlify
         if: github.ref == 'refs/heads/main'
         run: |

@@ -1,10 +1,10 @@
-# Tablesmit — Dev.to Complete Content Pack
+# Tablesmit: Dev.to Complete Content Pack
 > Welcome thread + Profile + All 39 cross-posts
 > Canonical URLs set for every post. Two-week wait rule applies to unindexed posts.
 
 ---
 
-# PART 1 — DEV.TO PROFILE
+# PART 1: DEV.TO PROFILE
 
 Website URL: https://tablesmit.com
 Location: Lagos, Nigeria
@@ -12,8 +12,7 @@ Location: Lagos, Nigeria
 Bio (200 chars max):
 ```
 Software engineer in Lagos. I build tools that should have existed.
-Currently working on Tablesmit — a free, open source table builder
-for writers and researchers.
+Currently working on Tablesmit, a free, open source table builder for writers and researchers.
 ```
 
 Currently learning:
@@ -36,13 +35,13 @@ PWA, i18n, Accessibility (ARIA), Git
 
 Currently hacking on:
 ```
-Tablesmit — a free open source table builder with LaTeX, PDF, Excel,
+Tablesmit, a free open source table builder with LaTeX, PDF, Excel,
 CSV, PNG and JPEG export. tablesmit.com
 ```
 
 Work:
 ```
-Software Engineer — building Tablesmit
+Software Engineer building Tablesmit
 ```
 
 Education:
@@ -54,7 +53,7 @@ Brand color: #1E40AF
 
 ---
 
-# PART 2 — WELCOME THREAD COMMENT
+# PART 2: WELCOME THREAD COMMENT
 
 Post this in the current welcome thread (dev.to/welcome).
 
@@ -64,11 +63,10 @@ Hey everyone! I am Olayiwola, a software engineer from Lagos, Nigeria.
 I joined DEV because I have been building in public and I wanted to
 connect with developers who actually ship things.
 
-My current project is Tablesmit — a free, open source table builder
-for writers, analysts and researchers. You build a clean structured
+My current project is Tablesmit, a free, open source table builder for writers, analysts and researchers. You build a clean structured
 table in the browser, set column types, and export to PDF, Excel, LaTeX,
 CSV, PNG or JPEG. No account required. MIT licensed. The LaTeX export
-has been the feature that surprised me most — I added it because one
+has been the feature that surprised me most: I added it because one
 researcher asked, and it turned out to be the thing people talk about
 most.
 
@@ -82,7 +80,7 @@ What are you all working on?
 
 ---
 
-# PART 3 — ALL 39 DEV.TO CROSS-POSTS
+# PART 3: ALL 39 DEV.TO CROSS-POSTS
 
 Each post includes:
 - Title (optimized for Dev.to)
@@ -96,7 +94,7 @@ Advanced Settings → Canonical URL → paste the tablesmit.com URL.
 ---
 
 ## POST 1
-**Indexed by Google: YES — safe to cross-post now**
+**Indexed by Google: YES, safe to cross-post now**
 
 Title: AI Table Generator Features Worth Actually Using
 Tags: ai, productivity, tools, webdev
@@ -105,7 +103,7 @@ Canonical: https://tablesmit.com/blog/ai-table-generator-features/
 ```
 If you search for an AI table generator, you will find a lot of tools
 that generate something vaguely table-shaped and call it done. The
-output is usually wrong in ways that are annoying to fix — misaligned
+output is usually wrong in ways that are annoying to fix: misaligned
 columns, no column types, no export that is actually usable.
 
 The features worth caring about in a table builder are less about AI
@@ -115,8 +113,7 @@ of the way while you work?
 
 Column types are the first thing to look for. A tool that treats every
 cell as a string will right-align a currency column in the output or
-format 84.1 as 84.10000000001. A tool that understands column types —
-Text, Number, Currency, Percentage, Date — will format values correctly
+format 84.1 as 84.10000000001. A tool that understands column types (Text, Number, Currency, Percentage, Date) will format values correctly
 and generate proper alignment in LaTeX exports automatically.
 
 Export quality is the second thing. A PDF export that looks like a
@@ -128,7 +125,7 @@ the cell values separated by ampersands.
 Smart paste is the third thing most people discover late. If you have
 data in Excel or Google Sheets, you should be able to copy the cells
 and paste directly into a table builder. This works because Excel writes
-tab-separated data to the clipboard when you copy a range — a good table
+tab-separated data to the clipboard when you copy a range. A good table
 builder reads that and reconstructs the table automatically.
 
 I built Tablesmit with all of this in mind. It is free, open source,
@@ -140,7 +137,7 @@ Try it at tablesmit.com.
 ---
 
 ## POST 2
-**Indexed by Google: YES — safe to cross-post now**
+**Indexed by Google: YES, safe to cross-post now**
 
 Title: The Best Table Tool for Researchers (And Why Most Miss the Mark)
 Tags: research, productivity, latex, tools
@@ -163,7 +160,7 @@ generated block should paste straight into the .tex file without
 manual editing.
 
 This is what the LaTeX export in Tablesmit does. You set your column
-types — Text for labels, Number or Percentage for values — and the
+types (Text for labels, Number or Percentage for values) and the
 export generates the alignment automatically. Text columns get l,
 numeric columns get r. Special characters including %, $, &, _, ^,
 {, and } are escaped. The caption field maps to the LaTeX caption
@@ -192,7 +189,7 @@ tablesmit.com
 ---
 
 ## POST 3
-**Indexed by Google: YES — safe to cross-post now**
+**Indexed by Google: YES, safe to cross-post now**
 
 Title: How to Copy a Table from Excel to the Web Without Rebuilding It
 Tags: excel, webdev, productivity, tools
@@ -206,7 +203,7 @@ spend twenty minutes rebuilding the table row by row.
 
 The reason most tools fail here is that they ignore how Excel writes
 to the clipboard. When you copy a range of cells in Excel, the clipboard
-holds two formats simultaneously — a formatted HTML version and a
+holds two formats simultaneously: a formatted HTML version and a
 tab-separated plain text version. Most web tools read only the plain text
 and dump it into a single input instead of reconstructing the table.
 
@@ -226,7 +223,7 @@ The same workflow works with Google Sheets. Copy a range, paste into
 Tablesmit. Sheets also writes tab-separated data to the clipboard
 when you copy a selection.
 
-Word tables work differently — Word writes HTML to the clipboard instead
+Word tables work differently: Word writes HTML to the clipboard instead
 of TSV. Tablesmit detects HTML tables and parses those too.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -235,9 +232,9 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 4
-**Indexed by Google: YES — safe to cross-post now**
+**Indexed by Google: YES, safe to cross-post now**
 
-Title: Free Online Table Makers Compared — What They Get Right and Wrong
+Title: Free Online Table Makers Compared: What They Get Right and Wrong
 Tags: tools, productivity, webdev, opensource
 Canonical: https://tablesmit.com/blog/free-online-table-makers-compared/
 
@@ -250,7 +247,7 @@ supports LaTeX output, but the column type control is basic, the
 interface feels dated, and the export options are limited compared
 to what you actually need for professional documents.
 
-Markdown Tables Generator does one thing and does it well — it
+Markdown Tables Generator does one thing and does it well: it
 generates Markdown table syntax. If that is all you need, use it.
 If you need a PDF or an Excel file, it is not the right tool.
 
@@ -277,7 +274,7 @@ tablesmit.com
 ---
 
 ## POST 5
-**Indexed by Google: YES — safe to cross-post now**
+**Indexed by Google: YES, safe to cross-post now**
 
 Title: How to Add a Caption to a Table (And Why It Matters for Exports)
 Tags: productivity, tools, latex, writing
@@ -291,7 +288,7 @@ looking at without requiring them to read the surrounding text. In
 LaTeX, the caption maps to the \caption{} command inside the table
 environment. In Excel, it becomes the sheet title.
 
-Most table builders treat the caption as an afterthought — a text
+Most table builders treat the caption as an afterthought: a text
 field that appears in the visual preview but disappears in the export.
 
 In Tablesmit, the caption field is a first-class part of the table.
@@ -332,7 +329,7 @@ that, the simplest approach is to build the table in a dedicated
 tool, format it visually, and export to the format you need.
 
 In Tablesmit, borders are handled through the theme system. The
-default theme uses clean horizontal rules — a full border on the
+default theme uses clean horizontal rules, a full border on the
 header row and lighter borders between data rows, which is the
 standard format for professional document tables. You can switch
 themes in the toolbar to change the border style across the entire
@@ -366,7 +363,7 @@ The first is the PNG method. Build your table in a tool that exports
 clean images, export as PNG, and embed it as an image in Medium.
 This works because Medium handles images cleanly across desktop,
 tablet, and mobile. The table looks exactly as you built it. The
-downside is that it is not interactive — readers cannot copy cells.
+downside is that it is not interactive: readers cannot copy cells.
 For most content purposes this does not matter.
 
 The second is the GitHub Gist method. Create a Gist with a .html
@@ -407,7 +404,7 @@ You set the header background, adjust the border, change the font
 size, and then do it all again for the next table.
 
 Tablesmit handles this through themes. A theme applies a consistent
-visual style across the entire table in one click — header color,
+visual style across the entire table in one click: header color,
 border style, row striping, and spacing. You switch themes from the
 toolbar. The change takes effect immediately across every row and
 column.
@@ -454,7 +451,7 @@ it appears as a value in the last row. In the LaTeX export it
 appears as a final row before the closing \hline.
 
 When any value in the column changes, the total updates automatically.
-You do not manage it — you just build the table and the total stays
+You do not manage it. You just build the table and the total stays
 correct.
 
 This is particularly useful for financial tables, experiment results
@@ -482,14 +479,14 @@ to the clipboard, or to use the PNG export and drag it directly
 into the target application.
 
 In Tablesmit, the PNG export generates a clean, high-resolution
-image of the table as it appears in the editor — borders, theme,
+image of the table as it appears in the editor: borders, theme,
 caption and all. The file downloads immediately with no compression
 artifacts. You can then drag it into Google Docs, paste it into
 Keynote, or attach it wherever you need it.
 
 The JPEG export is available if you need a smaller file size for
-web use. PNG is better for documents because it is lossless —
-the text in the table cells renders sharply at any zoom level.
+web use. PNG is better for documents because it is lossless. The
+text in the table cells renders sharply at any zoom level.
 
 For presentations specifically, the dark mode theme in Tablesmit
 produces a table that works well on dark slide backgrounds. Build
@@ -508,7 +505,7 @@ Canonical: https://tablesmit.com/blog/how-to-create-tables-for-academic-papers/
 ```
 Academic paper tables have specific requirements that general table
 builders do not address. The column alignment must follow the data
-type — text labels align left, numeric values align right. Special
+type: text labels align left, numeric values align right. Special
 characters in values must be escaped for LaTeX. The caption must
 appear in a specific position. Grouped headers require merged cells
 that span multiple columns.
@@ -565,13 +562,12 @@ how the data values below it are formatted. This is the most
 important setting because it flows through to the LaTeX alignment
 automatically.
 
-The second is cell merging. If you have grouped headers — for
-example, a "Results" label that spans three metric columns — you
+The second is cell merging. If you have grouped headers, for example a "Results" label that spans three metric columns, you
 select the header cells and merge them from the right-click context
 menu. The merged cell spans the full width of the selected columns.
 
 The third is theme. The theme controls the visual styling of the
-header row — background color, font weight, and border. Switching
+header row: background color, font weight, and border. Switching
 themes updates the header styling across the entire table.
 
 Together these three controls handle most header customization needs
@@ -603,8 +599,7 @@ When you are done, the LaTeX export gives you the full block with
 correct alignment, escaped special characters, and your caption.
 Paste it over the old block in your .tex file.
 
-For tables you are actively iterating on — changing values, adding
-rows, adjusting column types — keeping the Tablesmit version as the
+For tables you are actively iterating on, changing values, adding rows, adjusting column types, keeping the Tablesmit version as the
 source and re-exporting when you make changes is significantly faster
 than editing the LaTeX directly.
 
@@ -636,14 +631,13 @@ The practical approach for most use cases is to handle the color
 in the visual export rather than in LaTeX directly. If your target
 is a PDF submission, export a styled PDF with the colors applied.
 If your target is a LaTeX-rendered document, export the table as
-PNG and include it as a figure — this is acceptable in many venues
+PNG and include it as a figure. This is acceptable in many venues
 for supplementary tables and less critical figures.
 
 For tables that must be in LaTeX source with color, Tablesmit's
 approach is to export the base tabular block with correct structure
 and alignment, which you then decorate with xcolor commands in your
-editor. The structural foundation — column alignment, escaped
-characters, caption — is handled by the export. The color decoration
+editor. The structural foundation (column alignment, escaped characters, caption) is handled by the export. The color decoration
 is a mechanical find-replace operation in the .tex file.
 
 The themed PDF export is the faster path for most users. Tablesmit's
@@ -662,7 +656,7 @@ Canonical: https://tablesmit.com/blog/how-to-export-table-as-image/
 
 ```
 Exporting a table as an image is the most versatile option when you
-need the table in a context that does not support structured data —
+need the table in a context that does not support structured data:
 a Medium post, a Notion page, a presentation slide, a Figma design,
 or a social media post.
 
@@ -678,7 +672,7 @@ compression artifacts if the quality setting is too low. Use JPEG
 for web embeds where file size matters more than pixel-perfect text.
 
 In Tablesmit, both exports are available in the right sidebar export
-panel. The export renders the table as it appears in the editor —
+panel. The export renders the table as it appears in the editor:
 your theme, borders, column widths, caption, and content are all
 included. There is no browser chrome, no Tablesmit branding, and no
 white space outside the table.
@@ -694,14 +688,14 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 16
-Title: How to Export a Table to LaTeX — Complete Guide
+Title: How to Export a Table to LaTeX: Complete Guide
 Tags: latex, tools, research, typescript
 Canonical: https://tablesmit.com/blog/how-to-export-table-to-latex/
 
 ```
 The standard options for getting a table into LaTeX are: write the
 tabular syntax by hand, use Tables Generator, or build it in Excel
-and use a converter. All three have the same problem — the output
+and use a converter. All three have the same problem: the output
 requires manual editing before it is actually usable.
 
 Writing tabular by hand is slow. You count ampersands, check that
@@ -710,7 +704,7 @@ debug alignment by compiling. For a ten-column table with twenty
 rows this takes longer than it should.
 
 Tables Generator is faster but the column alignment control is
-limited. It does not derive alignment from data type — you set it
+limited. It does not derive alignment from data type: you set it
 manually for each column.
 
 Excel converters are inconsistent. The column spec is often wrong
@@ -752,7 +746,7 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 17
-Title: How to Export a Table to PDF Online — Clean Output Every Time
+Title: How to Export a Table to PDF Online: Clean Output Every Time
 Tags: tools, productivity, pdf, webdev
 Canonical: https://tablesmit.com/blog/how-to-export-table-to-pdf/
 
@@ -767,7 +761,7 @@ as a primary output. They export to PDF as an afterthought, using
 the browser's print function or a screenshot library that does not
 handle table layout correctly.
 
-A table exported to PDF should look like a document table — clean
+A table exported to PDF should look like a document table with clean
 borders, proper column widths, readable font, no layout overflow,
 caption in the right position. It should be the kind of output you
 can hand to a client or attach to a paper submission without opening
@@ -775,15 +769,14 @@ it in Acrobat first to check if it looks right.
 
 In Tablesmit, the PDF export uses jsPDF with a layout engine that
 respects the column widths you set, the theme you chose, and the
-caption you wrote. The output is vector-based — the text is sharp
+caption you wrote. The output is vector-based. The text is sharp
 at any zoom level and the file is small.
 
 The workflow is: build the table, set your column widths by dragging,
 choose a theme, add a caption, click Export → PDF. The file downloads
 immediately.
 
-If you are exporting for a specific paper format — letter, A4, or a
-custom size — the export uses standard page margins and the table
+If you are exporting for a specific paper format (letter, A4, or a custom size), the export uses standard page margins and the table
 is centered on the page.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -802,8 +795,7 @@ seems minor until you need it. You have a thirty-row table and you
 realize the product name in column one has a typo in twelve places.
 Fixing it manually means clicking through every affected cell.
 
-The standard browser find shortcut — Ctrl+F on Windows, Cmd+F on Mac
-— opens the browser's find bar, which searches the visible text on
+The standard browser find shortcut (Ctrl+F on Windows, Cmd+F on Mac) opens the browser's find bar, which searches the visible text on
 the page but cannot replace values in table cells.
 
 Tablesmit intercepts the find shortcut and opens a table-aware find
@@ -816,8 +808,7 @@ Ctrl+H opens the replace panel directly.
 
 This is one of those features that is easy to overlook because it
 uses a keyboard shortcut you already know from other applications.
-The behavior is table-aware — it finds matches inside cell values,
-not just in the visible text — which is the important difference
+The behavior is table-aware. It finds matches inside cell values, not just in the visible text, which is the important difference
 from the browser's built-in find.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -834,7 +825,7 @@ Canonical: https://tablesmit.com/blog/how-to-freeze-header-row-in-table/
 When a table is long enough to require scrolling, the header row
 disappears as you scroll down and you lose the context for what
 each column contains. This is the problem that frozen header rows
-solve — the header stays visible while the data rows scroll beneath it.
+solve. The header stays visible while the data rows scroll beneath it.
 
 In HTML, this is achieved with position: sticky on the header row.
 The implementation sounds simple but gets complicated in tables with
@@ -849,11 +840,10 @@ you scroll through long data. The column borders stay sharp at the
 boundary and merged header cells stay correctly positioned.
 
 You can also freeze the first column using the same toolbar. This
-is useful for tables where the first column is a label — a method
-name, a date, a category — and you want to keep it visible while
+is useful for tables where the first column is a label (a method name, a date, or a category) and you want to keep it visible while
 scrolling right through metric columns.
 
-Both can be active simultaneously — frozen header row and frozen
+Both can be active simultaneously: frozen header row and frozen
 first column together.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -875,12 +865,11 @@ between those three things.
 
 In Tablesmit, CSV import is in the toolbar under Import. You either
 paste the CSV content directly or upload the file. Tablesmit reads
-the delimiter — comma by default, with automatic detection for
-tab-separated and semicolon-separated variants — and builds the
+the delimiter (comma by default, with automatic detection for tab-separated and semicolon-separated variants) and builds the
 table from the rows and columns in the file.
 
 The first row is treated as the header row. Column types are inferred
-from the values — if a column contains only numbers, it is set to
+from the values. If a column contains only numbers, it is set to
 Number type automatically. You can change any column type after import
 from the column header menu.
 
@@ -909,12 +898,12 @@ tools import the file, flatten everything to strings, and leave you
 to reformat the table manually.
 
 Tablesmit handles Excel import through two paths. The first is direct
-file upload — click Import in the toolbar, select your .xlsx file,
+file upload: click Import in the toolbar, select your .xlsx file,
 and Tablesmit reads the first sheet using ExcelJS. The column types
 are inferred from the cell values in the file. Numeric columns are
 set to Number type, text columns stay as Text.
 
-The second path is the clipboard route — copy a range of cells in
+The second path is the clipboard route: copy a range of cells in
 Excel and paste directly into Tablesmit with Ctrl+V. This is faster
 for selective imports where you only need part of the spreadsheet.
 Excel writes tab-separated data to the clipboard when you copy a
@@ -924,7 +913,7 @@ After import, the table is fully editable. You can change column
 types, resize columns, add or remove rows, add a caption, and export
 to PDF, LaTeX, CSV, PNG or another Excel file.
 
-The Excel export round-trip is also supported — import an Excel file,
+The Excel export round-trip is also supported. Import an Excel file,
 edit it in Tablesmit, export back to Excel. The exported .xlsx file
 preserves column types and cell values.
 
@@ -954,7 +943,7 @@ are criteria. If you are comparing options for a single tool, the
 first column is the criterion, subsequent columns are the options.
 Do not mix these patterns in the same table.
 
-Boolean values — yes, no, available, not available — work better
+Boolean values (yes, no, available, not available) work better
 as checkmarks than as text if the export format supports them.
 In PDF and PNG exports, ✓ and ✗ are cleaner than the words.
 
@@ -964,7 +953,7 @@ row and data rows that you fill in. Set column types appropriately,
 apply a theme for visual hierarchy, and export to PDF or PNG.
 
 The PNG export is particularly useful for comparison tables that will
-appear in Medium posts, Notion pages, or presentations — formats that
+appear in Medium posts, Notion pages, or presentations. Formats that
 either do not support tables natively or render them inconsistently.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -1030,9 +1019,9 @@ for feature availability, and a visually distinct header row all
 require configuration that takes longer than it should.
 
 In Tablesmit, the structure comes together in a few steps. Use the
-first row for tier names — merge the cells that span sub-columns if
+first row for tier names. Merge the cells that span sub-columns if
 you have a multi-level header. Set the price row column type to
-Currency so values format automatically. Use ✓ and — for feature
+Currency so values format automatically. Use ✓ and ✗ for feature
 availability in the data rows. Apply a theme that gives the header
 row clear visual weight.
 
@@ -1066,10 +1055,10 @@ columns should format consistently, time values should align, and
 the table should be readable at a glance without hunting for a specific
 row.
 
-In Tablesmit, use the Date column type for date columns — values
+In Tablesmit, use the Date column type for date columns. Values
 will format consistently across all cells. Use Text for activity
 labels and Number or Time for duration values. The Schedule template
-is a good starting point — it gives you the right column structure
+is a good starting point. It gives you the right column structure
 and a pre-styled header row.
 
 For freeze pane: enable the freeze header option in the toolbar if
@@ -1126,7 +1115,7 @@ for production code. If you need a formatted table for a document,
 report, or non-HTML context, a visual builder is faster.
 
 Tablesmit builds the table visually and exports to the format you
-need — PDF, Excel, LaTeX, CSV, PNG or JPEG. For web use, the PNG
+need: PDF, Excel, LaTeX, CSV, PNG or JPEG. For web use, the PNG
 export gives you an image you can use anywhere HTML tables are
 inconvenient or unsupported.
 
@@ -1161,7 +1150,7 @@ tedious quickly.
 
 Markdown also does not support merged cells. If you need a cell
 that spans multiple columns, Markdown tables are not the right
-format — you need HTML.
+format: you need HTML.
 
 For quick tables with simple content, writing Markdown by hand is
 fast. For tables with many columns, numeric formatting, or specific
@@ -1185,8 +1174,8 @@ Canonical: https://tablesmit.com/blog/how-to-merge-cells-in-online-table/
 
 ```
 Merged cells serve two main purposes in table design. The first is
-grouped headers — a label that spans multiple columns to indicate
-they belong to the same category. The second is spanning values —
+grouped headers, a label that spans multiple columns to indicate
+they belong to the same category. The second is spanning values:
 a cell that applies to multiple rows, such as a section label in a
 long table.
 
@@ -1229,14 +1218,12 @@ and the column changes width. The columns around it adjust
 predictably. Nothing else moves.
 
 In practice this is harder to implement correctly than it sounds.
-The naive approach — updating the column width on every mousemove
-event — causes layout recalculations on every pixel of drag movement.
+The naive approach, updating the column width on every mousemove event, causes layout recalculations on every pixel of drag movement.
 On a table with many columns this produces noticeable lag, especially
 on lower-powered devices.
 
 The implementation in Tablesmit uses requestAnimationFrame with a
-ghost line indicator. The ghost line — a vertical line that follows
-the cursor during drag — shows where the column border will land
+ghost line indicator. The ghost line, a vertical line that follows the cursor during drag, shows where the column border will land
 without actually moving it. The column width only commits on mouseup.
 This means the layout recalculates once, at the end of the drag,
 instead of hundreds of times during it. The result is 60fps drag
@@ -1246,11 +1233,11 @@ To resize a column: hover over the right border of the column header
 until the cursor changes to a horizontal resize indicator, then click
 and drag. Release to commit the width.
 
-Column widths carry through to PDF and PNG exports — the table in
+Column widths carry through to PDF and PNG exports. The table in
 the export looks exactly as it does in the editor, with the column
 widths you set.
 
-Row height is automatic based on content — cells wrap text when the
+Row height is automatic based on content. Cells wrap text when the
 content is longer than the column width.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -1267,27 +1254,27 @@ Canonical: https://tablesmit.com/blog/how-to-sort-table-columns/
 Column sorting in a table builder is different from sorting in a
 spreadsheet. In a spreadsheet, sorting reorders the rows and affects
 all downstream calculations. In a table builder for documents, sorting
-reorders the rows for presentation purposes — you want the reader
+reorders the rows for presentation purposes. You want the reader
 to see the data in the most meaningful order.
 
 The sorting behavior that matters most is type-aware sorting. A
 column containing [1, 10, 2, 20] should sort as 1, 2, 10, 20 when
-sorted numerically — not as 1, 10, 2, 20 which is alphabetical order
+sorted numerically, not as 1, 10, 2, 20 which is alphabetical order
 applied to numeric strings. Getting this wrong means a results table
 where model sizes or accuracy values appear in the wrong order.
 
 In Tablesmit, sorting is available from the column header menu. Click
-the column header to see the sort options — ascending and descending.
+the column header to see the sort options: ascending and descending.
 The sort behavior is determined by the column type. Number, Currency,
 and Percentage columns sort numerically. Date columns sort chronologically.
 Text columns sort alphabetically.
 
-The header row stays in place during sort — only the data rows are
+The header row stays in place during sort. Only the data rows are
 reordered. Merged cells in the data rows sort as a unit based on the
 value in the first cell of the merge.
 
 After sorting, the table can be exported in the sorted order. The
-sort state is not indicated visually in exports — the rows simply
+sort state is not indicated visually in exports. The rows simply
 appear in the order they were in at the time of export.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -1303,28 +1290,26 @@ Canonical: https://tablesmit.com/blog/how-to-undo-table-editing-online/
 ```
 Undo is one of those features that you do not notice when it works
 and immediately miss when it does not. In a table editor, undo needs
-to cover not just typed values but structural changes — adding and
+to cover not just typed values but structural changes: adding and
 removing rows and columns, merging and unmerging cells, changing
 column types, and resizing columns.
 
 The keyboard shortcut is what most users expect: Ctrl+Z on Windows
-and Linux, Cmd+Z on Mac. The undo depth — how many steps back you
-can go — determines how safe it feels to experiment.
+and Linux, Cmd+Z on Mac. The undo depth (how many steps back you can go) determines how safe it feels to experiment.
 
 Tablesmit intercepts the browser's default undo behavior and replaces
-it with a table-aware undo stack. Each action — typing in a cell,
-resizing a column, merging cells, adding a row — is recorded as a
+it with a table-aware undo stack. Each action (typing in a cell, resizing a column, merging cells, adding a row) is recorded as a
 discrete step. Ctrl+Z or Cmd+Z undoes the most recent step. Ctrl+Y
 or Cmd+Shift+Z redoes it.
 
 The undo history persists for the duration of the browser session.
 If you close the tab, the history is cleared. This is the honest
-tradeoff of a client-side application with no user accounts — the
+tradeoff of a client-side application with no user accounts. The
 session state lives in the browser and does not persist between sessions.
 
 For tables you are actively working on over multiple sessions, the
 practical approach is to export to Excel after each significant edit.
-The Excel file serves as your version history — you can open a previous
+The Excel file serves as your version history. You can open a previous
 export to recover an earlier state.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -1339,15 +1324,15 @@ Canonical: https://tablesmit.com/blog/how-to-use-dark-mode-in-table-builder/
 
 ```
 Dark mode in a table builder matters for two reasons. The first is
-comfort — working on a table in a dark environment on a bright white
+comfort: working on a table in a dark environment on a bright white
 interface causes eye strain over long editing sessions. The second is
-output — if you are building a table that will appear in a dark-themed
+output: if you are building a table that will appear in a dark-themed
 presentation or a dark Notion page, building it in dark mode gives
 you an accurate preview of how it will look.
 
 Most tools add dark mode as a CSS toggle that inverts the background
 color. This works for the interface but does not extend to the table
-content — the table preview still uses light mode colors and the
+content. The table preview still uses light mode colors and the
 export does not change.
 
 In Tablesmit, dark mode is a theme option that applies to both the
@@ -1375,8 +1360,7 @@ Canonical: https://tablesmit.com/blog/how-to-use-right-click-table-editor/
 
 ```
 The right-click context menu in a table editor is the fastest path
-to structural operations — adding rows, removing columns, merging
-cells — without leaving the keyboard-and-mouse flow of editing.
+to structural operations (adding rows, removing columns, merging cells) without leaving the keyboard-and-mouse flow of editing.
 
 The alternative is a toolbar, which requires moving focus away from
 the table to find and click the right button. For operations you
@@ -1391,12 +1375,12 @@ operations include insert column left, insert column right, duplicate
 column, delete column, and set column type. Table operations include
 clear all and reset to default.
 
-The context menu is keyboard-navigable — after opening with right-click,
+The context menu is keyboard-navigable. After opening with right-click,
 you can move through the options with the arrow keys and select with Enter.
 
 For power users who prefer keyboard shortcuts over menus, the most
 common operations also have direct shortcuts. The context menu serves
-as the discoverable version of the shortcut — you find it in the menu
+as the discoverable version of the shortcut. You find it in the menu
 first, then learn the shortcut for operations you use frequently.
 
 Free, no account, MIT licensed. tablesmit.com
@@ -1411,8 +1395,7 @@ Canonical: https://tablesmit.com/blog/how-to-use-table-templates/
 
 ```
 Starting from a blank table is fine when you know exactly what structure
-you need. For common table types — research notes, feature comparisons,
-project schedules, pricing grids — starting from a template is faster
+you need. For common table types (research notes, feature comparisons, project schedules, pricing grids), starting from a template is faster
 because the column structure and header labels are already set correctly.
 
 The time saved is not just the initial setup. A template that matches
@@ -1432,7 +1415,7 @@ columns, change column types, resize columns, add a caption, and export
 to the format you need.
 
 Templates are also useful as a starting point for building your own
-structure — load the closest template, modify it to match your specific
+structure. Load the closest template, modify it to match your specific
 needs, and build from there. This is faster than starting from scratch
 and manually recreating common structures every time.
 
@@ -1442,7 +1425,7 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 35
-Title: Markdown Table Generator Online — Build and Export in Seconds
+Title: Markdown Table Generator Online: Build and Export in Seconds
 Tags: markdown, tools, webdev, productivity
 Canonical: https://tablesmit.com/blog/markdown-table-generator-online/
 
@@ -1458,8 +1441,8 @@ the Markdown syntax, or to use a dedicated Markdown table generator.
 Tablesmit builds the table visually. You type values into cells,
 resize columns, set column types, and when you are done, the CSV
 export gives you the data in a format that converts cleanly to
-Markdown. Most Markdown environments also accept an image embed —
-the PNG export gives you a table image you can include in your
+Markdown. Most Markdown environments also accept an image embed. The
+PNG export gives you a table image you can include in your
 Markdown document with the standard image syntax:
 
 ![Table caption](table.png)
@@ -1479,7 +1462,7 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 36
-Title: Offline Table Builder — Build Tables Without an Internet Connection
+Title: Offline Table Builder: Build Tables Without an Internet Connection
 Tags: pwa, tools, offline, webdev
 Canonical: https://tablesmit.com/blog/offline-table-builder/
 
@@ -1488,7 +1471,7 @@ Most web tools stop working the moment you lose your internet
 connection. For a table builder used on a train, in a conference
 room with spotty wifi, or on a flight, this is a real problem.
 
-Progressive Web Apps solve this through service workers — a background
+Progressive Web Apps solve this through service workers, a background
 script that caches the application assets and intercepts network
 requests. When you open a PWA without internet access, the service
 worker serves the cached version of the app. The tool works exactly
@@ -1496,10 +1479,10 @@ as it does online.
 
 Tablesmit is a PWA. The first time you visit tablesmit.com, the
 service worker caches the application. After that, you can open it
-without internet access and every feature works — editing, formatting,
+without internet access and every feature works: editing, formatting,
 all export formats.
 
-The exports — PDF, Excel, LaTeX, CSV, PNG, JPEG — all run client-side
+The exports (PDF, Excel, LaTeX, CSV, PNG, JPEG) all run client-side
 using jsPDF, ExcelJS, and html2canvas. None of them require a server
 call. The export file is generated in your browser and downloaded to
 your device.
@@ -1519,7 +1502,7 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 37
-Title: Table Builder Keyboard Shortcuts — Complete Guide
+Title: Table Builder Keyboard Shortcuts: Complete Guide
 Tags: tools, productivity, webdev, ux
 Canonical: https://tablesmit.com/blog/table-builder-keyboard-shortcuts-guide/
 
@@ -1550,7 +1533,7 @@ the browser's default Ctrl+F behavior and replaces it with a table-aware
 search. This means Ctrl+F finds values inside cells, not just visible
 text on the page.
 
-Export shortcuts are not currently bound to keyboard shortcuts — the
+Export shortcuts are not currently bound to keyboard shortcuts. The
 export panel is in the right sidebar. For frequent exports, the two-click
 path (open export panel, click format) is the current workflow.
 
@@ -1560,7 +1543,7 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 38
-Title: Table Column Formatting Guide — Types, Alignment, and Display
+Title: Table Column Formatting Guide: Types, Alignment, and Display
 Tags: tools, productivity, webdev, design
 Canonical: https://tablesmit.com/blog/table-column-formatting-guide/
 
@@ -1593,11 +1576,11 @@ for date columns in schedule tables and time-series data.
 
 In LaTeX exports, column types determine the alignment character
 in the column specification. Text gets l. Number, Currency,
-Percentage, and Date get r. This is automatic — you do not set
+Percentage, and Date get r. This is automatic. You do not set
 LaTeX alignment manually.
 
 In PDF and PNG exports, column types determine the text alignment
-in each column's cells — left for Text, right for numeric types.
+in each column's cells: left for Text, right for numeric types.
 
 Free, no account, MIT licensed. tablesmit.com
 ```
@@ -1605,14 +1588,14 @@ Free, no account, MIT licensed. tablesmit.com
 ---
 
 ## POST 39
-Title: Web Table Accessibility Guide — ARIA, Keyboard Nav, and Screen Readers
+Title: Web Table Accessibility Guide: ARIA, Keyboard Nav, and Screen Readers
 Tags: html, webdev, a11y, tools
 Canonical: https://tablesmit.com/blog/web-table-accessibility-guide/
 
 ```
 Accessible tables are one of the most commonly missed areas of web
 accessibility. A table without proper semantic markup is a grid of
-cells with no relationship structure — a screen reader reads it as
+cells with no relationship structure. A screen reader reads it as
 a sequence of values with no context for which column or row each
 value belongs to.
 
@@ -1633,7 +1616,7 @@ text for the table as a whole.
 
 Keyboard navigation. Users who navigate by keyboard should be able
 to move between cells, rows, and columns using arrow keys. The ARIA
-grid pattern provides the interaction model for this — the table is
+grid pattern provides the interaction model for this. The table is
 treated as a composite widget with keyboard-managed focus.
 
 Tablesmit implements the ARIA grid pattern. The table editor is
@@ -1642,7 +1625,7 @@ announce cell content with the correct column header context. The
 caption field is announced before the table content.
 
 For exported tables, the PDF and PNG formats are not accessible in
-the same way — they are visual representations. The LaTeX export
+the same way. They are visual representations. The LaTeX export
 produces semantic table structure that LaTeX renders accessibly in
 the compiled PDF through hyperref and accessibility packages.
 
@@ -1651,7 +1634,7 @@ Free, no account, MIT licensed. tablesmit.com
 
 ---
 
-# APPENDIX — CROSS-POST STATUS TRACKER
+# APPENDIX: CROSS-POST STATUS TRACKER
 
 Update this as you publish each post on Dev.to.
 
