@@ -43,7 +43,7 @@ describe('BlogPostPage', () => {
     renderPost('how-to-make-a-table-in-markdown')
     await waitFor(() => {
       expect(
-        screen.getByText(/Markdown tables are simpler/)
+        screen.getByText(/A Markdown table is built/)
       ).toBeInTheDocument()
     })
   })
