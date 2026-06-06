@@ -14,6 +14,7 @@
     "analyze": "ANALYZE=true npm run build",
     "version": "node scripts/version-bump.cjs",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "prerender": "npx tsx scripts/prerender.ts --out-dir dist",
     "new-post": "npx tsx scripts/md-to-blog-post.ts",

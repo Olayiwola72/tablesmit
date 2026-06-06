@@ -179,7 +179,7 @@ Rules:
 ```bash
 npm run test                # Vitest unit tests
 npm run test:e2e            # Playwright E2E tests
-npx vitest run --coverage   # Tests with coverage report
+npm run test:coverage        # Tests with coverage report
 npm run lint                # ESLint — zero tolerance for warnings
 npm run build               # Full production build
 npm run audit               # Dependency vulnerability check
