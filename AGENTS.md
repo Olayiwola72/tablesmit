@@ -5001,7 +5001,7 @@ Month 3-6:
   Feature pages live
   2-3 newsletter mentions from outreach
   GitHub stars creating organic link signal
-  Milestone: 20 stars → submit to Made in Nigeria OSS (see below)
+  Milestone: 20 stars → submitted to Made in Nigeria OSS ✅
   Result: Primary keywords ("table maker free") reaching page 1-2
   Target: 1,000-3,000 organic visitors/month
 
@@ -6761,11 +6761,12 @@ This is the automated quality gate that replaces manual enforcement.
 
 ---
 
-### Made in Nigeria OSS — Pre-filled PR (ready when stars ≥ 20)
+### Made in Nigeria OSS — Submitted ✅
 
-Current star count: **0** — need 20 before submitting.
-The JSON below is ready. Replace nothing — handles are already filled in.
+**Status:** Submitted via PR [#386](https://github.com/acekyd/made-in-nigeria/pull/386) to `acekyd/made-in-nigeria` (June 2026, 20 stars).  
+The automated pipeline runs weekly on Monday to validate and refresh data.
 
+Entry used:
 ```json
 {
   "name": "Tablesmit",
@@ -6779,10 +6780,6 @@ The JSON below is ready. Replace nothing — handles are already filled in.
   ]
 }
 ```
-
-Submit to: https://github.com/MadeinNGOSS (find repo from https://x.com/MadeinNGOSS)
-File to edit: `data/projects.json`
-Full PR instructions: Section 38I
 
 ---
 
@@ -7953,7 +7950,7 @@ CONTENT — must ship before any promotion:
 
 **Testimonials:** Empty — not yet collected. The page at `/testimonials` renders an empty state with a CTA to share feedback. 3+ real quotes needed before including in promotional materials.
 
-**Made in Nigeria OSS:** Pre-qualified (MIT license, Nigerian author, general-purpose tool). Submission requires 20 GitHub stars (currently 0). Entry JSON prepared.
+**Made in Nigeria OSS:** Submitted ✅ — PR [#386](https://github.com/acekyd/made-in-nigeria/pull/386) to `acekyd/made-in-nigeria` (June 2026, 20 stars). Entry JSON used from `Section 38I`.
 
 **Product Hunt & Hacker News:** Launch assets not yet prepared. Require: demo GIF, 3 screenshots (1270×760), 60-word description.
 
