@@ -35,6 +35,9 @@ playwright-report
 # Generated export files from tests
 tablesmit-table.*
 
+# Generated crosspost report
+scripts/.crossposted-report.csv
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -23,11 +23,11 @@ No account. No bloat. Free and open source.
 ## Screenshots
 
 <p align="center">
-  <img src="./public/launch/PH light mode.png" alt="Tablesmit in light mode" width="45%">
-  <img src="./public/launch/PH export demo.png" alt="Tablesmit export demo" width="45%">
+  <img src="./public/launch/ph-light-mode.png" alt="Tablesmit in light mode" width="45%">
+  <img src="./public/launch/ph-export-demo.png" alt="Tablesmit export demo" width="45%">
 </p>
 <p align="center">
-  <img src="./public/launch/PH dark mode.png" alt="Tablesmit in dark mode" width="45%">
+  <img src="./public/launch/ph-dark-mode.png" alt="Tablesmit in dark mode" width="45%">
 </p>
 
 ---
