@@ -17,6 +17,7 @@
     "test:e2e": "playwright test",
     "prerender": "npx tsx scripts/prerender.ts --out-dir dist",
     "new-post": "npx tsx scripts/md-to-blog-post.ts",
+    "crosspost": "npx tsx scripts/crosspost-devto.ts",
     "prepare": "husky"
   },
   "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
