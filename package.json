@@ -19,6 +19,8 @@
     "prerender": "npx tsx scripts/prerender.ts --out-dir dist",
     "new-post": "npx tsx scripts/md-to-blog-post.ts",
     "crosspost": "npx tsx scripts/crosspost-devto.ts",
+    "capture-screenshots": "npx tsx scripts/scheduler/capture-screenshots.ts",
+    "tweet:now": "npx tsx scripts/scheduler/scheduler.ts",
     "prepare": "husky"
   },
   "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
@@ -58,6 +60,7 @@
     "remark-gfm": "^4.0.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.6.0",
+    "twitter-api-v2": "^1.29.0",
     "vite-plugin-pwa": "^1.3.0"
   },
   "devDependencies": {
