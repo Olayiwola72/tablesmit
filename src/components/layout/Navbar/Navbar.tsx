@@ -54,7 +54,7 @@ export function Navbar(): ReactNode {
           })}
         </nav>
 
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-2 md:ml-6 md:flex">
           <LanguagePicker />
           <IconButton
             aria-label={t('aria.toggleDarkMode', { mode: theme === 'light' ? 'dark' : 'light' })}

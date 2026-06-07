@@ -11,8 +11,6 @@ No account. No bloat. Free and open source.
 ![License](https://img.shields.io/badge/license-MIT-60a5fa?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f59e0b?style=flat-square)
 ![Made in Nigeria](https://img.shields.io/badge/made%20in-Nigeria-1e40af?style=flat-square)
-[![Star History](https://api.star-history.com/svg?repos=Olayiwola72/tablesmit&type=Timeline)](https://star-history.com/#Olayiwola72/tablesmit&Timeline)
-
 ---
 
 <p align="center">
@@ -393,6 +391,8 @@ Required Netlify environment variables:
 Questions or feedback: [hello@tablesmit.com](mailto:hello@tablesmit.com)
 
 ---
+
+[![Star History](https://api.star-history.com/svg?repos=Olayiwola72/tablesmit&type=Timeline)](https://star-history.com/#Olayiwola72/tablesmit&Timeline)
 
 ## License
 
