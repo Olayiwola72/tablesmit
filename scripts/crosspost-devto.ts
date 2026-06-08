@@ -246,14 +246,12 @@ function loadIndexedSlugs(): Set<string> {
 function computeIndexingHash(): string {
   if (!fs.existsSync(INDEXING_DIR)) return ''
   const files = fs.readdirSync(INDEXING_DIR).sort()
-  const parts = files.map((f) => {
-    const stat = fs.statSync(path.join(INDEXING_DIR, f))
-    return `${f}:${stat.mtimeMs}:${stat.size}`
-  })
   const hash = createHash('md5')
-    .update(parts.join('|'))
-    .digest('hex')
-  return hash
+  for (const f of files) {
+    const content = fs.readFileSync(path.join(INDEXING_DIR, f))
+    hash.update(content)
+  }
+  return hash.digest('hex')
 }
 
 // ── Tracking ──
@@ -582,6 +580,40 @@ async function main(): Promise<void> {
 
     // Persist hash so next run skips
     tracking.indexingHash = indexingHash
+
+    // Check dev.to API: skip posts already rescheduled (published_at already
+    // differs from the stale scheduledDate in committed tracking data)
+    if (!flags.dryRun && postsToProcess.length > 0) {
+      const stillNeeded: CrossPost[] = []
+      for (const post of postsToProcess) {
+        const tracked = tracking.crossposted[post.slug]
+        if (!tracked) { stillNeeded.push(post); continue }
+
+        try {
+          const res = await rateLimitedFetch(`/articles/${tracked.devtoId}`)
+          if (res.ok) {
+            const article = (await res.json()) as { published_at: string }
+            if (article.published_at !== tracked.scheduledDate) {
+              console.log(`  "${post.title}" already rescheduled — skipping (dev.to: ${article.published_at})`)
+              continue
+            }
+          }
+        } catch {
+          // fetch failed — proceed to update as safety net
+        }
+        stillNeeded.push(post)
+      }
+      const skipped = postsToProcess.length - stillNeeded.length
+      if (skipped > 0) {
+        console.log(`Skipped ${skipped} already-rescheduled post(s) via dev.to API`)
+      }
+      postsToProcess = stillNeeded
+
+      if (postsToProcess.length === 0) {
+        console.log('All reschedule candidates already handled — nothing to do.')
+        return
+      }
+    }
   }
 
   // Filter out already-crossposted posts (unless --repost or --reschedule-indexed)
