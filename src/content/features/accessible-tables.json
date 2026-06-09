@@ -53,7 +53,7 @@
   ],
   "relatedFeatures": [
     "keyboard-shortcuts",
-    "export-pdf",
+    "pdf-export",
     "latex-export"
   ],
   "relatedPost": "web-table-accessibility-guide"
