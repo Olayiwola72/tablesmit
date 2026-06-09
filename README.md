@@ -73,6 +73,8 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 - `prefers-reduced-motion` respected throughout
 - 4.5:1 minimum contrast on all text
 
+
+
 ### Other
 - Internationalisation: 8 languages (English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian)
 - RTL support for Arabic
@@ -123,6 +125,28 @@ Open [http://localhost:8080](http://localhost:8080). The container runs an nginx
 
 - Node 18+
 - npm 9+
+
+---
+
+## Deployment
+
+### **Deploy to Diploi**
+
+[![Launch with Diploi](https://diploi.com/launch-big.svg)](https://diploi.com/launch/Olayiwola72/tablesmit)
+
+1. **Launch the project**
+
+   Click the launch button above to create a new Diploi deployment.
+
+2. **Add environment variables**
+
+   In Diploi, open your deployment page and go to **Options > React + Vite > Environment**. Add any required environment variables.
+
+3. **Preview the deployment**
+
+   Open the provided preview URL from your Diploi deployment page.
+
+For more information, please visit [diploi.com](https://diploi.com/)
 
 ---
 
