@@ -16,6 +16,8 @@ on:
 jobs:
   post:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v6
 
@@ -37,7 +39,10 @@ jobs:
           TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
 
       - name: Commit tweet log
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TABLESMIT_BOT }}
         run: |
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
           git config user.name "tablesmit-bot"
           git config user.email "bot@tablesmit.com"
           git add scripts/scheduler/tweet-log.json
