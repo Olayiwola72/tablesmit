@@ -75,7 +75,7 @@ describe('ChangelogPage', () => {
     const meta = document.querySelector('meta[name="description"]')
     expect(meta).toHaveAttribute(
       'content',
-      'Every release of Tablesmit, documented. See what is new, fixed, and improved in each version.',
+      'Every release of Tablesmit, documented. See what is new, fixed, and improved in each version of the free online table builder for writers and researchers.',
     )
   })
 
