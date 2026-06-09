@@ -33,7 +33,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps): ReactNod
             <a
               href={testimonial.nameUrl}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener noreferrer nofollow"
               className="text-sm font-semibold text-text-primary hover:underline"
             >
               {testimonial.name}
@@ -47,7 +47,7 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps): ReactNod
           <a
             href={testimonial.sourceUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noreferrer nofollow"
             className="ml-auto flex items-center gap-1 text-xs text-primary hover:underline"
           >
             <ExternalLink size={12} aria-hidden="true" />

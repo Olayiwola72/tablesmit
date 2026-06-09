@@ -34,6 +34,7 @@ export function parseArgs(argv: string[]): { outDir: string } {
 // ── Route discovery ──
 
 export const STATIC_ROUTES: string[] = [
+  '/',
   '/about/',
   '/open-source/',
   '/blog/',
@@ -52,7 +53,8 @@ export const CONFIG_WATCH_PATHS: Record<string, string[]> = {
   'src/config/changelog':      ['/changelog/'],
   'src/config/testimonials':    ['/testimonials/'],
   'src/config/sponsors':       ['/open-source/'],
-  'src/config/brand':          ['/about/', '/open-source/', '/contact/', '/privacy/', '/terms/', '/testimonials/'],
+  'src/config/brand':          ['/about/', '/open-source/', '/contact/', '/privacy/', '/terms/', '/testimonials/', '/'],
+  'src/config/export':         ['/'],
 }
 
 export function getConfigWatchPaths(): string[] {

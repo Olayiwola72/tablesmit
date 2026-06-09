@@ -66,7 +66,6 @@ vi.mock('react-i18next', () => {
     'nav.openSource': 'Open Source',
     'nav.changelog': 'Changelog',
     'nav.testimonials': 'Testimonials',
-    'nav.productHunt': 'Product Hunt',
     // hero
     'hero.headline': 'Tables built for analytical writing.',
     'hero.subtext': 'A minimalist table builder for analytical writing — with full control over headers, formatting, and export.',

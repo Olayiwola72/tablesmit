@@ -11,8 +11,8 @@ import {
 } from '../../../../scripts/prerender'
 
 describe('STATIC_ROUTES', () => {
-  it('does NOT include the homepage', () => {
-    expect(STATIC_ROUTES).not.toContain('/')
+  it('includes the homepage', () => {
+    expect(STATIC_ROUTES).toContain('/')
   })
 
   it('includes all expected content pages with trailing slashes', () => {
@@ -168,7 +168,7 @@ describe('getAllRoutes', () => {
     expect(routes).toContain('/about/')
     expect(routes).toContain('/blog/post/')
     expect(routes).toContain('/features/feature/')
-    expect(routes).not.toContain('/')
+    expect(routes).toContain('/')
   })
 })
 
