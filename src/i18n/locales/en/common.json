@@ -104,9 +104,9 @@
     "openSourceTitle": "Open Source — {{name}}",
     "openSourceDescription": "{{name}} is free and open source. The code is on GitHub — read, fork, or adapt it for your own needs. We believe tools for writing should be transparent.",
     "changelogTitle": "Changelog — {{name}}",
-    "changelogDescription": "Every release of {{name}}, documented. See what is new, fixed, and improved in each version.",
+    "changelogDescription": "Every release of {{name}}, documented. See what is new, fixed, and improved in each version of the free online table builder for writers and researchers.",
     "testimonialsTitle": "Testimonials — {{name}}",
-    "testimonialsDescription": "Hear from writers, analysts, researchers, and technical thinkers who use {{name}} every day.",
+    "testimonialsDescription": "Hear from writers, analysts, researchers, and technical thinkers who use {{name}} every day — the free online table builder with drag-to-resize, merge cells, and export.",
     "featuresTitle": "Features — {{name}}",
     "featuresDescription": "Every feature you need to build clean, structured tables. Drag-to-resize, merge cells, custom headers, export to PDF and Excel.",
     "notFoundTitle": "Page not found — {{name}}",
@@ -114,7 +114,7 @@
     "privacyTitle": "Privacy Policy — {{name}}",
     "privacyDescription": "{{name}} Privacy Policy. We do not require an account and we do not store your table data on any server.",
     "termsTitle": "Terms of Use — {{name}}",
-    "termsDescription": "{{name}} Terms of Use. By using {{name}} you agree to these terms."
+    "termsDescription": "{{name}} Terms of Use — your rights, our responsibilities. Covers open source licensing, data privacy, acceptable use, and liability limitations for the free online table builder."
   },
   "toast": {
     "exportSuccess": "Table exported as {{format}}.",

@@ -55,7 +55,7 @@ describe('TermsPage', () => {
     const meta = document.querySelector('meta[name="description"]')
     expect(meta).toHaveAttribute(
       'content',
-      'Tablesmit Terms of Use. By using Tablesmit you agree to these terms.',
+      'Tablesmit Terms of Use — your rights, our responsibilities. Covers open source licensing, data privacy, acceptable use, and liability limitations for the free online table builder.',
     )
   })
 
