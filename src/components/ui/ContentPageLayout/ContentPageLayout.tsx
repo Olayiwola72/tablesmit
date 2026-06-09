@@ -10,6 +10,8 @@ export function ContentPageLayout({
   description,
   canonicalUrl,
   ogUrl,
+  ogImage,
+  ogType,
   children,
   metaChildren,
   className,
@@ -23,6 +25,8 @@ export function ContentPageLayout({
         description={description}
         canonicalUrl={canonicalUrl}
         ogUrl={ogUrl}
+        ogImage={ogImage}
+        ogType={ogType}
       >
         {metaChildren}
       </PageMeta>

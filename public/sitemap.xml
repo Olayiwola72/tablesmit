@@ -123,6 +123,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tablesmit.com/blog/how-to-edit-latex-tables-online/</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-export-colored-tables-to-latex/</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tablesmit.com/blog/how-to-export-table-as-image/</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -171,6 +183,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://tablesmit.com/blog/how-to-make-a-data-table-without-excel/</loc>
+    <lastmod>2026-06-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://tablesmit.com/blog/how-to-make-a-pricing-table/</loc>
     <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -179,6 +197,12 @@
   <url>
     <loc>https://tablesmit.com/blog/how-to-make-a-schedule-table/</loc>
     <lastmod>2026-04-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tablesmit.com/blog/how-to-make-a-table-in-html/</loc>
+    <lastmod>2026-06-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

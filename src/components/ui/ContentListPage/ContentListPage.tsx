@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
-import { Helmet } from 'react-helmet-async'
 import type { ContentListPageProps } from './ContentListPage.types'
+import { PageMeta } from '../PageMeta/PageMeta'
 import { Breadcrumb } from '../Breadcrumb/Breadcrumb'
 import { SearchBar } from '../../features/SearchBar/SearchBar'
 import { PaginationNav } from '../PaginationNav/PaginationNav'
@@ -9,6 +9,8 @@ export function ContentListPage({
   meta,
   metaChildren,
   canonicalUrl,
+  ogImage,
+  ogType,
   breadcrumb,
   heading,
   headingSubtext,
@@ -40,15 +42,16 @@ export function ContentListPage({
 
   return (
     <main className="min-h-screen bg-white px-4 py-16 sm:px-6 lg:px-8">
-      <Helmet>
-        <title>{meta.title}</title>
-        <meta name="description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:url" content={canonicalUrl} />
-        <link rel="canonical" href={canonicalUrl} />
+      <PageMeta
+        title={meta.title}
+        description={meta.description}
+        ogUrl={canonicalUrl}
+        ogImage={ogImage}
+        ogType={ogType}
+        canonicalUrl={canonicalUrl}
+      >
         {metaChildren}
-      </Helmet>
+      </PageMeta>
       <div className="mx-auto max-w-content">
         <Breadcrumb segments={breadcrumb} />
         <header className="mb-12 text-center">

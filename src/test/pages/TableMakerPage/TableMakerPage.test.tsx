@@ -8,15 +8,9 @@ import { brand } from '../../../config/brand/brandConfig'
 import { exportFormats } from '../../../config/export/exportConfig'
 import { TableMakerPage } from '../../../pages/TableMakerPage/TableMakerPage'
 
-const exportLabels = exportFormats.map((f) => f.label)
-const lastLabel = exportLabels[exportLabels.length - 1]
-const precedingLabels = exportLabels.slice(0, -1)
-const exportList =
-  precedingLabels.length > 0
-    ? `${precedingLabels.join(', ')}, or ${lastLabel}`
-    : lastLabel
+const exportList = exportFormats.map((f) => f.label).join(', ')
 
-const metaDescription = `Build clean, structured tables with full control over headers, formatting, and export. Free. No signup. Export to ${exportList}.`
+const metaDescription = `Build clean, structured tables with full control over headers, formatting, and export. Free, no signup needed. Export to ${exportList}.`
 
 function Wrapper({ children }: { children: ReactNode }): ReactNode {
   return (
