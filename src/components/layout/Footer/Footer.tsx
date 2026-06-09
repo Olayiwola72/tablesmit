@@ -41,6 +41,24 @@ export function Footer(): ReactNode {
           <p className="text-xs text-text-muted">
             © {getCurrentYear()} {brand.name}. {t('footer.license')}
           </p>
+          <div className="mt-4">
+            <a
+              href="https://www.shipit.buzz/products/tablesmit-1781038818603-cf4e?ref=badge"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img
+                src="https://www.shipit.buzz/api/products/tablesmit-1781038818603-cf4e/badge?theme=light"
+                alt="Featured on Shipit"
+                className="h-10 w-auto dark:hidden"
+              />
+              <img
+                src="https://www.shipit.buzz/api/products/tablesmit-1781038818603-cf4e/badge?theme=dark"
+                alt="Featured on Shipit"
+                className="hidden h-10 w-auto dark:block"
+              />
+            </a>
+          </div>
         </div>
         <FooterGroup title={t('footer.product')} links={productLinks} />
         <FooterGroup title={t('footer.company')} links={companyLinks} />

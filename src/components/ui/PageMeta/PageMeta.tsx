@@ -63,6 +63,8 @@ export function PageMeta({
       <meta name="twitter:image" content={ogImage} />
 
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+      {canonicalUrl && <link rel="alternate" hreflang="x-default" href={canonicalUrl} />}
+      {canonicalUrl && <link rel="alternate" hreflang="en" href={canonicalUrl} />}
       {children}
     </Helmet>
   )

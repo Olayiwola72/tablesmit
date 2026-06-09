@@ -19,6 +19,8 @@ describe('PageMeta', () => {
     document.querySelector('meta[property="og:description"]')?.remove()
     document.querySelector('meta[property="og:url"]')?.remove()
     document.querySelector('link[rel="canonical"]')?.remove()
+    document.querySelector('link[rel="alternate"][hreflang="x-default"]')?.remove()
+    document.querySelector('link[rel="alternate"][hreflang="en"]')?.remove()
   })
 
   afterEach(() => {
@@ -115,6 +117,27 @@ describe('PageMeta', () => {
     expect(
       document.querySelector('meta[property="og:url"]')?.getAttribute('content'),
     ).toBe('https://custom.example.com/')
+  })
+
+  it('renders x-default and en hreflang links when routeKey is set', () => {
+    renderPageMeta({
+      title: 'Test',
+      description: 'Test',
+      routeKey: 'about',
+    })
+    const url = 'https://tablesmit.com/about/'
+    expect(
+      document.querySelector('link[rel="alternate"][hreflang="x-default"]')?.getAttribute('href'),
+    ).toBe(url)
+    expect(
+      document.querySelector('link[rel="alternate"][hreflang="en"]')?.getAttribute('href'),
+    ).toBe(url)
+  })
+
+  it('does not render hreflang links when routeKey is omitted', () => {
+    renderPageMeta({ title: 'Test', description: 'Test' })
+    expect(document.querySelector('link[rel="alternate"][hreflang="x-default"]')).toBeNull()
+    expect(document.querySelector('link[rel="alternate"][hreflang="en"]')).toBeNull()
   })
 
   it('explicit canonicalUrl overrides routeKey-derived canonical', () => {

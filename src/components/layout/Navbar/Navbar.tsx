@@ -1,4 +1,4 @@
-import { ExternalLink, Menu, Moon, Star, Sun, X } from 'lucide-react'
+import { Menu, Moon, Star, Sun, X } from 'lucide-react'
 import { useEffect, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
@@ -67,12 +67,6 @@ export function Navbar(): ReactNode {
               {t('nav.starOnGitHub', 'Star on GitHub')}
             </a>
           </Button>
-          <Button asChild variant="secondary" size="sm">
-            <a href={brand.productHuntUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink size={14} aria-hidden="true" />
-              {t('nav.productHunt')}
-            </a>
-          </Button>
         </div>
 
         <IconButton
@@ -132,17 +126,6 @@ export function Navbar(): ReactNode {
                     >
                       <Star size={14} className="fill-amber-400 text-amber-400 shrink-0" aria-hidden="true" />
                       {t('nav.starOnGitHub', 'Star on GitHub')}
-                    </a>
-                  </Button>
-                  <Button asChild variant="secondary" size="sm">
-                    <a
-                      href={brand.productHuntUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <ExternalLink size={14} aria-hidden="true" />
-                      {t('nav.productHunt')}
                     </a>
                   </Button>
                 </div>

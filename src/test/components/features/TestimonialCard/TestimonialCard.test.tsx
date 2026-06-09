@@ -58,7 +58,7 @@ describe('TestimonialCard', () => {
     expect(link).toBeInTheDocument()
     expect(link).toHaveAttribute('href', 'https://scholar.google.com/citations?user=test')
     expect(link).toHaveAttribute('target', '_blank')
-    expect(link).toHaveAttribute('rel', 'noopener noreferrer')
+    expect(link).toHaveAttribute('rel', 'noopener noreferrer nofollow')
   })
 
   it('renders name as plain text when nameUrl is absent', () => {
