@@ -103,7 +103,7 @@
     "contactTitle": "Contact — {{name}}",
     "contactDescription": "Get in touch with the {{name}} team. Feature requests, bug reports, and feedback are always welcome.",
     "openSourceTitle": "Open Source — {{name}}",
-    "openSourceDescription": "{{name}} is free and open source. The code is on GitHub — read it, fork it, improve it, or adapt it for your own needs. We believe tools for writing and thinking should be transparent.",
+    "openSourceDescription": "{{name}} is free and open source. The code is on GitHub — read, fork, or adapt it for your own needs. We believe tools for writing should be transparent.",
     "changelogTitle": "Changelog — {{name}}",
     "changelogDescription": "Every release of {{name}}, documented. See what is new, fixed, and improved in each version.",
     "testimonialsTitle": "Testimonials — {{name}}",

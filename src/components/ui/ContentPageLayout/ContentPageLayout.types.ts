@@ -7,6 +7,8 @@ export interface ContentPageLayoutProps {
   description?: string
   canonicalUrl?: string
   ogUrl?: string
+  ogImage?: string
+  ogType?: 'website' | 'article'
   children?: ReactNode
   metaChildren?: ReactNode
   className?: string

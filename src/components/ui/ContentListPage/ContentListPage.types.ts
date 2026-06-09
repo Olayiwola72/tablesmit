@@ -10,6 +10,8 @@ export interface ContentListPageProps {
   meta: ContentListPageMeta
   metaChildren?: ReactNode
   canonicalUrl: string
+  ogImage?: string
+  ogType?: 'website' | 'article'
   breadcrumb: BreadcrumbSegment[]
   heading: string
   headingSubtext?: string

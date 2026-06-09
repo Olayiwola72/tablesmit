@@ -127,6 +127,7 @@ export default function BlogPostPage(): ReactNode {
       title={`${post.title} — ${brand.name}`}
       description={post.description}
       ogUrl={postUrl}
+      ogType="article"
       canonicalUrl={postUrl}
       metaChildren={
         <script type="application/ld+json">{JSON.stringify({

@@ -9,6 +9,8 @@ export interface PageMetaProps {
   ogTitle?: string
   ogDescription?: string
   ogUrl?: string
+  ogImage?: string
+  ogType?: 'website' | 'article'
   canonicalUrl?: string
   children?: ReactNode
 }
