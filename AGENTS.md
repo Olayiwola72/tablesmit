@@ -928,6 +928,9 @@ tablesmit/
 │   │   │   ├── LearnMoreLink/
 │   │   │   │   ├── LearnMoreLink.tsx
 │   │   │   │   └── LearnMoreLink.types.ts
+│   │   │   ├── LoadingSpinner/
+│   │   │   │   ├── LoadingSpinner.tsx
+│   │   │   │   └── LoadingSpinner.types.ts
 │   │   │   ├── Logo/
 │   │   │   │   ├── Logo.tsx
 │   │   │   │   └── Logo.types.ts

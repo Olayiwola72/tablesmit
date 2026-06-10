@@ -7,7 +7,7 @@ No account. No bloat. Free and open source.
 
 **[→ tablesmit.com](https://tablesmit.com)**
 
-![Tests](https://img.shields.io/badge/tests-1936%20passing-4ade80?style=flat-square)
+![Tests](https://img.shields.io/badge/tests-2083%20passing-4ade80?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-60a5fa?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-f59e0b?style=flat-square)
 ![Made in Nigeria](https://img.shields.io/badge/made%20in-Nigeria-1e40af?style=flat-square)

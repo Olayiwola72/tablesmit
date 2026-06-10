@@ -1,10 +1,11 @@
 import { usePageTranslation } from '../../hooks/usePageTranslation/usePageTranslation'
 import { ExternalLink } from 'lucide-react'
-import type { ReactNode } from 'react'
+import { useCallback, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '../../components/ui/Button/Button'
 import { Breadcrumb } from '../../components/ui/Breadcrumb/Breadcrumb'
 import { ContentPageLayout } from '../../components/ui/ContentPageLayout/ContentPageLayout'
+import { LoadingSpinner } from '../../components/ui/LoadingSpinner/LoadingSpinner'
 import { brand } from '../../config/brand/brandConfig'
 import { routes } from '../../config/routes/routesConfig'
 
@@ -14,6 +15,8 @@ function splitNotList(text: string): string[] {
 
 export function AboutPage(): ReactNode {
   const { t } = usePageTranslation('about', 'table', 'home', 'openSource')
+  const [iframeLoaded, setIframeLoaded] = useState(false)
+  const handleIframeLoad = useCallback(() => setIframeLoaded(true), [])
   const lines = splitNotList(t('about.whatWeAreNot'))
   const pageTitle = t('meta.aboutTitle')
   const pageDescription = t('meta.aboutDescription')
@@ -50,14 +53,20 @@ export function AboutPage(): ReactNode {
           className="relative mx-auto w-full max-w-3xl"
           style={{ paddingBottom: '56.25%', height: 0 }}
         >
+          {!iframeLoaded && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center">
+              <LoadingSpinner size={48} />
+            </div>
+          )}
           <iframe
             src="https://demo.arcade.software/video/oaKoxtmk9r8dN2G2fp8B?embed&embed_mobile=tab&embed_desktop=inline&show_copy_link=true"
             title="Tablesmit demo"
-            className="absolute left-0 top-0 h-full w-full"
+            className={`absolute left-0 top-0 h-full w-full transition-opacity duration-300 ${iframeLoaded ? 'opacity-100' : 'opacity-0'}`}
             frameBorder="0"
             loading="lazy"
             allow="clipboard-write"
             allowFullScreen
+            onLoad={handleIframeLoad}
             style={{ colorScheme: 'light' }}
           />
         </div>
