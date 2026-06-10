@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { describe, expect, it } from 'vitest'
@@ -64,5 +64,39 @@ describe('AboutPage', () => {
     renderPage()
     const link = document.querySelector('link[rel="canonical"]')
     expect(link).toHaveAttribute('href', 'https://tablesmit.com/about/')
+  })
+
+  it('renders demo iframe with correct title', () => {
+    renderPage()
+    const iframe = screen.getByTitle('Tablesmit demo')
+    expect(iframe).toBeInTheDocument()
+    expect(iframe).toHaveAttribute('loading', 'lazy')
+  })
+
+  it('shows loading spinner while iframe is loading', () => {
+    renderPage()
+    const spinner = document.querySelector('[role="status"]')
+    expect(spinner).toBeInTheDocument()
+  })
+
+  it('hides loading spinner after iframe loads', () => {
+    renderPage()
+    const iframe = screen.getByTitle('Tablesmit demo')
+
+    fireEvent.load(iframe)
+
+    const spinner = document.querySelector('[role="status"]')
+    expect(spinner).not.toBeInTheDocument()
+  })
+
+  it('iframe has zero opacity before load and full opacity after load', () => {
+    renderPage()
+    const iframe = screen.getByTitle('Tablesmit demo')
+
+    expect(iframe.className).toContain('opacity-0')
+
+    fireEvent.load(iframe)
+
+    expect(iframe.className).toContain('opacity-100')
   })
 })
