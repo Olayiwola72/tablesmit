@@ -37,7 +37,7 @@ export default function App(): ReactNode {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <BrowserRouter future={{ v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
             <Suspense fallback={null}>
