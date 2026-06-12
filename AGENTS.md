@@ -863,7 +863,7 @@ tablesmit/
 │       └── no/common.json
 │
 ├── scripts/
-│   ├── prerender.ts                    # Playwright-based prerender — run locally, output to prerendered/
+│   ├── prerender.ts                    # Playwright-based prerender — run as part of npm run build, output to dist/
 │   ├── version.cjs                     # Writes dist/version.json with DEPLOY_ID or timestamp
 │   ├── md-to-blog-post.ts              # Helper: .md → blog JSON
 │   └── sitemap/
@@ -1336,7 +1336,7 @@ export default function App(): ReactNode {
   return (
     <ErrorBoundary>
       <HelmetProvider>
-        <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <BrowserRouter future={{ v7_relativeSplatPath: true }}>
           <TooltipProvider delayDuration={250}>
             <Navbar />
             <Suspense fallback={null}>
@@ -1416,7 +1416,6 @@ import { VitePWA } from 'vite-plugin-pwa'
 import Critters from 'critters'
 
 // Custom plugins:
-// prerenderPlugin    — copies prerendered/ directory into dist/ at closeBundle
 // crittersPlugin     — inlines critical CSS in index.html (SPA) and
 //                      prerendered pages (full inline, no external CSS)
 // modulepreloadPlugin — adds <link rel="modulepreload"> for TableMakerPage
@@ -1454,7 +1453,6 @@ export default defineConfig({
         }],
       },
     }),
-    prerenderPlugin(),
     crittersPlugin(),
     modulepreloadPlugin(),
   ],
@@ -2816,7 +2814,7 @@ Brand and visual identity implemented per the specification in Sections 0–6. L
 
 ### Routing
 
-`/` serves `TableMakerPage`. `/about` serves `AboutPage`. All route paths reference `routes.*` from `src/config/routes/routesConfig.ts` — no hardcoded hrefs. `BrowserRouter` future flags configured (`v7_startTransition`, `v7_relativeSplatPath`). NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`). OpenSourcePage route added to routes.
+`/` serves `TableMakerPage`. `/about` serves `AboutPage`. All route paths reference `routes.*` from `src/config/routes/routesConfig.ts` — no hardcoded hrefs. `BrowserRouter` future flag configured (`v7_relativeSplatPath` only — `v7_startTransition` removed to prevent Suspense flash during hydration). NotFoundPage with animated SVG 404 component (`NotFoundAnimation.tsx`). OpenSourcePage route added to routes.
 
 ### UI Principles
 
@@ -8491,9 +8489,9 @@ in the branch protection settings above.
 {
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && node scripts/version.cjs",
+    "build": "npm run generate-sitemap && vite build && node scripts/version.cjs && npx tsx scripts/prerender.ts --out-dir dist",
     "generate-sitemap": "npx tsx scripts/sitemap/generate-sitemap.ts",
-    "prerender": "npx tsx scripts/prerender.ts --out-dir $npm_package_config_prerenderDir",
+    "prerender": "npx tsx scripts/prerender.ts --out-dir dist",
     "preview": "vite preview",
     "test": "vitest run",
     "lint": "eslint .",
@@ -8513,6 +8511,8 @@ in the branch protection settings above.
 2. **`vite build`** — Compiles the app via esbuild (not tsc). Vite's rolldown bundler generates code-split chunks per route, per vendor library, and per locale. `manualChunks` splits vendor-react, vendor-ui, vendor-i18n, vendor-sentry, vendor-pdf, vendor-canvas, vendor-excel. Output to `dist/`.
 
 3. **`node scripts/version.cjs`** — Writes `dist/version.json` with the deploy ID or current timestamp. Used at runtime by the PWA version polling system to detect stale clients and trigger auto-reload after a deploy.
+
+4. **`npx tsx scripts/prerender.ts --out-dir dist`** — Runs after the build, using Playwright to generate static HTML snapshots of all content pages (about, blog, features, etc.) directly into `dist/`. Homepage is skipped (it is a heavy interactive SPA — prerendering would cause hydration flicker).
 
 ### Why `tsc -b` Is Not in the Build Chain
 
@@ -8555,35 +8555,29 @@ The homepage (`/`) is **never prerendered** — it is a heavy interactive SPA (T
 | Decision | Choice | Rationale |
 |---|---|---|
 | Library | **Playwright** (already in devDependencies) | Avoids adding Puppeteer (~300 MB). Playwright is already installed for E2E tests. |
-| Timing | **Pre-commit, not CI** | Playwright needs browsers (~150 MB installed). CI does not download them. Prerendered HTML is committed to git. |
-| Output dir | Read from `package.json#config.prerenderDir` (default `prerendered/`) | Single source of truth; `npm run prerender` and `.husky/pre-commit` both resolve it from `package.json`. |
+| Timing | **Part of `npm run build`** (last step) | Prerender runs on every build — both locally and in CI. CI has Playwright browsers installed. |
+| Output dir | **`dist/`** via `--out-dir dist` | Prerendered HTML goes directly into the deploy folder alongside the SPA build. No separate `prerendered/` artifact. |
 | Route discovery | **Filesystem scan** (DI-injectable for tests) | Blog slugs derived from `src/content/blog/*.ts` filenames. Feature slugs from `src/content/features/*.json`. Static routes defined in array. |
 | Server | **`vite preview`** (spawned as child process, URL parsed from stdout) | Serves the exact production build. No separate server config or middleware needed. |
 
 ### Architecture
 
 ```
-Pre-commit (when content changes):
-  git add src/content/...
-  hook: npm run lint && npm run test -- --run && npm run build
-  hook: npx tsx scripts/prerender.ts --out-dir prerendered
-          → checks dist/ exists (skips if not built)
-          → checks Playwright browsers installed (skips gracefully if missing)
-          → starts vite preview (spawn, parse URL from stdout)
-          → visits all content routes in headless Chromium
-          → saves HTML to prerendered/{route}/index.html
-  hook: git add prerendered/
-  → commit includes source + prerendered HTML
-
-CI (every push):
-  npm run build
-    → generate-sitemap (route discovery, writes public/sitemap.xml)
-    → vite build (app bundle to dist/)
-    → deploy dist/ to Netlify (prerendered/ lives in git, already present at dist/ but unused during dev)
+Build (npm run build):
+  1. generate-sitemap (route discovery, writes public/sitemap.xml)
+  2. vite build (app bundle to dist/)
+  3. node scripts/version.cjs (writes dist/version.json)
+  4. npx tsx scripts/prerender.ts --out-dir dist
+       → checks dist/ exists (skips if not built)
+       → checks Playwright browsers installed (skips gracefully if missing)
+       → starts vite preview (spawn, parse URL from stdout)
+       → visits all content routes in headless Chromium
+       → saves HTML to dist/{route}/index.html (alongside SPA build)
+  5. Deploy dist/ to Netlify (SPA + prerendered HTML served from the same directory)
 
 scripts/prerender.ts:
   CONST:
-    PRERENDER_OUT_DIR       → from package.json#config.prerenderDir or 'prerendered'
+    PRERENDER_OUT_DIR       → default 'prerendered' (from package.json#config.prerenderDir if set)
     PORT = 4173
     CONTENT_DIR             → path.resolve(ROOT, 'src/content')
     VITE_BIN                → node_modules/.bin/vite
@@ -8627,28 +8621,13 @@ scripts/prerender.ts:
 npm run dev
 
 # After adding or editing content (blog posts, feature pages, etc.):
-npm run prerender          # runs npx tsx scripts/prerender.ts --out-dir $npm_package_config_prerenderDir
-git add prerendered/       # commit prerendered content alongside source changes
-git commit -m "content: add new blog post"
-git push
+npm run build            # generates sitemap + builds app + prerenders to dist/
+# Or just:
+npm run prerender        # runs npx tsx scripts/prerender.ts --out-dir dist
+
+# Preview the production build locally:
+npm run preview
 ```
-
-### Pre-commit Hook
-
-The `.husky/pre-commit` hook auto-runs the prerender when content or the prerender script itself changes, then runs lint + test + build as quality gates:
-
-```sh
-if git diff --cached --name-only | grep -qE "^src/content/|^scripts/prerender\.ts"; then
-  PRERENDER_DIR=$(node -e "console.log(require('./package.json').config.prerenderDir)")
-  echo "Content or prerender script changed — regenerating prerendered pages..."
-  npx tsx scripts/prerender.ts --out-dir "$PRERENDER_DIR"
-  git add "$PRERENDER_DIR/"
-fi
-
-npm run lint && npm run test -- --run && npm run build
-```
-
-Triggers on changes to `src/content/` **or** `scripts/prerender.ts`. Reads the output directory from `package.json` config — no hardcoded path. If Playwright browsers are not installed (fresh clone), the prerender step logs a warning and exits gracefully — the hook still runs lint + test + build.
 
 ### Adding a New Route
 
@@ -8673,14 +8652,14 @@ Build verification (run locally after `npm run build`):
 
 ```bash
 # Check: prerendered content pages exist at expected paths
-ls -d prerendered/*/index.html | wc -l
+find dist -name "index.html" -not -path "dist/index.html" | wc -l
 
 # Sample: check prerendered content is real HTML (not SPA shell)
-head -3 prerendered/about/index.html
+head -3 dist/about/index.html
 # Should show <!DOCTYPE html> with prerendered content
 
 # Sample: homepage is never prerendered
-ls prerendered/index.html 2>/dev/null && echo "EXISTS (BAD)" || echo "MISSING (GOOD)"
+ls dist/index.html 2>/dev/null && echo "EXISTS (GOOD)" || echo "MISSING (BAD - prerender wrote to wrong dir)"
 ```
 
 ---
