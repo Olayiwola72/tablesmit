@@ -78,7 +78,28 @@ Tablesmit is a browser-based table editor built for writers, analysts, and resea
 ### Other
 - Internationalisation: 8 languages (English, Arabic, French, Spanish, Portuguese, Japanese, German, Norwegian)
 - RTL support for Arabic
-- Keyboard shortcuts — press `?` or `Ctrl+/` to see all 13
+- Keyboard shortcuts — press `?` or `Ctrl+/` to open the shortcut reference
+
+### Keyboard shortcuts
+
+Source of truth: `src/config/shortcuts/shortcutsConfig.ts`
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl+Z` | Undo |
+| `Ctrl+F` | Find |
+| `Ctrl+H` | Find and Replace |
+| `Ctrl+P` | Export to PDF |
+| `Ctrl+Shift+X` | Export to Excel |
+| `Ctrl+L` | Align caption left |
+| `Ctrl+E` | Align caption centre |
+| `Ctrl+R` | Align caption right |
+| `Tab` / `Shift+Tab` | Move between cells |
+| Arrow keys | Move between cells |
+| `Enter` | Edit cell |
+| `Escape` | Cancel edit |
+| `Delete` | Delete cell content |
+| `Ctrl+/` | Open keyboard shortcuts |
 - Offline-capable PWA with auto-updating service worker + version polling
 - LaTeX import (round-trip safe — strips `\textcolor`, `\textbf`, `\colorbox`, `\rowcolor`, `\columncolor`)
 - 30 feature landing pages, 36 blog posts
