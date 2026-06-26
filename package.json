@@ -85,7 +85,6 @@
     "globals": "^17.5.0",
     "husky": "^9.1.7",
     "jsdom": "^29.1.1",
-    "lighthouse": "^13.3.0",
     "lint-staged": "^17.0.5",
     "postcss": "^8.5.14",
     "rollup-plugin-visualizer": "^7.0.1",
