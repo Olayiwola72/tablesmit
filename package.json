@@ -21,6 +21,7 @@
     "crosspost": "npx tsx scripts/crosspost-devto.ts",
     "capture-screenshots": "npx tsx scripts/scheduler/capture-screenshots.ts",
     "tweet:now": "npx tsx scripts/scheduler/scheduler.ts",
+    "post-replies": "npx tsx scripts/social-opportunities/post-replies.ts",
     "prepare": "husky"
   },
   "_comment_overrides": "Pin uuid to fix GHSA-w5hq-g745-h8pq in exceljs dependency chain",
