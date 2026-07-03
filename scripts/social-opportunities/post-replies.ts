@@ -3,7 +3,6 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { replyToTweet } from '../scheduler/client'
 import { OPPORTUNITIES } from './opportunities.data'
-import type { Opportunity } from './opportunities.types'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.resolve(__dirname, '../..')
