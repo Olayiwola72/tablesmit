@@ -1,0 +1,29 @@
+{
+  "contact": {
+    "heading": "Dé sí i.",
+    "body": "Ṣé o ní ìbéèrè, ìgbéraga, tàbí ìdámọ̀ sí i? A gbàgbọ́ pé a ó bá fẹ́ gbọ́ láti ọ̀dọ̀ rẹ.",
+    "emailLabel": "Imèlì rẹ",
+    "emailPlaceholder": "ọ̀rẹ̀@àpẹẹrẹ.com",
+    "subjectLabel": "Ìkọ̀kàn",
+    "subjectPlaceholder": "Bá a ṣe á fi ọ́ ranṣẹ́?",
+    "messageLabel": "Ìwé-ránṣẹ́",
+    "messagePlaceholder": "Sọ sí i síi lórí ìbéèrè tàbí ìgbéraga rẹ...",
+    "sendButton": "Fi Ìwé-ránṣẹ́ Ránṣẹ́",
+    "sendingButton": "Ìfi ń lọ…",
+    "successTitle": "Ìwé-ránṣẹ́ rẹ ti ránṣẹ́!",
+    "successBody": "Ó dára púpọ̀ pé o dé sí i. A ó padà sí ọ̀dọ̀ rẹ láti ọ̀pọ̀lọpọ̀.",
+    "errorTitle": "Ohunkóhun kò lọ dáadáa.",
+    "errorBody": "Kò ṣe é fi ìwé-ránṣẹ́ rẹ ránṣẹ́. Try ìgbà kejì tàbí fi imèlì sí wa ní tòótọ́.",
+    "orEmail": "Tàbí fi imèlì sí wa lásìkò pọ̀",
+    "reachOnX": "tàbí dé sí i lórí X",
+    "featureIdea": "Ìgbéraga ìṣàfihàn",
+    "featureIdeaDesc": "Ohunkóhun tó pàdánù tí yóò mú iṣẹ́ rẹ pọ̀? Sọ sí i sí i.",
+    "bugGlitch": "Ìṣòro tàbí ìkórìíra",
+    "bugGlitchDesc": "Ohunkóhun kò ń lọ dáadáa? Mo ó wo ọ́ àti mú ọ́ dára.",
+    "justSayingHi": "Mo ń bá ọ̀ sí i",
+    "somethingElse": "Ohunkóhun mìíràn",
+    "somethingElseDesc": "Ohunkóhun tí wà nínú ìròyìn rẹ. Mo ka gbogbo ìwé-ránṣẹ́.",
+    "whatToReachOutAbout": "Kí ni o fẹ́ dé sí i nípa rẹ̀",
+    "builtWithCare": "A dá ni ìfẹ́ sí i, a fi ìdúpẹ́ sí i."
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "blog": {
+    "heading": "Ìwésòro lórí àwọn tabili, ìlànà, àti ìròyìn ìṣàfihàn.",
+    "featured": "Ó jẹ́ pàtàkì",
+    "minRead": "{{count}} ìdásinsinsín ìka",
+    "openBrand": "Ṣí {{name}}",
+    "ctaTitle": "Gbìyànjú {{name}} fún ara rẹ — ọ̀fẹ́, kò sí ìforúkọsílẹ̀ tó nílò.",
+    "backToBlog": "Padà sí Blog",
+    "empty": "Kò sí ìwé kankan sí i. Ṣàyẹ̀wò bí àkànṣe bá ṣe lè jẹ́.",
+    "copiedToClipboard": "A kó sí ìpò ìmọ̀",
+    "failedToCopy": "Kò ṣe é kó sí ìpò ìmọ̀",
+    "copyCode": "Kó kódù sí",
+    "search": "Wá ìwé blog",
+    "searchPlaceholder": "Wá ìwé pẹ̀lú àkọlé, àkọ̀ọ̀, tàbí àmì…",
+    "clearSearch": "Yọ ìwádìí kúrò",
+    "resultsCount": "Fi ìwádìí {{count}} nínú {{total}} ìwé hàn",
+    "learnMore": "Kà sí i síi",
+    "browsePosts": "Wo ìwé mìíràn"
+  },
+  "pagination": {
+    "page": "Ojú {{current}} nínú {{total}}",
+    "prev": "Tẹ̀lẹ̀",
+    "next": "Ìwọ̀nyí",
+    "prevAria": "Lọ sí ojú tẹ̀lẹ̀",
+    "nextAria": "Lọ sí ojú ìwọ̀nyí",
+    "pageAria": "Lọ sí ojú {{number}}"
+  },
+  "search": {
+    "ariaLabel": "Wá",
+    "placeholder": "Wá…",
+    "clear": "Yọ ìwádìí rẹ̀ kúrò",
+    "noResults": "Kò sí èyí tó bá bá ìwádìí rẹ̀.",
+    "resultsCount": "Fi ìwádìí {{count}} nínú {{total}} hàn"
+  }
+}

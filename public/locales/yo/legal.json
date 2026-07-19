@@ -1,0 +1,25 @@
+{
+  "privacy": {
+    "lastUpdated": "Ìkẹyìn àtúnṣe: May 2026",
+    "intro": "{{name}} jẹ́ ohun tí ó ń lọ lórí ayélujára. A kò ní ìforúkọsílẹ̀ tó nílò, àti pé a kò fi àkọlé rẹ sí ilé-ìṣẹ́ kankan.",
+    "whatWeCollect": "Kí ni a ń kópa",
+    "whatWeCollectBody": "A lè lo ìmọ̀ ìwòro àwọn ènìyàn lọ́wọ́ àwọn ènìyàn lórí bí àwọn ènìyàn bá ń lò {{name}}. Ìmọ̀ ìwòro àwọn ènìyàn kópa àwọn dátà ìlò tí àwọn ìdánimọ̀ jẹ́ gẹ́gẹ́ bí àwọn ojú tó bá wo, ìgbà tí wọ́n ń wà lórí ojú, àti ìpínpín àti ìbí tó wà lórí àtòjọ agbègbè. A kò kópà àwọn orúkọ, àwọn adirẹ́si imèlì, tàbí àwọn ìmọ̀ tí ìdánimọ̀ rẹ̀ nílò láti mọ̀ ẹni tó ń lò app náà pẹ̀lú.",
+    "whatWeDontCollect": "Kí ni a kò ṣe á kópa",
+    "whatWeDontCollectBody": "Àkọlé rẹ kò sí i kúrò lórí ayélujára rẹ. A kò fi àwọn dátà tabili rẹ sí ilé-ìṣẹ́ wa nínú ìṣàtúnṣe tàbí ìṣàkóso. A kò ra àwọn dátà sí àwọn ènìyàn mìíràn.",
+    "fileImports": "Àwọn ìgbésílẹ̀ fáìlì",
+    "fileImportsBody": "Nígbà tí o bá gbé fáìlì CSV tàbí Excel sílẹ̀, a ka ọ́ nínú ayélujára rẹ ní ìtumọ̀ si ara rẹ. Fáìlì náà kò rí i sí ilé-ìṣẹ́ kankan lásẹ̀yìn.",
+    "contact": "Dé sí i",
+    "contactBody": "Ìbéèrè nípa ìdákẹ́jẹ́rẹ́:"
+  },
+  "terms": {
+    "lastUpdated": "Ìkẹyìn àtúnṣe: May 2026",
+    "intro": "Nípa ìlò {{name}}, o gbà àwọn ìlànà wọ̀nyí gbọ́.",
+    "service": "Iṣẹ́ náà",
+    "serviceBody": "{{name}} wà fún ọ̀fẹ́, pẹ̀lú ara rẹ̀, kò sí ìdánilójú pé a ó ní ìgbà tí ó bá ń lọ dáadáa tàbí ìdánilójú ìdánilójú fún ìlò kankan.",
+    "yourContent": "Àkọlé rẹ",
+    "yourContentBody": "Ó jẹ́ ti rẹ kíkún. A kò sí ìlò tó ní lò fún àwọn tabili, dátà, tàbí ìfiranṣẹ̀ rẹ.",
+    "openSource": "Kedere",
+    "openSourceBody": "Kódù {{name}} wà ní lààáìsí MIT. Ọ lè ṣí ọ́, mu sí i, tàbí yí ọ́ pada pẹ̀lú àwọn ìlànà wọn.",
+    "contact": "Dé sí i"
+  }
+}

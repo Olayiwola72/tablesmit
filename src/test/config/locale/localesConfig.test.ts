@@ -48,8 +48,8 @@ describe('locale', () => {
 })
 
 describe('LOCALES', () => {
-  it('has 8 supported languages', () => {
-    expect(LOCALES).toHaveLength(8)
+  it('has 9 supported languages', () => {
+    expect(LOCALES).toHaveLength(9)
   })
 
   it('includes English as the first entry', () => {
@@ -63,7 +63,7 @@ describe('LOCALES', () => {
 
   it('includes all expected language codes', () => {
     const codes = LOCALES.map(l => l.code).sort()
-    expect(codes).toEqual(['ar', 'de', 'en', 'es', 'fr', 'ja', 'no', 'pt'])
+    expect(codes).toEqual(['ar', 'de', 'en', 'es', 'fr', 'ja', 'no', 'pt', 'yo'])
   })
 
   it('marks only Arabic as rtl', () => {
