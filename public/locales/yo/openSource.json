@@ -1,0 +1,18 @@
+{
+  "openSource": {
+    "heading": "Ó jẹ́ kedere.",
+    "body": "{{name}} jẹ́ ọ̀fẹ́ àti kedere. Kódù náà wà lórí GitHub — ka ọ́, ṣí ọ́, mu sí i, tàbí yí ọ́ pada fún ìlò ti rẹ àtijọ́. A gbàgbọ́ pé àwọn ọ̀rọ̀ fún ìwésòro àti ìròyìn gbọ́dọ̀ jẹ́ kedere.",
+    "sponsorHeading": "Ìtìlẹ́yìn fún èyí tó jẹ́ kedere yìí",
+    "sponsorGitHub": "Ìtìlẹ́yìn lọ́wọ́lọ́wọ́ lórí GitHub",
+    "sponsorCoffee": "Ìfúnní kankan",
+    "sponsorCollective": "Fún àwọn ẹgbẹ́ àti àwọn ilé-iṣẹ́",
+    "contributorsHeading": "Àwọn ìfẹ́ sí i",
+    "contributorsBody": "{{name}} wà nítorí àwọn ènìyàn tó fún sí i. Ìwòro ìṣòro, ìkọ̀ọ̀wé, àti ìgbéraga gbogdogbogbo ni ìyẹ̀.",
+    "viewContributors": "Wo Àwọn Ìfẹ́ sí i lórí GitHub",
+    "contributeHeading": "Bá a ṣe á fún sí i",
+    "contributeBody": "Kà CONTRIBUTION.md nínú ìkọ̀ọ̀wé náà fún ìlànà bí a ṣe á kọ ìwòro ìṣòro, ìgbéraga àwọn ohun, àti ìfi iṣẹ́ ránṣẹ́.",
+    "readContributing": "Kà CONTRIBUTION.md",
+    "ctaNote": "Láàáìsí MIT. Ìfẹ́ sí i káàbọ̀.",
+    "footerNote": "Láàáìsí MIT. Kò sí ìdánilójú kankan. A dá ni ìfẹ́ sí i."
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "features": {
+    "heading": "Àwọn ìṣàfihàn",
+    "subtext": "Gbogbo àwọn ìṣàfihàn tí ọ bá nílò láti kọ tabili tó jẹ́ kedere.",
+    "learnMore": "Kà sí i síi",
+    "emptyState": "Kò sí àwọn ìṣàfihàn kankan kíkọ̀.",
+    "searchPlaceholder": "Wa àwọn ìṣàfihàn pẹ̀lú orúkọ tàbí ìfọ̀rọ̀wánilẹ́nuwò…",
+    "benefits": "Àwọn àǹfààní",
+    "howItWorks": "Bí a ṣe á ṣiṣẹ́",
+    "useCases": "Àwọn ìlò",
+    "relatedFeatures": "Àwọn ìṣàfihàn tó bá ń bá pọ̀"
+  },
+  "pagination": {
+    "page": "Ojú {{current}} nínú {{total}}",
+    "prev": "Tẹ̀lẹ̀",
+    "next": "Ìwọ̀nyí",
+    "prevAria": "Lọ sí ojú tẹ̀lẹ̀",
+    "nextAria": "Lọ sí ojú ìwọ̀nyí",
+    "pageAria": "Lọ sí ojú {{number}}"
+  },
+  "search": {
+    "ariaLabel": "Wá",
+    "placeholder": "Wá…",
+    "clear": "Yọ ìwádìí rẹ̀ kúrò",
+    "noResults": "Kò sí èyí tó bá bá ìwádìí rẹ̀.",
+    "resultsCount": "Fi ìwádìí {{count}} nínú {{total}} hàn"
+  }
+}

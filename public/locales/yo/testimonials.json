@@ -1,0 +1,11 @@
+{
+  "testimonials": {
+    "heading": "Kí ni àwọn ènìyàn ń sọ.",
+    "subtext": "Gbọ́ láti ọ̀dọ̀ àwọn ìwésòro, àwọn ìṣàfihàn, àwọn ìwádìí, àti àwọn oníròyìn tó ń lò {{name}} lọ́pọ̀lọpọ̀ ọjọ́.",
+    "emptyHeading": "Kò sí ìdámọ̀ sí i kankan sì ṣe",
+    "emptyBody": "A ń kópa ìdámọ̀ sí i láti ọ̀dọ̀ àwọn olùlò kíkọ̀yìn. Bí o bá ti lo {{name}}, a ó bá fẹ́ gbọ́ láti ọ̀dọ̀ rẹ.",
+    "shareExperience": "Pín ìrírí rẹ",
+    "orReachOnX": " tàbí dé sí i lórí X",
+    "sourceOn": "lórí {{source}}"
+  }
+}

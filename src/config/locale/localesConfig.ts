@@ -27,4 +27,5 @@ export const LOCALES: LocaleConfig[] = [
   { code: 'ja', name: '日本語', dir: 'ltr' },
   { code: 'de', name: 'Deutsch', dir: 'ltr' },
   { code: 'no', name: 'Norsk', dir: 'ltr' },
+  { code: 'yo', name: 'Yorùbá', dir: 'ltr' },
 ]
